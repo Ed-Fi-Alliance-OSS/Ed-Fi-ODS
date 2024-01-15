@@ -5,41 +5,38 @@
 
 using System;
 using System.Linq;
-using System.Net;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
-    public class PostgresForeignKeyExceptionTranslator : IExceptionTranslator
+    public class PostgresForeignKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         
-        private const string InsertOrUpdateMessageFormat = "The value supplied for the related '{0}' resource does not exist.";
-        private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{0}' entity.";
+        private const string InsertOrUpdateMessageFormat = "The referenced '{0}' resource does not exist.";
+        private const string UpdateOrDeleteMessageFormat = "The operation cannot be performed because the resource is a dependency of the '{0}' resource.";
 
-        private const string NoDetailsUpdateOrDeleteMessage = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity.";
-        private const string NoDetailsInsertOrUpdateMessage = "The value supplied for a related resource does not exist.";
+        private const string NoDetailsInsertOrUpdateMessage = "A referenced resource does not exist.";
+        private const string NoDetailsUpdateOrDeleteMessage = "The operation cannot be performed because the resource is a dependency of another resource.";
 
         public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
-        
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
-        {
-            webServiceError = null;
 
-            var exception = ex is GenericADOException
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
+        {
+            var exceptionToEvaluate = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
 
-            if (exception is PostgresException postgresException)
+            if (exceptionToEvaluate is PostgresException postgresException)
             {
                 if (postgresException.SqlState == PostgresSqlStates.ForeignKeyViolation)
                 {
@@ -60,7 +57,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                             ? NoDetailsUpdateOrDeleteMessage
                             : NoDetailsInsertOrUpdateMessage;
 
-                        webServiceError = CreateError(noDetailsMessage);
+                        problemDetails = new ConflictException(noDetailsMessage);
 
                         return true;
                     }
@@ -69,25 +66,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
                         : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
-                    webServiceError = new RESTError
-                    {
-                        Code = (int) HttpStatusCode.Conflict,
-                        Type = "Conflict",
-                        Message = message
-                    };
+                    problemDetails = new ConflictException(message);
 
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
-
-            RESTError CreateError(string message) => new RESTError
-            {
-                Code = (int)HttpStatusCode.Conflict,
-                Type = "Conflict",
-                Message = message
-            };
         }
     }
 }

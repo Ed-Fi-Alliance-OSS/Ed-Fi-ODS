@@ -5,7 +5,6 @@
 
 using System;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;

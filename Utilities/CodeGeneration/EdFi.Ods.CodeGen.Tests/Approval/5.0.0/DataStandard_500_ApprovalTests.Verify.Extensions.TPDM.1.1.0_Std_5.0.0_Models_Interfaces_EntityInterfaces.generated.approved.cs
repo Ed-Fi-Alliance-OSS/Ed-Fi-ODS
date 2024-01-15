@@ -19,7 +19,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IAccreditationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int AccreditationStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -77,6 +77,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AccreditationStatusDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -90,7 +93,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IAidTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int AidTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -148,6 +151,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AidTypeDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -161,7 +167,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidate : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string CandidateIdentifier { get; set; }
 
         // Non-PK properties
@@ -246,6 +252,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isMultipleBirthStatusSupported,
             bool isPersonalTitlePrefixSupported,
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isPreferredFirstNameSupported,
             bool isPreferredLastSurnameSupported,
             bool isSexDescriptorSupported,
@@ -290,6 +297,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsMultipleBirthStatusSupported = isMultipleBirthStatusSupported;
             IsPersonalTitlePrefixSupported = isPersonalTitlePrefixSupported;
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsPreferredFirstNameSupported = isPreferredFirstNameSupported;
             IsPreferredLastSurnameSupported = isPreferredLastSurnameSupported;
             IsSexDescriptorSupported = isSexDescriptorSupported;
@@ -334,6 +342,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsMultipleBirthStatusSupported { get; }
         public bool IsPersonalTitlePrefixSupported { get; }
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsPreferredFirstNameSupported { get; }
         public bool IsPreferredLastSurnameSupported { get; }
         public bool IsSexDescriptorSupported { get; }
@@ -411,6 +420,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPersonalTitlePrefixSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "PreferredFirstName":
                     return IsPreferredFirstNameSupported;
                 case "PreferredLastSurname":
@@ -419,6 +430,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CandidateIdentifier":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -432,17 +446,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string AddressTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
-        [NaturalKeyMember]
+        
         string PostalCode { get; set; }
-        [NaturalKeyMember]
+        
         string StateAbbreviationDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string StreetNumberName { get; set; }
 
         // Non-PK properties
@@ -533,6 +546,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AddressTypeDescriptor":
+                    return true;
+                case "City":
+                    return true;
+                case "PostalCode":
+                    return true;
+                case "StateAbbreviationDescriptor":
+                    return true;
+                case "StreetNumberName":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -546,9 +570,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateAddressPeriod : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateAddress CandidateAddress { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
 
         // Non-PK properties
@@ -582,6 +605,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "EndDate":
                     return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -595,9 +621,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateDisability : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string DisabilityDescriptor { get; set; }
 
         // Non-PK properties
@@ -652,6 +677,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsDisabilityDiagnosisSupported;
                 case "OrderOfDisability":
                     return IsOrderOfDisabilitySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "DisabilityDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -665,9 +693,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateDisability CandidateDisability { get; set; }
-        [NaturalKeyMember]
+        
         string DisabilityDesignationDescriptor { get; set; }
 
         // Non-PK properties
@@ -695,6 +722,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "DisabilityDesignationDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -708,15 +738,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
+        
         string CandidateIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -746,6 +776,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public CandidateEducatorPreparationProgramAssociationMappingContract(
             bool isCandidateEducatorPreparationProgramAssociationCohortYearsSupported,
             bool isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported,
+            bool isCandidateReferenceSupported,
+            bool isEducatorPreparationProgramReferenceSupported,
             bool isEndDateSupported,
             bool isEPPProgramPathwayDescriptorSupported,
             bool isReasonExitedDescriptorSupported,
@@ -755,6 +787,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported = isCandidateEducatorPreparationProgramAssociationCohortYearsSupported;
             IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported = isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported;
+            IsCandidateReferenceSupported = isCandidateReferenceSupported;
+            IsEducatorPreparationProgramReferenceSupported = isEducatorPreparationProgramReferenceSupported;
             IsEndDateSupported = isEndDateSupported;
             IsEPPProgramPathwayDescriptorSupported = isEPPProgramPathwayDescriptorSupported;
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
@@ -764,6 +798,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
 
         public bool IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported { get; }
         public bool IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported { get; }
+        public bool IsCandidateReferenceSupported { get; }
+        public bool IsEducatorPreparationProgramReferenceSupported { get; }
         public bool IsEndDateSupported { get; }
         public bool IsEPPProgramPathwayDescriptorSupported { get; }
         public bool IsReasonExitedDescriptorSupported { get; }
@@ -778,12 +814,27 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported;
                 case "CandidateEducatorPreparationProgramAssociationDegreeSpecializations":
                     return IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported;
+                case "CandidateReference":
+                    return IsCandidateReferenceSupported;
+                case "EducatorPreparationProgramReference":
+                    return IsEducatorPreparationProgramReferenceSupported;
                 case "EndDate":
                     return IsEndDateSupported;
                 case "EPPProgramPathwayDescriptor":
                     return IsEPPProgramPathwayDescriptorSupported;
                 case "ReasonExitedDescriptor":
                     return IsReasonExitedDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "CandidateIdentifier":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -797,11 +848,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociationCohortYear : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string CohortYearTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
 
         // Non-PK properties
@@ -822,20 +872,30 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class CandidateEducatorPreparationProgramAssociationCohortYearMappingContract : IMappingContract
     {
         public CandidateEducatorPreparationProgramAssociationCohortYearMappingContract(
+            bool isSchoolYearTypeReferenceSupported,
             bool isTermDescriptorSupported
             )
         {
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsTermDescriptorSupported = isTermDescriptorSupported;
         }
 
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsTermDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
                 case "TermDescriptor":
                     return IsTermDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CohortYearTypeDescriptor":
+                    return true;
+                case "SchoolYear":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -849,9 +909,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateEducatorPreparationProgramAssociationDegreeSpecialization : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
-        [NaturalKeyMember]
+        
         string MajorSpecialization { get; set; }
 
         // Non-PK properties
@@ -891,6 +950,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEndDateSupported;
                 case "MinorSpecialization":
                     return IsMinorSpecializationSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "MajorSpecialization":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -904,11 +966,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateElectronicMail : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string ElectronicMailAddress { get; set; }
-        [NaturalKeyMember]
+        
         string ElectronicMailTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -948,6 +1009,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsDoNotPublishIndicatorSupported;
                 case "PrimaryEmailAddressIndicator":
                     return IsPrimaryEmailAddressIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ElectronicMailAddress":
+                    return true;
+                case "ElectronicMailTypeDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -961,9 +1027,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateLanguage : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string LanguageDescriptor { get; set; }
 
         // Non-PK properties
@@ -1000,6 +1065,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "CandidateLanguageUses":
                     return IsCandidateLanguageUsesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "LanguageDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1013,9 +1081,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateLanguageUse : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidateLanguage CandidateLanguage { get; set; }
-        [NaturalKeyMember]
+        
         string LanguageUseDescriptor { get; set; }
 
         // Non-PK properties
@@ -1043,6 +1110,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "LanguageUseDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1056,9 +1126,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateOtherName : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string OtherNameTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1116,6 +1185,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMiddleNameSupported;
                 case "PersonalTitlePrefix":
                     return IsPersonalTitlePrefixSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "OtherNameTypeDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1129,11 +1201,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidatePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string IdentificationDocumentUseDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonalInformationVerificationDescriptor { get; set; }
 
         // Non-PK properties
@@ -1191,6 +1262,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsIssuerDocumentIdentificationCodeSupported;
                 case "IssuerName":
                     return IsIssuerNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IdentificationDocumentUseDescriptor":
+                    return true;
+                case "PersonalInformationVerificationDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1204,9 +1280,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateRace : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string RaceDescriptor { get; set; }
 
         // Non-PK properties
@@ -1234,6 +1309,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "RaceDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1247,11 +1325,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICandidateTelephone : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICandidate Candidate { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumber { get; set; }
-        [NaturalKeyMember]
+        
         string TelephoneNumberTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1297,6 +1374,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsOrderOfPrioritySupported;
                 case "TextMessageCapabilityIndicator":
                     return IsTextMessageCapabilityIndicatorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "TelephoneNumber":
+                    return true;
+                case "TelephoneNumberTypeDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1310,7 +1392,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICertificationRouteDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CertificationRouteDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1368,6 +1450,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CertificationRouteDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1381,7 +1466,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICoteachingStyleObservedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CoteachingStyleObservedDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1439,6 +1524,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CoteachingStyleObservedDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1452,7 +1540,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ICredential Credential { get; set; }
 
         // Non-PK properties
@@ -1490,6 +1577,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isCredentialStudentAcademicRecordsSupported,
             bool isEducatorRoleDescriptorSupported,
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isSourceSystemDescriptorSupported,
             Func<ICredentialStudentAcademicRecord, bool> isCredentialStudentAcademicRecordIncluded
             )
@@ -1502,6 +1590,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsCredentialStudentAcademicRecordsSupported = isCredentialStudentAcademicRecordsSupported;
             IsEducatorRoleDescriptorSupported = isEducatorRoleDescriptorSupported;
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
             IsCredentialStudentAcademicRecordIncluded = isCredentialStudentAcademicRecordIncluded;
         }
@@ -1514,6 +1603,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsCredentialStudentAcademicRecordsSupported { get; }
         public bool IsEducatorRoleDescriptorSupported { get; }
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
         public Func<ICredentialStudentAcademicRecord, bool> IsCredentialStudentAcademicRecordIncluded { get; }
 
@@ -1537,8 +1627,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEducatorRoleDescriptorSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1552,7 +1645,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int CredentialStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1610,6 +1703,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CredentialStatusDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1623,15 +1719,14 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ICredentialStudentAcademicRecord : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ICredentialExtension CredentialExtension { get; set; }
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -1652,15 +1747,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class CredentialStudentAcademicRecordMappingContract : IMappingContract
     {
         public CredentialStudentAcademicRecordMappingContract(
+            bool isStudentAcademicRecordReferenceSupported
             )
         {
+            IsStudentAcademicRecordReferenceSupported = isStudentAcademicRecordReferenceSupported;
         }
 
+        public bool IsStudentAcademicRecordReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentAcademicRecordReference":
+                    return IsStudentAcademicRecordReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1674,11 +1783,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorPreparationProgram : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramName { get; set; }
-        [NaturalKeyMember]
+        
         string ProgramTypeDescriptor { get; set; }
 
         // Non-PK properties
@@ -1703,18 +1812,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public EducatorPreparationProgramMappingContract(
             bool isAccreditationStatusDescriptorSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isEducatorPreparationProgramGradeLevelsSupported,
             bool isProgramIdSupported,
             Func<IEducatorPreparationProgramGradeLevel, bool> isEducatorPreparationProgramGradeLevelIncluded
             )
         {
             IsAccreditationStatusDescriptorSupported = isAccreditationStatusDescriptorSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsEducatorPreparationProgramGradeLevelsSupported = isEducatorPreparationProgramGradeLevelsSupported;
             IsProgramIdSupported = isProgramIdSupported;
             IsEducatorPreparationProgramGradeLevelIncluded = isEducatorPreparationProgramGradeLevelIncluded;
         }
 
         public bool IsAccreditationStatusDescriptorSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsEducatorPreparationProgramGradeLevelsSupported { get; }
         public bool IsProgramIdSupported { get; }
         public Func<IEducatorPreparationProgramGradeLevel, bool> IsEducatorPreparationProgramGradeLevelIncluded { get; }
@@ -1725,10 +1837,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "AccreditationStatusDescriptor":
                     return IsAccreditationStatusDescriptorSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "EducatorPreparationProgramGradeLevels":
                     return IsEducatorPreparationProgramGradeLevelsSupported;
                 case "ProgramId":
                     return IsProgramIdSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1742,9 +1863,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorPreparationProgramGradeLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEducatorPreparationProgram EducatorPreparationProgram { get; set; }
-        [NaturalKeyMember]
+        
         string GradeLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -1772,6 +1892,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "GradeLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1785,7 +1908,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEducatorRoleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EducatorRoleDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1843,6 +1966,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducatorRoleDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1856,7 +1982,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEnglishLanguageExamDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EnglishLanguageExamDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1914,6 +2040,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EnglishLanguageExamDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1927,7 +2056,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EPPProgramPathwayDescriptorId { get; set; }
 
         // Non-PK properties
@@ -1985,6 +2114,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EPPProgramPathwayDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -1998,19 +2130,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2043,6 +2175,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isInterRaterReliabilityScoreSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
+            bool isPerformanceEvaluationReferenceSupported,
             Func<IEvaluationRatingLevel, bool> isEvaluationRatingLevelIncluded
             )
         {
@@ -2052,6 +2185,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsInterRaterReliabilityScoreSupported = isInterRaterReliabilityScoreSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
+            IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
             IsEvaluationRatingLevelIncluded = isEvaluationRatingLevelIncluded;
         }
 
@@ -2061,6 +2195,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsInterRaterReliabilityScoreSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
+        public bool IsPerformanceEvaluationReferenceSupported { get; }
         public Func<IEvaluationRatingLevel, bool> IsEvaluationRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2079,6 +2214,23 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                case "PerformanceEvaluationReference":
+                    return IsPerformanceEvaluationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2092,23 +2244,23 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElement : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2135,6 +2287,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public EvaluationElementMappingContract(
             bool isEvaluationElementRatingLevelsSupported,
+            bool isEvaluationObjectiveReferenceSupported,
             bool isEvaluationTypeDescriptorSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
@@ -2143,6 +2296,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             )
         {
             IsEvaluationElementRatingLevelsSupported = isEvaluationElementRatingLevelsSupported;
+            IsEvaluationObjectiveReferenceSupported = isEvaluationObjectiveReferenceSupported;
             IsEvaluationTypeDescriptorSupported = isEvaluationTypeDescriptorSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
@@ -2151,6 +2305,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         }
 
         public bool IsEvaluationElementRatingLevelsSupported { get; }
+        public bool IsEvaluationObjectiveReferenceSupported { get; }
         public bool IsEvaluationTypeDescriptorSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
@@ -2163,6 +2318,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "EvaluationElementRatingLevels":
                     return IsEvaluationElementRatingLevelsSupported;
+                case "EvaluationObjectiveReference":
+                    return IsEvaluationObjectiveReferenceSupported;
                 case "EvaluationTypeDescriptor":
                     return IsEvaluationTypeDescriptorSupported;
                 case "MaxRating":
@@ -2171,6 +2328,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMinRatingSupported;
                 case "SortOrder":
                     return IsSortOrderSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationElementTitle":
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2184,29 +2360,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2240,6 +2416,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isCommentsSupported,
             bool isEvaluationElementRatingLevelDescriptorSupported,
             bool isEvaluationElementRatingResultsSupported,
+            bool isEvaluationElementReferenceSupported,
+            bool isEvaluationObjectiveRatingReferenceSupported,
             bool isFeedbackSupported,
             Func<IEvaluationElementRatingResult, bool> isEvaluationElementRatingResultIncluded
             )
@@ -2249,6 +2427,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsCommentsSupported = isCommentsSupported;
             IsEvaluationElementRatingLevelDescriptorSupported = isEvaluationElementRatingLevelDescriptorSupported;
             IsEvaluationElementRatingResultsSupported = isEvaluationElementRatingResultsSupported;
+            IsEvaluationElementReferenceSupported = isEvaluationElementReferenceSupported;
+            IsEvaluationObjectiveRatingReferenceSupported = isEvaluationObjectiveRatingReferenceSupported;
             IsFeedbackSupported = isFeedbackSupported;
             IsEvaluationElementRatingResultIncluded = isEvaluationElementRatingResultIncluded;
         }
@@ -2258,6 +2438,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsCommentsSupported { get; }
         public bool IsEvaluationElementRatingLevelDescriptorSupported { get; }
         public bool IsEvaluationElementRatingResultsSupported { get; }
+        public bool IsEvaluationElementReferenceSupported { get; }
+        public bool IsEvaluationObjectiveRatingReferenceSupported { get; }
         public bool IsFeedbackSupported { get; }
         public Func<IEvaluationElementRatingResult, bool> IsEvaluationElementRatingResultIncluded { get; }
 
@@ -2275,8 +2457,37 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationElementRatingLevelDescriptorSupported;
                 case "EvaluationElementRatingResults":
                     return IsEvaluationElementRatingResultsSupported;
+                case "EvaluationElementReference":
+                    return IsEvaluationElementReferenceSupported;
+                case "EvaluationObjectiveRatingReference":
+                    return IsEvaluationObjectiveRatingReferenceSupported;
                 case "Feedback":
                     return IsFeedbackSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationDate":
+                    return true;
+                case "EvaluationElementTitle":
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2290,9 +2501,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationElement EvaluationElement { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -2332,6 +2542,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2345,7 +2558,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationElementRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -2403,6 +2616,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationElementRatingLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2416,11 +2632,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationElementRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationElementRating EvaluationElementRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -2454,6 +2669,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Rating":
+                    return true;
+                case "RatingResultTitle":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2467,21 +2687,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjective : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2510,6 +2730,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationObjectiveMappingContract(
             bool isEvaluationObjectiveDescriptionSupported,
             bool isEvaluationObjectiveRatingLevelsSupported,
+            bool isEvaluationReferenceSupported,
             bool isEvaluationTypeDescriptorSupported,
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
@@ -2519,6 +2740,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             IsEvaluationObjectiveDescriptionSupported = isEvaluationObjectiveDescriptionSupported;
             IsEvaluationObjectiveRatingLevelsSupported = isEvaluationObjectiveRatingLevelsSupported;
+            IsEvaluationReferenceSupported = isEvaluationReferenceSupported;
             IsEvaluationTypeDescriptorSupported = isEvaluationTypeDescriptorSupported;
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
@@ -2528,6 +2750,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
 
         public bool IsEvaluationObjectiveDescriptionSupported { get; }
         public bool IsEvaluationObjectiveRatingLevelsSupported { get; }
+        public bool IsEvaluationReferenceSupported { get; }
         public bool IsEvaluationTypeDescriptorSupported { get; }
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
@@ -2542,6 +2765,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationObjectiveDescriptionSupported;
                 case "EvaluationObjectiveRatingLevels":
                     return IsEvaluationObjectiveRatingLevelsSupported;
+                case "EvaluationReference":
+                    return IsEvaluationReferenceSupported;
                 case "EvaluationTypeDescriptor":
                     return IsEvaluationTypeDescriptorSupported;
                 case "MaxRating":
@@ -2550,6 +2775,23 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMinRatingSupported;
                 case "SortOrder":
                     return IsSortOrderSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2563,27 +2805,27 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2611,18 +2853,24 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationObjectiveRatingMappingContract(
             bool isCommentsSupported,
             bool isEvaluationObjectiveRatingResultsSupported,
+            bool isEvaluationObjectiveReferenceSupported,
+            bool isEvaluationRatingReferenceSupported,
             bool isObjectiveRatingLevelDescriptorSupported,
             Func<IEvaluationObjectiveRatingResult, bool> isEvaluationObjectiveRatingResultIncluded
             )
         {
             IsCommentsSupported = isCommentsSupported;
             IsEvaluationObjectiveRatingResultsSupported = isEvaluationObjectiveRatingResultsSupported;
+            IsEvaluationObjectiveReferenceSupported = isEvaluationObjectiveReferenceSupported;
+            IsEvaluationRatingReferenceSupported = isEvaluationRatingReferenceSupported;
             IsObjectiveRatingLevelDescriptorSupported = isObjectiveRatingLevelDescriptorSupported;
             IsEvaluationObjectiveRatingResultIncluded = isEvaluationObjectiveRatingResultIncluded;
         }
 
         public bool IsCommentsSupported { get; }
         public bool IsEvaluationObjectiveRatingResultsSupported { get; }
+        public bool IsEvaluationObjectiveReferenceSupported { get; }
+        public bool IsEvaluationRatingReferenceSupported { get; }
         public bool IsObjectiveRatingLevelDescriptorSupported { get; }
         public Func<IEvaluationObjectiveRatingResult, bool> IsEvaluationObjectiveRatingResultIncluded { get; }
 
@@ -2634,8 +2882,35 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCommentsSupported;
                 case "EvaluationObjectiveRatingResults":
                     return IsEvaluationObjectiveRatingResultsSupported;
+                case "EvaluationObjectiveReference":
+                    return IsEvaluationObjectiveReferenceSupported;
+                case "EvaluationRatingReference":
+                    return IsEvaluationRatingReferenceSupported;
                 case "ObjectiveRatingLevelDescriptor":
                     return IsObjectiveRatingLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationDate":
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2649,9 +2924,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationObjective EvaluationObjective { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -2691,6 +2965,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2704,11 +2981,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationObjectiveRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationObjectiveRating EvaluationObjectiveRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -2742,6 +3018,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Rating":
+                    return true;
+                case "RatingResultTitle":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2755,7 +3036,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationPeriodDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationPeriodDescriptorId { get; set; }
 
         // Non-PK properties
@@ -2813,6 +3094,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationPeriodDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2826,25 +3110,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         DateTime EvaluationDate { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -2881,9 +3165,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationRatingResultsSupported,
             bool isEvaluationRatingReviewersSupported,
             bool isEvaluationRatingStatusDescriptorSupported,
+            bool isEvaluationReferenceSupported,
             bool isLocalCourseCodeSupported,
+            bool isPerformanceEvaluationRatingReferenceSupported,
             bool isSchoolIdSupported,
             bool isSectionIdentifierSupported,
+            bool isSectionReferenceSupported,
             bool isSessionNameSupported,
             Func<IEvaluationRatingResult, bool> isEvaluationRatingResultIncluded,
             Func<IEvaluationRatingReviewer, bool> isEvaluationRatingReviewerIncluded
@@ -2893,9 +3180,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEvaluationRatingResultsSupported = isEvaluationRatingResultsSupported;
             IsEvaluationRatingReviewersSupported = isEvaluationRatingReviewersSupported;
             IsEvaluationRatingStatusDescriptorSupported = isEvaluationRatingStatusDescriptorSupported;
+            IsEvaluationReferenceSupported = isEvaluationReferenceSupported;
             IsLocalCourseCodeSupported = isLocalCourseCodeSupported;
+            IsPerformanceEvaluationRatingReferenceSupported = isPerformanceEvaluationRatingReferenceSupported;
             IsSchoolIdSupported = isSchoolIdSupported;
             IsSectionIdentifierSupported = isSectionIdentifierSupported;
+            IsSectionReferenceSupported = isSectionReferenceSupported;
             IsSessionNameSupported = isSessionNameSupported;
             IsEvaluationRatingResultIncluded = isEvaluationRatingResultIncluded;
             IsEvaluationRatingReviewerIncluded = isEvaluationRatingReviewerIncluded;
@@ -2905,9 +3195,12 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEvaluationRatingResultsSupported { get; }
         public bool IsEvaluationRatingReviewersSupported { get; }
         public bool IsEvaluationRatingStatusDescriptorSupported { get; }
+        public bool IsEvaluationReferenceSupported { get; }
         public bool IsLocalCourseCodeSupported { get; }
+        public bool IsPerformanceEvaluationRatingReferenceSupported { get; }
         public bool IsSchoolIdSupported { get; }
         public bool IsSectionIdentifierSupported { get; }
+        public bool IsSectionReferenceSupported { get; }
         public bool IsSessionNameSupported { get; }
         public Func<IEvaluationRatingResult, bool> IsEvaluationRatingResultIncluded { get; }
         public Func<IEvaluationRatingReviewer, bool> IsEvaluationRatingReviewerIncluded { get; }
@@ -2924,14 +3217,41 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationRatingReviewersSupported;
                 case "EvaluationRatingStatusDescriptor":
                     return IsEvaluationRatingStatusDescriptorSupported;
+                case "EvaluationReference":
+                    return IsEvaluationReferenceSupported;
                 case "LocalCourseCode":
                     return IsLocalCourseCodeSupported;
+                case "PerformanceEvaluationRatingReference":
+                    return IsPerformanceEvaluationRatingReferenceSupported;
                 case "SchoolId":
                     return IsSchoolIdSupported;
                 case "SectionIdentifier":
                     return IsSectionIdentifierSupported;
+                case "SectionReference":
+                    return IsSectionReferenceSupported;
                 case "SessionName":
                     return IsSessionNameSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationDate":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -2945,9 +3265,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluation Evaluation { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -2987,6 +3306,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3000,7 +3322,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3058,6 +3380,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3071,11 +3396,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRating EvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -3109,6 +3433,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Rating":
+                    return true;
+                case "RatingResultTitle":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3122,11 +3451,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingReviewer : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRating EvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -3153,16 +3481,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public EvaluationRatingReviewerMappingContract(
             bool isEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
+            bool isReviewerPersonReferenceSupported,
             bool isReviewerSourceSystemDescriptorSupported
             )
         {
             IsEvaluationRatingReviewerReceivedTrainingSupported = isEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
+            IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
         }
 
         public bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
+        public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -3173,8 +3504,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEvaluationRatingReviewerReceivedTrainingSupported;
                 case "ReviewerPersonId":
                     return IsReviewerPersonIdSupported;
+                case "ReviewerPersonReference":
+                    return IsReviewerPersonReferenceSupported;
                 case "ReviewerSourceSystemDescriptor":
                     return IsReviewerSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "FirstName":
+                    return true;
+                case "LastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3188,7 +3526,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingReviewerReceivedTraining : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IEvaluationRatingReviewer EvaluationRatingReviewer { get; set; }
 
         // Non-PK properties
@@ -3228,6 +3565,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsInterRaterReliabilityScoreSupported;
                 case "ReceivedTrainingDate":
                     return IsReceivedTrainingDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3241,7 +3579,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationRatingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationRatingStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3299,6 +3637,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingStatusDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3312,7 +3653,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int EvaluationTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3370,6 +3711,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationTypeDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3383,11 +3727,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IFinancialAid : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string AidTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
@@ -3415,19 +3759,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isAidAmountSupported,
             bool isAidConditionDescriptionSupported,
             bool isEndDateSupported,
-            bool isPellGrantRecipientSupported
+            bool isPellGrantRecipientSupported,
+            bool isStudentReferenceSupported
             )
         {
             IsAidAmountSupported = isAidAmountSupported;
             IsAidConditionDescriptionSupported = isAidConditionDescriptionSupported;
             IsEndDateSupported = isEndDateSupported;
             IsPellGrantRecipientSupported = isPellGrantRecipientSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
         public bool IsAidAmountSupported { get; }
         public bool IsAidConditionDescriptionSupported { get; }
         public bool IsEndDateSupported { get; }
         public bool IsPellGrantRecipientSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -3441,6 +3788,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsEndDateSupported;
                 case "PellGrantRecipient":
                     return IsPellGrantRecipientSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AidTypeDescriptor":
+                    return true;
+                case "BeginDate":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3454,7 +3810,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IGenderDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int GenderDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3512,6 +3868,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "GenderDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3525,7 +3884,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IObjectiveRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int ObjectiveRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3583,6 +3942,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ObjectiveRatingLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3596,17 +3958,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -3633,25 +3995,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public PerformanceEvaluationMappingContract(
             bool isAcademicSubjectDescriptorSupported,
+            bool isEducationOrganizationReferenceSupported,
             bool isPerformanceEvaluationDescriptionSupported,
             bool isPerformanceEvaluationGradeLevelsSupported,
             bool isPerformanceEvaluationRatingLevelsSupported,
+            bool isSchoolYearTypeReferenceSupported,
             Func<IPerformanceEvaluationGradeLevel, bool> isPerformanceEvaluationGradeLevelIncluded,
             Func<IPerformanceEvaluationRatingLevel, bool> isPerformanceEvaluationRatingLevelIncluded
             )
         {
             IsAcademicSubjectDescriptorSupported = isAcademicSubjectDescriptorSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsPerformanceEvaluationDescriptionSupported = isPerformanceEvaluationDescriptionSupported;
             IsPerformanceEvaluationGradeLevelsSupported = isPerformanceEvaluationGradeLevelsSupported;
             IsPerformanceEvaluationRatingLevelsSupported = isPerformanceEvaluationRatingLevelsSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsPerformanceEvaluationGradeLevelIncluded = isPerformanceEvaluationGradeLevelIncluded;
             IsPerformanceEvaluationRatingLevelIncluded = isPerformanceEvaluationRatingLevelIncluded;
         }
 
         public bool IsAcademicSubjectDescriptorSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsPerformanceEvaluationDescriptionSupported { get; }
         public bool IsPerformanceEvaluationGradeLevelsSupported { get; }
         public bool IsPerformanceEvaluationRatingLevelsSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public Func<IPerformanceEvaluationGradeLevel, bool> IsPerformanceEvaluationGradeLevelIncluded { get; }
         public Func<IPerformanceEvaluationRatingLevel, bool> IsPerformanceEvaluationRatingLevelIncluded { get; }
 
@@ -3661,12 +4029,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "AcademicSubjectDescriptor":
                     return IsAcademicSubjectDescriptorSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
                 case "PerformanceEvaluationDescription":
                     return IsPerformanceEvaluationDescriptionSupported;
                 case "PerformanceEvaluationGradeLevels":
                     return IsPerformanceEvaluationGradeLevelsSupported;
                 case "PerformanceEvaluationRatingLevels":
                     return IsPerformanceEvaluationRatingLevelsSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3680,9 +4065,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationGradeLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluation PerformanceEvaluation { get; set; }
-        [NaturalKeyMember]
+        
         string GradeLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -3710,6 +4094,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "GradeLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3723,21 +4110,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRating : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -3779,6 +4166,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationRatingLevelDescriptorSupported,
             bool isPerformanceEvaluationRatingResultsSupported,
             bool isPerformanceEvaluationRatingReviewersSupported,
+            bool isPerformanceEvaluationReferenceSupported,
+            bool isPersonReferenceSupported,
             bool isScheduleDateSupported,
             Func<IPerformanceEvaluationRatingResult, bool> isPerformanceEvaluationRatingResultIncluded,
             Func<IPerformanceEvaluationRatingReviewer, bool> isPerformanceEvaluationRatingReviewerIncluded
@@ -3793,6 +4182,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPerformanceEvaluationRatingLevelDescriptorSupported = isPerformanceEvaluationRatingLevelDescriptorSupported;
             IsPerformanceEvaluationRatingResultsSupported = isPerformanceEvaluationRatingResultsSupported;
             IsPerformanceEvaluationRatingReviewersSupported = isPerformanceEvaluationRatingReviewersSupported;
+            IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsScheduleDateSupported = isScheduleDateSupported;
             IsPerformanceEvaluationRatingResultIncluded = isPerformanceEvaluationRatingResultIncluded;
             IsPerformanceEvaluationRatingReviewerIncluded = isPerformanceEvaluationRatingReviewerIncluded;
@@ -3807,6 +4198,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPerformanceEvaluationRatingLevelDescriptorSupported { get; }
         public bool IsPerformanceEvaluationRatingResultsSupported { get; }
         public bool IsPerformanceEvaluationRatingReviewersSupported { get; }
+        public bool IsPerformanceEvaluationReferenceSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsScheduleDateSupported { get; }
         public Func<IPerformanceEvaluationRatingResult, bool> IsPerformanceEvaluationRatingResultIncluded { get; }
         public Func<IPerformanceEvaluationRatingReviewer, bool> IsPerformanceEvaluationRatingReviewerIncluded { get; }
@@ -3833,8 +4226,29 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPerformanceEvaluationRatingResultsSupported;
                 case "PerformanceEvaluationRatingReviewers":
                     return IsPerformanceEvaluationRatingReviewersSupported;
+                case "PerformanceEvaluationReference":
+                    return IsPerformanceEvaluationReferenceSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "ScheduleDate":
                     return IsScheduleDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3848,9 +4262,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingLevel : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluation PerformanceEvaluation { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationRatingLevelDescriptor { get; set; }
 
         // Non-PK properties
@@ -3890,6 +4303,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsMaxRatingSupported;
                 case "MinRating":
                     return IsMinRatingSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EvaluationRatingLevelDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3903,7 +4319,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int PerformanceEvaluationRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -3961,6 +4377,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "PerformanceEvaluationRatingLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -3974,11 +4393,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingResult : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         decimal Rating { get; set; }
-        [NaturalKeyMember]
+        
         string RatingResultTitle { get; set; }
 
         // Non-PK properties
@@ -4012,6 +4430,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "ResultDatatypeTypeDescriptor":
                     return IsResultDatatypeTypeDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Rating":
+                    return true;
+                case "RatingResultTitle":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4025,11 +4448,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingReviewer : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -4056,16 +4478,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public PerformanceEvaluationRatingReviewerMappingContract(
             bool isPerformanceEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
+            bool isReviewerPersonReferenceSupported,
             bool isReviewerSourceSystemDescriptorSupported
             )
         {
             IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported = isPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
+            IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
         }
 
         public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
+        public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4076,8 +4501,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
                 case "ReviewerPersonId":
                     return IsReviewerPersonIdSupported;
+                case "ReviewerPersonReference":
+                    return IsReviewerPersonReferenceSupported;
                 case "ReviewerSourceSystemDescriptor":
                     return IsReviewerSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "FirstName":
+                    return true;
+                case "LastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4091,7 +4523,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationRatingReviewerReceivedTraining : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer { get; set; }
 
         // Non-PK properties
@@ -4131,6 +4562,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsInterRaterReliabilityScoreSupported;
                 case "ReceivedTrainingDate":
                     return IsReceivedTrainingDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4144,7 +4576,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IPerformanceEvaluationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int PerformanceEvaluationTypeDescriptorId { get; set; }
 
         // Non-PK properties
@@ -4202,6 +4634,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "PerformanceEvaluationTypeDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4215,25 +4650,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IRubricDimension : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         long EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationElementTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationObjectiveTitle { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationPeriodDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string EvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTitle { get; set; }
-        [NaturalKeyMember]
+        
         string PerformanceEvaluationTypeDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         int RubricRating { get; set; }
-        [NaturalKeyMember]
+        
         short SchoolYear { get; set; }
-        [NaturalKeyMember]
+        
         string TermDescriptor { get; set; }
 
         // Non-PK properties
@@ -4259,16 +4694,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public RubricDimensionMappingContract(
             bool isCriterionDescriptionSupported,
             bool isDimensionOrderSupported,
+            bool isEvaluationElementReferenceSupported,
             bool isRubricRatingLevelDescriptorSupported
             )
         {
             IsCriterionDescriptionSupported = isCriterionDescriptionSupported;
             IsDimensionOrderSupported = isDimensionOrderSupported;
+            IsEvaluationElementReferenceSupported = isEvaluationElementReferenceSupported;
             IsRubricRatingLevelDescriptorSupported = isRubricRatingLevelDescriptorSupported;
         }
 
         public bool IsCriterionDescriptionSupported { get; }
         public bool IsDimensionOrderSupported { get; }
+        public bool IsEvaluationElementReferenceSupported { get; }
         public bool IsRubricRatingLevelDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4279,8 +4717,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsCriterionDescriptionSupported;
                 case "DimensionOrder":
                     return IsDimensionOrderSupported;
+                case "EvaluationElementReference":
+                    return IsEvaluationElementReferenceSupported;
                 case "RubricRatingLevelDescriptor":
                     return IsRubricRatingLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "EvaluationElementTitle":
+                    return true;
+                case "EvaluationObjectiveTitle":
+                    return true;
+                case "EvaluationPeriodDescriptor":
+                    return true;
+                case "EvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTitle":
+                    return true;
+                case "PerformanceEvaluationTypeDescriptor":
+                    return true;
+                case "RubricRating":
+                    return true;
+                case "SchoolYear":
+                    return true;
+                case "TermDescriptor":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4294,7 +4755,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface IRubricRatingLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int RubricRatingLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -4352,6 +4813,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "RubricRatingLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4365,7 +4829,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISchoolExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ISchool School { get; set; }
 
         // Non-PK properties
@@ -4386,13 +4849,16 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SchoolExtensionMappingContract : IMappingContract
     {
         public SchoolExtensionMappingContract(
-            bool isPostSecondaryInstitutionIdSupported
+            bool isPostSecondaryInstitutionIdSupported,
+            bool isPostSecondaryInstitutionReferenceSupported
             )
         {
             IsPostSecondaryInstitutionIdSupported = isPostSecondaryInstitutionIdSupported;
+            IsPostSecondaryInstitutionReferenceSupported = isPostSecondaryInstitutionReferenceSupported;
         }
 
         public bool IsPostSecondaryInstitutionIdSupported { get; }
+        public bool IsPostSecondaryInstitutionReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -4400,6 +4866,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "PostSecondaryInstitutionId":
                     return IsPostSecondaryInstitutionIdSupported;
+                case "PostSecondaryInstitutionReference":
+                    return IsPostSecondaryInstitutionReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4413,7 +4882,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveyResponseExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.ISurveyResponse SurveyResponse { get; set; }
 
         // Non-PK properties
@@ -4437,14 +4905,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public SurveyResponseExtensionMappingContract(
             bool isPersonIdSupported,
+            bool isPersonReferenceSupported,
             bool isSourceSystemDescriptorSupported
             )
         {
             IsPersonIdSupported = isPersonIdSupported;
+            IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
         }
 
         public bool IsPersonIdSupported { get; }
+        public bool IsPersonReferenceSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4453,8 +4924,11 @@ namespace EdFi.Ods.Entities.Common.TPDM
             {
                 case "PersonId":
                     return IsPersonIdSupported;
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4468,15 +4942,15 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveyResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string Namespace { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyResponseIdentifier { get; set; }
 
         // Non-PK properties
@@ -4499,15 +4973,36 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SurveyResponsePersonTargetAssociationMappingContract : IMappingContract
     {
         public SurveyResponsePersonTargetAssociationMappingContract(
+            bool isPersonReferenceSupported,
+            bool isSurveyResponseReferenceSupported
             )
         {
+            IsPersonReferenceSupported = isPersonReferenceSupported;
+            IsSurveyResponseReferenceSupported = isSurveyResponseReferenceSupported;
         }
 
+        public bool IsPersonReferenceSupported { get; }
+        public bool IsSurveyResponseReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
+                case "SurveyResponseReference":
+                    return IsSurveyResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Namespace":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "SurveyIdentifier":
+                    return true;
+                case "SurveyResponseIdentifier":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -4521,17 +5016,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public interface ISurveySectionResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string Namespace { get; set; }
-        [NaturalKeyMember]
+        
         string PersonId { get; set; }
-        [NaturalKeyMember]
+        
         string SourceSystemDescriptor { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveyResponseIdentifier { get; set; }
-        [NaturalKeyMember]
+        
         string SurveySectionTitle { get; set; }
 
         // Non-PK properties
@@ -4554,15 +5049,38 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class SurveySectionResponsePersonTargetAssociationMappingContract : IMappingContract
     {
         public SurveySectionResponsePersonTargetAssociationMappingContract(
+            bool isPersonReferenceSupported,
+            bool isSurveySectionResponseReferenceSupported
             )
         {
+            IsPersonReferenceSupported = isPersonReferenceSupported;
+            IsSurveySectionResponseReferenceSupported = isSurveySectionResponseReferenceSupported;
         }
 
+        public bool IsPersonReferenceSupported { get; }
+        public bool IsSurveySectionResponseReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "PersonReference":
+                    return IsPersonReferenceSupported;
+                case "SurveySectionResponseReference":
+                    return IsSurveySectionResponseReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Namespace":
+                    return true;
+                case "PersonId":
+                    return true;
+                case "SourceSystemDescriptor":
+                    return true;
+                case "SurveyIdentifier":
+                    return true;
+                case "SurveyResponseIdentifier":
+                    return true;
+                case "SurveySectionTitle":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

@@ -629,17 +629,25 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             if (builderContext.QueryStringParameters.TryGetValue("Limit", out limitParameterObject))
             {
-                if (!int.TryParse(limitParameterObject.ToString(), out limit))
+                var limitAsString = limitParameterObject.ToString();
+
+                if (!int.TryParse(limitAsString, out limit))
                 {
-                    throw new BadRequestException("Invalid limit specified.");
+                    throw new BadRequestParameterException(
+                        "The 'limit' parameter must be a number.",
+                        new[] { $"Limit parameter value '{limitAsString.TrimAt(15, appendEllipses: true)}' is not a number." });
                 }
             }
 
             if (builderContext.QueryStringParameters.TryGetValue("Offset", out offsetParameterObject))
             {
-                if (!int.TryParse(offsetParameterObject.ToString(), out offset))
+                var offsetAsString = offsetParameterObject.ToString();
+
+                if (!int.TryParse(offsetAsString, out offset))
                 {
-                    throw new BadRequestException("Invalid offset specified.");
+                    throw new BadRequestParameterException(
+                        "The 'offset' parameter must be a number.",
+                        new[] { $"Offset parameter value '{offsetAsString.TrimAt(15, appendEllipses: true)}' is not a number." });
                 }
             }
 
@@ -925,33 +933,38 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private static object ConvertParameterValueForProperty(ResourceProperty targetProperty, object rawValue)
         {
+            Type targetType = targetProperty.PropertyType.ToUnderlyingSystemType();
+
             try
             {
-                Type targetType = targetProperty.PropertyType.ToUnderlyingSystemType();
-
                 if (targetType == typeof(Guid))
                 {
-                    Guid convertedGuid;
-
-                    if (Guid.TryParse(rawValue.ToString(), out convertedGuid))
+                    if (Guid.TryParse(rawValue.ToString(), out Guid convertedGuid))
                     {
                         return convertedGuid;
                     }
 
-                    throw new BadRequestException(
-                        $"Invalid query string parameter value provided.  The value for parameter '{targetProperty.PropertyName}' could not be processed as a GUID.");
+                    throw new BadRequestDataException(
+                        $"Filter value for '{targetProperty.JsonPropertyName}' is not a valid value for an id.",
+                        new[]
+                        {
+                            $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed as a GUID."
+                        });
                 }
 
-                var convertedValue = Convert.ChangeType(
-                    rawValue,
-                    targetType);
+                var convertedValue = Convert.ChangeType(rawValue, targetType);
 
                 return convertedValue;
             }
             catch (FormatException ex)
             {
-                throw new BadRequestException(
-                    $"Invalid query string parameter value provided.  The value for parameter '{targetProperty.PropertyName}' could not be processed. {ex.Message}");
+                throw new BadRequestDataException(
+                    $"Filter value for '{targetProperty.JsonPropertyName}' is not a valid value for the type of data expected.",
+                    new[]
+                    {
+                        $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed to target type '{targetType.Name}'.",
+                        ex.Message
+                    });
             }
         }
 
@@ -960,11 +973,20 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Prevent any sort of nefarious injection into the response message, while still providing a helpful message to the caller
             if (Regex.IsMatch(attemptedPropertyName, @"^\w+$"))
             {
-                throw new BadRequestException(
-                    $"The property '{attemptedPropertyName}' does not exist or is not available.");
+                throw new BadRequestParameterException(
+                    $"Filter value was supplied for an unrecognized data element named '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}'.",
+                    new[]
+                    {
+                        $"The property '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}' does not exist or is not available."
+                    });
             }
 
-            throw new BadRequestException("Invalid query string parameter.");
+            throw new BadRequestParameterException(
+                "Filter value was supplied for an unrecognized data element.",
+                new[]
+                {
+                    $"Attempted query string filter parameter does not match an available property of the resource: '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}'."
+                });
         }
 
         private static void ProcessQueryExpressions(
@@ -982,8 +1004,12 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
                 if (!rangeQueryMatch.Success)
                 {
-                    throw new BadRequestException(
-                        "The query filter expression was invalid. Currently, only numeric and date range expressions are supported.");
+                    throw new BadRequestParameterException(
+                        "Only numeric and date range filter expressions are supported.",
+                        new[]
+                        {
+                            "The query filter expression parameter was invalid (regular expression pattern match for range expressions failed)."
+                        });
                 }
 
                 string targetPropertyName = rangeQueryMatch.Groups["PropertyName"].Value;

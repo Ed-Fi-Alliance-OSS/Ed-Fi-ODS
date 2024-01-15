@@ -40,7 +40,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
                 || (target.StudentUniqueId != source.StudentUniqueId))
             {
                 // Disallow PK column updates on StudentTransportation
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("StudentTransportation");
             }
 
 

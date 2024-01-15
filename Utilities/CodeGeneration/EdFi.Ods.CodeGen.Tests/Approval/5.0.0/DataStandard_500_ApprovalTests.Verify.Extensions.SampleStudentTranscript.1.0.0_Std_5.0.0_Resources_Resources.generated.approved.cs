@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -33,6 +35,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "InstitutionControlDescriptor");
+
+        // Fluent validator instance (threadsafe)
+        private static InstitutionControlDescriptorPutPostRequestValidator _validator = new InstitutionControlDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -42,6 +49,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -69,7 +77,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int InstitutionControlDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -133,6 +141,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -140,6 +150,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -161,6 +172,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -168,6 +181,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -264,12 +279,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -297,6 +306,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "InstitutionLevelDescriptor");
+
+        // Fluent validator instance (threadsafe)
+        private static InstitutionLevelDescriptorPutPostRequestValidator _validator = new InstitutionLevelDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -306,6 +320,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -333,7 +348,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int InstitutionLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -397,6 +412,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -404,6 +421,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -425,6 +443,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -432,6 +452,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -528,12 +550,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -561,7 +577,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     [ExcludeFromCodeCoverage]
     public class PostSecondaryOrganizationReference : IResourceReference
     {
-        [DataMember(Name="nameOfInstitution"), NaturalKeyMember]
+        [DataMember(Name="nameOfInstitution")]
         public string NameOfInstitution { get; set; }
 
         /// <summary>
@@ -651,6 +667,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "PostSecondaryOrganization");
+
+        // Fluent validator instance (threadsafe)
+        private static PostSecondaryOrganizationPutPostRequestValidator _validator = new PostSecondaryOrganizationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -660,6 +681,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -687,7 +709,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// The name of the institution.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="nameOfInstitution"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="nameOfInstitution")]
         public string NameOfInstitution { get; set; }
         // -------------------------------------------------------------
 
@@ -769,14 +793,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// The type of control of the institution (i.e., public or private).
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="institutionControlDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="institutionControlDescriptor")][DescriptorExists("InstitutionControlDescriptor")]
         public string InstitutionControlDescriptor { get; set; }
 
         /// <summary>
         /// The level of the institution.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="institutionLevelDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="institutionLevelDescriptor")][DescriptorExists("InstitutionLevelDescriptor")]
         public string InstitutionLevelDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -875,12 +903,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -908,6 +930,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "SpecialEducationGraduationStatusDescriptor");
+
+        // Fluent validator instance (threadsafe)
+        private static SpecialEducationGraduationStatusDescriptorPutPostRequestValidator _validator = new SpecialEducationGraduationStatusDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -917,6 +944,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -944,7 +972,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int SpecialEducationGraduationStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1008,6 +1036,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -1015,6 +1045,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -1036,6 +1067,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -1043,6 +1076,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -1139,12 +1174,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1170,8 +1199,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "StudentAcademicRecordClassRankingExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentAcademicRecordClassRankingExtensionPutPostRequestValidator _validator = new StudentAcademicRecordClassRankingExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1181,6 +1216,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1273,7 +1309,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// The graduation status for special education.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="specialEducationGraduationStatusDescriptor")]
+        [RequiredWithNonDefault]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="specialEducationGraduationStatusDescriptor")][DescriptorExists("SpecialEducationGraduationStatusDescriptor")]
         public string SpecialEducationGraduationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -1362,12 +1400,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1388,8 +1420,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
+    [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IChildEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "StudentAcademicRecordExtension");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentAcademicRecordExtensionPutPostRequestValidator _validator = new StudentAcademicRecordExtensionPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1399,6 +1437,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1552,7 +1591,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// The type of submission certification.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [DataMember(Name="submissionCertificationDescriptor")]
+        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="submissionCertificationDescriptor")][DescriptorExists("SubmissionCertificationDescriptor")]
         public string SubmissionCertificationDescriptor { get; set; }
         // -------------------------------------------------------------
 
@@ -1655,12 +1695,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1688,6 +1722,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("samplestudenttranscript", "SubmissionCertificationDescriptor");
+
+        // Fluent validator instance (threadsafe)
+        private static SubmissionCertificationDescriptorPutPostRequestValidator _validator = new SubmissionCertificationDescriptorPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1697,6 +1736,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1724,7 +1764,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore, NaturalKeyMember]
+        [JsonIgnore]
         public int SubmissionCertificationDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1788,6 +1828,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A code or abbreviation that is used to refer to the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -1795,6 +1837,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -1816,6 +1859,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -1823,6 +1868,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A shortened description for the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -1918,12 +1965,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {

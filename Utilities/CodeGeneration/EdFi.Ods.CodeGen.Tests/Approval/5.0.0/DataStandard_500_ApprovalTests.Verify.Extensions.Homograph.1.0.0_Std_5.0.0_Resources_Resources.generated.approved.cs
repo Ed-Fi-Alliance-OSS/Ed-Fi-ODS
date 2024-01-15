@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -33,10 +35,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class ContactReference : IResourceReference
     {
-        [DataMember(Name="contactFirstName"), NaturalKeyMember]
+        [DataMember(Name="contactFirstName")]
         public string ContactFirstName { get; set; }
 
-        [DataMember(Name="contactLastSurname"), NaturalKeyMember]
+        [DataMember(Name="contactLastSurname")]
         public string ContactLastSurname { get; set; }
 
         /// <summary>
@@ -128,8 +130,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Contact : Entities.Common.Homograph.IContact, IHasETag, IDateVersionedEntity
+    public class Contact : Entities.Common.Homograph.IContact, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Contact");
+
+        // Fluent validator instance (threadsafe)
+        private static ContactPutPostRequestValidator _validator = new ContactPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -144,6 +151,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
             ContactAddresses = new List<ContactAddress>();
             ContactStudentSchoolAssociations = new List<ContactStudentSchoolAssociation>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -176,7 +184,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
             }
         }
 
-        [DataMember(Name="contactNameReference")][NaturalKeyMember]
+        [DataMember(Name="contactNameReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference ContactNameReference
         {
@@ -346,7 +354,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         private ICollection<ContactAddress> _contactAddresses;
         private ICollection<Entities.Common.Homograph.IContactAddress> _contactAddressesCovariant;
 
-        [DataMember(Name="addresses"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="addresses")]
         public ICollection<ContactAddress> ContactAddresses
         {
             get { return _contactAddresses; }
@@ -375,7 +384,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         private ICollection<ContactStudentSchoolAssociation> _contactStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IContactStudentSchoolAssociation> _contactStudentSchoolAssociationsCovariant;
 
-        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers][RequiredCollection]
+        [DataMember(Name="studentSchoolAssociations")]
         public ICollection<ContactStudentSchoolAssociation> ContactStudentSchoolAssociations
         {
             get { return _contactStudentSchoolAssociations; }
@@ -468,6 +478,74 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (ContactAddresses.Any() && mappingContract?.IsMemberSupported("ContactAddresses") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("ContactAddresses");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactAddresses, validationContext, validationContext.Items.ForCollection("ContactAddresses"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (ContactStudentSchoolAssociations.Any() && mappingContract?.IsMemberSupported("ContactStudentSchoolAssociations") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("ContactStudentSchoolAssociations");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(ContactStudentSchoolAssociations, validationContext, validationContext.Items.ForCollection("ContactStudentSchoolAssociations"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -478,6 +556,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     public class ContactPutPostRequestValidator : FluentValidation.AbstractValidator<Contact>
     {
         private static readonly FullName _fullName_homograph_Contact = new FullName("homograph", "Contact");
+
+        // Declare collection item validators
+        private ContactAddressPutPostRequestValidator _contactAddressesValidator = new ();
+        private ContactStudentSchoolAssociationPutPostRequestValidator _contactStudentSchoolAssociationsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<Contact> context, FluentValidation.Results.ValidationResult result)
         {
@@ -496,60 +578,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.ContactMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.ContactMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_homograph_Contact));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Homograph.ContactMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Contact);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsContactAddressIncluded != null)
+                if (mappingContract.IsContactAddressIncluded != null)
                 {
-                    var hasInvalidContactAddressesItems = instance.ContactAddresses.Any(x => !mappingContract.Value.IsContactAddressIncluded(x));
+                    var hasInvalidContactAddressesItems = instance.ContactAddresses.Any(x => !mappingContract.IsContactAddressIncluded(x));
         
                     if (hasInvalidContactAddressesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ContactAddress", $"A supplied 'ContactAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ContactAddresses", $"A supplied 'ContactAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsContactStudentSchoolAssociationIncluded != null)
+                if (mappingContract.IsContactStudentSchoolAssociationIncluded != null)
                 {
-                    var hasInvalidContactStudentSchoolAssociationsItems = instance.ContactStudentSchoolAssociations.Any(x => !mappingContract.Value.IsContactStudentSchoolAssociationIncluded(x));
+                    var hasInvalidContactStudentSchoolAssociationsItems = instance.ContactStudentSchoolAssociations.Any(x => !mappingContract.IsContactStudentSchoolAssociationIncluded(x));
         
                     if (hasInvalidContactStudentSchoolAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("ContactStudentSchoolAssociation", $"A supplied 'ContactStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("ContactStudentSchoolAssociations", $"A supplied 'ContactStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var contactAddressesValidator = new ContactAddressPutPostRequestValidator();
-
-            foreach (var item in instance.ContactAddresses)
-            {
-                var validationResult = contactAddressesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var contactStudentSchoolAssociationsValidator = new ContactStudentSchoolAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.ContactStudentSchoolAssociations)
-            {
-                var validationResult = contactStudentSchoolAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -573,6 +629,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class ContactAddress : Entities.Common.Homograph.IContactAddress
     {
+        private static FullName _fullName = new FullName("homograph", "ContactAddress");
+
+        // Fluent validator instance (threadsafe)
+        private static ContactAddressPutPostRequestValidator _validator = new ContactAddressPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -582,6 +643,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -620,7 +682,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         /// The name of the city in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="city"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -767,12 +831,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -795,6 +853,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
     [ExcludeFromCodeCoverage]
     public class ContactStudentSchoolAssociation : Entities.Common.Homograph.IContactStudentSchoolAssociation
     {
+        private static FullName _fullName = new FullName("homograph", "ContactStudentSchoolAssociation");
+
+        // Fluent validator instance (threadsafe)
+        private static ContactStudentSchoolAssociationPutPostRequestValidator _validator = new ContactStudentSchoolAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -804,6 +867,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -829,7 +893,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
             }
         }
 
-        [DataMember(Name="studentSchoolAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="studentSchoolAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
@@ -1120,12 +1184,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1153,10 +1211,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     [ExcludeFromCodeCoverage]
     public class NameReference : IResourceReference
     {
-        [DataMember(Name="firstName"), NaturalKeyMember]
+        [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
-        [DataMember(Name="lastSurname"), NaturalKeyMember]
+        [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
 
         /// <summary>
@@ -1250,6 +1308,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     [ExcludeFromCodeCoverage]
     public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "Name");
+
+        // Fluent validator instance (threadsafe)
+        private static NamePutPostRequestValidator _validator = new NamePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1259,6 +1322,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1286,14 +1350,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="firstName"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// The name borne in common by members of a family.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="lastSurname"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
 
@@ -1449,12 +1517,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -1482,7 +1544,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolReference : IResourceReference
     {
-        [DataMember(Name="schoolName"), NaturalKeyMember]
+        [DataMember(Name="schoolName")]
         public string SchoolName { get; set; }
 
         /// <summary>
@@ -1569,8 +1631,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity
+    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "School");
+
+        // Fluent validator instance (threadsafe)
+        private static SchoolPutPostRequestValidator _validator = new SchoolPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1580,6 +1647,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1641,7 +1709,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// The name of the school.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="schoolName"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="schoolName")]
         public string SchoolName { get; set; }
         // -------------------------------------------------------------
 
@@ -1734,6 +1804,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// <summary>
         /// address
         /// </summary>
+        
         [DataMember(Name = "address")]
         public SchoolAddress SchoolAddress { get; set; }
 
@@ -1819,6 +1890,62 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (SchoolAddress != null && mappingContract?.IsMemberSupported("SchoolAddress") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("SchoolAddress");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolAddress, validationContext, validationContext.Items.ForEmbeddedObject("SchoolAddress"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -1840,12 +1967,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {
@@ -1869,6 +1990,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
+        private static FullName _fullName = new FullName("homograph", "SchoolAddress");
+
+        // Fluent validator instance (threadsafe)
+        private static SchoolAddressPutPostRequestValidator _validator = new SchoolAddressPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -1878,6 +2004,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -1970,6 +2097,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// The name of the city in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [RequiredWithNonDefault]
+        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
@@ -2054,12 +2183,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2087,7 +2210,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolYearTypeReference : IResourceReference
     {
-        [DataMember(Name="schoolYear"), NaturalKeyMember]
+        [DataMember(Name="schoolYear")]
         public string SchoolYear { get; set; }
 
         /// <summary>
@@ -2176,6 +2299,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "SchoolYearType");
+
+        // Fluent validator instance (threadsafe)
+        private static SchoolYearTypePutPostRequestValidator _validator = new SchoolYearTypePutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2185,6 +2313,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2212,7 +2341,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// A school year.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="schoolYear"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="schoolYear")]
         public string SchoolYear { get; set; }
         // -------------------------------------------------------------
 
@@ -2359,12 +2490,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -2392,10 +2517,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffReference : IResourceReference
     {
-        [DataMember(Name="staffFirstName"), NaturalKeyMember]
+        [DataMember(Name="staffFirstName")]
         public string StaffFirstName { get; set; }
 
-        [DataMember(Name="staffLastSurname"), NaturalKeyMember]
+        [DataMember(Name="staffLastSurname")]
         public string StaffLastSurname { get; set; }
 
         /// <summary>
@@ -2487,8 +2612,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity
+    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Staff");
+
+        // Fluent validator instance (threadsafe)
+        private static StaffPutPostRequestValidator _validator = new StaffPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2503,6 +2633,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             StaffAddresses = new List<StaffAddress>();
             StaffStudentSchoolAssociations = new List<StaffStudentSchoolAssociation>();
         }
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2535,7 +2666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             }
         }
 
-        [DataMember(Name="staffNameReference")][NaturalKeyMember]
+        [DataMember(Name="staffNameReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StaffNameReference
         {
@@ -2705,7 +2836,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         private ICollection<StaffAddress> _staffAddresses;
         private ICollection<Entities.Common.Homograph.IStaffAddress> _staffAddressesCovariant;
 
-        [DataMember(Name="addresses"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="addresses")]
         public ICollection<StaffAddress> StaffAddresses
         {
             get { return _staffAddresses; }
@@ -2734,7 +2866,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         private ICollection<StaffStudentSchoolAssociation> _staffStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IStaffStudentSchoolAssociation> _staffStudentSchoolAssociationsCovariant;
 
-        [DataMember(Name="studentSchoolAssociations"), NoDuplicateMembers]
+        [NoDuplicateMembers]
+        [DataMember(Name="studentSchoolAssociations")]
         public ICollection<StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get { return _staffStudentSchoolAssociations; }
@@ -2827,6 +2960,74 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StaffAddresses.Any() && mappingContract?.IsMemberSupported("StaffAddresses") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StaffAddresses");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffAddresses, validationContext, validationContext.Items.ForCollection("StaffAddresses"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StaffStudentSchoolAssociations.Any() && mappingContract?.IsMemberSupported("StaffStudentSchoolAssociations") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StaffStudentSchoolAssociations");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StaffStudentSchoolAssociations, validationContext, validationContext.Items.ForCollection("StaffStudentSchoolAssociations"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -2837,6 +3038,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     public class StaffPutPostRequestValidator : FluentValidation.AbstractValidator<Staff>
     {
         private static readonly FullName _fullName_homograph_Staff = new FullName("homograph", "Staff");
+
+        // Declare collection item validators
+        private StaffAddressPutPostRequestValidator _staffAddressesValidator = new ();
+        private StaffStudentSchoolAssociationPutPostRequestValidator _staffStudentSchoolAssociationsValidator = new ();
 
         protected override bool PreValidate(FluentValidation.ValidationContext<Staff> context, FluentValidation.Results.ValidationResult result)
         {
@@ -2855,60 +3060,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_homograph_Staff));
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Staff);
 
-            if (mappingContract.Value != null)
+            if (mappingContract != null)
             {
-                if (mappingContract.Value.IsStaffAddressIncluded != null)
+                if (mappingContract.IsStaffAddressIncluded != null)
                 {
-                    var hasInvalidStaffAddressesItems = instance.StaffAddresses.Any(x => !mappingContract.Value.IsStaffAddressIncluded(x));
+                    var hasInvalidStaffAddressesItems = instance.StaffAddresses.Any(x => !mappingContract.IsStaffAddressIncluded(x));
         
                     if (hasInvalidStaffAddressesItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StaffAddress", $"A supplied 'StaffAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StaffAddresses", $"A supplied 'StaffAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
-                if (mappingContract.Value.IsStaffStudentSchoolAssociationIncluded != null)
+                if (mappingContract.IsStaffStudentSchoolAssociationIncluded != null)
                 {
-                    var hasInvalidStaffStudentSchoolAssociationsItems = instance.StaffStudentSchoolAssociations.Any(x => !mappingContract.Value.IsStaffStudentSchoolAssociationIncluded(x));
+                    var hasInvalidStaffStudentSchoolAssociationsItems = instance.StaffStudentSchoolAssociations.Any(x => !mappingContract.IsStaffStudentSchoolAssociationIncluded(x));
         
                     if (hasInvalidStaffStudentSchoolAssociationsItems)
                     {
                         profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        failures.Add(new ValidationFailure("StaffStudentSchoolAssociation", $"A supplied 'StaffStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                        failures.Add(new ValidationFailure("StaffStudentSchoolAssociations", $"A supplied 'StaffStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
                     }
                 }
 
             }
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-            var staffAddressesValidator = new StaffAddressPutPostRequestValidator();
-
-            foreach (var item in instance.StaffAddresses)
-            {
-                var validationResult = staffAddressesValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
-            var staffStudentSchoolAssociationsValidator = new StaffStudentSchoolAssociationPutPostRequestValidator();
-
-            foreach (var item in instance.StaffStudentSchoolAssociations)
-            {
-                var validationResult = staffStudentSchoolAssociationsValidator.Validate(item);
-
-                if (!validationResult.IsValid)
-                    failures.AddRange(validationResult.Errors);
-            }
-
 
             if (failures.Any())
             {
@@ -2932,6 +3111,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
+        private static FullName _fullName = new FullName("homograph", "StaffAddress");
+
+        // Fluent validator instance (threadsafe)
+        private static StaffAddressPutPostRequestValidator _validator = new StaffAddressPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -2941,6 +3125,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -2979,7 +3164,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// The name of the city in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="city"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -3126,12 +3313,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3154,6 +3335,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
+        private static FullName _fullName = new FullName("homograph", "StaffStudentSchoolAssociation");
+
+        // Fluent validator instance (threadsafe)
+        private static StaffStudentSchoolAssociationPutPostRequestValidator _validator = new StaffStudentSchoolAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3163,6 +3349,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3188,7 +3375,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             }
         }
 
-        [DataMember(Name="studentSchoolAssociationReference")][NaturalKeyMember]
+        [DataMember(Name="studentSchoolAssociationReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
@@ -3479,12 +3666,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -3512,10 +3693,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentReference : IResourceReference
     {
-        [DataMember(Name="studentFirstName"), NaturalKeyMember]
+        [DataMember(Name="studentFirstName")]
         public string StudentFirstName { get; set; }
 
-        [DataMember(Name="studentLastSurname"), NaturalKeyMember]
+        [DataMember(Name="studentLastSurname")]
         public string StudentLastSurname { get; set; }
 
         /// <summary>
@@ -3607,8 +3788,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity
+    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, IValidatableObject
     {
+        private static FullName _fullName = new FullName("homograph", "Student");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentPutPostRequestValidator _validator = new StudentPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -3618,6 +3804,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -3683,7 +3870,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             }
         }
 
-        [DataMember(Name="studentNameReference")][NaturalKeyMember]
+        [DataMember(Name="studentNameReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StudentNameReference
         {
@@ -3855,6 +4042,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// <summary>
         /// address
         /// </summary>
+        [Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]
         [DataMember(Name = "address")]
         public StudentAddress StudentAddress { get; set; }
 
@@ -3954,6 +4142,62 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
 
         // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+                if (StudentAddress != null && mappingContract?.IsMemberSupported("StudentAddress") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentAddress");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentAddress, validationContext, validationContext.Items.ForEmbeddedObject("StudentAddress"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
     }
 
     // =================================================================
@@ -3975,12 +4219,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {
@@ -4004,6 +4242,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
+        private static FullName _fullName = new FullName("homograph", "StudentAddress");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentAddressPutPostRequestValidator _validator = new StudentAddressPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4013,6 +4256,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4051,7 +4295,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// The name of the city in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="city"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -4198,12 +4444,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
             var failures = new List<ValidationFailure>();
 
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
-
             if (failures.Any())
             {
                 foreach (var failure in failures)
@@ -4231,13 +4471,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationReference : IResourceReference
     {
-        [DataMember(Name="schoolName"), NaturalKeyMember]
+        [DataMember(Name="schoolName")]
         public string SchoolName { get; set; }
 
-        [DataMember(Name="studentFirstName"), NaturalKeyMember]
+        [DataMember(Name="studentFirstName")]
         public string StudentFirstName { get; set; }
 
-        [DataMember(Name="studentLastSurname"), NaturalKeyMember]
+        [DataMember(Name="studentLastSurname")]
         public string StudentLastSurname { get; set; }
 
         /// <summary>
@@ -4336,6 +4576,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
+        private static FullName _fullName = new FullName("homograph", "StudentSchoolAssociation");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentSchoolAssociationPutPostRequestValidator _validator = new StudentSchoolAssociationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -4345,6 +4590,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -4377,7 +4623,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             }
         }
 
-        [DataMember(Name="schoolReference")][NaturalKeyMember]
+        [DataMember(Name="schoolReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public School.Homograph.SchoolReference SchoolReference
         {
@@ -4410,7 +4656,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             }
         }
 
-        [DataMember(Name="studentReference")][NaturalKeyMember]
+        [DataMember(Name="studentReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.Homograph.StudentReference StudentReference
         {
@@ -4696,12 +4942,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {

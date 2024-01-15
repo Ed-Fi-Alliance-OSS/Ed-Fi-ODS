@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.ComponentModel.DataAnnotations;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes;
 
@@ -24,7 +26,14 @@ public class FullyDefinedReferenceAttribute : ValidationAttribute
         {
             if (!reference.IsReferenceFullyDefined())
             {
-                return new ValidationResult($"{validationContext.MemberName} is missing the following properties: {string.Join(", ", reference.GetUndefinedProperties())}");
+                string errorMessage = $"{validationContext.MemberName} is missing the following properties: {string.Join(", ", reference.GetUndefinedProperties())}";
+
+                return new ValidationResult(
+                    errorMessage,
+                    new[]
+                    {
+                        validationContext.MemberNamePath()
+                    });
             }
         }
 

@@ -13,18 +13,16 @@ using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
-    public class UpdateEntity<TEntity> : ValidatingNHibernateRepositoryOperationBase, IUpdateEntity<TEntity>
+    public class UpdateEntity<TEntity> : NHibernateRepositoryOperationBase, IUpdateEntity<TEntity>
         where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
     {
-        public UpdateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory, validators) { }
+        public UpdateEntity(ISessionFactory sessionFactory)
+            : base(sessionFactory) { }
 
         public async Task UpdateAsync(TEntity persistentEntity, CancellationToken cancellationToken)
         {
             using (new SessionScope(SessionFactory))
             {
-                ValidateEntity(persistentEntity);
-
                 using (var trans = Session.BeginTransaction())
                 {
                     try

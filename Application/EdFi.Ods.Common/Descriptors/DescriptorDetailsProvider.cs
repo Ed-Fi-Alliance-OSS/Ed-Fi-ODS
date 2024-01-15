@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -56,12 +58,21 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
             {
                 var queries = GetQueries(session).ToList();
 
-                var results = queries.SelectMany(x => x.ToList()).ToList();
+                var results = queries
+                    .SelectMany(x => x.detailQuery
+                        .Select(d =>
+                        {
+                            // Assign the descriptor name to the details
+                            d.DescriptorName = x.descriptorName;
+                            return d;
+                        })
+                        .ToList())
+                    .ToList();
 
                 return results;
             }
 
-            IEnumerable<IEnumerable<DescriptorDetails>> GetQueries(ISession session)
+            IEnumerable<(string descriptorName, IEnumerable<DescriptorDetails> detailQuery)> GetQueries(ISession session)
             {
                 foreach (string descriptorName in _descriptorTypeNameByEntityName.Value.Keys)
                 {
@@ -69,7 +80,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
                         GetDescriptorCriteria(descriptorName, session)
                         .Future<DescriptorDetails>();
 
-                    yield return query;
+                    yield return (descriptorName, query);
                 }
             }
         }
@@ -132,7 +143,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             if (pos < 0)
             {
-                throw new FormatException($"Unable to resolve value '{uri}' to an existing '{descriptorName}' resource.");
+                throw new ValidationException($"{descriptorName} value '{uri}' is not a valid value for use as a descriptor (a '#' is expected to delineate the namespace and code value portions).");
             }
 
             criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));

@@ -8,8 +8,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
@@ -40,7 +46,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsEntityValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -69,7 +78,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 testObject.TestCollection.Add(new CollectionTestObject());
                 testObject.TestCollection.Add(new CollectionTestObject());
 
-                var validator = new DataAnnotationsEntityValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
@@ -94,19 +106,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = null
                 };
 
-                var validator = new DataAnnotationsEntityValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
             [Assert]
             public void Should_have_a_validation_error_regarding_a_required_collection()
             {
-                Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-                var errorMessage = _actualResults.Single()
-                    .ErrorMessage;
-
-                Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
+                _actualResults.Count.ShouldBe(1);
+                _actualResults.Single().ErrorMessage.ShouldBe("TestCollection must have at least one item.");
             }
         }
 
@@ -124,19 +136,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     TestCollection = new List<CollectionTestObject>()
                 };
 
-                var validator = new DataAnnotationsEntityValidator();
+                var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
                 _actualResults = validator.ValidateObject(testObject);
             }
 
             [Assert]
             public void Should_have_a_validation_error_regarding_a_required_collection()
             {
-                Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-                var errorMessage = _actualResults.Single()
-                    .ErrorMessage;
-
-                Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
+                _actualResults.Count.ShouldBe(1);
+                _actualResults.Single().ErrorMessage.ShouldBe("TestCollection must have at least one item.");
             }
         }
     }

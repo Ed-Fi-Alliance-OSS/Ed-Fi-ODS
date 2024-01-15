@@ -23,11 +23,10 @@ namespace {{EntitiesBaseNamespace}}
     {
         // Primary Key properties
     {{#ParentClassName}}
-        [NaturalKeyMember]
         {{ParentInterfaceName}} {{ParentClassName}} { get; set; }
     {{/ParentClassName}}
     {{#IdentifyingProperties}}
-        [NaturalKeyMember]{{#IsServerAssigned}}[AutoIncrement]{{/IsServerAssigned}}{{#IsUniqueId}}[UniqueId]{{/IsUniqueId}}
+        {{#IsServerAssigned}}[AutoIncrement]{{/IsServerAssigned}}{{#IsUniqueId}}[UniqueId]{{/IsUniqueId}}
         {{#IsLookup}}
         string {{LookupName}} { get; set; }
         {{/IsLookup}}
@@ -120,6 +119,17 @@ namespace {{EntitiesBaseNamespace}}
                     return Is{{PropertyName}}Supported;
         {{/ItemTypeName}}
     {{/MappingContractMembers}}
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+    {{#InheritedIdentifyingProperties}}
+                case "{{PropertyName}}":
+                    return true;
+    {{/InheritedIdentifyingProperties}}
+    {{#IdentifyingProperties}}
+        {{^IsUniqueId}}{{! This refers to UniqueId properties on person-type entities }}
+                case "{{PropertyName}}":
+                    return true;
+        {{/IsUniqueId}}
+    {{/IdentifyingProperties}}
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

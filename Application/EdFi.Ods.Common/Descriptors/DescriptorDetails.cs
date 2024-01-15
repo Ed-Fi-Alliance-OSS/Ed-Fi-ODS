@@ -11,6 +11,8 @@ public class DescriptorDetails : IEquatable<DescriptorDetails>
 {
     public int DescriptorId { get; set; }
 
+    public string DescriptorName { get; set; }
+
     public string Namespace { get; set; }
 
     public string CodeValue { get; set; }

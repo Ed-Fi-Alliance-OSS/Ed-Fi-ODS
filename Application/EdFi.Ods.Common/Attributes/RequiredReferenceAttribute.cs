@@ -7,7 +7,9 @@ using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes;
 
@@ -28,7 +30,7 @@ public class RequiredReferenceAttribute : ValidationAttribute
         _resourceName = resourceName;
     }
 
-    private ConcurrentDictionary<string, string> _itemTypeNameByRequestTypeName = new();
+    private readonly ConcurrentDictionary<string, string> _itemTypeNameByRequestTypeName = new();
 
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
@@ -68,6 +70,11 @@ public class RequiredReferenceAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        return new ValidationResult($"{validationContext.MemberName} is required.", new[] { validationContext.MemberName });
+        return new ValidationResult(
+            $"{validationContext.MemberName} is required.",
+            new[]
+            {
+                validationContext.MemberNamePath()
+            });
     }
 }

@@ -18,13 +18,13 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
     public interface IStudentTransportation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string AMBusNumber { get; set; }
-        [NaturalKeyMember]
+        
         string PMBusNumber { get; set; }
-        [NaturalKeyMember]
+        
         int SchoolId { get; set; }
-        [NaturalKeyMember]
+        
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
@@ -47,13 +47,19 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
     public class StudentTransportationMappingContract : IMappingContract
     {
         public StudentTransportationMappingContract(
-            bool isEstimatedMilesFromSchoolSupported
+            bool isEstimatedMilesFromSchoolSupported,
+            bool isSchoolReferenceSupported,
+            bool isStudentReferenceSupported
             )
         {
             IsEstimatedMilesFromSchoolSupported = isEstimatedMilesFromSchoolSupported;
+            IsSchoolReferenceSupported = isSchoolReferenceSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
         public bool IsEstimatedMilesFromSchoolSupported { get; }
+        public bool IsSchoolReferenceSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -61,6 +67,19 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
             {
                 case "EstimatedMilesFromSchool":
                     return IsEstimatedMilesFromSchoolSupported;
+                case "SchoolReference":
+                    return IsSchoolReferenceSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AMBusNumber":
+                    return true;
+                case "PMBusNumber":
+                    return true;
+                case "SchoolId":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

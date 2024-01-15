@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
@@ -134,7 +133,7 @@ namespace {{AggregateNamespace}}
     /// <summary>
     /// A class which represents the {{SchemaName}}.{{TableName}} table of the {{AggregateName}} aggregate in the ODS database.
     /// </summary>
-    [Serializable, Schema("{{SchemaName}}")]
+    [Schema("{{SchemaName}}")]
     [ExcludeFromCodeCoverage]
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
         {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#IsExtendable}}{{^ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}{{/IsExtendable}}
@@ -169,7 +168,7 @@ namespace {{AggregateNamespace}}
         // -------------------------------------------------------------
         {{#PrimaryKey}}
             {{#ParentReference}}
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        [DomainSignature, JsonIgnore]
         public virtual {{EntityParentClassNamespacePrefix}}{{EntityParentClassName}}{{ContextualSuffix}} {{EntityParentClassName}} { get; set; }
 
         {{ModelParentInterfaceNamespacePrefix}}{{ModelParentInterfaceName}} I{{ClassName}}.{{ModelParentClassName}}
@@ -187,8 +186,7 @@ namespace {{AggregateNamespace}}
             {{/ParentReference}}
             {{#NonParentProperties}}
                 {{^IsAbstract}}
-        {{#DisplayName}}[Display(Name="{{DisplayName}}")]
-        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}, MinimumLength={{MinLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]{{RangeAttribute}}
+        {{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}[DomainSignature]
                 {{/IsAbstract}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
                 {{#PropertyAccessors}}
@@ -216,12 +214,6 @@ namespace {{AggregateNamespace}}
         //                          Properties
         // -------------------------------------------------------------
         {{#Properties}}
-            {{#Attributes}}
-        [{{Attributes}}]
-            {{/Attributes}}
-            {{#RangeAttribute}}
-        {{RangeAttribute}}
-            {{/RangeAttribute}}
         public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
             {{#PropertyAccessors}}
 {{> Entities_PropertyAccessors}}
@@ -233,7 +225,6 @@ namespace {{AggregateNamespace}}
         //                     One-to-one relationships
         // -------------------------------------------------------------
             {{#OneToOnes}}
-        {{#IsRequired}}[Required]{{/IsRequired}}[ValidateObject]
         public virtual {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
             get
@@ -339,7 +330,6 @@ namespace {{AggregateNamespace}}
         {{^ExtendableConcreteBase}}
         private IDictionary _extensions;
 
-        [ValidateExtensions]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions
         {
             get => _extensions;
@@ -366,7 +356,6 @@ namespace {{AggregateNamespace}}
             }
         }
 
-        [ValidateAggregateExtensions(typeof({{ClassName}}))]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions { get; set; }
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
@@ -422,10 +411,6 @@ namespace {{AggregateNamespace}}
 
         private ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionFieldName}};
         private ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> {{ChildCollectionFieldName}}Covariant;
-        {{#IsRequiredCollection}}
-        [RequiredCollection]
-        {{/IsRequiredCollection}}
-        [ValidateEnumerable]
         public virtual ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionPropertyName}}
         {
             get
@@ -472,9 +457,6 @@ namespace {{AggregateNamespace}}
 
         {{/NavigableChildren}}
         {{#RelocatedExtensionCollections}}
-        {{#IsRequiredCollection}}
-        [RequiredCollection]
-        {{/IsRequiredCollection}}
         private ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> {{ChildCollectionFieldName}};
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
         ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> I{{ClassName}}.{{ChildCollectionPropertyName}}

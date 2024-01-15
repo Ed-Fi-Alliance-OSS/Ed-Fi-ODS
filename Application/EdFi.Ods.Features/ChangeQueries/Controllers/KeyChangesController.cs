@@ -8,11 +8,11 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
@@ -93,9 +93,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             if (parameterMessages.Any())
             {
                 return BadRequest(
-                    ErrorTranslator.GetErrorMessage(
-                        string.Join(" ", parameterMessages),
-                        (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+                    new BadRequestException("The parameters provided to the request were invalid.", parameterMessages)
+                    {
+                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    }.AsSerializableModel());
             }
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);

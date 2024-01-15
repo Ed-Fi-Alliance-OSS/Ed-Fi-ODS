@@ -10,7 +10,6 @@ namespace EdFi.Ods.Tests.TestExtension.Models.Interfaces
     public interface IStaffLeaveReason : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaffLeaveExtension LeaveEventExtension { get; set; }
 
         // Non-PK properties 

@@ -8,9 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
 
@@ -59,7 +57,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
             {
                 // This occurs when there is no authorization metadata configured.
                 // Translate it to an exception that will result in a 500 status with message.
-                throw new ApiSecurityConfigurationException(ex.Message);
+                throw new SecurityConfigurationException(
+                    "A problem with the security configuration has been detected. The request cannot be authorized.",
+                    ex.Message); // Multiple resource claims with the same name found in security metadata
             }
 
             if (!resourceClaimNameLineage.Any())

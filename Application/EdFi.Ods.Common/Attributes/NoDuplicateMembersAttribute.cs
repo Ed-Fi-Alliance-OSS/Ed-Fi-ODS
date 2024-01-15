@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes;
 
@@ -30,8 +32,11 @@ public sealed class NoDuplicateMembersAttribute : ValidationAttribute
             {
                 if (!enumerableHashSet.Add(item))
                 {
+                    var errorMessage = $"The {Inflector.AddOrdinalSuffix(itemNumber.ToString())} item of the {validationContext.DisplayName} has the same identifying values as another item earlier in the list.";
+
                     return new ValidationResult(
-                        $"The {Inflector.AddOrdinalSuffix(itemNumber.ToString())} item of the {validationContext.DisplayName} collection is a duplicate.");
+                        errorMessage,
+                        new[] { validationContext.MemberNamePath() });
                 }
             }
 

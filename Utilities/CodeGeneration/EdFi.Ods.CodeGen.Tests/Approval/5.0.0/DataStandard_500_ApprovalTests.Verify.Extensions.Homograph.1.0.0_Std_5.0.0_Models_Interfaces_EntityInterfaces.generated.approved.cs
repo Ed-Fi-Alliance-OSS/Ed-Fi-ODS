@@ -18,9 +18,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContact : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string ContactFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string ContactLastSurname { get; set; }
 
         // Non-PK properties
@@ -44,18 +44,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public ContactMappingContract(
             bool isContactAddressesSupported,
+            bool isContactNameReferenceSupported,
             bool isContactStudentSchoolAssociationsSupported,
             Func<IContactAddress, bool> isContactAddressIncluded,
             Func<IContactStudentSchoolAssociation, bool> isContactStudentSchoolAssociationIncluded
             )
         {
             IsContactAddressesSupported = isContactAddressesSupported;
+            IsContactNameReferenceSupported = isContactNameReferenceSupported;
             IsContactStudentSchoolAssociationsSupported = isContactStudentSchoolAssociationsSupported;
             IsContactAddressIncluded = isContactAddressIncluded;
             IsContactStudentSchoolAssociationIncluded = isContactStudentSchoolAssociationIncluded;
         }
 
         public bool IsContactAddressesSupported { get; }
+        public bool IsContactNameReferenceSupported { get; }
         public bool IsContactStudentSchoolAssociationsSupported { get; }
         public Func<IContactAddress, bool> IsContactAddressIncluded { get; }
         public Func<IContactStudentSchoolAssociation, bool> IsContactStudentSchoolAssociationIncluded { get; }
@@ -66,8 +69,15 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "ContactAddresses":
                     return IsContactAddressesSupported;
+                case "ContactNameReference":
+                    return IsContactNameReferenceSupported;
                 case "ContactStudentSchoolAssociations":
                     return IsContactStudentSchoolAssociationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ContactFirstName":
+                    return true;
+                case "ContactLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -81,9 +91,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContactAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContact Contact { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -111,6 +120,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "City":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -124,13 +136,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IContactStudentSchoolAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IContact Contact { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -151,15 +162,27 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class ContactStudentSchoolAssociationMappingContract : IMappingContract
     {
         public ContactStudentSchoolAssociationMappingContract(
+            bool isStudentSchoolAssociationReferenceSupported
             )
         {
+            IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
         }
 
+        public bool IsStudentSchoolAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentSchoolAssociationReference":
+                    return IsStudentSchoolAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolName":
+                    return true;
+                case "StudentFirstName":
+                    return true;
+                case "StudentLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -173,9 +196,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IName : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string FirstName { get; set; }
-        [NaturalKeyMember]
+        
         string LastSurname { get; set; }
 
         // Non-PK properties
@@ -203,6 +226,11 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "FirstName":
+                    return true;
+                case "LastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -216,7 +244,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchool : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
 
         // Non-PK properties
@@ -241,15 +269,18 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public SchoolMappingContract(
             bool isSchoolAddressSupported,
-            bool isSchoolYearSupported
+            bool isSchoolYearSupported,
+            bool isSchoolYearTypeReferenceSupported
             )
         {
             IsSchoolAddressSupported = isSchoolAddressSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
         }
 
         public bool IsSchoolAddressSupported { get; }
         public bool IsSchoolYearSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -259,6 +290,11 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return IsSchoolAddressSupported;
                 case "SchoolYear":
                     return IsSchoolYearSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolName":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -272,7 +308,6 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchoolAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         ISchool School { get; set; }
 
         // Non-PK properties
@@ -306,6 +341,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "City":
                     return IsCitySupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -319,7 +355,7 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface ISchoolYearType : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolYear { get; set; }
 
         // Non-PK properties
@@ -347,6 +383,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolYear":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -360,9 +399,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaff : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string StaffFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StaffLastSurname { get; set; }
 
         // Non-PK properties
@@ -386,18 +425,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public StaffMappingContract(
             bool isStaffAddressesSupported,
+            bool isStaffNameReferenceSupported,
             bool isStaffStudentSchoolAssociationsSupported,
             Func<IStaffAddress, bool> isStaffAddressIncluded,
             Func<IStaffStudentSchoolAssociation, bool> isStaffStudentSchoolAssociationIncluded
             )
         {
             IsStaffAddressesSupported = isStaffAddressesSupported;
+            IsStaffNameReferenceSupported = isStaffNameReferenceSupported;
             IsStaffStudentSchoolAssociationsSupported = isStaffStudentSchoolAssociationsSupported;
             IsStaffAddressIncluded = isStaffAddressIncluded;
             IsStaffStudentSchoolAssociationIncluded = isStaffStudentSchoolAssociationIncluded;
         }
 
         public bool IsStaffAddressesSupported { get; }
+        public bool IsStaffNameReferenceSupported { get; }
         public bool IsStaffStudentSchoolAssociationsSupported { get; }
         public Func<IStaffAddress, bool> IsStaffAddressIncluded { get; }
         public Func<IStaffStudentSchoolAssociation, bool> IsStaffStudentSchoolAssociationIncluded { get; }
@@ -408,8 +450,15 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "StaffAddresses":
                     return IsStaffAddressesSupported;
+                case "StaffNameReference":
+                    return IsStaffNameReferenceSupported;
                 case "StaffStudentSchoolAssociations":
                     return IsStaffStudentSchoolAssociationsSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "StaffFirstName":
+                    return true;
+                case "StaffLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -423,9 +472,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaffAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaff Staff { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -453,6 +501,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "City":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -466,13 +517,12 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStaffStudentSchoolAssociation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStaff Staff { get; set; }
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -493,15 +543,27 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class StaffStudentSchoolAssociationMappingContract : IMappingContract
     {
         public StaffStudentSchoolAssociationMappingContract(
+            bool isStudentSchoolAssociationReferenceSupported
             )
         {
+            IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
         }
 
+        public bool IsStudentSchoolAssociationReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "StudentSchoolAssociationReference":
+                    return IsStudentSchoolAssociationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolName":
+                    return true;
+                case "StudentFirstName":
+                    return true;
+                case "StudentLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -515,9 +577,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -544,15 +606,21 @@ namespace EdFi.Ods.Entities.Common.Homograph
     {
         public StudentMappingContract(
             bool isSchoolYearSupported,
-            bool isStudentAddressSupported
+            bool isSchoolYearTypeReferenceSupported,
+            bool isStudentAddressSupported,
+            bool isStudentNameReferenceSupported
             )
         {
             IsSchoolYearSupported = isSchoolYearSupported;
+            IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsStudentAddressSupported = isStudentAddressSupported;
+            IsStudentNameReferenceSupported = isStudentNameReferenceSupported;
         }
 
         public bool IsSchoolYearSupported { get; }
+        public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsStudentAddressSupported { get; }
+        public bool IsStudentNameReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -560,8 +628,17 @@ namespace EdFi.Ods.Entities.Common.Homograph
             {
                 case "SchoolYear":
                     return IsSchoolYearSupported;
+                case "SchoolYearTypeReference":
+                    return IsSchoolYearTypeReferenceSupported;
                 case "StudentAddress":
                     return IsStudentAddressSupported;
+                case "StudentNameReference":
+                    return IsStudentNameReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "StudentFirstName":
+                    return true;
+                case "StudentLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -575,9 +652,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudentAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         IStudent Student { get; set; }
-        [NaturalKeyMember]
+        
         string City { get; set; }
 
         // Non-PK properties
@@ -605,6 +681,9 @@ namespace EdFi.Ods.Entities.Common.Homograph
         {
             switch (memberName)
             {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "City":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -618,11 +697,11 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public interface IStudentSchoolAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string SchoolName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentFirstName { get; set; }
-        [NaturalKeyMember]
+        
         string StudentLastSurname { get; set; }
 
         // Non-PK properties
@@ -645,15 +724,32 @@ namespace EdFi.Ods.Entities.Common.Homograph
     public class StudentSchoolAssociationMappingContract : IMappingContract
     {
         public StudentSchoolAssociationMappingContract(
+            bool isSchoolReferenceSupported,
+            bool isStudentReferenceSupported
             )
         {
+            IsSchoolReferenceSupported = isSchoolReferenceSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
         }
 
+        public bool IsSchoolReferenceSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "SchoolReference":
+                    return IsSchoolReferenceSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SchoolName":
+                    return true;
+                case "StudentFirstName":
+                    return true;
+                case "StudentLastSurname":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

@@ -992,14 +992,24 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
-									"    pm.expect(pm.response.code).to.equal(400);",
+									"  pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(pm.response.code).equal(problemDetails.status);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
 									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
-									"    ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"Validation of \\'AcademicWeek\\' failed\");",
-									"     pm.expect(responseItem.message).to.include(\"WeekIdentifier is required\");",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equals({",
+									"    \"$.weekIdentifier\": [",
+									"      \"WeekIdentifier is required.\",",
+									"      \"WeekIdentifier must be between 5 and 80 characters in length.\"",
+									"    ]",
+									"  });",
 									"});",
 									""
 								],
@@ -1048,7 +1058,7 @@
 									"",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"pm.environment.set(\"known:weekIdentifier\", \"ABCDE\" + __.random(70).toString());",
 									"",
 									"const moment = require('moment');",
 									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
@@ -1070,18 +1080,24 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response is 403 or 400\", () => {",
-									"    pm.expect(pm.response.code).to.be.oneOf([403, 400]) ",
-									" });",
+									"pm.test(\"Response code is 400\", () => {",
+									"  pm.expect(pm.response.code).to.equal(400);",
+									"});",
 									"",
-									"pm.test(\"Should return the item with SchoolId of the resource is empty string\", function () {",
-									"    const responseItem = pm.response.json();",
-									"    const expectedErrorMessage1 = \"Access to the resource item could not be authorized because the 'SchoolId' of the resource is empty.\";",
-									"    const expectedErrorMessage2 = \"The request is invalid.\";",
-									"    pm.expect(responseItem.message).to.satisfy(function (message) {",
-									"        return message === expectedErrorMessage1 || message === expectedErrorMessage2;",
-									"    });",
-									"});"
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(pm.response.code).equal(problemDetails.status);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+									"});",
+									"",
+									"/*",
+									"// TODO: ",
+									"pm.test(\"Should indicate problem converting empty string to SchoolId value\", function () {",
+									"  pm.expect(problemDetails.validationErrors[\"$.schoolReference\"]).to.contain(\"SchoolReference is missing the following properties: SchoolId\");",
+									"});",
+									"*/"
 								],
 								"type": "text/javascript"
 							}
@@ -1099,7 +1115,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
+							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
@@ -1153,14 +1169,21 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
+									"const problemDetails = pm.response.json();",
 									"",
-									"pm.test(\"Should returns the item with String was not recognized as a valid date string\", () => {",
-									"     ",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"The request is invalid\");",
-									"     pm.expect(responseItem.modelState[\"request.beginDate\"][0]).to.include(\"The supplied value is invalid\");",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
-									""
+									"",
+									"pm.test(\"Should indicate problem converting empty string to BeginDate value\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"    \"$.beginDate\": [",
+									"      \"The supplied value is invalid.\"",
+									"    ]",
+									"  });",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1230,11 +1253,20 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with String was not recognized as a valid date string\", () => {",
-									"     ",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"The request is invalid\");",
-									"     pm.expect(responseItem.modelState[\"request.endDate\"][0]).to.include(\"The supplied value is invalid\");",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(pm.response.code).equal(problemDetails.status);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+									"});",
+									"",
+									"pm.test(\"Should indicate problem converting empty string to EndDate value\", function () {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"    \"$.endDate\": [",
+									"      \"The supplied value is invalid.\"",
+									"    ]",
+									"  });",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1281,7 +1313,7 @@
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"",
 									"const moment = require('moment');",
 									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
@@ -1304,11 +1336,18 @@
 									"    pm.expect(pm.response.code).to.equal(403);",
 									"});",
 									"",
-									"const responseItem = pm.response.json();",
+									"const problemDetails = pm.response.json();",
 									"",
-									"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-									"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901) and the resource item's 'SchoolId' value.\");",
-									"});"
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).to.equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+									"});",
+									"",
+									"pm.test(\"Should indicate authorization failure related to the SchoolId value\", () => {",
+									"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\([\\d\\s,]+\\) and the resource item's 'SchoolId' value./);",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1355,7 +1394,7 @@
 									"",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"pm.environment.set(\"known:totalInstructionalDays\",__.random(70));"
 								],
 								"type": "text/javascript"
@@ -1366,17 +1405,31 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
-									"    pm.expect(pm.response.code).to.equal(400);",
+									"  pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be required and not default\", () => {",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"BeginDate is required.\");",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).to.equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be required and not default\", () => {",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"EndDate is required.\");",
+									"pm.test(\"Should return the item with BeginDate must be required\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+									"    \"$.beginDate\": [",
+									"      \"BeginDate is required.\"",
+									"    ]",
+									"  });",
+									"});",
+									"",
+									"pm.test(\"Should return the item with EndDate must be required\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+									"    \"$.endDate\": [",
+									"      \"EndDate is required.\"",
+									"    ]",
+									"  });",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1768,10 +1821,20 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item  with String was not recognized as a valid date string\", () => {",
-									"     ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.modelState[\"request.beginDate\"][0]).to.include(\"The supplied value is invalid\");",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+									"});",
+									"",
+									"pm.test(\"Should indicate problem converting empty string to BeginDate value\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"    \"$.beginDate\": [",
+									"      \"The supplied value is invalid.\"",
+									"    ]",
+									"  });",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1837,11 +1900,22 @@
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
-									"pm.test(\"Should return the item  with String was not recognized as a valid date String\", () => {",
-									"     ",
-									"      const responseItem = pm.response.json();",
-									"      pm.expect(responseItem.modelState[\"request.endDate\"][0]).to.include(\"The supplied value is invalid\");",
-									"}); "
+									"",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+									"});",
+									"",
+									"pm.test(\"Should indicate problem converting empty string to EndDate value\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"    \"$.endDate\": [",
+									"      \"The supplied value is invalid.\"",
+									"    ]",
+									"  });",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1900,14 +1974,28 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be required and not default\", () => {",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"BeginDate is required.\");",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).to.equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be required and not default\", () => {",
-									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"EndDate is required.\");",
+									"pm.test(\"Should return the item with BeginDate must be required\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+									"    \"$.beginDate\": [",
+									"      \"BeginDate is required.\"",
+									"    ]",
+									"  });",
+									"});",
+									"",
+									"pm.test(\"Should return the item with EndDate must be required\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+									"    \"$.endDate\": [",
+									"      \"EndDate is required.\"",
+									"    ]",
+									"  });",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1967,9 +2055,16 @@
 									"  pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(problemDetails.status).to.equal(pm.response.code);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"});",
+									"",
 									"pm.test(\"Should return message indicating key value cannot be changed\", () => {",
 									"  const responseItem = pm.response.json();",
-									"  pm.expect(responseItem.message).to.include(\"Key values for this resource cannot be changed.\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the AcademicWeek resource cannot be changed. Delete and recreate the resource item instead.\");",
 									"});",
 									""
 								],
@@ -6302,10 +6397,26 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'ChartOfAccount' are not consistent: fiscalYear = 2022, functionDimensionReference.fiscalYear = 2019\");\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'\"\r",
+													"    ]\r",
+													"  });\r",
+													"\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.functionDimensionReference.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6374,10 +6485,32 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'ChartOfAccount' are not consistent: fiscalYear = 2022, balanceSheetDimensionReference.fiscalYear = 2022, functionDimensionReference.fiscalYear = 2019\");\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
+													"    ]\r",
+													"  });\r",
+													"\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.functionDimensionReference.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
+													"    ]\r",
+													"  });\r",
+													"\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.balanceSheetDimensionReference.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6446,15 +6579,21 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that FiscalYear was not explicitly assigned\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"    const responseItem = pm.response.json();\r",
-													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
-													"    pm.expect(responseItem.message).to.satisfy(function (message) {\r",
-													"        return (message === expectedErrorMessage1);\r",
-													"    });\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"FiscalYear must be between 2020 and 2040.\",\r",
+													"      \"Value is required.\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6523,15 +6662,21 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that FiscalYear was not explicitly assigned\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"    const responseItem = pm.response.json();\r",
-													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
-													"    pm.expect(responseItem.message).to.satisfy(function (message) {\r",
-													"        return (message === expectedErrorMessage1);\r",
-													"    });\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"FiscalYear must be between 2020 and 2040.\",\r",
+													"      \"Value is required.\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6600,15 +6745,21 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that FiscalYear was not explicitly assigned\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"    const responseItem = pm.response.json();\r",
-													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
-													"    pm.expect(responseItem.message).to.satisfy(function (message) {\r",
-													"        return (message === expectedErrorMessage1);\r",
-													"    });\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
+													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"FiscalYear must be between 2020 and 2040.\",\r",
+													"      \"Value is required.\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6682,15 +6833,22 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that ChartOfAccountReference is required\", () => {\r",
-													"  const responseItem = pm.response.json();\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"  pm.expect(responseItem.modelState).to.deep.equal({\r",
-													"    \"request.ChartOfAccountReference\": [\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return a message indicating that ChartOfAccountReference is required\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.chartOfAccountReference\": [\r",
 													"      \"ChartOfAccountReference is required.\"\r",
 													"    ]\r",
 													"  });\r",
-													"});"
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -6883,10 +7041,27 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'LocalAccount' are not consistent: fiscalYear = 2019, chartOfAccountReference.fiscalYear = 2022\");\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"FiscalYear must be between 2020 and 2040.\",\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2019', '2022'\"\r",
+													"    ]\r",
+													"  });\r",
+													"\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+													"    \"$.chartOfAccountReference.fiscalYear\": [\r",
+													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2019', '2022'\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6955,14 +7130,21 @@
 													"  pm.expect(pm.response.code).to.equal(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Should return a message indicating that FiscalYear was not explicitly assigned\", () => {\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
-													"    const responseItem = pm.response.json();\r",
-													"    const expectedErrorMessage1 = \"The request is invalid.\";\r",
-													"    pm.expect(responseItem.message).to.equal(expectedErrorMessage1);\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
 													"\r",
-													"    pm.expect(responseItem.modelState[\"request.FiscalYear\"][0]).to.equal(\"Required\");\r",
-													"\r",
+													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.fiscalYear\": [\r",
+													"      \"FiscalYear must be between 2020 and 2040.\",\r",
+													"      \"Value is required.\"\r",
+													"    ]\r",
+													"  });\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7420,8 +7602,197 @@
 			"name": "Data Validation",
 			"item": [
 				{
+					"name": "Required",
+					"item": [
+						{
+							"name": "On Child Collection Items",
+							"item": [
+								{
+									"name": "Create StudentEdOrgAssociation with missing required property",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should include validation errors for non-existing descriptor value in child collection.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.addresses[0].city\"]).to.match(/City is required./);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604824\"\r\n  },\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Home\",\r\n      \"postalCode\": \"78834\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"980 Green New Boulevard\",\r\n      \"nameOfCounty\": \"WILLISTON\",\r\n      \"periods\": [\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"}\r\n      ]\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "String Length",
 					"item": [
+						{
+							"name": "On Child Collection Items",
+							"item": [
+								{
+									"name": "Create StudentEdOrgAssociation with City that is too long",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should include validation errors for non-existing descriptor value in child collection.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.addresses[0].city\"]).to.match(/City must be between 2 and 30 characters in length./);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604824\"\r\n  },\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Home\",\r\n      \"postalCode\": \"78834\",\r\n      \"city\": \"X\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"980 Green New Boulevard\",\r\n      \"nameOfCounty\": \"WILLISTON\",\r\n      \"periods\": [\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"}\r\n      ]\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "On Embedded Object",
+							"item": [
+								{
+									"name": "Create LearningStandard with ContentStandard Title and Author name too long",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should include validation errors for string properties too long on embedded object and it's child collection item.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+													"    \"$.contentStandard.title\": [\r",
+													"      \"Title must be between 1 and 75 characters in length.\"\r",
+													"    ],\r",
+													"    \"$.contentStandard.authors[0].author\": [\r",
+													"      \"Author must be between 1 and 100 characters in length.\"\r",
+													"    ]\r",
+													"  });\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"contentStandard\": {\r\n    \"title\": \"State Standard with a Very Long Name that Actually Exceeds 75 characters in Length\",\r\n    \"authors\": [\r\n      {\r\n        \"author\": \"John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt John Jacob Jingleheimer Schmidt Jingleheimer Schmidt\"\r\n      }\r\n    ]\r\n  },\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"learningStandards"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Create Staff with Pet with name too short",
 							"event": [
@@ -7433,10 +7804,16 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
-											"  const message = pm.response.json().message;\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"  pm.expect(message).to.contain(\"The field PetName must be a string with a minimum length of 3 and a maximum length of 20.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.pets[0].petName\"]).to.match(/PetName must be between 3 and 20 characters in length./);\r",
 											"});\r",
 											""
 										],
@@ -7482,10 +7859,16 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
-											"  const message = pm.response.json().message;\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"  pm.expect(message).to.contain(\"The field PetName must be a string with a minimum length of 3 and a maximum length of 20.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.pets[0].petName\"]).to.match(/PetName must be between 3 and 20 characters in length./);\r",
 											"});\r",
 											""
 										],
@@ -7630,10 +8013,20 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Should indicate that the LearningStandard is required\", () => {\r",
-															"  const message = pm.response.json().message;\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"  pm.expect(message).to.contain(\"The LearningStandardContentStandard field is required.\");\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate that the ContentStandard is required\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+															"    \"$.contentStandard\": [\r",
+															"      \"LearningStandardContentStandard is required.\"\r",
+															"    ]\r",
+															"  });\r",
 															"});\r",
 															""
 														],
@@ -7999,9 +8392,15 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const parentOrContactProperName = pm.environment.get('parentOrContactProperName');\r",
+															"const parentOrContactProperName = pm.environment.get('ParentOrContactProperName');\r",
 															"\r",
-															"const message = pm.response.json().message;\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
 															"\r",
 															"/*\r",
 															"    string FavoriteBookTitle\r",
@@ -8010,7 +8409,8 @@
 															"        max length 100\r",
 															"*/\r",
 															"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
-															"  pm.expect(message).to.contain(`FavoriteBookTitles (Sample) requires at least one object in the collection.`);\r",
+															"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.favoriteBookTitles\"]).to.contain(\r",
+															"    `${parentOrContactProperName}FavoriteBookTitles must have at least one item.`);\r",
 															"});\r",
 															"\r",
 															"/*\r",
@@ -8019,7 +8419,7 @@
 															"        is optional collection\r",
 															"*/\r",
 															"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
-															"  pm.expect(message).to.not.contain(`${parentOrContactProperName}Authors (Sample)`);\r",
+															"  pm.expect(Object.keys(problemDetails.validationErrors)).to.not.contain(\"$._ext.sample.authors\");\r",
 															"});\r",
 															""
 														],
@@ -8075,33 +8475,39 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"pm.test(\"Response is  400\", () => {\r",
+															"pm.test(\"Response is 400\", () => {\r",
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
 															"const parentOrContactProperName = pm.environment.get('ParentOrContactProperName');\r",
 															"\r",
-															"if (pm.response.code === 400) {\r",
-															"  const message = pm.response.json().message;\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"  /*\r",
-															"      common TeacherConference\r",
-															"          documentation \"The contact's preferred day of the week and time for contact-teacher conferences.\"\r",
-															"          is required\r",
-															"  */\r",
-															"  pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
-															"    pm.expect(message).to.contain(`${parentOrContactProperName}TeacherConference (Sample) is required.`);\r",
-															"  });\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
 															"\r",
-															"  /*\r",
-															"      common EdFi.CTEProgram\r",
-															"          documentation \"A CTE program the contact has completed.\"\r",
-															"          is optional\r",
-															"  */\r",
-															"  pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
-															"    pm.expect(message).to.not.contain(`${parentOrContactProperName}CTEProgram (Sample)`);\r",
-															"  });\r",
-															"}"
+															"/*\r",
+															"    common TeacherConference\r",
+															"        documentation \"The contact's preferred day of the week and time for contact-teacher conferences.\"\r",
+															"        is required\r",
+															"*/\r",
+															"pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.teacherConference\"]).to.contain(\r",
+															"    `${parentOrContactProperName}TeacherConference is required.`);\r",
+															"});\r",
+															"\r",
+															"/*\r",
+															"    common EdFi.CTEProgram\r",
+															"        documentation \"A CTE program the contact has completed.\"\r",
+															"        is optional\r",
+															"*/\r",
+															"pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
+															"  pm.expect(Object.keys(problemDetails.validationErrors)).to.not.contain(\"$._ext.sample.cteProgram\");\r",
+															"});\r",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -8290,23 +8696,23 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Response is  400\", () => {\r",
-															"    pm.expect(pm.response.code).to.equal(400);\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const response = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Message indicates the request is invalid.\", () => {\r",
-															"    pm.expect(response.message).to.equal(\"The request is invalid.\");\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Validation error indicates which properties are missing from the reference.\", () => {\r",
-															"    pm.expect(response.modelState).to.deep.contain(\r",
-															"        {\r",
-															"            \"request.CourseReference\": [\r",
-															"                \"CourseReference is required.\"\r",
-															"            ]\r",
-															"        }\r",
-															"    );\r",
+															"pm.test(\"Validation error indicates the reference is missing.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+															"    \"$.courseReference\": [\r",
+															"      \"CourseReference is required.\"\r",
+															"    ]\r",
+															"  });\r",
 															"});\r",
 															""
 														],
@@ -8352,22 +8758,21 @@
 															"    pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const response = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Message indicates the request is invalid.\", () => {\r",
-															"    pm.expect(response.message).to.equal(\"The request is invalid.\");\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Validation error indicates which properties are missing from the reference.\", () => {\r",
-															"    pm.expect(response.modelState).to.deep.contain(\r",
-															"        {\r",
-															"            \"request.GradeLearningStandardGrades[0].LearningStandardReference\": [\r",
-															"                \"LearningStandardReference is required.\"\r",
-															"            ]\r",
-															"        }\r",
-															"    );\r",
-															"});\r",
-															""
+															"pm.test(\"Validation error indicates the reference on the child collection item is required.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+															"    \"$.learningStandardGrades[0].learningStandardReference\": [\r",
+															"      \"LearningStandardReference is required.\"\r",
+															"    ]\r",
+															"  });\r",
+															"});"
 														],
 														"type": "text/javascript"
 													}
@@ -8526,21 +8931,21 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const response = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Message indicates the request is invalid.\", () => {\r",
-															"  pm.expect(response.message).to.equal(\"The request is invalid.\");\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 															"});\r",
 															"\r",
 															"pm.test(\"Validation error indicates which properties are missing from the reference.\", () => {\r",
-															"  pm.expect(response.modelState).to.deep.contain(\r",
-															"    {\r",
-															"      \"request.CourseOfferingReference\": [\r",
-															"        \"CourseOfferingReference is missing the following properties: SchoolId, SchoolYear\"\r",
-															"      ]\r",
-															"    });\r",
+															"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+															"    \"$.courseOfferingReference\": [\r",
+															"      \"CourseOfferingReference is missing the following properties: SchoolId, SchoolYear\"\r",
+															"    ]\r",
+															"  });\r",
 															"});\r",
-															"\r",
 															""
 														],
 														"type": "text/javascript"
@@ -8585,19 +8990,20 @@
 															"  pm.expect(pm.response.code).to.equal(400);\r",
 															"});\r",
 															"\r",
-															"const response = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
-															"pm.test(\"Message indicates the request is invalid.\", () => {\r",
-															"  pm.expect(response.message).to.equal(\"The request is invalid.\");\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 															"});\r",
 															"\r",
 															"pm.test(\"Validation error indicates which properties are missing from the reference.\", () => {\r",
-															"  pm.expect(response.modelState).to.deep.equal(\r",
-															"    {\r",
-															"      \"request.BellScheduleClassPeriods[1].ClassPeriodReference\": [\r",
-															"        \"ClassPeriodReference is missing the following properties: ClassPeriodName\"\r",
-															"      ]\r",
-															"    });\r",
+															"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
+															"    \"$.classPeriods[1].classPeriodReference\": [\r",
+															"      \"ClassPeriodReference is missing the following properties: ClassPeriodName\"\r",
+															"    ]\r",
+															"  });\r",
 															"});\r",
 															""
 														],
@@ -8633,7 +9039,7 @@
 											"response": []
 										},
 										{
-											"name": "Clean up Environment Variables Copy",
+											"name": "Clean up Environment Variables",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -8664,6 +9070,70 @@
 											"response": []
 										}
 									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Descriptor Usage",
+					"item": [
+						{
+							"name": "On Child Collection Items",
+							"item": [
+								{
+									"name": "Create StudentEdOrgAssociation with non-existing descriptor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a problem details result\", () => {\r",
+													"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should include validation errors for non-existing descriptor value in child collection.\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.addresses[0].stateAbbreviationDescriptor\"]).to.match(/^StateAbbreviationDescriptor value 'uri:\\/\\/ed-fi.org\\/StateAbbreviationDescriptor#XYZ' does not exist.$/);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604824\"\r\n  },\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Home\",\r\n      \"city\": \"Grand Bend\",\r\n      \"postalCode\": \"78834\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#XYZ\",\r\n      \"streetNumberName\": \"980 Green New Boulevard\",\r\n      \"nameOfCounty\": \"WILLISTON\",\r\n      \"periods\": [\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"}\r\n      ]\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentEducationOrganizationAssociations"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}
@@ -9164,22 +9634,24 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"const error = pm.response.json();\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
-											"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
-											"  pm.expect(error.modelState).to.deep.include({\r",
-											"    \"request.AssessmentScores\": [\r",
-											"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
+											"pm.test(\"Should include validation errors for duplicate items in collections.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.scores\": [\r",
+											"      \"The 2nd item of the AssessmentScores has the same identifying values as another item earlier in the list.\"\r",
 											"    ],\r",
-											"    \"request.AssessmentAcademicSubjects\": [\r",
-											"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
+											"    \"$.academicSubjects\": [\r",
+											"      \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
 											"    ],\r",
-											"    \"request.AssessmentAssessedGradeLevels\": [\r",
-											"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
+											"    \"$.assessedGradeLevels\": [\r",
+											"      \"The 3rd item of the AssessmentAssessedGradeLevels has the same identifying values as another item earlier in the list.\"\r",
 											"    ]\r",
 											"  });\r",
 											"});"
@@ -9210,6 +9682,114 @@
 										"v3",
 										"ed-fi",
 										"assessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create student edorg association with duplicate child collection items",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include validation errors for duplicate items in child collection.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors[\"$.addresses[0].periods\"]).to.match(/^The 2nd item of the StudentEducationOrganizationAssociationAddressPeriods has the same identifying values as another item earlier in the list./);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604824\"\r\n  },\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Home\",\r\n      \"city\": \"Grand Bend\",\r\n      \"postalCode\": \"78834\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"980 Green New Boulevard\",\r\n      \"nameOfCounty\": \"WILLISTON\",\r\n      \"periods\": [\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"},\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"}\r\n      ]\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentEducationOrganizationAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create student edorg association with trailing spaces on key property on a child collection item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include validation errors for non-existing descriptor value in child collection.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors[\"$.addresses[0].city\"]).to.match(/^City cannot contain leading or trailing spaces./);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"604824\"\r\n  },\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Home\",\r\n      \"postalCode\": \"78834\",\r\n      \"city\": \"Somewhere \",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"streetNumberName\": \"980 Green New Boulevard\",\r\n      \"nameOfCounty\": \"WILLISTON\",\r\n      \"periods\": [\r\n        {\"beginDate\": \"2020-02-20\", \"endDate\": \"2020-03-20\"}\r\n      ]\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentEducationOrganizationAssociations"
 									]
 								}
 							},
@@ -9270,22 +9850,30 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"const error = pm.response.json();\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Message should indicate the request is invalid.\", () => {\r",
-											"  pm.expect(error.message).to.equal(\"The request is invalid.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Model state should include validation messages for duplicate items in collections.\", () => {\r",
-											"  pm.expect(error.modelState).to.deep.include({\r",
-											"    \"request.AssessmentScores\": [\r",
-											"      \"The 2nd item of the AssessmentScores collection is a duplicate.\"\r",
-											"    ],\r",
-											"    \"request.AssessmentAcademicSubjects\": [\r",
-											"      \"The 3rd item of the AssessmentAcademicSubjects collection is a duplicate.\"\r",
-											"    ],\r",
-											"    \"request.AssessmentAssessedGradeLevels\": [\r",
-											"      \"The 3rd item of the AssessmentAssessedGradeLevels collection is a duplicate.\"\r",
+											"pm.test(\"Should include validation errors for duplicate items in all child collections.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.scores\": [\r",
+											"      \"The 2nd item of the AssessmentScores has the same identifying values as another item earlier in the list.\"\r",
+											"    ]\r",
+											"  });\r",
+											"\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.academicSubjects\": [\r",
+											"      \"The 3rd item of the AssessmentAcademicSubjects has the same identifying values as another item earlier in the list.\"\r",
+											"    ]\r",
+											"  });\r",
+											"\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.assessedGradeLevels\": [\r",
+											"      \"The 3rd item of the AssessmentAssessedGradeLevels has the same identifying values as another item earlier in the list.\"\r",
 											"    ]\r",
 											"  });\r",
 											"});"
@@ -9337,18 +9925,26 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+											"});\r",
+											"\r",
 											"pm.test(\"Base type collection duplicates should be detected\", () => {\r",
-											"  pm.expect(pm.response.json().modelState).to.deep.contain({\r",
-											"    \"request.EducationOrganizationCategories\": [\r",
-											"      \"The 2nd item of the EducationOrganizationCategories collection is a duplicate.\"\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.educationOrganizationCategories\": [\r",
+											"      \"The 2nd item of the EducationOrganizationCategories has the same identifying values as another item earlier in the list.\"\r",
 											"    ]\r",
 											"  });\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Derived type collection duplicates should be detected\", () => {\r",
-											"  pm.expect(pm.response.json().modelState).to.deep.contain({\r",
-											"    \"request.SchoolGradeLevels\": [\r",
-											"      \"The 2nd item of the SchoolGradeLevels collection is a duplicate.\"\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$.gradeLevels\": [\r",
+											"      \"The 2nd item of the SchoolGradeLevels has the same identifying values as another item earlier in the list.\"\r",
 											"    ]\r",
 											"  });\r",
 											"});\r",
@@ -9401,18 +9997,20 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"const error = pm.response.json();\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Message should indicate that validation of the Extensions failed.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"Validation of 'Extensions' failed.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Message should indicate that validation of the Sample StaffExtension failed.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"StaffExtension (Sample):\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Messages should indicate the extension collection has a duplicate at item 4 in collection.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"The 4th item of the StaffPets collection is a duplicate.\");\r",
+											"pm.test(\"Should include validation errors that the extension collection has a duplicate at item 4 in collection.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$._ext.sample.pets\": [\r",
+											"      \"The 4th item of the StaffPets has the same identifying values as another item earlier in the list.\"\r",
+											"    ]\r",
+											"  });\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -9556,22 +10154,20 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"const error = pm.response.json();\r",
+											"const problemDetails = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Message should indicate that the request is invalid.\", () => {\r",
-											"  pm.expect(error.message).to.contain(\"The request is invalid.\");\r",
+											"pm.test(\"Should return a problem details result\", () => {\r",
+											"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Message should indicate that validation of the Extensions failed.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"Validation of 'Extensions' failed.\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Message should indicate that validation of the Sample StaffExtension failed.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"StaffExtension (Sample)\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Messages should indicate the extension collection has a duplicate at item 4 in collection.\", () => {\r",
-											"  pm.expect(error.modelState[\"request.Extensions\"][0]).to.contain(\"The 4th item of the StaffPets collection is a duplicate.\");\r",
+											"pm.test(\"Should include validation errors that the extension collection has a duplicate at item 4 in collection.\", () => {\r",
+											"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
+											"    \"$._ext.sample.pets\": [\r",
+											"      \"The 4th item of the StaffPets has the same identifying values as another item earlier in the list.\"\r",
+											"    ]\r",
+											"  });\r",
 											"});"
 										],
 										"type": "text/javascript"

@@ -7,84 +7,63 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
-using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Entities.Common.EdFi;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Array = System.Array;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 {
     [TestFixture]
     public class DataAnnotationsEntityValidatorTests
     {
-        private readonly DataAnnotationsEntityValidator validator = new DataAnnotationsEntityValidator();
-        private ICollection<ValidationResult> validationResults;
+        private DataAnnotationsResourceValidator _validator;
+        private ICollection<ValidationResult> _validationResults;
 
-        private class DataAnnotatedProperty
+        private class DataAnnotatedProperty : IValidatableObject
         {
             [Required]
             public string RequiredProperty { get; set; }
+
+            public bool ValidateInvoked { get; set; }
+            
+            public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+            {
+                ValidateInvoked = true;
+
+                return Array.Empty<ValidationResult>();
+            }
         }
 
-        private class DataAnnotatedClass
+        [OneTimeSetUp]
+        public void Setup()
         {
-            [ValidateObject]
-            public DataAnnotatedProperty Property { get; set; }
-        }
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
 
-        private class DataAnnotatedCollectionClass
-        {
-            [ValidateEnumerable]
-            public IEnumerable<DataAnnotatedClass> PropertyList { get; set; }
+            _validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
         }
-
+        
         [Test]
         public void When_validating_object_with_data_annotation_should_validate_and_raise_error()
         {
             var objectToValidate = new DataAnnotatedProperty();
 
-            validationResults = validator.ValidateObject(objectToValidate);
+            _validationResults = _validator.ValidateObject(objectToValidate);
 
-            validationResults.Count.ShouldBe(1);
-        }
-
-        [Test]
-        public void When_validating_object_with_validateEnumerableAttribute_should_validate_items_in_enumeration_and_raise_error()
-        {
-            var list = new List<DataAnnotatedClass>
-            {
-                new DataAnnotatedClass
-                {
-                    Property = new DataAnnotatedProperty()
-                }
-            };
-
-            var objectToValidate = new DataAnnotatedCollectionClass
-            {
-                PropertyList = list
-            };
-
-            validationResults = validator.ValidateObject(objectToValidate);
-
-            validationResults.Count.ShouldBe(1);
-        }
-
-        [Test]
-        public void When_validating_object_with_validationObjectAttribute_should_validate_recursively_and_raise_error()
-        {
-            var objectToValidate = new DataAnnotatedClass
-            {
-                Property = new DataAnnotatedProperty()
-            };
-
-            validationResults = validator.ValidateObject(objectToValidate);
-
-            validationResults.Count.ShouldBe(1);
+            _validationResults.Count.ShouldBe(1);
+            objectToValidate.ValidateInvoked.ShouldBeTrue();
         }
 
         [Test]
@@ -93,15 +72,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             GeneratedArtifactStaticDependencies.Resolvers.Set(() => new ContextProvider<UsiLookupsByUniqueIdContext>(new CallContextStorage()));
             GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Set(new UsiLookupsByUniqueIdContext());
 
-            validationResults = validator.ValidateObject(
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+            
+            GeneratedArtifactStaticDependencies.Resolvers.Set(() => mappingContractProvider);
+
+            _validationResults = _validator.ValidateObject(
                 new Student
                 {
                     StudentUniqueId = "12345 "
                 });
 
-            validationResults.Select(r => r.ErrorMessage)
+            _validationResults.Select(r => r.ErrorMessage)
                 .ShouldContain(
-                    "StudentUniqueId property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.");
+                    "StudentUniqueId cannot contain leading or trailing spaces.");
         }
     }
 }

@@ -122,10 +122,18 @@
 											"    pm.expect(pm.response.code).to.equal(405);",
 											"});",
 											"",
-											"pm.test(\"Response should indicate that the allowed methods for this resource with the 'test-profile-resource-writeonly' profile are PUT, POST, DELETE and OPTIONS.\", () => {",
-											"    const responseItem = pm.response.json();",
-											"    pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-writeonly' profile are PUT, POST, DELETE and OPTIONS.\");",
-											"});"
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not readable using the profile.\");",
+											"});",
+											"",
+											"pm.test(\"Should return the error indicating the profile isn't readable using the profile\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not readable using API profile 'test-profile-resource-writeonly'.\");",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -500,9 +508,16 @@
 											"    pm.expect(pm.response.code).to.equal(405);",
 											"});",
 											"",
-											"pm.test(\"Response should indicate that the allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS. string\", () => {",
-											"    const responseItem = pm.response.json();",
-											"    pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-readonly' profile are GET, DELETE and OPTIONS.\");",
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not writable using the profile.\");",
+											"});",
+											"",
+											"pm.test(`Should return the error indicating the resource isn't writable using the profile`, () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
 											"});",
 											""
 										],
@@ -530,7 +545,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -591,10 +606,18 @@
 											"    pm.expect(pm.response.code).to.equal(405);",
 											"});",
 											"",
-											"pm.test(\"Response should indicate that the allowed methods for this resource with the 'test-profile-resource-readonly' profile are GET, DELETE and OPTIONS. string\", () => {",
-											"    const responseItem = pm.response.json();",
-											"    pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-readonly' profile are GET, DELETE and OPTIONS.\");",
-											"});"
+											"const problemDetails = pm.response.json();",
+											"",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not writable using the profile.\");",
+											"});",
+											"",
+											"pm.test(\"Should return the error indicating the reasource isn't writable using the profile\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -923,12 +946,18 @@
 													"    pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
-													"        ",
-													"        pm.expect(responseItem.message).to.include(\"resource is not accessible through the \\'test-profile-staffonly-resource-includeall\\' profile specified by the content type\");",
-													"    });"
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. The resource is not contained by the profile used by (or applied to) the request.\");",
+													"});",
+													"",
+													"pm.test(\"Should return the error indicating the resource isn't accessible using the profile\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1007,12 +1036,18 @@
 													"    pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'The resource in the profile-based content type does not match the resource targeted by the request'.\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.equal(\"The resource in the profile-based content type does not match the resource targeted by the request.\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return the error indicating the resource requested doesn't match the one specified by the profile\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1088,15 +1123,20 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'A profile-based content type that is writable cannot be used with GET requests.\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.equal(\"A profile-based content type that is writable cannot be used with GET requests.\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message that a profile-based content type that is writable cannot be used with GET requests.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"A profile-based content type that is writable cannot be used with GET requests.\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -1175,12 +1215,17 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'The profile usage segment in the profile-based 'Accept' header was not recognized.\",",
-													"  () => {",
-													"    const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"    pm.expect(responseItem.message).to.equal(\"The profile usage segment in the profile-based 'Accept' header was not recognized.\");",
-													"  });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return an error message that the profile usage segment in the profile-based 'Accept' header was not recognized.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The profile usage segment in the profile-based 'Accept' header was not recognized.\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -1238,13 +1283,16 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
-													"  const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"  pm.expect(responseItem).to.deep.include({",
-													"    \"message\": \"The format of the profile-based 'Accept' header was invalid.\",",
-													"    \"correlationId\": pm.environment.get('correlationId')",
-													"  });",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The format of the profile-based 'Accept' header was invalid.\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1384,15 +1432,21 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'The 'Student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.include(\"The 'Student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. The resource is not contained by the profile used by (or applied to) the request.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message indicating that the resource is not accessible through the profile specified by the content type.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1471,15 +1525,21 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'The resource in the profile-based content type does not match the resource targeted by the request.'\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.contain(\"The resource in the profile-based content type does not match the resource targeted by the request.\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message indicating that the profile-based content type does not match the resource targeted by the request.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1558,15 +1618,20 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.include(\"A profile-based content type that is readable cannot be used with PUT or POST requests.\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"A profile-based content type that is readable cannot be used with POST requests.\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -1620,15 +1685,20 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\",",
-													"    () => {",
-													"        const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"        pm.expect(responseItem.message).to.include(\"A profile-based content type that is readable cannot be used with PUT or POST requests.\");",
-													"    });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"A profile-based content type that is readable cannot be used with PUT requests.\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -1712,12 +1782,18 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message 'The profile usage segment in the profile-based 'Content-Type' header was not recognized.'\",",
-													"  () => {",
-													"    const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"    pm.expect(responseItem.message).to.equal(\"The profile usage segment in the profile-based 'Content-Type' header was not recognized.\");",
-													"  });"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message about an unrecognized profile usage segment in the content type\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The profile usage segment in the profile-based 'Content-Type' header was not recognized.\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1779,11 +1855,18 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
-													"  const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.message).to.equal(\"The format of the profile-based 'Content-Type' header was invalid.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"});",
+													"",
+													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
+													"  pm.expect(problemDetails.errors).to.contain(\"The format of the profile-based 'Content-Type' header was invalid.\");",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1909,12 +1992,17 @@
 											"  pm.expect(pm.response.code).to.equal(406);",
 											"});",
 											"",
-											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host\",",
-											"  () => {",
-											"    const responseItem = pm.response.json();",
+											"const problemDetails = pm.response.json();",
 											"",
-											"    pm.expect(responseItem.message).to.equal(\"The profile specified by the content type in the 'Accept' header is not supported by this host.\");",
-											"  });",
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Accept' header is not supported by this host.\");",
+											"});",
 											""
 										],
 										"type": "text/javascript"
@@ -1994,12 +2082,18 @@
 											"  pm.expect(pm.response.code).to.equal(415);",
 											"});",
 											"",
-											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host\",",
-											"  () => {",
-											"    const responseItem = pm.response.json();",
+											"const problemDetails = pm.response.json();",
 											"",
-											"    pm.expect(responseItem.message).to.equal(\"The profile specified by the content type in the 'Content-Type' header is not supported by this host.\");",
-											"  });"
+											"pm.test(\"Should return a problem details result\", () => {",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host.\", () => {",
+											"  pm.expect(problemDetails.errors).to.contain(\"The profile specified by the content type in the 'Content-Type' header is not supported by this host.\");",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2419,6 +2513,7 @@
 											"const item = items[0];",
 											"",
 											"pm.environment.set('known:assessment:id', item.id);",
+											"pm.environment.set('known:assessment:assessmentIdentifier', item.assessmentIdentifier);",
 											"pm.environment.set('known:assessment:contentStandard:title', item.contentStandard.title);",
 											""
 										],
@@ -2637,7 +2732,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2752,7 +2847,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2847,6 +2942,242 @@
 									""
 								]
 							}
+						}
+					]
+				},
+				{
+					"name": "Data Validation",
+					"item": [
+						{
+							"name": "Multiple invalid members",
+							"item": [
+								{
+									"name": "Update (no Profile applied)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+													"});",
+													"",
+													"pm.test(\"Should include a validation error for maxRawScore being out-of-range.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.maxRawScore\"])",
+													"    .to.contain(\"MaxRawScore must be between -9999999999.99999 and 9999999999.99999.\");",
+													"});",
+													"",
+													"pm.test(\"Should include a validation error for assessmentTitle's excessive length.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.assessmentTitle\"])",
+													"    .to.contain(\"AssessmentTitle must be between 1 and 255 characters in length.\");",
+													"});",
+													"",
+													"pm.test(\"Should include a validation error for assessmentCategoryDescriptor's non-existing value.\", () => {",
+													"  pm.expect(problemDetails.validationErrors[\"$.assessmentCategoryDescriptor\"])",
+													"    .to.contain(\"AssessmentCategoryDescriptor value 'uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts' does not exist.\");",
+													"});",
+													"",
+													"pm.test(`Response: ${JSON.stringify(problemDetails)}`, () => {",
+													"  pm.expect(true).to.equal(true);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn('{{$guid}}'));",
+													"pm.environment.set('supplied:string:256', \"x\".repeat(256));",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments",
+												"{{known:assessment:id}}"
+											]
+										},
+										"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed"
+									},
+									"response": []
+								},
+								{
+									"name": "Update (invalid property is included)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+													"});",
+													"",
+													"pm.test(\"Should only return validation error message indicating that the value of the INCLUDED descriptor property does not exist.\", () => {",
+													"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+													"    \"$.assessmentCategoryDescriptor\": [",
+													"      \"AssessmentCategoryDescriptor value 'uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts' does not exist.\"",
+													"    ]",
+													"  });",
+													"});",
+													"",
+													"pm.test(`Response: ${JSON.stringify(problemDetails)}`, () => {",
+													"  pm.expect(true).to.equal(true);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn('{{$guid}}'));",
+													"pm.environment.set('supplied:string:256', \"x\".repeat(256));",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments",
+												"{{known:assessment:id}}"
+											]
+										},
+										"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed"
+									},
+									"response": []
+								},
+								{
+									"name": "Update (invalid properties are excluded)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Excluded properties that are invalid do not generate validation errors.",
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn('{{$guid}}'));",
+													"pm.environment.set('supplied:string:256', \"x\".repeat(256));",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"assessmentIdentifier\": \"{{known:assessment:assessmentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentTitle\": \"{{supplied:string:256}}\",\r\n  \"maxRawScore\": 10000000000.00000,\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AssessmentCategoryDescriptor#Class quiz\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments",
+												"{{known:assessment:id}}"
+											]
+										},
+										"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed"
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -3355,11 +3686,22 @@
 																	"  pm.expect(pm.response.code).to.equal(400);",
 																	"});",
 																	"",
-																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
-																	"  const responseItem = pm.response.json();",
+																	"const problemDetails = pm.response.json();",
 																	"",
-																	"  pm.expect(responseItem.message).to.contain(\"A supplied 'SchoolCategory' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors'.\");",
-																	"});"
+																	"pm.test(\"Should return a problem details result\", () => {",
+																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+																	"});",
+																	"",
+																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
+																	"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+																	"    \"$.schoolCategories\": [",
+																	"      \"A supplied 'SchoolCategory' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors'.\"",
+																	"    ]",
+																	"  });",
+																	"});",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -3571,11 +3913,22 @@
 																	"  pm.expect(pm.response.code).to.equal(400);",
 																	"});",
 																	"",
-																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
-																	"  const responseItem = pm.response.json();",
+																	"const problemDetails = pm.response.json();",
 																	"",
-																	"  pm.expect(responseItem.message).to.contain(\"A supplied 'SchoolCategory' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors'.\");",
-																	"});"
+																	"pm.test(\"Should return a problem details result\", () => {",
+																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+																	"});",
+																	"",
+																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
+																	"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+																	"    \"$.schoolCategories\": [",
+																	"      \"A supplied 'SchoolCategory' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors'.\"",
+																	"    ]",
+																	"  });",
+																	"});",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -4342,11 +4695,22 @@
 																	"  pm.expect(pm.response.code).to.equal(400);",
 																	"});",
 																	"",
-																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
-																	"  const responseItem = pm.response.json();",
+																	"const problemDetails = pm.response.json();",
 																	"",
-																	"  pm.expect(responseItem.message).to.contain(\"A supplied 'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors'.\");",
-																	"});"
+																	"pm.test(\"Should return a problem details result\", () => {",
+																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+																	"});",
+																	"",
+																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
+																	"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+																	"    \"$.studentObjectiveAssessments[0].performanceLevels\": [",
+																	"      \"A supplied 'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors'.\"",
+																	"    ]",
+																	"  });",
+																	"});",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -4560,11 +4924,22 @@
 																	"  pm.expect(pm.response.code).to.equal(400);",
 																	"});",
 																	"",
-																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
-																	"  const responseItem = pm.response.json();",
+																	"const problemDetails = pm.response.json();",
 																	"",
-																	"  pm.expect(responseItem.message).to.contain(\"A supplied 'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors'.\");",
-																	"});"
+																	"pm.test(\"Should return a problem details result\", () => {",
+																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+																	"});",
+																	"",
+																	"pm.test(\"Should return a message indicating that an item of the collection does not conform with the filter values defined by the profile\", () => {",
+																	"  pm.expect(problemDetails.validationErrors).to.deep.include({",
+																	"    \"$.studentObjectiveAssessments[0].performanceLevels\": [",
+																	"      \"A supplied 'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel' has a descriptor value that does not conform with the filter values defined by profile 'test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors'.\"",
+																	"    ]",
+																	"  });",
+																	"});",
+																	""
 																],
 																"type": "text/javascript"
 															}
@@ -7173,11 +7548,18 @@
 															"  pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\",",
-															"  () => {",
-															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\\'\");",
-															"  });"
+															"const problemDetails = pm.response.json();",
+															"",
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -7361,12 +7743,18 @@
 															"    pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\",",
-															"    () => {",
-															"        const responseItem = pm.response.json();",
+															"const problemDetails = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
-															"    });"
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -7546,12 +7934,18 @@
 															"    pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\",",
-															"    () => {",
-															"        const responseItem = pm.response.json();",
+															"const problemDetails = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\\'\");",
-															"    });"
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -7749,11 +8143,18 @@
 															"    pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"const problemDetails = pm.response.json();",
 															"",
-															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\\'\");",
-															"});"
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when creating or updating this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -7938,12 +8339,18 @@
 															"    pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\",",
-															"    () => {",
-															"        const responseItem = pm.response.json();",
+															"const problemDetails = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
-															"    });"
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -8130,12 +8537,18 @@
 															"    pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
-															"pm.test(\"Should return error message indicating which profiles can be used with the request.\",",
-															"    () => {",
-															"        const responseItem = pm.response.json();",
+															"const problemDetails = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
-															"    });"
+															"pm.test(\"Should return a problem details result\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+															"});",
+															"",
+															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"});",
+															""
 														],
 														"type": "text/javascript"
 													}
@@ -9674,7 +10087,7 @@
 							"response": []
 						},
 						{
-							"name": "The Write content type includes all properties of a  derived association",
+							"name": "The Write content type includes all properties of a derived association",
 							"event": [
 								{
 									"listen": "test",

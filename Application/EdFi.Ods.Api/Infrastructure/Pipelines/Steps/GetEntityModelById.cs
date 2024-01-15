@@ -6,10 +6,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
 
@@ -37,10 +35,17 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
 
                 if (model == null)
                 {
-                    string message = $"Entity of type '{typeof(TEntityModel).Name}' with the specified id was not found.";
-
+                    string message = string.Format(
+                        "Entity of type '{0}' with id of '{1}' was not found.",
+                        typeof(TEntityModel).Name,
+                        context.Id);
+                    
                     // Capture exception information, but don't throw it for performance reasons
-                    result.Exception = new NotFoundException(message, typeof(TEntityModel).Name, null);
+                    result.Exception = new NotFoundException(
+                        NotFoundException.DefaultItemDetail,
+                        message,
+                        typeof(TEntityModel).Name,
+                        context.Id.ToString());
 
                     return;
                 }

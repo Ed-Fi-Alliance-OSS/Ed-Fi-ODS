@@ -5,9 +5,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
-using StackExchange.Redis;
 
 namespace EdFi.Ods.Features.ExternalCache.Redis;
 

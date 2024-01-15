@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
@@ -43,7 +44,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 if (entityWithKeyValues == null)
                 {
-                    throw new BadRequestException(
+                    // Every root entity should have a primary key implementation. This is definitely a system error if it were to ever occur.
+                    throw new Exception(
                         $"The '{typeof(TEntity).Name}' entity does not support accessing primary key values.");
                 }
 

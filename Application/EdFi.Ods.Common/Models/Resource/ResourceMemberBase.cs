@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         public abstract FullName ParentFullName { get; }
 
-        public string PropertyName { get; }
+        public virtual string PropertyName { get; }
 
         public IEnumerable<ResourceClassBase> GetLineage()
         {

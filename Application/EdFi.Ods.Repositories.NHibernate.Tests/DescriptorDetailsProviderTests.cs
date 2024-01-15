@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using EdFi.Ods.Api.Providers;
@@ -185,12 +186,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [Test]
         public void When_getting_descriptor_with_invalid_uri_format_should_throw_format_exception()
         {
-            Assert.Throws<FormatException>(
-                () =>
-                    DescriptorDetailsProvider.GetDescriptorDetails(
-                        CountryDescriptorName,
-                        "Not-A-Valid-URI"))
-                .Message.ShouldBe("Unable to resolve value 'Not-A-Valid-URI' to an existing 'CountryDescriptor' resource.");
+            Assert.Throws<ValidationException>(
+                    () => DescriptorDetailsProvider.GetDescriptorDetails(CountryDescriptorName, "Not-A-Valid-URI"))
+                .Message.ShouldBe(
+                    "CountryDescriptor value 'Not-A-Valid-URI' is not a valid value for use as a descriptor (a '#' is expected to delineate the namespace and code value portions).");
         }
 
         [Test]

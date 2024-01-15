@@ -1144,11 +1144,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1205,11 +1212,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1254,7 +1268,7 @@
 									"response": []
 								},
 								{
-									"name": "Update  School",
+									"name": "Update  School (PUT)",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -1279,11 +1293,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1353,11 +1374,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -3858,7 +3886,7 @@
 									"response": []
 								},
 								{
-									"name": "Update  StudentSectionAssociation",
+									"name": "Update StudentSectionAssociation",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -3886,12 +3914,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const __ = require('lodash');",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -3948,11 +3982,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -3997,7 +4038,7 @@
 									"response": []
 								},
 								{
-									"name": "Update  StudentSectionAssociations",
+									"name": "Update StudentSectionAssociations (PUT)",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -4026,11 +4067,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
-													"const responseItem = pm.response.json();",
+													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
+													"",
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -4078,7 +4126,7 @@
 									"response": []
 								},
 								{
-									"name": "Delete  StudentSectionAssociation",
+									"name": "Delete StudentSectionAssociation",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -4097,12 +4145,18 @@
 													"    pm.expect(pm.response.code).to.equal(403);",
 													"});",
 													"",
+													"const problemDetails = pm.response.json();",
 													"",
-													"const responseItem = pm.response.json();",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource is not owned by the caller.\");",
+													"});",
 													"",
-													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
-													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-													"});"
+													"pm.test(`Should return the error indicating the ownership token doesn't match`, () => {",
+													"  pm.expect(problemDetails.errors).to.match(/^Access to the resource item could not be authorized using any of the caller's ownership tokens.$/);",
+													"});",
+													""
 												],
 												"type": "text/javascript"
 											}

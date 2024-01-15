@@ -6,6 +6,8 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -15,10 +17,11 @@ namespace EdFi.Ods.Common.Attributes
         {
             var enumerable = value as IEnumerable;
 
-            if (enumerable == null || !enumerable.Cast<object>()
-                                                 .Any())
+            if (enumerable == null || !enumerable.Cast<object>().Any())
             {
-                return new ValidationResult(string.Format("{0} requires at least one object in the collection.", validationContext.DisplayName));
+                return new ValidationResult(
+                    $"{validationContext.DisplayName} must have at least one item.",
+                    new[] { validationContext.MemberNamePath() });
             }
 
             return ValidationResult.Success;

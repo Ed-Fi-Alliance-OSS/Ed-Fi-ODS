@@ -1722,14 +1722,20 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 405\", () => {",
-													"    pm.expect(pm.response.code).to.equal(405);",
+													"pm.test(\"Status code is 405\", () => { // TODO: ODS-6143 - Change to 403",
+													"  pm.expect(pm.response.code).to.equal(405); // TODO: ODS-6143 - Change to 403",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating there is no Readable content type available to the caller for the requested resource\", () => {",
+													"  const responseItem = pm.response.json();",
 													"",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem.message).to.contains(\"There is no Readable content type available to the caller for the 'edfi.School' resource in the following profiles\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:security:authorization:composite:not-readable\");",
+													"  pm.expect(responseItem.title).to.equal(\"Composite Resource Not Readable\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The resource cannot be read due to a data policy.\");",
+													"",
+													"  pm.expect(responseItem.errors).to.contain(\"The composite's root resource 'School' is not readable because the API client has been assigned a Profile covering that resource which only supports writes.\");",
+													"",
+													"  pm.expect(responseItem.errors).to.contain(\"There is no readable content type available to the caller for the 'School' resource in the following profiles: 'Test-Profile-Resource-WriteOnly'.\");",
 													"});"
 												],
 												"type": "text/javascript"

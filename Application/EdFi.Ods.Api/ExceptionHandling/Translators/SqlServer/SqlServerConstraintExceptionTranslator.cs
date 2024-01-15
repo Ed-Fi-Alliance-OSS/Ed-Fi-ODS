@@ -4,17 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Exceptions;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
-    public class SqlServerConstraintExceptionTranslator : IExceptionTranslator
+    public class SqlServerConstraintExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         /* Sample errors:
 
@@ -43,11 +41,12 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         private static readonly Regex _expression = new Regex(
             @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""[a-z]+\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
 
-        // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
-        {
-            webServiceError = null;
+        private const string InsertOrUpdateMessageFormat = "The referenced '{0}' resource does not exist.";
+        private const string UpdateOrDeleteMessageFormat = "The operation cannot be performed because the resource is a dependency of the '{0}' resource.";
 
+        // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
+        {
             var exception = ex is GenericADOException
                 ? ex.InnerException
                 : ex;
@@ -59,19 +58,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                 if (match.Success)
                 {
-                    string messageFormat = string.Empty;
-
-                    string statementType = match.Groups["StatementType"]
-                                                .Value;
-
-                    string constraintType = match.Groups["ConstraintType"]
-                                                 .Value;
-
-                    string tableName = match.Groups["TableName"]
-                                            .Value;
-
-                    string columnName = match.Groups["ColumnName"]
-                                             .Value;
+                    string errorMessageFormat = string.Empty;
+                    string statementType = match.Groups["StatementType"].Value;
+                    string constraintType = match.Groups["ConstraintType"].Value;
+                    string tableName = match.Groups["TableName"].Value;
+                    string columnName = match.Groups["ColumnName"].Value;
 
                     switch (statementType)
                     {
@@ -80,47 +71,36 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                             if (constraintType == "FOREIGN KEY")
                             {
-                                messageFormat = "The value supplied for the related '{0}' resource does not exist.";
+                                errorMessageFormat = InsertOrUpdateMessageFormat;
                                 break;
                             }
 
                             // No explicit support for UPDATE/REFERENCE constraint yet
+                            problemDetails = null;
                             return false;
 
                         case "DELETE":
 
                             if (constraintType == "REFERENCE")
                             {
-                                if (string.IsNullOrEmpty(columnName))
-                                {
-                                    messageFormat =
-                                        "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{0}' entity.";
-                                }
-                                else
-                                {
-                                    columnName = columnName.Replace("USI", "UniqueId");
-                                    messageFormat =
-                                        "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{1}' value of the '{0}' entity.";
-                                }
-
+                                errorMessageFormat = UpdateOrDeleteMessageFormat;
                                 break;
                             }
 
                             // No explicit support for UPDATE/REFERENCE constraint yet
+                            problemDetails = null;
                             return false;
                     }
 
-                    string message = string.Format(messageFormat, tableName.ToCamelCase(), columnName.ToCamelCase());
+                    string errorMessage = string.Format(errorMessageFormat, tableName, columnName);
 
-                    webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = message
-                                      };
+                    problemDetails = new ConflictException(errorMessage);
 
                     return true;
                 }
             }
 
+            problemDetails = null;
             return false;
         }
     }

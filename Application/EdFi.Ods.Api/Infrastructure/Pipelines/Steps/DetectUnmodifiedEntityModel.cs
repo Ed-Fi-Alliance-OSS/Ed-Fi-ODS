@@ -17,38 +17,35 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         where TResult : PipelineResultBase
         where TEntityModel : class
     {
-        private readonly IETagProvider etagProvider;
+        private readonly IETagProvider _etagProvider;
 
         public DetectUnmodifiedEntityModel(IETagProvider etagProvider)
         {
-            this.etagProvider = etagProvider;
+            _etagProvider = etagProvider;
         }
 
-        public void Execute(TContext context, TResult result)
+        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
-            // NOTE: the etag provide is always synchronous so it makes no sense to move this code into the async method.
             try
             {
                 // Don't process model if ETag isn't present
                 if (context.ETag == null)
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
 
                 // Check the ETag for no modifications
-                if (context.ETag == etagProvider.GetETag(context.PersistentModel))
+                if (context.ETag == _etagProvider.GetETag(context.PersistentModel))
                 {
-                    // TODO: Consider using System.Net.HttpResult for these results instead of exceptions
-                    throw new NotModifiedException();
+                    result.Exception = new NotModifiedException();
                 }
             }
             catch (Exception ex)
             {
                 result.Exception = ex;
             }
-        }
 
-        public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
-            => await Task.Run(() => Execute(context, result), cancellationToken).ConfigureAwait(false);
+            return Task.CompletedTask;
+        }
     }
 }

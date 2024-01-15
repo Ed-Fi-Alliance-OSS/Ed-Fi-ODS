@@ -28,7 +28,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
 
         // NOT in a reference, IS a lookup column
         [DataMember(Name = "languageUseType")]
-        [NaturalKeyMember]
         public string LanguageUseType { get; set; }
 
         // -------------------------------------------------------------

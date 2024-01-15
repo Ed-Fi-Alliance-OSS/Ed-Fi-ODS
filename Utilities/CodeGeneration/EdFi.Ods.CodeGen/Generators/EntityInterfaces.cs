@@ -63,22 +63,17 @@ namespace EdFi.Ods.CodeGen.Generators
                             ImplementedInterfaces = GetImplementedInterfaceString(r),
                             ParentInterfaceName = GetParentInterfaceName(r),
                             ParentClassName = GetParentClassName(r),
+                            InheritedIdentifyingProperties = r
+                                .IdentifyingProperties
+                                // Include names of inherited, non-renamed, identifying properties
+                                .Where(IsInheritedNonRenamedIdentifyingProperty)
+                                .Select(p => new { p.PropertyName }),
                             IdentifyingProperties = r
                                 .IdentifyingProperties
 
                                 // Exclude inherited identifying properties where the property has not been renamed
-                                .Where(
-                                    p => !(
-                                        p.EntityProperty
-                                            ?.IsInheritedIdentifying ==
-                                        true
-                                        && !p
-                                            .EntityProperty
-                                            ?.IsInheritedIdentifyingRenamed ==
-                                        true))
-                                .OrderBy(
-                                    p => p
-                                        .PropertyName)
+                                .Where(p => !IsInheritedNonRenamedIdentifyingProperty(p))
+                                .OrderBy(p => p.PropertyName)
                                 .Select(
                                     p => new
                                     {
@@ -180,6 +175,15 @@ namespace EdFi.Ods.CodeGen.Generators
             return entityInterfacesModel;
         }
 
+        private static bool IsInheritedNonRenamedIdentifyingProperty(ResourceProperty p) => (
+            p.EntityProperty
+                ?.IsInheritedIdentifying ==
+            true
+            && !p
+                .EntityProperty
+                ?.IsInheritedIdentifyingRenamed ==
+            true);
+
         private static string GetParentClassName(ResourceClassBase resourceClass)
         {
             return (resourceClass as ResourceChildItem)?.Parent.Name;
@@ -270,17 +274,18 @@ namespace EdFi.Ods.CodeGen.Generators
         private IEnumerable<object> GetMappingContractMembers(ResourceClassBase resourceClass)
         {
             var properties = resourceClass.AllProperties
-        
+
                 // Don't include properties that are not synchronizable
                 .Where(p => p.IsSynchronizedProperty())
-        
+
                 // Don't include identifying properties, with the exception of where UniqueIds are defined
                 .Where(p => !p.IsIdentifying || _personEntitySpecification.IsDefiningUniqueId(resourceClass, p))
                 .Select(p => p.PropertyName)
-        
+
                 // Add embedded object properties
                 .Concat(
                     resourceClass.EmbeddedObjects.Cast<ResourceMemberBase>()
+                        .Concat(resourceClass.References)
                         .Concat(resourceClass.Extensions)
                         .Concat(resourceClass.Collections)
                         .Select(rc => rc.PropertyName))
@@ -291,7 +296,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     PropertyName = pn,
                     ItemTypeName = null as string,
                 });
-        
+
             var collections = resourceClass.Collections
                 .OrderBy(c => c.ItemType.Name)
                 .Select(c => new
@@ -299,7 +304,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     PropertyName = c.PropertyName,
                     ItemTypeName = c.ItemType.Name
                 });
-        
+
             var members = properties
                 .Concat(collections)
                 .ToList();

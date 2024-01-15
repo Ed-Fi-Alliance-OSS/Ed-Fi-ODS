@@ -17,6 +17,7 @@ using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -201,11 +202,10 @@ public class EntityAuthorizer : IEntityAuthorizer
 
                 if (!validationResults.IsValid())
                 {
+                    string validationResultsText = string.Join(".", validationResults.Select(vr => vr.ToString()));
+
                     throw new ValidationException(
-                        string.Format(
-                            "Validation of '{0}' failed.\n{1}",
-                            requestData.GetType().Name,
-                            string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))));
+                        $"Validation of '{requestData.GetType().Name}' failed. {validationResultsText}");
                 }
             }
         }
@@ -300,7 +300,7 @@ public class EntityAuthorizer : IEntityAuthorizer
 
         if (result == 0)
         {
-            throw new EdFiSecurityException(GetAuthorizationFailureMessage());
+            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, GetAuthorizationFailureMessage());
         }
 
         // Save the SQL and parameters for this query execution into the current context (if context is present but uninitialized)
@@ -390,10 +390,10 @@ public class EntityAuthorizer : IEntityAuthorizer
 
             if (subjectEndpointNames.Length == 1)
             {
-                return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and the resource item's {subjectEndpointNamesText} value.";
+                return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and the resource item's {subjectEndpointNamesText} value.";
             }
 
-            return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the resource item: {subjectEndpointNamesText}.";
+            return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the resource item: {subjectEndpointNamesText}.";
         }
 
         string GetClaimEndpointValuesText(string[] claimEndpointValuesAsStrings, int maximumEdOrgClaimValuesToDisplay)

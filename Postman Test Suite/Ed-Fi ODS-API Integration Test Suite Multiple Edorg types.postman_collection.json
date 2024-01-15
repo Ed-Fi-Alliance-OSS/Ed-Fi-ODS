@@ -729,7 +729,7 @@
 					"name": "Scenario 3 Cannot Create a StudentProgramAssociation for a non-associated EducationOrganizationId value",
 					"item": [
 						{
-							"name": "Get Student by SchoolId",
+							"name": "Get a Student",
 							"event": [
 								{
 									"listen": "test",
@@ -766,7 +766,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?schoolId={{known:schoolId2}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=1",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -778,8 +778,8 @@
 									],
 									"query": [
 										{
-											"key": "schoolId",
-											"value": "{{known:schoolId2}}"
+											"key": "limit",
+											"value": "1"
 										}
 									]
 								}
@@ -787,19 +787,15 @@
 							"response": []
 						},
 						{
-							"name": "Get  Program by SchoolId",
+							"name": "Create Program for different school",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.environment.set('known:programName', __.first(responseItems).programName);",
-											"pm.environment.set('known:programTypeDescriptor', __.first(responseItems).programTypeDescriptor);"
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -808,14 +804,19 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											""
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));",
+											"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -824,8 +825,12 @@
 										"value": "application/json"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"programName\": \"{{supplied:{{scenarioId}}:programName}}\",\r\n  \"programTypeDescriptor\": \"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n  \"programId\": \"{{supplied:{{scenarioId}}:programId}}\"\r\n}"
+								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?schoolId={{known:schoolId2}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -834,12 +839,6 @@
 										"v3",
 										"ed-fi",
 										"programs"
-									],
-									"query": [
-										{
-											"key": "schoolId",
-											"value": "{{known:schoolId2}}"
-										}
 									]
 								}
 							},
@@ -871,11 +870,23 @@
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
-											"const responseItem = pm.response.json();",
+											"// Log the body in report output using an expectation if the response is unexpected",
+											"if (pm.response.code != 403) {",
+											"  pm.test(\"Log the body\", () => {",
+											"    pm.expect(JSON.stringify(pm.response.json())).to.equal(\"Something else\");",
+											"  });",
+											"}",
 											"",
-											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
-											"});"
+											"pm.test(\"Should indicate the API client doesn't have access to the education organization id and/or student\", () => {",
+											"  const problemDetails = pm.response.json();",
+											"",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+											"",
+											"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\([\\s\\d,]+\\) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'./);",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -903,7 +914,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n       \"programName\":\"{{known:programName}}\",\r\n      \"programTypeDescriptor\":\"{{known:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }\r\n"
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"programReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n    \"programName\": \"{{supplied:{{scenarioId}}:programName}}\",\r\n    \"programTypeDescriptor\": \"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:secondstudentUniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2010-08-30\",\r\n  \"endDate\": \"2010-12-17\",\r\n  \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
@@ -1339,7 +1350,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?schoolId={{known:schoolId2}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffEducationOrganizationAssignmentAssociations?educationOrganizationId={{known:schoolId2}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1347,11 +1358,11 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"staffs"
+										"staffEducationOrganizationAssignmentAssociations"
 									],
 									"query": [
 										{
-											"key": "schoolId",
+											"key": "educationOrganizationId",
 											"value": "{{known:schoolId2}}"
 										}
 									]
@@ -1379,11 +1390,16 @@
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
-											"const responseItem = pm.response.json();",
+											"pm.test(\"Should indicate the API client doesn't have access to the SchoolId\", () => {",
+											"  const problemDetails = pm.response.json();",
 											"",
-											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the resource item's 'SchoolId' value.\");",
-											"});"
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+											"",
+											"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\([\\s\\d,]+\\) and the resource item's 'SchoolId' value./);",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1533,10 +1549,14 @@
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
-											"const responseItem = pm.response.json();",
+											"pm.test(\"Should indicate the API client doesn't have access to the CommunityProviderId\", () => {",
+											"  const problemDetails = pm.response.json();",
 											"",
-											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the resource item's 'CommunityProviderId' value.\");",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+											"",
+											"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\([\\s\\d,]+\\) and the resource item's 'CommunityProviderId' value./);",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1645,7 +1665,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?schoolId={{known:schoolId2}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId={{known:schoolId2}}&limit=1",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1653,12 +1673,16 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"students"
+										"studentSchoolAssociations"
 									],
 									"query": [
 										{
 											"key": "schoolId",
 											"value": "{{known:schoolId2}}"
+										},
+										{
+											"key": "limit",
+											"value": "1"
 										}
 									]
 								}
@@ -1704,7 +1728,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?schoolId={{known:schoolId2}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?educationOrganizationId={{known:schoolId2}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1716,7 +1740,7 @@
 									],
 									"query": [
 										{
-											"key": "schoolId",
+											"key": "educationOrganizationId",
 											"value": "{{known:schoolId2}}"
 										}
 									]
@@ -1750,11 +1774,16 @@
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
-											"const responseItem = pm.response.json();",
+											"pm.test(\"Should indicate the API client doesn't have access to the Student\", () => {",
+											"  const problemDetails = pm.response.json();",
 											"",
-											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
-											"});"
+											"  pm.expect(pm.response.code).equal(problemDetails.status);",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
+											"",
+											"  pm.expect(problemDetails.errors).to.match(/^Either the referenced 'Student' was not found or no relationships have been established between the caller's education organization id claim(s)? \\([\\s\\d,]+\\) and the referenced 'Student'./);",
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}

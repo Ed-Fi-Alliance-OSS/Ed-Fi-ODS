@@ -19,7 +19,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface IInstitutionControlDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int InstitutionControlDescriptorId { get; set; }
 
         // Non-PK properties
@@ -77,6 +77,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "InstitutionControlDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -90,7 +93,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface IInstitutionLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int InstitutionLevelDescriptorId { get; set; }
 
         // Non-PK properties
@@ -148,6 +151,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "InstitutionLevelDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -161,7 +167,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface IPostSecondaryOrganization : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
+        
         string NameOfInstitution { get; set; }
 
         // Non-PK properties
@@ -207,6 +213,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsInstitutionControlDescriptorSupported;
                 case "InstitutionLevelDescriptor":
                     return IsInstitutionLevelDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "NameOfInstitution":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -220,7 +229,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface ISpecialEducationGraduationStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int SpecialEducationGraduationStatusDescriptorId { get; set; }
 
         // Non-PK properties
@@ -278,6 +287,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SpecialEducationGraduationStatusDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -291,7 +303,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface IStudentAcademicRecordClassRankingExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking { get; set; }
 
         // Non-PK properties
@@ -325,6 +336,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             {
                 case "SpecialEducationGraduationStatusDescriptor":
                     return IsSpecialEducationGraduationStatusDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -338,7 +350,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface IStudentAcademicRecordExtension : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
         EdFi.IStudentAcademicRecord StudentAcademicRecord { get; set; }
 
         // Non-PK properties
@@ -362,14 +373,17 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     {
         public StudentAcademicRecordExtensionMappingContract(
             bool isNameOfInstitutionSupported,
+            bool isPostSecondaryOrganizationReferenceSupported,
             bool isSubmissionCertificationDescriptorSupported
             )
         {
             IsNameOfInstitutionSupported = isNameOfInstitutionSupported;
+            IsPostSecondaryOrganizationReferenceSupported = isPostSecondaryOrganizationReferenceSupported;
             IsSubmissionCertificationDescriptorSupported = isSubmissionCertificationDescriptorSupported;
         }
 
         public bool IsNameOfInstitutionSupported { get; }
+        public bool IsPostSecondaryOrganizationReferenceSupported { get; }
         public bool IsSubmissionCertificationDescriptorSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -378,8 +392,11 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             {
                 case "NameOfInstitution":
                     return IsNameOfInstitutionSupported;
+                case "PostSecondaryOrganizationReference":
+                    return IsPostSecondaryOrganizationReferenceSupported;
                 case "SubmissionCertificationDescriptor":
                     return IsSubmissionCertificationDescriptorSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -393,7 +410,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
     public interface ISubmissionCertificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
+        [AutoIncrement]
         int SubmissionCertificationDescriptorId { get; set; }
 
         // Non-PK properties
@@ -451,6 +468,9 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
                     return IsNamespaceSupported;
                 case "ShortDescription":
                     return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "SubmissionCertificationDescriptorId":
+                    return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }

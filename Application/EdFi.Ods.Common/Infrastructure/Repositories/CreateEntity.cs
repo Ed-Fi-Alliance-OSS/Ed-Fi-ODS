@@ -5,23 +5,32 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 using NHibernate.Id;
 using NHibernate.Persister.Entity;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
-    public class CreateEntity<TEntity> : ValidatingNHibernateRepositoryOperationBase, ICreateEntity<TEntity>
+    public class CreateEntity<TEntity> : NHibernateRepositoryOperationBase, ICreateEntity<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory, validators) { }
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
+        public CreateEntity(ISessionFactory sessionFactory, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            : base(sessionFactory)
+        {
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
@@ -35,8 +44,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var persister = metadata as IEntityPersister;
 
                     bool hasAssignableIdentifier = metadata.HasIdentifierProperty
-                        && persister != null
-                        && persister.IdentifierGenerator is Assigned;
+                        && persister is { IdentifierGenerator: Assigned };
 
                     // the belief is that pulling the metadata should already have the entity as a POCO
                     var identifierValue = metadata.GetIdentifier(entity);
@@ -50,16 +58,23 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         // Make sure identifier has been assigned
                         if (!identifierValueAssigned)
                         {
-                            throw new BadRequestException(
-                                $"Value for resource's identifier property '{metadata.IdentifierPropertyName}' is required.");
+                            var propertyName = _dataManagementResourceContextProvider.Get()
+                                .Resource.IdentifyingProperties.Single()
+                                .PropertyName;
+
+                            throw new ValidationException(
+                                new ValidationResult($"{propertyName} is required.", new []{ propertyName }),
+                                validatingAttribute: null,
+                                value: null);
                         }
                     }
                     else
                     {
                         // Make sure identifier has NOT been assigned
+                        // NOTE: During normal API operations (mapping JSON resources to entities), this should actually never happen so we'll send it to a 500 status
                         if (identifierValueAssigned)
                         {
-                            throw new BadRequestException(
+                            throw new Exception(
                                 $"Value for the auto-assigned identifier property '{metadata.IdentifierPropertyName}' cannot be assigned by the client (value was '{identifierValue}'.)");
                         }
                     }
@@ -81,8 +96,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     // New GUID identifiers are assigned by the NHibernate IPreInsertEventListener implementation
                 }
-
-                ValidateEntity(entity);
 
                 // Save the incoming entity
                 using (var trans = Session.BeginTransaction())

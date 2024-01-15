@@ -3,8 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -32,16 +34,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     [ExcludeFromCodeCoverage]
     public class StudentTransportationReference : IResourceReference
     {
-        [DataMember(Name="amBusNumber"), NaturalKeyMember]
+        [DataMember(Name="amBusNumber")]
         public string AMBusNumber { get; set; }
 
-        [DataMember(Name="pmBusNumber"), NaturalKeyMember]
+        [DataMember(Name="pmBusNumber")]
         public string PMBusNumber { get; set; }
 
-        [DataMember(Name="schoolId"), NaturalKeyMember]
+        [DataMember(Name="schoolId")]
         public int SchoolId { get; set; }
 
-        [DataMember(Name="studentUniqueId"), NaturalKeyMember]
+        [DataMember(Name="studentUniqueId")]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -155,6 +157,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
     {
+        private static FullName _fullName = new FullName("samplestudenttransportation", "StudentTransportation");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentTransportationPutPostRequestValidator _validator = new StudentTransportationPutPostRequestValidator();
+        
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
         public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
@@ -164,6 +171,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         //                         Constructor
         // -------------------------------------------------------------
 
+        
         // ------------------------------------------------------------
 
         // ============================================================
@@ -196,7 +204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             }
         }
 
-        [DataMember(Name="schoolReference")][NaturalKeyMember]
+        [DataMember(Name="schoolReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public School.EdFi.SchoolReference SchoolReference
         {
@@ -229,7 +237,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             }
         }
 
-        [DataMember(Name="studentReference")][NaturalKeyMember]
+        [DataMember(Name="studentReference")]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
@@ -258,14 +266,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// The bus that delivers the student to the school in the morning.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="amBusNumber"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(6, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="amBusNumber")]
         public string AMBusNumber { get; set; }
 
         /// <summary>
         /// Te bus that delivers the student home in the afternoon.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="pmBusNumber"), NaturalKeyMember]
+        [RequiredWithNonDefault]
+        [StringLength(6, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="pmBusNumber")]
         public string PMBusNumber { get; set; }
 
         /// <summary>
@@ -407,6 +419,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// The estimated distance, in miles, the student lives from the school.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
+        [Range(typeof(decimal), "-999.99", "999.99", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="estimatedMilesFromSchool")]
         public decimal EstimatedMilesFromSchool 
         { 
@@ -535,12 +548,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             var instance = context.InstanceToValidate;
 
             var failures = new List<ValidationFailure>();
-
-            // -----------------------
-            //  Validate unified keys
-            // -----------------------
-
-            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {

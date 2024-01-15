@@ -4,41 +4,62 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions
 {
     /// <summary>
     ///     Indicates that a resource or persistent model identified for an operation was not found.
     /// </summary>
-    [Serializable]
-    public class NotFoundException : Exception
+    public class NotFoundException : EdFiProblemDetailsExceptionBase
     {
-        // For guidelines regarding the creation of new exception types, see
-        //    https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions
+        // Fields containing override values for Problem Details
+        public const string TypePart = "not-found";
+        public const string TitleText = "Not Found";
+        private const int StatusValue = StatusCodes.Status404NotFound;
 
-        public NotFoundException() { }
+        public const string DefaultDetail = "The specified resource could not be found.";
+        public const string DefaultItemDetail = "The specified resource item could not be found.";
+        
+        public NotFoundException() : base(DefaultDetail, DefaultDetail) { }
 
-        public NotFoundException(string message)
-            : base(message) { }
+        public NotFoundException(string detail)
+            : base(detail, detail) { }
 
-        public NotFoundException(string message, string typeName, string identifier)
-            : base(message)
+        public NotFoundException(string detail, string message)
+            : base(detail, message) { }
+
+        public NotFoundException(string detail, string message, string typeName, string identifier)
+            : base(detail, message)
         {
             TypeName = typeName;
             Identifier = identifier;
         }
 
-        public NotFoundException(string message, Exception inner)
-            : base(message, inner) { }
-
-        protected NotFoundException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
+        public NotFoundException(string detail, Exception inner)
+            : base(detail, detail, inner) { }
 
         public string TypeName { get; set; }
 
         public string Identifier { get; set; }
+        
+        // ---------------------------
+        //  Boilerplate for overrides
+        // ---------------------------
+        public override string Title { get => TitleText; }
+
+        public override int Status { get => StatusValue; }
+    
+        protected override IEnumerable<string> GetTypeParts()
+        {
+            foreach (var part in base.GetTypeParts())
+            {
+                yield return part;
+            }
+
+            yield return TypePart;
+        }
+        // ---------------------------
     }
 }

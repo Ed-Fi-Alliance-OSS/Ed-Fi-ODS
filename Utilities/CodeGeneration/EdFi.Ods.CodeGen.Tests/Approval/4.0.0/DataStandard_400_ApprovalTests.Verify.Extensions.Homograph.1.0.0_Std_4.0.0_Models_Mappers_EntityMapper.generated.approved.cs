@@ -38,7 +38,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
                 || (!keyStringComparer.Equals(target.LastSurname, source.LastSurname)))
             {
                 // Disallow PK column updates on Name
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Name");
             }
 
 
@@ -124,7 +124,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                 || (!keyStringComparer.Equals(target.ParentLastSurname, source.ParentLastSurname)))
             {
                 // Disallow PK column updates on Parent
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Parent");
             }
 
 
@@ -391,7 +391,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                  (!keyStringComparer.Equals(target.SchoolName, source.SchoolName)))
             {
                 // Disallow PK column updates on School
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("School");
             }
 
 
@@ -619,7 +619,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
                  (!keyStringComparer.Equals(target.SchoolYear, source.SchoolYear)))
             {
                 // Disallow PK column updates on SchoolYearType
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("SchoolYearType");
             }
 
 
@@ -704,7 +704,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                 || (!keyStringComparer.Equals(target.StaffLastSurname, source.StaffLastSurname)))
             {
                 // Disallow PK column updates on Staff
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Staff");
             }
 
 
@@ -972,7 +972,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                 || (!keyStringComparer.Equals(target.StudentLastSurname, source.StudentLastSurname)))
             {
                 // Disallow PK column updates on Student
-                throw new BadRequestException("Key values for this resource cannot be changed. Delete and recreate the resource item.");
+                throw new KeyChangeNotSupportedException("Student");
             }
 
 

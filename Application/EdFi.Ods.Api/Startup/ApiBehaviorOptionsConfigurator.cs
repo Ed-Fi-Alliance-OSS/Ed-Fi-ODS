@@ -5,8 +5,11 @@
 
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Startup;
@@ -14,17 +17,34 @@ namespace EdFi.Ods.Api.Startup;
 public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptions>
 {
     private readonly ILogContextAccessor _logContextAccessor;
+    private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+    private readonly ErrorTranslator _errorTranslator;
 
-    public ApiBehaviorOptionsConfigurator(ILogContextAccessor logContextAccessor)
+    public ApiBehaviorOptionsConfigurator(ILogContextAccessor logContextAccessor,
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        ErrorTranslator errorTranslator)
     {
         _logContextAccessor = logContextAccessor;
+        _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _errorTranslator = errorTranslator;
     }
 
     public void Configure(ApiBehaviorOptions options)
     {
-        options.InvalidModelStateResponseFactory = actionContext => 
-            new BadRequestObjectResult(
-                ErrorTranslator.GetErrorMessage(actionContext.ModelState, 
-                (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)));
+        options.InvalidModelStateResponseFactory = actionContext =>
+        {
+            if (actionContext.ModelState.ValidationState == ModelValidationState.Invalid)
+            {
+                var problemDetails = _errorTranslator.GetProblemDetails(
+                    _dataManagementResourceContextProvider.Get()?.Resource,
+                    actionContext.ModelState);
+                
+                problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+                
+                return new BadRequestObjectResult(problemDetails);
+            }
+            
+            return null;
+        };
     }
 }

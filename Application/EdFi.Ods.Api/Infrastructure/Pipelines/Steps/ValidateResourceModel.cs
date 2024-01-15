@@ -27,21 +27,16 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
             _validators = validators;
         }
 
-        public void Execute(TContext context, TResult result)
+        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
-            // NOTE this talk will always run synchronously, therefore we are not moving it to the async method
             var validationResults = _validators.ValidateObject(context.Resource);
 
             if (!validationResults.IsValid())
             {
-                result.Exception = new ValidationException(
-                    $"Validation of '{((object) context.Resource).GetType().Name}' failed.\n{string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))}");
+                result.ValidationResults ??= new List<ValidationResult>();
+                result.ValidationResults.AddRange(validationResults);
             }
-        }
-
-        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
-        {
-            Execute(context, result);
+            
             return Task.CompletedTask;
         }
     }

@@ -5,7 +5,7 @@
 
 using System.Net;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.ChangeQueries.ActionResults
@@ -26,15 +26,14 @@ namespace EdFi.Ods.Features.ChangeQueries.ActionResults
         
         public async Task ExecuteResultAsync(ActionContext context)
         {
-            var error = new RESTError
+            var problemDetails = new SnapshotsAreReadOnlyException
             {
-                Message = "Snapshots are read-only.",
                 CorrelationId = _correlationId
-            };
+            }.AsSerializableModel();
 
-            var objectResult = new ObjectResult(error)
+            var objectResult = new ObjectResult(problemDetails)
             {
-                StatusCode = (int) HttpStatusCode.MethodNotAllowed,
+                StatusCode = problemDetails.Status
             };
 
             context.HttpContext.Response.Headers.Add("Allow", "GET");

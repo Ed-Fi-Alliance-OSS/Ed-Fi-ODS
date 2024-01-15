@@ -115,7 +115,7 @@ namespace EdFi.Ods.Api.Extensions
                 return request.Host.Port.Value;
             }
 
-            return getDefaultPort();             
+            return getDefaultPort();
 
             int getDefaultPort()
             {

@@ -8,8 +8,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
+using FakeItEasy;
+using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
@@ -36,7 +43,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject(string.Empty);
 
-            var validator = new DataAnnotationsEntityValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -58,7 +68,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Hello World");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -80,19 +93,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("<Hello World>");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
         [Assert]
         public void Should_have_a_validation_error_regarding_a_potentially_dangerous_value()
         {
-            Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-            Assert.That(
-                _actualResults.Single()
-                    .ErrorMessage,
-                Does.Contain("potentially dangerous value"));
+            _actualResults.Count.ShouldBe(1);
+            _actualResults.Single().ErrorMessage.ShouldBe("Name contains a value that could be dangerous for downstream systems using this data. Try to avoid the use of special symbols like '<', '>' or '&' without surrounding spaces.");
         }
     }
 
@@ -107,7 +120,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         {
             var testObject = new DangerousTextTestObject("Moonshower"); // Includes 'onshow'
 
-            var validator = new DataAnnotationsEntityValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
@@ -132,19 +148,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 new DangerousTextTestObject(
                     @"\""}<script>var r=new XMLHttpRequest();</script>{, \""}<script>r.open('GET', document.location, false);r.send(null);</script>{, \""}<script>var h=r.getAllResponseHeaders().toLowerCase();</script>{, and \""}<script>alert(h);</script>{");
 
-            var validator = new DataAnnotationsEntityValidator();
+            var resourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+            var mappingContractProvider = A.Fake<IMappingContractProvider>();
+            A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+            var validator = new DataAnnotationsResourceValidator(resourceContextProvider, mappingContractProvider);
             _actualResults = validator.ValidateObject(testObject);
         }
 
         [Assert]
         public void Should_have_a_validation_error_regarding_a_potentially_dangerous_value()
         {
-            Assert.That(_actualResults, Has.Count.EqualTo(1));
-
-            Assert.That(
-                _actualResults.Single()
-                    .ErrorMessage,
-                Does.Contain("potentially dangerous value"));
+            _actualResults.Count.ShouldBe(1);
+            _actualResults.Single().ErrorMessage.ShouldBe("Name contains a value that could be dangerous for downstream systems using this data. Try to avoid the use of special symbols like '<', '>' or '&' without surrounding spaces.");
         }
     }
 }

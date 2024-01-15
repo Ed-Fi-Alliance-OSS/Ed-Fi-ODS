@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
+using Microsoft.Extensions.Primitives;
 using NHibernate;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
@@ -78,9 +79,6 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             // Apply the new key values to the entity and then perform validation before proceeding
             ApplyNewKeyValuesToEntity();
 
-            // Validate the entity with its new key values applied
-            ValidateEntity();
-
             // Authorize the entity
             var action = _authorizationContextProvider.GetAction();
             await _entityAuthorizer.Value.AuthorizeEntityAsync(@event.Entity, action, cancellationToken);
@@ -128,17 +126,6 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                     property.SetValue(@event.Entity, newKeyValues[keyAsObject]);
                 }
             }
-
-            void ValidateEntity()
-            {
-                var validationResults = _entityValidators.ValidateObject(@event.Entity);
-
-                if (!validationResults.IsValid())
-                {
-                    throw new ValidationException(
-                        $"Validation of '{@event.Entity.GetType().Name}' failed.{Environment.NewLine}{string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))}");
-                }
-            }
         }
 
         private static IQuery CreateUpdateQuery(
@@ -153,21 +140,13 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             string setClause = GetSetClause(updateTargetColumnNames, valueSourceColumnNames);
 
             // Build the UPDATE sql query
-            string sql = string.Format(
-                @"
-                    UPDATE  {0} 
-                    SET     {1} 
-                    WHERE   Id = :id",
-                tableName,
-                setClause);
+            string sql = $@"UPDATE {tableName} SET {setClause} WHERE Id = :id";
 
-            var query = session.CreateSQLQuery(sql)
-                               .SetGuid("id", id);
+            var query = session.CreateSQLQuery(sql).SetGuid("id", id);
 
             // Create parameters for updating the primary key with the new values
             for (int i = 0; i < updateTargetColumnNames.Length; i++)
             {
-                //var sqlType = classMetadata.IdAndVersionSqlTypes[i];
                 string targetColumnName = updateTargetColumnNames[i];
                 string valueSourceColumnName = valueSourceColumnNames[i];
 
@@ -186,11 +165,17 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 string targetColumnName = updateTargetColumnNames[i];
                 string sourceValueColumnName = sourceValueColumnNames[i];
 
-                sb.AppendLine(targetColumnName + " = :" + sourceValueColumnName + ",");
+                if (i > 0)
+                {
+                    sb.Append(',');
+                }
+
+                sb.Append(targetColumnName);
+                sb.Append(" = :");
+                sb.Append(sourceValueColumnName);
             }
 
-            string setClause = sb.ToString()
-                                 .TrimEnd(',', '\r', '\n');
+            string setClause = sb.ToString();
 
             return setClause;
         }

@@ -4,27 +4,45 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
-    public class NotModifiedException : Exception
+    public class NotModifiedException : EdFiProblemDetailsExceptionBase
     {
-        // For guidelines regarding the creation of new exception types, see
-        //    https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions
+        // Fields containing override values for Problem Details
+        private const string TypePart = "not-modified";
+        private const string TitleText = "Not Modified";
+        private const int StatusValue = StatusCodes.Status304NotModified;
 
-        public NotModifiedException() { }
+        private const string DefaultDetail = "The specified resource has not changed since it was last retrieved.";
+
+        public NotModifiedException()
+            : base(DefaultDetail, DefaultDetail) { }
 
         public NotModifiedException(string message)
-            : base(message) { }
+            : base(DefaultDetail, message) { }
 
         public NotModifiedException(string message, Exception inner)
-            : base(message, inner) { }
+            : base(DefaultDetail, message, inner) { }
 
-        protected NotModifiedException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
+        // ---------------------------
+        //  Boilerplate for overrides
+        // ---------------------------
+        public override string Title { get => TitleText; }
+
+        public override int Status { get => StatusValue; }
+    
+        protected override IEnumerable<string> GetTypeParts()
+        {
+            foreach (var part in base.GetTypeParts())
+            {
+                yield return part;
+            }
+
+            yield return TypePart;
+        }
+        // ---------------------------
     }
 }

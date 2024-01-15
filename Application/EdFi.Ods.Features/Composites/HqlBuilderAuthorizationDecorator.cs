@@ -19,6 +19,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using log4net;
 
@@ -99,7 +100,7 @@ namespace EdFi.Ods.Features.Composites
                     authorizationContext,
                     authorizationBasisMetadata);
             }
-            catch (EdFiSecurityException ex)
+            catch (SecurityAuthorizationException ex)
             {
                 // If this is the base resource, rethrow the exception to achieve a 401 response
                 if (processorContext.IsBaseResource())

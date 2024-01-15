@@ -5,11 +5,7 @@
 
 using System;
 using System.Data.Common;
-using System.Net;
-using EdFi.Common;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
@@ -22,7 +18,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
     /// embedded in an <see cref="GenericADOException" />, and if snapshot context has been provided on
     /// the request, sets the response status code to HTTP 404 (Not Found).
     /// </summary>
-    public class SnapshotNotFoundExceptionTranslator : IExceptionTranslator
+    public class SnapshotNotFoundExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<SnapshotUsage> _snapshotContextProvider;
 
@@ -36,15 +32,12 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
             _snapshotContextProvider = snapshotContextProvider;
         }
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
-            Preconditions.ThrowIfNull(ex, nameof(ex));
-
-            webServiceError = null;
-
             // If Use-Snapshot was not provided, there is no need to try to translate this exception
             if (_snapshotContextProvider.Get() != SnapshotUsage.On)
             {
+                problemDetails = null;
                 return false;
             }
 
@@ -53,19 +46,13 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
                 ? ex.InnerException
                 : ex;
 
-            if (exception is DatabaseConnectionException ||
-                exception is DbException)
+            if (exception is DatabaseConnectionException or DbException)
             {
-                webServiceError = new RESTError
-                {
-                    Code = (int)HttpStatusCode.NotFound,
-                    Type = HttpStatusCode.NotFound.ToString().NormalizeCompositeTermForDisplay(),
-                    Message = "Snapshot not found."
-                };
-
+                problemDetails = new NotFoundException("Snapshot not found.");
                 return true;
             }
-
+            
+            problemDetails = null;
             return false;
         }
     }

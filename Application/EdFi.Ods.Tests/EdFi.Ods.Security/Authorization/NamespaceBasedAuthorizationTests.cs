@@ -10,6 +10,7 @@ using System.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
@@ -62,7 +63,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new AuthorizationFilterContext());
             
                 //Assert
-                result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
+                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
                 result.Exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
             }
 
@@ -100,7 +101,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new AuthorizationFilterContext());
 
                 //Assert
-                result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
+                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
                 result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
             }
         }
@@ -127,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 };
 
                 //Act
-                var exception = Assert.Throws<EdFiSecurityException>(
+                var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(
@@ -278,7 +279,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
 
-                var exception = Assert.Throws<EdFiSecurityException>(
+                var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(

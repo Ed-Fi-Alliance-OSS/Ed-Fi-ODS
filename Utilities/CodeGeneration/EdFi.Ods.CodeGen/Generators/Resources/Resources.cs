@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         private readonly ResourceCollectionRenderer _resourceCollectionRenderer = new();
         private readonly ResourcePropertyRenderer _resourcePropertyRenderer = new();
-        
+
         public static IPersonEntitySpecification PersonEntitySpecification { get; private set; }
 
         protected override void Configure() { }
@@ -36,6 +37,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 new PersonEntitySpecification(
                     new PersonTypesProvider(
                         new SuppliedDomainModelProvider(domainModel)));
+
+            _resourcePropertyRenderer.PersonEntitySpecification = PersonEntitySpecification;
             
             var schemaNameMapProvider = TemplateContext.DomainModelProvider.GetDomainModel()
                 .SchemaNameMapProvider;
@@ -301,7 +304,22 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .GetSchemaMapByPhysicalName(contextualParent.FullName.Schema)
                     .ProperCaseName;
 
+            // Lists
             var collections = _resourceCollectionRenderer.Collections(resourceClass);
+            var inheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(resourceClass);
+            var navigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(resourceClass);
+
+            // InheritedCollections instance, or null
+            var inheritedCollections = _resourceCollectionRenderer.InheritedCollections(resourceClass);
+
+            bool isExtendable = resourceClass.IsExtendable();
+
+            // Determine if we should generate an IValidatableObject
+            bool hasValidatableChildren = (collections as IList).Count > 0
+                || (inheritedNavigableOneToOnes as IList).Count > 0
+                || (navigableOneToOnes as IList).Count > 0
+                || inheritedCollections != null
+                || isExtendable;
 
             return new
             {
@@ -323,8 +341,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(resourceData, resourceClass, TemplateContext),
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
                 InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(resourceClass),
-                InheritedCollections =
-                    _resourceCollectionRenderer.InheritedCollections(resourceClass),
+                InheritedCollections = inheritedCollections,
                 OnDeserialize = _resourceCollectionRenderer.OnDeserialize(resourceData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()
@@ -334,13 +351,15 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             GuidConverterTypeName = "GuidConverter"
                         }
                         : ResourceRenderer.DoNotRenderProperty,
-                NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(resourceClass),
-                InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(resourceClass),
+                NavigableOneToOnes = navigableOneToOnes,
+                InheritedNavigableOneToOnes = inheritedNavigableOneToOnes,
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
                 References = _resourceCollectionRenderer.References(resourceData, resourceClass),
                 FQName = resourceClass.FullName,
+                SchemaProperCaseName = resourceClass.SchemaProperCaseName,
+                SchemaName = resourceClass.Entity?.Schema,
                 IsAbstract = resourceClass.IsAbstract(),
                 IsAggregateRoot = resourceClass.IsAggregateRoot(),
                 DerivedName = resourceClass.IsDerived
@@ -363,9 +382,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     ? resourceClass.Entity.BaseEntity?.Name
                     : ResourceRenderer.DoNotRenderProperty,
                 FilteredDelegates = _resourceCollectionRenderer.FilteredDelegates(resourceClass),
+                KeyUnificationValidations = GetKeyUnificationValidations(resourceClass),
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
-                IsExtendable = resourceClass.IsExtendable(),
+                HasValidatableChildren = hasValidatableChildren,
+                IsExtendable = isExtendable,
                 IsResourceExtensionClass = resourceClass.IsResourceExtensionClass,
                 HasSupportedExtensions = resourceData.Resource.Extensions.Any(),
                 SupportedExtensions = resourceData.Resource.Extensions.OrderBy(f => f.PropertyName)
@@ -381,6 +402,71 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
         }
 
+        private static ResourceCollectionRenderer.KeyUnificationValidation GetKeyUnificationValidations(ResourceClassBase resourceClass)
+        {
+            var resourceChildItem = resourceClass as ResourceChildItem;
+            
+            return new ResourceCollectionRenderer.KeyUnificationValidation
+            {
+                ResourceClassName = resourceClass.Name,
+                ParentResourceClassName = resourceChildItem?.Parent.Name,
+                HasUnifiedProperties = resourceClass.AllProperties.Any(rp => rp.IsUnified()),
+                UnifiedProperties = resourceClass.AllProperties.Where(rp => rp.IsUnified())
+                    .Select(
+                        rp => new ResourceCollectionRenderer.UnifiedProperty
+                        {
+                            UnifiedPropertyName = rp.PropertyName,
+                            UnifiedJsonPropertyName = rp.JsonPropertyName,
+                            UnifiedCSharpPropertyType = rp.PropertyType.ToCSharp(),
+                            UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations.Any(a => a.IsNavigable),
+                            UnifiedPropertyIsString = rp.PropertyType.IsString(),
+                            UnifiedPropertyIsLocallyDefined = rp.IsLocallyDefined,
+                            UnifiedPropertyParentPath = resourceChildItem is
+                            {
+                                IsResourceExtension: true,
+                                IsResourceExtensionClass: false,
+                            }
+                                ? string.Join(
+                                    string.Empty,
+                                    resourceChildItem.GetLineage()
+                                        .TakeWhile(l => !l.IsResourceExtension)
+                                        .Select(l => "." + l.Name))
+                                : null,
+                            References = rp.EntityProperty.IncomingAssociations
+                                .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
+                                .Select(
+                                    a => new
+                                    {
+                                        Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
+                                        OtherEntityPropertyName = a.PropertyMappings
+                                            .Where(pm => pm.ThisProperty.Equals(rp.EntityProperty))
+                                            .Select(pm => pm.OtherProperty.PropertyName)
+                                            .Single(),
+                                    })
+                                .Select(
+                                    x => new
+                                    {
+                                        Reference = x.Reference,
+                                        ReferenceProperty = (x.Reference.ReferenceTypeProperties.SingleOrDefault(
+                                                rtp => rtp.EntityProperty.PropertyName == x.OtherEntityPropertyName)
+
+                                            // Deal with the special case of the re-pointing of the identifying property from USI to UniqueId in Person entities
+                                            ?? x.Reference.ReferenceTypeProperties.Single(
+                                                rtp => rtp.EntityProperty.PropertyName
+                                                    == UniqueIdConventions.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
+                                    })
+                                .Select(
+                                    x => new ResourceCollectionRenderer.UnifiedReferenceProperty
+                                    {
+                                        ReferenceName = x.Reference.PropertyName,
+                                        ReferenceJsonName = x.Reference.JsonPropertyName,
+                                        ReferencePropertyName = x.ReferenceProperty.PropertyName,
+                                        ReferenceJsonPropertyName = x.ReferenceProperty.JsonPropertyName
+                                    })
+                        })
+            };
+        }
+        
         private static IEnumerable<object> CreateResourceReferences(ResourceClassBase resourceClass)
         {
             if (resourceClass.Entity == null)
