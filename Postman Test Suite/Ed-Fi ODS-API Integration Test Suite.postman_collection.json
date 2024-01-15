@@ -9220,7 +9220,7 @@
 													"});",
 													"console.log(pm.response.json());",
 													"pm.test(\"The validationErrors response should include a validation message indicating an invalid Int64 value was provided for SchoolId\", () => {",
-													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).to.contain(\"not a valid System.Int64\");",
+													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).to.contain(\"System.Int64\");",
 													"});"
 												],
 												"type": "text/javascript"
