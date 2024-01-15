@@ -9176,7 +9176,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Preschool\"\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9230,7 +9230,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},   // Has a decimal part so that it is not a valid Int64 value\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},   // Has a decimal part so that it is not a valid Int64 value\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Preschool\"\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
