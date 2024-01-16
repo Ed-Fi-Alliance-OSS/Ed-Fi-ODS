@@ -9206,7 +9206,8 @@
 											"script": {
 												"exec": [
 													"// Include a decimal part so that it is not a valid Int64 value\r",
-													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(parseFloat(\"{{$randomInt)}}.{{$randomInt)}}\").toString())); "
+													"// Parse the generated SchoolId as a float and convert back to a string to prevent issues related to trailing zeros\r",
+													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(parseFloat(\"{{$randomInt}}.{{$randomInt}}\").toString())); "
 												],
 												"type": "text/javascript"
 											}
@@ -9221,9 +9222,7 @@
 													"console.log(pm.response.json());",
 													"pm.test(\"The validationErrors response should include a validation message indicating an invalid Int64 value was provided for SchoolId\", () => {",
 													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).contains(\"Input string '\" + pm.environment.get(\"supplied:school:schoolId\") + \"' is not\")",
-													"});",
-													"",
-													"console.log(pm.response.json().validationErrors['$.schoolId'][0]);"
+													"});"
 												],
 												"type": "text/javascript"
 											}
