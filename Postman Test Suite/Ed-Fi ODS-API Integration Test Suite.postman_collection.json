@@ -9206,8 +9206,7 @@
 											"script": {
 												"exec": [
 													"// Include a decimal part so that it is not a valid Int64 value\r",
-													"// Parse the generated SchoolId as a float and convert back to a string to prevent issues related to trailing zeros\r",
-													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(parseFloat(\"{{$randomInt}}.{{$randomInt}}\").toString())); "
+													"pm.environment.set('supplied:school:schoolId', parseFloat(pm.variables.replaceIn(\"{{$randomInt}}.{{$randomInt}}\").toString())); "
 												],
 												"type": "text/javascript"
 											}
