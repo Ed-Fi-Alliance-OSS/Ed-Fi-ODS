@@ -9206,7 +9206,7 @@
 											"script": {
 												"exec": [
 													"// Include a decimal part so that it is not a valid Int64 value\r",
-													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(\"{{$randomInt}}.{{$randomInt}}\")); "
+													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(parseFloat(\"{{$randomInt)}}.{{$randomInt)}}\").toString())); "
 												],
 												"type": "text/javascript"
 											}
