@@ -196,7 +196,7 @@ function CheckoutBranch {
     Set-Location $RelativeRepoPath
     $odsBranch = $Env:REPOSITORY_DISPATCH_BRANCH
     Write-Output "OdsBranch: $odsBranch"
-    if($odsBranch -ne ''){
+    if(![string]::IsNullOrEmpty($odsBranch)){
         $patternName = "refs/heads/$odsBranch"
         $does_corresponding_branch_exist = $false
         $does_corresponding_branch_exist = git ls-remote --heads origin $odsBranch | Select-String -Pattern $patternName -SimpleMatch -Quiet

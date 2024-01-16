@@ -32,47 +32,11 @@ env:
 
 jobs:
   FindStandardAndExtensionVersions:
-    runs-on: ubuntu-latest    
-    outputs:
-      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
-      ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
-    steps:
-    - name: Checkout Ed-Fi-Extensions
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions/    
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/          
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-Extensions/
-      shell: pwsh
-      run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
-    - name: Set StandardVersions
-      id: Set_StandardVersions
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-        Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
-        Write-host "StandardVersions is  $output"
-      shell: pwsh
-    - name: Set ExtensionVersions
-      id: Set_ExtensionVersions
-      working-directory: ./Ed-Fi-Extensions/  
-      run: |
-        $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
-        Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
-        Write-host "ExtensionVersions is  $output"
-      shell: pwsh
+    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
+    with:
+      calling_branch: ${{ github.head_ref || github.ref_name }}
+      extension_path: 'Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj'
+
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
