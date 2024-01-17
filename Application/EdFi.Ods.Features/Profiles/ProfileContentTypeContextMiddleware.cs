@@ -35,6 +35,8 @@ public class ProfileContentTypeContextMiddleware
         "The profile usage segment in the profile-based '{0}' header was not recognized.";
     private const string NonExistingProfileFormat =
         "The profile specified by the content type in the '{0}' header is not supported by this host.";
+    private const string MisconfiguredProfileFormat =
+        "The profile specified by the content type in the '{0}' header is configured but invalid.";
 
     private const int ResourceNameFacet = 0;
     private const int ProfileNameFacet = 1;
@@ -153,9 +155,20 @@ public class ProfileContentTypeContextMiddleware
                     return (false, null);
                 }
 
-                // Validate that the Profile exists
+                // Validate that the Profile exists and is valid
                 string profileName = profileContentTypeFacets[ProfileNameFacet].Value;
 
+                if (_profileMetadataProvider.GetValidationResults().Any(x => x.Name.Equals(profileName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    await WriteResponse(
+                        response,
+                        StatusCodes.Status406NotAcceptable,
+                        headerName,
+                        MisconfiguredProfileFormat);
+
+                    return (false, null);
+                }
+                
                 if (!_profileMetadataProvider.ProfileDefinitionsByName.ContainsKey(profileName))
                 {
                     await WriteResponse(
