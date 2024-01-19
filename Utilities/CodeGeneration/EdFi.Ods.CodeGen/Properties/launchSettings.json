@@ -1,10 +1,18 @@
 {
   "profiles": {
-    "EdFi.CodeGen - SQLServer": {
+    "EdFi.CodeGen - SQLServer 4.0.0": {
+      "commandName": "Project",
+      "commandLineArgs": "-e SQLServer --standardVersion 4.0.0"
+    },
+    "EdFi.CodeGen - SQLServer 5.0.0": {
       "commandName": "Project",
       "commandLineArgs": "-e SQLServer --standardVersion 5.0.0"
     },
-    "EdFi.CodeGen - PostgreSQL": {
+    "EdFi.CodeGen - PostgreSQL 4.0.0": {
+      "commandName": "Project",
+      "commandLineArgs": "-e PostgreSQL --standardVersion 4.0.0"
+    },
+    "EdFi.CodeGen - PostgreSQL 5.0.0": {
       "commandName": "Project",
       "commandLineArgs": "-e PostgreSQL --standardVersion 5.0.0"
     }
