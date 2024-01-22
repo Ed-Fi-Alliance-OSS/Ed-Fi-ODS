@@ -7,6 +7,7 @@ using System.Linq;
 using EdFi.Common.Inflection;
 using NUnit.Framework;
 using Shouldly;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Common.UnitTests.Inflection
 {
