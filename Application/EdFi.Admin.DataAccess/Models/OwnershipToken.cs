@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace EdFi.Admin.DataAccess.Models
 {
     /// <summary>
@@ -31,7 +30,7 @@ namespace EdFi.Admin.DataAccess.Models
         /// </summary>
         [StringLength(50)]
         public string Description { get; set; }
-        public ICollection<ApiClient> ApiClients { get; set; }
+        public virtual ICollection<ApiClient> ApiClients { get; set; }
 
     }
 }

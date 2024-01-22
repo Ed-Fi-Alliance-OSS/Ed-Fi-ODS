@@ -8,17 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    public class VendorNamespacePrefix
+    public class OdsInstanceDerivative
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VendorNamespacePrefixId { get; set; }
+        public int OdsInstanceDerivativeId { get; set; }
 
-        [Required]
-        public virtual Vendor Vendor { get; set; }
+        public virtual OdsInstance OdsInstance { get; set; }
 
+        /// <summary>
+        /// The type of derivative (e.g. "Snapshot")
+        /// </summary>
         [Required]
-        [StringLength(255)]
-        public string NamespacePrefix { get; set; }
+        [StringLength(50)]
+        public string DerivativeType { get; set; }
+
+        /// <summary>
+        /// The database connection string for the derivative
+        /// </summary>
+        [Required]
+        [StringLength(500)]
+        public string ConnectionString { get; set; }
     }
 }

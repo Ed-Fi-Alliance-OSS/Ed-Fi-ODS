@@ -8,17 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    public class VendorNamespacePrefix
+    public class OdsInstanceContext
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VendorNamespacePrefixId { get; set; }
+        public int OdsInstanceContextId { get; set; }
 
-        [Required]
-        public virtual Vendor Vendor { get; set; }
+        public virtual OdsInstance OdsInstance { get; set; }
 
+        /// <summary>
+        /// The Key for the OdsInstanceContext (e.g. "SchoolYear")
+        /// </summary>
         [Required]
-        [StringLength(255)]
-        public string NamespacePrefix { get; set; }
+        [StringLength(50)]
+        public string ContextKey { get; set; }
+
+        /// <summary>
+        /// The Value for the OdsInstanceContext (e.g. "2023")
+        /// </summary>
+        [Required]
+        [StringLength(50)]
+        public string ContextValue { get; set; }
     }
 }

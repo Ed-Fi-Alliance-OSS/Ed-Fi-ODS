@@ -5,26 +5,26 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Models
 {
     /// <summary>
-    /// Class representing the assignment of one or more ownership tokens to an API client.
-    /// A API Client has a list of Ownership tokens.
+    /// Class representing the association of an Api Client with an Ods Instance
     /// </summary>
-    public class ApiClientOwnershipToken
+    [Index("ApiClientId")]
+    [Index("OdsInstanceId")]
+    public class ApiClientOdsInstance
     {
         /// <summary>
-        /// Numeric Identifier which is an Identity column which distinguish the uniques combination of ApiClient and Ownership Token 
+        /// Numeric Identifier which is an Identity column which distinguish the unique combination of ApiClient and OdsInstance
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ApiClientOwnershipTokenId { get; set; }
+        public int ApiClientOdsInstanceId { get; set; }
 
-        [Column("OwnershipToken_OwnershipTokenId")]
-        public int OwnershipTokenId { get; set; }
+        public virtual ApiClient ApiClient { get; set; }
 
-        [Column("ApiClient_ApiClientId")]
-        public int ApiClientId { get; set; }
+        public virtual OdsInstance OdsInstance { get; set; }
     }
 }

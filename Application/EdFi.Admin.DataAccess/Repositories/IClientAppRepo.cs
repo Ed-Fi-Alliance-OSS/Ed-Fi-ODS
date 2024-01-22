@@ -11,8 +11,9 @@ namespace EdFi.Admin.DataAccess.Repositories
 {
     public interface IClientAppRepo
     {
+        void CreateProfilesWithProfileDefinition(List<Profile> profiles);
 
-        void AddProfilesToApplication(List<string> profileNames, int applicationId);
+        void AddProfilesToApplication(List<Profile> profiles, int applicationId);
 
         IEnumerable<User> GetUsers();
 
@@ -40,9 +41,11 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         void AddApiClientToUserWithVendorApplication(int userId, ApiClient client);
 
-        ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId);
+        ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId,
+            int applicationId);
 
-        void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId);
+        void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId,
+            int applicationId);
 
         Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
 
@@ -50,7 +53,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         ApiClient CreateApiClient(int userId, string name, string key, string secret);
 
-        void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<int> edOrgIds, int applicationId);
+        void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<long> edOrgIds, int applicationId);
 
         void Reset();
 
@@ -61,5 +64,9 @@ namespace EdFi.Admin.DataAccess.Repositories
         void AddApiClientOwnershipTokens(List<string> ownershipTokens, int apiClientId);
 
         ApiClient GetClientByKey(string key);
+
+        OdsInstance CreateOdsInstance(OdsInstance odsInstance);
+
+        void AddOdsInstanceToApiClient(int apiClientId, int odsInstanceId);
     }
 }
