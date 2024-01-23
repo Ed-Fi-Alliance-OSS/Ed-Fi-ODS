@@ -5,119 +5,129 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using EdFi.Common;
-using EdFi.Common.Utils.Extensions;
-using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
+using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
-    public class SecurityRepository : SecurityRepositoryBase, ISecurityRepository
+    /// <summary>
+    /// Provides higher level access to raw security metadata.
+    /// </summary>
+    public class SecurityRepository : ISecurityRepository
     {
-        private readonly ISecurityContextFactory _securityContextFactory;
+        private readonly ISecurityTableGateway _securityTableGateway;
 
-        public SecurityRepository(ISecurityContextFactory securityContextFactory)
+        public SecurityRepository(ISecurityTableGateway securityTableGateway)
         {
-            _securityContextFactory = Preconditions.ThrowIfNull(securityContextFactory, nameof(securityContextFactory));
-
-            Initialize(
-                GetApplication,
-                GetActions,
-                GetClaimSets,
-                GetResourceClaims,
-                GetAuthorizationStrategies,
-                GetClaimSetResourceClaimActions,
-                GetResourceClaimActionAuthorizations);
+            _securityTableGateway = securityTableGateway ?? throw new ArgumentNullException(nameof(securityTableGateway));
         }
 
-        private Application GetApplication()
+        public virtual Action GetActionByName(string actionName)
         {
-            using var context = _securityContextFactory.CreateContext();
-
-            return context.Applications.First(
-                app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
+            return _securityTableGateway.GetActions().First(a => a.ActionName.Equals(actionName, StringComparison.OrdinalIgnoreCase));
         }
 
-        private List<Models.Action> GetActions()
+        public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
         {
-            using var context = _securityContextFactory.CreateContext();
-
-            return context.Actions.ToList();
+            return _securityTableGateway.GetAuthorizationStrategies().First(
+              a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.OrdinalIgnoreCase));
         }
 
-        private List<ClaimSet> GetClaimSets()
+        public virtual IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-            using var context = _securityContextFactory.CreateContext();
 
-            return context.ClaimSets.Include(cs => cs.Application).ToList();
-        }
-
-        private List<ResourceClaim> GetResourceClaims()
-        {
-            using var context = _securityContextFactory.CreateContext();
-
-            return context.ResourceClaims
-                .Include(rc => rc.Application)
-                .Include(rc => rc.ParentResourceClaim)
-                .Where(rc => rc.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+            return _securityTableGateway.GetClaimSetResourceClaimActions()
+                .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
-        private List<AuthorizationStrategy> GetAuthorizationStrategies()
+        /// <summary>
+        /// Gets the lineage up the taxonomy of resource claim URIs for the specified resource.
+        /// </summary>
+        /// <param name="resourceClaimUri">The resource claim URI representing the resource.</param>
+        /// <returns>The lineage of resource claim URIs.</returns>
+        public virtual IList<string> GetResourceClaimLineage(string resourceClaimUri)
         {
-            using var context = _securityContextFactory.CreateContext();
-
-            return context.AuthorizationStrategies
-                .Include(auth => auth.Application)
-                .Where(auth => auth.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+            return GetResourceClaimLineageForResourceClaim(resourceClaimUri)
+                .Select(c => c.ClaimName)
                 .ToList();
         }
 
-        private List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions()
+        private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri)
         {
-            using var context = _securityContextFactory.CreateContext();
+            var resourceClaimLineage = new List<ResourceClaim>();
 
-            var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions
-                .Include(csrc => csrc.Action)
-                .Include(csrc => csrc.ClaimSet)
-                .Include(csrc => csrc.ClaimSet.Application)
-                .Include(csrc => csrc.ResourceClaim)
-                .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
-                .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
-                .ToList();
+            ResourceClaim resourceClaim;
 
-            // Replace empty lists with null since some consumers expect it that way
-            claimSetResourceClaimActions
-                .Where(csrc => csrc.AuthorizationStrategyOverrides.Count == 0)
-                .ForEach(csrc => csrc.AuthorizationStrategyOverrides = null);
-
-            return claimSetResourceClaimActions;
-        }
-
-        private List<ResourceClaimAction> GetResourceClaimActionAuthorizations()
-        {
-            using var context = _securityContextFactory.CreateContext();
-
-            var resourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies
-                .Include(rcaas => rcaas.AuthorizationStrategy)
-                .Include(rcaas => rcaas.ResourceClaimAction)
-                .ToList();
-
-            var resourceClaimActionAuthorizations = context.ResourceClaimActions
-                .Include(rcas => rcas.Action)
-                .Include(rcas => rcas.ResourceClaim)
-                .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
-                .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
-                .ToList();
-
-            foreach (var a in resourceClaimActionAuthorizations)
+            try
             {
-                a.AuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
+                resourceClaim = _securityTableGateway.GetResourceClaims()
+                    .SingleOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Use InvalidOperationException wrapper with custom message over InvalidOperationException
+                // thrown by Linq to communicate back to caller the problem with the configuration.
+                throw new InvalidOperationException($"Multiple resource claims with a claim name of '{resourceClaimUri}' were found in the Ed-Fi API's security configuration. Authorization cannot be performed.", ex);
             }
 
-            return resourceClaimActionAuthorizations;
+            if (resourceClaim != null)
+            {
+                resourceClaimLineage.Add(resourceClaim);
+
+                if (resourceClaim.ParentResourceClaim != null)
+                {
+                    resourceClaimLineage.AddRange(GetResourceClaimLineageForResourceClaim(resourceClaim.ParentResourceClaim.ClaimName));
+                }
+            }
+
+            return resourceClaimLineage;
+        }
+
+        /// <summary>
+        /// Gets the authorization metadata of the lineage up the resource claim taxonomy for the specified resource claim.
+        /// </summary>
+        /// <param name="resourceClaimUri">The resource claim URI for which metadata is to be retrieved.</param>
+        /// <returns>The resource claim's lineage of authorization metadata.</returns>
+        public virtual IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        {
+            var strategies = new List<ResourceClaimAction>();
+
+            AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
+
+            return strategies;
+        }
+
+        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAction> strategies, string resourceClaimUri, string action)
+        {
+            //check for exact match on resource and action
+            var claimAndStrategy = _securityTableGateway.GetResourceClaimActionAuthorizations()
+                .SingleOrDefault(
+                    rcas =>
+                        rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase)
+                        && rcas.Action.ActionUri.Equals(action, StringComparison.OrdinalIgnoreCase));
+
+            // Add the claim/strategy if it was found
+            if (claimAndStrategy != null)
+            {
+                strategies.Add(claimAndStrategy);
+            }
+
+            var resourceClaim = _securityTableGateway.GetResourceClaims()
+                .FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase));
+
+            // if there's a parent resource, recurse
+            if (resourceClaim is { ParentResourceClaim: not null })
+            {
+                AddStrategiesForResourceClaimLineage(strategies, resourceClaim.ParentResourceClaim.ClaimName, action);
+            }
+        }
+
+        public virtual ResourceClaim GetResourceByResourceName(string resourceName)
+        {
+            return _securityTableGateway.GetResourceClaims()
+                .FirstOrDefault(rc => rc.ResourceName.Equals(resourceName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

@@ -22,7 +22,5 @@ namespace EdFi.Security.DataAccess.Models
         [Required]
         public string AuthorizationStrategyName { get; set; }
 
-        [Required]
-        public Application Application { get; set; }
     }
 }

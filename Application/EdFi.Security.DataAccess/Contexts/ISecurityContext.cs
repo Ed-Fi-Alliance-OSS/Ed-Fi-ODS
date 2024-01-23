@@ -4,8 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Entity;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
@@ -13,7 +14,6 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public interface ISecurityContext : IDisposable
     {
-        DbSet<Application> Applications { get; set; }
 
         DbSet<Action> Actions { get; set; }
 
@@ -33,6 +33,6 @@ namespace EdFi.Security.DataAccess.Contexts
 
         int SaveChanges();
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellation = default(CancellationToken));
     }
 }
