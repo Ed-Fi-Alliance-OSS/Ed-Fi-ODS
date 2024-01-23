@@ -1,18 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="..\EdFi.Ods.CodeGen\log4net.config" Link="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -21,38 +18,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="ApprovalTests" Version="5.7.1" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference  Include="FluentValidation" Version="10.4.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Shouldly" Version="4.0.3" />
+    <PackageReference Include="ApprovalTests" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="FakeItEasy" Version="8.1.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Shouldly" Version="4.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.CodeGen\EdFi.Ods.CodeGen.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="Approval\*.approved.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Approval\*.approved.cs" />
     <None Remove="Approval\*.approved.xml" />
     <None Remove="Approval\*.approved.sql" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="IntegrationTests\Profiles\Xml\DuplicateProfile.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -76,5 +68,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

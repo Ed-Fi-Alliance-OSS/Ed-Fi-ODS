@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Security.Claims
 {
@@ -25,10 +24,5 @@ namespace EdFi.Ods.Common.Security.Claims
 
         public AuthorizationContextException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected AuthorizationContextException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }
