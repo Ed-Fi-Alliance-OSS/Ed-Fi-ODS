@@ -2,7 +2,7 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches: [main, 'ODS-*']
+    branches: [main, 'ODS-*',v*-patch*]
   push:
     branches:
       - main

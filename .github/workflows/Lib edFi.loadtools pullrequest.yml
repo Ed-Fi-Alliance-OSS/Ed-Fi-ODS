@@ -2,7 +2,7 @@ name: Lib EdFi.LoadTools Pull request build and test
 
 on:
   pull_request:
-    branches: [main, 'ODS-*']
+    branches: [main, 'ODS-*',v*-patch*]
 
 env:
   INFORMATIONAL_VERSION: "7.1"
