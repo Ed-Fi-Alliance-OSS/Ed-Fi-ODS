@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
@@ -14,16 +13,6 @@ namespace EdFi.Ods.Common.Extensions
 {
     public static class ResourceExtensions
     {
-        private static readonly ConcurrentDictionary<Resource, IReadOnlyDictionary<string, ResourcePropertyMapping>>
-            _resourceOtherPropertyMappingsByResource
-                = new ConcurrentDictionary<Resource, IReadOnlyDictionary<string, ResourcePropertyMapping>>(
-                    ModelComparers.Resource);
-
-        private static readonly ConcurrentDictionary<Resource, IReadOnlyDictionary<string, ResourcePropertyMapping>>
-            _resourceThisPropertyMappingsByResource
-                = new ConcurrentDictionary<Resource, IReadOnlyDictionary<string, ResourcePropertyMapping>>(
-                    ModelComparers.Resource);
-
         public static string GetPhysicalNameForLogicalName(this IResourceModel resourceModel, string logicalName)
         {
             return resourceModel.SchemaNameMapProvider

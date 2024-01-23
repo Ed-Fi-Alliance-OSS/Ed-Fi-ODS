@@ -42,8 +42,8 @@ namespace EdFi.Ods.CodeGen.Generators
                     .Select(
                         r => new
                         {
-                            Schema = r.FullName.Schema,
-                            Name = r.Name,
+                            r.FullName.Schema,
+                            r.Name,
                             AggregateName = r.Name,
                             ImplementedInterfaces = GetImplementedInterfaceString(r),
                             ParentInterfaceName = GetParentInterfaceName(r),
@@ -67,7 +67,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                 .Select(
                                     p => new
                                     {
-                                        IsServerAssigned = p.IsServerAssigned,
+                                        p.IsServerAssigned,
                                         IsUniqueId = UniqueIdSpecification.IsUniqueId(p.PropertyName)
                                             && PersonEntitySpecification.IsPersonEntity(r.Name),
                                         IsLookup = p.IsDescriptorUsage,
@@ -151,7 +151,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                         PluralName = c.PropertyName
                                     })
                                 .ToList(),
-                            HasDiscriminator = r.HasDiscriminator(),
+                            HasDiscriminator = r.Entity?.HasDiscriminator() ?? false,
                             AggregateReferences =
                                 r.Entity?.GetAssociationsToReferenceableAggregateRoots()
                                     .OrderBy(a => a.Name)
@@ -196,7 +196,7 @@ namespace EdFi.Ods.CodeGen.Generators
             return $"I{parentClassName}";
         }
 
-        private string GetImplementedInterfaceString(ResourceClassBase resourceClass)
+        private static string GetImplementedInterfaceString(ResourceClassBase resourceClass)
         {
             var interfaceStringBuilder = new StringBuilder();
 
@@ -235,26 +235,28 @@ namespace EdFi.Ods.CodeGen.Generators
             return interfaceStringBuilder.ToString();
         }
 
-        private void AddInterface(string interfaceName, StringBuilder interfaceStringBuilder)
+        private static void AddInterface(string interfaceName, StringBuilder interfaceStringBuilder)
         {
-            if (interfaceStringBuilder.Length > 0)
-            {
-                interfaceStringBuilder.Append(", " + interfaceName);
-            }
-            else
+            if (interfaceStringBuilder.Length <= 0)
             {
                 interfaceStringBuilder.Append(" : " + interfaceName);
             }
+            else
+            {
+                interfaceStringBuilder.Append(", " + interfaceName);
+            }
         }
 
-        private bool IsModelInterfaceProperty(ResourceProperty p)
-        {
-            return !new[]
+        private static readonly string[] sourceArray = new[]
             {
                 "Id",
                 "LastModifiedDate",
                 "CreateDate"
-            }.Contains(p.PropertyName);
+            };
+
+        private bool IsModelInterfaceProperty(ResourceProperty p)
+        {
+            return !sourceArray.Contains(p.PropertyName);
         }
     }
 }

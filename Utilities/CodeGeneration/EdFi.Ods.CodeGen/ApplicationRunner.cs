@@ -14,25 +14,14 @@ using log4net;
 
 namespace EdFi.Ods.CodeGen
 {
-    public class ApplicationRunner : IApplicationRunner
+    public class ApplicationRunner(ITemplateProcessor templateProcessor, IEnumerable<IAssemblyDataProvider> assemblyDataProviders) : IApplicationRunner
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(ApplicationRunner));
-        private readonly IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
-        private readonly ITemplateProcessor _templateProcessor;
-
-        public ApplicationRunner(ITemplateProcessor templateProcessor, IEnumerable<IAssemblyDataProvider> assemblyDataProviders)
-        {
-            _templateProcessor = templateProcessor ?? throw new ArgumentNullException(nameof(templateProcessor));
-            _assemblyDataProviders = assemblyDataProviders ?? throw new ArgumentNullException(nameof(assemblyDataProviders));
-        }
+        private readonly IEnumerable<IAssemblyDataProvider> _assemblyDataProviders = assemblyDataProviders ?? throw new ArgumentNullException(nameof(assemblyDataProviders));
+        private readonly ITemplateProcessor _templateProcessor = templateProcessor ?? throw new ArgumentNullException(nameof(templateProcessor));
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             _logger.Debug("Processing beginning.");
 
             foreach (var assemblyData in _assemblyDataProviders.SelectMany(x => x.Get()))

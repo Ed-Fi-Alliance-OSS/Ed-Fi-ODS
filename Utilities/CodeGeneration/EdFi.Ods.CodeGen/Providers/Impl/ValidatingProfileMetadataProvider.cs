@@ -27,19 +27,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         public ValidatingProfileMetadataProvider(string profilePath, IResourceModelProvider resourceModelProvider)
         {
-            if (profilePath == null)
-            {
-                throw new ArgumentNullException(nameof(profilePath));
-            }
+            ArgumentNullException.ThrowIfNull(profilePath);
+            ArgumentNullException.ThrowIfNull(resourceModelProvider);
 
             if (!Directory.Exists(profilePath))
             {
                 throw new DirectoryNotFoundException($"{profilePath} not found");
-            }
-
-            if (resourceModelProvider == null)
-            {
-                throw new ArgumentNullException(nameof(resourceModelProvider));
             }
 
             _resourceModel = resourceModelProvider.GetResourceModel();
@@ -71,6 +64,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             => ProfileXDocument.Nodes()
                 .Any();
 
+        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName => throw new NotImplementedException();
+
         /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>
@@ -88,22 +83,25 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames() => _profileResources.Value;
 
-        private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
+        private IDictionary<string, XElement> LazyInitializeProfileDefinitions
         {
-            if (!HasProfileData)
+            get
             {
-                throw new ArgumentException("Profile does not exist.");
+                if (!HasProfileData)
+                {
+                    throw new ArgumentException("Profile does not exist.");
+                }
+
+                ValidateMetadata();
+
+                return ProfileXDocument
+                    .Descendants("Profile")
+                    .ToDictionary(
+                        x => x.AttributeValue("name"),
+                        x => x,
+                        StringComparer
+                            .InvariantCultureIgnoreCase);
             }
-
-            ValidateMetadata();
-
-            return ProfileXDocument
-                .Descendants("Profile")
-                .ToDictionary(
-                    x => x.AttributeValue("name"),
-                    x => x,
-                    StringComparer
-                        .InvariantCultureIgnoreCase);
         }
 
         private List<ProfileAndResourceNames> LazyInitializeProfileResources()
