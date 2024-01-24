@@ -38,14 +38,6 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterDecorator(
                 typeof(UniqueIdIntegrationPutPipelineStepsProviderDecorator),
                 typeof(IPutPipelineStepsProvider));
-
-            builder.RegisterType<UniqueIdNotChangedEntityValidator>()
-                .As<IEntityValidator>()
-                .SingleInstance();
-
-            builder.RegisterType<EnsureUniqueIdAlreadyExistsEntityValidator>()
-                .As<IEntityValidator>()
-                .SingleInstance();
         }
     }
 }

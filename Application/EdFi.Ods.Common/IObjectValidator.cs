@@ -22,11 +22,6 @@ namespace EdFi.Ods.Common
     }
 
     /// <summary>
-    /// Provides a strongly typed interface specifically for validating persistent entities.
-    /// </summary>
-    public interface IEntityValidator : IObjectValidator { }
-
-    /// <summary>
     /// Provides a strongly typed interface specifically for validating incoming API resources.
     /// </summary>
     public interface IResourceValidator : IObjectValidator { }

@@ -13,7 +13,7 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
 {
-    public class UniqueIdNotChangedEntityValidator : ObjectValidatorBase, IEntityValidator
+    public class UniqueIdNotChangedEntityValidator : ObjectValidatorBase
     {
         private readonly IPersonUniqueIdToIdCache _personIdentifiersCache;
         private readonly IPersonEntitySpecification _personEntitySpecification;
