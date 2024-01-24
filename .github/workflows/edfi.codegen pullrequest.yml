@@ -56,14 +56,14 @@ jobs:
       - name: Check out Ed-Fi-ODS-Extensions
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Extensions
-          path: Ed-Fi-ODS-Extensions
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions
 
-      - name: Confirm Branch Exists in Ed-Fi-ODS-Extensions
+      - name: Confirm Branch Exists in Ed-Fi-Extensions
         working-directory: ./Ed-Fi-ODS/
         shell: pwsh
         run: |
-          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Extensions"
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
 
       - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
