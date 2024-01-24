@@ -2262,3 +2262,44 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
+{
+
+    [ExcludeFromCodeCoverage]
+    public class AcademicWeekGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Guid Id { get; set; }
+        public int SchoolId { get; set; }
+        public int TotalInstructionalDays { get; set; }
+        public string WeekIdentifier { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AcademicWeekGetByIds : IHasIdentifiers<Guid>
+    {
+        public AcademicWeekGetByIds() { }
+
+        public AcademicWeekGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AcademicWeekDelete : IHasIdentifier
+    {
+        public AcademicWeekDelete() { }
+
+        public AcademicWeekDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
