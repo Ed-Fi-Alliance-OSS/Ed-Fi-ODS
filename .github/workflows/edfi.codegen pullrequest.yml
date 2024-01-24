@@ -1,0 +1,66 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: EdFi.Ods.CodeGen Pull Request Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - main-6x
+    paths:
+      - Utilities/CodeGeneration/**/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Ed-Fi-ODS
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          path: Ed-Fi-ODS/
+
+      - name: Check out Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation
+
+      - name: Ensure pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+
+      - name: Build Code Generation
+        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        run: |
+          dotnet build --configuration Release
+
+      - name: Run unit tests
+        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        run: |
+          dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: unit-tests
+          path: ./Ed-Fi-ODS/utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
+          retention-days: 5
+
+      - name: Run unit tests
+        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        run: |
+          dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: integration-tests
+          path: ./Ed-Fi-ODS/utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
+          retention-days: 5
+
