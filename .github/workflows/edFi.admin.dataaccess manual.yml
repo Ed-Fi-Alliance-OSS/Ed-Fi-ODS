@@ -2,6 +2,8 @@ name: EdFi.Admin.DataAccess Manually triggered build
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main, 'ODS-*',b-v*-patch*]  
 
 env:
   INFORMATIONAL_VERSION: "6.1"
