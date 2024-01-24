@@ -34,11 +34,13 @@ jobs:
           dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
 
       - name: Upload Unit Test Results
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        if: always()
         with:
           name: unit-tests
           path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
           retention-days: 5
+          if-no-files-found: warn
 
       # Integration tests require presence of the `Ed-Fi-ODS-Implementation` and `Ed-Fi-Extensions` repositories
       - name: Check out Ed-Fi-ODS-Implementation
@@ -71,9 +73,11 @@ jobs:
           dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
 
       - name: Upload Integration Test Results
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        if: always()
         with:
           name: integration-tests
           path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
           retention-days: 5
+          if-no-files-found: warn
 
