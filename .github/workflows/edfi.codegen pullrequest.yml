@@ -23,41 +23,54 @@ jobs:
         with:
           path: Ed-Fi-ODS/
 
-      - name: Check out Ed-Fi-ODS-Implementation
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation
-
-      - name: Ensure pull request branch exists in Ed-Fi-ODS-Implementation
-        working-directory: ./Ed-Fi-ODS/
-        shell: pwsh
-        run: |
-          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-
       - name: Build Code Generation
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet build --configuration Release
 
-      - name: Run unit tests
+      - name: Run Unit Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
 
-      - name: Upload Test Results
+      - name: Upload Unit Test Results
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: unit-tests
           path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
           retention-days: 5
 
-      - name: Run unit tests
+      # Integration tests require presence of the `Ed-Fi-ODS-Implementation` and `Ed-Fi-Extensions` repositories
+      - name: Check out Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation
+
+      - name: Confirm Branch Exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+
+      - name: Check out Ed-Fi-ODS-Extensions
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation
+
+      - name: Confirm Branch Exists in Ed-Fi-ODS-Extensions
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Extensions"
+
+      - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
 
-      - name: Upload Test Results
+      - name: Upload Integration Test Results
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: integration-tests
