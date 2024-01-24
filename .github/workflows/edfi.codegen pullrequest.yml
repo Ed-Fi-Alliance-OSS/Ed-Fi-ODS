@@ -36,12 +36,12 @@ jobs:
           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
 
       - name: Build Code Generation
-        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet build --configuration Release
 
       - name: Run unit tests
-        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
 
@@ -49,11 +49,11 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: unit-tests
-          path: ./Ed-Fi-ODS/utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
+          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
           retention-days: 5
 
       - name: Run unit tests
-        working-directory: ./Ed-Fi-ODS/utilities/CodeGeneration
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
           dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
 
@@ -61,6 +61,6 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: integration-tests
-          path: ./Ed-Fi-ODS/utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
+          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
           retention-days: 5
 
