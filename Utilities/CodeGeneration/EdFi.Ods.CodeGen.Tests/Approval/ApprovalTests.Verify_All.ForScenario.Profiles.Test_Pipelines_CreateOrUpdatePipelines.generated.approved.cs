@@ -323,3 +323,7 @@ namespace EdFi.Ods.Api.Pipelines.Test_Profile_Some_References_With_Unified_Keys_
 namespace EdFi.Ods.Api.Pipelines.Profile_Validation_Regression_References
 {
 }
+
+namespace EdFi.Ods.Api.Pipelines.Academic_Week_Readable_Excludes_Optional_References
+{
+}
