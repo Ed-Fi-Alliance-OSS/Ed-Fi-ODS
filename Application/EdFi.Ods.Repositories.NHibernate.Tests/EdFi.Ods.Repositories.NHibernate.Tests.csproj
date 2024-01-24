@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemlbyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemlbyName>
+    <AssemblyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemblyName>
     <RootNamespace>EdFi.Ods.Repositories.NHibernate.Tests</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
@@ -17,6 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="EdFi.Suite3.Common" Version="6.1.19" />
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
