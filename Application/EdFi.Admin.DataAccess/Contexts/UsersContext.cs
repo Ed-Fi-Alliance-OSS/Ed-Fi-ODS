@@ -19,11 +19,8 @@ namespace EdFi.Admin.DataAccess.Contexts
     {
 
         protected UsersContext(DbContextOptions options)
-            : base(options)
-        {
-            //Database.SetInitializer(new ValidateDatabase<SqlServerUsersContext>());
-            //Database.SetInitializer(new ValidateDatabase<PostgresUsersContext>());
-        }
+            : base(options) { }
+
         public const string UserTableName = "Users";
 
         public static string UserNameColumn
