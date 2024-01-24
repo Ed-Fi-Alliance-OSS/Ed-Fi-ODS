@@ -44,7 +44,6 @@ namespace EdFi.Admin.DataAccess.Models
         /// <summary>
         /// Numeric Identifier
         /// </summary>
-        [Key]
         public int ApiClientId { get; set; }
 
         /// <summary>
@@ -128,10 +127,7 @@ namespace EdFi.Admin.DataAccess.Models
         /// <summary>
         /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient.
         /// </summary>
-        public virtual OwnershipToken CreatorOwnershipToken { get; set; }
-
-        [Column("CreatorOwnershipTokenId_OwnershipTokenId")]
-        public short? CreatorOwnershipTokenId { get; set; }
+        public virtual OwnershipToken CreatorOwnershipTokenId { get; set; }
 
         /// <summary>
         /// Fully namespaced URI reference to the StudentIdentificationSystemDescriptor value to use for identification mapping
@@ -143,9 +139,9 @@ namespace EdFi.Admin.DataAccess.Models
 
         public virtual User User { get; set; }
 
-        public virtual ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        public ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public virtual List<ClientAccessToken> ClientAccessTokens { get; set; }
+        public List<ClientAccessToken> ClientAccessTokens { get; set; }
 
         /// <summary>
         /// Key-value store of EdOrg and Domain Connection information
@@ -154,7 +150,6 @@ namespace EdFi.Admin.DataAccess.Models
         /// EdOrg is the key, Domain Connection information is the value.
         /// The end-user should never see the Data Connection information
         /// </remarks>
-        [NotMapped]
         public Dictionary<string, string> Domains { get; set; }
 
         /// <summary>

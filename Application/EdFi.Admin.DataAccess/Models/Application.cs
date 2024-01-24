@@ -30,6 +30,8 @@ namespace EdFi.Admin.DataAccess.Models
 
         public virtual Vendor Vendor { get; set; }
 
+        public virtual OdsInstance OdsInstance { get; set; }
+
         [StringLength(255)]
         [Required]
         public string OperationalContextUri { get; set; }
@@ -40,12 +42,12 @@ namespace EdFi.Admin.DataAccess.Models
 
         public virtual ICollection<Profile> Profiles { get; set; }
 
-        public ApplicationEducationOrganization CreateApplicationEducationOrganization(long educationOrganizationId)
+        public ApplicationEducationOrganization CreateApplicationEducationOrganization(int educationOrganizationId)
             => new ApplicationEducationOrganization
             {
                 EducationOrganizationId = educationOrganizationId,
                 Application = this,
-                ApiClients = ApiClients
+                Clients = ApiClients
             };
     }
 }

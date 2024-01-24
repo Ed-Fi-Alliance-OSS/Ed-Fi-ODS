@@ -12,6 +12,6 @@ namespace EdFi.Admin.DataAccess.Utils
     {
         Application FindOrCreateUpdatedDefaultSandboxApplication(int vendorId, SandboxType sandboxType);
 
-        void AddEdOrgIdsToApplication(IList<long> edOrgIds, int applicationId);
+        void AddEdOrgIdsToApplication(IList<int> edOrgIds, int applicationId);
     }
 }

@@ -8,14 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    public class VendorNamespacePrefix
+    public sealed class VendorNamespacePrefix
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VendorNamespacePrefixId { get; set; }
 
         [Required]
-        public virtual Vendor Vendor { get; set; }
+        public Vendor Vendor { get; set; }
 
         [Required]
         [StringLength(255)]

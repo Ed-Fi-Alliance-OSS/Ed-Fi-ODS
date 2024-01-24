@@ -4,22 +4,25 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
+using EdFi.Admin.DataAccess.Utils;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
-        public const string UserTableName = "Users";
 
-        protected UsersContext(DbContextOptions options)
-            : base(options) { }
+        protected UsersContext(string connectionString)
+            : base(connectionString)
+        {
+            Database.SetInitializer(new ValidateDatabase<SqlServerUsersContext>());
+            Database.SetInitializer(new ValidateDatabase<PostgresUsersContext>());
+        }
+        public const string UserTableName = "Users";
 
         public static string UserNameColumn
         {
@@ -31,67 +34,58 @@ namespace EdFi.Admin.DataAccess.Contexts
             get { return UserMemberName(x => x.UserId); }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ApiClient>()
-                .HasMany(t => t.ApplicationEducationOrganizations)
-                .WithMany(t => t.ApiClients)
-                .UsingEntity<ApiClientApplicationEducationOrganization>(
-                    "ApiClientApplicationEducationOrganizations",
-                    l =>
-                        l.HasOne<ApplicationEducationOrganization>().WithMany().HasForeignKey(
-                            "ApplicationEducationOrganizationId"),
-                    r =>
-                        r.HasOne<ApiClient>().WithMany().HasForeignKey("ApiClientId"));
+        public IDbSet<User> Users { get; set; }
 
-            modelBuilder.Entity<Application>()
-                .HasMany(a => a.Profiles)
-                .WithMany(a => a.Applications)
-                .UsingEntity("ProfileApplications");
+        public IDbSet<ApiClient> Clients { get; set; }
 
-            modelBuilder.UseUnderscoredFkColumnNames();
+        public IDbSet<ClientAccessToken> ClientAccessTokens { get; set; }
 
-            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
-                .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
-        }
+        public IDbSet<Vendor> Vendors { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public IDbSet<Application> Applications { get; set; }
 
-        public DbSet<ApiClient> ApiClients { get; set; }
+        public IDbSet<Profile> Profiles { get; set; }
 
-        public DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
+        public IDbSet<OdsInstance> OdsInstances { get; set; }
 
-        public DbSet<Vendor> Vendors { get; set; }
-
-        public DbSet<Application> Applications { get; set; }
-
-        public DbSet<Profile> Profiles { get; set; }
-
-        public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
-
-        public DbSet<OdsInstance> OdsInstances { get; set; }
-
-        public DbSet<OdsInstanceContext> OdsInstanceContexts { get; set; }
-
-        public DbSet<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
+        public IDbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
 
         //TODO:  This should really be removed from being directly on the context.  Application should own
         //TODO:  these instances, and deleting an application should delete the associated LEA's
-        public DbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        public IDbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
+        public IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        public DbSet<OwnershipToken> OwnershipTokens { get; set; }
+        public IDbSet<OwnershipToken> OwnershipTokens { get; set; }
 
-        public DbSet<ApiClientOdsInstance> ApiClientOdsInstances { get; set; }
+        public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
-        public DbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
+        public IDbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            ApplyProviderSpecificMappings(modelBuilder);
+        }
+
+        /// <remarks>
+        /// Sub-classes should override this to provide database system-specific column and/or
+        /// table mappings: for example, if a linking table column in Postgres needs to map to a
+        /// name other than the default provided by Entity Framework.
+        /// </remarks>
+        protected virtual void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder) { }
 
         /// <inheritdoc />
         public Task<int> ExecuteSqlCommandAsync(string sqlStatement, params object[] parameters)
         {
-            return Database.ExecuteSqlInterpolatedAsync(
-                FormattableStringFactory.Create(sqlStatement.ToLowerInvariant(), parameters));
+            return Database.ExecuteSqlCommandAsync(sqlStatement.ToLowerInvariant(), parameters);
+        }
+
+        /// <inheritdoc />
+        public async Task<IReadOnlyList<TReturn>> ExecuteQueryAsync<TReturn>(string sqlStatement, params object[] parameters)
+        {
+            return await Database
+                .SqlQuery<TReturn>(sqlStatement.ToLowerInvariant(), parameters)
+                .ToListAsync();
         }
 
         private static string UserMemberName(Expression<Func<User, object>> emailExpression)

@@ -10,33 +10,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
 {
-    public class ApplicationEducationOrganization
+    public sealed class ApplicationEducationOrganization
     {
-        private Application _application;
-
         public ApplicationEducationOrganization()
         {
-            ApiClients = new Collection<ApiClient>();
+            Clients = new Collection<ApiClient>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ApplicationEducationOrganizationId { get; set; }
 
-        public virtual Application Application
-        {
-            // Setting <Nullable>enable</Nullable> in the csproj file would achieve the desired aim: do 
-            // not allow this value to be null. However, that could have other ramifications that need
-            // to be studied before going there.
-            get { return _application; }
-            set
-            {
-                _application = value ?? throw new System.InvalidOperationException("Application cannot be null");
-            }
-        }
+        public Application Application { get; set; }
 
-        public long EducationOrganizationId { get; set; }
+        public int EducationOrganizationId { get; set; }
 
-        public virtual ICollection<ApiClient> ApiClients { get; set; }
+        public ICollection<ApiClient> Clients { get; set; }
     }
 }

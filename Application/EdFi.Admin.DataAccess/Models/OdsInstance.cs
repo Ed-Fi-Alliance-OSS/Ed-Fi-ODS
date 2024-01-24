@@ -14,8 +14,7 @@ namespace EdFi.Admin.DataAccess.Models
     {
         public OdsInstance()
         {
-            OdsInstanceContexts = new Collection<OdsInstanceContext>();
-            OdsInstanceDerivatives = new Collection<OdsInstanceDerivative>();
+            OdsInstanceComponents = new Collection<OdsInstanceComponent>();
         }
 
         [Key]
@@ -32,17 +31,29 @@ namespace EdFi.Admin.DataAccess.Models
         /// <summary>
         /// Type of ODS instance this identifies (e.g. "Enterprise" or "Cloud")
         /// </summary>
+        [Required]
         [StringLength(100)]
         public string InstanceType { get; set; }
 
         /// <summary>
-        /// The connection string for the ODS database
+        /// Current status of this ODS instance, for display/use by management tooling
         /// </summary>
         [Required]
-        public string ConnectionString { get; set; }
+        [StringLength(100)]
+        public string Status { get; set; }
 
-        public virtual ICollection<OdsInstanceContext> OdsInstanceContexts { get; set; }
+        /// <summary>
+        /// If set to true, signifies that this ODS installation has been extended with custom code
+        /// </summary>
+        public bool IsExtended { get; set; }
 
-        public virtual ICollection<OdsInstanceDerivative> OdsInstanceDerivatives { get; set; }
+        /// <summary>
+        /// Version number of this ODS installation
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string Version { get; set; }
+
+        public virtual ICollection<OdsInstanceComponent> OdsInstanceComponents { get; set; }
     }
 }

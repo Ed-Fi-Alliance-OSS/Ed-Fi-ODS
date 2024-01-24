@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using FakeItEasy;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using EdFi.Admin.DataAccess.DbConfigurations;
+using System.Data.Entity;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {
@@ -22,8 +24,9 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext()
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
-            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Trusted_Connection=true;");
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
 
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext()
                 .ShouldBeOfType<SqlServerUsersContext>()
@@ -36,6 +39,7 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin_Test; Application Name=EdFi.Ods.WebApi;");
 
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.Postgres)
                 .CreateContext()
                 .ShouldBeOfType<PostgresUsersContext>()
