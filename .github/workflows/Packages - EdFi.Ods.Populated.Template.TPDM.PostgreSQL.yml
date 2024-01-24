@@ -8,7 +8,7 @@ name: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL
 on:
   push:
     branches:
-      - main
+      [main, 'ODS-*',b-v*-patch*]
 
   workflow_dispatch:
   repository_dispatch:

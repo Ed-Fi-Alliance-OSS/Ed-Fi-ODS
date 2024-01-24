@@ -7,12 +7,12 @@ name: Packages - EdFi.Database.Security
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, 'ODS-*',b-v*-patch*]
     paths:
       - '**.sql'
   push:
     branches:
-      - main
+      [main, 'ODS-*',b-v*-patch*]
     paths:
       - '**.sql'
   workflow_dispatch:
