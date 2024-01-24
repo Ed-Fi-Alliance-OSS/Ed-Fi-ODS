@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Security.DataAccess.Providers;
-using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
@@ -18,49 +17,21 @@ namespace EdFi.Security.DataAccess.Contexts
         private readonly IDictionary<DatabaseEngine, Type> _securityContextTypeByDatabaseEngine =
             new Dictionary<DatabaseEngine, Type>
             {
-                { DatabaseEngine.SqlServer, typeof(SqlServerSecurityContext) },
-                { DatabaseEngine.Postgres, typeof(PostgresSecurityContext) }
+                {DatabaseEngine.SqlServer, typeof(SqlServerSecurityContext)},
+                {DatabaseEngine.Postgres, typeof(PostgresSecurityContext)}
             };
 
-        public SecurityContextFactory(ISecurityDatabaseConnectionStringProvider connectionStringProvider,
-            DatabaseEngine databaseEngine)
+        public SecurityContextFactory(ISecurityDatabaseConnectionStringProvider connectionStringProvider, DatabaseEngine databaseEngine)
         {
             _connectionStringProvider = connectionStringProvider;
             _databaseEngine = databaseEngine;
         }
 
-        public Type GetSecurityContextType()
+        public ISecurityContext CreateContext()
         {
             if (_securityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                return contextType;
-            }
-
-            throw new InvalidOperationException(
-                $"No SecurityContext defined for database type {_databaseEngine.DisplayName}");
-        }
-
-        public ISecurityContext CreateContext()
-        {
-            if (_databaseEngine == DatabaseEngine.SqlServer)
-            {
-                return Activator.CreateInstance(
-                        GetSecurityContextType(),
-                        new DbContextOptionsBuilder<SqlServerSecurityContext>()
-                            .UseSqlServer(_connectionStringProvider.GetConnectionString())
-                            .Options) as
-                    ISecurityContext;
-            }
-
-            if (_databaseEngine == DatabaseEngine.Postgres)
-            {
-                return Activator.CreateInstance(
-                        GetSecurityContextType(),
-                        new DbContextOptionsBuilder<PostgresSecurityContext>()
-                            .UseNpgsql(_connectionStringProvider.GetConnectionString())
-                            .UseLowerCaseNamingConvention()
-                            .Options) as
-                    ISecurityContext;
+                return Activator.CreateInstance(contextType, _connectionStringProvider.GetConnectionString()) as ISecurityContext;
             }
 
             throw new InvalidOperationException(
