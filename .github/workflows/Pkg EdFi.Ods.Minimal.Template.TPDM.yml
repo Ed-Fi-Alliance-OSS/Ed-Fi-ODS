@@ -8,7 +8,7 @@ name: Pkg EdFi.Ods.Minimal.Template.TPDM
 on:
   push:
     branches:
-      - main
+      [main, 'ODS-*',b-v*-patch*]
   workflow_dispatch:
     inputs:
       distinct_id:
