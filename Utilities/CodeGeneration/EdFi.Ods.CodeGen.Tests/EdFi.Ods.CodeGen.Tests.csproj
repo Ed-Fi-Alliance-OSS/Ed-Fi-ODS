@@ -25,6 +25,7 @@
     <PackageReference Include="FakeItEasy" Version="8.1.0" />
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+	<!-- The NUnit version is pinned to 3.x because ApprovalTests has an implicit dependence on NUnit 3, which breaks with NUnit 4. -->
     <PackageReference Include="NUnit" Version="[3.14.0,4.0)" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
