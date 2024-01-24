@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen
 {
     public static class Program
     {
-        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private static readonly CancellationTokenSource _cancellationTokenSource = new();
         private static ILog _logger;
         private static IContainer _container;
 
@@ -82,7 +82,7 @@ namespace EdFi.Ods.CodeGen
 
                 stopwatch.Stop();
 
-                _logger.Info($"Finished code generation in {stopwatch.Elapsed.ToString()}.");
+                _logger.Info($"Finished code generation in {stopwatch.Elapsed}.");
 
                 return ReturnCodesConventions.Success;
             }
@@ -94,11 +94,11 @@ namespace EdFi.Ods.CodeGen
             }
             finally
             {
-                if (Debugger.IsAttached)
-                {
-                    Console.WriteLine("Press enter to continue.");
-                    Console.ReadLine();
-                }
+                //if (Debugger.IsAttached)
+                //{
+                //    Console.WriteLine("Press enter to continue.");
+                //    Console.ReadLine();
+                //}
 
                 _container?.Dispose();
             }
