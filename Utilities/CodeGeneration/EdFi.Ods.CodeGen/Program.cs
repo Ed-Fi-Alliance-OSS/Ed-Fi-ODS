@@ -94,11 +94,11 @@ namespace EdFi.Ods.CodeGen
             }
             finally
             {
-                //if (Debugger.IsAttached)
-                //{
-                //    Console.WriteLine("Press enter to continue.");
-                //    Console.ReadLine();
-                //}
+                if (Debugger.IsAttached)
+                {
+                    Console.WriteLine("Press enter to continue.");
+                    Console.ReadLine();
+                }
 
                 _container?.Dispose();
             }
