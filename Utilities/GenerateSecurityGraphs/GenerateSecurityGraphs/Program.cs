@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -20,6 +19,7 @@ using CommandLine.Text;
 using Dapper;
 using GenerateSecurityGraphs.Models.AuthorizationMetadata;
 using GenerateSecurityGraphs.Models.Query;
+using Microsoft.Data.SqlClient;
 using QuikGraph;
 using QuikGraph.Graphviz;
 using QuikGraph.Graphviz.Dot;
@@ -99,18 +99,19 @@ namespace GenerateSecurityGraphs
             if (failedToParse) return;
 
             string connectionString;
-
+            
             if (options.User == null || options.Password == null)
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};Trusted_Connection=True",
+
+                    "Server={0};Database={1};Trusted_Connection=True;TrustServerCertificate=true",
                     options.Server,
                     options.Database);
             }
             else
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};User ID={2};Password={3}",
+                    "Server={0};Database={1};User ID={2};Password={3};TrustServerCertificate=true",
                     options.Server,
                     options.Database,
                     options.User,
