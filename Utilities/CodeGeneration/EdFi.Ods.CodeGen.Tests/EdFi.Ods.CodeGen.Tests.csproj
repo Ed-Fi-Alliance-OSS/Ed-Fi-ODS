@@ -1,18 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="..\EdFi.Ods.CodeGen\log4net.config" Link="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -21,7 +18,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="5.8.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.1" />
@@ -30,29 +26,24 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.CodeGen\EdFi.Ods.CodeGen.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="Approval\**\*.approved.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Approval\**\*.approved.cs" />
     <None Remove="Approval\**\*.approved.xml" />
     <None Remove="Approval\**\*.approved.sql" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="IntegrationTests\Profiles\TestProfiles\*.xml" />
     <EmbeddedResource Include="IntegrationTests\Profiles\TestProfiles\*.xml" />
     <None Remove="**\TestModels\*.json" />
     <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Approval\4.0.0\DataStandard_400_ApprovalTests.Generated_File_List.Standard.4.0.0.approved.txt">
       <DependentUpon>DataStandard_400_ApprovalTests.cs</DependentUpon>
@@ -67,5 +58,4 @@
       <DependentUpon>DataStanadard_500_ApprovalTests.cs</DependentUpon>
     </None>
   </ItemGroup>
-
 </Project>
