@@ -18,10 +18,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-    - name: Setup .NET
-      uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
-      with:
-        dotnet-version: 3.1.x   
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"

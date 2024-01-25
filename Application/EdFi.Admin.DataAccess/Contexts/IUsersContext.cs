@@ -5,39 +5,43 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public interface IUsersContext : IDisposable
     {
-        IDbSet<User> Users { get; set; }
+        DbSet<User> Users { get; set; }
 
-        IDbSet<ApiClient> Clients { get; set; }
+        DbSet<ApiClient> Clients { get; set; }
 
-        IDbSet<ClientAccessToken> ClientAccessTokens { get; set; }
+        DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
 
-        IDbSet<Vendor> Vendors { get; set; }
+        DbSet<Vendor> Vendors { get; set; }
 
-        IDbSet<Application> Applications { get; set; }
+        DbSet<Application> Applications { get; set; }
 
-        IDbSet<Profile> Profiles { get; set; }
+        DbSet<Profile> Profiles { get; set; }
 
-        IDbSet<OdsInstance> OdsInstances { get; set; }
+        DbSet<OdsInstance> OdsInstances { get; set; }
 
-        IDbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
+        DbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
 
-        IDbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        DbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
+        DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        IDbSet<OwnershipToken> OwnershipToken { get; set; }
+        DbSet<OwnershipToken> OwnershipTokens { get; set; }
+
+        DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
+        
 
         int SaveChanges();
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Asynchronously executes a raw SQL statement with only a scalar result (e.g. row count).

@@ -5,8 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Contexts;
@@ -15,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
 using log4net;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Repositories
 {
@@ -209,7 +208,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                context.Clients.AddOrUpdate(client);
+                context.Clients.Update(client);
                 context.SaveChanges();
                 return client;
             }
@@ -429,8 +428,8 @@ namespace EdFi.Admin.DataAccess.Repositories
                     user.Vendor = vendor;
                 }
 
-                context.Vendors.AddOrUpdate(vendor);
-                context.Users.AddOrUpdate(user);
+                context.Vendors.Update(vendor);
+                context.Users.Update(user);
                 context.SaveChanges();
             }
         }
@@ -467,7 +466,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 var newVendor = Vendor.Create(vendorName, namespacePrefixes);
 
-                context.Vendors.AddOrUpdate(newVendor);
+                context.Vendors.Update(newVendor);
 
                 //TODO: DEA - Move this behavior to happen during client creation.  No need to do this in two places.  At a minimum, remove the duplicated code.
                 CreateDefaultApplicationForVendor(newVendor);
@@ -499,7 +498,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     OperationalContextUri = _defaultOperationalContextUri.Value
                 };
 
-                context.Applications.AddOrUpdate(app);
+                context.Applications.Update(app);
 
                 context.SaveChanges();
 
@@ -519,7 +518,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     return;
                 }
 
-                context.Applications.AddOrUpdate(
+                context.Applications.Update(
                     new Application
                     {
                         ApplicationName = _defaultAppName.Value,
