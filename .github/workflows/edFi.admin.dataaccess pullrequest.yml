@@ -3,8 +3,12 @@ name: EdFi.Admin.DataAccess Pull request build and test
 on:
   workflow_dispatch:
   pull_request:
-    branches: 
+    branches:
       - main-6x
+    paths:
+      - Application/EdFi.Admin.DataAccess/**/*
+      - Application/EdFi.Admin.DataAccess.UnitTests/**/*
+      - Application/EdFi.Common/**/*
 
 env:
   INFORMATIONAL_VERSION: "6.2"
