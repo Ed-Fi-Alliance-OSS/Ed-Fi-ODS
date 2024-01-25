@@ -29,6 +29,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
         private class DataAnnotatedProperty : IValidatableObject
         {
+            [Required]
+            public string RequiredProperty { get; set; }
+
             public bool ValidateInvoked { get; set; }
             
             public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
