@@ -12,6 +12,7 @@ on:
       - main-6x
     paths:
       - Utilities/CodeGeneration/**/*
+      - Application/EdFi.Common/**/*
 
 env:
   # These vars are used by `build.githubactions.ps1 CheckoutBranch`
