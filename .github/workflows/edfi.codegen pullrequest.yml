@@ -67,6 +67,15 @@ jobs:
         run: |
           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
 
+      - name: Create Soft Link to Extensions
+        # For some reason, the integration tests when running in GitHub end up
+        # looking for the Extensions under Ed-Fi-ODS/Ed-Fi-ODS/Ed-Fi-Extensions,
+        # instead of looking in Ed-Fi-ODS/Ed-Fi-Extensions. Try resolving this
+        # by creating a Unix soft link to the directory.
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          ln -s ../Ed-Fi-Extensions .
+
       - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS
         run: |
