@@ -75,7 +75,15 @@ jobs:
         working-directory: ./Ed-Fi-ODS/
         run: |
           ln -s ../Ed-Fi-Extensions .
+
+          echo "ls Ed-Fi-Extensions/Extensions"
           ls Ed-Fi-Extensions/Extensions
+
+          echo "ls Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Artifacts/Metadata/"
+          ls Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Artifacts/Metadata/
+
+          echo "ls /home/runner/work/Ed-Fi-ODS/Ed-Fi-ODS/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Artifacts/Metadata"
+          ls /home/runner/work/Ed-Fi-ODS/Ed-Fi-ODS/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Artifacts/Metadata
 
       - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
