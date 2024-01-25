@@ -7,12 +7,12 @@ name: Packages - EdFi.Database.Admin
 
 on:
   pull_request:
-    branches: [main, 'ODS-*',b-v*-patch*]
+    branches: [main, b-v*-patch*]
     paths:
       - '**.sql'
   push:
     branches:
-      [main, 'ODS-*',b-v*-patch*]
+      [main, b-v*-patch*]
     paths:
       - '**.sql'
   workflow_dispatch:

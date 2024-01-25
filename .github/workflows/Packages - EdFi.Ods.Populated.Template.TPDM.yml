@@ -8,7 +8,7 @@ name: Packages - EdFi.Ods.Populated.Template.TPDM
 on:
   push:
     branches:
-      [main, 'ODS-*',b-v*-patch*]
+      [main, b-v*-patch*]
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
