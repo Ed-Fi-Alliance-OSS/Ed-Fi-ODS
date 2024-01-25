@@ -7,7 +7,7 @@ on:
       - main-6x
     paths:
       - Application/EdFi.Admin.DataAccess/**/*
-      - Application/EdFi.Admin.DataAccess.UnitTests/**/*
+      - tests/EdFi.Admin.DataAccess.UnitTests/**/*
       - Application/EdFi.Common/**/*
 
 env:
