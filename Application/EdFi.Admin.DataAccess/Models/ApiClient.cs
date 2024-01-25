@@ -139,9 +139,9 @@ namespace EdFi.Admin.DataAccess.Models
 
         public virtual User User { get; set; }
 
-        public ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        public virtual ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public List<ClientAccessToken> ClientAccessTokens { get; set; }
+        public virtual List<ClientAccessToken> ClientAccessTokens { get; set; }
 
         /// <summary>
         /// Key-value store of EdOrg and Domain Connection information
