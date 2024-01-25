@@ -5,23 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Admin.DataAccess.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
 
-        protected UsersContext(string connectionString)
-            : base(connectionString)
-        {
-            Database.SetInitializer(new ValidateDatabase<SqlServerUsersContext>());
-            Database.SetInitializer(new ValidateDatabase<PostgresUsersContext>());
-        }
+        protected UsersContext(DbContextOptions options)
+            : base(options) { }
+
         public const string UserTableName = "Users";
 
         public static string UserNameColumn
@@ -34,57 +33,65 @@ namespace EdFi.Admin.DataAccess.Contexts
             get { return UserMemberName(x => x.UserId); }
         }
 
-        public IDbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public IDbSet<ApiClient> Clients { get; set; }
+        public DbSet<ApiClient> Clients { get; set; }
 
-        public IDbSet<ClientAccessToken> ClientAccessTokens { get; set; }
+        public DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
 
-        public IDbSet<Vendor> Vendors { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
 
-        public IDbSet<Application> Applications { get; set; }
+        public DbSet<Application> Applications { get; set; }
 
-        public IDbSet<Profile> Profiles { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
 
-        public IDbSet<OdsInstance> OdsInstances { get; set; }
+        public DbSet<OdsInstance> OdsInstances { get; set; }
 
-        public IDbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
+        public DbSet<OdsInstanceComponent> OdsInstanceComponents { get; set; }
 
         //TODO:  This should really be removed from being directly on the context.  Application should own
         //TODO:  these instances, and deleting an application should delete the associated LEA's
-        public IDbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        public DbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
+        public DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        public IDbSet<OwnershipToken> OwnershipTokens { get; set; }
+        public DbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
-        public IDbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
+        public DbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ApplyProviderSpecificMappings(modelBuilder);
-        }
+            modelBuilder.Entity<ApiClient>()
+                .HasMany(t => t.ApplicationEducationOrganizations)
+                .WithMany(t => t.Clients)
+                .UsingEntity<ApiClientApplicationEducationOrganization>(
+                    "ApiClientApplicationEducationOrganizations",
+                    l =>
+                        l.HasOne<ApplicationEducationOrganization>().WithMany().HasForeignKey(
+                            "ApplicationEducationOrganizationId"),
+                    r =>
+                        r.HasOne<ApiClient>().WithMany().HasForeignKey("ApiClientId"));
 
-        /// <remarks>
-        /// Sub-classes should override this to provide database system-specific column and/or
-        /// table mappings: for example, if a linking table column in Postgres needs to map to a
-        /// name other than the default provided by Entity Framework.
-        /// </remarks>
-        protected virtual void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder) { }
+            modelBuilder.UseUnderscoredFkColumnNames();
+
+            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
+                .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
+        }
 
         /// <inheritdoc />
         public Task<int> ExecuteSqlCommandAsync(string sqlStatement, params object[] parameters)
         {
-            return Database.ExecuteSqlCommandAsync(sqlStatement.ToLowerInvariant(), parameters);
+            return Database.ExecuteSqlInterpolatedAsync(
+                FormattableStringFactory.Create(sqlStatement.ToLowerInvariant(), parameters));
         }
 
         /// <inheritdoc />
         public async Task<IReadOnlyList<TReturn>> ExecuteQueryAsync<TReturn>(string sqlStatement, params object[] parameters)
         {
             return await Database
-                .SqlQuery<TReturn>(sqlStatement.ToLowerInvariant(), parameters)
+                .SqlQueryRaw<TReturn>(sqlStatement.ToLowerInvariant(), parameters)
                 .ToListAsync();
         }
 

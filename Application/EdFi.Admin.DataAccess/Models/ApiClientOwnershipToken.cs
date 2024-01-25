@@ -22,11 +22,11 @@ namespace EdFi.Admin.DataAccess.Models
         public int ApiClientOwnershipTokenId { get; set; }
 
         [Required]
-        [Index(IsUnique = true, Order = 2)]
+        [Column("OwnershipToken_OwnershipTokenId")]
         public OwnershipToken OwnershipToken { get; set; }
 
         [Required]
-        [Index(IsUnique = true, Order = 1)]
+        [Column("ApiClient_ApiClientId")]
         public ApiClient ApiClient { get; set; }
     }
 }
