@@ -4,11 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Exceptions
 {
-    [Serializable]
     public class DatabaseConnectionException : Exception
     {
  
@@ -19,10 +17,5 @@ namespace EdFi.Ods.Common.Exceptions
 
         public DatabaseConnectionException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected DatabaseConnectionException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }
