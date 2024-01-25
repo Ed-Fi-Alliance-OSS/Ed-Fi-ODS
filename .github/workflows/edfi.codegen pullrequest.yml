@@ -59,13 +59,14 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions
+          # The integration tests are looking for Ed-Fi-ODS/Ed-Fi-Extensions when run in GitHub
+          path: Ed-Fi-ODS/Ed-Fi-Extensions
 
       - name: Confirm Branch Exists in Ed-Fi-Extensions
         working-directory: ./Ed-Fi-ODS/
         shell: pwsh
         run: |
-          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "Ed-Fi-Extensions"
 
       - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
