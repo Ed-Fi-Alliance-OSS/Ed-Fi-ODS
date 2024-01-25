@@ -82,12 +82,6 @@ jobs:
         run: |
           ln -s ../Ed-Fi-Extensions .
 
-          echo ">> ls Ed-Fi-Extensions/Extensions"
-          ls Ed-Fi-Extensions/Extensions
-
-          echo ">> ls -R Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM"
-          ls -R Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM
-
       - name: Run Integration Tests
         working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
