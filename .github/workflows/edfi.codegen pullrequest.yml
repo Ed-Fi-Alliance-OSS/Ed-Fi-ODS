@@ -75,11 +75,12 @@ jobs:
         working-directory: ./Ed-Fi-ODS/
         run: |
           ln -s ../Ed-Fi-Extensions .
+          ls Ed-Fi-Extensions/Extensions
 
       - name: Run Integration Tests
-        working-directory: ./Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
         run: |
-          dotnet test Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
+          dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
 
       - name: Upload Integration Test Results
         uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
