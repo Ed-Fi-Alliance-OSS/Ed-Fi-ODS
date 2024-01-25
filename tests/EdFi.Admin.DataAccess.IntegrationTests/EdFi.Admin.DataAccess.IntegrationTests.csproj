@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Admin.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Admin.DataAccess.IntegrationTests</Assembly>
@@ -37,4 +37,4 @@
       <DependentUpon>appsettings.json</DependentUpon>
     </None>
   </ItemGroup>
- </Project>
+</Project>
