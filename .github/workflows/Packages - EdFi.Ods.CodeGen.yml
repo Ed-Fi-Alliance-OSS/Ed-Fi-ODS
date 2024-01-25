@@ -2,10 +2,10 @@ name: Packages - EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, b-v*-patch*]
   push:
     branches:
-      - main
+      [main, b-v*-patch*]
   workflow_dispatch:
 
 env:

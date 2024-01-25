@@ -20,7 +20,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
     public class ValidatingProfileMetadataProvider : IProfileMetadataProvider, IProfileResourceNamesProvider
     {
         private readonly Lazy<Profile[]> _codeGenProfiles;
-        private readonly Lazy<IDictionary<string, XElement>> _profileDefinitionByName;
+        private readonly Lazy<Dictionary<string, XElement>> _profileDefinitionByName;
         private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
         private readonly Lazy<XDocument> _profileXDoc;
         private readonly ResourceModel _resourceModel;
@@ -43,7 +43,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             }
 
             _resourceModel = resourceModelProvider.GetResourceModel();
-            _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitions);
+            _profileDefinitionByName = new Lazy<Dictionary<string, XElement>>(LazyInitializeProfileDefinitions);
             _profileXDoc = new Lazy<XDocument>(() => MetadataHelper.GetProfilesXDocument(profilePath));
             _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
 
@@ -71,6 +71,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             => ProfileXDocument.Nodes()
                 .Any();
 
+        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get => _profileDefinitionByName.Value; }
+
         /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>
@@ -88,7 +90,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames() => _profileResources.Value;
 
-        private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
+        private Dictionary<string, XElement> LazyInitializeProfileDefinitions()
         {
             if (!HasProfileData)
             {

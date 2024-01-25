@@ -16,6 +16,69 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
+{
+    [ExcludeFromCodeCoverage]
+    public class AcademicWeeksNullWriteRequest : NullRequestBase { }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ProfileContentType("application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references")]
+    [Route("ed-fi/academicWeeks")]
+    public partial class AcademicWeeksController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AcademicWeek.EdFi.Academic_Week_Readable_Excludes_Optional_References_Readable.AcademicWeek,
+        AcademicWeeksNullWriteRequest,
+        Entities.Common.EdFi.IAcademicWeek,
+        Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek,
+        AcademicWeeksNullWriteRequest,
+        AcademicWeeksNullWriteRequest,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekDelete,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample>
+    {
+        public AcademicWeeksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample request, Entities.Common.EdFi.IAcademicWeek specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BeginDate = request.BeginDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.SchoolId = request.SchoolId;
+            specification.TotalInstructionalDays = request.TotalInstructionalDays;
+            specification.WeekIdentifier = request.WeekIdentifier;
+        }
+
+        protected override string GetReadContentType()
+        {
+            return "application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.readable+json";
+        }
+
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IActionResult> Post(AcademicWeeksNullWriteRequest request)
+        {
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS.")));
+        }
+
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IActionResult> Put(AcademicWeeksNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS.")));
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
 {
     [ExcludeFromCodeCoverage]

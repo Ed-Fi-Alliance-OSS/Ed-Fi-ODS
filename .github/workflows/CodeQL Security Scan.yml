@@ -8,10 +8,10 @@ name: CodeQL Security Scan Pull request
 on:
   pull_request:
     branches:
-      - main
+      [main, b-v*-patch*]
   push:
     branches:
-      - main
+      [main, b-v*-patch*]
   workflow_dispatch:
 env:
   INFORMATIONAL_VERSION: "6.1"
