@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.Api.IntegrationTests</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
@@ -20,6 +20,8 @@
     </PackageReference>
     <PackageReference Include="Shouldly" Version="4.1.0" />
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
