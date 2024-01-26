@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
 using FakeItEasy;
+using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EdFi.Security.DataAccess.UnitTests
 {
@@ -23,22 +23,27 @@ namespace EdFi.Security.DataAccess.UnitTests
         {
             var securityContext = A.Fake<ISecurityContext>();
             // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
-            securityContext.Applications = GetFakeDbSet<Application>().SetupData(new List<Application> { new Application { ApplicationId = 1, ApplicationName = "Ed-Fi ODS API" } });
-            securityContext.Actions = GetFakeDbSet<Action>().SetupData();
-            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
-            securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();
-            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().SetupData();
-            securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().SetupData();
-            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>().SetupData();
-            securityContext.ClaimSetResourceClaimActionAuthorizationStrategyOverrides = GetFakeDbSet<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>().SetupData();
-            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>().SetupData();
+            
+            securityContext.Applications = GetFakeDbSet<Application>();
+            securityContext.Actions = GetFakeDbSet<Action>();
+            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>();
+            securityContext.ClaimSets = GetFakeDbSet<ClaimSet>();
+            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>();
+            securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>();
+            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>();
+            securityContext.ClaimSetResourceClaimActionAuthorizationStrategyOverrides = GetFakeDbSet<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>();
+            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>();
 
             return securityContext;
+            
         }
 
+        
         private static DbSet<T> GetFakeDbSet<T>() where T : class
         {
-            return A.Fake<DbSet<T>>(o => o.Implements(typeof(IQueryable<T>)).Implements(typeof(IDbAsyncEnumerable<T>)));
-        }
+            var fake = A.Fake<DbSet<T>>(o => o.Implements(typeof(IQueryable<T>)).Implements(typeof(IAsyncEnumerable<T>)));
+            
+            return fake;
+        }      
     }
 }
