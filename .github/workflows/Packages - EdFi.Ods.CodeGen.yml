@@ -1,11 +1,13 @@
 name: Packages - EdFi.Ods.CodeGen
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches:
       - main
+      - main-6x
+    paths:
+      - Utilities/CodeGeneration/**/*
+      - Application/EdFi.Common/**/*
   workflow_dispatch:
 
 env:
