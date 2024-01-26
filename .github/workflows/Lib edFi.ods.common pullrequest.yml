@@ -1,11 +1,14 @@
-name: EdFi.Ods.Common Pull request build and test
+name: Lib EdFi.Ods.Common Pull request build and test
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main-6x
+    paths:
+      - Application/EdFi.Ods.Common/**/*
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "6.2"
   CONFIGURATION: "Release"
 
 jobs:
@@ -15,14 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
-      with:
-        dotnet-version: 6.0.x
+
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
       shell: pwsh
+
     - name: Run Unit tests
       run: |
         .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
