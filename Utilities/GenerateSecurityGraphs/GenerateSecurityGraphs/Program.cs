@@ -104,14 +104,14 @@ namespace GenerateSecurityGraphs
             {
                 connectionString = string.Format(
 
-                    "Server={0};Database={1};Trusted_Connection=True;TrustServerCertificate=true",
+                    "Server={0};Database={1};Trusted_Connection=True;Encrypt=False",
                     options.Server,
                     options.Database);
             }
             else
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};User ID={2};Password={3};TrustServerCertificate=true",
+                    "Server={0};Database={1};User ID={2};Password={3};Encrypt=False",
                     options.Server,
                     options.Database,
                     options.User,
