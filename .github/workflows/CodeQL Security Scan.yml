@@ -3,15 +3,15 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: CodeQL Security Scan Pull request 
+name: CodeQL Security Scan Pull request
 
 on:
   pull_request:
     branches:
-      - main
+      - main-6x
   push:
     branches:
-      - main
+      - main-6x
   workflow_dispatch:
 env:
   INFORMATIONAL_VERSION: "6.1"
@@ -25,7 +25,7 @@ jobs:
   analyze:
     name: Analyze Code
     runs-on: windows-latest
-    
+
     permissions:
       actions: read
       contents: read
@@ -63,7 +63,7 @@ jobs:
         shell: pwsh
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-      - name: CodeGen    
+      - name: CodeGen
         working-directory: ./Ed-Fi-ODS-Implementation/
         shell: pwsh
         run: |

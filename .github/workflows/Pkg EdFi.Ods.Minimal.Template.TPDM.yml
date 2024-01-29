@@ -8,7 +8,7 @@ name: Pkg EdFi.Ods.Minimal.Template.TPDM
 on:
   push:
     branches:
-      - main
+      - main-6x
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
