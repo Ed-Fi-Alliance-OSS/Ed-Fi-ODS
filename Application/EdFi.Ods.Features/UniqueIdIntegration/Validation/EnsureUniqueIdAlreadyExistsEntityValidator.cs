@@ -19,7 +19,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
     /// there is a UniqueId system in the environment, and the UniqueIds supplied to the API are expected
     /// to be present and available through the PersonIdentifiersCache.
     /// </summary>
-    public class EnsureUniqueIdAlreadyExistsEntityValidator : ObjectValidatorBase, IEntityValidator
+    public class EnsureUniqueIdAlreadyExistsEntityValidator : ObjectValidatorBase
     {
         private readonly IPersonEntitySpecification _personEntitySpecification;
 

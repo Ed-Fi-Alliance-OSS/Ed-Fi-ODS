@@ -44,7 +44,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                 var extensionConfigurationProviders = A.Fake<IEnumerable<ExtensionNHibernateConfigurationProvider>>();
                 var beforeBindMappingActivities = A.Fake<IEnumerable<INHibernateBeforeBindMappingActivity>>();
                 var configurationActivities = A.Fake<IEnumerable<INHibernateConfigurationActivity>>();
-                var entityValidators = A.Fake<IEnumerable<IEntityValidator>>();
                 var entityAuthorizer = A.Fake<IEntityAuthorizer>();
                 var authorizationContextProvider = A.Fake<IAuthorizationContextProvider>();
 
@@ -57,7 +56,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     beforeBindMappingActivities,
                     configurationActivities,
                     ormMappingFileDataProvider,
-                    entityValidators,
                     () => entityAuthorizer,
                     authorizationContextProvider);
 

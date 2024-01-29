@@ -24,16 +24,13 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 {
     public class EdFiOdsPostUpdateEventListener : IPostUpdateEventListener
     {
-        private readonly IEnumerable<IEntityValidator> _entityValidators;
         private readonly Lazy<IEntityAuthorizer> _entityAuthorizer;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
 
         public EdFiOdsPostUpdateEventListener(
-            IEnumerable<IEntityValidator> entityValidators,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider)
         {
-            _entityValidators = entityValidators;
             _authorizationContextProvider = authorizationContextProvider;
             
             _entityAuthorizer = new Lazy<IEntityAuthorizer>(entityAuthorizerResolver);

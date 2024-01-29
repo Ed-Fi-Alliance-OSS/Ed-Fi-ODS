@@ -35,7 +35,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
         private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
-        private readonly IEnumerable<IEntityValidator> _entityValidators;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
 
@@ -43,11 +42,9 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
-            IEnumerable<IEntityValidator> entityValidators,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider)
         {
-            _entityValidators = entityValidators;
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
 
@@ -122,7 +119,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.AddCreateDateHooks(_entityValidators, _entityAuthorizerResolver, _authorizationContextProvider);
+            configuration.AddCreateDateHooks(_entityAuthorizerResolver, _authorizationContextProvider);
 
             return configuration;
 

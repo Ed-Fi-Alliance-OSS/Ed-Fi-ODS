@@ -17,7 +17,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
     {
         public static void AddCreateDateHooks(
             this NHibernate.Cfg.Configuration configuration,
-            IEnumerable<IEntityValidator> entityValidators,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider)
         {
@@ -27,7 +26,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             configuration.SetListener(
                 ListenerType.PostUpdate,
-                new EdFiOdsPostUpdateEventListener(entityValidators, entityAuthorizerResolver, authorizationContextProvider));
+                new EdFiOdsPostUpdateEventListener(entityAuthorizerResolver, authorizationContextProvider));
         }
     }
 }
