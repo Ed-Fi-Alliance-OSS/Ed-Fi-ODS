@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - main-6x
+    paths:
+      - Application/EdFi.Ods.Common/**/*
+      - tests/EdFi.Common.UnitTests/**/*
+      - tests/EdFi.TestFixture/**/*
 
 env:
   INFORMATIONAL_VERSION: "6.1"

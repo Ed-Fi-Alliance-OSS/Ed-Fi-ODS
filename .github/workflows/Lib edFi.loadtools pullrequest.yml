@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main-6x
+    paths:
+      - Utilities/DataLoading/**/*
 
 env:
   INFORMATIONAL_VERSION: "6.2"
