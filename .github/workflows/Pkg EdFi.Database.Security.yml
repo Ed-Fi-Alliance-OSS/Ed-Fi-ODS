@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Packages - EdFi.Database.Security
+name: Pkg EdFi.Database.Security
 
 on:
   pull_request:
@@ -69,7 +69,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-13
-    - name: Create Security Database 
+    - name: Create Security Database
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'

@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL
+name: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL
 
 on:
   push:
@@ -52,22 +52,22 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-          ref: ${{ env.EDFI_STANDARD_REFERENCE }}          
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-Standard
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"
     - name: Checkout Ed-Fi-TPDM-Artifacts
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
-          path: Ed-Fi-TPDM-Artifacts/          
+          path: Ed-Fi-TPDM-Artifacts/
     - name: Is pull request branch exists in Ed-Fi-TPDM-Artifacts
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-TPDM-Artifacts"                    
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-TPDM-Artifacts"
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
@@ -107,7 +107,7 @@ jobs:
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: powershell
-    - name: publish 
+    - name: publish
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL"
