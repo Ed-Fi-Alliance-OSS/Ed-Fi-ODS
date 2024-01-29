@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Helpers
         {
             var allModules = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(
-                    a => a.GetTypes()
+                    a => a.GetExportedTypes()
                         .Where(t => t.IsImplementationOf<T>())
                         .Select(
                             t => (SourceAssembly: a, Type: t)))
