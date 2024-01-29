@@ -10,6 +10,7 @@ using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {

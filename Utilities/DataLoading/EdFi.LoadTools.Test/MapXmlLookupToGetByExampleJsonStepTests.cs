@@ -10,6 +10,7 @@ using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
 using EdFi.LoadTools.Test.MappingFactories;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {
