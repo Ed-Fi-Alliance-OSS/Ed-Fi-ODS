@@ -32,17 +32,8 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
       - name: Checkout Ed-Fi-ODS
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-            path: Ed-Fi-ODS/
-      - name: Is pull request branch exists in Ed-Fi-ODS
-        working-directory: ./Ed-Fi-ODS/
-        shell: pwsh
-        run: |
-             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+
       - name: Dependency Review ("Dependabot on PR")
-        uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
+        uses: actions/dependency-review-action@7bbfa034e752445ea40215fff1c3bf9597993d3f  # v3.1.3
