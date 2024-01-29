@@ -3,20 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.Entity;
 using EdFi.Security.DataAccess.Models;
-using EdFi.Security.DataAccess.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
     public abstract class SecurityContext : DbContext, ISecurityContext
     {
-        protected SecurityContext(string connectionString)
-            : base(connectionString)
-        {
-            Database.SetInitializer(new ValidateDatabase<SqlServerSecurityContext>());
-            Database.SetInitializer(new ValidateDatabase<PostgresSecurityContext>());
-        }
+        protected SecurityContext(DbContextOptions options)
+            : base(options) { }
 
         public DbSet<Application> Applications { get; set; }
 
@@ -36,12 +31,5 @@ namespace EdFi.Security.DataAccess.Contexts
 
         public DbSet<ResourceClaimActionAuthorizationStrategies> ResourceClaimActionAuthorizationStrategies { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ResourceClaim>()
-                .HasOptional(rc => rc.ParentResourceClaim)
-                .WithMany()
-                .HasForeignKey(fk => fk.ParentResourceClaimId);
-        }
     }
 }
