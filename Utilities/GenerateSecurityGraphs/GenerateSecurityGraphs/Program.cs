@@ -46,27 +46,15 @@ namespace GenerateSecurityGraphs
         [Option('f', "force", Default = false, HelpText = "Create a folder at that path if one doesn't already exist.")]
         public bool Force { get; set; }
 
-        [Option('d', "database", Default = "EdFi_Security", HelpText = "The name of the database containing the authorization metadata.")]
-        public string Database { get; set; }
-
-        [Option(
-            's', "server", Default = "(local)", HelpText = "The name of the SQL Server where the authorization metadata database is located.")]
-        public string Server { get; set; }
-
-        [Option(
-            'u', "user", HelpText =
-                "The SQL Server username to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
-        public string User { get; set; }
-
-        [Option(
-            'p', "password", HelpText =
-                "The password to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
-        public string Password { get; set; }
-
         [Option(
             'g', "graphviz", Default = @"C:/Program Files/Graphviz/", HelpText =
                 "Graphviz installation path.")]
         public string GraphvizPath { get; set; }
+
+        [Option(
+            'c', "connectionString", Required = true,
+            HelpText = "Provide the connection string for the database, including database name, server name, user and password (if necessary)")]
+        public string ConnectionString { get; set; }
 
         //[HelpOption]
         public string GetUsage(string[] args)
@@ -97,26 +85,6 @@ namespace GenerateSecurityGraphs
                 });
 
             if (failedToParse) return;
-
-            string connectionString;
-            
-            if (options.User == null || options.Password == null)
-            {
-                connectionString = string.Format(
-
-                    "Server={0};Database={1};Trusted_Connection=True;Encrypt=False",
-                    options.Server,
-                    options.Database);
-            }
-            else
-            {
-                connectionString = string.Format(
-                    "Server={0};Database={1};User ID={2};Password={3};Encrypt=False",
-                    options.Server,
-                    options.Database,
-                    options.User,
-                    options.Password);
-            }
 
             string baseFolderPath;
 
@@ -181,7 +149,7 @@ namespace GenerateSecurityGraphs
             Console.WriteLine("Generating graphs, please wait ...");
 
             // Load all authorization metadata into a graph and a list of claim sets
-            var resourceGraph = LoadAuthorizationMetadataGraph(connectionString, out var claimSetNames);
+            var resourceGraph = LoadAuthorizationMetadataGraph(options.ConnectionString, out var claimSetNames);
             var rootNodes = GetRootNodes(resourceGraph);
 
             var assetsSourceFolder = Path.Combine(
