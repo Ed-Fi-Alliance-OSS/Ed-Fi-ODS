@@ -6,7 +6,7 @@ on:
       - main-6x
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "6.2"
   CONFIGURATION: "Release"
 
 jobs:

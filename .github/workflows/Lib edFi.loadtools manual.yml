@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "6.2"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
