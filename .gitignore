@@ -99,5 +99,6 @@ Utilities/SdkGen/EdFi.SdkGen.Console/csharp
 appsettings.Development.json
 
 *.log
+*.trx
 
 NugetPackages/

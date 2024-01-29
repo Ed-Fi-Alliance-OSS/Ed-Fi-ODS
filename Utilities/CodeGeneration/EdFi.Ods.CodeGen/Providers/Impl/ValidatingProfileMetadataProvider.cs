@@ -27,19 +27,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         public ValidatingProfileMetadataProvider(string profilePath, IResourceModelProvider resourceModelProvider)
         {
-            if (profilePath == null)
-            {
-                throw new ArgumentNullException(nameof(profilePath));
-            }
+            ArgumentNullException.ThrowIfNull(profilePath);
+            ArgumentNullException.ThrowIfNull(resourceModelProvider);
 
             if (!Directory.Exists(profilePath))
             {
                 throw new DirectoryNotFoundException($"{profilePath} not found");
-            }
-
-            if (resourceModelProvider == null)
-            {
-                throw new ArgumentNullException(nameof(resourceModelProvider));
             }
 
             _resourceModel = resourceModelProvider.GetResourceModel();
@@ -71,6 +64,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             => ProfileXDocument.Nodes()
                 .Any();
 
+        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName => throw new NotImplementedException();
+
         /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>
@@ -88,7 +83,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames() => _profileResources.Value;
 
+#pragma warning disable CA1859 // Use concrete types when possible for improved performance. SFUQUA: Refactoring from method to property causes this code to run prematurely, before _profileXDocument has been defined.
         private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
+#pragma warning restore CA1859 // Use concrete types when possible for improved performance
         {
             if (!HasProfileData)
             {
@@ -113,13 +110,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private IEnumerable<ProfileAndResourceNames> GetProfileResources(XElement profileElt)
             => from r in profileElt.Descendants("Resource")
-                select new ProfileAndResourceNames
-                {
-                    ProfileName = profileElt.AttributeValue(
-                        "name"),
-                    ResourceName = (string) r.Attribute(
-                        "name")
-                };
+               select new ProfileAndResourceNames
+               {
+                   ProfileName = profileElt.AttributeValue(
+                       "name"),
+                   ResourceName = (string)r.Attribute(
+                       "name")
+               };
 
         private void ValidateMetadata()
         {

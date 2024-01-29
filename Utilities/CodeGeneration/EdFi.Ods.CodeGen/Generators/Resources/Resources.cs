@@ -21,7 +21,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         private readonly ResourceCollectionRenderer _resourceCollectionRenderer;
         private readonly ResourcePropertyRenderer _resourcePropertyRenderer;
-        private IResourceProfileProvider _resourceProfileProvider;
+        private ResourceProfileProvider _resourceProfileProvider;
 
         public Resources()
         {
@@ -72,7 +72,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             .Select(x => x.FullName.Schema)
                             .Except(EdFiConventions.PhysicalSchemaName)
                             .Distinct()
-                        : new string[0])
+                        : Array.Empty<string>())
                 .Select(
                     sch => schemaNameMapProvider.GetSchemaMapByPhysicalName(sch)
                         .ProperCaseName);
@@ -150,7 +150,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             // Create the context for the main resource
             var resourceContext = new
             {
-                ResourceName = profileData.ResourceName,
+                profileData.ResourceName,
                 ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
                     profileData.ContextualRootResource,
                     profileData.ProfileNamespaceName,
@@ -159,7 +159,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ResourceClasses = CreateContextualResourceClasses(
                     profileData,
                     profileData.ContextualRootResource.FullName.Schema),
-                IsAbstract = profileData.IsAbstract
+                profileData.IsAbstract
             };
 
             if (resourceContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
@@ -173,7 +173,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 // Get all the extension physical schema names present on the current resource model
                 string[] extensionSchemaPhysicalNames =
                     !profileData.ContextualRootResource.IsEdFiStandardResource
-                        ? new string[0]
+                        ? []
                         : profileData.ContextualRootResource.AllContainedItemTypes
                             .Select(i => i.FullName.Schema)
                             .Except(
@@ -190,7 +190,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                     var extensionContext = new
                     {
-                        ResourceName = profileData.ResourceName,
+                        profileData.ResourceName,
                         ResourceClassesNamespace =
                             EdFiConventions.CreateResourceNamespace(
                                 profileData.ContextualRootResource,
@@ -201,7 +201,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ResourceClasses = CreateContextualResourceClasses(
                             profileData,
                             extensionSchemaPhysicalName),
-                        IsAbstract = profileData.IsAbstract
+                        profileData.IsAbstract
                     };
 
                     if (extensionContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
@@ -224,8 +224,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 // Create the model for the root class of the resource (if it should be rendered in the current context)
                 (TemplateContext.ShouldRenderResourceClass(profileData.ContextualRootResource)
                  && profileData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
-                    ? new[] {CreateResourceClass(profileData, profileData.ContextualRootResource)}
-                    : new object[0])
+                    ? [CreateResourceClass(profileData, profileData.ContextualRootResource)]
+                    : Array.Empty<object>())
 
                 // Add in all the Contained Item Types for the resource
                 .Concat(
@@ -267,7 +267,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         .Select(x => CreateResourceClass(profileData, x)))
                 .ToList();
 
-            return resourceClasses.Any()
+            return resourceClasses.Count != 0
                 ? resourceClasses
                     .Select(
                         rc => new {ResourceClass = rc})
@@ -308,8 +308,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     .OrderBy(p => p.PropertyName)
                                     .Select(p => new
                                     {
-                                        PropertyName = p.PropertyName,
-                                        JsonPropertyName = p.JsonPropertyName,
+                                        p.PropertyName,
+                                        p.JsonPropertyName,
                                         PropertyType = p.PropertyType.ToCSharp(),
                                         // Use GetLineage to build the property path, in reverse order, skipping the first since that's the BackReference itself
                                         PropertyPathToRoot = "BackReference." +
@@ -320,7 +320,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     profileData,
                                     resource,
                                     av),
-                            Href = AssembleHref(profileData, resource, av),
+                            Href = AssembleHref(resource, av),
                             HasDiscriminator = av.OtherEntity.HasDiscriminator(),
                             ThisEntityName = av.ThisEntity.Name,
                             OtherEntityName = av.OtherEntity.Name,
@@ -341,7 +341,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return refs;
         }
 
-        private ResourceClassBase GetContextualParent(
+        private static ResourceClassBase GetContextualParent(
             ResourceChildItem resourceChildItem,
             ResourceProfileData profileData)
         {
@@ -372,11 +372,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers =
                             _resourcePropertyRenderer.AssembleIdentifiers(profileData, resourceClass),
-                        Href = AssembleHref(profileData, resourceClass),
-                        HasDiscriminator = resourceClass.HasDiscriminator()
+                        Href = AssembleHref(resourceClass),
+                        HasDiscriminator = resourceClass.Entity?.HasDiscriminator() ?? false
                     },
                     ShouldRenderClass = false,
-                    HasDiscriminator = resourceClass.HasDiscriminator()
+                    HasDiscriminator = resourceClass.Entity?.HasDiscriminator() ?? false
                 };
             }
 
@@ -411,7 +411,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers = _resourcePropertyRenderer
                             .AssembleIdentifiers(profileData, resourceClass),
-                        Href = AssembleHref(profileData, resourceClass)
+                        Href = AssembleHref(resourceClass)
                     }
                     : ResourceRenderer.DoNotRenderProperty,
                 ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(profileData, resourceClass),
@@ -475,7 +475,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),
                 IsEdFiResource = resourceClass.IsEdFiResource(),
                 NamespacePrefix = resourceClass.GetNamespacePrefix(),
-                HasDiscriminator = resourceClass.HasDiscriminator(),
+                HasDiscriminator = resourceClass.Entity?.HasDiscriminator() ?? false,
 
                 // Foreign Key Discriminators should not have any profile applied to this, as this data is required for links
                 ResourceReferences = CreateResourceReferences(resourceClass)
@@ -567,8 +567,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object AssembleHref(
-            ResourceProfileData profileData,
+        private static object AssembleHref(
             ResourceClassBase resource,
             AssociationView association = null)
         {

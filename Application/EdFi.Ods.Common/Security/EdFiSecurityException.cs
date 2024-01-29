@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Security
 {
@@ -41,11 +40,6 @@ namespace EdFi.Ods.Common.Security
 
         public EdFiSecurityException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected EdFiSecurityException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
 
         public string ApiKey { get; }
 

@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Runtime.Serialization;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -18,10 +17,5 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public ProfileContentTypeException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected ProfileContentTypeException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

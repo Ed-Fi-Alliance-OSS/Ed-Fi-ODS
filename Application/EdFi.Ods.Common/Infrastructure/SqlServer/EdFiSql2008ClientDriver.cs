@@ -6,7 +6,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using NHibernate.Driver;
 using NHibernate.SqlTypes;
 
@@ -26,7 +26,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
         protected override void OnBeforePrepare(DbCommand command)
         {
             // Defensive check against accidental use of this client driver with a non-SQL Server back end
-            if (!(command is SqlCommand))
+            if (command is not SqlCommand)
             {
                 throw new NotSupportedException(
                     $"The configured client driver ({typeof(EdFiSql2008ClientDriver).Name}) was expecting a '{typeof(SqlCommand).FullName}' but encountered a command of type '{command.GetType().FullName}'.");

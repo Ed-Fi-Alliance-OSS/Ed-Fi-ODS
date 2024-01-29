@@ -1,3 +1,5 @@
 # Declare files that will always have CRLF line endings on checkout.
 *.tt eol=crlf
 *.ttinclude eol=crlf
+DatabaseViews.generated.json text eol=lf
+DatabaseViews.mustache text eol=lf

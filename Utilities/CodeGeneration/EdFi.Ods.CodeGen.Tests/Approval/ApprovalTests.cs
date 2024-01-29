@@ -13,7 +13,6 @@ using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.CodeGen.Conventions;
-using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Providers.Impl;
 using NUnit.Framework;
 
@@ -27,7 +26,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         private const string GeneratedHbm = "*.generated.hbm.xml";
         private const string GeneratedSql = "*_generated.sql";
 
-        private static readonly ICodeRepositoryProvider _codeRepositoryProvider = new DeveloperCodeRepositoryProvider();
+        private static readonly DeveloperCodeRepositoryProvider _codeRepositoryProvider = new();
         private static readonly string _repositoryRoot =
             _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Root);
         private static readonly string _extensionRepository =
@@ -41,7 +40,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         private static readonly string _odsRepositoryProjects = Path.Combine(
             _odsRepository, CodeRepositoryConventions.Application);
 
-        private static IEnumerable<ApprovalFileInfo> _approvalFileInfos = GetApprovalFileInfos();
+        private static readonly IEnumerable<ApprovalFileInfo> _approvalFileInfos = GetApprovalFileInfos();
 
         [Explicit("WARNING!!! This copies all the generated files as approved files")]
         [Test]
@@ -57,11 +56,10 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         protected async Task SetUp()
         {
             await Program.Main(
-                new[]
-                {
+                [
                     "--ExtensionPaths",
                     _extensionRepository
-                });
+                ]);
         }
 
         /// <summary>
@@ -130,14 +128,14 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             return files;
         }
 
-        private void CopyFiles(IEnumerable<ApprovalFileInfo> files)
+        private static void CopyFiles(IEnumerable<ApprovalFileInfo> files)
         {
             foreach (var file in files)
             {
                 string ext = Path.GetExtension(file.GeneratedName);
 
-                if (file.SourcePath.ToLower().Contains("obj")
-                    || file.SourcePath.ToLower().Contains("bin")
+                if (file.SourcePath.Contains("obj", StringComparison.CurrentCultureIgnoreCase)
+                    || file.SourcePath.Contains("bin", StringComparison.CurrentCultureIgnoreCase)
                     || string.IsNullOrEmpty(ext))
                 {
                     continue;
@@ -165,22 +163,15 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             }
         }
 
-        public class ApprovalFileInfo
+        public class ApprovalFileInfo(string sourcePath)
         {
-            public ApprovalFileInfo(string sourcePath)
-            {
-                SourcePath = sourcePath.Replace("\\", "/");
-                Scenario = $"{CreateScenario(sourcePath)}";
-                GeneratedName = sourcePath.Split("/").LastOrDefault();
-            }
+            public string SourcePath { get; } = sourcePath.Replace("\\", "/");
 
-            public string SourcePath { get; }
+            public string GeneratedName { get; } = sourcePath.Split("/").LastOrDefault();
 
-            public string GeneratedName { get; }
+            public string Scenario { get; } = $"{CreateScenario(sourcePath)}";
 
-            public string Scenario { get; }
-
-            private string CreateScenario(string sourcePath)
+            private static string CreateScenario(string sourcePath)
                 => sourcePath
                     .Replace(_extensionRepository, string.Empty)
                     .Replace(_odsRepository, string.Empty)
