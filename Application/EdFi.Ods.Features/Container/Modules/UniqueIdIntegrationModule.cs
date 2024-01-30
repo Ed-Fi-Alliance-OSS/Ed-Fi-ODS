@@ -36,8 +36,8 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterDecorator(
-                typeof(UniqueIdIntegrationPutPipelineStepsProviderDecorator),
-                typeof(IPutPipelineStepsProvider));
+                typeof(UniqueIdIntegrationUpsertPipelineStepsProviderDecorator),
+                typeof(IUpsertPipelineStepsProvider));
         }
     }
 }

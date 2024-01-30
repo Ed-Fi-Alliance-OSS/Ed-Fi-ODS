@@ -50,7 +50,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
     /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "Upsert" persistence.
     /// </summary>
-    public class PutPipelineStepsProvider : IPutPipelineStepsProvider
+    public class UpsertPipelineStepsProvider : IUpsertPipelineStepsProvider
     {
         public virtual Type[] GetSteps()
         {
