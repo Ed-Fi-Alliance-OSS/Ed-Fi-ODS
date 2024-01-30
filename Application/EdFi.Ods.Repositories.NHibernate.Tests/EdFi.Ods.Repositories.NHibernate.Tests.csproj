@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemlbyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemlbyName>
     <RootNamespace>EdFi.Ods.Repositories.NHibernate.Tests</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
@@ -35,7 +35,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>    
+    </PackageReference>
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
     <PackageReference Include="Shouldly" Version="4.1.0" />
   </ItemGroup>

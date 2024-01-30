@@ -33,9 +33,8 @@ namespace EdFi.Ods.Api.Middleware
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory loggerFactory,
             UrlEncoder encoder,
-            ISystemClock clock,
             IOAuthTokenAuthenticator oauthTokenAuthenticator)
-            : base(options, loggerFactory, encoder, clock)
+            : base(options, loggerFactory, encoder)
         {
             _logger = loggerFactory.CreateLogger(typeof(EdFiOAuthAuthenticationHandler).FullName!);
             _oauthTokenAuthenticator = oauthTokenAuthenticator;
