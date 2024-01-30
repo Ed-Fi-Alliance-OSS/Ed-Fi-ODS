@@ -7,17 +7,18 @@ name: Dependency Review Pull request
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main-6x
 
 env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
-  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
 
 jobs:
   scan-actions:
     name: Scan Actions
-    uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@latest
+    uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@main
 
   analyze-code:
     name: Analyze Code Dependencies
@@ -31,17 +32,8 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-        with:
-            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-            path: Ed-Fi-ODS/
-      - name: Is pull request branch exists in Ed-Fi-ODS
-        working-directory: ./Ed-Fi-ODS/
-        shell: pwsh
-        run: |
-             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
       - name: Dependency Review ("Dependabot on PR")
-        uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
+        uses: actions/dependency-review-action@7bbfa034e752445ea40215fff1c3bf9597993d3f  # v3.1.3

@@ -1,8 +1,8 @@
-name: EdFi.Security.DataAccess Pull request build and test
+name: Lib EdFi.Security.DataAccess Pull request build and test
 
 on:
   pull_request:
-    branches: 
+    branches:
       - main-6x
     paths:
       - Application/EdFi.Security.DataAccess/**/*
@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-    
+
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"

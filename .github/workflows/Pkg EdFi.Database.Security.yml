@@ -3,11 +3,12 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Packages - EdFi.Database.Security
+name: Pkg EdFi.Database.Security
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main-6x
     paths:
       - '**.sql'
   push:
@@ -18,8 +19,8 @@ on:
   workflow_dispatch:
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
-  BUILD_INCREMENTER: "25"
+  INFORMATIONAL_VERSION: "6.2"
+  BUILD_INCREMENTER: "1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
@@ -34,14 +35,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
-      with:
-        dotnet-version: 6.0.x
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
@@ -51,7 +48,7 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -69,7 +66,7 @@ jobs:
           $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-13
-    - name: Create Security Database 
+    - name: Create Security Database
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
@@ -105,7 +102,7 @@ jobs:
       shell: pwsh
     - name: Upload EdFi.Database.Security Artifacts
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/NugetPackages/*.nupkg

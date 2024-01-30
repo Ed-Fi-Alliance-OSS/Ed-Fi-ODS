@@ -10,6 +10,7 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 using Moq;
 using Swashbuckle.Swagger;
 
