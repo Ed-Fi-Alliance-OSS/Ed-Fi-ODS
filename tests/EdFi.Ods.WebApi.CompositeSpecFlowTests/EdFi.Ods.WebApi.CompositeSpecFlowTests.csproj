@@ -3,7 +3,7 @@
     <StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EdFi.Ods.WebApi.CompositeSpecFlowTests</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
@@ -11,7 +11,6 @@
     <IsTestProject>true</IsTestProject>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
@@ -33,25 +32,25 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.1" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.6" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.2.1" />
       </ItemGroup>
     </Otherwise>
   </Choose>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '5.0.0' ">
-  <ItemGroup>
-    <MySourceDirectory Include="$(MSBuildProjectDirectory)\5.0.0\**\*" />
-    <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
-  </ItemGroup>
-  <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-</Target>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '4.0.0' ">
-  <ItemGroup>
-    <MySourceDirectory Include="$(MSBuildProjectDirectory)\4.0.0\**\*" />
-    <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
-  </ItemGroup>
-  <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
-</Target>	
+  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '5.0.0' ">
+    <ItemGroup>
+      <MySourceDirectory Include="$(MSBuildProjectDirectory)\5.0.0\**\*" />
+      <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '4.0.0' ">
+    <ItemGroup>
+      <MySourceDirectory Include="$(MSBuildProjectDirectory)\4.0.0\**\*" />
+      <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="5.8.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
