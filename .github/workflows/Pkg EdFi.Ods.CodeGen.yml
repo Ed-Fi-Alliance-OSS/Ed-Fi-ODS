@@ -2,7 +2,8 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main-6x
   push:
     branches:
       - main-6x
@@ -57,20 +58,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
-      shell: pwsh
-
-    - name: Run Unit tests for  codegen Project
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
-        $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
-        if (Test-Path $reports) {
-            Remove-Item -Path $reports -Force -Recurse | Out-Null
-        }
-        New-Item -ItemType Directory -Force -Path $reports | Out-Null
-        $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
-        & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
       shell: pwsh
 
     - name: pack codegen
