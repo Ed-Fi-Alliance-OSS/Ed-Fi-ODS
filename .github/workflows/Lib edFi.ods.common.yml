@@ -33,11 +33,7 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token" 
         exit 1 
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-        path: Ed-Fi-ODS/
+    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
     - name: Cache Nuget packages       
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
