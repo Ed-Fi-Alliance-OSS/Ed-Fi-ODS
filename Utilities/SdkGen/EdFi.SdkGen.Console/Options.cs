@@ -28,7 +28,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'v',
             "cliVersion",
-            Default = "6.0.1",
+            Default = "7.2.0",
             HelpText = "the version of openapi-codegen-cli to download")]
         public string CliVersion { get; set; }
 
