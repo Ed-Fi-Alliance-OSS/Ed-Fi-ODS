@@ -446,8 +446,8 @@ namespace EdFi.Ods.Api.Container.Modules
                     .As<IPipelineStepsProvider>()
                     .SingleInstance();
 
-                builder.RegisterType<PutPipelineStepsProvider>()
-                    .As<IPutPipelineStepsProvider>()
+                builder.RegisterType<UpsertPipelineStepsProvider>()
+                    .As<IUpsertPipelineStepsProvider>()
                     .As<IPipelineStepsProvider>()
                     .SingleInstance();
 

@@ -44,11 +44,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Pipeline
         }
     }
 
-    public class AuthorizationContextPutPipelineStepsProviderDecorator : IPutPipelineStepsProvider
+    public class AuthorizationContextUpsertPipelineStepsProviderDecorator : IUpsertPipelineStepsProvider
     {
-        private readonly IPutPipelineStepsProvider _next;
+        private readonly IUpsertPipelineStepsProvider _next;
 
-        public AuthorizationContextPutPipelineStepsProviderDecorator(IPutPipelineStepsProvider next)
+        public AuthorizationContextUpsertPipelineStepsProviderDecorator(IUpsertPipelineStepsProvider next)
         {
             _next = next;
         }

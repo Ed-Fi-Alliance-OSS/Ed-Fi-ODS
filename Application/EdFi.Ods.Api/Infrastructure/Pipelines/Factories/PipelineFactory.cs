@@ -24,21 +24,21 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         private readonly IDeletePipelineStepsProvider _deletePipelineStepsProvider;
         private readonly IGetBySpecificationPipelineStepsProvider _getBySpecificationPipelineStepsProvider;
         private readonly IGetPipelineStepsProvider _getPipelineStepsProvider;
-        private readonly IPutPipelineStepsProvider _putPipelineStepsProvider;
+        private readonly IUpsertPipelineStepsProvider _upsertPipelineStepsProvider;
         private readonly ISessionFactory _sessionFactory;
 
         public PipelineFactory(
             IServiceLocator locator,
             IGetPipelineStepsProvider getPipelineStepsProvider,
             IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider,
-            IPutPipelineStepsProvider putPipelineStepsProvider,
+            IUpsertPipelineStepsProvider upsertPipelineStepsProvider,
             IDeletePipelineStepsProvider deletePipelineStepsProvider,
             ISessionFactory sessionFactory)
         {
             _locator = locator;
             _getPipelineStepsProvider = getPipelineStepsProvider;
             _getBySpecificationPipelineStepsProvider = getBySpecificationPipelineStepsProvider;
-            _putPipelineStepsProvider = putPipelineStepsProvider;
+            _upsertPipelineStepsProvider = upsertPipelineStepsProvider;
             _deletePipelineStepsProvider = deletePipelineStepsProvider;
             _sessionFactory = sessionFactory;
         }
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag
         {
-            var stepTypes = _putPipelineStepsProvider.GetSteps();
+            var stepTypes = _upsertPipelineStepsProvider.GetSteps();
 
             var steps =
                 ResolvePipelineSteps<PutContext<TResourceModel, TEntityModel>, PutResult, TResourceModel, TEntityModel>(
