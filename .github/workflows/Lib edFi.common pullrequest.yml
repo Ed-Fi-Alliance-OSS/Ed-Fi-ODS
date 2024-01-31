@@ -1,4 +1,4 @@
-name: EdFi.Common Pull request build and test
+name: Lib EdFi.Common Pull request build and test
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
     - name: build
       run: |

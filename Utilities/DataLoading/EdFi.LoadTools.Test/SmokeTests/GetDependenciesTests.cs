@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {

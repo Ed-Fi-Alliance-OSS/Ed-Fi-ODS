@@ -1,11 +1,15 @@
-name: EdFi.Ods.Api Pull request build and test
+name: Lib EdFi.Ods.Api Pull request build and test
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main-6x
+    paths:
+      - Application/EdFi.Ods.Api/**/*
+      - Application/EdFi.Ods.Common/**/*
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "6.2"
   CONFIGURATION: "Release"
 
 jobs:
@@ -14,11 +18,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
-      with:
-        dotnet-version: 6.0.x
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
