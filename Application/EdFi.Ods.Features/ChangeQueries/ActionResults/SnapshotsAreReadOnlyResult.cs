@@ -3,8 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.ChangeQueries.ActionResults
@@ -25,7 +27,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ActionResults
                 StatusCode = (int) HttpStatusCode.MethodNotAllowed,
             };
 
-            context.HttpContext.Response.Headers.Add("Allow", "GET");
+            context.HttpContext.Response.Headers.Append("Allow", "GET");
 
             await objectResult.ExecuteResultAsync(context);
         }

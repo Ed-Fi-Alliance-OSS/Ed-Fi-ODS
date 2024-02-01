@@ -101,7 +101,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
             {
-                Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
+                Response.Headers.Append("Total-Count", keyChangesResponse.Count.ToString());
             }
 
             // Explicitly serialize the response to remain backwards compatible with .NET Framework implementation responses

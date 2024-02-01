@@ -7,13 +7,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EdFi.TestFixture
 {
@@ -41,7 +40,7 @@ namespace EdFi.TestFixture
     /// </code>
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IAsyncEnumerable<TEntity>
+    public class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IDbAsyncEnumerable<TEntity>
         where TEntity : class
     {
         private readonly ObservableCollection<TEntity> _data;
@@ -58,7 +57,7 @@ namespace EdFi.TestFixture
             get { return _data; }
         }
 
-        IAsyncEnumerator<TEntity> IAsyncEnumerable<TEntity>.GetAsyncEnumerator()
+        IDbAsyncEnumerator<TEntity> IDbAsyncEnumerable<TEntity>.GetAsyncEnumerator()
         {
             return new TestDbAsyncEnumerator<TEntity>(_data.GetEnumerator());
         }
@@ -82,8 +81,6 @@ namespace EdFi.TestFixture
         {
             get { return new TestDbAsyncQueryProvider<TEntity>(_query.Provider); }
         }
-
-        public override IEntityType EntityType => throw new NotImplementedException();
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -171,7 +168,7 @@ namespace EdFi.TestFixture
         }
     }
 
-    internal class TestDbAsyncEnumerable<T> : EnumerableQuery<T>, IAsyncEnumerable<T>, IQueryable<T>
+    internal class TestDbAsyncEnumerable<T> : EnumerableQuery<T>, IDbAsyncEnumerable<T>, IQueryable<T>
     {
         public TestDbAsyncEnumerable(IEnumerable<T> enumerable)
             : base(enumerable) { }
@@ -179,14 +176,14 @@ namespace EdFi.TestFixture
         public TestDbAsyncEnumerable(Expression expression)
             : base(expression) { }
 
-        public IAsyncEnumerator<T> GetAsyncEnumerator()
+        public IDbAsyncEnumerator<T> GetAsyncEnumerator()
         {
             return new TestDbAsyncEnumerator<T>(
                 this.AsEnumerable()
                     .GetEnumerator());
         }
 
-        IAsyncEnumerator IAsyncEnumerable.GetAsyncEnumerator()
+        IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator()
         {
             return GetAsyncEnumerator();
         }
@@ -197,7 +194,7 @@ namespace EdFi.TestFixture
         }
     }
 
-    internal class TestDbAsyncEnumerator<T> : IAsyncEnumerator<T>
+    internal class TestDbAsyncEnumerator<T> : IDbAsyncEnumerator<T>
     {
         private readonly IEnumerator<T> _inner;
 
@@ -221,7 +218,7 @@ namespace EdFi.TestFixture
             get { return _inner.Current; }
         }
 
-        object IAsyncEnumerator.Current
+        object IDbAsyncEnumerator.Current
         {
             get { return Current; }
         }

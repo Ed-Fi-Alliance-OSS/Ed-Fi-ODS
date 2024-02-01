@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.ChangeQueries.Controllers
@@ -64,7 +65,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             if (urlQueryParametersRequest.TotalCount)
             {
                 var count = await _getSnapshots.GetTotalCountAsync();
-                Response.Headers.Add("Total-Count", count.ToString());
+                Response.Headers.Append("Total-Count", count.ToString());
             }
 
             var snapshots = await _getSnapshots.GetAllAsync(new QueryParameters(urlQueryParametersRequest));
