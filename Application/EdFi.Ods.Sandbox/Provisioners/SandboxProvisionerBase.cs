@@ -3,17 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Data.Common;
-using System.Threading.Tasks;
-using Dapper;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
