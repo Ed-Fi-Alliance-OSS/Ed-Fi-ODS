@@ -18,9 +18,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.80" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.79" />
     <PackageReference Include="EdFi.Suite3.Common" Version="6.2.2" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.1.26" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.2.42" />
   </ItemGroup>
   <ItemGroup>  
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -49,6 +49,7 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Diagnostics.Contracts" Version="4.3.0" />
+    <PackageReference Include="System.CodeDom" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />

@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
 using log4net;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using EdFi.Common.Extensions;
 
 namespace EdFi.Ods.Api.Security.Profiles
 {
@@ -56,6 +58,11 @@ namespace EdFi.Ods.Api.Security.Profiles
                     //if there are none to insert return
                     if (!profilesToInsert.Any())
                     {
+                        if (_logger.IsDebugEnabled)
+                        {
+                            string adminDatabaseName = (usersContext as DbContext)?.Database.GetDbConnection().Database;
+                            _logger.Debug($"No profile names need to be published to the Admin database '{adminDatabaseName}'...");
+                        }
                         return true;
                     }
 
@@ -69,7 +76,7 @@ namespace EdFi.Ods.Api.Security.Profiles
                             });
                     }
 
-                    usersContext.SaveChanges();
+                    usersContext.SaveChangesAsync(new CancellationToken());
                 }
 
                 return true;
