@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.Helpers
         {
             var allModules = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(
-                    a => a.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IModule)) && !t.IsAbstract)
+                    a => a.GetExportedTypes().Where(t => t.GetInterfaces().Contains(typeof(IModule)) && !t.IsAbstract)
                         .Select(
                             t => new
                             {
