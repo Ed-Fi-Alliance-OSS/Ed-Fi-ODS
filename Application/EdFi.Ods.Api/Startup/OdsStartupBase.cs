@@ -28,6 +28,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
+using EdFi.Ods.Common.Configuration.Validation;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
@@ -101,8 +102,18 @@ namespace EdFi.Ods.Api.Startup
             {
                 _apiSettings = new ApiSettings();
                 Configuration.Bind("ApiSettings", _apiSettings);
-                _apiSettings.Validate();
-            } catch (ConfigurationException invalidConfiguration)
+
+                // Validate the API settings
+                var apiSettingsValidator = new ApiSettingsValidator();
+                var validationResult = apiSettingsValidator.Validate(_apiSettings);
+
+                if (!validationResult.IsValid)
+                {
+                    _logger.Fatal(validationResult.ToString());
+                    Environment.Exit(1);
+                }
+            }
+            catch (ConfigurationException invalidConfiguration)
             {
                 _logger.Fatal(invalidConfiguration);
                 Environment.Exit(1);

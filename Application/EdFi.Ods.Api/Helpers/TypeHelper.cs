@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Helpers
                 .Select(t => t.type);
         }
 
-        private static List<(Assembly assembly, Type type)> GetImplementationsOf<T>()
+        public static List<(Assembly assembly, Type type)> GetImplementationsOf<T>()
         {
             var allModules = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(

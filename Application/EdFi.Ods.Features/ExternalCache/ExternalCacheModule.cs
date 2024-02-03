@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
+using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace EdFi.Ods.Features.ExternalCache
@@ -117,7 +118,7 @@ namespace EdFi.Ods.Features.ExternalCache
         {
             if (IsProviderSelected())
             {
-                builder.RegisterType<RedisUsiByUniqueIdMapCache>()
+                builder.RegisterType<RedisConnectionProvider>()
                     .WithParameter(
                         new ResolvedParameter(
                             (p, c) => p.Name == "configuration",
@@ -125,8 +126,12 @@ namespace EdFi.Ods.Features.ExternalCache
                             {
                                 var apiSettings = c.Resolve<ApiSettings>();
 
-                                return apiSettings.Caching.Redis.Configuration;
+                                return apiSettings.Services.Redis.Configuration;
                             }))
+                    .As<IRedisConnectionProvider>()
+                    .SingleInstance();
+
+                builder.RegisterType<RedisUsiByUniqueIdMapCache>()
                     .WithParameter(
                         new ResolvedParameter(
                             (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),
@@ -149,15 +154,6 @@ namespace EdFi.Ods.Features.ExternalCache
                     .SingleInstance();
 
                 builder.RegisterType<RedisUniqueIdByUsiMapCache>()
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.Name == "configuration",
-                            (p, c) =>
-                            {
-                                var apiSettings = c.Resolve<ApiSettings>();
-
-                                return apiSettings.Caching.Redis.Configuration;
-                            }))
                     .WithParameter(
                         new ResolvedParameter(
                             (p, c) => p.Name.EqualsIgnoreCase("slidingExpirationPeriod"),

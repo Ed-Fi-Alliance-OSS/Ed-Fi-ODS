@@ -9,7 +9,7 @@ using Castle.DynamicProxy;
 
 namespace EdFi.Ods.Common.Caching;
 
-public class CachingInterceptor : IInterceptor
+public class CachingInterceptor : IInterceptor, IClearable
 {
     private readonly ICacheProvider<ulong> _cacheProvider;
 
@@ -74,5 +74,17 @@ public class CachingInterceptor : IInterceptor
                 throw new NotImplementedException(
                     "Support for generating cache keys for more than 3 arguments has not been implemented.");
         }
+    }
+
+    public void Clear()
+    {
+        if (_cacheProvider is IClearable clearable)
+        {
+            clearable.Clear();
+
+            return;
+        }
+
+        throw new NotSupportedException($"Unable to clear the underlying data associated with the {nameof(CachingInterceptor)}.");
     }
 }

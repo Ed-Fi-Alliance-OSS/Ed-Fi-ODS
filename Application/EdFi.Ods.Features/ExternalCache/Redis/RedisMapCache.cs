@@ -5,10 +5,9 @@
 
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
+using EdFi.Ods.Features.Services.Redis;
 using StackExchange.Redis;
 
 namespace EdFi.Ods.Features.ExternalCache.Redis;
@@ -24,19 +23,18 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 {
     private readonly TimeSpan? _absoluteExpirationPeriod;
     private readonly TimeSpan? _slidingExpirationPeriod;
-    private readonly RedisCacheOptions _options;
-    private volatile IConnectionMultiplexer _connection;
-    private readonly SemaphoreSlim _connectionLock = new(initialCount: 1, maxCount: 1);
-    private IDatabase _cache;
 
-    public RedisMapCache(string configuration, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
+    private readonly IDatabase _cache;
+
+    protected RedisMapCache(
+        IRedisConnectionProvider redisConnectionProvider,
+        TimeSpan? absoluteExpirationPeriod,
+        TimeSpan? slidingExpirationPeriod)
     {
-        ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
-
         _absoluteExpirationPeriod = absoluteExpirationPeriod;
         _slidingExpirationPeriod = slidingExpirationPeriod;
-        
-        _options = new RedisCacheOptions() { Configuration = configuration };
+
+        _cache = redisConnectionProvider.Get();
     }
 
     public async Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
@@ -65,8 +63,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
             })
             .ToArray();
 
-        await ConnectAsync().ConfigureAwait(false);
-
         string cacheKey = GetCacheKey(key);
         await _cache.HashSetAsync(cacheKey, hashEntries);
 
@@ -94,8 +90,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                 return redisHashKey;
             });
 
-        await ConnectAsync().ConfigureAwait(false);
-
         string cacheKey = GetCacheKey(key);
         
         var keys = redisHashKeys.ToArray();
@@ -116,8 +110,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         {
             throw new ArgumentException($"Unable to convert '{nameof(mapKey)}' of type '{typeof(TMapKey).Name}' to a '{nameof(RedisValue)}'.");
         }
-
-        await ConnectAsync().ConfigureAwait(false);
 
         string cacheKey = GetCacheKey(key);
         var deleteResult = await _cache.HashDeleteAsync(cacheKey, redisHashKey);
@@ -176,62 +168,6 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                     (long) _slidingExpirationPeriod.Value.TotalMilliseconds
                 },
                 CommandFlags.FireAndForget);
-        }
-    }
-
-    private async Task ConnectAsync()
-    {
-        if (_cache != null)
-        {
-            return;
-        }
-
-        await _connectionLock.WaitAsync().ConfigureAwait(false);
-
-        try
-        {
-            if (_cache == null)
-            {
-                if(_options.ConnectionMultiplexerFactory is null)
-                {
-                    if (_options.ConfigurationOptions is not null)
-                    {
-                        _connection = await ConnectionMultiplexer.ConnectAsync(_options.ConfigurationOptions).ConfigureAwait(false);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(_options.Configuration))
-                    {
-                        _connection = await ConnectionMultiplexer.ConnectAsync(_options.Configuration).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("External cache is enabled and configured for Redis, but neither a configuration string nor Redis configuration options have been provided in appsettings");
-                    }
-                }
-                else
-                {
-                    _connection = await _options.ConnectionMultiplexerFactory();
-                }
-
-                TryRegisterProfiler();
-                _cache = _connection.GetDatabase();
-            }
-        }
-        finally
-        {
-            _connectionLock.Release();
-        }
-    }
-
-    private void TryRegisterProfiler()
-    {
-        if (_connection == null)
-        {
-            throw new InvalidOperationException($"{nameof(_connection)} cannot be null.");
-        }
-
-        if (_options.ProfilingSession != null)
-        {
-            _connection.RegisterProfiler(_options.ProfilingSession);
         }
     }
     
