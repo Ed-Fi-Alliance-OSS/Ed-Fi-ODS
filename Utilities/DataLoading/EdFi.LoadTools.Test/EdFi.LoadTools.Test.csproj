@@ -3,7 +3,7 @@
 		<StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
 	</PropertyGroup>	
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <AssemblyName>EdFi.LoadTools.Test</AssemblyName>
         <RootNamespace>EdFi.LoadTools.Test</RootNamespace>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
