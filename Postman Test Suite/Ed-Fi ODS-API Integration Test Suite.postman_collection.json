@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "829ceac5-1c29-44c8-8df4-994aa4747b6e",
+		"_postman_id": "ad08d42c-5a7d-4c0a-922f-826817035c70",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "7275232"
+		"_exporter_id": "26378282"
 	},
 	"item": [
 		{
@@ -8589,6 +8589,295 @@
 												}
 											},
 											"response": []
+										},
+										{
+											"name": "Create Student",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.environment.set('supplied:studentUniqueId', pm.variables.replaceIn('{{$guid}}').substring(0, 5));"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:studentUniqueId}}\",\r\n  \"birthDate\": \"2008-09-13\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Student School Association",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201)\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n    },\r\n    \"entryDate\": \"2010-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\",\r\n    \"alternativeGraduationPlans\": [],\r\n    \"educationPlans\": []\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSchoolAssociations"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Student Parent or Contact Association",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 201 or 404\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(201) \r",
+															" });\r",
+															"\r",
+															"if (pm.response.code === 201 ) {\r",
+															"    pm.environment.set('known:studentParentAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{StudentParentOrContactAssociationCollectionName}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Put Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  204\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(204);\r",
+															" });\r",
+															"\r",
+															"pm.environment.set('known:parentOrContact:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\",\r\n  \"firstName\": \"$randomFirstName\",\r\n  \"lastSurname\": \"$randomLastName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:parentOrContact:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{ParentOrContactCollectionName}}",
+														"{{known:parentOrContact:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Student Parent or Contact Association",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 404\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(404) \r",
+															" });\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}/{{known:studentParentAssociation:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{StudentParentOrContactAssociationCollectionName}}",
+														"{{known:studentParentAssociation:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Contact",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is  204\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(204);\r",
+															" });\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:parentOrContact:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{ParentOrContactCollectionName}}",
+														"{{known:parentOrContact:id}}"
+													]
+												}
+											},
+											"response": []
 										}
 									]
 								},
@@ -8674,6 +8963,597 @@
 											"response": []
 										}
 									]
+								}
+							]
+						},
+						{
+							"name": "Required field in a New resource in Extension",
+							"item": [
+								{
+									"name": "Create busRoutes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													" });\r",
+													"\r",
+													"pm.environment.set('known:busRoutes:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"var requestJson = JSON.parse(request.data);\r",
+													"pm.environment.set('known:busRouteDirection', requestJson.busRouteDirection);\r",
+													"pm.environment.set('known:operatingCost', requestJson.operatingCost);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:busRoutes:busId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"busId\": \"{{supplied:busRoutes:busId}}\",\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"operatingCost\": 10000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"busRoutes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get busRoutes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													" });\r",
+													"\r",
+													"  pm.test(\"Should return some items for verification\", () => {\r",
+													"        const responseItems = pm.response.json();\r",
+													"        pm.expect(responseItems.busRouteDirection).to.equal(pm.environment.get('known:busRouteDirection'));\r",
+													"        pm.expect(responseItems.operatingCost).to.equal(pm.environment.get('known:operatingCost'));        \r",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"Southbound\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"operatingCost\": 10000,\r\n\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78715\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n]",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoutes:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"busRoutes",
+												"{{known:busRoutes:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete busRoutes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													" });\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoutes:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"busRoutes",
+												"{{known:busRoutes:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Existing core entity and  extension added some fields and one  is a required field",
+							"item": [
+								{
+									"name": "CareerPathwayDescriptor Required Validation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"const problemDetails = pm.response.json();\r",
+													"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.cteProgram.careerPathwayDescriptor\"]).to.match(/CareerPathwayDescriptor is required./);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:schools:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgram\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													" });\r",
+													"\r",
+													"pm.environment.set('known:schools:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"var requestJson = JSON.parse(request.data);\r",
+													"pm.environment.set('known:careerPathwayDescriptor', requestJson._ext.Sample.cteProgram.careerPathwayDescriptor);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:schools:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgram\": {\r\n          \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Should return some items for verification\", () => {\r",
+													"  const responseItems = pm.response.json();\r",
+													"  pm.expect(responseItems._ext.sample.cteProgram.careerPathwayDescriptor).to.equal(pm.environment.get('known:careerPathwayDescriptor'));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schools:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schools:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													" });\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schools:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schools:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Extension has an optional collection and one field in the collection object is required",
+							"item": [
+								{
+									"name": "PetName is required Field in Optional Collection",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"const problemDetails = pm.response.json();\r",
+													"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
+													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.pets[0].petName\"]).to.match(/PetName must be between 3 and 20 characters in length./);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"supplied:staff:staffUniqueId\", pm.variables.replaceIn(\"{{$randomBankAccount}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"staffUniqueId\": \"{{supplied:staff:staffUniqueId}}\",\r\n    \"firstName\": \"Barry\",\r\n    \"lastSurname\": \"Tanner\",\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:staff:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													"\r",
+													"var requestJson = JSON.parse(request.data);\r",
+													"pm.environment.set('known:pets:petName', requestJson._ext.Sample.pets[0].petName);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"supplied:staff:staffUniqueId\", pm.variables.replaceIn(\"{{$randomBankAccount}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"staffUniqueId\": \"{{supplied:staff:staffUniqueId}}\",\r\n    \"firstName\": \"Barry\",\r\n    \"lastSurname\": \"Tanner\",\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"Gecko of Awesomeness\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StaffEducationOrganizationEmploymentAssociations Data for Request Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let hireDate=new Date();",
+													"hireDate = hireDate.addMonths(-24);",
+													"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:hireDate', hireDate);",
+													"pm.environment.set('supplied::employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n    \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"255901\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{supplied:staff:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\",\r\n   \"hireDate\":\"{{supplied:hireDate}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StaffEducationOrganizationEmploymentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return some items for verification\", () => {\r",
+													"  const responseItems = pm.response.json();\r",
+													"  pm.expect(responseItems._ext.sample.pets[0].petName).to.equal(pm.environment.get('known:pets:petName'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:staff:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:staff:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:staff:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:staff:id}}"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}
