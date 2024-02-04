@@ -5,6 +5,7 @@
 
 using Castle.DynamicProxy;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Features.Notifications;
 using EdFi.Ods.Features.Notifications.Redis;
 using EdFi.Ods.Features.Services.Redis;
@@ -25,6 +26,8 @@ public class RedisNotificationTests
     private static readonly IRedisConnectionProvider _redisConnectionProvider = new RedisConnectionProvider(RedisConfiguration);
     private static readonly RedisNotificationSettings _redisNotificationSettings = new() { Channel = "test-notifications" };
 
+    private Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
+    
     [Test]
     public void Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
     {
@@ -45,15 +48,15 @@ public class RedisNotificationTests
         var interceptor = new SignalingClearableInterceptor(signal);
         IServiceProvider serviceProvider = A.Fake<IServiceProvider>();
 
-        A.CallTo(() => serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireSecurityMetadata>>)))
-            .Returns(new[] { new ExpireSecurityMetadataHandler(interceptor) });
+        A.CallTo(() => serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireSecurityCache>>)))
+            .Returns(new[] { new ExpireSecurityCacheHandler(interceptor) });
 
         var mediator = new Mediator(serviceProvider);
 
         var activity = new InitializeRedisNotifications(
             _redisConnectionProvider,
             _redisNotificationSettings,
-            new NotificationsMessageSink(mediator));
+            new NotificationsMessageSink(mediator, _intervalsByNotificationType, new TimeProvider()));
 
         activity.Execute();
 
@@ -62,7 +65,7 @@ public class RedisNotificationTests
         //--------------------------------
         // Publish a message to redis
         _redisConnectionProvider.Get()
-            .Publish(_redisNotificationSettings.Channel, JsonConvert.SerializeObject(new { Type = "expire-security-metadata" }));
+            .Publish(_redisNotificationSettings.Channel, JsonConvert.SerializeObject(new { Type = "expire-security-cache" }));
 
         // Delay briefly to allow Redis pub/sub to happen
         Thread.Sleep(100);

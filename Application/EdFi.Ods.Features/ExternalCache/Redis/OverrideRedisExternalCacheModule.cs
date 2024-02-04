@@ -6,6 +6,7 @@
 using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ExternalCache;
+using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 
@@ -24,6 +25,13 @@ namespace EdFi.Ods.Features.Redis
             {
                 return;
             }
+
+            // Ensure the Redis connection provider is registered (it may be registered by other conditional modules as well)
+            builder.RegisterType<RedisConnectionProvider>()
+                .As<IRedisConnectionProvider>()
+                .WithParameter(new NamedParameter("configuration", ApiSettings.Services.Redis.Configuration))
+                .IfNotRegistered(typeof(IRedisConnectionProvider))
+                .SingleInstance();
 
             var configurationOptions = StackExchange.Redis.ConfigurationOptions.Parse(
                 ApiSettings.Services.Redis.Configuration);

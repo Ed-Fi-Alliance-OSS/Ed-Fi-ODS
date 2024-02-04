@@ -15,7 +15,7 @@ using Shouldly;
 namespace EdFi.Ods.Features.UnitTests.Notifications;
 
 [TestFixture]
-public class ExpireSecurityMetadataHandlerTests
+public class ExpireSecurityCacheHandlerTests
 {
     private MemoryAppender _memoryAppender;
     private IClearableInterceptor _fakeClerableInterceptor;
@@ -44,10 +44,10 @@ public class ExpireSecurityMetadataHandlerTests
     {
         // Arrange
         A.CallTo(() => _fakeClerableInterceptor.Clear()).DoesNothing();
-        var handler = new ExpireSecurityMetadataHandler(_fakeClerableInterceptor);
+        var handler = new ExpireSecurityCacheHandler(_fakeClerableInterceptor);
 
         // Act
-        handler.Handle(new ExpireSecurityMetadata(), CancellationToken.None).Wait();
+        handler.Handle(new ExpireSecurityCache(), CancellationToken.None).Wait();
 
         // Assert
         A.CallTo(() => _fakeClerableInterceptor.Clear()).MustHaveHappened();
@@ -58,10 +58,10 @@ public class ExpireSecurityMetadataHandlerTests
     {
         // Arrange
         A.CallTo(() => _fakeClerableInterceptor.Clear()).Throws<Exception>();
-        var handler = new ExpireSecurityMetadataHandler(_fakeClerableInterceptor);
+        var handler = new ExpireSecurityCacheHandler(_fakeClerableInterceptor);
 
         // Act
-        handler.Handle(new ExpireSecurityMetadata(), CancellationToken.None).Wait();
+        handler.Handle(new ExpireSecurityCache(), CancellationToken.None).Wait();
 
         // Assert
         _memoryAppender.GetEvents()
@@ -73,10 +73,10 @@ public class ExpireSecurityMetadataHandlerTests
     {
         // Arrange
         var nonClearableInterceptor = A.Fake<IInterceptor>(); // Mock a non-clearable interceptor
-        var handler = new ExpireSecurityMetadataHandler(nonClearableInterceptor);
+        var handler = new ExpireSecurityCacheHandler(nonClearableInterceptor);
 
         // Act
-        handler.Handle(new ExpireSecurityMetadata(), CancellationToken.None).Wait();
+        handler.Handle(new ExpireSecurityCache(), CancellationToken.None).Wait();
 
         // Assert
         _memoryAppender.GetEvents()

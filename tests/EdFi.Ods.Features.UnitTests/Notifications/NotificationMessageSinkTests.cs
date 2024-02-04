@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Features.Notifications;
 using FakeItEasy;
 using log4net.Appender;
@@ -43,7 +44,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator);
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
 
             // Act
             sink.Receive(@"{""Type"":""non-attributed-test-notification"",""Data"":{}}");
@@ -53,8 +54,8 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             
             _memoryAppender.GetEvents()
                 .ShouldContain(e => 
-                    e.Level == Level.Debug 
-                    && e.RenderedMessage == $"Unrecognized notification message received of type 'non-attributed-test-notification'...");
+                    e.Level == Level.Error 
+                    && e.RenderedMessage == $"Message received with unrecognized notification type 'non-attributed-test-notification'...");
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator);
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
 
             var messageContent = @"{""Type"":""test-notification"",""Data"":{""Property"":""Value""}}";
 
@@ -78,7 +79,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator);
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
 
             var invalidMessageContent = "InvalidMessageContent";
 
@@ -89,7 +90,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             _memoryAppender.GetEvents()
                 .ShouldContain(e => 
                         e.Level == Level.Error 
-                        && e.RenderedMessage == "An error occurred while processing the incoming message: 'InvalidMessageContent'...");
+                        && e.RenderedMessage == "An error occurred while processing the incoming message content: 'InvalidMessageContent'...");
         }
 
         [Test]
@@ -97,7 +98,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator);
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
 
             var validMessageContent = @"{""Type"":""test-notification"",""Data"":{""Property"":""Value""}}";
 
@@ -107,8 +108,47 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             // Assert
             _memoryAppender.GetEvents()
                 .ShouldContain(e => 
-                    e.Level == Level.Debug 
-                    && e.RenderedMessage == $"Received message 'test-notification' associated with type '{nameof(TestNotification)}'...");
+                    e.Level == Level.Info 
+                    && e.RenderedMessage == $"Received notification message 'test-notification' associated with type '{nameof(TestNotification)}'...");
+        }
+        
+        [Test]
+        public void Receive_WithConfiguredMinimumInterval_PublishesNotificationOncePerInterval()
+        {
+            // Arrange
+            var mediator = A.Fake<IMediator>();
+            var fakeTimeProvider = new FakeTimeProvider();
+            var intervalByNotificationType = new Dictionary<string, TimeSpan>
+            {
+                { "test-notification", TimeSpan.FromSeconds(5) }
+            };
+
+            var sink = new NotificationsMessageSink(mediator, intervalByNotificationType, fakeTimeProvider);
+
+            // Act
+            // First notification should be processed
+            sink.Receive("{\"Type\":\"test-notification\",\"Data\":{}}");
+
+            // Move time forward by 2 seconds
+            fakeTimeProvider.Advance(TimeSpan.FromSeconds(2));
+
+            // Second notification should be discarded due to the minimum interval
+            sink.Receive("{\"Type\":\"test-notification\",\"Data\":{}}");
+
+            // Move time forward by 5 seconds
+            fakeTimeProvider.Advance(TimeSpan.FromSeconds(5));
+
+            // Third notification should be processed as the interval has passed
+            sink.Receive("{\"Type\":\"test-notification\",\"Data\":{}}");
+
+            // Move time forward by 2 seconds
+            fakeTimeProvider.Advance(TimeSpan.FromSeconds(2));
+
+            // Fourth notification should be discarded due to the minimum interval
+            sink.Receive("{\"Type\":\"test-notification\",\"Data\":{}}");
+
+            // Assert
+            A.CallTo(() => mediator.Publish(A<INotification>._, A<CancellationToken>._)).MustHaveHappenedTwiceExactly();
         }
     }
 }

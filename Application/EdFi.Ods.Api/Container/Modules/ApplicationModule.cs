@@ -47,6 +47,7 @@ using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
@@ -292,10 +293,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DatabaseEngineSpecificStringComparerProvider>()
                 .As<IDatabaseEngineSpecificEqualityComparerProvider<string>>()
                 .SingleInstance();
-            
-            builder.RegisterType<Mediator>()
-                .As<IMediator>()
-                .SingleInstance();
 
             builder.RegisterType<OdsInstanceConfigurationProvider>()
                 .As<IOdsInstanceConfigurationProvider>()
@@ -378,6 +375,10 @@ namespace EdFi.Ods.Api.Container.Modules
             
             builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
                 .As<IEdFiOdsConnectionStringWriter>()
+                .SingleInstance();
+
+            builder.RegisterType<TimeProvider>()
+                .AsSelf()
                 .SingleInstance();
 
             RegisterPipeLineStepProviders();

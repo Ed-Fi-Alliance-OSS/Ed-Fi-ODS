@@ -9,19 +9,27 @@ using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Features.Services.Redis;
 
 namespace EdFi.Ods.Features.Notifications.Redis;
 
 public class RedisNotificationsModule : ConditionalModule
 {
-    public RedisNotificationsModule(ApiSettings apiSettings, string moduleName)
-        : base(apiSettings, moduleName) { }
+    public RedisNotificationsModule(ApiSettings apiSettings)
+        : base(apiSettings, nameof(RedisNotificationsModule)) { }
 
     public override bool IsSelected()
         => IsFeatureEnabled(ApiFeature.Notifications) && !string.IsNullOrEmpty(ApiSettings.Notifications.Redis.Channel);
 
     public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
+        // Ensure the Redis connection provider is registered (it may be registered by other conditional modules as well)
+        builder.RegisterType<RedisConnectionProvider>()
+            .As<IRedisConnectionProvider>()
+            .WithParameter(new NamedParameter("configuration", ApiSettings.Services.Redis.Configuration))
+            .IfNotRegistered(typeof(IRedisConnectionProvider))
+            .SingleInstance();
+
         // Register the Redis-specific pub/sub initialization activity
         builder.RegisterType<InitializeRedisNotifications>()
             .As<IExternalTask>()

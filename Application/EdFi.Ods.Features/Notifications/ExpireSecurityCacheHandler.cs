@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac.Features.AttributeFilters;
+using Autofac.Features.Indexed;
 using Castle.DynamicProxy;
 using EdFi.Ods.Common.Caching;
 using log4net;
@@ -15,21 +16,24 @@ using MediatR;
 namespace EdFi.Ods.Features.Notifications;
 
 /// <summary>
-/// Handles the <see cref="ExpireSecurityMetadata" /> notification by clearing the underlying cache for the interceptor that
+/// Handles the <see cref="ExpireSecurityCache" /> notification by clearing the underlying cache for the interceptor that
 /// wraps all method invocations related to security metadata.
 /// </summary>
-public class ExpireSecurityMetadataHandler : INotificationHandler<ExpireSecurityMetadata>
+public class ExpireSecurityCacheHandler : INotificationHandler<ExpireSecurityCache>
 {
     private readonly IClearable _clearable;
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpireSecurityMetadataHandler));
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ExpireSecurityCacheHandler));
     
-    public ExpireSecurityMetadataHandler([KeyFilter("cache-security")] IInterceptor interceptor)
+    public ExpireSecurityCacheHandler(IIndex<string, IInterceptor> interceptorIndex)
     {
-        _clearable = interceptor as IClearable;
+        if (interceptorIndex.TryGetValue("cache-security", out var interceptor))
+        {
+            _clearable = interceptor as IClearable;
+        }
     }
 
-    public Task Handle(ExpireSecurityMetadata notification, CancellationToken cancellationToken)
+    public Task Handle(ExpireSecurityCache notification, CancellationToken cancellationToken)
     {
         if (_clearable == null)
         {
