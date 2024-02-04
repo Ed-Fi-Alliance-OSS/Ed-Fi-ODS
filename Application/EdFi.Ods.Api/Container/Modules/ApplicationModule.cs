@@ -209,7 +209,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-api-client-details")
+                .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
                 .WithParameter(
                     ctx =>
                     {
@@ -336,7 +336,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-ods-instances")
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
                 .WithParameter(
                     ctx =>
                     {
@@ -496,7 +496,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
 
                 builder.RegisterType<CachingInterceptor>()
-                    .Named<IInterceptor>("cache-model-state-key")
+                    .Named<IInterceptor>(InterceptorCacheKeys.ModelStateKey)
                     .WithParameter(ctx => (ICacheProvider<ulong>) new ConcurrentDictionaryCacheProvider<ulong>())
                     .SingleInstance();
             }

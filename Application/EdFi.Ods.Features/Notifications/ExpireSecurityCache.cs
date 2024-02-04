@@ -10,5 +10,8 @@ namespace EdFi.Ods.Features.Notifications;
 /// <summary>
 /// Represents a notification message sent to the Ed-Fi ODS API process to explicitly expire the cached security metadata.
 /// </summary>
-[NotificationType("expire-security-cache")]
-public class ExpireSecurityCache : INotification { }
+[NotificationType("expire-cache")]
+public class ExpireCache : INotification
+{
+    public string CacheType { get; set; }
+}

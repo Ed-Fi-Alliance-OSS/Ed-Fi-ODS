@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.ExternalCache
         {
             // Override the named interceptor registration to use the external (distributed) cache
             builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
-                .Named<IInterceptor>("cache-descriptors")
+                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
                 .WithParameter(
                     ctx =>
                     {

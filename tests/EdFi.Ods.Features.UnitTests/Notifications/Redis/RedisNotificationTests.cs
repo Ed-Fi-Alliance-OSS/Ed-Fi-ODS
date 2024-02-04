@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using Autofac.Features.Indexed;
 using Castle.DynamicProxy;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Utils;
@@ -26,8 +27,8 @@ public class RedisNotificationTests
     private static readonly IRedisConnectionProvider _redisConnectionProvider = new RedisConnectionProvider(RedisConfiguration);
     private static readonly RedisNotificationSettings _redisNotificationSettings = new() { Channel = "test-notifications" };
 
-    private Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
-    
+    private readonly Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
+
     [Test]
     public void Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
     {
@@ -48,8 +49,15 @@ public class RedisNotificationTests
         var interceptor = new SignalingClearableInterceptor(signal);
         IServiceProvider serviceProvider = A.Fake<IServiceProvider>();
 
-        A.CallTo(() => serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireSecurityCache>>)))
-            .Returns(new[] { new ExpireSecurityCacheHandler(interceptor) });
+        var fakeInterceptorIndex = A.Fake<IIndex<string, IInterceptor>>();
+        IInterceptor interceptorOutPlaceholder;
+        
+        A.CallTo(() => fakeInterceptorIndex.TryGetValue("cache-security", out interceptorOutPlaceholder))
+            .Returns(true)
+            .AssignsOutAndRefParameters(interceptor);
+
+        A.CallTo(() => serviceProvider.GetService(typeof(IEnumerable<INotificationHandler<ExpireCache>>)))
+            .Returns(new[] { new ExpireCacheHandler(fakeInterceptorIndex) });
 
         var mediator = new Mediator(serviceProvider);
 
@@ -65,10 +73,7 @@ public class RedisNotificationTests
         //--------------------------------
         // Publish a message to redis
         _redisConnectionProvider.Get()
-            .Publish(_redisNotificationSettings.Channel, JsonConvert.SerializeObject(new { Type = "expire-security-cache" }));
-
-        // Delay briefly to allow Redis pub/sub to happen
-        Thread.Sleep(100);
+            .Publish(_redisNotificationSettings.Channel, JsonConvert.SerializeObject(new { Type = "expire-cache", Data = new { CacheType = "security" } }));
 
         //--------------------------------
         // Assert

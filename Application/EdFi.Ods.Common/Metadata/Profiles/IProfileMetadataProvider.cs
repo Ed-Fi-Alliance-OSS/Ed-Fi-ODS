@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
+using EdFi.Ods.Common.Caching;
 using FluentValidation.Results;
 
 namespace EdFi.Ods.Common.Metadata.Profiles;
@@ -14,8 +15,8 @@ namespace EdFi.Ods.Common.Metadata.Profiles;
 /// <summary>
 /// Defines methods for obtaining profile metadata.
 /// </summary>
-/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-profile-metadata".</remarks>
-[Intercept("cache-profile-metadata")]
+/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of <see cref="InterceptorCacheKeys.ProfileMetadata"/>.</remarks>
+[Intercept(InterceptorCacheKeys.ProfileMetadata)]
 public interface IProfileMetadataProvider
 {
     /// <summary>

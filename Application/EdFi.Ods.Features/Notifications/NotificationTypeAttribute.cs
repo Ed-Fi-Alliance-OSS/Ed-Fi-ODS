@@ -12,7 +12,7 @@ namespace EdFi.Ods.Features.Notifications;
 /// Applied to <see cref="INotification" /> implementations, indicates a notification message type that is
 /// explicitly supported by the Ed-Fi ODS API. 
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public sealed class NotificationTypeAttribute : Attribute
 {
     public NotificationTypeAttribute(string name)

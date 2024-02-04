@@ -5,12 +5,13 @@
 
 using System.Collections.Generic;
 using Autofac.Extras.DynamicProxy;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.Authorization;
 
-[Intercept("cache-security")]
+[Intercept(InterceptorCacheKeys.Security)]
 public interface IAuthorizationBasisMetadataSelector
 {
     /// <summary>
