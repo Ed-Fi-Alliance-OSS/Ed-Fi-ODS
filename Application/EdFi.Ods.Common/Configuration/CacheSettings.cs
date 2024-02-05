@@ -66,7 +66,6 @@ namespace EdFi.Ods.Common.Configuration
 
     public enum ExternalCacheProviderOption
     {
-        Undetermined,
-        Redis,
+        Redis = 1,
     }
 }
