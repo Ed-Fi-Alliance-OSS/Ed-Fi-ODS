@@ -23,10 +23,10 @@ namespace EdFi.Admin.DataAccess.Models
 
         [Required]
         [Column("OwnershipToken_OwnershipTokenId")]
-        public OwnershipToken OwnershipToken { get; set; }
+        public virtual OwnershipToken OwnershipToken { get; set; }
 
         [Required]
         [Column("ApiClient_ApiClientId")]
-        public ApiClient ApiClient { get; set; }
+        public virtual ApiClient ApiClient { get; set; }
     }
 }
