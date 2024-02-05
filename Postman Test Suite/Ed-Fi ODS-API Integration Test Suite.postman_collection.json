@@ -8715,8 +8715,8 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Response is 201 or 404\", () => {\r",
-															"    pm.expect(pm.response.code).to.equal(201) \r",
-															" });\r",
+															"    pm.expect([201, 404]).to.include(pm.response.code);\r",
+															"});\r",
 															"\r",
 															"if (pm.response.code === 201 ) {\r",
 															"    pm.environment.set('known:studentParentAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
@@ -8798,7 +8798,12 @@
 												}
 											},
 											"response": []
-										},
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
 										{
 											"name": "Create Student Parent or Contact Association",
 											"event": [
@@ -8844,46 +8849,6 @@
 											},
 											"response": []
 										},
-										{
-											"name": "Delete Contact",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Response is  204\", () => {\r",
-															"    pm.expect(pm.response.code).to.equal(204);\r",
-															" });\r",
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:parentOrContact:id}}",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"{{ParentOrContactCollectionName}}",
-														"{{known:parentOrContact:id}}"
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Teardown",
-									"item": [
 										{
 											"name": "Delete the Contact",
 											"event": [
@@ -9430,7 +9395,9 @@
 												"exec": [
 													"pm.test(\"Status code is 201\", () => {",
 													"    pm.expect(pm.response.code).to.equal(201);",
-													"});"
+													"});",
+													"",
+													"pm.environment.set('known:staffEducationOrganizationEmploymentAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -9515,6 +9482,41 @@
 												"ed-fi",
 												"staffs",
 												"{{known:staff:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete StaffEducationOrganizationEmploymentAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations/{{known:staffEducationOrganizationEmploymentAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StaffEducationOrganizationEmploymentAssociations",
+												"{{known:staffEducationOrganizationEmploymentAssociation:id}}"
 											]
 										}
 									},
