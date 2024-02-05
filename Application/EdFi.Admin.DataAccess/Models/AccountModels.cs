@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string FullName { get; set; }
 
         public virtual Vendor Vendor { get; set; }
-
+                
         public virtual ICollection<ApiClient> ApiClients { get; set; }
 
         /// <summary>
@@ -49,8 +50,9 @@ namespace EdFi.Admin.DataAccess.Models
                 client.Key = key;
                 client.Secret = secret;
             }
-
+            Console.WriteLine("Johnny 1");
             ApiClients.Add(client);
+            Console.WriteLine("Johnny 2");
             return client;
         }
 

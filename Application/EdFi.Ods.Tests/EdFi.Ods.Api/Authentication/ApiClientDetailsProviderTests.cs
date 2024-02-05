@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.Authentication;
 using FakeItEasy;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using NUnit.Framework;
 using Shouldly;
 
@@ -122,7 +123,7 @@ public class ApiClientDetailsProviderTests
             string profileName = null,
             short? ownershipTokenId = null)
         {
-            return new RawApiClientDetailsDataRow()
+            var result = new RawApiClientDetailsDataRow()
             {
                 // Base property values (repeated in every raw record due to joins in query)
                 Key = "theApiKey",
@@ -139,6 +140,8 @@ public class ApiClientDetailsProviderTests
                 OwnershipTokenId = ownershipTokenId,
                 ApiClientId = 7
             };
+
+            return result;
         }
     }
 }

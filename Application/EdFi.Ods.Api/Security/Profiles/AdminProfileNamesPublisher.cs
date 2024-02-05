@@ -25,8 +25,8 @@ namespace EdFi.Ods.Api.Security.Profiles
 
         public AdminProfileNamesPublisher(IUsersContextFactory usersContextFactory, IProfileResourceNamesProvider profileResourceNamesProvider)
         {
-            _usersContextFactory = Preconditions.ThrowIfNull(usersContextFactory, nameof(usersContextFactory));
-            _profileResourceNamesProvider = Preconditions.ThrowIfNull(profileResourceNamesProvider, nameof(profileResourceNamesProvider));
+            _profileResourceNamesProvider = profileResourceNamesProvider ?? throw new ArgumentNullException(nameof(profileResourceNamesProvider));
+            _usersContextFactory = usersContextFactory ?? throw new ArgumentNullException(nameof(usersContextFactory));
         }
 
         public async Task<bool> PublishProfilesAsync()
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Api.Security.Profiles
                             });
                     }
 
-                    usersContext.SaveChangesAsync(new CancellationToken());
+                    usersContext.SaveChangesAsync(new CancellationToken());                    
                 }
 
                 return true;

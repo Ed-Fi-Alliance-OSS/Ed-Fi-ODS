@@ -62,7 +62,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 leaId = int.MaxValue - 1;
             }
 
-            [Test]
+            [Test]            
             public void Should_persist_the_lea_mapping_without_explicitly_adding_that_mapping_to_the_databaseContext()
             {
                 using (var context = GetUsersContextTest())
@@ -72,14 +72,22 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 
                     var client = new ApiClient(true) {Name = clientName};
 
+                    var vendor = new Vendor { VendorName = "Test Vendor" };
+                    vendor.VendorNamespacePrefixes.Add(new VendorNamespacePrefix {NamespacePrefix = "uri://example.com" });
+
+                    var application = new Application { ApplicationName = "test", Vendor = vendor, OperationalContextUri = "uri://example.com" };
+                    application.ApiClients.Add(client);
+
                     client.ApplicationEducationOrganizations.Add(lea);
 
                     //Act
-                    context.Clients.Add(client);
+                    context.Vendors.Add(vendor);
+                    context.Applications.Add(application);
+                    context.ApiClients.Add(client);
                     context.SaveChangesForTest();
 
                     //Assert
-                    var clientFromDb = context.Clients.Where(x => x.Name == clientName)
+                    var clientFromDb = context.ApiClients.Where(x => x.Name == clientName)
                         .Include(x => x.ApplicationEducationOrganizations)
                         .Single();
 

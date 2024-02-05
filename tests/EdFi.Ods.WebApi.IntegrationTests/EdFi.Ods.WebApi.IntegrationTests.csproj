@@ -11,7 +11,7 @@
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.79" />
+    
     <PackageReference Include="EdFi.Suite3.Common" Version="6.2.2" />
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +40,7 @@
     <ProjectReference Include="..\..\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

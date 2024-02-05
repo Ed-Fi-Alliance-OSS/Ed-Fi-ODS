@@ -93,7 +93,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
         protected ApiClient LoadAnApiClient(Application application, int apiClientId)
         {
-            var a = TestFixtureContext.Clients.Add(
+            var a = TestFixtureContext.ApiClients.Add(
                 new ApiClient
                 {
                     Key = "key",
@@ -103,8 +103,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     UseSandbox = true,
                     SandboxType = SandboxType.Minimal,
                     SecretIsHashed = false,
-                    Application = application,
-                    ApiClientId = apiClientId
+                    Application = application
                 });
 
             TestFixtureContext.SaveChanges();
