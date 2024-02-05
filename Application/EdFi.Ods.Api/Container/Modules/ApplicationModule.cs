@@ -377,8 +377,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IEdFiOdsConnectionStringWriter>()
                 .SingleInstance();
 
-            builder.RegisterType<TimeProvider>()
-                .AsSelf()
+            builder.RegisterInstance(TimeProvider.System)
                 .SingleInstance();
 
             RegisterPipeLineStepProviders();

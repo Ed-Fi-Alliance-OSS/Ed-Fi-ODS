@@ -14,7 +14,7 @@ public class FakeTimeProvider : TimeProvider
 
     public FakeTimeProvider()
     {
-        _dateTimeOffset = DateTimeOffset.Now;
+        _dateTimeOffset = DateTimeOffset.Parse("2000-01-01");
     }
     
     public FakeTimeProvider(DateTimeOffset dateTimeOffset)
@@ -27,10 +27,5 @@ public class FakeTimeProvider : TimeProvider
         _dateTimeOffset = _dateTimeOffset.Add(amount);
     }
 
-    public void SetUtcNow(DateTimeOffset dateTimeOffset)
-    {
-        _dateTimeOffset = dateTimeOffset;
-    }
-    
-    public override DateTime GetUtcNow() => _dateTimeOffset.DateTime;
+    public override DateTimeOffset GetUtcNow() => _dateTimeOffset;
 }

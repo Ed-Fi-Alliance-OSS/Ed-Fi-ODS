@@ -64,7 +64,7 @@ public class RedisNotificationTests
         var activity = new InitializeRedisNotifications(
             _redisConnectionProvider,
             _redisNotificationSettings,
-            new NotificationsMessageSink(mediator, _intervalsByNotificationType, new TimeProvider()));
+            new NotificationsMessageSink(mediator, _intervalsByNotificationType, TimeProvider.System));
 
         activity.Execute();
 

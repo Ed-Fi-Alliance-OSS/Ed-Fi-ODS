@@ -83,7 +83,7 @@ public class NotificationsMessageSink : INotificationsMessageSink
                         {
                             // Always proceed the first time
                             evaluation.Proceed = true;
-                            return evaluation.TimeProvider.GetUtcNow();
+                            return evaluation.TimeProvider.GetUtcNow().UtcDateTime;
                         },
                         static (t, lastNotification, evaluation) =>
                         {
@@ -95,7 +95,7 @@ public class NotificationsMessageSink : INotificationsMessageSink
                             }
 
                             evaluation.Proceed = true;
-                            return evaluation.TimeProvider.GetUtcNow();
+                            return evaluation.TimeProvider.GetUtcNow().UtcDateTime;
                         },
                         intervalEvaluation);
 

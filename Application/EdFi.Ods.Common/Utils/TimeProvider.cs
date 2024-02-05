@@ -10,5 +10,9 @@ namespace EdFi.Ods.Common.Utils;
 // This class will be obsolete with .NET 8 and should be replaced.
 public class TimeProvider
 {
-    public virtual DateTime GetUtcNow() => DateTime.UtcNow;
+    protected TimeProvider(){}
+
+    public virtual DateTimeOffset GetUtcNow() => DateTimeOffset.UtcNow;
+
+    public static TimeProvider System { get; } = new();
 }

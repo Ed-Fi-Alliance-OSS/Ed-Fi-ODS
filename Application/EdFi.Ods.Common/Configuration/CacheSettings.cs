@@ -15,7 +15,7 @@ namespace EdFi.Ods.Common.Configuration
         internal ExternalCacheProviderOption ExternalCacheProviderOption
         {
             get => Enum.TryParse<ExternalCacheProviderOption>(ExternalCacheProvider, ignoreCase: true, out var parsed)
-                ? parsed : ExternalCacheProviderOption.Undetermined;
+                ? parsed : default;
         }
 
         public DescriptorsCacheConfiguration Descriptors { get; set; } = new();

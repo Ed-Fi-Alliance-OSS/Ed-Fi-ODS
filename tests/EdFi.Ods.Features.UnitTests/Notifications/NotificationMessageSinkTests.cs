@@ -44,7 +44,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), TimeProvider.System);
 
             // Act
             sink.Receive(@"{""Type"":""non-attributed-test-notification"",""Data"":{}}");
@@ -63,7 +63,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), TimeProvider.System);
 
             var messageContent = @"{""Type"":""test-notification"",""Data"":{""Property"":""Value""}}";
 
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), TimeProvider.System);
 
             var invalidMessageContent = "InvalidMessageContent";
 
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), new TimeProvider());
+            var sink = new NotificationsMessageSink(mediator, new Dictionary<string, TimeSpan>(), TimeProvider.System);
 
             var validMessageContent = @"{""Type"":""test-notification"",""Data"":{""Property"":""Value""}}";
 
@@ -117,7 +117,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         {
             // Arrange
             var mediator = A.Fake<IMediator>();
-            var fakeTimeProvider = new FakeTimeProvider();
+            var fakeTimeProvider = new FakeTimeProvider(DateTimeOffset.UtcNow);
             var intervalByNotificationType = new Dictionary<string, TimeSpan>
             {
                 { "test-notification", TimeSpan.FromSeconds(5) }
