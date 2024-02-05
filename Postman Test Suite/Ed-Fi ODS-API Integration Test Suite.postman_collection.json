@@ -8820,8 +8820,8 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"pm.test(\"Response is 404\", () => {\r",
-															"    pm.expect(pm.response.code).to.equal(404) \r",
+															"pm.test(\"Response is 204\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(204) \r",
 															" });\r",
 															"\r",
 															""
