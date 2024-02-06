@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
+  <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-	<ItemGroup>
-	  <Compile Remove="csharp\**" />
-	  <EmbeddedResource Remove="csharp\**" />
-	  <None Remove="csharp\**" />
-	</ItemGroup>
-	<ItemGroup>
+  <ItemGroup>
+    <Compile Remove="csharp\**" />
+    <EmbeddedResource Remove="csharp\**" />
+    <None Remove="csharp\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="readme.txt" />
   </ItemGroup>
-	<ItemGroup>
+  <ItemGroup>
     <Content Include="readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-	<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-	<ItemGroup>
+  <ItemGroup>
     <None Update="EdFi.OdsApi.Sdk.nuspec">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
