@@ -35,7 +35,7 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public DbSet<User> Users { get; set; }
 
-        public virtual DbSet<ApiClient> ApiClients { get; set; }
+        public virtual DbSet<ApiClient> Clients { get; set; }
 
         public DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
 
@@ -51,13 +51,13 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         //TODO:  This should really be removed from being directly on the context.  Application should own
         //TODO:  these instances, and deleting an application should delete the associated LEA's
-        public virtual DbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
+        public DbSet<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public virtual DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
+        public DbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        public virtual DbSet<OwnershipToken> OwnershipTokens { get; set; }
+        public DbSet<OwnershipToken> OwnershipTokens { get; set; }
 
-        public virtual DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
+        public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
         public DbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
 

@@ -93,7 +93,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
         protected ApiClient LoadAnApiClient(Application application, int apiClientId)
         {
-            var a = TestFixtureContext.ApiClients.Add(
+            var a = TestFixtureContext.Clients.Add(
                 new ApiClient
                 {
                     Key = "key",

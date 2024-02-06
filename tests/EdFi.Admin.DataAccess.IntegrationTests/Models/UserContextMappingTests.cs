@@ -83,11 +83,11 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     //Act
                     context.Vendors.Add(vendor);
                     context.Applications.Add(application);
-                    context.ApiClients.Add(client);
+                    context.Clients.Add(client);
                     context.SaveChangesForTest();
 
                     //Assert
-                    var clientFromDb = context.ApiClients.Where(x => x.Name == clientName)
+                    var clientFromDb = context.Clients.Where(x => x.Name == clientName)
                         .Include(x => x.ApplicationEducationOrganizations)
                         .Single();
 
