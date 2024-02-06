@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ad08d42c-5a7d-4c0a-922f-826817035c70",
+		"_postman_id": "829ceac5-1c29-44c8-8df4-994aa4747b6e",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26378282"
+		"_exporter_id": "7275232"
 	},
 	"item": [
 		{
@@ -8699,6 +8699,67 @@
 											"response": []
 										},
 										{
+											"name": "Required Field Validation -Create Student Parent or Contact Association",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"pm.test(\"Should throw Required Field Validation Errors for Sample Extension\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.telephone.telephoneNumber\"]).to.match(/TelephoneNumber is required./);\r",
+															"\r",
+															"    pm.expect(problemDetails.validationErrors[\"$._ext.sample.telephone.telephoneNumberTypeDescriptor\"]).to.match(/TelephoneNumberTypeDescriptor is required./);\r",
+															"\r",
+															"      pm.expect(problemDetails.validationErrors[\"$._ext.sample.favoriteBookTitles[0].favoriteBookTitle\"]).to.match(/FavoriteBookTitle is required./);\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:parentOrContact:uniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"\",\r\n        \"telephoneNumberTypeDescriptor\": \"\"\r\n      }\r\n    }\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"{{StudentParentOrContactAssociationCollectionName}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
 											"name": "Create Student Parent or Contact Association",
 											"event": [
 												{
@@ -8805,7 +8866,7 @@
 									"name": "Teardown",
 									"item": [
 										{
-											"name": "Create Student Parent or Contact Association",
+											"name": "Delete Student Parent or Contact Association",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -8934,6 +8995,66 @@
 						{
 							"name": "Required field in a New resource in Extension",
 							"item": [
+								{
+									"name": "Required Field Validation -Create busRoutes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"pm.test(\"Should throw Required Field Validation Errors for busRoutes resource\", () => {\r",
+													"\r",
+													"    pm.expect(problemDetails.validationErrors[\"$.operatingCost\"]).to.match(/Value is required./);\r",
+													"\r",
+													"    pm.expect(problemDetails.validationErrors[\"$.busRouteDirection\"]).to.match(/BusRouteDirection is required./);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:busRoutes:busId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"busId\": \"{{supplied:busRoutes:busId}}\",\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"busRoutes"
+											]
+										}
+									},
+									"response": []
+								},
 								{
 									"name": "Create busRoutes",
 									"event": [
@@ -9287,7 +9408,7 @@
 													"});\r",
 													"const problemDetails = pm.response.json();\r",
 													"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.pets[0].petName\"]).to.match(/PetName must be between 3 and 20 characters in length./);\r",
+													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.pets[0].petName\"]).to.match(/PetName is required./);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -9308,7 +9429,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "  {\r\n    \"staffUniqueId\": \"{{supplied:staff:staffUniqueId}}\",\r\n    \"firstName\": \"Barry\",\r\n    \"lastSurname\": \"Tanner\",\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  }",
+											"raw": "  {\r\n    \"staffUniqueId\": \"{{supplied:staff:staffUniqueId}}\",\r\n    \"firstName\": \"Barry\",\r\n    \"lastSurname\": \"Tanner\",\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  }",
 											"options": {
 												"raw": {
 													"language": "json"
