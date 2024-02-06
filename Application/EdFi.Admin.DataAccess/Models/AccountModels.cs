@@ -49,10 +49,9 @@ namespace EdFi.Admin.DataAccess.Models
             {
                 client.Key = key;
                 client.Secret = secret;
-            }
-            Console.WriteLine("Johnny 1");
-            ApiClients.Add(client);
-            Console.WriteLine("Johnny 2");
+            }            
+
+            ApiClients.Add(client);            
             return client;
         }
 

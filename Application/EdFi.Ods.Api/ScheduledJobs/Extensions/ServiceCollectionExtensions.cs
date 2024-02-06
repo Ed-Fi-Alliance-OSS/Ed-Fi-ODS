@@ -14,7 +14,6 @@ namespace EdFi.Ods.Api.ScheduledJobs.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        [System.Obsolete]
         public static void AddScheduledJobs(this IServiceCollection services, ApiSettings apiSettings, ILog logger)
         {
             var enabledScheduledJobs =
