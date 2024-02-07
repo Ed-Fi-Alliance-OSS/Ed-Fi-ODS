@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Middleware
             _connectionStringProvider = connectionStringProvider;
             _logRequestResponseContent = logRequestResponseContentForMinutes > 0 && RequestResponseContentDatabaseAppenderConfigured();
 
-            if(_logRequestResponseContent)
+            if (_logRequestResponseContent)
                 _logRequestResponseContentUntil = DateTime.UtcNow.AddMinutes(logRequestResponseContentForMinutes);
         }
 
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Api.Middleware
 
                 var originalResponseBodyStream = context.Response.Body;
                 context.Response.Body = new MemoryStream();
-                
+
                 await next(context);
 
                 string responseBodyContent = await GetResponseBodyContent(originalResponseBodyStream);
@@ -73,8 +73,11 @@ namespace EdFi.Ods.Api.Middleware
                         if (context.Items["Exception"] is Exception exception)
                             LogRequestResponseContentOnException(exception);
                         break;
-                    default:
+                    case >= StatusCodes.Status400BadRequest:
                         LogRequestResponseContentInfo(context);
+                        break;
+                    default:
+                        LogRequestResponseContentDebug(context);
                         break;
                 }
             }
@@ -87,14 +90,17 @@ namespace EdFi.Ods.Api.Middleware
             switch (context.Response.StatusCode)
             {
                 case StatusCodes.Status500InternalServerError:
-                    if(context.Items["Exception"] is Exception exception) 
+                    if (context.Items["Exception"] is Exception exception)
                         LogRequestResponseDetailsOnException(exception);
                     break;
+                case >= StatusCodes.Status400BadRequest:
+                    LogRequestResponseContentInfo(context);
+                    break;
                 default:
-                    LogRequestResponseDetailsInfo(context);
+                    LogRequestResponseDetailsDebug(context);
                     break;
             }
-            
+
             void SetDatabaseAppenderConnectionString()
             {
                 var requestResponseAppenders = ((log4net.Repository.Hierarchy.Logger)LogManager.GetAllRepositories().FirstOrDefault()?.GetLogger("RequestResponseContentLogger"))?.Appenders;
@@ -146,6 +152,15 @@ namespace EdFi.Ods.Api.Middleware
             RequestResponseContentLogger.Info(TryGetStatusCodeDescription(context.Response.StatusCode));
         }
 
+        private void LogRequestResponseContentDebug(HttpContext context)
+        {
+            if (!RequestResponseContentDatabaseAppenderConfigured() ||
+                !RequestResponseContentLogger.IsDebugEnabled)
+                return;
+
+            RequestResponseContentLogger.Debug(TryGetStatusCodeDescription(context.Response.StatusCode));
+        }
+
         private void LogRequestResponseContentOnException(Exception exception)
         {
             if (!RequestResponseContentDatabaseAppenderConfigured())
@@ -163,6 +178,16 @@ namespace EdFi.Ods.Api.Middleware
                 return;
 
             RequestResponseDetailsLogger.Info(TryGetStatusCodeDescription(context.Response.StatusCode));
+        }
+
+        private void LogRequestResponseDetailsDebug(HttpContext context)
+        {
+            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
+            if (!RequestResponseDetailsFileAppenderExists() ||
+                !RequestResponseDetailsLogger.IsDebugEnabled)
+                return;
+
+            RequestResponseDetailsLogger.Debug(TryGetStatusCodeDescription(context.Response.StatusCode));
         }
 
         private void LogRequestResponseDetailsOnException(Exception exception)
@@ -210,9 +235,9 @@ namespace EdFi.Ods.Api.Middleware
 
         private static bool RequestResponseContentDatabaseAppenderConfigured()
         {
-           var appenders = ((log4net.Repository.Hierarchy.Logger)LogManager.GetAllRepositories().FirstOrDefault()?.GetLogger("RequestResponseContentLogger"))?.Appenders;
-           
-           return appenders?.Count == 1 && appenders.OfType<AdoNetAppender>().Count() == 1;
+            var appenders = ((log4net.Repository.Hierarchy.Logger)LogManager.GetAllRepositories().FirstOrDefault()?.GetLogger("RequestResponseContentLogger"))?.Appenders;
+
+            return appenders?.Count == 1 && appenders.OfType<AdoNetAppender>().Count() == 1;
         }
     }
 }
