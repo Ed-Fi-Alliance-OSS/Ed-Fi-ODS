@@ -6,7 +6,7 @@
 name: Cleanup Caches by a branch
 on:
   pull_request:
-    branches: [main, 'ODS-*']
+    branches: [main, 'b-v*-patch*']
     types: [ closed ]
   
 env:

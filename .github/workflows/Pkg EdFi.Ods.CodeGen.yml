@@ -2,10 +2,9 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches: [main, 'ODS-*']
+    branches: [main, 'b-v*-patch*']
   push:
-    branches:
-      - main
+    branches: [main, 'b-v*-patch*']
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -116,13 +115,13 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
       shell: pwsh
     - name: Install-credential-handler
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh    
     - name: publish codegen
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
