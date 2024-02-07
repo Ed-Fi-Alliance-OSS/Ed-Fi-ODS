@@ -8855,6 +8855,10 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a correlation id to the query string of every request and save it to the environment as well",
+					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
