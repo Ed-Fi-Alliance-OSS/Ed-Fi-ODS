@@ -16,6 +16,7 @@ namespace EdFi.Admin.DataAccess.Models
     /// Class representing EdFi client application information persisted in a data store.
     /// A Client has a list of domains that are valid for access
     /// </summary>
+    [Table("ApiClients")]
     public class ApiClient
     {
         public ApiClient()
@@ -126,7 +127,7 @@ namespace EdFi.Admin.DataAccess.Models
 
         /// <summary>
         /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient.
-        /// </summary>
+        /// </summary>        
         public virtual OwnershipToken CreatorOwnershipToken { get; set; }
 
         [Column("CreatorOwnershipTokenId_OwnershipTokenId")]

@@ -13,22 +13,72 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
-        public PostgresUsersContext(DbContextOptions options)
-           : base(options) { }
+        public PostgresUsersContext(DbContextOptions options) : base(options) { }
+        
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
+            /*
+            // The column name in this linking table had to be shortened for Postgres
+            modelBuilder.Entity<ApiClient>()
+                .HasMany(t => t.ApplicationEducationOrganizations)
+                .WithMany(t => t.Clients)
+                .Map(
+                    m =>
+                    {
+                        m.ToTable("ApiClientApplicationEducationOrganizations", "dbo");
+                        m.MapLeftKey("ApiClient_ApiClientId");
+                        m.MapRightKey("ApplicationEdOrg_ApplicationEdOrgId");
+                    });
+            */
             modelBuilder.Model.GetEntityTypes().ForEach(
-                entityType =>
-                    entityType.SetSchema("dbo"));
+               entityType =>
+                   entityType.SetSchema("dbo"));
 
-            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ApiClientApplicationEducationOrganization))
-                .GetProperty("ApplicationEducationOrganizationId")
-                .SetColumnName("applicationedorg_applicationedorgid");
+            modelBuilder.Entity<ApiClient>()
+                .HasMany(t => t.ApplicationEducationOrganizations)
+                .WithMany(t => t.Clients)
+                .UsingEntity(join => join.ToTable("ApiClientApplicationEducationOrganizations"));
 
-            modelBuilder.MakeDbObjectNamesLowercase();
+            modelBuilder.UseUnderscoredFkColumnNames();
+            modelBuilder.MakeDbObjectNamesLowercase();  
+
+            //modelBuilder.Conventions.Add<ForeignKeyLowerCaseNamingConvention>();
+            //modelBuilder.Conventions.Add<TableLowerCaseNamingConvention>();
+
+            //modelBuilder.Properties().Configure(c => c.HasColumnName(c.ClrPropertyInfo.Name.ToLowerInvariant()));
         }
+        /*
+        private class TableLowerCaseNamingConvention : IStoreModelConvention<EntitySet>
+        {
+            public void Apply(EntitySet entitySet, DbModel model)
+            {
+                Preconditions.ThrowIfNull(entitySet, nameof(entitySet));
+                Preconditions.ThrowIfNull(model, nameof(model));
+
+                entitySet.Table = entitySet.Table.ToLowerInvariant();
+            }
+        }
+
+        private class ForeignKeyLowerCaseNamingConvention : IStoreModelConvention<AssociationType>
+        {
+            public void Apply(AssociationType association, DbModel model)
+            {
+                Preconditions.ThrowIfNull(association, nameof(association));
+                Preconditions.ThrowIfNull(model, nameof(model));
+
+                if (!association.IsForeignKey)
+                {
+                    return;
+                }
+
+                association.Constraint.FromProperties.ForEach(PropertyNamesToLowerInvariant);
+                association.Constraint.ToProperties.ForEach(PropertyNamesToLowerInvariant);
+
+                void PropertyNamesToLowerInvariant(EdmProperty property) => property.Name = property.Name.ToLowerInvariant();
+            }
+        }
+        */
+
     }
 }
