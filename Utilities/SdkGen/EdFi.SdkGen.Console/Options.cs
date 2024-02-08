@@ -80,6 +80,13 @@ namespace EdFi.SdkGen.Console
             Default = false,
             HelpText = "include only Ed-Fi namespace in the generation of the assembly")]
         public bool CoreOnly { get; set; }
+        
+        [Option(
+            'j',
+            "java-path",
+            Default = "java",
+            HelpText = "the path to the java executable")]
+        public string JavaPath { get; set; }
       
         public string CliVersionText() => $"{SdkCodegenVersionKey}:{CliVersion}";
 

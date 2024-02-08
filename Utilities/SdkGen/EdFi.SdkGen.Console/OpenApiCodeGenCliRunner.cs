@@ -20,7 +20,6 @@ namespace EdFi.SdkGen.Console
         private const string Profiles = "Profiles";
         private const string Composites = "Composites";
         private const string Identity = "Identity";
-        private const string Java = "java";
         private const string All = "All";
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
@@ -76,7 +75,7 @@ namespace EdFi.SdkGen.Console
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
 
-                ShellProcess(Java, @params);
+                ShellProcess(_options.JavaPath, @params);
             }
         }
 
