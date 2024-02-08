@@ -190,11 +190,11 @@ namespace EdFi.Admin.DataAccess.Repositories
         public User GetUser(string userName)
         {
             using (var context = _contextFactory.CreateContext())
-            {
+            {                
                 return
                     context.Users.Include(u => u.ApiClients).ThenInclude(a => a.Application)
                         .Include(u => u.Vendor)
-                        .FirstOrDefault(x => x.Email == userName);
+                        .FirstOrDefault(x => x.Email == userName);                
             }
         }
 

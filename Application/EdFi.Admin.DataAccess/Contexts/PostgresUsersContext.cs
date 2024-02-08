@@ -7,14 +7,13 @@ using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
         public PostgresUsersContext(DbContextOptions options) : base(options) { }
-
+        
 
         protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
@@ -28,7 +27,8 @@ namespace EdFi.Admin.DataAccess.Contexts
                 .UsingEntity(join => join.ToTable("ApiClientApplicationEducationOrganizations"));
 
             modelBuilder.UseUnderscoredFkColumnNames();
-            modelBuilder.MakeDbObjectNamesLowercase();
+            modelBuilder.MakeDbObjectNamesLowercase();  
+
         }
     }
 }

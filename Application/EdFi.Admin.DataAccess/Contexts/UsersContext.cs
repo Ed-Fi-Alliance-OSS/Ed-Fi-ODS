@@ -3,13 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -35,7 +32,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         }
 
         public DbSet<User> Users { get; set; }
-
+                
         public DbSet<ApiClient> Clients { get; set; }
 
         public DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
@@ -73,7 +70,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         /// name other than the default provided by Entity Framework.
         /// </remarks>
         protected virtual void ApplyProviderSpecificMappings(ModelBuilder modelBuilder) { }
-
+                
         /// <inheritdoc />
         public Task<int> ExecuteSqlCommandAsync(string sqlStatement, params object[] parameters)
         {

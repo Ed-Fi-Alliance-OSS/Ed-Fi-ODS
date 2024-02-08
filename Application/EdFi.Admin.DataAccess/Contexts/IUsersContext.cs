@@ -37,7 +37,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         DbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
-
+        
 
         int SaveChanges();
 
