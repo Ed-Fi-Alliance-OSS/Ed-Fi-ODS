@@ -32,7 +32,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         }
 
         public DbSet<User> Users { get; set; }
-                
+        
         public DbSet<ApiClient> Clients { get; set; }
 
         public DbSet<ClientAccessToken> ClientAccessTokens { get; set; }

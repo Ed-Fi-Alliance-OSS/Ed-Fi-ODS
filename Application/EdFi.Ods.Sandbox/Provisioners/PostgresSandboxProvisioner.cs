@@ -41,10 +41,19 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 foreach (string key in deletedClientKeys)
                 {
+                    /*
                    await conn.ExecuteAsync($@"
                         SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{_databaseNameBuilder.SandboxNameForKey(key)}'; 
                         DROP DATABASE IF EXISTS ""{_databaseNameBuilder.SandboxNameForKey(key)}"";
                         ", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
+                    */
+                    await conn.ExecuteAsync(
+                        $@"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{_databaseNameBuilder.SandboxNameForKey(key)}';");
+
+                    await conn.ExecuteAsync(
+                            $@"DROP DATABASE IF EXISTS ""{_databaseNameBuilder.SandboxNameForKey(key)}"";",
+                            commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
                 }
             }

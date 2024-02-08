@@ -194,7 +194,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return
                     context.Users.Include(u => u.ApiClients).ThenInclude(a => a.Application)
                         .Include(u => u.Vendor)
-                        .FirstOrDefault(x => x.Email == userName);                
+                        .FirstOrDefault(x => x.Email == userName);
             }
         }
 
@@ -232,7 +232,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .ThenInclude(c => c.VendorNamespacePrefixes)
                     .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefault(c => c.Key == key);
             }
         }
