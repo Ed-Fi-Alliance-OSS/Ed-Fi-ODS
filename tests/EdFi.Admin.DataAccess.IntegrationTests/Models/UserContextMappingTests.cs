@@ -62,7 +62,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 leaId = int.MaxValue - 1;
             }
 
-            [Test]            
+            [Test]
             public void Should_persist_the_lea_mapping_without_explicitly_adding_that_mapping_to_the_databaseContext()
             {
                 using (var context = GetUsersContextTest())

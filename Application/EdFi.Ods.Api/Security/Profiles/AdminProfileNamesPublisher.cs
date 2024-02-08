@@ -76,7 +76,7 @@ namespace EdFi.Ods.Api.Security.Profiles
                             });
                     }
 
-                    usersContext.SaveChangesAsync(new CancellationToken());                    
+                    usersContext.SaveChangesAsync(new CancellationToken());
                 }
 
                 return true;

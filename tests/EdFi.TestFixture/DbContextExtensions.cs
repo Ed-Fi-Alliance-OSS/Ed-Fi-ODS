@@ -24,10 +24,7 @@ namespace EdFi.TestFixture
             }
             catch (ValidationException exception)
             {
-                var errorTexts = exception.ValidationResult.ErrorMessage;
-
-                Console.WriteLine(errorTexts);
-
+                Console.WriteLine(exception.ValidationResult.ErrorMessage);
                 throw;
             }
         }

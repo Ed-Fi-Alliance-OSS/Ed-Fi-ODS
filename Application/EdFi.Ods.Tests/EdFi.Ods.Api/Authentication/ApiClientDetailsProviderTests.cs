@@ -123,7 +123,7 @@ public class ApiClientDetailsProviderTests
             string profileName = null,
             short? ownershipTokenId = null)
         {
-            var result = new RawApiClientDetailsDataRow()
+            return new RawApiClientDetailsDataRow()
             {
                 // Base property values (repeated in every raw record due to joins in query)
                 Key = "theApiKey",
@@ -140,8 +140,6 @@ public class ApiClientDetailsProviderTests
                 OwnershipTokenId = ownershipTokenId,
                 ApiClientId = 7
             };
-
-            return result;
         }
     }
 }
