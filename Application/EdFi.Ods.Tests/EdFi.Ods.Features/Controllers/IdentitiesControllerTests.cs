@@ -17,6 +17,13 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
+using TestIdentitiesController = EdFi.Ods.Features.Controllers.IdentitiesController<EdFi.Ods.Features.IdentityManagement.Models.IdentityCreateRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>, EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>;
+using TestIdentityService = EdFi.Ods.Features.IdentityManagement.Models.IIdentityService<EdFi.Ods.Features.IdentityManagement.Models.IdentityCreateRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>, EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>; 
+using TestIdentityServiceAsync = EdFi.Ods.Features.IdentityManagement.Models.IIdentityServiceAsync<EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>, EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>; 
+using TestIdentityResponseStatus = EdFi.Ods.Features.IdentityManagement.Models.IdentityResponseStatus<EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>>;
+using TestIdentitySearchResponse = EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>;
+using TestIdentitySearchResponses = EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponses<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>;
+
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {
     [TestFixture]
@@ -24,13 +31,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
     {
         public class InvalidPropertiesGetByIdRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private IdentitiesController<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>,
+                IdentityResponse> _controller;
+
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new (identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -55,13 +64,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class IncompleteGetByIdRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -86,13 +95,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NotFoundGetByIdRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -112,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class SuccessGetByIdRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -121,7 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
-                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                _controller = new TestIdentitiesController(identityService, identityService) { Url = urlHelper };
                 return Task.CompletedTask;
             }
 
@@ -143,13 +152,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class InvalidPropertiesCreateRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -168,13 +177,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class IncompleteCreateRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -199,13 +208,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NotFoundCreateRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -225,7 +234,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class SuccessCreateRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -234,7 +243,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
-                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                _controller = new TestIdentitiesController(identityService, identityService) { Url = urlHelper };
                 return Task.CompletedTask;
             }
 
@@ -256,13 +265,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class InvalidPropertiesFindRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -287,13 +296,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class IncompleteFindRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -318,13 +327,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NotFoundFindRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -344,7 +353,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class SuccessFindRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -353,7 +362,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
-                _controller = new IdentitiesController(identityService, identityService) {Url = urlHelper};
+                _controller = new TestIdentitiesController(identityService, identityService) {Url = urlHelper};
                 return Task.CompletedTask;
             }
 
@@ -371,13 +380,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class InvalidPropertiesSearchRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -402,13 +411,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class IncompleteSearchRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -433,13 +442,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NotFoundSearchRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -459,7 +468,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class SuccessSearchRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -468,7 +477,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
-                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                _controller = new TestIdentitiesController(identityService, identityService) { Url = urlHelper };
                 return Task.CompletedTask;
             }
 
@@ -486,13 +495,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         
         public class InvalidPropertiesResultRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -517,7 +526,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class IncompleteResultRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -536,7 +545,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     };
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
-                _controller = new IdentitiesController(identityService, identityService) {ControllerContext = controllerContext};
+                _controller = new TestIdentitiesController(identityService, identityService) {ControllerContext = controllerContext};
                 return Task.CompletedTask;
             }
 
@@ -555,13 +564,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NotFoundResultRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -581,7 +590,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class SuccessResultRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
@@ -590,7 +599,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
-                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                _controller = new TestIdentitiesController(identityService, identityService) { Url = urlHelper };
                 return Task.CompletedTask;
             }
 
@@ -602,7 +611,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_return_success_details()
             {
-                var response = (IdentitySearchResponse)_actionResult.Value;
+                var response = (TestIdentitySearchResponse)_actionResult.Value;
 
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK),
@@ -612,13 +621,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class UnknownResult : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.UnknownStatusCode);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
@@ -642,13 +651,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
         public class NullErrorListResult : TestFixtureAsyncBase
         {
-            private IdentitiesController _controller;
+            private TestIdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
                 var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NullErrorList);
-                _controller = new IdentitiesController(identityService, identityService);
+                _controller = new TestIdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 

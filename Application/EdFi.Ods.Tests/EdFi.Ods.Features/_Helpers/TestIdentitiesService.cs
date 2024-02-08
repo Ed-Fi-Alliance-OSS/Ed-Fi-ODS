@@ -8,9 +8,17 @@ using System.Threading.Tasks;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Identity;
 
+using TestIdentityService = EdFi.Ods.Features.IdentityManagement.Models.IIdentityService<EdFi.Ods.Features.IdentityManagement.Models.IdentityCreateRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>, EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>; 
+using TestIdentityServiceAsync = EdFi.Ods.Features.IdentityManagement.Models.IIdentityServiceAsync<EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchRequest, EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>, EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>; 
+using TestIdentityResponseStatus = EdFi.Ods.Features.IdentityManagement.Models.IdentityResponseStatus<EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>>;
+using TestIdentitySearchResponse = EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponse<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>;
+using TestIdentitySearchResponses = EdFi.Ods.Features.IdentityManagement.Models.IdentitySearchResponses<EdFi.Ods.Features.IdentityManagement.Models.IdentityResponse>;
+
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
 {
-    public class TestIdentitiesService : IIdentityService, IIdentityServiceAsync
+    public class TestIdentitiesService : TestIdentityService, TestIdentityServiceAsync  
+        // IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>, 
+        // IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>
     {
         public enum ResponseBehaviour
         {
@@ -53,7 +61,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             };
         }
 
-        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Find(params string[] findRequest)
+        Task<IdentityResponseStatus<string>> TestIdentityServiceAsync.Find(params string[] findRequest)
+        // Task<IdentityResponseStatus<string>> IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Find(params string[] findRequest)
         {
             return _responseBehaviour switch
             {
@@ -66,31 +75,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             };
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest)
+        public Task<TestIdentityResponseStatus> Find(params string[] findRequest)
+        // public Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> Find(params string[] findRequest)
         {
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse>
+                    new TestIdentityResponseStatus
+                    // new IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>
                     {
-                        Data = new IdentitySearchResponse
+                        Data = new TestIdentitySearchResponse
+                        // Data = new IdentitySearchResponse<IdentityResponse>
                         {
                             Status = SearchResponseStatus.Complete,
-                            SearchResponses = new IdentitySearchResponses[]
+                            SearchResponses = new TestIdentitySearchResponses[]
+                            // SearchResponses = new IdentitySearchResponses<IdentityResponse>[]
                                 {
                                     new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "ignored"}}}
                                 }
                         },
                         StatusCode = IdentityStatusCode.Success
                     }),
-                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse>(),
-                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse>(),
-                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse<IdentityResponse>>(),
                 _ => throw new NotImplementedException()
             };
         }
 
-        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Search(params IdentitySearchRequest[] searchRequest)
+        Task<IdentityResponseStatus<string>> TestIdentityServiceAsync.Search(params IdentitySearchRequest[] searchRequest)
+        // Task<IdentityResponseStatus<string>> IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Search(params IdentitySearchRequest[] searchRequest)
         {
             return _responseBehaviour switch
             {
@@ -103,31 +117,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             };
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Search(params IdentitySearchRequest[] searchRequest)
+        public Task<TestIdentityResponseStatus> Search(params IdentitySearchRequest[] searchRequest)
+        // public Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> Search(params IdentitySearchRequest[] searchRequest)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Response(string requestToken)
+        public Task<TestIdentityResponseStatus> Response(string requestToken)
+        // public Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> Response(string requestToken)
         {
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse>
+                    new IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>
                     {
-                        Data = new IdentitySearchResponse
+                        Data = new IdentitySearchResponse<IdentityResponse>
                         {
                             Status = SearchResponseStatus.Complete,
-                            SearchResponses = new IdentitySearchResponses[]
+                            SearchResponses = new IdentitySearchResponses<IdentityResponse>[]
                             {
                                 new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "ignored" } }}
                             }
                         },
                         StatusCode = IdentityStatusCode.Success
                     }),
-                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse>(),
-                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse>(),
-                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse<IdentityResponse>>(),
                 _ => throw new NotImplementedException()
             };
         }
