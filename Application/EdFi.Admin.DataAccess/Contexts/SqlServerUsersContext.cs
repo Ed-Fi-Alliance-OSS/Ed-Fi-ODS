@@ -18,16 +18,6 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
-            /*
-            modelBuilder.Entity<ApiClient>()
-               .HasMany(t => t.ApplicationEducationOrganizations)
-               .WithMany(t => t.Clients)
-            .Map(
-                m =>
-                {
-                    m.ToTable("ApiClientApplicationEducationOrganizations", "dbo");
-                });
-            */
 
             modelBuilder.Entity<ApiClient>()
              .HasMany(t => t.ApplicationEducationOrganizations) // many to many with ApiClient
