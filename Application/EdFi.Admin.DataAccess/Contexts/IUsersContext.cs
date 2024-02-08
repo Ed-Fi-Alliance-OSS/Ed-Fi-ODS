@@ -16,7 +16,7 @@ namespace EdFi.Admin.DataAccess.Contexts
     {
         DbSet<User> Users { get; set; }
 
-        DbSet<ApiClient> ApiClients { get; set; }
+        DbSet<ApiClient> Clients { get; set; }
 
         DbSet<ClientAccessToken> ClientAccessTokens { get; set; }
 
@@ -37,7 +37,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         DbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
-        
+
 
         int SaveChanges();
 

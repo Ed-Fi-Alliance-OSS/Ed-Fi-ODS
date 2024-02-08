@@ -13,21 +13,21 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
-        public PostgresUsersContext(DbContextOptions options)
-           : base(options) { }
+        public PostgresUsersContext(DbContextOptions options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Model.GetEntityTypes().ForEach(
-                entityType =>
-                    entityType.SetSchema("dbo"));
+               entityType =>
+                   entityType.SetSchema("dbo"));
 
-            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ApiClientApplicationEducationOrganization))
-                .GetProperty("ApplicationEducationOrganizationId")
-                .SetColumnName("applicationedorg_applicationedorgid");
+            modelBuilder.Entity<ApiClient>()
+                .HasMany(t => t.ApplicationEducationOrganizations)
+                .WithMany(t => t.Clients)
+                .UsingEntity(join => join.ToTable("ApiClientApplicationEducationOrganizations"));
 
+            modelBuilder.UseUnderscoredFkColumnNames();
             modelBuilder.MakeDbObjectNamesLowercase();
         }
     }
