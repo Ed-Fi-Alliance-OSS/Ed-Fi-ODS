@@ -3,10 +3,9 @@
     /// <summary>
     /// Implement this interface if the supporting service supports asynchronous methods 
     /// </summary>
-    public interface IIdentityServiceAsync<in TSearchRequest, TSearchResponse, TSearchResponses, TIdentityResponse>
+    public interface IIdentityServiceAsync<in TSearchRequest, TSearchResponse, TIdentityResponse>
         where TSearchRequest : IdentitySearchRequest
-        where TSearchResponse : IdentitySearchResponse<TSearchResponses, TIdentityResponse>
-        where TSearchResponses : IdentitySearchResponses<TIdentityResponse>
+        where TSearchResponse : IdentitySearchResponse<TIdentityResponse>
         where TIdentityResponse : IdentityResponse
     {
         /// <summary>

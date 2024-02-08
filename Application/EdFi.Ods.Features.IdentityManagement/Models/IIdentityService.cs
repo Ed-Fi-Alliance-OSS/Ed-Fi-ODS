@@ -8,11 +8,10 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
     /// <summary>
     /// Implement this interface if the supporting service supports synchronous methods
     /// </summary>
-    public interface IIdentityService<in TCreateRequest, in TSearchRequest, TSearchResponse, TSearchResponses, TIdentityResponse>
+    public interface IIdentityService<in TCreateRequest, in TSearchRequest, TSearchResponse, TIdentityResponse>
         where TCreateRequest : IdentityCreateRequest
         where TSearchRequest : IdentitySearchRequest
-        where TSearchResponse : IdentitySearchResponse<TSearchResponses, TIdentityResponse>
-        where TSearchResponses : IdentitySearchResponses<TIdentityResponse>
+        where TSearchResponse : IdentitySearchResponse<TIdentityResponse>
         where TIdentityResponse : IdentityResponse
     {
         /// <summary>

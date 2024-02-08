@@ -22,9 +22,9 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<UnimplementedIdentityService>()
-               .As<IIdentityService>()
-               .As<IIdentityServiceAsync>()
-               .SingleInstance();
+                .As<IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>>()
+                .As<IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>>()
+                .SingleInstance();
         }
     }
 }

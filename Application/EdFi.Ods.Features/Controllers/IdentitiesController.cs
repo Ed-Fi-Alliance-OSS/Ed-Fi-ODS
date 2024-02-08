@@ -33,14 +33,20 @@ namespace EdFi.Ods.Features.Controllers
     [Produces("application/json")]
     [ApplyOdsRouteRootTemplate]
     [Route($"{IdentityManagementConstants.IdentityRoutePrefix}/identities")]
-    public class IdentitiesController : ControllerBase
+    public class IdentitiesController<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> : ControllerBase
+        where TCreateRequest : IdentityCreateRequest
+        where TSearchRequest : IdentitySearchRequest
+        where TSearchResponse : IdentitySearchResponse<TIdentityResponse>
+        where TIdentityResponse : IdentityResponse
     {
         private const string InvalidServerResponse = "Invalid response from identity service: ";
         private const string NoIdentitySystem = "There is no integrated Unique Identity System";
-        private readonly IIdentityService _identitySubsystem;
-        private readonly IIdentityServiceAsync _identitySubsystemAsync;
 
-        public IdentitiesController(IIdentityService identitySubsystem, IIdentityServiceAsync identitySubsystemAsync)
+        private readonly IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystem;
+        private readonly IIdentityServiceAsync<TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystemAsync;
+
+        public IdentitiesController(IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> identitySubsystem, 
+            IIdentityServiceAsync<TSearchRequest, TSearchResponse, TIdentityResponse> identitySubsystemAsync)
         {
             _identitySubsystem = identitySubsystem;
             _identitySubsystemAsync = identitySubsystemAsync;
@@ -103,7 +109,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] IdentityCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] TCreateRequest request)
         {
             try
             {
@@ -194,8 +200,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
         [Route("search")]
-        public async Task<IActionResult> Search<TSearchRequest>([FromBody] TSearchRequest[] criteria)
-            where TSearchRequest : IdentitySearchRequest
+        public async Task<IActionResult> Search([FromBody] TSearchRequest[] criteria)
         {
             try
             {
