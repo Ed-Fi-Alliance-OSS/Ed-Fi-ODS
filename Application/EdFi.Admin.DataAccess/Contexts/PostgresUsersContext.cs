@@ -15,7 +15,6 @@ namespace EdFi.Admin.DataAccess.Contexts
     {
         public PostgresUsersContext(DbContextOptions options) : base(options) { }
         
-
         protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApiClient>()
@@ -32,9 +31,7 @@ namespace EdFi.Admin.DataAccess.Contexts
                entityType =>
                    entityType.SetSchema("dbo"));
 
-
-            modelBuilder.MakeDbObjectNamesLowercase();  
-
+            modelBuilder.MakeDbObjectNamesLowercase();
         }
     }
 }
