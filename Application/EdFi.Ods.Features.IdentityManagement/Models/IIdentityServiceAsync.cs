@@ -3,7 +3,11 @@
     /// <summary>
     /// Implement this interface if the supporting service supports asynchronous methods 
     /// </summary>
-    public interface IIdentityServiceAsync
+    public interface IIdentityServiceAsync<in TSearchRequest, TSearchResponse, TSearchResponses, TIdentityResponse>
+        where TSearchRequest : IdentitySearchRequest
+        where TSearchResponse : IdentitySearchResponse<TSearchResponses, TIdentityResponse>
+        where TSearchResponses : IdentitySearchResponses<TIdentityResponse>
+        where TIdentityResponse : IdentityResponse
     {
         /// <summary>
         /// Which IdentityServices does the supporting service implement
@@ -22,13 +26,13 @@
         /// </summary>
         /// <param name="searchRequest"></param>
         /// <returns>An identity response status of: Success</returns>
-        Task<IdentityResponseStatus<string>> Search(params IdentitySearchRequest[] searchRequest);
+        Task<IdentityResponseStatus<string>> Search(params TSearchRequest[] searchRequest);
 
         /// <summary>
         /// Retrieve the results from a previously submitted search
         /// </summary>
         /// <param name="requestToken">a unique string representing the request</param>
         /// <returns>An identity response status of: Incomplete, Success with IdentityResponse[], or NotFound</returns>
-        Task<IdentityResponseStatus<IdentitySearchResponse>> Response(string requestToken);
+        Task<IdentityResponseStatus<TSearchResponse>> Response(string requestToken);
     }
 }

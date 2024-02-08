@@ -1,7 +1,8 @@
 ﻿namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentitySearchResponses
+    public class IdentitySearchResponses<TIdentityResponse>
+        where TIdentityResponse : IdentityResponse
     {
-        public IdentityResponse[] Responses { get; set; }
+        public TIdentityResponse[] Responses { get; set; }
     }
 }

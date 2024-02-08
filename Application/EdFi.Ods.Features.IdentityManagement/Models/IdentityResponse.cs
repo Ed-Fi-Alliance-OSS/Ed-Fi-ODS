@@ -2,7 +2,7 @@
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentityResponse : Expando
+    public class IdentityResponse
     {
         public string UniqueId { get; set; }
 

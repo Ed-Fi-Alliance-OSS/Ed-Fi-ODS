@@ -8,7 +8,12 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
     /// <summary>
     /// Implement this interface if the supporting service supports synchronous methods
     /// </summary>
-    public interface IIdentityService
+    public interface IIdentityService<in TCreateRequest, in TSearchRequest, TSearchResponse, TSearchResponses, TIdentityResponse>
+        where TCreateRequest : IdentityCreateRequest
+        where TSearchRequest : IdentitySearchRequest
+        where TSearchResponse : IdentitySearchResponse<TSearchResponses, TIdentityResponse>
+        where TSearchResponses : IdentitySearchResponses<TIdentityResponse>
+        where TIdentityResponse : IdentityResponse
     {
         /// <summary>
         /// Which IdentityServices does the supporting service implement
@@ -20,20 +25,20 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
         /// </summary>
         /// <param name="createRequest">an array of identities to be created</param>
         /// <returns>An identity response status of: Success</returns>
-        Task<IdentityResponseStatus<string>> Create(IdentityCreateRequest createRequest);
+        Task<IdentityResponseStatus<string>> Create(TCreateRequest createRequest);
 
         /// <summary>
         /// Find existing identities by their identifiers
         /// </summary>
         /// <param name="findRequest">Unique person identifiers to look up</param>
         /// <returns>An identity response status of: Success with IdentityResponse[]</returns>
-        Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest);
+        Task<IdentityResponseStatus<TSearchResponse>> Find(params string[] findRequest);
 
         /// <summary>
         /// Search for exact and potential identity matches
         /// </summary>
         /// <param name="searchRequest"></param>
         /// <returns>An identity response status of: Success</returns>
-        Task<IdentityResponseStatus<IdentitySearchResponse>> Search(params IdentitySearchRequest[] searchRequest);
+        Task<IdentityResponseStatus<TSearchResponse>> Search(params TSearchRequest[] searchRequest);
     }
 }

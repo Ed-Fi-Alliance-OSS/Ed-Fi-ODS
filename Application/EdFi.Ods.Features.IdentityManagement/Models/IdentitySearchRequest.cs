@@ -2,7 +2,7 @@
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public class IdentitySearchRequest : Expando
+    public class IdentitySearchRequest
     {
         public string LastSurname { get; set; }
 

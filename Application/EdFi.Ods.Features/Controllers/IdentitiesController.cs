@@ -194,7 +194,8 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
         [Route("search")]
-        public async Task<IActionResult> Search([FromBody] IdentitySearchRequest[] criteria)
+        public async Task<IActionResult> Search<TSearchRequest>([FromBody] TSearchRequest[] criteria)
+            where TSearchRequest : IdentitySearchRequest
         {
             try
             {
