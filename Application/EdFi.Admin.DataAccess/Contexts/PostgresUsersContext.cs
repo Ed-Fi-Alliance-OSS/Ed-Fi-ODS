@@ -7,6 +7,7 @@ using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common.Utils.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
@@ -17,16 +18,21 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApiClient>()
+                .HasMany(t => t.ApplicationEducationOrganizations)
+                .WithMany(t => t.Clients)
+                .UsingEntity(join => join.ToTable("apiclientapplicationeducationorganizations"));
+
+            modelBuilder.UseUnderscoredFkColumnNames();
+
+            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
+                .SetColumnName("creatorownershiptokenid_ownershiptokenid");
+
             modelBuilder.Model.GetEntityTypes().ForEach(
                entityType =>
                    entityType.SetSchema("dbo"));
 
-            modelBuilder.Entity<ApiClient>()
-                .HasMany(t => t.ApplicationEducationOrganizations)
-                .WithMany(t => t.Clients)
-                .UsingEntity(join => join.ToTable("ApiClientApplicationEducationOrganizations"));
 
-            modelBuilder.UseUnderscoredFkColumnNames();
             modelBuilder.MakeDbObjectNamesLowercase();  
 
         }

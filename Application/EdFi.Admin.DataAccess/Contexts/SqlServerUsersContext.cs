@@ -6,8 +6,6 @@
 using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace EdFi.Admin.DataAccess.Contexts
@@ -18,7 +16,6 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<ApiClient>()
              .HasMany(t => t.ApplicationEducationOrganizations) // many to many with ApiClient
              .WithMany(t => t.Clients) // Colection of entities ApplicationEducationOrganizations related to ApiClient
@@ -29,6 +26,5 @@ namespace EdFi.Admin.DataAccess.Contexts
             modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
                 .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
         }
-
     }
 }

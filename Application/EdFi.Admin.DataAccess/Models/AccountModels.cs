@@ -26,7 +26,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string FullName { get; set; }
 
         public virtual Vendor Vendor { get; set; }
-                
+
         public virtual ICollection<ApiClient> ApiClients { get; set; }
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace EdFi.Admin.DataAccess.Models
             {
                 client.Key = key;
                 client.Secret = secret;
-            }            
+            }
 
-            ApiClients.Add(client);            
+            ApiClients.Add(client);
             return client;
         }
 
