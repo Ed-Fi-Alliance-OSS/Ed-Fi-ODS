@@ -31,8 +31,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
     {
         public class InvalidPropertiesGetByIdRequest : TestFixtureAsyncBase
         {
-            private IdentitiesController<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>,
-                IdentityResponse> _controller;
+            private TestIdentitiesController _controller;
 
             private ObjectResult _actionResult;
 
