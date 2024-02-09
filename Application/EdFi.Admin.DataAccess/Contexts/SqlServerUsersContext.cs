@@ -13,18 +13,5 @@ namespace EdFi.Admin.DataAccess.Contexts
     public class SqlServerUsersContext : UsersContext
     {
         public SqlServerUsersContext(DbContextOptions options) : base(options) { }
-
-        protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ApiClient>()
-             .HasMany(t => t.ApplicationEducationOrganizations) // many to many with ApiClient
-             .WithMany(t => t.Clients) // Colection of entities ApplicationEducationOrganizations related to ApiClient
-             .UsingEntity(join => join.ToTable("ApiClientApplicationEducationOrganizations"));
-
-            modelBuilder.UseUnderscoredFkColumnNames();
-
-            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
-                .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
-        }
     }
 }

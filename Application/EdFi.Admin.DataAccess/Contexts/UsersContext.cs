@@ -74,25 +74,12 @@ namespace EdFi.Admin.DataAccess.Contexts
                     r =>
                         r.HasOne<ApiClient>().WithMany().HasForeignKey("ApiClientId"));
 
-            modelBuilder.Entity<Application>()
-                .HasMany(a => a.Profiles)
-                .WithMany(a => a.Applications)
-                .UsingEntity("ProfileApplications");
-
             modelBuilder.UseUnderscoredFkColumnNames();
 
             modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
                 .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
         }
-
-
-        /// <remarks>
-        /// Sub-classes should override this to provide database system-specific column and/or
-        /// table mappings: for example, if a linking table column in Postgres needs to map to a
-        /// name other than the default provided by Entity Framework.
-        /// </remarks>
-        protected virtual void ApplyProviderSpecificMappings(ModelBuilder modelBuilder) { }
-                
+                        
         /// <inheritdoc />
         public Task<int> ExecuteSqlCommandAsync(string sqlStatement, params object[] parameters)
         {

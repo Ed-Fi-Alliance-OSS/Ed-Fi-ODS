@@ -13,7 +13,8 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
-        public PostgresUsersContext(DbContextOptions options) : base(options) { }
+        public PostgresUsersContext(DbContextOptions options) 
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
