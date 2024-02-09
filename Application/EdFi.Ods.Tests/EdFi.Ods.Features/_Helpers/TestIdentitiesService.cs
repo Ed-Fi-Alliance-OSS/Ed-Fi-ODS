@@ -28,10 +28,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             NullErrorList
         }
 
-        public IdentityServiceCapabilities IdentityServiceCapabilities => IdentityServiceCapabilities.Create
-                                                                          | IdentityServiceCapabilities.Find
-                                                                          | IdentityServiceCapabilities.Search
-                                                                          | IdentityServiceCapabilities.Results;
+        public IdentityServiceCapabilities IdentityServiceCapabilities
+            => IdentityServiceCapabilities.Create
+                | IdentityServiceCapabilities.Find
+                | IdentityServiceCapabilities.Search
+                | IdentityServiceCapabilities.Results;
 
         private readonly ResponseBehaviour _responseBehaviour;
 
@@ -45,7 +46,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success, Data = "ignored"}),
+                    new IdentityResponseStatus<string>
+                    {
+                        StatusCode = IdentityStatusCode.Success,
+                        Data = "ignored"
+                    }),
                 ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
                 ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
                 ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
@@ -89,9 +94,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
                         },
                         StatusCode = IdentityStatusCode.Success
                     }),
-                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse<IdentityResponse>>(),
-                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse<IdentityResponse>>(),
-                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<TestIdentitySearchResponse>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<TestIdentitySearchResponse>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<TestIdentitySearchResponse>(),
                 _ => throw new NotImplementedException()
             };
         }
@@ -119,21 +124,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>
+                    new TestIdentityResponseStatus
                     {
-                        Data = new IdentitySearchResponse<IdentityResponse>
+                        Data = new TestIdentitySearchResponse
                         {
                             Status = SearchResponseStatus.Complete,
-                            SearchResponses = new IdentitySearchResponses<IdentityResponse>[]
+                            SearchResponses = new TestIdentitySearchResponses[]
                             {
                                 new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "ignored" } }}
                             }
                         },
                         StatusCode = IdentityStatusCode.Success
                     }),
-                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse<IdentityResponse>>(),
-                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse<IdentityResponse>>(),
-                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse<IdentityResponse>>(),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<TestIdentitySearchResponse>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<TestIdentitySearchResponse>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<TestIdentitySearchResponse>(),
                 _ => throw new NotImplementedException()
             };
         }
