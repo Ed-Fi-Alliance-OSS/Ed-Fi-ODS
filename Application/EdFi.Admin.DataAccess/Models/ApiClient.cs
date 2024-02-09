@@ -16,6 +16,7 @@ namespace EdFi.Admin.DataAccess.Models
     /// Class representing EdFi client application information persisted in a data store.
     /// A Client has a list of domains that are valid for access
     /// </summary>
+    [Table("ApiClients")]
     public class ApiClient
     {
         public ApiClient()
@@ -125,9 +126,12 @@ namespace EdFi.Admin.DataAccess.Models
         public int? ActivationRetried { get; set; }
 
         /// <summary>
-        /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient. 
-        /// </summary>
-        public virtual OwnershipToken CreatorOwnershipTokenId { get; set; }
+        /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient.
+        /// </summary>        
+        public virtual OwnershipToken CreatorOwnershipToken { get; set; }
+
+        [Column("CreatorOwnershipTokenId_OwnershipTokenId")]
+        public short? CreatorOwnershipTokenId { get; set; }
 
         /// <summary>
         /// Fully namespaced URI reference to the StudentIdentificationSystemDescriptor value to use for identification mapping
@@ -150,6 +154,7 @@ namespace EdFi.Admin.DataAccess.Models
         /// EdOrg is the key, Domain Connection information is the value.
         /// The end-user should never see the Data Connection information
         /// </remarks>
+        [NotMapped]
         public Dictionary<string, string> Domains { get; set; }
 
         /// <summary>

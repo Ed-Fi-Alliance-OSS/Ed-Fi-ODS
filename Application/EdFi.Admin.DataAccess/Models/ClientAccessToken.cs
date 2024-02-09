@@ -36,7 +36,7 @@ namespace EdFi.Admin.DataAccess.Models
             set { _id = value; }
         }
 
-        public ApiClient ApiClient { get; set; }
+        public virtual ApiClient ApiClient { get; set; }
 
         public DateTime Expiration { get; set; }
 
