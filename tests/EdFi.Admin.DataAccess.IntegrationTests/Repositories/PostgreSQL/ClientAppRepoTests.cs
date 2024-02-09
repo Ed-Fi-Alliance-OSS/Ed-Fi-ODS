@@ -191,6 +191,13 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.PostgreSQL
 
                 OpenContext.SaveChangesForTest();
 
+                // Uncomment next two lines only for debugging.
+                // PostgreSQL does not have a "read uncommitted" isolation level, therefore
+                // this is the only way to manually query the database for inspection while
+                // debugging the test.
+                //Transaction.Complete();
+                //Transaction = new TransactionScope();
+
                 // Act
                 _result = _clientAppRepo.GetClient(client.Key);
             }
