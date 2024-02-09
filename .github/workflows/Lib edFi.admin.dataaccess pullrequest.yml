@@ -29,5 +29,5 @@ jobs:
       shell: pwsh
     - name: Run Unit tests
       run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"
+        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -TestFilter "EdFi.Admin.DataAccess.IntegrationTests"
       shell: pwsh
