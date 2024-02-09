@@ -25,7 +25,7 @@ using Npgsql;
 
 // ReSharper disable InconsistentNaming
 
-namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
+namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 {
     [TestFixture]
     public class AccessTokenClientRepoTests : TestFixtureBase
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             _transaction = new TransactionScope();
-            
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", false)
@@ -208,7 +208,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
-                    var apiClient = LoadAnApiClient(application,1);
+                    var apiClient = LoadAnApiClient(application, 1);
                     _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 {
                     base.Arrange();
 
-                    Client = LoadAnApiClient(null,0);
+                    Client = LoadAnApiClient(null, 0);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -384,7 +384,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     base.Arrange();
 
                     var application = LoadAnApplication(null, "Sandbox");
-                    Client = LoadAnApiClient(application,5);
+                    Client = LoadAnApiClient(application, 5);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     Result = RawApiClientDetailsProvider.GetRawClientDetailsDataAsync(AccessToken.Id)
                         .ConfigureAwait(false)
                         .GetAwaiter()
-                        .GetResult();;
+                        .GetResult(); ;
                 }
 
                 [TestFixture]

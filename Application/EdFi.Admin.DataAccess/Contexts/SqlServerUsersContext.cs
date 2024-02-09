@@ -10,6 +10,5 @@ namespace EdFi.Admin.DataAccess.Contexts
     public class SqlServerUsersContext : UsersContext
     {
         public SqlServerUsersContext(DbContextOptions options) : base(options) { }
-       
     }
 }

@@ -74,6 +74,11 @@ namespace EdFi.Admin.DataAccess.Contexts
                     r =>
                         r.HasOne<ApiClient>().WithMany().HasForeignKey("ApiClientId"));
 
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.Profiles)
+                .WithMany(a => a.Applications)
+                .UsingEntity("ProfileApplications");
+
             modelBuilder.UseUnderscoredFkColumnNames();
 
             modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
