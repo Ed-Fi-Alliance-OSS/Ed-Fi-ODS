@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Shouldly;
 
 // ReSharper disable once InconsistentNaming
-namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
+namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories
 {
     public class ClientAppRepoTests
     {
