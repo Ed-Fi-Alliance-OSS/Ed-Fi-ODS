@@ -14,22 +14,18 @@ namespace EdFi.Admin.DataAccess.Contexts
     public class PostgresUsersContext : UsersContext
     {
         public PostgresUsersContext(DbContextOptions options) : base(options) { }
-        
-        protected override void ApplyProviderSpecificMappings(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ApiClient>()
-                .HasMany(t => t.ApplicationEducationOrganizations)
-                .WithMany(t => t.Clients)
-                .UsingEntity(join => join.ToTable("apiclientapplicationeducationorganizations"));
-
-            modelBuilder.UseUnderscoredFkColumnNames();
-
-            modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
-                .SetColumnName("creatorownershiptokenid_ownershiptokenid");
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Model.GetEntityTypes().ForEach(
-               entityType =>
-                   entityType.SetSchema("dbo"));
+                entityType =>
+                    entityType.SetSchema("dbo"));
+
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ApiClientApplicationEducationOrganization))
+                .GetProperty("ApplicationEducationOrganizationId")
+                .SetColumnName("applicationedorg_applicationedorgid");
 
             modelBuilder.MakeDbObjectNamesLowercase();
         }
