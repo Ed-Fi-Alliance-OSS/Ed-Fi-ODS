@@ -45,7 +45,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
             _transaction.Dispose();
         }
 
-
         [Test]
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext_make_a_change_and_save_it()
         {
