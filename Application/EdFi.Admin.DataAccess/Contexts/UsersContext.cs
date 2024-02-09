@@ -3,15 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Admin.DataAccess.Extensions;
-using EdFi.Admin.DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Extensions;
+using EdFi.Admin.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
@@ -79,7 +79,7 @@ namespace EdFi.Admin.DataAccess.Contexts
             modelBuilder.Model.FindEntityTypes(typeof(ApiClient)).First().GetProperty("CreatorOwnershipTokenId")
                 .SetColumnName("CreatorOwnershipTokenId_OwnershipTokenId");
         }
-                        
+
         /// <inheritdoc />
         public Task<int> ExecuteSqlCommandAsync(string sqlStatement, params object[] parameters)
         {
