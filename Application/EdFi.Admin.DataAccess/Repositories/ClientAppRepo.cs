@@ -230,7 +230,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return context.Clients.Include(c => c.Application)
                     .ThenInclude(c => c.Vendor)
                     .ThenInclude(c => c.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefault(c => c.Key == key);
@@ -244,7 +243,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return await context.Clients.Include(c => c.Application)
                     .Include(c => c.Application.Vendor)
                     .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipTokenId)
                     .FirstOrDefaultAsync(c => c.Key == key);
