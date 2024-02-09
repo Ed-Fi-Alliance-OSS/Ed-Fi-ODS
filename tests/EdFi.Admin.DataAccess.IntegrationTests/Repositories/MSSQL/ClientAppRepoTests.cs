@@ -27,9 +27,9 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
         private const string DefaultApplicationName = "Integration Test";
         private const string DefaultClaimSetName = "SIS Vendor";
 
-        protected SqlServerUsersContext _context;
-        protected SqlServerUsersContext _openContext;
-        protected TransactionScope _transaction;
+        protected SqlServerUsersContext Context;
+        protected SqlServerUsersContext OpenContext;
+        protected TransactionScope Transaction;
 
         [SetUp]
         public void Setup()
@@ -46,16 +46,16 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(connectionString);
-            _context = new SqlServerUsersContext(optionsBuilder.Options);
-            _openContext = new SqlServerUsersContext(optionsBuilder.Options);
+            Context = new SqlServerUsersContext(optionsBuilder.Options);
+            OpenContext = new SqlServerUsersContext(optionsBuilder.Options);
 
             // Startup a transaction so we can dispose of any changes after running the tests
-            _transaction = new TransactionScope();
+            Transaction = new TransactionScope();
 
             // Configure settings mocks
             var usersContextFactory = A.Fake<IUsersContextFactory>();
             A.CallTo(() => usersContextFactory.CreateContext())
-                .Returns(_context);
+                .Returns(Context);
 
             var configValueProviderStub = A.Fake<IConfigurationRoot>();
 
@@ -83,14 +83,14 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
             {
                 Name = "ClientAppRepoTest" + Guid.NewGuid().ToString("N")
             };
-            _context.Clients.Add(_testClient);
-            _context.SaveChangesForTest();
+            Context.Clients.Add(_testClient);
+            Context.SaveChangesForTest();
         }
 
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            Transaction.Dispose();
         }
 
         private ClientAppRepo _clientAppRepo;
@@ -103,14 +103,6 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
             public void Should_get_client_with_key_and_secret()
             {
                 var tmpClient = _clientAppRepo.GetClient(_testClient.Key, _testClient.Secret);
-                tmpClient.ShouldNotBeNull();
-                tmpClient.Name.ShouldBe(_testClient.Name);
-            }
-
-            [Test]
-            public void Should_get_client_with_key_only()
-            {
-                var tmpClient = _clientAppRepo.GetClient(_testClient.Key);
                 tmpClient.ShouldNotBeNull();
                 tmpClient.Name.ShouldBe(_testClient.Name);
             }
@@ -129,6 +121,118 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                 tmpClient.ShouldBeNull();
             }
         }
+
+        [TestFixture]
+        public class When_getting_a_client_and_all_related_properties : ClientAppRepoTests
+        {
+            private const string ClientName = "zsdfasdf";
+            private ApiClient _result;
+
+            [SetUp]
+            public void SetUp()
+            {
+                // Arrange
+                // Adding vendor, namespace prefix, profiles, education organizations,
+                // and ownership token in order to test the Entity Framework
+                // hydration of those properties on the client
+                var client = new ApiClient
+                {
+                    Name = ClientName,
+                    Key = "987sal;ifasd",
+                    Secret = "987asdkif"
+                };
+                OpenContext.Clients.Add(client);
+
+                var vendor = new Vendor
+                {
+                    VendorName = "vendor name"
+                };
+                OpenContext.Vendors.Add(vendor);
+
+                var namespacePrefix = new VendorNamespacePrefix
+                {
+                    NamespacePrefix = "abc",
+                    Vendor = vendor
+                };
+                vendor.VendorNamespacePrefixes.Add(namespacePrefix);
+                OpenContext.VendorNamespacePrefixes.Add(namespacePrefix);
+
+                var application = new Application
+                {
+                    Vendor = vendor,
+                    ApplicationName = "a",
+                    OperationalContextUri = "uri://ed-fi.org"
+                };
+                vendor.Applications.Add(application);
+                client.Application = application;
+                application.ApiClients.Add(client);
+                OpenContext.Applications.Add(application);
+
+                var profile = new Profile
+                {
+                    ProfileName = "profile"
+                };
+                application.Profiles.Add(profile);
+                profile.Applications.Add(application);
+                OpenContext.Profiles.Add(profile);
+
+                var token = new OwnershipToken
+                {
+                    Description = "sddsdsf"
+                };
+                token.ApiClients.Add(client);
+                client.CreatorOwnershipToken = token;
+                OpenContext.OwnershipTokens.Add(token);
+
+                OpenContext.SaveChangesForTest();
+
+                // Act
+                _result = _clientAppRepo.GetClient(client.Key);
+            }
+
+            [Test]
+            public void Then_result_not_be_null()
+            {
+                _result.ShouldNotBeNull();
+            }
+
+            [Test]
+            public void Then_result_should_be_the_correct_client()
+            {
+                _result.Name.ShouldBe(ClientName);
+            }
+
+            [Test]
+            public void Then_result_should_have_a_hydrated_application()
+            {
+                _result.Application.ShouldNotBeNull();
+            }
+
+            [Test]
+            public void Then_result_should_have_a_hydrated_vendor()
+            {
+                _result.Application.Vendor.ShouldNotBeNull();
+            }
+
+            [Test]
+            public void Then_result_should_have_a_hydrated_vendor_namespace()
+            {
+                _result.Application.Vendor.VendorNamespacePrefixes.ShouldHaveSingleItem();
+            }
+
+            [Test]
+            public void Then_result_should_have_a_hydrated_profile()
+            {
+                _result.Application.Profiles.ShouldHaveSingleItem();
+            }
+
+            [Test]
+            public void Then_result_should_have_a_hydrated_ownership_token()
+            {
+                _result.CreatorOwnershipToken.ShouldNotBeNull();
+            }
+        }
+
 
         [TestFixture]
         public class When_getting_client_by_key : ClientAppRepoTests
@@ -160,7 +264,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
 
                 _clientAppRepo.UpdateClient(_testClient);
 
-                _openContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
+                OpenContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
             }
 
             [Test]
@@ -176,7 +280,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
 
                  _clientAppRepo.UpdateClient(client);
 
-                _openContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
+                OpenContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
             }
         }
 
@@ -188,7 +292,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
             {
                 _clientAppRepo.DeleteClient(_testClient.Key);
 
-                _openContext.Clients.Count(x => x.Name == _testClient.Name).ShouldBe(0);
+                OpenContext.Clients.Count(x => x.Name == _testClient.Name).ShouldBe(0);
             }
         }
 
@@ -210,9 +314,9 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     OperationalContextUri = "uri://ed-fi.org"
                 };
                 vendor.Applications.Add(application);
-                _openContext.Vendors.Add(vendor);
-                _openContext.Applications.Add(application);
-                _openContext.SaveChangesForTest();
+                OpenContext.Vendors.Add(vendor);
+                OpenContext.Applications.Add(application);
+                OpenContext.SaveChangesForTest();
 
                 // Act
                 var result = _clientAppRepo.GetVendorApplications(vendor.VendorId);
@@ -232,8 +336,8 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     VendorName = "vendor name"
                 };
   
-                _openContext.Vendors.Add(vendor);
-                _openContext.SaveChangesForTest();
+                OpenContext.Vendors.Add(vendor);
+                OpenContext.SaveChangesForTest();
 
                 // Act
                 var result = _clientAppRepo.GetVendorApplications(vendor.VendorId);
@@ -263,8 +367,8 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     FullName = "a",
                     Email = "b@example.com"
                 };
-                _openContext.Users.Add(user);
-                _openContext.SaveChangesForTest();
+                OpenContext.Users.Add(user);
+                OpenContext.SaveChangesForTest();
 
                 const string tempName = "Given_user_exists_but_vendor_does_not";
                 var client = new ApiClient
@@ -278,7 +382,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                 _clientAppRepo.AddApiClientToUserWithVendorApplication(user.UserId, client);
 
                 // Assert
-                _openContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
+                OpenContext.Clients.Count(x => x.Name == tempName).ShouldBe(1);
             }
 
             [Test]
@@ -290,7 +394,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     FullName = "a",
                     Email = "b@example.com"
                 };
-                _openContext.Users.Add(user);
+                OpenContext.Users.Add(user);
 
                 var vendor = new Vendor
                 {
@@ -303,13 +407,13 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     OperationalContextUri = "uri://ed-fi.org"
                 };
                 vendor.Applications.Add(application);
-                _openContext.Vendors.Add(vendor);
-                _openContext.Applications.Add(application);
+                OpenContext.Vendors.Add(vendor);
+                OpenContext.Applications.Add(application);
 
                 user.Vendor = vendor;
                 vendor.Users.Add(user);
 
-                _openContext.SaveChangesForTest();
+                OpenContext.SaveChangesForTest();
 
                 const string tempName = "Given_user_and_vendor_exi...";
                 var client = new ApiClient
@@ -323,7 +427,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                 _clientAppRepo.AddApiClientToUserWithVendorApplication(user.UserId, client);
 
                 // Assert
-                var saved = _openContext.Clients.FirstOrDefault(x => x.Name == tempName);
+                var saved = OpenContext.Clients.FirstOrDefault(x => x.Name == tempName);
                 saved.ShouldNotBeNull();
 
                 saved.Application
@@ -344,8 +448,8 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                     FullName = "a",
                     Email = "b@example.com"
                 };
-                _openContext.Users.Add(user);
-                _openContext.SaveChangesForTest();
+                OpenContext.Users.Add(user);
+                OpenContext.SaveChangesForTest();
 
                 // Act
                 const string clientName = "Given_user_exists_it_should_save...";
@@ -355,7 +459,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                 _clientAppRepo.CreateApiClient(user.UserId, clientName, key, secret);
 
                 // Assert
-                var saved = _openContext.Clients.FirstOrDefault(x => x.Name == clientName);
+                var saved = OpenContext.Clients.FirstOrDefault(x => x.Name == clientName);
                 saved.ShouldNotBeNull();
                 saved.UseSandbox.ShouldBeTrue();
                 saved.IsApproved.ShouldBeTrue();
