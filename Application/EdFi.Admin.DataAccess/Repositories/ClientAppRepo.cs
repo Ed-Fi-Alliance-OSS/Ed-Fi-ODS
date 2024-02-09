@@ -281,11 +281,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var client = context.Clients.First(x => x.Key == key);
 
-                // TODO SF: AA-518
-                // Assuming that this is used by Admin App, although that will not actually be clear
-                // until we are able to start testing Admin App thoroughly.
-                // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
-                // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
                 context.ExecuteSqlCommandAsync(
                     @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
                     client.ApiClientId).Wait();
