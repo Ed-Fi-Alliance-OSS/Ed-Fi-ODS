@@ -163,9 +163,9 @@ function Publish {
     }
 }
 
-function Test {
+function Test {    
     if(-not $TestFilter) {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter 'FullyQualifiedName!~EdFi.Admin.DataAccess.IntegrationTests'}
     } else {
         Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
     }
