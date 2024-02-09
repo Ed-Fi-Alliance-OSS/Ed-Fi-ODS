@@ -8,7 +8,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.IdentityManagement;
-using EdFi.Ods.Features.IdentityManagement.Models;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -21,9 +21,12 @@ namespace EdFi.Ods.Features.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
+            builder.RegisterType<IdentitiesControllerOverrideConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
+
             builder.RegisterType<UnimplementedIdentityService>()
-                .As<IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>>()
-                .As<IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
         }
     }

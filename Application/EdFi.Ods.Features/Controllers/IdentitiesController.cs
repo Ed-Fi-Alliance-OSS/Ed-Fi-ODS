@@ -33,7 +33,7 @@ namespace EdFi.Ods.Features.Controllers
     [Produces("application/json")]
     [ApplyOdsRouteRootTemplate]
     [Route($"{IdentityManagementConstants.IdentityRoutePrefix}/identities")]
-    public class IdentitiesController<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> : ControllerBase
+    public abstract class IdentitiesControllerBase<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> : ControllerBase
         where TCreateRequest : IdentityCreateRequest
         where TSearchRequest : IdentitySearchRequest
         where TSearchResponse : IdentitySearchResponse<TIdentityResponse>
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Features.Controllers
         private readonly IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystem;
         private readonly IIdentityServiceAsync<TSearchRequest, TSearchResponse, TIdentityResponse> _identitySubsystemAsync;
 
-        public IdentitiesController(IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> identitySubsystem, 
+        protected IdentitiesControllerBase(IIdentityService<TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse> identitySubsystem, 
             IIdentityServiceAsync<TSearchRequest, TSearchResponse, TIdentityResponse> identitySubsystemAsync)
         {
             _identitySubsystem = identitySubsystem;
