@@ -14209,7 +14209,7 @@
 							"response": []
 						},
 						{
-							"name": "Create School (no child collection items included)",
+							"name": "Create School (Profile allows creation, no child collection items included)",
 							"event": [
 								{
 									"listen": "test",
@@ -14334,6 +14334,75 @@
 							"response": []
 						},
 						{
+							"name": "Update School (Profile prevents creation of child collection item)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
+											"  pm.expect(problemDetails).to.deep.include({\r",
+											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data:policy\",\r",
+											"    \"title\": \"Data Policy Enforced\",\r",
+											"    \"status\": 400\r",
+											"  });\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-includes-child-collection-with-non-creatable-items.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": 255901002,\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatUSDescriptor#Active\",\r\n  \"nameOfInstitution\": \"Test High School\",\r\n  \"shortNameOfInstitution\": \"THS\",\r\n  \"webSite\": \"http://www.GBISD.edu/THS/\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Twelfth grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n    },\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Tenth grade\"\r\n    }\r\n  ],\r\n  \"addresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Mailing\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"city\": \"Grand Bend\",\r\n      \"postalCode\": \"73334-2035\",\r\n      \"streetNumberName\": \"P.O. Box 2035\",\r\n      \"nameOfCounty\": \"Williston\",\r\n      \"periods\": []\r\n    },\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n      \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n      \"city\": \"Grand Bend\",\r\n      \"postalCode\": \"73334\",\r\n      \"streetNumberName\": \"456 Elm Street\",\r\n      \"nameOfCounty\": \"Williston\",\r\n      \"periods\": []\r\n    }\r\n  ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n      \"identificationCode\": \"255901001\"\r\n    }\r\n  ],\r\n  \"indicators\": [\r\n    {\r\n      \"indicatorDescriptor\": \"uri://gbisd.edu/IndicatorDescriptor#Retention Rate\",\r\n      \"indicatorGroupDescriptor\": \"uri://gbisd.edu/IndicatorGroupDescriptor#Staff Indicator\",\r\n      \"indicatorLevelDescriptor\": \"uri://gbisd.edu/IndicatorLevelDescriptor#High Retention\",\r\n      \"indicatorValue\": \"90\",\r\n      \"periods\": [\r\n        {\r\n          \"beginDate\": \"2020-03-01\",\r\n          \"endDate\": \"2022-06-30\"\r\n        },\r\n        {\r\n          \"beginDate\": \"2021-08-29\",\r\n          \"endDate\": \"2022-06-30\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"institutionTelephones\": [\r\n    {\r\n      \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Fax\",\r\n      \"telephoneNumber\": \"(950) 393-3156\"\r\n    },\r\n    {\r\n      \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n      \"telephoneNumber\": \"(950) 325-9465\"\r\n    }\r\n  ],\r\n  \"internationalAddresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Mailing\",\r\n      \"addressLine1\": \"Address Line 1\",\r\n      \"addressLine2\": \"Address Line 2\",\r\n      \"addressLine3\": \"Address Line 3\",\r\n      \"addressLine4\": \"Address Line 4\",\r\n      \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#AD\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id:new}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id:new}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Delete School",
 							"event": [
 								{
@@ -14448,7 +14517,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Assessment (does not include embedded object)",
+							"name": "Create Assessment (Profile allows creation, no embedded object included)",
 							"event": [
 								{
 									"listen": "test",
@@ -14557,6 +14626,70 @@
 										"v3",
 										"ed-fi",
 										"assessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Assessment (Profile prevents creation of embedded object)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
+											"  pm.expect(problemDetails).to.deep.include({\r",
+											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data:policy\",\r",
+											"    \"title\": \"Data Policy Enforced\",\r",
+											"    \"status\": 400\r",
+											"  });\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-non-creatable-embedded-object.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentStandard\": {\r\n    \"title\": \"State Essential Knowledge and Skills\",\r\n    \"authors\": []\r\n  },\r\n  \"assessmentIdentifier\": \"TEST-ASSESSMENT-IDENTIFIER\",\r\n  \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n  \"assessmentCategoryDescriptor\": \"uri://ed-fi.org/AssessmentCategoryDescriptor#Benchmark test\",\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2021-2022\",\r\n  \"assessmentVersion\": 2021,\r\n  \"maxRawScore\": 10.00000,\r\n  \"revisionDate\": \"2021-09-19\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"assessedGradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\"\r\n    }\r\n  ],\r\n  \"identificationCodes\": [\r\n    {\r\n      \"assessmentIdentificationSystemDescriptor\": \"uri://ed-fi.org/AssessmentIdentificationSystemDescriptor#Test Contractor\",\r\n      \"identificationCode\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\"\r\n    }\r\n  ],\r\n  \"languages\": [\r\n    {\r\n      \"languageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\"\r\n    }\r\n  ],\r\n  \"performanceLevels\": [],\r\n  \"periods\": [],\r\n  \"platformTypes\": [],\r\n  \"programs\": [],\r\n  \"scores\": [\r\n    {\r\n      \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n      \"maximumScore\": \"10\",\r\n      \"minimumScore\": \"0\",\r\n      \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n    }\r\n  ],\r\n  \"sections\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id:new}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:assessment:id:new}}"
 									]
 								}
 							},
