@@ -116,9 +116,11 @@ namespace EdFi.Ods.Common.Extensions
             {
                 if (!itemCreatable)
                 {
+                    // Use context provider to note the potential Data Policy Exception here (which applies only if the resource
+                    // is being created, otherwise the SynchronizeCollectionTo method to the existing entity will handle any
+                    // data policy violations).
                     string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                    throw new DataPolicyException(profileName, itemType.Name);
+                    GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
                 }
 
                 var targetItem = (TTarget) Activator.CreateInstance(itemType);

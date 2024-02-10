@@ -24,6 +24,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IUpdateEntity<TEntity> _updateEntity;
         private readonly IContextProvider<UniqueIdLookupsByUsiContext> _lookupContextProvider;
         private readonly IPersonUniqueIdResolver _personUniqueIdResolver;
+        private readonly IContextProvider<DataPolicyException> _dataPolicyExceptionContextProvider;
 
         public UpsertEntity(
             ISessionFactory sessionFactory,
@@ -32,7 +33,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             ICreateEntity<TEntity> createEntity,
             IUpdateEntity<TEntity> updateEntity,
             IContextProvider<UniqueIdLookupsByUsiContext> lookupContextProvider,
-            IPersonUniqueIdResolver personUniqueIdResolver)
+            IPersonUniqueIdResolver personUniqueIdResolver,
+            IContextProvider<DataPolicyException> dataPolicyExceptionContextProvider)
             : base(sessionFactory)
         {
             _getEntityById = getEntityById;
@@ -41,6 +43,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _updateEntity = updateEntity;
             _lookupContextProvider = lookupContextProvider;
             _personUniqueIdResolver = personUniqueIdResolver;
+            _dataPolicyExceptionContextProvider = dataPolicyExceptionContextProvider;
         }
 
         public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
@@ -76,6 +79,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // If there is no existing entity...
                 if (persistedEntity == null)
                 {
+                    // Check for a data policy exception detected during mapping processing from resource model to entity model
+                    var dataPolicyExceptionFromMapping = _dataPolicyExceptionContextProvider.Get();
+
+                    // If there was a data policy violation detected, throw the exception now that we know we're creating the aggregate
+                    if (dataPolicyExceptionFromMapping != null)
+                    {
+                        throw dataPolicyExceptionFromMapping;
+                    }
+
                     // Create the entity
                     await _createEntity.CreateAsync(entity, enforceOptimisticLock, cancellationToken);
                     persistedEntity = entity;

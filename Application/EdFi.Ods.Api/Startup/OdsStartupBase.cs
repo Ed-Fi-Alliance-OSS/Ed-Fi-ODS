@@ -36,6 +36,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
@@ -413,6 +414,7 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<UsiLookupsByUniqueIdContext>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => (StringComparer) Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>().GetEqualityComparer());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataPolicyException>>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.
