@@ -2132,9 +2132,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
                         if (!(mappingContract?.IsParentCTEProgramCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetParentCTEProgram = Activator.CreateInstance(itemType);
@@ -2163,9 +2167,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
                         if (!(mappingContract?.IsParentTeacherConferenceCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetParentTeacherConference = Activator.CreateInstance(itemType);
@@ -2768,9 +2776,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
                         if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
@@ -2937,9 +2949,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
                         if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStaffPetPreference = Activator.CreateInstance(itemType);
@@ -3366,9 +3382,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
                         if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentPetPreference = Activator.CreateInstance(itemType);
@@ -4094,9 +4114,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
                         if (!(mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetGeneralStudentProgramAssociationParticipationStatus = Activator.CreateInstance(itemType);
@@ -5381,9 +5405,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
                         if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
@@ -6411,9 +6439,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
                         if (!(mappingContract?.IsStudentParentAssociationTelephoneCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentParentAssociationTelephone = Activator.CreateInstance(itemType);

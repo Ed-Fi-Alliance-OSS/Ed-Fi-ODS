@@ -5545,9 +5545,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
                         if (!(mappingContract?.IsEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetEvaluationRatingReviewerReceivedTraining = Activator.CreateInstance(itemType);
@@ -7295,9 +7299,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
                         if (!(mappingContract?.IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetPerformanceEvaluationRatingReviewerReceivedTraining = Activator.CreateInstance(itemType);

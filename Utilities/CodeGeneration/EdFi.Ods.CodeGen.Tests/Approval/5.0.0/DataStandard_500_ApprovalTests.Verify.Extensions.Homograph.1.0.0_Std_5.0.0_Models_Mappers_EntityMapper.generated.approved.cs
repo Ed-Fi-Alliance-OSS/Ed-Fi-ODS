@@ -496,9 +496,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
                         if (!(mappingContract?.IsSchoolAddressCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetSchoolAddress = Activator.CreateInstance(itemType);
@@ -1098,9 +1102,13 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
                         if (!(mappingContract?.IsStudentAddressCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentAddress = Activator.CreateInstance(itemType);

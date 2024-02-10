@@ -2302,9 +2302,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentAggregate
 
                         if (!(mappingContract?.IsAssessmentContentStandardCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetAssessmentContentStandard = Activator.CreateInstance(itemType);
@@ -27554,9 +27558,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GraduationPlanAggregate
 
                         if (!(mappingContract?.IsGraduationPlanRequiredAssessmentPerformanceLevelCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetGraduationPlanRequiredAssessmentPerformanceLevel = Activator.CreateInstance(itemType);
@@ -33842,9 +33850,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LearningStandardAggregate
 
                         if (!(mappingContract?.IsLearningStandardContentStandardCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetLearningStandardContentStandard = Activator.CreateInstance(itemType);
@@ -57405,9 +57417,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationContactAsso
 
                         if (!(mappingContract?.IsStaffEducationOrganizationContactAssociationAddressCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStaffEducationOrganizationContactAssociationAddress = Activator.CreateInstance(itemType);
@@ -60774,9 +60790,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAcademicRecordAggregate
 
                         if (!(mappingContract?.IsStudentAcademicRecordClassRankingCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentAcademicRecordClassRanking = Activator.CreateInstance(itemType);
@@ -62048,9 +62068,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
 
                         if (!(mappingContract?.IsStudentAssessmentPeriodCreatable ?? true))
                         {
-                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-
-                            throw new DataPolicyException(profileName, itemType.Name);
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
                         }
 
                         object targetStudentAssessmentPeriod = Activator.CreateInstance(itemType);
