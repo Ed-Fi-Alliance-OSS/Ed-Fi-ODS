@@ -20,6 +20,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
 using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {

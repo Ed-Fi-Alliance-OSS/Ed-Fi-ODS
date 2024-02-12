@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Quartz;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
 {

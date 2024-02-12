@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Security.Claims
 {

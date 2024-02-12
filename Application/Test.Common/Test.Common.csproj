@@ -17,7 +17,7 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
     <PackageReference Include="FakeItEasy" Version="8.1.0" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">

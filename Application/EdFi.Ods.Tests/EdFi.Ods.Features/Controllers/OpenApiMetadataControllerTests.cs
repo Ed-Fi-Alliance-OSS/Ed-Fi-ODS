@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Routing;
 using NHibernate.Criterion;
 using NUnit.Framework;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {
