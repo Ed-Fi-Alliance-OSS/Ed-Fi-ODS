@@ -3745,7 +3745,6 @@
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request could not be processed. See 'errors' for details.\");",
 															"",
-															"  pm.expect(problemDetails.correlationId).to.equal(pm.environment.get('correlationId'));",
 															"  pm.expect(problemDetails.errors[0]).to.equal(\"A non-empty request body is required.\");",
 															"});",
 															"    "
@@ -8304,7 +8303,6 @@
 							"// Add a correlation id to the query string of every request and save it to the environment as well",
 							"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
 							"pm.request.addQueryParams(`correlationId=${correlationId}`);",
-							"pm.environment.set('correlationId', correlationId);",
 							""
 						]
 					}

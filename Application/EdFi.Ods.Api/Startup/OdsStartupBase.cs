@@ -347,7 +347,9 @@ namespace EdFi.Ods.Api.Startup
                 app.UseOpenApiMetadata();
             }
 
-            app.UseWhen(context => context.Request.Path.StartsWithSegments("/data"),
+            app.UseWhen(context => 
+                context.Request.Path.StartsWithSegments("/data") ||
+                context.Request.Path.StartsWithSegments("/composites"),
                 builder => builder.UseRequestResponseDetailsLogger());
 
             // required to get the base controller working

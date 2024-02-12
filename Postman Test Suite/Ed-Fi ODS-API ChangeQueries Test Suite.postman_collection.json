@@ -4686,6 +4686,10 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a correlation id to the query string of every request and save it to the environment as well",
+					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"",
 					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
 					"",
 					"",

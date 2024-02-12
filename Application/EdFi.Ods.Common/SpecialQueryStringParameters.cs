@@ -36,7 +36,7 @@ namespace EdFi.Ods.Common
         /// <summary>
         /// Gets the name of the parameter used for debugging/diagnostic correlation of request with their log entries.
         /// </summary>
-        public static readonly string CorrelationId = "$correlationId";
+        public static readonly string CorrelationId = "correlationId";
 
         /// <summary>
         /// Gets the names of all of the supported special parameters.
