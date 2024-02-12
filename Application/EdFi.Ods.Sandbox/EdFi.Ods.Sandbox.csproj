@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Sandbox</AssemblyName>
     <RootNamespace>EdFi.Ods.Sandbox</RootNamespace>
     <RestorePackages>true</RestorePackages>
@@ -20,13 +20,10 @@
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
