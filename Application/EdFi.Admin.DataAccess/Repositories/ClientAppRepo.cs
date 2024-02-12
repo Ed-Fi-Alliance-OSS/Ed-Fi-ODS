@@ -227,10 +227,12 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Clients.Include(c => c.Application)
-                    .ThenInclude(c => c.Vendor)
-                    .ThenInclude(c => c.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
+                return context.Clients
+                    .Include(c => c.Application)
+                        .ThenInclude(c => c.Vendor)
+                        .ThenInclude(c => c.VendorNamespacePrefixes)
+                    .Include(c => c.Application)
+                        .ThenInclude(c => c.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefault(c => c.Key == key);
@@ -241,10 +243,12 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return await context.Clients.Include(c => c.Application)
-                    .Include(c => c.Application.Vendor)
-                    .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
+                return await context.Clients
+                    .Include(c => c.Application)
+                        .ThenInclude(c => c.Vendor)
+                        .ThenInclude(c => c.VendorNamespacePrefixes)
+                    .Include(c => c.Application)
+                        .ThenInclude(c => c.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipTokenId)
                     .FirstOrDefaultAsync(c => c.Key == key);
@@ -283,11 +287,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var client = context.Clients.First(x => x.Key == key);
 
-                // TODO SF: AA-518
-                // Assuming that this is used by Admin App, although that will not actually be clear
-                // until we are able to start testing Admin App thoroughly.
-                // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
-                // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
                 context.ExecuteSqlCommandAsync(
                     @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
                     client.ApiClientId).Wait();
