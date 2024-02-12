@@ -102,3 +102,4 @@ appsettings.Development.json
 *.trx
 
 NugetPackages/
+/Application/EdFi.Ods.Standard/Artifacts/Metadata/DatabaseViews.generated.json
