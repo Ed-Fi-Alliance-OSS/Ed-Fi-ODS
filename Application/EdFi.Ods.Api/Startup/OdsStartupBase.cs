@@ -49,12 +49,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Common;
 
 namespace EdFi.Ods.Api.Startup
@@ -367,8 +365,6 @@ namespace EdFi.Ods.Api.Startup
                             .GetResourceModel());
 
                 EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
-
-                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
 
                 // Set NHibernate to use Autofac to resolve its dependencies
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);

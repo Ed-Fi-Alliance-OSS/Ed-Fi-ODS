@@ -5,6 +5,7 @@
 
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.ChangeQueries.ActionResults
@@ -25,7 +26,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ActionResults
                 StatusCode = (int) HttpStatusCode.MethodNotAllowed,
             };
 
-            context.HttpContext.Response.Headers.Add("Allow", "GET");
+            context.HttpContext.Response.Headers.Append("Allow", "GET");
 
             await objectResult.ExecuteResultAsync(context);
         }

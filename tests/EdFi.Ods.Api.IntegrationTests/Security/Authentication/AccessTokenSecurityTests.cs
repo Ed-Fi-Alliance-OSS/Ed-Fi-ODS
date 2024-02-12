@@ -15,11 +15,9 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.Entity;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Api.Security.Authentication;
 using Npgsql;
 
@@ -63,7 +61,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
             _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             _connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
+
             var userContextFactory = new UsersContextFactory(_connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
 
@@ -111,7 +109,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 });
 
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected ClientAccessToken LoadAnAccessToken(ApiClient client, DateTime expiration)
@@ -125,14 +123,14 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected Vendor LoadAVendor()
         {
             var a = TestFixtureContext.Vendors.Add(new Vendor());
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAVendorNamespacePrefix(Vendor vendor, string namespacePrefix)
@@ -159,7 +157,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected ApplicationEducationOrganization LoadAnApplicationEducationOrganization(Application application,
@@ -174,7 +172,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 });
 
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAProfile(Application application, string profileName)

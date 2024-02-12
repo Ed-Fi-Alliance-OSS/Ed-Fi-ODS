@@ -8,6 +8,7 @@ using EdFi.Ods.Common.Configuration;
 using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
+using Quartz.AspNetCore;
 
 namespace EdFi.Ods.Api.ScheduledJobs.Extensions
 {
