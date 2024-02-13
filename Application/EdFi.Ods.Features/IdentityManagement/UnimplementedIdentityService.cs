@@ -9,16 +9,10 @@ using EdFi.Ods.Features.IdentityManagement.Models;
 
 namespace EdFi.Ods.Features.IdentityManagement
 {
-    // Define new interface that closes the generic types for easier use 
-    public interface IUnimplementedIdentityService
-        : IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>,
-            IdentityResponse> {};
-    
-    // Define new interface that closes the generic types for easier use 
-    public interface IUnimplementedIdentityServiceAsync
-        : IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse> {};
-
-    public class UnimplementedIdentityService : IUnimplementedIdentityService, IUnimplementedIdentityServiceAsync
+    /// <summary>
+    /// Implements the Identities service such that it exhibits no capabilities and each method throws <see cref="NotImplementedException" />. 
+    /// </summary>
+    public class UnimplementedIdentityService : IIdentityServiceWithDefaultModels, IIdentityServiceWithDefaultModelsAsync
     {
         public IdentityServiceCapabilities IdentityServiceCapabilities
         {

@@ -13,8 +13,8 @@ namespace EdFi.Ods.Features.IdentityManagement;
 
 /// <summary>
 /// Implements a convention that looks for multiple controllers derived from the abstract <see cref="IdentitiesControllerBase{TCreateRequest, TSearchRequest, TSearchResponse, TIdentityResponse}" />
-/// base controller class, and removes the <see cref="ControllerModel" /> entry for the default out-of-the-box <see cref="UnimplementedIdentitiesController" />
-/// to prevent <see cref="AmbiguousMatchException" /> from occurring when resolving requests for identity management.
+/// base controller class, and removes the <see cref="ControllerModel" /> entry for the default out-of-the-box <see cref="IdentitiesController" />
+/// to prevent <see cref="AmbiguousMatchException" /> from occurring when resolving requests for identity management routes.
 /// </summary>
 public class IdentitiesControllerOverrideConvention : IApplicationModelConvention
 {
@@ -47,7 +47,7 @@ public class IdentitiesControllerOverrideConvention : IApplicationModelConventio
         {
             foreach (var controllerModel in identitiesControllers)
             {
-                if (controllerModel.ControllerType == typeof(UnimplementedIdentitiesController).GetTypeInfo())
+                if (controllerModel.ControllerType == typeof(IdentitiesController).GetTypeInfo())
                 {
                     application.Controllers.Remove(controllerModel);
                 }
