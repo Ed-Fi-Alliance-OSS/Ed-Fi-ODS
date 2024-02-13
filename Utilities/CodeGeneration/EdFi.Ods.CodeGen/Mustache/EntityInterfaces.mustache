@@ -153,27 +153,33 @@ namespace {{EntitiesBaseNamespace}}
             }
         }
 
+    {{#HasMappingContractMembers}}
         bool IMappingContract.IsItemCreatable(string memberName)
         {
             switch (memberName)
             {
-    {{#MappingContractMembers}}
-        {{#ItemTypeName}}
-            {{#IsCollection}}
+        {{#MappingContractMembers}}
+            {{#ItemTypeName}}
+                {{#IsCollection}}
                 case "{{PropertyName}}":
                     return Is{{PropertyName}}ItemCreatable;
-            {{/IsCollection}}
-            {{^IsCollection}}
+                {{/IsCollection}}
+                {{^IsCollection}}
                 case "{{PropertyName}}":
                     return Is{{PropertyName}}Creatable;
-            {{/IsCollection}}
-        {{/ItemTypeName}}
-    {{/MappingContractMembers}}
+                {{/IsCollection}}
+            {{/ItemTypeName}}
+        {{/MappingContractMembers}}
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
 
+    {{/HasMappingContractMembers}}
+    {{^HasMappingContractMembers}}
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
+
+    {{/HasMappingContractMembers}}
     {{#IsExtendable}}
         public IReadOnlyList<string> SupportedExtensions { get; }
 

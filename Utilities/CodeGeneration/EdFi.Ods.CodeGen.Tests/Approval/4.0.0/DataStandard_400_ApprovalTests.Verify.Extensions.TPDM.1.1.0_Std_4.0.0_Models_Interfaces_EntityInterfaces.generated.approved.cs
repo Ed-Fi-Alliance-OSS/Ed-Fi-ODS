@@ -822,14 +822,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
 
     }
 
@@ -1279,14 +1272,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
 
     }
 
@@ -1505,14 +1491,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
 
     }
 
@@ -2170,14 +2149,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
 
     }
 
@@ -4665,14 +4637,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
 
     }
 
