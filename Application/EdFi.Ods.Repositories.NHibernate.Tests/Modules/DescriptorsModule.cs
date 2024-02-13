@@ -30,7 +30,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                 .SingleInstance();
 
             builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
-                .Named<IInterceptor>("cache-descriptors")
+                .Named<IInterceptor>(InterceptorCacheKeys.Descriptors)
                 .WithParameter(
                     ctx =>
                     {

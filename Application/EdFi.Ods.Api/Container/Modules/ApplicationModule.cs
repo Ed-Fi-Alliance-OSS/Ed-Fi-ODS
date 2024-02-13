@@ -47,6 +47,7 @@ using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
@@ -208,7 +209,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-api-client-details")
+                .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
                 .WithParameter(
                     ctx =>
                     {
@@ -292,10 +293,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DatabaseEngineSpecificStringComparerProvider>()
                 .As<IDatabaseEngineSpecificEqualityComparerProvider<string>>()
                 .SingleInstance();
-            
-            builder.RegisterType<Mediator>()
-                .As<IMediator>()
-                .SingleInstance();
 
             builder.RegisterType<OdsInstanceConfigurationProvider>()
                 .As<IOdsInstanceConfigurationProvider>()
@@ -339,7 +336,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-ods-instances")
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
                 .WithParameter(
                     ctx =>
                     {
@@ -378,6 +375,9 @@ namespace EdFi.Ods.Api.Container.Modules
             
             builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
                 .As<IEdFiOdsConnectionStringWriter>()
+                .SingleInstance();
+
+            builder.RegisterInstance(TimeProvider.System)
                 .SingleInstance();
 
             RegisterPipeLineStepProviders();
@@ -495,7 +495,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
 
                 builder.RegisterType<CachingInterceptor>()
-                    .Named<IInterceptor>("cache-model-state-key")
+                    .Named<IInterceptor>(InterceptorCacheKeys.ModelStateKey)
                     .WithParameter(ctx => (ICacheProvider<ulong>) new ConcurrentDictionaryCacheProvider<ulong>())
                     .SingleInstance();
             }

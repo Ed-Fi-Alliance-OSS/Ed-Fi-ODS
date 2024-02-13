@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-security")
+                .Named<IInterceptor>(InterceptorCacheKeys.Security)
                 .WithParameter(
                     ctx =>
                     {

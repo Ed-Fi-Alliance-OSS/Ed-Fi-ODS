@@ -6,11 +6,12 @@
 using System;
 using System.Collections.Generic;
 using Autofac.Extras.DynamicProxy;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Api.ExceptionHandling;
 
-[Intercept("cache-model-state-key")]
+[Intercept(InterceptorCacheKeys.ModelStateKey)]
 // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
 public class ModelStateKeyConverter
 {

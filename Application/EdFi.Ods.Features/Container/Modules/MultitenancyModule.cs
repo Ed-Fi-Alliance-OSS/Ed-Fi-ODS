@@ -62,7 +62,7 @@ public class MultiTenancyModule : ConditionalModule
         
         // Override interceptors to include tenant context
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>("cache-security")
+            .Named<IInterceptor>(InterceptorCacheKeys.Security)
             .WithParameter(
                 ctx =>
                 {
@@ -75,7 +75,7 @@ public class MultiTenancyModule : ConditionalModule
             .SingleInstance();
         
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>("cache-api-client-details")
+            .Named<IInterceptor>(InterceptorCacheKeys.ApiClientDetails)
             .WithParameter(
                 ctx =>
                 {
@@ -88,7 +88,7 @@ public class MultiTenancyModule : ConditionalModule
             .SingleInstance();
         
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>("cache-profile-metadata")
+            .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
             .WithParameter(
                 ctx =>
                 {
@@ -101,7 +101,7 @@ public class MultiTenancyModule : ConditionalModule
             .SingleInstance();
         
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-            .Named<IInterceptor>("cache-ods-instances")
+            .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
             .WithParameter(
                 ctx =>
                 {

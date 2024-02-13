@@ -32,7 +32,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 .SingleInstance();
             
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-ods-instances")
+                .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
                 .WithParameter(
                     ctx =>
                     {
@@ -45,7 +45,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 .SingleInstance();
             
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-profile-metadata")
+                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
                 .WithParameter(
                     ctx =>
                     {

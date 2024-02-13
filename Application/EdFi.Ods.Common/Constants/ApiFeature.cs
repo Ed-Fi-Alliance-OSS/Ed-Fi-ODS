@@ -21,6 +21,7 @@ namespace EdFi.Ods.Common.Constants
         public static readonly ApiFeature IdentityManagement = new ApiFeature("identityManagement", "Identity Management");
         public static readonly ApiFeature XsdMetadata = new ApiFeature("xsdMetadata", "Xsd Metadata");
         public static readonly ApiFeature MultiTenancy = new ApiFeature("multiTenancy", "Multi-Tenancy");
+        public static readonly ApiFeature Notifications = new ApiFeature("notifications", "Notifications");
 
         public ApiFeature(string value, string displayName)
             : base(value, displayName) { }

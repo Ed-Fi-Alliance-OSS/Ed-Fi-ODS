@@ -54,7 +54,7 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .Named<IInterceptor>("cache-profile-metadata")
+                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
                 .WithParameter(
                     ctx =>
                     {
