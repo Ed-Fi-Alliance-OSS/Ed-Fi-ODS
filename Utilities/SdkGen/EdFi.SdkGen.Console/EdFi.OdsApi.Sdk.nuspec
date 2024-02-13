@@ -21,6 +21,6 @@
   </metadata>
   <files>
     <file src="readme.txt" target="" />
-    <file src="csharp\src\EdFi.OdsApi.Sdk\bin\$configuration$\net6.0\EdFi.OdsApi.Sdk.dll" target="lib\net6.0" />
+    <file src="csharp\src\EdFi.OdsApi.Sdk\bin\$configuration$\net8.0\EdFi.OdsApi.Sdk.dll" target="lib\net6.0" />
   </files>
 </package>
