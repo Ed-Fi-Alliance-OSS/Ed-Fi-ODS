@@ -7,7 +7,7 @@ name: Dependency Review Pull request
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*']
+    branches: [main, 'b-v*-patch*',feature-*]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

@@ -7,7 +7,7 @@ name: Lib EdFi.LoadTools
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*']
+    branches: [main, 'b-v*-patch*',feature-*]
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
