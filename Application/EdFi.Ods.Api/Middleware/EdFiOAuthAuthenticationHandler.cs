@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Configuration;
 using System.Net.Http.Headers;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -56,7 +55,7 @@ namespace EdFi.Ods.Api.Middleware
                 if (!authHeader.Scheme.EqualsIgnoreCase(BearerHeaderScheme))
                 {
                     _logger.LogDebug(UnknownAuthorizationHeaderScheme);
-                    return AuthenticateResult.NoResult();
+                    return AuthenticateResult.Fail(UnknownAuthorizationHeaderScheme);
                 }
 
                 // If the token value is missing, fail authentication
@@ -65,11 +64,6 @@ namespace EdFi.Ods.Api.Middleware
                     _logger.LogDebug(MissingAuthorizationHeaderBearerTokenValue);
                     return AuthenticateResult.Fail(MissingAuthorizationHeaderBearerTokenValue);
                 }
-            }
-            catch (ConfigurationException)
-            {
-                // The Security repository couldn't open a connection to the Security database
-                throw;
             }
             catch (Exception ex)
             {

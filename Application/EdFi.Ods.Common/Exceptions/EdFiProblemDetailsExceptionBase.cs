@@ -27,6 +27,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  ┌──────────────────────────────┐
   │    └──┤ BadRequestParameterException |
   │       └──────────────────────────────┘
+  │  ┌─────────────────────────────────┐
+  ├──┤ SecurityAuthenticationException | 401 Unauthorized
+  │  └─────────────────────────────────┘
   │  ┌────────────────────────────────┐
   ├──┤ SecurityAuthorizationException | 403 Forbidden
   │  └────────────────────────────────┘
