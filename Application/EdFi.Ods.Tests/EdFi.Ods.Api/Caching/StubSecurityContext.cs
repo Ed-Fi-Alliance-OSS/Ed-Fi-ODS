@@ -19,22 +19,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         public static ISecurityContext GetMockedSecurityContext()
         {
             var securityContext = A.Fake<ISecurityContext>();
-            // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
-            securityContext.Applications = GetFakeDbSet<Application>();
-            securityContext.Actions = GetFakeDbSet<Action>();
-            securityContext.ClaimSets = GetFakeDbSet<ClaimSet>();
-            securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>();
-            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>();
-            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>();
-            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>();
-            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>();
+            
+            securityContext.Applications = null;
+            securityContext.Actions = null;
+            securityContext.ClaimSets = null;
+            securityContext.ResourceClaims = null;
+            securityContext.AuthorizationStrategies = null;
+            securityContext.ClaimSetResourceClaimActions = null;
+            securityContext.ResourceClaimActionAuthorizationStrategies = null;
+            securityContext.ResourceClaimActions = null;
 
             return securityContext;
-        }
-
-        private static DbSet<T> GetFakeDbSet<T>() where T : class
-        {
-            return null;
         }
     }
 }
