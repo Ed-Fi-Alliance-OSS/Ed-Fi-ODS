@@ -4,9 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Security.DataAccess.Contexts;
-using EdFi.Security.DataAccess.Models;
 using FakeItEasy;
-using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 {
@@ -20,14 +18,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         {
             var securityContext = A.Fake<ISecurityContext>();
             
-            securityContext.Applications = null;
-            securityContext.Actions = null;
-            securityContext.ClaimSets = null;
-            securityContext.ResourceClaims = null;
-            securityContext.AuthorizationStrategies = null;
-            securityContext.ClaimSetResourceClaimActions = null;
-            securityContext.ResourceClaimActionAuthorizationStrategies = null;
-            securityContext.ResourceClaimActions = null;
+            securityContext.Applications = null!;
+            securityContext.Actions = null!;
+            securityContext.ClaimSets = null!;
+            securityContext.ResourceClaims = null!;
+            securityContext.AuthorizationStrategies = null!;
+            securityContext.ClaimSetResourceClaimActions = null!;
+            securityContext.ResourceClaimActionAuthorizationStrategies = null!;
+            securityContext.ResourceClaimActions = null!;
 
             return securityContext;
         }
