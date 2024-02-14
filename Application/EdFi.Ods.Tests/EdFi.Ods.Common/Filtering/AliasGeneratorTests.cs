@@ -38,7 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 
                 if (!_actualAliases.Add(nextAlias))
                 {
-                    Assert.Fail("Duplicate alias generated: '{0}'", nextAlias);
+                    Assert.Fail(string.Format("Duplicate alias generated: '{0}'", nextAlias));
                 }
             }
 
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
                         break;
                     }
 
-                    Assert.Fail("Duplicate alias generated: '{0}'", nextAlias);
+                    Assert.Fail(string.Format("Duplicate alias generated: '{0}'", nextAlias));
                 }
             }
 

@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuickGraph;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {
