@@ -7,8 +7,7 @@ name: Pkg EdFi.Ods.Profiles.Sample
 
 on:
   push:
-    branches:
-      - main
+    branches:  [main, 'b-v*-patch*',feature-*]
   workflow_dispatch:
 
 env:
@@ -94,13 +93,13 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.Ods.Profiles.Sample" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.nuspec"
       shell: pwsh
     - name: Install-credential-handler
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-Extensions/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh     
     - name: publish
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
       run: |
