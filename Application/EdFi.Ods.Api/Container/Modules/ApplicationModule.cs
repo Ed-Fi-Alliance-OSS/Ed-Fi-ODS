@@ -464,6 +464,11 @@ namespace EdFi.Ods.Api.Container.Modules
                     .AsSelf()
                     .SingleInstance();
 
+                builder.RegisterType<ComplementErrorDetailsMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
+                    .SingleInstance();
+
                 builder.RegisterType<OAuthContentTypeValidationMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()

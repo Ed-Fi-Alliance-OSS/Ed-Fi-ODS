@@ -79,6 +79,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │  ┌───────────────────────────────┐
   ├──┤ SnapshotsAreReadOnlyException | 405 Method Not Allowed
   │  └───────────────────────────────┘
+  │  ┌───────────────────────────┐
+  ├──┤ MethodNotAllowedException | 405 Method Not Allowed
+  │  └───────────────────────────┘
   │  ┌──────────────────────┐
   ├──┤ NotModifiedException | 304 Not Modified
   │  └──────────────────────┘
