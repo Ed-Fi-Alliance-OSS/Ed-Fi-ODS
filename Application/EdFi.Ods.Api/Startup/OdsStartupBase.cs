@@ -46,6 +46,7 @@ using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -87,6 +88,9 @@ namespace EdFi.Ods.Api.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: Remove once migration to .NET 8 is done
+            services.AddSingleton<IApplicationBuilderFactory, CustomApplicationBuilderFactory>();
+
             // Provide access to the web host environment through the container
             services.AddSingleton(_webHostEnvironment);
 
@@ -349,6 +353,9 @@ namespace EdFi.Ods.Api.Startup
             }
 
             app.UseEdFiApiAuthentication();
+
+            app.UseComplementErrorDetails();
+
             app.UseAuthorization();
 
             // Identifies the current ODS instance for the request

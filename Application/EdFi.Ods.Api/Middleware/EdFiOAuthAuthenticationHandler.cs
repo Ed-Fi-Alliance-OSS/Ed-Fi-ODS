@@ -11,6 +11,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -85,6 +86,16 @@ namespace EdFi.Ods.Api.Middleware
             {
                 return AuthenticateResult.Fail(ex);
             }
+        }
+
+        protected override Task HandleChallengeAsync(AuthenticationProperties properties)
+        {
+            // Base method will set the StatusCode to 401 without checking if the response HasStarted.
+            // If authentication fails in EdFiApiAuthenticationMiddleware, we dont need to set Status code again. 
+            if (Context.Response.StatusCode == StatusCodes.Status401Unauthorized && Context.Response.HasStarted)
+                return Task.FromResult(0);
+
+            return base.HandleChallengeAsync(properties);
         }
     }
 }
