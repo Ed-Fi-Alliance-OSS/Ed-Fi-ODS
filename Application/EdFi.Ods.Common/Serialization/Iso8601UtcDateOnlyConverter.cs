@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -52,14 +53,40 @@ namespace EdFi.Ods.Common.Serialization
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            string originalDateTimeFormat = DateTimeFormat;
+            // Reimplementing the base method to use our custom output format without setting `DateTimeFormat`
+            // because ReadJson uses it (and we want to support all ISO8601 formats during reading).
+            // Note that setting `DateTimeFormat` and restoring it after calling Write introduces a race condition.
+            // The rest of this code is the default implementation and may need to update on version updates.
+            // see https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.2/Src/Newtonsoft.Json/Converters/IsoDateTimeConverter.cs#L79
 
-            // Only set the format for output, then set it back to the original value
-            // This ensures output is a standard format but that the input parse isn't affected
-            // without reimplementing the base method
-            DateTimeFormat = OutputDateFormat;
-            base.WriteJson(writer, value, serializer);
-            DateTimeFormat = originalDateTimeFormat;
+            string text;
+
+            if (value is DateTime dateTime)
+            {
+                if ((DateTimeStyles & DateTimeStyles.AdjustToUniversal) == DateTimeStyles.AdjustToUniversal
+                    || (DateTimeStyles & DateTimeStyles.AssumeUniversal) == DateTimeStyles.AssumeUniversal)
+                {
+                    dateTime = dateTime.ToUniversalTime();
+                }
+
+                text = dateTime.ToString(OutputDateFormat, Culture);
+            }
+            else if (value is DateTimeOffset dateTimeOffset)
+            {
+                if ((DateTimeStyles & DateTimeStyles.AdjustToUniversal) == DateTimeStyles.AdjustToUniversal
+                    || (DateTimeStyles & DateTimeStyles.AssumeUniversal) == DateTimeStyles.AssumeUniversal)
+                {
+                    dateTimeOffset = dateTimeOffset.ToUniversalTime();
+                }
+
+                text = dateTimeOffset.ToString(OutputDateFormat, Culture);
+            }
+            else
+            {
+                throw new JsonSerializationException("Unexpected value when converting date. Expected DateTime or DateTimeOffset");
+            }
+
+            writer.WriteValue(text);
         }
     }
 }
