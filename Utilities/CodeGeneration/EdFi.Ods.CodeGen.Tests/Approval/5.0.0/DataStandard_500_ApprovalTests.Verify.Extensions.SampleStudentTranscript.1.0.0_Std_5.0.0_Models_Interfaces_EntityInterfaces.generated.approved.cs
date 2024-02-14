@@ -85,14 +85,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -168,14 +161,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -239,14 +225,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -322,14 +301,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -378,14 +350,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -447,14 +412,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -530,14 +488,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript
             }
         }
 
-        bool IMappingContract.IsItemCreatable(string memberName)
-        {
-            switch (memberName)
-            {
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 }

@@ -167,7 +167,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                 a.OtherEntity.HasDiscriminator()
                                         })
                                     .ToList(),
-                            HasMappingContractMembers = GetMappingContractMembers(r).Any(),
+                            HasChildMappingContractMembers = r.EmbeddedObjects.Any() || r.Collections.Any(),
                             MappingContractMembers = GetMappingContractMembers(r),
                             IsExtendable = r.IsExtendable()
                         })

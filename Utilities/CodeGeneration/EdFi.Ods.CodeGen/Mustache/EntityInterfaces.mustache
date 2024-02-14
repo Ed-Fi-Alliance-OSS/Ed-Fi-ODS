@@ -153,7 +153,7 @@ namespace {{EntitiesBaseNamespace}}
             }
         }
 
-    {{#HasMappingContractMembers}}
+    {{#HasChildMappingContractMembers}}
         bool IMappingContract.IsItemCreatable(string memberName)
         {
             switch (memberName)
@@ -171,15 +171,15 @@ namespace {{EntitiesBaseNamespace}}
             {{/ItemTypeName}}
         {{/MappingContractMembers}}
                 default:
-                    throw new Exception($"Unknown member '{memberName}'.");
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
-    {{/HasMappingContractMembers}}
-    {{^HasMappingContractMembers}}
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Member '{memberName}' does not exist.");
+    {{/HasChildMappingContractMembers}}
+    {{^HasChildMappingContractMembers}}
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
-    {{/HasMappingContractMembers}}
+    {{/HasChildMappingContractMembers}}
     {{#IsExtendable}}
         public IReadOnlyList<string> SupportedExtensions { get; }
 
