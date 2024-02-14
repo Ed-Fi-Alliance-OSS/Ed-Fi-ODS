@@ -4,14 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Features.Services.Redis;
 using StackExchange.Redis;
 
 namespace EdFi.Ods.Features.ExternalCache.Redis;
 
 public class RedisUniqueIdByUsiMapCache : RedisPersonIdentifierMapCache<int, string>
 {
-    public RedisUniqueIdByUsiMapCache(string configuration, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
-        : base(configuration, absoluteExpirationPeriod, slidingExpirationPeriod) { }
+    public RedisUniqueIdByUsiMapCache(IRedisConnectionProvider redisConnectionProvider, TimeSpan? absoluteExpirationPeriod, TimeSpan? slidingExpirationPeriod)
+        : base(redisConnectionProvider, absoluteExpirationPeriod, slidingExpirationPeriod) { }
 
     protected override string ConvertRedisValue(RedisValue hashValue) => hashValue;
 

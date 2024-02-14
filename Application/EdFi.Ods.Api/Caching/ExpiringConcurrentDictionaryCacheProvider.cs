@@ -124,11 +124,14 @@ namespace EdFi.Ods.Api.Caching
             if (_logger.IsDebugEnabled)
             {
                 _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' cleared (of {_cacheDictionary.Count} entries).");
+                
+                _hits = 0; 
+                _misses = 0;
             }
 
             // Clear the entries of the dictionary
             _cacheDictionary.Clear();
-            
+
             // Recreate the timer
             _timer.Dispose();
             _timer = new Timer(CacheExpired, null, _expirationPeriod, _expirationPeriod);
@@ -140,8 +143,8 @@ namespace EdFi.Ods.Api.Caching
             {
                 _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' expired ({_cacheDictionary.Count} entries cleared after {_hits} hits and {_misses} misses).");
 
-                Interlocked.Exchange(ref _hits, 0); 
-                Interlocked.Exchange(ref _misses, 0);
+                _hits = 0; 
+                _misses = 0;
             }
 
             _cacheDictionary.Clear();

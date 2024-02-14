@@ -6,6 +6,7 @@
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
 using EdFi.Ods.Features.ExternalCache.Redis;
+using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 
@@ -15,7 +16,9 @@ public static class MapCacheTestHelper
 {
     private const string RedisConfiguration = "localhost:6379";
     private static bool? _isRedisAvailable;
-    
+    private static IRedisConnectionProvider _redisConnectionProvider =
+        new RedisConnectionProvider(RedisConfiguration);
+
     public static IEnumerable<IMapCache<(ulong, string, PersonMapType), string, int>> GetUsiByUniqueIdMapCaches(
         int absoluteExpirationMs, 
         int slidingExpirationMs)
@@ -28,7 +31,7 @@ public static class MapCacheTestHelper
         if (IsRedisAvailable())
         {
             yield return new RedisUsiByUniqueIdMapCache(
-                RedisConfiguration,
+                _redisConnectionProvider,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
                 slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
         }
@@ -46,7 +49,7 @@ public static class MapCacheTestHelper
         if (IsRedisAvailable())
         {
             yield return new RedisUniqueIdByUsiMapCache(
-                RedisConfiguration,
+                _redisConnectionProvider,
                 absoluteExpirationPeriod: TimeSpan.FromMilliseconds(absoluteExpirationMs),
                 slidingExpirationPeriod: TimeSpan.FromMilliseconds(slidingExpirationMs));
         }
