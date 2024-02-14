@@ -7,7 +7,7 @@ name: Pkg EdFi.Ods.Extensions.TPDM
 
 on:
   push:
-    branches:  [main, 'b-v*-patch*',feature-*]
+    branches:  [main, 'b-v*-patch*','feature-*']
   
   workflow_dispatch:
     inputs:
