@@ -2748,7 +2748,15 @@
 															"pm.test(\"Status code is 404\", () => {",
 															"    pm.expect(pm.response.code).to.equal(404);",
 															"});",
-															""
+															"",
+															"pm.test(\"Should return a message indicating that the specified resource item could not be found.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The specified resource item could not be found.\");",
+															"",
+															"});"
 														],
 														"type": "text/javascript"
 													}
@@ -3049,6 +3057,58 @@
 													]
 												},
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_getting_a_resource_from_an_nonexistent_endpoint",
+							"item": [
+								{
+									"name": "api_should_fail_with_404_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_404_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the specified resource could not be found.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The specified resource could not be found.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Student",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Student"
+													]
+												}
 											},
 											"response": []
 										}
@@ -5414,6 +5474,73 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "when_posting_a_resource_including_the_id",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_405_code",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const uuid = require('uuid');\r",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+															"function createScenarioId() { return newGuid().substring(0,5); }\r",
+															"pm.environment.set('scenarioId', createScenarioId());\r",
+															"const scenarioId = pm.environment.get('scenarioId');\r",
+															"pm.environment.set('supplied:'+scenarioId+':programdGuid', newGuid());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(405);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the Id should be removed from the URL.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Remove Id from the URL.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Programs/{{supplied:{{scenarioId}}:programdGuid}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Programs",
+														"{{supplied:{{scenarioId}}:programdGuid}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -7438,6 +7565,59 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "when_putting_a_resource_omitting_the_id",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_405_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(405);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the Id is required in the URL.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Id is required in the URL.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				},
@@ -7784,7 +7964,15 @@
 															"pm.test(\"Status code is 404\", () => {",
 															"    pm.expect(pm.response.code).to.equal(404);",
 															"});",
-															""
+															"",
+															"pm.test(\"Should return a message indicating that the resource to delete was not found.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Resource to delete was not found.\");",
+															"",
+															"});"
 														],
 														"type": "text/javascript"
 													}
@@ -8249,6 +8437,59 @@
 														"ed-fi",
 														"students",
 														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_deleting_a_resource_omitting_the_id",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_405_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 405\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(405);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the Id is required in the URL.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Id is required in the URL.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Programs/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Programs",
+														""
 													]
 												}
 											},
