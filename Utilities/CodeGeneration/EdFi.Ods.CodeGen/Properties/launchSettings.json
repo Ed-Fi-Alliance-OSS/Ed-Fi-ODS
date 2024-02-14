@@ -4,13 +4,9 @@
       "commandName": "Project",
       "commandLineArgs": "-e SQLServer --standardVersion 4.0.0"
     },
-    "EdFi.CodeGen - SQLServer (Sample)": {
+    "EdFi.CodeGen - SQLServer 5.0.0": {
       "commandName": "Project",
-      "commandLineArgs": "-e SQLServer --standardVersion 5.0.0 --extensionVersion 1.0.0 --extensionPaths C:\\Projects\\EdFi\\w3\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.Sample"
-    },
-    "EdFi.CodeGen - SQLServer (TPDM)": {
-      "commandName": "Project",
-      "commandLineArgs": "-e SQLServer --standardVersion 5.0.0 --extensionVersion 1.1.0 --extensionPaths C:\\Projects\\EdFi\\w3\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.TPDM"
+      "commandLineArgs": "-e SQLServer --standardVersion 5.0.0"
     },
     "EdFi.CodeGen - PostgreSQL 4.0.0": {
       "commandName": "Project",
