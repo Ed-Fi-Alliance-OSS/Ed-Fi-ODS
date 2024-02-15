@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Net;
+using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Helpers
@@ -14,11 +15,13 @@ namespace EdFi.Ods.Api.Helpers
         /// Gets an IActionResult returning a 404 Not Found status with no response body.
         /// </summary>
         /// <returns></returns>
-        public static IActionResult NotFound()
+        public static IActionResult NotFound(string error)
         {
-            return new ObjectResult(null)
+            var problemDetails = new NotFoundException(error);
+
+            return new ObjectResult(problemDetails)
             {
-                StatusCode = (int) HttpStatusCode.NotFound,
+                StatusCode = problemDetails.Status,
             };
         }
     }

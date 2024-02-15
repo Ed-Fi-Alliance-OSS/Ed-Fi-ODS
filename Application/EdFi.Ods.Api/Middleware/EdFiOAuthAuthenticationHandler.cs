@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Configuration;
 using System.Net.Http.Headers;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -12,6 +11,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Api.Middleware
                 if (!authHeader.Scheme.EqualsIgnoreCase(BearerHeaderScheme))
                 {
                     _logger.LogDebug(UnknownAuthorizationHeaderScheme);
-                    return AuthenticateResult.NoResult();
+                    return AuthenticateResult.Fail(UnknownAuthorizationHeaderScheme);
                 }
 
                 // If the token value is missing, fail authentication
@@ -65,11 +65,6 @@ namespace EdFi.Ods.Api.Middleware
                     _logger.LogDebug(MissingAuthorizationHeaderBearerTokenValue);
                     return AuthenticateResult.Fail(MissingAuthorizationHeaderBearerTokenValue);
                 }
-            }
-            catch (ConfigurationException)
-            {
-                // The Security repository couldn't open a connection to the Security database
-                throw;
             }
             catch (Exception ex)
             {
@@ -91,6 +86,16 @@ namespace EdFi.Ods.Api.Middleware
             {
                 return AuthenticateResult.Fail(ex);
             }
+        }
+
+        protected override Task HandleChallengeAsync(AuthenticationProperties properties)
+        {
+            // Base method will set the StatusCode to 401 without checking if the response HasStarted.
+            // If authentication fails in EdFiApiAuthenticationMiddleware, we dont need to set Status code again. 
+            if (Context.Response.StatusCode == StatusCodes.Status401Unauthorized && Context.Response.HasStarted)
+                return Task.FromResult(0);
+
+            return base.HandleChallengeAsync(properties);
         }
     }
 }
