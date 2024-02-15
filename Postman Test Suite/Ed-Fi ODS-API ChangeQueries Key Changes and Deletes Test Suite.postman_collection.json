@@ -10868,6 +10868,15 @@
 										"exec": [
 											"pm.test(\"Response is 404\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that the resource could not be found.\", () => {\r",
+											"  const problemDetails = pm.response.json();\r",
+											"\r",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The resource nonExisting could not be found.\");\r",
+											"\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -10902,6 +10911,15 @@
 										"exec": [
 											"pm.test(\"Response is 404\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(404)\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that the resource could not be found.\", () => {\r",
+											"  const problemDetails = pm.response.json();\r",
+											"\r",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The resource nonExisting could not be found.\");\r",
+											"\r",
 											"});"
 										],
 										"type": "text/javascript"
