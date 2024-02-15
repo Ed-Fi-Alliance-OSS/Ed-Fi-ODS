@@ -15,69 +15,54 @@ using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.SmokeTest
 {
-    public class PropertyInfoMetadataLookup(Dictionary<string, Entity> entityDictionary,
-        Dictionary<string, Resource> resourceDictionary, List<string> schemaNames)
-        : IPropertyInfoMetadataLookup
+    public class PropertyInfoMetadataLookup : IPropertyInfoMetadataLookup
     {
-        private string _propertyName;
-        private string _parentTypeName;
+        private readonly Dictionary<string, Entity> _entityDictionary;
+        private readonly Dictionary<string, Resource> _resourceDictionary;
+        private readonly List<string> _schemaNames;
+
+        public PropertyInfoMetadataLookup(Dictionary<string, Entity> entityDictionary, Dictionary<string, Resource> resourceDictionary, List<string> schemaNames)
+        {
+            _entityDictionary = entityDictionary;
+            _resourceDictionary = resourceDictionary;
+            _schemaNames = schemaNames;
+        }
 
         public OpenApiParameter GetMetadata(PropertyInfo propInfo)
         {
-            _propertyName = RemoveEscapePrefixesFromPropertyName(propInfo.Name);
-            _parentTypeName = Inflector.MakeInitialLowerCase(propInfo.DeclaringType?.Name);
+            string parentTypeName = Inflector.MakeInitialLowerCase(propInfo.DeclaringType?.Name);
 
-            var resource = resourceDictionary.Values.FirstOrDefault(
-                    r =>
-                        TypeNameHelper.CompareTypeNames(r.Name, _parentTypeName, string.Empty, schemaNames))
+            var resource = _resourceDictionary.Values.FirstOrDefault(
+                r =>
+                TypeNameHelper.CompareTypeNames(r.Name, parentTypeName, string.Empty, _schemaNames))
                 ?.Definition;
 
-            var property = resource?.Properties.FirstOrDefault(
-                x => x.Key.Equals(
-                    _propertyName,
-                    StringComparison.OrdinalIgnoreCase)).Value;
+            var property = resource?.Properties.FirstOrDefault(x => x.Key.Equals(
+                Regex.Replace(propInfo.Name, @"_", string.Empty),
+                StringComparison.InvariantCultureIgnoreCase)).Value;
 
             // check for any definition if we could not find the the property from the resource
             if (property == null)
             {
-                resource = entityDictionary.Values
-                    .FirstOrDefault(
-                        r => r.Name.Equals(
-                            _parentTypeName, StringComparison.OrdinalIgnoreCase))
+                resource = _entityDictionary.Values
+                    .FirstOrDefault(r => r.Name.Equals(parentTypeName, StringComparison.InvariantCultureIgnoreCase))
                     ?.Definition;
+                property = resource?.Properties.FirstOrDefault(x => x.Key.Equals(
+                    Regex.Replace(propInfo.Name, @"_", string.Empty),
+                    StringComparison.InvariantCultureIgnoreCase)).Value;
 
-                property = resource?.Properties.FirstOrDefault(
-                    x => x.Key.Equals(
-                        _propertyName,
-                        StringComparison.OrdinalIgnoreCase)).Value;
             }
 
             var required = resource?.Required?.FirstOrDefault(
                 p => p.Equals(
-                    _propertyName,
-                    StringComparison.OrdinalIgnoreCase));
+                    Regex.Replace(propInfo.Name, @"_", string.Empty),
+                    StringComparison.InvariantCultureIgnoreCase));
 
             return new OpenApiParameter
             {
                 Required = required != null,
-                Schema = new OpenApiSchema
-                {
-                    Minimum = property?.Minimum,
-                    Maximum = property?.Maximum,
-                    MinLength = property?.MinLength,
-                    MaxLength = property?.MaxLength
-                }
+                Schema = new OpenApiSchema { Minimum = property?.Minimum, Maximum = property?.Maximum, MinLength = property?.MinLength, MaxLength = property?.MaxLength }
             };
         }
-
-        /// <summary>
-        /// Removes the escape prefix ("Var") added by the OpenApi client code generation utility to property names which are also reserved words in C# (i.e. "Namespace"). 
-        /// </summary>
-        /// <param name="openApiPropertyName">The property name from the generated API client model.</param>
-        /// <returns>The property name with the prefix added during OpenApi client code generation removed.</returns>
-        private static string RemoveEscapePrefixesFromPropertyName(string openApiPropertyName)
-            => Regex.Replace(
-                Regex.Replace(openApiPropertyName, "^VarNamespace$", "Namespace")
-                , @"_", string.Empty);
     }
 }
