@@ -5262,7 +5262,12 @@
 													"pm.test(\"Response is  409\", () => {",
 													"    pm.expect(pm.response.code).to.equal(409) ",
 													" });",
-													""
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result for invalid-reference conflict\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");",
+													"});"
 												],
 												"type": "text/javascript"
 											}

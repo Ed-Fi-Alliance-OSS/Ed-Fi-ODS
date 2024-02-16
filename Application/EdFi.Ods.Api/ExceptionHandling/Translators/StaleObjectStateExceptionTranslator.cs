@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 // This is probably a timing issue and is not expected under normal operations, so we'll log it.
                 _logger.Error(ex);
                 
-                problemDetails = new ConflictException(
+                problemDetails = new NaturalKeyConflictException(
                     "A natural key conflict occurred when attempting to update a new resource with a duplicate key.");
 
                 return true;

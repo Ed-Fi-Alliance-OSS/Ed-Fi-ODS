@@ -42,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
         }
 
         [Test]
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
         }
 
         [Test]

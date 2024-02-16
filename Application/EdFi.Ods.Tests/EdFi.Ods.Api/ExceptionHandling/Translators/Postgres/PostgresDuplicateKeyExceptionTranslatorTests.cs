@@ -183,7 +183,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
                     () => actualError.Detail.ShouldBe("The value supplied for property 'Property1' of entity 'Something' is not unique.") 
                 );
             }
@@ -231,7 +231,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
                     () => actualError.Detail.ShouldBe("The values supplied for properties 'Property1', 'Property2' of entity 'Something' are not unique.") 
                 );
             }
@@ -277,7 +277,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
                     () => actualError.Detail.ShouldBe("The value(s) supplied for the resource are not unique.")
                 );
             }
@@ -327,7 +327,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
                     () => actualError.Detail.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
                 );
             }
