@@ -9,7 +9,10 @@ using EdFi.Ods.Features.IdentityManagement.Models;
 
 namespace EdFi.Ods.Features.IdentityManagement
 {
-    public class UnimplementedIdentityService : IIdentityService, IIdentityServiceAsync
+    /// <summary>
+    /// Implements the Identities service such that it exhibits no capabilities and each method throws <see cref="NotImplementedException" />. 
+    /// </summary>
+    public class UnimplementedIdentityService : IIdentityServiceWithDefaultModels, IIdentityServiceWithDefaultModelsAsync
     {
         public IdentityServiceCapabilities IdentityServiceCapabilities
         {
@@ -21,27 +24,27 @@ namespace EdFi.Ods.Features.IdentityManagement
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest)
+        Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Find(params string[] findRequest)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Search(params IdentitySearchRequest[] searchRequest)
+        Task<IdentityResponseStatus<string>> IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Search(params IdentitySearchRequest[] searchRequest)
         {
             throw new NotImplementedException();
         }
 
-        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Search(params IdentitySearchRequest[] searchRequest)
+        public Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> Response(string requestToken)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Response(string requestToken)
+        Task<IdentityResponseStatus<string>> IIdentityServiceAsync<IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Find(params string[] findRequest)
         {
             throw new NotImplementedException();
         }
 
-        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Find(params string[] findRequest)
+        Task<IdentityResponseStatus<IdentitySearchResponse<IdentityResponse>>> IIdentityService<IdentityCreateRequest, IdentitySearchRequest, IdentitySearchResponse<IdentityResponse>, IdentityResponse>.Search(params IdentitySearchRequest[] searchRequest)
         {
             throw new NotImplementedException();
         }

@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     var message = string.Format(MessageFormat, resourceEntity.Name, columnNames, values);
 
-                    problemDetails = new ConflictException(message);
+                    problemDetails = new NaturalKeyConflictException(message);
                     return true;
                 }
             }
