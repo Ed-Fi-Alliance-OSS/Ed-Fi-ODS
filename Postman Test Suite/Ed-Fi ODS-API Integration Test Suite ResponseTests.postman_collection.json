@@ -5428,7 +5428,7 @@
 															"\r",
 															"pm.test(\"Should return a problem details result\", () => {\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict\");\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");\r",
 															"  pm.expect(problemDetails.detail).to.equal(\"The referenced 'Student' resource does not exist.\");\r",
 															"});\r",
 															"\r",
@@ -7910,7 +7910,13 @@
 															"pm.test(\"Status code is 409\", () => {",
 															"    pm.expect(pm.response.code).to.equal(409);",
 															"});",
-															""
+															"const problemDetails = pm.response.json();",
+															"",
+															"pm.test(\"Should return a problem details result for invalid-reference conflict\", () => {",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");",
+															"",
+															"});"
 														],
 														"type": "text/javascript"
 													}

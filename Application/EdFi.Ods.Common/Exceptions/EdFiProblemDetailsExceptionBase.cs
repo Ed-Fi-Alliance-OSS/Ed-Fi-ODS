@@ -43,6 +43,16 @@ namespace EdFi.Ods.Common.Exceptions;
   │  ┌───────────────────┐
   ├──┤ ConflictException | 409 Conflict
   │  └───────────────────┘
+  │    △
+  │    │  ┌─────────────────────────────┐
+  │    ├──┤ NonUniqueConflictException  |
+  │    │  └─────────────────────────────┘
+  │    │  ┌──────────────────────────────────────┐
+  │    │──┤  InvalidReferenceConflictException   |
+  │    │  └──────────────────────────────────────┘
+ │     │  ┌──────────────────────────────────────┐
+  │    └──┤   NaturalKeyConflictException        |
+  │       └──────────────────────────────────────┘
   │  ┌──────────────────────┐
   ├──┤ ConcurrencyException | 412 Precondition Failed
   │  └──────────────────────┘

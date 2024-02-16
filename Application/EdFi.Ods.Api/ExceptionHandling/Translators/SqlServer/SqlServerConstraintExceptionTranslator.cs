@@ -94,7 +94,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     string errorMessage = string.Format(errorMessageFormat, tableName, columnName);
 
-                    problemDetails = new ConflictException(errorMessage);
+                    problemDetails = new InvalidReferenceConflictException(errorMessage);
 
                     return true;
                 }
