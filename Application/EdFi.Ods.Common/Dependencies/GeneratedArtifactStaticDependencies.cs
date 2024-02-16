@@ -6,12 +6,10 @@
 using System;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Common.Dependencies
