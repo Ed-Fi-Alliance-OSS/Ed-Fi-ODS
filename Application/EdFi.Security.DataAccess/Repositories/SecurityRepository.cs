@@ -35,7 +35,7 @@ namespace EdFi.Security.DataAccess.Repositories
         private Application GetApplication()
         {
             using var context = _securityContextFactory.CreateContext();
-            
+
             return context.Applications.AsEnumerable().First(
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
