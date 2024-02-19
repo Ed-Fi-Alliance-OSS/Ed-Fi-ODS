@@ -15,6 +15,7 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 {

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.Engine;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {

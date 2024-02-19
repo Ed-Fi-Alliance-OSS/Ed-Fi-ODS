@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
 {

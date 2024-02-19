@@ -3,19 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Configuration;
+using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.CommonTests;
-using NUnit.Framework;
-using Moq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Moq;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
