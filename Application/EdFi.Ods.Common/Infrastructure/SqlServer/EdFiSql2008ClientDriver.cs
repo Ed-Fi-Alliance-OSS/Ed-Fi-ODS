@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
     /// Overrides the NHibernate SQL client driver's OnBeforePrepare method to modify
     /// the generated SQL to correctly use any table-valued parameters that are present.
     /// </summary>
-    public class EdFiSql2008ClientDriver : MicrosoftDataSqlClientDriver // Sql2008ClientDriver use System.Data.SqlClient
+    public class EdFiSql2008ClientDriver : MicrosoftDataSqlClientDriver
     {
         /// <summary>
         /// Search for use of SQL Server table-value parameters in the SqlCommand, and modify
