@@ -36,7 +36,7 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.Applications.First(
+            return context.Applications.AsEnumerable().First(
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
 
@@ -84,7 +84,8 @@ namespace EdFi.Security.DataAccess.Repositories
                 .Include(csrc => csrc.ClaimSet)
                 .Include(csrc => csrc.ClaimSet.Application)
                 .Include(csrc => csrc.ResourceClaim)
-                .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
+                .Include(csrc => csrc.AuthorizationStrategyOverrides)
+                    .ThenInclude(aso => aso.AuthorizationStrategy)
                 .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
 
@@ -108,7 +109,8 @@ namespace EdFi.Security.DataAccess.Repositories
             var resourceClaimActionAuthorizations = context.ResourceClaimActions
                 .Include(rcas => rcas.Action)
                 .Include(rcas => rcas.ResourceClaim)
-                .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
+                .Include(rcas => rcas.AuthorizationStrategies)
+                    .ThenInclude(ast => ast.AuthorizationStrategy.Application)
                 .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
 

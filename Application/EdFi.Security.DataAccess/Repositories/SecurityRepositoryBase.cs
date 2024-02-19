@@ -85,7 +85,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual Action GetActionByName(string actionName)
         {
-            return Actions.Value.First(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
+            return Actions.Value.FirstOrDefault(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
@@ -96,7 +96,8 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-            return ClaimSetResourceClaimActions.Value.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
+            return ClaimSetResourceClaimActions.Value.AsEnumerable().
+                Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -118,8 +119,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
             try
             {
-                resourceClaim = ResourceClaims
-                    .Value
+                resourceClaim = ResourceClaims.Value.AsEnumerable()
                     .SingleOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
             }
             catch (InvalidOperationException ex)

@@ -85,10 +85,12 @@ namespace EdFi.Ods.Api.Middleware
             }
             catch (DistributedCacheException ex)
             {
+                _logger.LogError(ex, "DistributedCacheException trying AuthenticateAsync");
                 throw new SafeDistributedCacheException(ex.Message);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Exception trying AuthenticateAsync");
                 return AuthenticateResult.Fail(ex);
             }
         }
