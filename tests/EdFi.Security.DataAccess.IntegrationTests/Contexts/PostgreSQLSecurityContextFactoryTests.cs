@@ -5,7 +5,6 @@
 
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
-using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
