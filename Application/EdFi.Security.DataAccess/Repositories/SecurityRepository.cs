@@ -86,7 +86,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 .Include(csrc => csrc.ResourceClaim)
                 .Include(csrc => csrc.AuthorizationStrategyOverrides)
                     .ThenInclude(aso => aso.AuthorizationStrategy)
-                //.Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
 
             // Replace empty lists with null since some consumers expect it that way

@@ -34,7 +34,7 @@ namespace EdFi.Security.DataAccess.Models
         public string ClaimName { get; set; }
 
         [Column("Application_ApplicationId")]
-        public int ApplicationId { get; set; } //******
+        public int ApplicationId { get; set; }
 
         [Required]
         public Application Application { get; set; }

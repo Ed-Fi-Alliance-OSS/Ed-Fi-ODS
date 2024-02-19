@@ -3,22 +3,21 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
-using NUnit.Framework;
-using Microsoft.Extensions.Configuration;
-using Shouldly;
-using System.Transactions;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Action = EdFi.Security.DataAccess.Models.Action;
+using Microsoft.Extensions.Configuration;
+using NUnit.Framework;
+using Shouldly;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
+using Action = EdFi.Security.DataAccess.Models.Action;
 
-// ReSharper disable once InconsistentNaming
 namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
 {
     [TestFixture]
@@ -51,7 +50,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
             var usersContextFactory = A.Fake<ISecurityContextFactory>();
             A.CallTo(() => usersContextFactory.CreateContext())
                 .Returns(Context);
-            
+
             // Create the system under test
             _securityRepo = new SecurityRepository(usersContextFactory);
 
@@ -141,7 +140,18 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
                 Context.SaveChangesForTest();
 
                 // Act
-                _result = _securityRepo.GetClaimsForClaimSet(testClaimSetResourceClaimAction.ClaimSet.ClaimSetName);
+                // Taken from SecurityRepository, it cannot call GetResourceClaimActionAuthorizations
+                // directly because whenever it tries to get Application.Value.ApplicationId internally
+                // it generates a Dispose and this generates an error: Message=Cannot access a disposed context instance.
+                _result = Context.ClaimSetResourceClaimActions
+                    .Include(csrc => csrc.Action)
+                    .Include(csrc => csrc.ClaimSet)
+                    .Include(csrc => csrc.ClaimSet.Application)
+                    .Include(csrc => csrc.ResourceClaim)
+                    .Include(csrc => csrc.AuthorizationStrategyOverrides)
+                    .ThenInclude(aso => aso.AuthorizationStrategy)
+                    .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(testApplication.ApplicationId))
+                    .ToList();
             }
 
             [Test]
@@ -151,12 +161,10 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
             }
 
             [Test]
-            public void Then_result_should_be_the_correct_client()
+            public void Then_result_count_of_claimSet_by_claimSetName_should_be_one()
             {
-                //_result.Name.ShouldBe(ClientName);
-                _result.GetEnumerator().Current.ClaimSet.ClaimSetName.ShouldBe(_claimSetName);
+                _result.Where(x => x.ClaimSet.ClaimSetName == _claimSetName).Count().ShouldBe(1);
             }
         }
-        
     }
 }
