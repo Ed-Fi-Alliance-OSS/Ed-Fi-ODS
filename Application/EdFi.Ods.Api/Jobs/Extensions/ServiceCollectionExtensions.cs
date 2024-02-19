@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
+using Quartz.AspNetCore;
 
 namespace EdFi.Ods.Api.Jobs.Extensions
 {
@@ -12,7 +13,7 @@ namespace EdFi.Ods.Api.Jobs.Extensions
     {
         public static void AddScheduledJobs(this IServiceCollection services)
         {
-            services.AddQuartz(q => { q.UseMicrosoftDependencyInjectionJobFactory(); });
+            services.AddQuartz();
 
             services.AddQuartzServer(options => { options.WaitForJobsToComplete = true; });
         }
