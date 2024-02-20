@@ -30,6 +30,11 @@ namespace EdFi.Common.Security
             {
                 apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key);
 
+                if(apiClientDetails == null)
+                {
+                    new AuthenticationResult { IsAuthenticated = false };
+                }
+
                 apiClientSecret = new ApiClientSecret
                 {
                     Secret = apiClientDetails.Secret,
