@@ -1,4 +1,4 @@
-name: Lib EdFi.Ods.Api Manually triggered build
+name: Lib EdFi.Ods.Api
 
 on:
   workflow_dispatch:
