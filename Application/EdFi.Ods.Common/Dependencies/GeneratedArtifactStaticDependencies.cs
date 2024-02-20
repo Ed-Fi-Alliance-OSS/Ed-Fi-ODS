@@ -6,11 +6,10 @@
 using System;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Common.Dependencies
@@ -29,6 +28,7 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
         private static Lazy<IContextProvider<UniqueIdLookupsByUsiContext>> _uniqueIdLookupsContextProvider;
         private static Lazy<IContextProvider<UsiLookupsByUniqueIdContext>> _usiLookupsContextProvider;
+        private static Lazy<IContextProvider<DataPolicyException>> _dataPolicyExceptionContextProvider;
         private static Lazy<StringComparer> _databaseEngineSpecificStringComparer;
         private static Lazy<IDescriptorResolver> _descriptorResolver;
 
@@ -41,6 +41,7 @@ namespace EdFi.Ods.Common.Dependencies
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
         public static IContextProvider<UniqueIdLookupsByUsiContext> UniqueIdLookupsByUsiContextProvider => _uniqueIdLookupsContextProvider?.Value;
         public static IContextProvider<UsiLookupsByUniqueIdContext> UsiLookupsByUniqueIdContextProvider => _usiLookupsContextProvider?.Value;
+        public static IContextProvider<DataPolicyException> DataPolicyExceptionContextProvider => _dataPolicyExceptionContextProvider?.Value;
         public static StringComparer DatabaseEngineSpecificStringComparer => _databaseEngineSpecificStringComparer?.Value;
         public static IDescriptorResolver DescriptorResolver => _descriptorResolver?.Value;
 
@@ -95,11 +96,16 @@ namespace EdFi.Ods.Common.Dependencies
                 _usiLookupsContextProvider = new Lazy<IContextProvider<UsiLookupsByUniqueIdContext>>(resolver);
             }
 
+            public static void Set(Func<IContextProvider<DataPolicyException>> resolver)
+            {
+                _dataPolicyExceptionContextProvider = new Lazy<IContextProvider<DataPolicyException>>(resolver);
+            }
+
             public static void Set(Func<StringComparer> resolver)
             {
                 _databaseEngineSpecificStringComparer = new Lazy<StringComparer>(resolver);
             }
-            
+
             public static void Set(Func<IDescriptorResolver> resolver)
             {
                 _descriptorResolver = new Lazy<IDescriptorResolver>(resolver);

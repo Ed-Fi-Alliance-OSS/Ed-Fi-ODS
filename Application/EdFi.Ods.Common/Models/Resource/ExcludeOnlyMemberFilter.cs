@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Linq;
 
 namespace EdFi.Ods.Common.Models.Resource
@@ -20,12 +21,12 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public bool ShouldInclude(string memberName)
         {
-            return memberName == "Id" || !_excludedMemberNames.Contains(memberName);
+            return memberName == "Id" || !_excludedMemberNames.Contains(memberName, StringComparer.OrdinalIgnoreCase);
         }
 
         public bool ShouldIncludeExtension(string extensionName)
         {
-            return !_excludedExtensionNames.Contains(extensionName);
+            return !_excludedExtensionNames.Contains(extensionName, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

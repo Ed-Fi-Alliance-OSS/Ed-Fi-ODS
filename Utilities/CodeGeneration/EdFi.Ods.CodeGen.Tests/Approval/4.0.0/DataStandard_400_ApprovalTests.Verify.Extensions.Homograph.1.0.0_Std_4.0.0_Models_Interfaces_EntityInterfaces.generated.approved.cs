@@ -58,6 +58,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -94,21 +96,27 @@ namespace EdFi.Ods.Entities.Common.Homograph
             bool isParentAddressesSupported,
             bool isParentNameReferenceSupported,
             bool isParentStudentSchoolAssociationsSupported,
+            bool isParentAddressesItemCreatable,
             Func<IParentAddress, bool> isParentAddressIncluded,
+            bool isParentStudentSchoolAssociationsItemCreatable,
             Func<IParentStudentSchoolAssociation, bool> isParentStudentSchoolAssociationIncluded
             )
         {
             IsParentAddressesSupported = isParentAddressesSupported;
             IsParentNameReferenceSupported = isParentNameReferenceSupported;
             IsParentStudentSchoolAssociationsSupported = isParentStudentSchoolAssociationsSupported;
+            IsParentAddressesItemCreatable = isParentAddressesItemCreatable;
             IsParentAddressIncluded = isParentAddressIncluded;
+            IsParentStudentSchoolAssociationsItemCreatable = isParentStudentSchoolAssociationsItemCreatable;
             IsParentStudentSchoolAssociationIncluded = isParentStudentSchoolAssociationIncluded;
         }
 
         public bool IsParentAddressesSupported { get; }
         public bool IsParentNameReferenceSupported { get; }
         public bool IsParentStudentSchoolAssociationsSupported { get; }
+        public bool IsParentAddressesItemCreatable { get; }
         public Func<IParentAddress, bool> IsParentAddressIncluded { get; }
+        public bool IsParentStudentSchoolAssociationsItemCreatable { get; }
         public Func<IParentStudentSchoolAssociation, bool> IsParentStudentSchoolAssociationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -128,6 +136,19 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ParentAddresses":
+                    return IsParentAddressesItemCreatable;
+                case "ParentStudentSchoolAssociations":
+                    return IsParentStudentSchoolAssociationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -175,6 +196,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -236,6 +259,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -270,17 +295,20 @@ namespace EdFi.Ods.Entities.Common.Homograph
         public SchoolMappingContract(
             bool isSchoolAddressSupported,
             bool isSchoolYearSupported,
-            bool isSchoolYearTypeReferenceSupported
+            bool isSchoolYearTypeReferenceSupported,
+            bool isSchoolAddressCreatable
             )
         {
             IsSchoolAddressSupported = isSchoolAddressSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
+            IsSchoolAddressCreatable = isSchoolAddressCreatable;
         }
 
         public bool IsSchoolAddressSupported { get; }
         public bool IsSchoolYearSupported { get; }
         public bool IsSchoolYearTypeReferenceSupported { get; }
+        public bool IsSchoolAddressCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -297,6 +325,17 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "SchoolAddress":
+                    return IsSchoolAddressCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -347,6 +386,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -391,6 +432,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -427,21 +470,27 @@ namespace EdFi.Ods.Entities.Common.Homograph
             bool isStaffAddressesSupported,
             bool isStaffNameReferenceSupported,
             bool isStaffStudentSchoolAssociationsSupported,
+            bool isStaffAddressesItemCreatable,
             Func<IStaffAddress, bool> isStaffAddressIncluded,
+            bool isStaffStudentSchoolAssociationsItemCreatable,
             Func<IStaffStudentSchoolAssociation, bool> isStaffStudentSchoolAssociationIncluded
             )
         {
             IsStaffAddressesSupported = isStaffAddressesSupported;
             IsStaffNameReferenceSupported = isStaffNameReferenceSupported;
             IsStaffStudentSchoolAssociationsSupported = isStaffStudentSchoolAssociationsSupported;
+            IsStaffAddressesItemCreatable = isStaffAddressesItemCreatable;
             IsStaffAddressIncluded = isStaffAddressIncluded;
+            IsStaffStudentSchoolAssociationsItemCreatable = isStaffStudentSchoolAssociationsItemCreatable;
             IsStaffStudentSchoolAssociationIncluded = isStaffStudentSchoolAssociationIncluded;
         }
 
         public bool IsStaffAddressesSupported { get; }
         public bool IsStaffNameReferenceSupported { get; }
         public bool IsStaffStudentSchoolAssociationsSupported { get; }
+        public bool IsStaffAddressesItemCreatable { get; }
         public Func<IStaffAddress, bool> IsStaffAddressIncluded { get; }
+        public bool IsStaffStudentSchoolAssociationsItemCreatable { get; }
         public Func<IStaffStudentSchoolAssociation, bool> IsStaffStudentSchoolAssociationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -461,6 +510,19 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StaffAddresses":
+                    return IsStaffAddressesItemCreatable;
+                case "StaffStudentSchoolAssociations":
+                    return IsStaffStudentSchoolAssociationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -508,6 +570,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -569,6 +633,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -608,19 +674,22 @@ namespace EdFi.Ods.Entities.Common.Homograph
             bool isSchoolYearSupported,
             bool isSchoolYearTypeReferenceSupported,
             bool isStudentAddressSupported,
-            bool isStudentNameReferenceSupported
+            bool isStudentNameReferenceSupported,
+            bool isStudentAddressCreatable
             )
         {
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
             IsStudentAddressSupported = isStudentAddressSupported;
             IsStudentNameReferenceSupported = isStudentNameReferenceSupported;
+            IsStudentAddressCreatable = isStudentAddressCreatable;
         }
 
         public bool IsSchoolYearSupported { get; }
         public bool IsSchoolYearTypeReferenceSupported { get; }
         public bool IsStudentAddressSupported { get; }
         public bool IsStudentNameReferenceSupported { get; }
+        public bool IsStudentAddressCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -641,6 +710,17 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentAddress":
+                    return IsStudentAddressCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -688,6 +768,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -754,6 +836,8 @@ namespace EdFi.Ods.Entities.Common.Homograph
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 }

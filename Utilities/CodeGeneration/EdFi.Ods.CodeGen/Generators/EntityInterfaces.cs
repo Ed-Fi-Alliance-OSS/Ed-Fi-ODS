@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -166,6 +167,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                 a.OtherEntity.HasDiscriminator()
                                         })
                                     .ToList(),
+                            HasChildMappingContractMembers = r.EmbeddedObjects.Any() || r.Collections.Any(),
                             MappingContractMembers = GetMappingContractMembers(r),
                             IsExtendable = r.IsExtendable()
                         })
@@ -271,52 +273,75 @@ namespace EdFi.Ods.CodeGen.Generators
             }.Contains(p.PropertyName);
         }
 
+        private readonly ConcurrentDictionary<FullName, IEnumerable<object>> _mappingContractMembersByFullName = new();
+
         private IEnumerable<object> GetMappingContractMembers(ResourceClassBase resourceClass)
         {
-            var properties = resourceClass.AllProperties
-
-                // Don't include properties that are not synchronizable
-                .Where(p => p.IsSynchronizedProperty())
-
-                // Don't include identifying properties, with the exception of where UniqueIds are defined
-                .Where(p => !p.IsIdentifying || _personEntitySpecification.IsDefiningUniqueId(resourceClass, p))
-                .Select(p => p.PropertyName)
-
-                // Add embedded object properties
-                .Concat(
-                    resourceClass.EmbeddedObjects.Cast<ResourceMemberBase>()
-                        .Concat(resourceClass.References)
-                        .Concat(resourceClass.Extensions)
-                        .Concat(resourceClass.Collections)
-                        .Select(rc => rc.PropertyName))
-                .Distinct()
-                .OrderBy(pn => pn)
-                .Select(pn => new
+            return _mappingContractMembersByFullName.GetOrAdd(resourceClass.FullName,
+                static (fn, args) =>
                 {
-                    PropertyName = pn,
-                    ItemTypeName = null as string,
-                });
+                    var rc = args.resourceClass;
+                    var personEntitySpecification = args.personEntitySpecification;
+                    
+                    var properties = rc.AllProperties
 
-            var collections = resourceClass.Collections
-                .OrderBy(c => c.ItemType.Name)
-                .Select(c => new
-                {
-                    PropertyName = c.PropertyName,
-                    ItemTypeName = c.ItemType.Name
-                });
+                        // Don't include properties that are not synchronizable
+                        .Where(p => p.IsSynchronizedProperty())
 
-            var members = properties
-                .Concat(collections)
-                .ToList();
-        
-            return members.Select(
-                x =>
-                    new
-                    {
-                        PropertyName = x.PropertyName,
-                        ItemTypeName = x.ItemTypeName,
-                        IsLast = x == members.Last() && !resourceClass.IsExtendable()
-                    });
+                        // Don't include identifying properties, with the exception of where UniqueIds are defined
+                        .Where(p => !p.IsIdentifying || personEntitySpecification.IsDefiningUniqueId(rc, p))
+                        .Select(p => p.PropertyName)
+
+                        // Add embedded object properties
+                        .Concat(
+                            rc.EmbeddedObjects.Cast<ResourceMemberBase>()
+                                .Concat(rc.References)
+                                .Concat(rc.Extensions)
+                                .Concat(rc.Collections)
+                                .Select(rc => rc.PropertyName))
+                        .Distinct()
+                        .OrderBy(pn => pn)
+                        .Select(pn => new
+                        {
+                            PropertyName = pn,
+                            ItemTypeName = null as string,
+                            IsCollection = false,
+                        });
+
+                    var embeddedObjects = rc.EmbeddedObjects
+                        .OrderBy(c => c.ObjectType.Name)
+                        .Select(c => new
+                        {
+                            PropertyName = c.PropertyName,
+                            ItemTypeName = c.ObjectType.Name,
+                            IsCollection = false,
+                        });
+
+                    var collections = rc.Collections
+                        .OrderBy(c => c.ItemType.Name)
+                        .Select(c => new
+                        {
+                            PropertyName = c.PropertyName,
+                            ItemTypeName = c.ItemType.Name,
+                            IsCollection = true,
+                        });
+
+                    var members = properties
+                        .Concat(embeddedObjects)
+                        .Concat(collections)
+                        .ToList();
+                
+                    return members.Select(
+                        x =>
+                            new
+                            {
+                                PropertyName = x.PropertyName,
+                                ItemTypeName = x.ItemTypeName,
+                                IsCollection = x.IsCollection,
+                                IsLast = x == members.Last() && !rc.IsExtendable()
+                            });
+                        }, 
+                (resourceClass: resourceClass, personEntitySpecification: _personEntitySpecification));
         }
     }
 }

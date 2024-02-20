@@ -16,4 +16,6 @@ public interface IMappingContract
     /// <param name="memberName">The name of member to be mapped/synchronized.</param>
     /// <returns><b>true</b> if the member is supported; otherwise <b>false</b>.</returns>
     bool IsMemberSupported(string memberName);
+
+    bool IsItemCreatable(string memberName);
 }

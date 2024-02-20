@@ -7,18 +7,20 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Common.Extensions
 {
     public static class CollectionExtensions
     {
-        private static readonly ConcurrentDictionary<Type, Type> _itemTypeByUnderlyingListType =
-            new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> _itemTypeByUnderlyingListType = new();
 
         public static bool SynchronizeCollectionTo<T>(
             this ICollection<T> sourceList,
             ICollection<T> targetList,
             Action<T> onChildAdded,
+            bool itemCreatable,
             Func<T, bool> includeItem = null)
             where T : ISynchronizable //<T>
         {
@@ -67,13 +69,23 @@ namespace EdFi.Ods.Common.Extensions
                 .Except(targetList.Where(i => includeItem == null || includeItem(i)))
                 .ToList();
 
-            foreach (var item in itemsToAdd)
+            if (itemsToAdd.Any())
             {
-                targetList.Add(item);
+                if (!itemCreatable)
+                {
+                    string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
-                onChildAdded?.Invoke(item);
+                    throw new DataPolicyException(profileName, itemsToAdd.First().GetType().Name);
+                }
+                
+                foreach (var item in itemsToAdd)
+                {
+                    targetList.Add(item);
 
-                isModified = true;
+                    onChildAdded?.Invoke(item);
+
+                    isModified = true;
+                }
             }
 
             return isModified;
@@ -82,6 +94,7 @@ namespace EdFi.Ods.Common.Extensions
         public static void MapCollectionTo<TSource, TTarget>(
             this ICollection<TSource> sourceList,
             ICollection<TTarget> targetList,
+            bool itemCreatable = true,
             object parent = null,
             Func<TSource, bool> isItemIncluded = null)
             where TSource : IMappable
@@ -101,6 +114,18 @@ namespace EdFi.Ods.Common.Extensions
 
             foreach (var sourceItem in sourceList.Where(i => isItemIncluded == null || isItemIncluded(i)))
             {
+                if (!itemCreatable)
+                {
+                    // Use context provider to note the potential Data Policy Exception here (which applies only if the resource
+                    // is being created, otherwise the SynchronizeCollectionTo method to the existing entity will handle any
+                    // data policy violations).
+                    if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                    {
+                        string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                    }
+                }
+
                 var targetItem = (TTarget) Activator.CreateInstance(itemType);
 
                 if (parent != null)

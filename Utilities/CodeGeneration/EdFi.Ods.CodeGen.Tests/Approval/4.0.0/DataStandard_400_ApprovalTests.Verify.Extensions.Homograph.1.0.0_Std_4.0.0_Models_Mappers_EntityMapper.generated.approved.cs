@@ -141,6 +141,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                             {
                                 child.Parent = target;
                             },
+                        itemCreatable: mappingContract?.IsParentAddressesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsParentAddressIncluded?.Invoke(item) ?? true);
             }
 
@@ -153,6 +154,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                             {
                                 child.Parent = target;
                             },
+                        itemCreatable: mappingContract?.IsParentStudentSchoolAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsParentStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -194,12 +196,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             if (mappingContract?.IsParentAddressesSupported != false)
             {
-                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target, mappingContract?.IsParentAddressIncluded);
+                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, mappingContract?.IsParentAddressesItemCreatable ?? true, target, mappingContract?.IsParentAddressIncluded);
             }
 
             if (mappingContract?.IsParentStudentSchoolAssociationsSupported != false)
             {
-                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target, mappingContract?.IsParentStudentSchoolAssociationIncluded);
+                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, mappingContract?.IsParentStudentSchoolAssociationsItemCreatable ?? true, target, mappingContract?.IsParentStudentSchoolAssociationIncluded);
             }
 
 
@@ -423,6 +425,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                     if (target.SchoolAddress == null)
                     {
                         var itemType = target.GetType().GetProperty("SchoolAddress").PropertyType;
+            
+                        if (!(mappingContract?.IsSchoolAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.SchoolAddress = (ISchoolAddress) newItem;
                     }
@@ -483,6 +493,18 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsSchoolAddressCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetSchoolAddress = Activator.CreateInstance(itemType);
                         (targetSchoolAddress as IChildEntity)?.SetParent(target);
                         source.SchoolAddress.Map(targetSchoolAddress);
@@ -721,6 +743,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
+                        itemCreatable: mappingContract?.IsStaffAddressesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStaffAddressIncluded?.Invoke(item) ?? true);
             }
 
@@ -733,6 +756,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
+                        itemCreatable: mappingContract?.IsStaffStudentSchoolAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStaffStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -774,12 +798,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             if (mappingContract?.IsStaffAddressesSupported != false)
             {
-                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target, mappingContract?.IsStaffAddressIncluded);
+                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, mappingContract?.IsStaffAddressesItemCreatable ?? true, target, mappingContract?.IsStaffAddressIncluded);
             }
 
             if (mappingContract?.IsStaffStudentSchoolAssociationsSupported != false)
             {
-                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
+                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, mappingContract?.IsStaffStudentSchoolAssociationsItemCreatable ?? true, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
             }
 
 
@@ -1004,6 +1028,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                     if (target.StudentAddress == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentAddress").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentAddressCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentAddress = (IStudentAddress) newItem;
                     }
@@ -1067,6 +1099,18 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentAddressCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetStudentAddress = Activator.CreateInstance(itemType);
                         (targetStudentAddress as IChildEntity)?.SetParent(target);
                         source.StudentAddress.Map(targetStudentAddress);

@@ -389,6 +389,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
+                        itemCreatable: mappingContract?.IsBusRouteBusYearsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsBusRouteBusYearIncluded?.Invoke(item) ?? true);
             }
 
@@ -401,6 +402,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
+                        itemCreatable: mappingContract?.IsBusRouteProgramsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsBusRouteProgramIncluded?.Invoke(item) ?? true);
             }
 
@@ -413,6 +415,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
+                        itemCreatable: mappingContract?.IsBusRouteServiceAreaPostalCodesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsBusRouteServiceAreaPostalCodeIncluded?.Invoke(item) ?? true);
             }
 
@@ -425,6 +428,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
+                        itemCreatable: mappingContract?.IsBusRouteStartTimesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsBusRouteStartTimeIncluded?.Invoke(item) ?? true);
             }
 
@@ -437,6 +441,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
+                        itemCreatable: mappingContract?.IsBusRouteTelephonesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsBusRouteTelephoneIncluded?.Invoke(item) ?? true);
             }
 
@@ -520,27 +525,27 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             if (mappingContract?.IsBusRouteBusYearsSupported != false)
             {
-                source.BusRouteBusYears.MapCollectionTo(target.BusRouteBusYears, target, mappingContract?.IsBusRouteBusYearIncluded);
+                source.BusRouteBusYears.MapCollectionTo(target.BusRouteBusYears, mappingContract?.IsBusRouteBusYearsItemCreatable ?? true, target, mappingContract?.IsBusRouteBusYearIncluded);
             }
 
             if (mappingContract?.IsBusRouteProgramsSupported != false)
             {
-                source.BusRoutePrograms.MapCollectionTo(target.BusRoutePrograms, target, mappingContract?.IsBusRouteProgramIncluded);
+                source.BusRoutePrograms.MapCollectionTo(target.BusRoutePrograms, mappingContract?.IsBusRouteProgramsItemCreatable ?? true, target, mappingContract?.IsBusRouteProgramIncluded);
             }
 
             if (mappingContract?.IsBusRouteServiceAreaPostalCodesSupported != false)
             {
-                source.BusRouteServiceAreaPostalCodes.MapCollectionTo(target.BusRouteServiceAreaPostalCodes, target, mappingContract?.IsBusRouteServiceAreaPostalCodeIncluded);
+                source.BusRouteServiceAreaPostalCodes.MapCollectionTo(target.BusRouteServiceAreaPostalCodes, mappingContract?.IsBusRouteServiceAreaPostalCodesItemCreatable ?? true, target, mappingContract?.IsBusRouteServiceAreaPostalCodeIncluded);
             }
 
             if (mappingContract?.IsBusRouteStartTimesSupported != false)
             {
-                source.BusRouteStartTimes.MapCollectionTo(target.BusRouteStartTimes, target, mappingContract?.IsBusRouteStartTimeIncluded);
+                source.BusRouteStartTimes.MapCollectionTo(target.BusRouteStartTimes, mappingContract?.IsBusRouteStartTimesItemCreatable ?? true, target, mappingContract?.IsBusRouteStartTimeIncluded);
             }
 
             if (mappingContract?.IsBusRouteTelephonesSupported != false)
             {
-                source.BusRouteTelephones.MapCollectionTo(target.BusRouteTelephones, target, mappingContract?.IsBusRouteTelephoneIncluded);
+                source.BusRouteTelephones.MapCollectionTo(target.BusRouteTelephones, mappingContract?.IsBusRouteTelephonesItemCreatable ?? true, target, mappingContract?.IsBusRouteTelephoneIncluded);
             }
 
 
@@ -985,6 +990,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ContactAddress);
                             },
+                        itemCreatable: mappingContract?.IsContactAddressSchoolDistrictsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactAddressSchoolDistrictIncluded?.Invoke(item) ?? true);
             }
 
@@ -1000,6 +1006,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ContactAddress);
                             },
+                        itemCreatable: mappingContract?.IsContactAddressTermsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactAddressTermIncluded?.Invoke(item) ?? true);
             }
 
@@ -1035,12 +1042,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
 
             if (mappingContract?.IsContactAddressSchoolDistrictsSupported != false)
             {
-                source.ContactAddressSchoolDistricts.MapCollectionTo(target.ContactAddressSchoolDistricts, target.ContactAddress, mappingContract?.IsContactAddressSchoolDistrictIncluded);
+                source.ContactAddressSchoolDistricts.MapCollectionTo(target.ContactAddressSchoolDistricts, mappingContract?.IsContactAddressSchoolDistrictsItemCreatable ?? true, target.ContactAddress, mappingContract?.IsContactAddressSchoolDistrictIncluded);
             }
 
             if (mappingContract?.IsContactAddressTermsSupported != false)
             {
-                source.ContactAddressTerms.MapCollectionTo(target.ContactAddressTerms, target.ContactAddress, mappingContract?.IsContactAddressTermIncluded);
+                source.ContactAddressTerms.MapCollectionTo(target.ContactAddressTerms, mappingContract?.IsContactAddressTermsItemCreatable ?? true, target.ContactAddress, mappingContract?.IsContactAddressTermIncluded);
             }
 
 
@@ -1620,6 +1627,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     if (target.ContactCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("ContactCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsContactCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ContactCTEProgram = (IContactCTEProgram) newItem;
                     }
@@ -1643,6 +1658,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     if (target.ContactTeacherConference == null)
                     {
                         var itemType = target.GetType().GetProperty("ContactTeacherConference").PropertyType;
+            
+                        if (!(mappingContract?.IsContactTeacherConferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.ContactTeacherConference = (IContactTeacherConference) newItem;
                     }
@@ -1666,6 +1689,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Contact);
                             },
+                        itemCreatable: mappingContract?.IsContactAuthorsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactAuthorIncluded?.Invoke(item) ?? true);
             }
 
@@ -1681,6 +1705,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Contact);
                             },
+                        itemCreatable: mappingContract?.IsContactCeilingHeightsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactCeilingHeightIncluded?.Invoke(item) ?? true);
             }
 
@@ -1696,6 +1721,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Contact);
                             },
+                        itemCreatable: mappingContract?.IsContactEducationContentsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactEducationContentIncluded?.Invoke(item) ?? true);
             }
 
@@ -1711,6 +1737,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Contact);
                             },
+                        itemCreatable: mappingContract?.IsContactFavoriteBookTitlesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactFavoriteBookTitleIncluded?.Invoke(item) ?? true);
             }
 
@@ -1726,6 +1753,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Contact);
                             },
+                        itemCreatable: mappingContract?.IsContactStudentProgramAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsContactStudentProgramAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -1797,6 +1825,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsContactCTEProgramCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetContactCTEProgram = Activator.CreateInstance(itemType);
                         (targetContactCTEProgram as IChildEntity)?.SetParent(target.Contact);
                         source.ContactCTEProgram.Map(targetContactCTEProgram);
@@ -1820,6 +1860,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsContactTeacherConferenceCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetContactTeacherConference = Activator.CreateInstance(itemType);
                         (targetContactTeacherConference as IChildEntity)?.SetParent(target.Contact);
                         source.ContactTeacherConference.Map(targetContactTeacherConference);
@@ -1835,27 +1887,27 @@ namespace EdFi.Ods.Entities.Common.Sample //.ContactAggregate
 
             if (mappingContract?.IsContactAuthorsSupported != false)
             {
-                source.ContactAuthors.MapCollectionTo(target.ContactAuthors, target.Contact, mappingContract?.IsContactAuthorIncluded);
+                source.ContactAuthors.MapCollectionTo(target.ContactAuthors, mappingContract?.IsContactAuthorsItemCreatable ?? true, target.Contact, mappingContract?.IsContactAuthorIncluded);
             }
 
             if (mappingContract?.IsContactCeilingHeightsSupported != false)
             {
-                source.ContactCeilingHeights.MapCollectionTo(target.ContactCeilingHeights, target.Contact, mappingContract?.IsContactCeilingHeightIncluded);
+                source.ContactCeilingHeights.MapCollectionTo(target.ContactCeilingHeights, mappingContract?.IsContactCeilingHeightsItemCreatable ?? true, target.Contact, mappingContract?.IsContactCeilingHeightIncluded);
             }
 
             if (mappingContract?.IsContactEducationContentsSupported != false)
             {
-                source.ContactEducationContents.MapCollectionTo(target.ContactEducationContents, target.Contact, mappingContract?.IsContactEducationContentIncluded);
+                source.ContactEducationContents.MapCollectionTo(target.ContactEducationContents, mappingContract?.IsContactEducationContentsItemCreatable ?? true, target.Contact, mappingContract?.IsContactEducationContentIncluded);
             }
 
             if (mappingContract?.IsContactFavoriteBookTitlesSupported != false)
             {
-                source.ContactFavoriteBookTitles.MapCollectionTo(target.ContactFavoriteBookTitles, target.Contact, mappingContract?.IsContactFavoriteBookTitleIncluded);
+                source.ContactFavoriteBookTitles.MapCollectionTo(target.ContactFavoriteBookTitles, mappingContract?.IsContactFavoriteBookTitlesItemCreatable ?? true, target.Contact, mappingContract?.IsContactFavoriteBookTitleIncluded);
             }
 
             if (mappingContract?.IsContactStudentProgramAssociationsSupported != false)
             {
-                source.ContactStudentProgramAssociations.MapCollectionTo(target.ContactStudentProgramAssociations, target.Contact, mappingContract?.IsContactStudentProgramAssociationIncluded);
+                source.ContactStudentProgramAssociations.MapCollectionTo(target.ContactStudentProgramAssociations, mappingContract?.IsContactStudentProgramAssociationsItemCreatable ?? true, target.Contact, mappingContract?.IsContactStudentProgramAssociationIncluded);
             }
 
 
@@ -2648,6 +2700,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     if (target.SchoolCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("SchoolCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.SchoolCTEProgram = (ISchoolCTEProgram) newItem;
                     }
@@ -2671,6 +2731,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.School);
                             },
+                        itemCreatable: mappingContract?.IsSchoolDirectlyOwnedBusesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsSchoolDirectlyOwnedBusIncluded?.Invoke(item) ?? true);
             }
 
@@ -2712,6 +2773,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
                         (targetSchoolCTEProgram as IChildEntity)?.SetParent(target.School);
                         source.SchoolCTEProgram.Map(targetSchoolCTEProgram);
@@ -2727,7 +2800,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             if (mappingContract?.IsSchoolDirectlyOwnedBusesSupported != false)
             {
-                source.SchoolDirectlyOwnedBuses.MapCollectionTo(target.SchoolDirectlyOwnedBuses, target.School, mappingContract?.IsSchoolDirectlyOwnedBusIncluded);
+                source.SchoolDirectlyOwnedBuses.MapCollectionTo(target.SchoolDirectlyOwnedBuses, mappingContract?.IsSchoolDirectlyOwnedBusesItemCreatable ?? true, target.School, mappingContract?.IsSchoolDirectlyOwnedBusIncluded);
             }
 
 
@@ -2800,6 +2873,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     if (target.StaffPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StaffPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StaffPetPreference = (IStaffPetPreference) newItem;
                     }
@@ -2823,6 +2904,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Staff);
                             },
+                        itemCreatable: mappingContract?.IsStaffPetsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStaffPetIncluded?.Invoke(item) ?? true);
             }
 
@@ -2864,6 +2946,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStaffPetPreferenceCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetStaffPetPreference = Activator.CreateInstance(itemType);
                         (targetStaffPetPreference as IChildEntity)?.SetParent(target.Staff);
                         source.StaffPetPreference.Map(targetStaffPetPreference);
@@ -2879,7 +2973,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             if (mappingContract?.IsStaffPetsSupported != false)
             {
-                source.StaffPets.MapCollectionTo(target.StaffPets, target.Staff, mappingContract?.IsStaffPetIncluded);
+                source.StaffPets.MapCollectionTo(target.StaffPets, mappingContract?.IsStaffPetsItemCreatable ?? true, target.Staff, mappingContract?.IsStaffPetIncluded);
             }
 
 
@@ -3183,6 +3277,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     if (target.StudentPetPreference == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentPetPreference").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentPetPreference = (IStudentPetPreference) newItem;
                     }
@@ -3206,6 +3308,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
+                        itemCreatable: mappingContract?.IsStudentAquaticPetsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentAquaticPetIncluded?.Invoke(item) ?? true);
             }
 
@@ -3221,6 +3324,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
+                        itemCreatable: mappingContract?.IsStudentFavoriteBooksItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentFavoriteBookIncluded?.Invoke(item) ?? true);
             }
 
@@ -3236,6 +3340,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
+                        itemCreatable: mappingContract?.IsStudentPetsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentPetIncluded?.Invoke(item) ?? true);
             }
 
@@ -3274,6 +3379,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentPetPreferenceCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetStudentPetPreference = Activator.CreateInstance(itemType);
                         (targetStudentPetPreference as IChildEntity)?.SetParent(target.Student);
                         source.StudentPetPreference.Map(targetStudentPetPreference);
@@ -3289,17 +3406,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             if (mappingContract?.IsStudentAquaticPetsSupported != false)
             {
-                source.StudentAquaticPets.MapCollectionTo(target.StudentAquaticPets, target.Student, mappingContract?.IsStudentAquaticPetIncluded);
+                source.StudentAquaticPets.MapCollectionTo(target.StudentAquaticPets, mappingContract?.IsStudentAquaticPetsItemCreatable ?? true, target.Student, mappingContract?.IsStudentAquaticPetIncluded);
             }
 
             if (mappingContract?.IsStudentFavoriteBooksSupported != false)
             {
-                source.StudentFavoriteBooks.MapCollectionTo(target.StudentFavoriteBooks, target.Student, mappingContract?.IsStudentFavoriteBookIncluded);
+                source.StudentFavoriteBooks.MapCollectionTo(target.StudentFavoriteBooks, mappingContract?.IsStudentFavoriteBooksItemCreatable ?? true, target.Student, mappingContract?.IsStudentFavoriteBookIncluded);
             }
 
             if (mappingContract?.IsStudentPetsSupported != false)
             {
-                source.StudentPets.MapCollectionTo(target.StudentPets, target.Student, mappingContract?.IsStudentPetIncluded);
+                source.StudentPets.MapCollectionTo(target.StudentPets, mappingContract?.IsStudentPetsItemCreatable ?? true, target.Student, mappingContract?.IsStudentPetIncluded);
             }
 
 
@@ -3359,6 +3476,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                             {
                                 child.StudentFavoriteBook = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentFavoriteBookArtMediaItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentFavoriteBookArtMediumIncluded?.Invoke(item) ?? true);
             }
 
@@ -3392,7 +3510,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             if (mappingContract?.IsStudentFavoriteBookArtMediaSupported != false)
             {
-                source.StudentFavoriteBookArtMedia.MapCollectionTo(target.StudentFavoriteBookArtMedia, target, mappingContract?.IsStudentFavoriteBookArtMediumIncluded);
+                source.StudentFavoriteBookArtMedia.MapCollectionTo(target.StudentFavoriteBookArtMedia, mappingContract?.IsStudentFavoriteBookArtMediaItemCreatable ?? true, target, mappingContract?.IsStudentFavoriteBookArtMediumIncluded);
             }
 
 
@@ -3800,6 +3918,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                     source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(
                         target.GeneralStudentProgramAssociationProgramParticipationStatuses, 
                         onChildAdded: child => child.GeneralStudentProgramAssociation = target,
+                        itemCreatable: mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded?.Invoke(item) ?? true);
             }
 
@@ -3814,6 +3933,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentArtProgramAssociationArtMediaItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentArtProgramAssociationArtMediumIncluded?.Invoke(item) ?? true);
             }
 
@@ -3826,6 +3946,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentArtProgramAssociationPortfolioYearsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentArtProgramAssociationPortfolioYearsIncluded?.Invoke(item) ?? true);
             }
 
@@ -3838,6 +3959,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentArtProgramAssociationServicesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentArtProgramAssociationServiceIncluded?.Invoke(item) ?? true);
             }
 
@@ -3850,6 +3972,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentArtProgramAssociationStylesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentArtProgramAssociationStyleIncluded?.Invoke(item) ?? true);
             }
 
@@ -3943,29 +4066,29 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             if (mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported != false)
             {
-                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target, mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable ?? true, target, mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
             }
 
             // Map lists
 
             if (mappingContract?.IsStudentArtProgramAssociationArtMediaSupported != false)
             {
-                source.StudentArtProgramAssociationArtMedia.MapCollectionTo(target.StudentArtProgramAssociationArtMedia, target, mappingContract?.IsStudentArtProgramAssociationArtMediumIncluded);
+                source.StudentArtProgramAssociationArtMedia.MapCollectionTo(target.StudentArtProgramAssociationArtMedia, mappingContract?.IsStudentArtProgramAssociationArtMediaItemCreatable ?? true, target, mappingContract?.IsStudentArtProgramAssociationArtMediumIncluded);
             }
 
             if (mappingContract?.IsStudentArtProgramAssociationPortfolioYearsSupported != false)
             {
-                source.StudentArtProgramAssociationPortfolioYears.MapCollectionTo(target.StudentArtProgramAssociationPortfolioYears, target, mappingContract?.IsStudentArtProgramAssociationPortfolioYearsIncluded);
+                source.StudentArtProgramAssociationPortfolioYears.MapCollectionTo(target.StudentArtProgramAssociationPortfolioYears, mappingContract?.IsStudentArtProgramAssociationPortfolioYearsItemCreatable ?? true, target, mappingContract?.IsStudentArtProgramAssociationPortfolioYearsIncluded);
             }
 
             if (mappingContract?.IsStudentArtProgramAssociationServicesSupported != false)
             {
-                source.StudentArtProgramAssociationServices.MapCollectionTo(target.StudentArtProgramAssociationServices, target, mappingContract?.IsStudentArtProgramAssociationServiceIncluded);
+                source.StudentArtProgramAssociationServices.MapCollectionTo(target.StudentArtProgramAssociationServices, mappingContract?.IsStudentArtProgramAssociationServicesItemCreatable ?? true, target, mappingContract?.IsStudentArtProgramAssociationServiceIncluded);
             }
 
             if (mappingContract?.IsStudentArtProgramAssociationStylesSupported != false)
             {
-                source.StudentArtProgramAssociationStyles.MapCollectionTo(target.StudentArtProgramAssociationStyles, target, mappingContract?.IsStudentArtProgramAssociationStyleIncluded);
+                source.StudentArtProgramAssociationStyles.MapCollectionTo(target.StudentArtProgramAssociationStyles, mappingContract?.IsStudentArtProgramAssociationStylesItemCreatable ?? true, target, mappingContract?.IsStudentArtProgramAssociationStyleIncluded);
             }
 
 
@@ -4482,6 +4605,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                     if (target.StudentContactAssociationTelephone == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentContactAssociationTelephone").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentContactAssociationTelephoneCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentContactAssociationTelephone = (IStudentContactAssociationTelephone) newItem;
                     }
@@ -4505,6 +4636,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentContactAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentContactAssociationDisciplinesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentContactAssociationDisciplineIncluded?.Invoke(item) ?? true);
             }
 
@@ -4520,6 +4652,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentContactAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentContactAssociationFavoriteBookTitlesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentContactAssociationFavoriteBookTitleIncluded?.Invoke(item) ?? true);
             }
 
@@ -4535,6 +4668,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentContactAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentContactAssociationHoursPerWeeksItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentContactAssociationHoursPerWeekIncluded?.Invoke(item) ?? true);
             }
 
@@ -4550,6 +4684,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentContactAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentContactAssociationPagesReadsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentContactAssociationPagesReadIncluded?.Invoke(item) ?? true);
             }
 
@@ -4565,6 +4700,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentContactAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -4649,6 +4785,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentContactAssociationTelephoneCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetStudentContactAssociationTelephone = Activator.CreateInstance(itemType);
                         (targetStudentContactAssociationTelephone as IChildEntity)?.SetParent(target.StudentContactAssociation);
                         source.StudentContactAssociationTelephone.Map(targetStudentContactAssociationTelephone);
@@ -4664,27 +4812,27 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentContactAssociationAggregate
 
             if (mappingContract?.IsStudentContactAssociationDisciplinesSupported != false)
             {
-                source.StudentContactAssociationDisciplines.MapCollectionTo(target.StudentContactAssociationDisciplines, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationDisciplineIncluded);
+                source.StudentContactAssociationDisciplines.MapCollectionTo(target.StudentContactAssociationDisciplines, mappingContract?.IsStudentContactAssociationDisciplinesItemCreatable ?? true, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationDisciplineIncluded);
             }
 
             if (mappingContract?.IsStudentContactAssociationFavoriteBookTitlesSupported != false)
             {
-                source.StudentContactAssociationFavoriteBookTitles.MapCollectionTo(target.StudentContactAssociationFavoriteBookTitles, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationFavoriteBookTitleIncluded);
+                source.StudentContactAssociationFavoriteBookTitles.MapCollectionTo(target.StudentContactAssociationFavoriteBookTitles, mappingContract?.IsStudentContactAssociationFavoriteBookTitlesItemCreatable ?? true, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationFavoriteBookTitleIncluded);
             }
 
             if (mappingContract?.IsStudentContactAssociationHoursPerWeeksSupported != false)
             {
-                source.StudentContactAssociationHoursPerWeeks.MapCollectionTo(target.StudentContactAssociationHoursPerWeeks, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationHoursPerWeekIncluded);
+                source.StudentContactAssociationHoursPerWeeks.MapCollectionTo(target.StudentContactAssociationHoursPerWeeks, mappingContract?.IsStudentContactAssociationHoursPerWeeksItemCreatable ?? true, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationHoursPerWeekIncluded);
             }
 
             if (mappingContract?.IsStudentContactAssociationPagesReadsSupported != false)
             {
-                source.StudentContactAssociationPagesReads.MapCollectionTo(target.StudentContactAssociationPagesReads, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationPagesReadIncluded);
+                source.StudentContactAssociationPagesReads.MapCollectionTo(target.StudentContactAssociationPagesReads, mappingContract?.IsStudentContactAssociationPagesReadsItemCreatable ?? true, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationPagesReadIncluded);
             }
 
             if (mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationsSupported != false)
             {
-                source.StudentContactAssociationStaffEducationOrganizationEmploymentAssociations.MapCollectionTo(target.StudentContactAssociationStaffEducationOrganizationEmploymentAssociations, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationIncluded);
+                source.StudentContactAssociationStaffEducationOrganizationEmploymentAssociations.MapCollectionTo(target.StudentContactAssociationStaffEducationOrganizationEmploymentAssociations, mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationsItemCreatable ?? true, target.StudentContactAssociation, mappingContract?.IsStudentContactAssociationStaffEducationOrganizationEmploymentAssociationIncluded);
             }
 
 
@@ -5238,6 +5386,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
+                        itemCreatable: mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded?.Invoke(item) ?? true);
             }
 
@@ -5253,6 +5402,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
+                        itemCreatable: mappingContract?.IsStudentEducationOrganizationAssociationAddressTermsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationAddressTermIncluded?.Invoke(item) ?? true);
             }
 
@@ -5288,12 +5438,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             if (mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported != false)
             {
-                source.StudentEducationOrganizationAssociationAddressSchoolDistricts.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressSchoolDistricts, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded);
+                source.StudentEducationOrganizationAssociationAddressSchoolDistricts.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressSchoolDistricts, mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsItemCreatable ?? true, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded);
             }
 
             if (mappingContract?.IsStudentEducationOrganizationAssociationAddressTermsSupported != false)
             {
-                source.StudentEducationOrganizationAssociationAddressTerms.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressTerms, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressTermIncluded);
+                source.StudentEducationOrganizationAssociationAddressTerms.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressTerms, mappingContract?.IsStudentEducationOrganizationAssociationAddressTermsItemCreatable ?? true, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressTermIncluded);
             }
 
 
@@ -5573,6 +5723,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationStudentCharacteristic);
                             },
+                        itemCreatable: mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded?.Invoke(item) ?? true);
             }
 
@@ -5602,7 +5753,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             if (mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported != false)
             {
-                source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.MapCollectionTo(target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, target.StudentEducationOrganizationAssociationStudentCharacteristic, mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded);
+                source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.MapCollectionTo(target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable ?? true, target.StudentEducationOrganizationAssociationStudentCharacteristic, mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded);
             }
 
 
@@ -5828,6 +5979,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     if (target.StudentGraduationPlanAssociationCTEProgram == null)
                     {
                         var itemType = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
                         var newItem = Activator.CreateInstance(itemType);
                         target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) newItem;
                     }
@@ -5848,6 +6007,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectIncluded?.Invoke(item) ?? true);
             }
 
@@ -5860,6 +6020,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded?.Invoke(item) ?? true);
             }
 
@@ -5872,6 +6033,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationDescriptionsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationDescriptionIncluded?.Invoke(item) ?? true);
             }
 
@@ -5884,6 +6046,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationDesignatedBiesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationDesignatedByIncluded?.Invoke(item) ?? true);
             }
 
@@ -5896,6 +6059,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialIncluded?.Invoke(item) ?? true);
             }
 
@@ -5908,6 +6072,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -5920,6 +6085,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
+                        itemCreatable: mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedIncluded?.Invoke(item) ?? true);
             }
 
@@ -6003,6 +6169,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     else
                     {
                         var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
                         object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
                         (targetStudentGraduationPlanAssociationCTEProgram as IChildEntity)?.SetParent(target);
                         source.StudentGraduationPlanAssociationCTEProgram.Map(targetStudentGraduationPlanAssociationCTEProgram);
@@ -6018,37 +6196,37 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             if (mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectsSupported != false)
             {
-                source.StudentGraduationPlanAssociationAcademicSubjects.MapCollectionTo(target.StudentGraduationPlanAssociationAcademicSubjects, target, mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectIncluded);
+                source.StudentGraduationPlanAssociationAcademicSubjects.MapCollectionTo(target.StudentGraduationPlanAssociationAcademicSubjects, mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported != false)
             {
-                source.StudentGraduationPlanAssociationCareerPathwayCodes.MapCollectionTo(target.StudentGraduationPlanAssociationCareerPathwayCodes, target, mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded);
+                source.StudentGraduationPlanAssociationCareerPathwayCodes.MapCollectionTo(target.StudentGraduationPlanAssociationCareerPathwayCodes, mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationDescriptionsSupported != false)
             {
-                source.StudentGraduationPlanAssociationDescriptions.MapCollectionTo(target.StudentGraduationPlanAssociationDescriptions, target, mappingContract?.IsStudentGraduationPlanAssociationDescriptionIncluded);
+                source.StudentGraduationPlanAssociationDescriptions.MapCollectionTo(target.StudentGraduationPlanAssociationDescriptions, mappingContract?.IsStudentGraduationPlanAssociationDescriptionsItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationDescriptionIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationDesignatedBiesSupported != false)
             {
-                source.StudentGraduationPlanAssociationDesignatedBies.MapCollectionTo(target.StudentGraduationPlanAssociationDesignatedBies, target, mappingContract?.IsStudentGraduationPlanAssociationDesignatedByIncluded);
+                source.StudentGraduationPlanAssociationDesignatedBies.MapCollectionTo(target.StudentGraduationPlanAssociationDesignatedBies, mappingContract?.IsStudentGraduationPlanAssociationDesignatedBiesItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationDesignatedByIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialsSupported != false)
             {
-                source.StudentGraduationPlanAssociationIndustryCredentials.MapCollectionTo(target.StudentGraduationPlanAssociationIndustryCredentials, target, mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialIncluded);
+                source.StudentGraduationPlanAssociationIndustryCredentials.MapCollectionTo(target.StudentGraduationPlanAssociationIndustryCredentials, mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialsItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationsSupported != false)
             {
-                source.StudentGraduationPlanAssociationStudentContactAssociations.MapCollectionTo(target.StudentGraduationPlanAssociationStudentContactAssociations, target, mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationIncluded);
+                source.StudentGraduationPlanAssociationStudentContactAssociations.MapCollectionTo(target.StudentGraduationPlanAssociationStudentContactAssociations, mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationsItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationStudentContactAssociationIncluded);
             }
 
             if (mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedsSupported != false)
             {
-                source.StudentGraduationPlanAssociationYearsAttendeds.MapCollectionTo(target.StudentGraduationPlanAssociationYearsAttendeds, target, mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedIncluded);
+                source.StudentGraduationPlanAssociationYearsAttendeds.MapCollectionTo(target.StudentGraduationPlanAssociationYearsAttendeds, mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedsItemCreatable ?? true, target, mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedIncluded);
             }
 
 
@@ -6763,6 +6941,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentSectionAssociation);
                             },
+                        itemCreatable: mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded?.Invoke(item) ?? true);
             }
 
@@ -6792,7 +6971,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             if (mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported != false)
             {
-                source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.MapCollectionTo(target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations, target.StudentSectionAssociation, mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded);
+                source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.MapCollectionTo(target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations, mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItemCreatable ?? true, target.StudentSectionAssociation, mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded);
             }
 
 

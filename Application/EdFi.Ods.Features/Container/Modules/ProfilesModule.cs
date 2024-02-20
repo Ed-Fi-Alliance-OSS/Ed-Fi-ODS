@@ -21,6 +21,7 @@ using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.Profiles;
 using MediatR;
 
@@ -107,6 +108,9 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<ProfileConfigurationActivity>()
                 .As<IApplicationConfigurationActivity>()
                 .SingleInstance();
+
+            // Register a decorator over ICreateEntity to perform suitability check of active Profile for resource creation.
+            builder.RegisterGenericDecorator(typeof(ProfileBasedCreateEntityDecorator<>), typeof(ICreateEntity<>));
         }
     }
 }

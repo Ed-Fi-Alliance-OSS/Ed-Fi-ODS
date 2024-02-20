@@ -85,5 +85,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 }

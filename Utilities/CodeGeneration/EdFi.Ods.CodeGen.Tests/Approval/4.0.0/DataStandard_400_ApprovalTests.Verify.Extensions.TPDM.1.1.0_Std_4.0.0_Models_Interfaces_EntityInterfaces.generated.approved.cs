@@ -85,6 +85,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -158,6 +160,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -253,13 +257,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPersonReferenceSupported,
             bool isSexDescriptorSupported,
             bool isSourceSystemDescriptorSupported,
+            bool isCandidateAddressesItemCreatable,
             Func<ICandidateAddress, bool> isCandidateAddressIncluded,
+            bool isCandidateDisabilitiesItemCreatable,
             Func<ICandidateDisability, bool> isCandidateDisabilityIncluded,
+            bool isCandidateElectronicMailsItemCreatable,
             Func<ICandidateElectronicMail, bool> isCandidateElectronicMailIncluded,
+            bool isCandidateLanguagesItemCreatable,
             Func<ICandidateLanguage, bool> isCandidateLanguageIncluded,
+            bool isCandidateOtherNamesItemCreatable,
             Func<ICandidateOtherName, bool> isCandidateOtherNameIncluded,
+            bool isCandidatePersonalIdentificationDocumentsItemCreatable,
             Func<ICandidatePersonalIdentificationDocument, bool> isCandidatePersonalIdentificationDocumentIncluded,
+            bool isCandidateRacesItemCreatable,
             Func<ICandidateRace, bool> isCandidateRaceIncluded,
+            bool isCandidateTelephonesItemCreatable,
             Func<ICandidateTelephone, bool> isCandidateTelephoneIncluded
             )
         {
@@ -296,13 +308,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSexDescriptorSupported = isSexDescriptorSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
+            IsCandidateAddressesItemCreatable = isCandidateAddressesItemCreatable;
             IsCandidateAddressIncluded = isCandidateAddressIncluded;
+            IsCandidateDisabilitiesItemCreatable = isCandidateDisabilitiesItemCreatable;
             IsCandidateDisabilityIncluded = isCandidateDisabilityIncluded;
+            IsCandidateElectronicMailsItemCreatable = isCandidateElectronicMailsItemCreatable;
             IsCandidateElectronicMailIncluded = isCandidateElectronicMailIncluded;
+            IsCandidateLanguagesItemCreatable = isCandidateLanguagesItemCreatable;
             IsCandidateLanguageIncluded = isCandidateLanguageIncluded;
+            IsCandidateOtherNamesItemCreatable = isCandidateOtherNamesItemCreatable;
             IsCandidateOtherNameIncluded = isCandidateOtherNameIncluded;
+            IsCandidatePersonalIdentificationDocumentsItemCreatable = isCandidatePersonalIdentificationDocumentsItemCreatable;
             IsCandidatePersonalIdentificationDocumentIncluded = isCandidatePersonalIdentificationDocumentIncluded;
+            IsCandidateRacesItemCreatable = isCandidateRacesItemCreatable;
             IsCandidateRaceIncluded = isCandidateRaceIncluded;
+            IsCandidateTelephonesItemCreatable = isCandidateTelephonesItemCreatable;
             IsCandidateTelephoneIncluded = isCandidateTelephoneIncluded;
         }
 
@@ -339,13 +359,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPersonReferenceSupported { get; }
         public bool IsSexDescriptorSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
+        public bool IsCandidateAddressesItemCreatable { get; }
         public Func<ICandidateAddress, bool> IsCandidateAddressIncluded { get; }
+        public bool IsCandidateDisabilitiesItemCreatable { get; }
         public Func<ICandidateDisability, bool> IsCandidateDisabilityIncluded { get; }
+        public bool IsCandidateElectronicMailsItemCreatable { get; }
         public Func<ICandidateElectronicMail, bool> IsCandidateElectronicMailIncluded { get; }
+        public bool IsCandidateLanguagesItemCreatable { get; }
         public Func<ICandidateLanguage, bool> IsCandidateLanguageIncluded { get; }
+        public bool IsCandidateOtherNamesItemCreatable { get; }
         public Func<ICandidateOtherName, bool> IsCandidateOtherNameIncluded { get; }
+        public bool IsCandidatePersonalIdentificationDocumentsItemCreatable { get; }
         public Func<ICandidatePersonalIdentificationDocument, bool> IsCandidatePersonalIdentificationDocumentIncluded { get; }
+        public bool IsCandidateRacesItemCreatable { get; }
         public Func<ICandidateRace, bool> IsCandidateRaceIncluded { get; }
+        public bool IsCandidateTelephonesItemCreatable { get; }
         public Func<ICandidateTelephone, bool> IsCandidateTelephoneIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -426,6 +454,31 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CandidateAddresses":
+                    return IsCandidateAddressesItemCreatable;
+                case "CandidateDisabilities":
+                    return IsCandidateDisabilitiesItemCreatable;
+                case "CandidateElectronicMails":
+                    return IsCandidateElectronicMailsItemCreatable;
+                case "CandidateLanguages":
+                    return IsCandidateLanguagesItemCreatable;
+                case "CandidateOtherNames":
+                    return IsCandidateOtherNamesItemCreatable;
+                case "CandidatePersonalIdentificationDocuments":
+                    return IsCandidatePersonalIdentificationDocumentsItemCreatable;
+                case "CandidateRaces":
+                    return IsCandidateRacesItemCreatable;
+                case "CandidateTelephones":
+                    return IsCandidateTelephonesItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
     }
 
     /// <summary>
@@ -482,6 +535,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
+            bool isCandidateAddressPeriodsItemCreatable,
             Func<ICandidateAddressPeriod, bool> isCandidateAddressPeriodIncluded
             )
         {
@@ -495,6 +549,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
+            IsCandidateAddressPeriodsItemCreatable = isCandidateAddressPeriodsItemCreatable;
             IsCandidateAddressPeriodIncluded = isCandidateAddressPeriodIncluded;
         }
 
@@ -508,6 +563,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
+        public bool IsCandidateAddressPeriodsItemCreatable { get; }
         public Func<ICandidateAddressPeriod, bool> IsCandidateAddressPeriodIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -547,6 +603,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CandidateAddressPeriods":
+                    return IsCandidateAddressPeriodsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -601,6 +668,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -637,6 +706,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isDisabilityDeterminationSourceTypeDescriptorSupported,
             bool isDisabilityDiagnosisSupported,
             bool isOrderOfDisabilitySupported,
+            bool isCandidateDisabilityDesignationsItemCreatable,
             Func<ICandidateDisabilityDesignation, bool> isCandidateDisabilityDesignationIncluded
             )
         {
@@ -644,6 +714,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsDisabilityDeterminationSourceTypeDescriptorSupported = isDisabilityDeterminationSourceTypeDescriptorSupported;
             IsDisabilityDiagnosisSupported = isDisabilityDiagnosisSupported;
             IsOrderOfDisabilitySupported = isOrderOfDisabilitySupported;
+            IsCandidateDisabilityDesignationsItemCreatable = isCandidateDisabilityDesignationsItemCreatable;
             IsCandidateDisabilityDesignationIncluded = isCandidateDisabilityDesignationIncluded;
         }
 
@@ -651,6 +722,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsDisabilityDeterminationSourceTypeDescriptorSupported { get; }
         public bool IsDisabilityDiagnosisSupported { get; }
         public bool IsOrderOfDisabilitySupported { get; }
+        public bool IsCandidateDisabilityDesignationsItemCreatable { get; }
         public Func<ICandidateDisabilityDesignation, bool> IsCandidateDisabilityDesignationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -670,6 +742,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CandidateDisabilityDesignations":
+                    return IsCandidateDisabilityDesignationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -717,6 +800,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -769,7 +854,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEndDateSupported,
             bool isEPPProgramPathwayDescriptorSupported,
             bool isReasonExitedDescriptorSupported,
+            bool isCandidateEducatorPreparationProgramAssociationCohortYearsItemCreatable,
             Func<ICandidateEducatorPreparationProgramAssociationCohortYear, bool> isCandidateEducatorPreparationProgramAssociationCohortYearIncluded,
+            bool isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItemCreatable,
             Func<ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
             )
         {
@@ -780,7 +867,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEndDateSupported = isEndDateSupported;
             IsEPPProgramPathwayDescriptorSupported = isEPPProgramPathwayDescriptorSupported;
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
+            IsCandidateEducatorPreparationProgramAssociationCohortYearsItemCreatable = isCandidateEducatorPreparationProgramAssociationCohortYearsItemCreatable;
             IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded = isCandidateEducatorPreparationProgramAssociationCohortYearIncluded;
+            IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItemCreatable = isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItemCreatable;
             IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded = isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded;
         }
 
@@ -791,7 +880,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEndDateSupported { get; }
         public bool IsEPPProgramPathwayDescriptorSupported { get; }
         public bool IsReasonExitedDescriptorSupported { get; }
+        public bool IsCandidateEducatorPreparationProgramAssociationCohortYearsItemCreatable { get; }
         public Func<ICandidateEducatorPreparationProgramAssociationCohortYear, bool> IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded { get; }
+        public bool IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItemCreatable { get; }
         public Func<ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -825,6 +916,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CandidateEducatorPreparationProgramAssociationCohortYears":
+                    return IsCandidateEducatorPreparationProgramAssociationCohortYearsItemCreatable;
+                case "CandidateEducatorPreparationProgramAssociationDegreeSpecializations":
+                    return IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -889,6 +993,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -945,6 +1051,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1007,6 +1115,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1037,14 +1147,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         public CandidateLanguageMappingContract(
             bool isCandidateLanguageUsesSupported,
+            bool isCandidateLanguageUsesItemCreatable,
             Func<ICandidateLanguageUse, bool> isCandidateLanguageUseIncluded
             )
         {
             IsCandidateLanguageUsesSupported = isCandidateLanguageUsesSupported;
+            IsCandidateLanguageUsesItemCreatable = isCandidateLanguageUsesItemCreatable;
             IsCandidateLanguageUseIncluded = isCandidateLanguageUseIncluded;
         }
 
         public bool IsCandidateLanguageUsesSupported { get; }
+        public bool IsCandidateLanguageUsesItemCreatable { get; }
         public Func<ICandidateLanguageUse, bool> IsCandidateLanguageUseIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1058,6 +1171,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CandidateLanguageUses":
+                    return IsCandidateLanguageUsesItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -1105,6 +1229,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1180,6 +1306,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1260,6 +1388,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1304,6 +1434,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1371,6 +1503,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1446,6 +1580,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1520,6 +1656,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1567,6 +1705,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPersonIdSupported,
             bool isPersonReferenceSupported,
             bool isSourceSystemDescriptorSupported,
+            bool isCredentialStudentAcademicRecordsItemCreatable,
             Func<ICredentialStudentAcademicRecord, bool> isCredentialStudentAcademicRecordIncluded
             )
         {
@@ -1580,6 +1719,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPersonIdSupported = isPersonIdSupported;
             IsPersonReferenceSupported = isPersonReferenceSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
+            IsCredentialStudentAcademicRecordsItemCreatable = isCredentialStudentAcademicRecordsItemCreatable;
             IsCredentialStudentAcademicRecordIncluded = isCredentialStudentAcademicRecordIncluded;
         }
 
@@ -1593,6 +1733,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPersonIdSupported { get; }
         public bool IsPersonReferenceSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
+        public bool IsCredentialStudentAcademicRecordsItemCreatable { get; }
         public Func<ICredentialStudentAcademicRecord, bool> IsCredentialStudentAcademicRecordIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1622,6 +1763,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CredentialStudentAcademicRecords":
+                    return IsCredentialStudentAcademicRecordsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -1699,6 +1851,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1763,6 +1917,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -1803,6 +1959,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEducationOrganizationReferenceSupported,
             bool isEducatorPreparationProgramGradeLevelsSupported,
             bool isProgramIdSupported,
+            bool isEducatorPreparationProgramGradeLevelsItemCreatable,
             Func<IEducatorPreparationProgramGradeLevel, bool> isEducatorPreparationProgramGradeLevelIncluded
             )
         {
@@ -1810,6 +1967,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
             IsEducatorPreparationProgramGradeLevelsSupported = isEducatorPreparationProgramGradeLevelsSupported;
             IsProgramIdSupported = isProgramIdSupported;
+            IsEducatorPreparationProgramGradeLevelsItemCreatable = isEducatorPreparationProgramGradeLevelsItemCreatable;
             IsEducatorPreparationProgramGradeLevelIncluded = isEducatorPreparationProgramGradeLevelIncluded;
         }
 
@@ -1817,6 +1975,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEducationOrganizationReferenceSupported { get; }
         public bool IsEducatorPreparationProgramGradeLevelsSupported { get; }
         public bool IsProgramIdSupported { get; }
+        public bool IsEducatorPreparationProgramGradeLevelsItemCreatable { get; }
         public Func<IEducatorPreparationProgramGradeLevel, bool> IsEducatorPreparationProgramGradeLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -1840,6 +1999,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EducatorPreparationProgramGradeLevels":
+                    return IsEducatorPreparationProgramGradeLevelsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -1887,6 +2057,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -1962,6 +2134,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -2035,6 +2209,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -2110,6 +2286,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -2164,6 +2342,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
             bool isPerformanceEvaluationReferenceSupported,
+            bool isEvaluationRatingLevelsItemCreatable,
             Func<IEvaluationRatingLevel, bool> isEvaluationRatingLevelIncluded
             )
         {
@@ -2174,6 +2353,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
             IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
+            IsEvaluationRatingLevelsItemCreatable = isEvaluationRatingLevelsItemCreatable;
             IsEvaluationRatingLevelIncluded = isEvaluationRatingLevelIncluded;
         }
 
@@ -2184,6 +2364,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
         public bool IsPerformanceEvaluationReferenceSupported { get; }
+        public bool IsEvaluationRatingLevelsItemCreatable { get; }
         public Func<IEvaluationRatingLevel, bool> IsEvaluationRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2221,6 +2402,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationRatingLevels":
+                    return IsEvaluationRatingLevelsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -2280,6 +2472,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
             bool isSortOrderSupported,
+            bool isEvaluationElementRatingLevelsItemCreatable,
             Func<IEvaluationElementRatingLevel, bool> isEvaluationElementRatingLevelIncluded
             )
         {
@@ -2289,6 +2482,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
             IsSortOrderSupported = isSortOrderSupported;
+            IsEvaluationElementRatingLevelsItemCreatable = isEvaluationElementRatingLevelsItemCreatable;
             IsEvaluationElementRatingLevelIncluded = isEvaluationElementRatingLevelIncluded;
         }
 
@@ -2298,6 +2492,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
         public bool IsSortOrderSupported { get; }
+        public bool IsEvaluationElementRatingLevelsItemCreatable { get; }
         public Func<IEvaluationElementRatingLevel, bool> IsEvaluationElementRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2337,6 +2532,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationElementRatingLevels":
+                    return IsEvaluationElementRatingLevelsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -2407,6 +2613,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationElementReferenceSupported,
             bool isEvaluationObjectiveRatingReferenceSupported,
             bool isFeedbackSupported,
+            bool isEvaluationElementRatingResultsItemCreatable,
             Func<IEvaluationElementRatingResult, bool> isEvaluationElementRatingResultIncluded
             )
         {
@@ -2418,6 +2625,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEvaluationElementReferenceSupported = isEvaluationElementReferenceSupported;
             IsEvaluationObjectiveRatingReferenceSupported = isEvaluationObjectiveRatingReferenceSupported;
             IsFeedbackSupported = isFeedbackSupported;
+            IsEvaluationElementRatingResultsItemCreatable = isEvaluationElementRatingResultsItemCreatable;
             IsEvaluationElementRatingResultIncluded = isEvaluationElementRatingResultIncluded;
         }
 
@@ -2429,6 +2637,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEvaluationElementReferenceSupported { get; }
         public bool IsEvaluationObjectiveRatingReferenceSupported { get; }
         public bool IsFeedbackSupported { get; }
+        public bool IsEvaluationElementRatingResultsItemCreatable { get; }
         public Func<IEvaluationElementRatingResult, bool> IsEvaluationElementRatingResultIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2478,6 +2687,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationElementRatingResults":
+                    return IsEvaluationElementRatingResultsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -2537,6 +2757,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -2612,6 +2834,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -2666,6 +2890,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -2723,6 +2949,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isMaxRatingSupported,
             bool isMinRatingSupported,
             bool isSortOrderSupported,
+            bool isEvaluationObjectiveRatingLevelsItemCreatable,
             Func<IEvaluationObjectiveRatingLevel, bool> isEvaluationObjectiveRatingLevelIncluded
             )
         {
@@ -2733,6 +2960,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsMaxRatingSupported = isMaxRatingSupported;
             IsMinRatingSupported = isMinRatingSupported;
             IsSortOrderSupported = isSortOrderSupported;
+            IsEvaluationObjectiveRatingLevelsItemCreatable = isEvaluationObjectiveRatingLevelsItemCreatable;
             IsEvaluationObjectiveRatingLevelIncluded = isEvaluationObjectiveRatingLevelIncluded;
         }
 
@@ -2743,6 +2971,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsMaxRatingSupported { get; }
         public bool IsMinRatingSupported { get; }
         public bool IsSortOrderSupported { get; }
+        public bool IsEvaluationObjectiveRatingLevelsItemCreatable { get; }
         public Func<IEvaluationObjectiveRatingLevel, bool> IsEvaluationObjectiveRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2782,6 +3011,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationObjectiveRatingLevels":
+                    return IsEvaluationObjectiveRatingLevelsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -2844,6 +3084,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationObjectiveReferenceSupported,
             bool isEvaluationRatingReferenceSupported,
             bool isObjectiveRatingLevelDescriptorSupported,
+            bool isEvaluationObjectiveRatingResultsItemCreatable,
             Func<IEvaluationObjectiveRatingResult, bool> isEvaluationObjectiveRatingResultIncluded
             )
         {
@@ -2852,6 +3093,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEvaluationObjectiveReferenceSupported = isEvaluationObjectiveReferenceSupported;
             IsEvaluationRatingReferenceSupported = isEvaluationRatingReferenceSupported;
             IsObjectiveRatingLevelDescriptorSupported = isObjectiveRatingLevelDescriptorSupported;
+            IsEvaluationObjectiveRatingResultsItemCreatable = isEvaluationObjectiveRatingResultsItemCreatable;
             IsEvaluationObjectiveRatingResultIncluded = isEvaluationObjectiveRatingResultIncluded;
         }
 
@@ -2860,6 +3102,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsEvaluationObjectiveReferenceSupported { get; }
         public bool IsEvaluationRatingReferenceSupported { get; }
         public bool IsObjectiveRatingLevelDescriptorSupported { get; }
+        public bool IsEvaluationObjectiveRatingResultsItemCreatable { get; }
         public Func<IEvaluationObjectiveRatingResult, bool> IsEvaluationObjectiveRatingResultIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -2901,6 +3144,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationObjectiveRatingResults":
+                    return IsEvaluationObjectiveRatingResultsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -2961,6 +3215,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3015,6 +3271,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -3090,6 +3348,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3160,7 +3420,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isSectionIdentifierSupported,
             bool isSectionReferenceSupported,
             bool isSessionNameSupported,
+            bool isEvaluationRatingResultsItemCreatable,
             Func<IEvaluationRatingResult, bool> isEvaluationRatingResultIncluded,
+            bool isEvaluationRatingReviewersItemCreatable,
             Func<IEvaluationRatingReviewer, bool> isEvaluationRatingReviewerIncluded
             )
         {
@@ -3175,7 +3437,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsSectionIdentifierSupported = isSectionIdentifierSupported;
             IsSectionReferenceSupported = isSectionReferenceSupported;
             IsSessionNameSupported = isSessionNameSupported;
+            IsEvaluationRatingResultsItemCreatable = isEvaluationRatingResultsItemCreatable;
             IsEvaluationRatingResultIncluded = isEvaluationRatingResultIncluded;
+            IsEvaluationRatingReviewersItemCreatable = isEvaluationRatingReviewersItemCreatable;
             IsEvaluationRatingReviewerIncluded = isEvaluationRatingReviewerIncluded;
         }
 
@@ -3190,7 +3454,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsSectionIdentifierSupported { get; }
         public bool IsSectionReferenceSupported { get; }
         public bool IsSessionNameSupported { get; }
+        public bool IsEvaluationRatingResultsItemCreatable { get; }
         public Func<IEvaluationRatingResult, bool> IsEvaluationRatingResultIncluded { get; }
+        public bool IsEvaluationRatingReviewersItemCreatable { get; }
         public Func<IEvaluationRatingReviewer, bool> IsEvaluationRatingReviewerIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -3242,6 +3508,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationRatingResults":
+                    return IsEvaluationRatingResultsItemCreatable;
+                case "EvaluationRatingReviewers":
+                    return IsEvaluationRatingReviewersItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -3301,6 +3580,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -3376,6 +3657,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3431,6 +3714,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3470,19 +3755,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
             bool isReviewerPersonReferenceSupported,
-            bool isReviewerSourceSystemDescriptorSupported
+            bool isReviewerSourceSystemDescriptorSupported,
+            bool isEvaluationRatingReviewerReceivedTrainingCreatable
             )
         {
             IsEvaluationRatingReviewerReceivedTrainingSupported = isEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
             IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
+            IsEvaluationRatingReviewerReceivedTrainingCreatable = isEvaluationRatingReviewerReceivedTrainingCreatable;
         }
 
         public bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
         public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
+        public bool IsEvaluationRatingReviewerReceivedTrainingCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -3503,6 +3791,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EvaluationRatingReviewerReceivedTraining":
+                    return IsEvaluationRatingReviewerReceivedTrainingCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -3558,6 +3857,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -3633,6 +3934,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3706,6 +4009,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -3790,6 +4095,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3863,6 +4170,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -3938,6 +4247,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -3988,7 +4299,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationGradeLevelsSupported,
             bool isPerformanceEvaluationRatingLevelsSupported,
             bool isSchoolYearTypeReferenceSupported,
+            bool isPerformanceEvaluationGradeLevelsItemCreatable,
             Func<IPerformanceEvaluationGradeLevel, bool> isPerformanceEvaluationGradeLevelIncluded,
+            bool isPerformanceEvaluationRatingLevelsItemCreatable,
             Func<IPerformanceEvaluationRatingLevel, bool> isPerformanceEvaluationRatingLevelIncluded
             )
         {
@@ -3998,7 +4311,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPerformanceEvaluationGradeLevelsSupported = isPerformanceEvaluationGradeLevelsSupported;
             IsPerformanceEvaluationRatingLevelsSupported = isPerformanceEvaluationRatingLevelsSupported;
             IsSchoolYearTypeReferenceSupported = isSchoolYearTypeReferenceSupported;
+            IsPerformanceEvaluationGradeLevelsItemCreatable = isPerformanceEvaluationGradeLevelsItemCreatable;
             IsPerformanceEvaluationGradeLevelIncluded = isPerformanceEvaluationGradeLevelIncluded;
+            IsPerformanceEvaluationRatingLevelsItemCreatable = isPerformanceEvaluationRatingLevelsItemCreatable;
             IsPerformanceEvaluationRatingLevelIncluded = isPerformanceEvaluationRatingLevelIncluded;
         }
 
@@ -4008,7 +4323,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPerformanceEvaluationGradeLevelsSupported { get; }
         public bool IsPerformanceEvaluationRatingLevelsSupported { get; }
         public bool IsSchoolYearTypeReferenceSupported { get; }
+        public bool IsPerformanceEvaluationGradeLevelsItemCreatable { get; }
         public Func<IPerformanceEvaluationGradeLevel, bool> IsPerformanceEvaluationGradeLevelIncluded { get; }
+        public bool IsPerformanceEvaluationRatingLevelsItemCreatable { get; }
         public Func<IPerformanceEvaluationRatingLevel, bool> IsPerformanceEvaluationRatingLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4042,6 +4359,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "PerformanceEvaluationGradeLevels":
+                    return IsPerformanceEvaluationGradeLevelsItemCreatable;
+                case "PerformanceEvaluationRatingLevels":
+                    return IsPerformanceEvaluationRatingLevelsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -4089,6 +4419,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4157,7 +4489,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationReferenceSupported,
             bool isPersonReferenceSupported,
             bool isScheduleDateSupported,
+            bool isPerformanceEvaluationRatingResultsItemCreatable,
             Func<IPerformanceEvaluationRatingResult, bool> isPerformanceEvaluationRatingResultIncluded,
+            bool isPerformanceEvaluationRatingReviewersItemCreatable,
             Func<IPerformanceEvaluationRatingReviewer, bool> isPerformanceEvaluationRatingReviewerIncluded
             )
         {
@@ -4173,7 +4507,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsPerformanceEvaluationReferenceSupported = isPerformanceEvaluationReferenceSupported;
             IsPersonReferenceSupported = isPersonReferenceSupported;
             IsScheduleDateSupported = isScheduleDateSupported;
+            IsPerformanceEvaluationRatingResultsItemCreatable = isPerformanceEvaluationRatingResultsItemCreatable;
             IsPerformanceEvaluationRatingResultIncluded = isPerformanceEvaluationRatingResultIncluded;
+            IsPerformanceEvaluationRatingReviewersItemCreatable = isPerformanceEvaluationRatingReviewersItemCreatable;
             IsPerformanceEvaluationRatingReviewerIncluded = isPerformanceEvaluationRatingReviewerIncluded;
         }
 
@@ -4189,7 +4525,9 @@ namespace EdFi.Ods.Entities.Common.TPDM
         public bool IsPerformanceEvaluationReferenceSupported { get; }
         public bool IsPersonReferenceSupported { get; }
         public bool IsScheduleDateSupported { get; }
+        public bool IsPerformanceEvaluationRatingResultsItemCreatable { get; }
         public Func<IPerformanceEvaluationRatingResult, bool> IsPerformanceEvaluationRatingResultIncluded { get; }
+        public bool IsPerformanceEvaluationRatingReviewersItemCreatable { get; }
         public Func<IPerformanceEvaluationRatingReviewer, bool> IsPerformanceEvaluationRatingReviewerIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -4239,6 +4577,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "PerformanceEvaluationRatingResults":
+                    return IsPerformanceEvaluationRatingResultsItemCreatable;
+                case "PerformanceEvaluationRatingReviewers":
+                    return IsPerformanceEvaluationRatingReviewersItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -4298,6 +4649,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4373,6 +4726,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -4428,6 +4783,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -4467,19 +4824,22 @@ namespace EdFi.Ods.Entities.Common.TPDM
             bool isPerformanceEvaluationRatingReviewerReceivedTrainingSupported,
             bool isReviewerPersonIdSupported,
             bool isReviewerPersonReferenceSupported,
-            bool isReviewerSourceSystemDescriptorSupported
+            bool isReviewerSourceSystemDescriptorSupported,
+            bool isPerformanceEvaluationRatingReviewerReceivedTrainingCreatable
             )
         {
             IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported = isPerformanceEvaluationRatingReviewerReceivedTrainingSupported;
             IsReviewerPersonIdSupported = isReviewerPersonIdSupported;
             IsReviewerPersonReferenceSupported = isReviewerPersonReferenceSupported;
             IsReviewerSourceSystemDescriptorSupported = isReviewerSourceSystemDescriptorSupported;
+            IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable = isPerformanceEvaluationRatingReviewerReceivedTrainingCreatable;
         }
 
         public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; }
         public bool IsReviewerPersonIdSupported { get; }
         public bool IsReviewerPersonReferenceSupported { get; }
         public bool IsReviewerSourceSystemDescriptorSupported { get; }
+        public bool IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -4500,6 +4860,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "PerformanceEvaluationRatingReviewerReceivedTraining":
+                    return IsPerformanceEvaluationRatingReviewerReceivedTrainingCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
             }
         }
 
@@ -4555,6 +4926,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4629,6 +5002,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4735,6 +5110,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -4809,6 +5186,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             }
         }
 
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
     }
 
     /// <summary>
@@ -4861,6 +5240,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4921,6 +5302,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -4995,6 +5378,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 
@@ -5073,6 +5458,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
                     throw new Exception($"Unknown member '{memberName}'.");
             }
         }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
 
     }
 }
