@@ -94,7 +94,7 @@ namespace EdFi.Ods.Api.Middleware
                         LogRequestResponseDetailsOnException(exception);
                     break;
                 case >= StatusCodes.Status400BadRequest:
-                    LogRequestResponseContentInfo(context);
+                    LogRequestResponseDetailsInfo(context);
                     break;
                 default:
                     LogRequestResponseDetailsDebug(context);
