@@ -1,4 +1,4 @@
-name: Lib EdFi.LoadTools Manually triggered build
+name: Lib EdFi.LoadTools
 
 on:
   workflow_dispatch:

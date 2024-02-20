@@ -1,4 +1,4 @@
-name: Lib EdFi.Common Manually triggered build
+name: Lib EdFi.Common
 
 on:
   workflow_dispatch:
