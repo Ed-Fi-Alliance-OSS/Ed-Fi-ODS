@@ -6,6 +6,6 @@
 CREATE OR REPLACE FUNCTION util.GetEdFiOdsVersion()
 RETURNS VARCHAR(60) AS $$
 BEGIN	
-   RETURN '7.0';
+   RETURN '6.2';
 END;
 $$ LANGUAGE plpgsql;
