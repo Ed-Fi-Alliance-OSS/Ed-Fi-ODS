@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "b1db9ed4-9da8-4c4d-ad97-9b9e068047cd",
+		"_postman_id": "80551eba-8e6d-47ac-aca6-12aeb9806ad2",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1713280"
+		"_exporter_id": "2374196"
 	},
 	"item": [
 		{
@@ -4828,6 +4828,169 @@
 							]
 						},
 						{
+ 							"name": "When_deleting_organizationDepartment_with_noEdOrg_client_should_fail_with_403_forbidden",
+ 							"item": [
+ 								{
+ 									"name": "Initialize Organization Departments for Request",
+ 									"event": [
+ 										{
+ 											"listen": "test",
+ 											"script": {
+ 												"exec": [
+ 													"pm.test(\"Status code is 200 or 201\", () => {\r",
+ 													"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+ 													"});\r",
+ 													"\r",
+ 													"pm.environment.set('known:organizationDepartmentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+ 												],
+ 												"type": "text/javascript"
+ 											}
+ 										}
+ 									],
+ 									"request": {
+ 										"method": "POST",
+ 										"header": [],
+ 										"body": {
+ 											"mode": "raw",
+ 											"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ],\r\n  \"organizationDepartmentId\": 2559018,\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"nameOfInstitution\": \"Forbidden 403 - No EdOrg Organization Department\"\r\n}",
+ 											"options": {
+ 												"raw": {
+ 													"language": "json"
+ 												}
+ 											}
+ 										},
+ 										"url": {
+ 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+ 											"host": [
+ 												"{{ApiBaseUrl}}"
+ 											],
+ 											"path": [
+ 												"data",
+ 												"v3",
+ 												"ed-fi",
+ 												"organizationDepartments"
+ 											]
+ 										}
+ 									},
+ 									"response": []
+ 								},
+ 								{
+ 									"name": "When_deleting_organizationDepartment_with_noEdOrg_client_should_fail_with_403_forbidden",
+ 									"event": [
+ 										{
+ 											"listen": "test",
+ 											"script": {
+ 												"exec": [
+ 													"pm.test(\"Status code is 403\", () => {\r",
+ 													"    pm.expect(pm.response.code).to.equal(403);\r",
+ 													"});\r",
+ 													"\r",
+ 													"const message = pm.response.json().message;\r",
+ 													"\r",
+ 													"pm.test(\"Message should indicate that client doesn't have access to any EdOrgs\", () => {\r",
+ 													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claims (none) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+ 													"});"
+ 												],
+ 												"type": "text/javascript"
+ 											}
+ 										}
+ 									],
+ 									"request": {
+ 										"auth": {
+ 											"type": "bearer",
+ 											"bearer": [
+ 												{
+ 													"key": "token",
+ 													"value": "{{AccessToken_NoEdorg}}",
+ 													"type": "string"
+ 												}
+ 											]
+ 										},
+ 										"method": "DELETE",
+ 										"header": [],
+ 										"url": {
+ 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:organizationDepartmentGuid}}",
+ 											"host": [
+ 												"{{ApiBaseUrl}}"
+ 											],
+ 											"path": [
+ 												"data",
+ 												"v3",
+ 												"ed-fi",
+ 												"organizationDepartments",
+ 												"{{known:organizationDepartmentGuid}}"
+ 											]
+ 										}
+ 									},
+ 									"response": []
+ 								}
+ 							]
+ 						},
+ 						{
+ 							"name": "When_creating_organizationDepartment_with_noEdOrg_client_should_fail_with_403_forbidden",
+ 							"item": [
+ 								{
+ 									"name": "When_creating_organizationDepartment_with_noEdOrg_client_should_fail_with_403_forbidden",
+ 									"event": [
+ 										{
+ 											"listen": "test",
+ 											"script": {
+ 												"exec": [
+ 													"pm.test(\"Status code is 403\", () => {\r",
+ 													"    pm.expect(pm.response.code).to.equal(403);\r",
+ 													"});\r",
+ 													"\r",
+ 													"const message = pm.response.json().message;\r",
+ 													"\r",
+ 													"pm.test(\"Message should indicate that client doesn't have access to any EdOrgs\", () => {\r",
+ 													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claims (none) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+ 													"});\r",
+ 													""
+ 												],
+ 												"type": "text/javascript"
+ 											}
+ 										}
+ 									],
+ 									"request": {
+ 										"auth": {
+ 											"type": "bearer",
+ 											"bearer": [
+ 												{
+ 													"key": "token",
+ 													"value": "{{AccessToken_NoEdorg}}",
+ 													"type": "string"
+ 												}
+ 											]
+ 										},
+ 										"method": "POST",
+ 										"header": [],
+ 										"body": {
+ 											"mode": "raw",
+ 											"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ],\r\n  \"organizationDepartmentId\": 2559018,\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"nameOfInstitution\": \"Forbidden 403 - No EdOrg Organization Department\"\r\n}",
+ 											"options": {
+ 												"raw": {
+ 													"language": "json"
+ 												}
+ 											}
+ 										},
+ 										"url": {
+ 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+ 											"host": [
+ 												"{{ApiBaseUrl}}"
+ 											],
+ 											"path": [
+ 												"data",
+ 												"v3",
+ 												"ed-fi",
+ 												"organizationDepartments"
+ 											]
+ 										}
+ 									},
+ 									"response": []
+ 								}
+ 							]
+ 						},
+						{
 							"name": "Teardown",
 							"item": [
 								{
@@ -8292,6 +8455,8 @@
 					"",
 					"CreateAccessToken(\"TokenExpiry_Other_Namespace\", \"AccessToken_Other_Namespace\", \"ApiKey_Other_Namespace\", \"ApiSecret_Other_Namespace\")",
 					"",
+					"CreateAccessToken(\"TokenExpiry_NoEdorg\", \"AccessToken_NoEdorg\", \"ApiKey_NoEdorg\", \"ApiSecret_NoEdorg\")",
+ 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
