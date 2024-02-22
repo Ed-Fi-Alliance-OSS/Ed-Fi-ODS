@@ -121,7 +121,7 @@ namespace EdFi.Ods.Api.Caching
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var application = context.Applications.First(
+                var application = context.Applications.AsEnumerable().First(
                     app => app.ApplicationName.Equals(EdFiOdsApi, StringComparison.InvariantCultureIgnoreCase));
 
                 var actions = context.Actions.ToList();
@@ -146,7 +146,8 @@ namespace EdFi.Ods.Api.Caching
                     .Include(csrc => csrc.ClaimSet)
                     .Include(csrc => csrc.ClaimSet.Application)
                     .Include(csrc => csrc.ResourceClaim)
-                    .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
+                    .Include(csrc => csrc.AuthorizationStrategyOverrides)
+                        .ThenInclude(aso => aso.AuthorizationStrategy)
                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                     .ToList();
 
@@ -163,7 +164,8 @@ namespace EdFi.Ods.Api.Caching
                 var resourceClaimActionAuthorizations = context.ResourceClaimActions
                     .Include(rcas => rcas.Action)
                     .Include(rcas => rcas.ResourceClaim)
-                    .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
+                    .Include(rcas => rcas.AuthorizationStrategies)
+                        .ThenInclude(ast => ast.AuthorizationStrategy.Application)
                     .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                     .ToList();
 
