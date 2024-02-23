@@ -410,7 +410,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new PostgresSpecificModule(apiSettings));
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
-                
+
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
 
                 // Mock the database engine specific string comparison provider
