@@ -54,6 +54,9 @@ using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Profiles;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -333,6 +336,8 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IResourceModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.

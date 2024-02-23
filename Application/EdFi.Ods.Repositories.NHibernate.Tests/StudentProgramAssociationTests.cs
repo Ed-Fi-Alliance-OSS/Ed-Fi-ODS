@@ -33,6 +33,8 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using EdFi.Ods.Api.Container.Modules;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Dependencies;
 using Npgsql;
 using Test.Common.DataConstants;
 
@@ -408,8 +410,15 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new PostgresSpecificModule(apiSettings));
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
-
+                
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
+
+                // Mock the database engine specific string comparison provider
+                var databaseEngineSpecificStringComparisonProvider = A.Fake<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer()).Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+
+                builder.RegisterInstance(databaseEngineSpecificStringComparisonProvider).As<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider);
 
                 _container = builder.Build();
             }
