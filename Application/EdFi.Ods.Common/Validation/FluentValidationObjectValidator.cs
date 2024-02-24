@@ -10,7 +10,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.Internal;
-using ValidationContext = FluentValidation.ValidationContext;
 
 namespace EdFi.Ods.Common.Validation
 {
@@ -40,10 +39,10 @@ namespace EdFi.Ods.Common.Validation
         public ICollection<ValidationResult> ValidateObject(object @object, string ruleSetName)
         {
             return PerformValidation(
-                new ValidationContext(
+                new ValidationContext<object>(
                     @object,
                     new PropertyChain(),
-                    new RulesetValidatorSelector(ruleSetName)));
+                    new RulesetValidatorSelector(new List<string> { ruleSetName })));
         }
 
         /// <summary>
@@ -54,10 +53,10 @@ namespace EdFi.Ods.Common.Validation
         public ICollection<ValidationResult> ValidateObject(object @object)
         {
             return PerformValidation(
-                new ValidationContext(@object));
+                new ValidationContext<object>(@object));
         }
 
-        private ICollection<ValidationResult> PerformValidation(ValidationContext validationContext)
+        private ICollection<ValidationResult> PerformValidation(ValidationContext<object> validationContext)
         {
             // Don't do any processing if there are no FluentValidation validators
             if (_validators == null || _validators.Length == 0)
