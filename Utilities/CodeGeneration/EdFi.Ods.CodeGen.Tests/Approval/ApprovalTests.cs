@@ -119,7 +119,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var generatedFileList = Path.Combine(
                 _odsRepository,
-                "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", $"{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
+                @$"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
 
             var files = File.ReadAllLines(generatedFileList)
                 .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))
@@ -149,7 +149,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
                         string destFileName = Path.Combine(
                             _odsRepository
-                            , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval"
+                            , @"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval"
                             , $"ApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
