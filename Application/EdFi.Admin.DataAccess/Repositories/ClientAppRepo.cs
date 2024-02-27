@@ -320,7 +320,11 @@ namespace EdFi.Admin.DataAccess.Repositories
         public Application GetApplication(int applicationId)
         {
             using var context = _contextFactory.CreateContext();
-            return context.Applications.FirstOrDefault(c => c.ApplicationId == applicationId);
+            var application = context.Applications
+                                .Where(x => x.ApplicationId == applicationId)
+                                .Include(x => x.ApplicationEducationOrganizations)
+                                .Single();
+            return application;
         }
 
         public void DeleteApplication(int applicationId)
