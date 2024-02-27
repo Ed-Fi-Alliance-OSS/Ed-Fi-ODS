@@ -47,8 +47,25 @@ namespace EdFi.Admin.DataAccess.Repositories
         void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId,
             int applicationId);
 
-        Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
+        Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes);
 
+        Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId);
+
+        Vendor GetVendor(int vendorId);
+
+        Application GetApplication(int applicationId);
+
+        void DeleteApplication(int applicationId);
+
+        void DeleteVendor(int vendorId);
+
+        Vendor UpdateVendor(Vendor vendor);
+
+
+        IEnumerable<Vendor> GetVendors();
+
+        IEnumerable<Application> GetApplications();
+                
         Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName);
 
         ApiClient CreateApiClient(int userId, string name, string key, string secret);

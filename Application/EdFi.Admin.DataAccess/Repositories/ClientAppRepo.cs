@@ -294,6 +294,106 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public IEnumerable<Vendor> GetVendors()
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Vendors.Include(u => u.VendorNamespacePrefixes).Include(a=>a.Applications)
+                    .ToList();
+            }
+        }
+
+        public IEnumerable<Application> GetApplications()
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Applications.Include(u => u.ApplicationEducationOrganizations).Include(a=>a.Vendor).ToList();
+            }
+        }
+
+        public Vendor GetVendor(int vendorId)
+        {
+            using var context = _contextFactory.CreateContext();
+            return context.Vendors.FirstOrDefault(c => c.VendorId == vendorId);
+        }
+
+        public Application GetApplication(int applicationId)
+        {
+            using var context = _contextFactory.CreateContext();
+            return context.Applications.FirstOrDefault(c => c.ApplicationId == applicationId);
+        }
+
+        public void DeleteApplication(int applicationId)
+        {
+            using var context = _contextFactory.CreateContext();
+            var application = context.Applications.First(x => x.ApplicationId == applicationId);
+
+            var applicationEducationOrganizations = context.ApplicationEducationOrganizations.Include(x => x.Application)
+                .Where(x => x.Application.ApplicationId == application.ApplicationId);
+
+            foreach (var applicationEducationOrganization in applicationEducationOrganizations)
+            {
+                context.ApplicationEducationOrganizations.Remove(applicationEducationOrganization);
+            }
+
+            context.Applications.Remove(application);
+
+            context.SaveChanges();
+        }
+
+        public void DeleteVendor(int vendorId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = context.Vendors.First(x => x.VendorId == vendorId);
+
+                var vendorNamespacePrefixes = context.VendorNamespacePrefixes.Include(x=>x.Vendor)
+                    .Where(x => x.Vendor.VendorId == vendor.VendorId);
+
+                foreach (var vendorNamespacePrefix in vendorNamespacePrefixes)
+                {
+                    context.VendorNamespacePrefixes.Remove(vendorNamespacePrefix);
+                }
+
+                var applications = context.Applications.Include(x => x.Vendor)
+                        .Where(x => x.Vendor.VendorId == vendor.VendorId);
+
+                foreach (var application in applications)
+                {
+                    context.Applications.Remove(application);
+                }
+
+                context.Vendors.Remove(vendor);
+                context.SaveChanges();
+            }
+        }
+
+        public Vendor UpdateVendor(Vendor vendor)
+        {
+            using var context = _contextFactory.CreateContext();
+            context.Vendors.Update(vendor);
+            context.SaveChanges();
+            return vendor;
+        }
+
+        public Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var application = context.Applications.SingleOrDefault(v => v.ApplicationName == applicationName);
+
+                if (application == null)
+                {
+                    var vendor = context.Vendors.SingleOrDefault(v => v.VendorId == vendorId);
+                    application = Application.Create(applicationName, educationOrganizationId, vendor);
+                }
+
+                context.Applications.Update(application);
+                context.SaveChanges();
+                return application;
+            }
+        }        
+
         public Application[] GetVendorApplications(int vendorId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -475,10 +575,9 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        public Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes)
         {
-            var vendorName = userName.Split(',')[0]
-                .Trim();
+            string name = vendorName.Split(',')[0].Trim();
 
             using (var context = _contextFactory.CreateContext())
             {
@@ -487,9 +586,9 @@ namespace EdFi.Admin.DataAccess.Repositories
                 if (vendor == null)
                 {
                     vendor = Vendor.Create(vendorName, namespacePrefixes);
-                    context.SaveChanges();
                 }
-
+                context.Vendors.Update(vendor);
+                context.SaveChanges();
                 return vendor;
             }
         }
