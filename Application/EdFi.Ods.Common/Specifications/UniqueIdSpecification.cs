@@ -11,8 +11,8 @@ namespace EdFi.Ods.Common.Specifications
 {
     public static class UniqueIdSpecification
     {
-        private const string USI = "USI";
-        private const string UniqueId = "UniqueId";
+        public const string USI = "USI";
+        public const string UniqueId = "UniqueId";
 
         public static string GetUniqueIdPersonType(string propertyName)
         {
