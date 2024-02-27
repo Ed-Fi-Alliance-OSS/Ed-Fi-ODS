@@ -7,200 +7,258 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
-using System.Threading.Tasks;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
-using EdFi.Security.DataAccess.Repositories;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.Security.DataAccess.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
+using NHibernate;
 using NUnit.Framework;
-using QuickGraph;
 using Shouldly;
 using Test.Common;
-using Test.Common._Stubs;
 using Action = EdFi.Security.DataAccess.Models.Action;
+using Helper = EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.AuthorizationTestsHelper;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
-    // TODO: ODS-5356 - Update these tests
-    #if ODS_5356
+    public class FakeEntity : AggregateRootWithCompositeKey { }
+
+    public class FakeRepositoryOperationAuthorizationDecorator<TFakeEntity>
+        : RepositoryOperationAuthorizationDecoratorBase<TFakeEntity>
+        where TFakeEntity : class
+    {
+        public FakeRepositoryOperationAuthorizationDecorator(
+            IAuthorizationContextProvider authorizationContextProvider,
+            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            IApiClientContextProvider apiClientContextProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IEntityAuthorizer entityAuthorizer)
+            : base(
+                authorizationContextProvider,
+                authorizationFilteringProvider,
+                authorizationBasisMetadataSelector,
+                apiClientContextProvider,
+                dataManagementResourceContextProvider,
+                entityAuthorizer)
+        { }
+
+        public void AuthorizeSingleItem(TFakeEntity entity, CancellationToken cancellationToken)
+        {
+            base.AuthorizeSingleItemAsync(entity, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+    }
+
+    public static class AuthorizationTestsHelper
+    {
+        public static FakeRepositoryOperationAuthorizationDecorator<FakeEntity> CreateDecorator(
+            IAuthorizationContextProvider authorizationContextProvider = null,
+            IAuthorizationFilteringProvider authorizationFilteringProvider = null,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector = null,
+            IApiClientContextProvider apiClientContextProvider = null,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider = null,
+            IEntityAuthorizer entityAuthorizer = null
+            )
+        {
+            return new FakeRepositoryOperationAuthorizationDecorator<FakeEntity>(
+                authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
+                authorizationFilteringProvider ?? A.Fake<IAuthorizationFilteringProvider>(),
+                authorizationBasisMetadataSelector ?? A.Fake<IAuthorizationBasisMetadataSelector>(),
+                apiClientContextProvider ?? A.Fake<IApiClientContextProvider>(),
+                dataManagementResourceContextProvider ?? A.Fake<IContextProvider<DataManagementResourceContext>>(),
+                entityAuthorizer ?? A.Fake<IEntityAuthorizer>());
+        }
+
+        public static EntityAuthorizer CreateEntityAuthorizer(
+            IAuthorizationContextProvider authorizationContextProvider = null,
+            IAuthorizationFilteringProvider authorizationFilteringProvider = null,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider = null,
+            IExplicitObjectValidator[] explicitObjectValidators = null,
+            IApiClientContextProvider apiClientContextProvider = null,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector = null,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport = null,
+            ISessionFactory sessionFactory = null,
+            ISecurityRepository securityRepository = null,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider = null,
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider = null
+            )
+        {
+            return new EntityAuthorizer(
+                authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
+                authorizationFilteringProvider ?? A.Fake<IAuthorizationFilteringProvider>(),
+                authorizationFilterDefinitionProvider ?? A.Fake<IAuthorizationFilterDefinitionProvider>(),
+                explicitObjectValidators ?? A.CollectionOfFake<IExplicitObjectValidator>(0).ToArray(),
+                apiClientContextProvider ?? A.Fake<IApiClientContextProvider>(),
+                authorizationBasisMetadataSelector ?? A.Fake<IAuthorizationBasisMetadataSelector>(),
+                viewBasedSingleItemAuthorizationQuerySupport ?? A.Fake<IViewBasedSingleItemAuthorizationQuerySupport>(),
+                sessionFactory ?? A.Fake<ISessionFactory>(),
+                securityRepository ?? A.Fake<ISecurityRepository>(),
+                dataManagementResourceContextProvider ?? A.Fake<IContextProvider<DataManagementResourceContext>>(),
+                viewBasedAuthorizationQueryContextProvider ?? A.Fake<IContextProvider<ViewBasedAuthorizationQueryContext>>());
+        }
+
+        public static AuthorizationBasisMetadataSelector CreateAuthorizationBasisMetadataSelector(
+            IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider = null,
+            ISecurityRepository securityRepository = null,
+            IAuthorizationStrategy[] authorizationStrategies = null,
+            IClaimSetClaimsProvider claimSetClaimsProvider = null
+            )
+        {
+            return new AuthorizationBasisMetadataSelector(
+                resourceAuthorizationMetadataProvider ?? A.Fake<IResourceAuthorizationMetadataProvider>(),
+                securityRepository ?? A.Fake<ISecurityRepository>(),
+                authorizationStrategies ?? A.CollectionOfFake<IAuthorizationStrategy>(0).ToArray(),
+                claimSetClaimsProvider ?? A.Fake<IClaimSetClaimsProvider>());
+        }
+
+        public static EdFiResourceClaim CreateResourceClaim(string resourceClaimUri,
+                string actionUri,
+                string[] authorizationStrategyNameOverrides = null,
+                string validationRuleSetNameOverride = null)
+        {
+            return new EdFiResourceClaim(
+                    resourceClaimUri, new EdFiResourceClaimValue { Actions = new[] { new ResourceAction(actionUri, authorizationStrategyNameOverrides, validationRuleSetNameOverride) } });
+        }
+    }
+
     [TestFixture]
     public class Feature_Validating_the_incoming_AuthorizationContext
     {
-        public class When_attempting_to_authorize_with_a_null_authorization_context : TestFixtureBase
+        public abstract class When_attempting_to_authorize : TestFixtureBase
         {
+            protected IAuthorizationContextProvider AuthorizationContextProvider;
+
+            protected virtual void Given_an_authorizationContextProvider()
+            {
+                AuthorizationContextProvider = new AuthorizationContextProvider(new HashtableContextStorage());
+            }
+
+            protected virtual void Given_an_authorizationContextProvider(string action)
+            {
+                Given_an_authorizationContextProvider();
+                AuthorizationContextProvider.SetAction(action);
+            }
+
+            protected virtual void Given_an_authorizationContextProvider(string action, string[] resourceUris)
+            {
+                Given_an_authorizationContextProvider(action);
+                AuthorizationContextProvider.SetResourceUris(resourceUris);
+            }
+
             protected override void Act()
             {
-                // Create provider with stubs
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
+                var entityAuthorizer = Helper.CreateEntityAuthorizer(AuthorizationContextProvider);
 
-                provider.AuthorizeSingleItemAsync(null, CancellationToken.None)
-                    .WaitSafely();
+                var decorator = Helper.CreateDecorator(AuthorizationContextProvider, entityAuthorizer: entityAuthorizer);
+
+                decorator.AuthorizeSingleItem(null, CancellationToken.None);
+            }
+        }
+
+        public class When_attempting_to_authorize_without_an_action_value
+            : When_attempting_to_authorize
+        {
+            protected override void Arrange()
+            {
+                Given_an_authorizationContextProvider();
             }
 
             [Assert]
             public void Should_throw_an_ArgumentNullException()
             {
-                ActualException.ShouldBeExceptionType<ArgumentNullException>();
+                ActualException.ShouldBeExceptionType<AuthorizationContextException>()
+                    .Message.ShouldBe("Authorization cannot be performed because no action has been stored in the current context.");
             }
         }
 
-        public class When_attempting_to_authorize_without_a_resource_value : TestFixtureBase
+        public class When_attempting_to_authorize_with_a_null_action
+            : When_attempting_to_authorize
         {
-            protected override void Act()
+            protected override void Arrange()
             {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_an_authorizationContextProvider(null);
+            }
 
-                provider.AuthorizeSingleItemAsync(
-                        new EdFiAuthorizationContext(
-                            new ClaimsPrincipal(),
-                            new[] {" "},
-                            "action",
-                            new object()),
-                        CancellationToken.None)
-                    .WaitSafely();
+            [Assert]
+            public void Should_throw_an_ArgumentNullException()
+            {
+                ActualException.ShouldBeExceptionType<AuthorizationContextException>()
+                    .Message.ShouldBe("Authorization cannot be performed because no action has been stored in the current context.");
+            }
+        }
+
+        public class When_attempting_to_authorize_without_a_resource_value
+            : When_attempting_to_authorize
+        {
+            protected override void Arrange()
+            {
+                Given_an_authorizationContextProvider("Create");
             }
 
             [Assert]
             public void Should_throw_an_AuthorizationContextException()
             {
-                ActualException.ShouldBeExceptionType<AuthorizationContextException>();
-                ActualException.Message.ShouldContain("resource");
+                ActualException.ShouldBeExceptionType<AuthorizationContextException>()
+                    .Message.ShouldBe("Authorization cannot be performed because no resource has been stored in the current context.");
             }
         }
 
-        public class When_attempting_to_authorize_with_a_null_resource : TestFixtureBase
+        public class When_attempting_to_authorize_with_a_null_resource
+            : When_attempting_to_authorize
         {
-            protected override void Act()
+            protected override void Arrange()
             {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
-
-                provider.AuthorizeSingleItemAsync(
-                        new EdFiAuthorizationContext(
-                            new ClaimsPrincipal(),
-                            null,
-                            "action",
-                            new object()),
-                        CancellationToken.None)
-                    .WaitSafely();
+                Given_an_authorizationContextProvider("Create", null);
             }
 
             [Assert]
             public void Should_throw_an_ArgumentNullException()
             {
-                ActualException.ShouldBeExceptionType<ArgumentNullException>();
-                ((ArgumentNullException) ActualException).ParamName.ShouldBe("resourceClaimUris");
+                ActualException.ShouldBeExceptionType<AuthorizationContextException>()
+                    .Message.ShouldBe("Authorization cannot be performed because no resource has been stored in the current context.");
             }
         }
 
-        public class When_attempting_to_authorize_without_an_action_value : TestFixtureBase
+        public class When_attempting_to_authorize_with_more_than_2_resource_URI_representations
+            : When_attempting_to_authorize
         {
+            protected override void Arrange()
+            {
+                Given_an_authorizationContextProvider("actionUri", new[] { "resourceUri1", "resourceUri2", "resourceUri3" });
+            }
+
             protected override void Act()
             {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
+                var authorizationBasisMetadataSelector = Helper.CreateAuthorizationBasisMetadataSelector();
 
-                provider.AuthorizeSingleItemAsync(
-                        new EdFiAuthorizationContext(
-                            new ClaimsPrincipal(),
-                            new[] {"resource"},
-                            " ",
-                            new object()),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
+                var entityAuthorizer = Helper.CreateEntityAuthorizer(AuthorizationContextProvider, authorizationBasisMetadataSelector: authorizationBasisMetadataSelector);
 
-            [Assert]
-            public void Should_throw_an_ArgumentNullException()
-            {
-                ActualException.ShouldBeOfType<AuthorizationContextException>();
-                ActualException.Message.ShouldContain("action");
-            }
-        }
+                var decorator = Helper.CreateDecorator(AuthorizationContextProvider, entityAuthorizer: entityAuthorizer);
 
-        public class When_attempting_to_authorize_with_a_null_action : TestFixtureBase
-        {
-            protected override void Act()
-            {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
-
-                provider.AuthorizeSingleItemAsync(
-                        new EdFiAuthorizationContext(
-                            new ClaimsPrincipal(),
-                            new[] {"resource"},
-                            null,
-                            new object()),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
-
-            [Assert]
-            public void Should_throw_an_ArgumentNullException()
-            {
-                ActualException.ShouldBeExceptionType<ArgumentNullException>();
-                ActualException.Message.ShouldContain("action");
-            }
-        }
-
-        public class When_attempting_to_authorize_with_more_than_2_resource_URI_representations : TestFixtureBase
-        {
-            protected override void Act()
-            {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IAuthorizationStrategy>(),
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
-
-                provider.AuthorizeSingleItemAsync(
-                        new EdFiAuthorizationContext(
-                            new ClaimsPrincipal(),
-                            new []{ "resourceUri1", "resourceUri2", "resourceUri3"},
-                            "actionUri",
-                            new object()),
-                        CancellationToken.None)
-                    .WaitSafely();
+                decorator.AuthorizeSingleItem(null, CancellationToken.None);
             }
 
             [Assert]
             public void Should_throw_an_AuthorizationContextException()
             {
                 ActualException.ShouldBeOfType<AuthorizationContextException>();
-                ActualException.Message.ShouldContain("Expected up to 2, but found 3.");
+                ActualException.Message.ShouldContain("Unexpected number of Resource URIs found in the authorization context. Expected up to 2, but found 3.");
             }
         }
     }
@@ -210,15 +268,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     {
         private class AuthorizationStrategyNotFollowingConventions : IAuthorizationStrategy
         {
-            public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
-                CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
-
-            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-                IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext)
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
@@ -226,39 +276,42 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
         private class ConventionFollowingAuthorizationStrategy : IAuthorizationStrategy
         {
-            public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
-                CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
-
-            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-                IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext)
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
         }
 
-        private class ConventionFollowing2AuthorizationStrategy
-            : ConventionFollowingAuthorizationStrategy { }
+        private class Convention2FollowingAuthorizationStrategy
+            : ConventionFollowingAuthorizationStrategy
+        { }
 
-        public class When_creating_the_authorization_provider_with_all_authorization_strategy_types_whose_names_end_with_AuthorizationStrategy
-            : TestFixtureBase
+        public abstract class When_creating_the_authorization_provider : TestFixtureBase
         {
+            protected IAuthorizationStrategy[] AuthorizationStrategies;
+
             protected override void Act()
             {
-                // Execute code under test
-                var authorizationStrategies = new IAuthorizationStrategy[]
-                {
-                    new ConventionFollowingAuthorizationStrategy(), new ConventionFollowing2AuthorizationStrategy()
-                };
+                var selector = Helper.CreateAuthorizationBasisMetadataSelector(
+                   authorizationStrategies: AuthorizationStrategies);
+            }
 
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    authorizationStrategies,
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
+            protected void Given_a_collection_of_authorizationStrategies(IAuthorizationStrategy[] authorizationStrategies)
+            {
+                AuthorizationStrategies = authorizationStrategies;
+            }
+        }
+
+        public class When_creating_the_authorization_provider_with_all_authorization_strategy_types_whose_names_end_with_AuthorizationStrategy
+            : When_creating_the_authorization_provider
+        {
+            protected override void Arrange()
+            {
+                Given_a_collection_of_authorizationStrategies(new IAuthorizationStrategy[]
+                {
+                    new ConventionFollowingAuthorizationStrategy(),
+                    new Convention2FollowingAuthorizationStrategy()
+                });
             }
 
             [Assert]
@@ -269,21 +322,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         }
 
         public class When_creating_the_authorization_provider_with_an_authorization_strategy_type_whose_name_does_not_end_with_AuthorizationStrategy
-            : TestFixtureBase
+            : When_creating_the_authorization_provider
         {
-            protected override void Act()
+            protected override void Arrange()
             {
-                // Execute code under test
-                var authorizationStrategies = new IAuthorizationStrategy[]
+                Given_a_collection_of_authorizationStrategies(new IAuthorizationStrategy[]
                 {
-                    new ConventionFollowingAuthorizationStrategy(), new AuthorizationStrategyNotFollowingConventions()
-                };
-
-                var provider = new EdFiAuthorizationProvider(
-                    Stub<IResourceAuthorizationMetadataProvider>(),
-                    authorizationStrategies,
-                    Stub<ISecurityRepository>(),
-                    Array.Empty<IExplicitObjectValidator>());
+                    new ConventionFollowingAuthorizationStrategy(),
+                    new AuthorizationStrategyNotFollowingConventions()
+                });
             }
 
             [Assert]
@@ -298,20 +345,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     [TestFixture]
     public class Feature_Authorization_strategy_selection
     {
+        #region Authorization Strategies
+
         public abstract class AuthorizationStrategyBase : IAuthorizationStrategy
         {
-            public bool SingleItemWasCalled { get; private set; }
-
             public bool FilteringWasCalled { get; private set; }
 
-            public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext, CancellationToken cancellationToken)
-            {
-                SingleItemWasCalled = true;
-                return Task.CompletedTask;
-            }
-
             public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-                IEnumerable<Claim> relevantClaims,
+                EdFiResourceClaim[] relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
@@ -325,27 +366,38 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         }
 
         public class SecondAuthorizationStrategy : AuthorizationStrategyBase { }
+
         public class AnotherSecondAuthorizationStrategy : AuthorizationStrategyBase { }
 
         public class FourthAuthorizationStrategy : AuthorizationStrategyBase { }
+
         public class AnotherFourthAuthorizationStrategy : AuthorizationStrategyBase { }
 
         public class OverrideAuthorizationStrategy : AuthorizationStrategyBase { }
+
         public class AnotherOverrideAuthorizationStrategy : AuthorizationStrategyBase { }
+
+        #endregion
 
         public abstract class When_authorizing_a_request : TestFixtureBase
         {
+            protected const string ClaimSetName = "ResourceClaims";
+
             // Claims represent a lineage (1 is the leaf, 4 is the root)
             protected const string Resource1ClaimUri = @"http://CLAIMS/resource1";
             protected const string Resource2ClaimUri = @"http://CLAIMS/resource2";
             protected const string Resource3ClaimUri = @"http://CLAIMS/resource3";
             protected const string Resource4ClaimUri = @"http://CLAIMS/resource4";
 
-            protected const string ReadActionUri = @"http://ACTIONS/read";
+            protected const string CreateActionUri = "http://ACTIONS/create";
+            protected const string ReadActionUri = "http://ACTIONS/read";
+            protected const string UpdateActionUri = "http://ACTIONS/update";
+            protected const string DeleteActionUri = "http://ACTIONS/delete";
+            protected const string ReadChangesActionUri = "http://ACTIONS/readChanges";
 
             protected readonly SecondAuthorizationStrategy SecondAuthorizationStrategy = new SecondAuthorizationStrategy();
             protected readonly AnotherSecondAuthorizationStrategy AnotherSecondAuthorizationStrategy = new AnotherSecondAuthorizationStrategy();
-            
+
             protected readonly FourthAuthorizationStrategy FourthAuthorizationStrategy = new FourthAuthorizationStrategy();
             protected readonly AnotherFourthAuthorizationStrategy AnotherFourthAuthorizationStrategy = new AnotherFourthAuthorizationStrategy();
 
@@ -355,6 +407,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             // Define all authorization strategies
             protected IAuthorizationStrategy[] AuthorizationStrategies;
             protected ISecurityRepository SecurityRepository;
+            protected IClaimSetClaimsProvider ClaimSetClaimsProvider;
+            protected IAuthorizationContextProvider AuthorizationContextProvider;
+            protected IApiClientContextProvider ApiClientContextProvider;
+            protected AuthorizationFilteringProvider AuthorizationFilteringProvider;
+            protected IResourceAuthorizationMetadataProvider ResourceAuthorizationMetadataProvider;
+            protected IAuthorizationBasisMetadataSelector AuthorizationBasisMetadataSelector;
+            protected FakeRepositoryOperationAuthorizationDecorator<FakeEntity> RepositoryOperationAuthorizationDecorator;
 
             protected When_authorizing_a_request()
             {
@@ -362,26 +421,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 AuthorizationStrategies = new IAuthorizationStrategy[]
                 {
-                    SecondAuthorizationStrategy, 
-                    AnotherSecondAuthorizationStrategy, 
-                    FourthAuthorizationStrategy, 
-                    AnotherFourthAuthorizationStrategy, 
+                    SecondAuthorizationStrategy,
+                    AnotherSecondAuthorizationStrategy,
+                    FourthAuthorizationStrategy,
+                    AnotherFourthAuthorizationStrategy,
                     OverrideAuthorizationStrategy,
                     AnotherOverrideAuthorizationStrategy
                 };
+
+                ApiClientContextProvider = Given_an_apiClientContextProvider();
+
+                AuthorizationFilteringProvider = new AuthorizationFilteringProvider();
             }
 
-            protected ClaimsPrincipal Given_a_principal_with_a_single_resource_claim(string resourceClaimUri, string actionUri)
+            private IApiClientContextProvider Given_an_apiClientContextProvider()
             {
-                // Issue Resource claim with action
-                Claim[] claims =
-                {
-                    JsonClaimHelper.CreateClaim(resourceClaimUri, new EdFiResourceClaimValue(actionUri))
-                };
+                var apiClientContextProvider = Stub<IApiClientContextProvider>();
 
-                return
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                var apiClientContext = Stub<ApiClientContext>(x =>
+                    x.WithArgumentsForConstructor(new object[] {
+                            null, ClaimSetName, null, null, null, null, null, null, null, 0 })
+                    );
+
+                A.CallTo(() => apiClientContextProvider.GetApiClientContext())
+                    .Returns(apiClientContext);
+
+                return apiClientContextProvider;
             }
 
             private ISecurityRepository Given_a_security_repository_returning_all_actions_and_appropriate_claim_name_lineage()
@@ -392,35 +457,45 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     .Returns(
                         new Action
                         {
-                            ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
+                            ActionId = 1,
+                            ActionName = "Create",
+                            ActionUri = CreateActionUri
                         });
 
                 A.CallTo(() => securityRepository.GetActionByName("Read"))
                     .Returns(
                         new Action
                         {
-                            ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
+                            ActionId = 1,
+                            ActionName = "Read",
+                            ActionUri = ReadActionUri
                         });
 
                 A.CallTo(() => securityRepository.GetActionByName("Update"))
                     .Returns(
                         new Action
                         {
-                            ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
+                            ActionId = 1,
+                            ActionName = "Update",
+                            ActionUri = UpdateActionUri
                         });
 
                 A.CallTo(() => securityRepository.GetActionByName("Delete"))
                     .Returns(
                         new Action
                         {
-                            ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
+                            ActionId = 1,
+                            ActionName = "Delete",
+                            ActionUri = DeleteActionUri
                         });
 
                 A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
                     .Returns(
                         new Action
                         {
-                            ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
+                            ActionId = 1,
+                            ActionName = "ReadChanges",
+                            ActionUri = ReadChangesActionUri
                         });
 
                 // NOTE: These mocks create results for a implied resource claim lineage where Resource 1 is the lowest level claim,
@@ -438,147 +513,173 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     .Returns(
                         new[]
                         {
-                            Resource1ClaimUri, Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
+                                Resource1ClaimUri, Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
                         });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource2ClaimUri))
                     .Returns(
                         new[]
                         {
-                            Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
+                                Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
                         });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource3ClaimUri))
                     .Returns(
                         new[]
                         {
-                            Resource3ClaimUri, Resource4ClaimUri
+                                Resource3ClaimUri, Resource4ClaimUri
                         });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource4ClaimUri))
                     .Returns(
                         new[]
                         {
-                            Resource4ClaimUri
+                                Resource4ClaimUri
                         });
 
                 return securityRepository;
             }
 
-            protected abstract IResourceAuthorizationMetadataProvider CreateResourceAuthorizationMetadataProvider(
-                string resourceClaim,
-                string actionUri);
+            protected void Given_a_claimSetProvider(EdFiResourceClaim[] resourceClaims)
+            {
+                var claimSetClaimsProvider = Stub<IClaimSetClaimsProvider>();
+
+                A.CallTo(() => claimSetClaimsProvider.GetClaims(ClaimSetName))
+                    .Returns(resourceClaims);
+
+                ClaimSetClaimsProvider = claimSetClaimsProvider;
+            }
+
+            protected virtual void Given_an_authorizationContextProvider(string action, string[] resourceUris)
+            {
+                AuthorizationContextProvider = new AuthorizationContextProvider(new HashtableContextStorage());
+
+                AuthorizationContextProvider.SetAction(action);
+                AuthorizationContextProvider.SetResourceUris(resourceUris);
+            }
+
+            protected virtual void Given_an_AuthorizationBasisMetadataSelector()
+            {
+                AuthorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
+                    ResourceAuthorizationMetadataProvider,
+                    SecurityRepository,
+                    AuthorizationStrategies,
+                    ClaimSetClaimsProvider);
+            }
+
+            protected virtual void Given_a_RepositoryOperationAuthorizationDecorator()
+            {
+                var entityAuthorizer = Helper.CreateEntityAuthorizer(
+                    AuthorizationContextProvider,
+                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    apiClientContextProvider: ApiClientContextProvider,
+                    authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
+                    securityRepository: SecurityRepository);
+
+                RepositoryOperationAuthorizationDecorator = Helper.CreateDecorator(
+                    AuthorizationContextProvider,
+                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
+                    apiClientContextProvider: ApiClientContextProvider,
+                    entityAuthorizer: entityAuthorizer);
+            }
         }
 
         // ================ Begin Authorization Strategy Override Scenarios ===============
-
         public abstract class When_authorizing_a_request_affected_by_authorization_strategies : When_authorizing_a_request
         {
-            protected virtual ClaimsPrincipal Given_a_principal_with_a_single_resource_claim_and_some_authorization_strategy_overrides(
-                string resourceClaimUri,
-                string actionUri,
-                params string[] authorizationStrategyNameOverrides)
+            protected void Given_a_ResourceAuthorizationMetadataProvider()
             {
-                // Issue Resource claim with action
-                Claim[] claims =
-                {
-                    JsonClaimHelper.CreateClaim(resourceClaimUri, new EdFiResourceClaimValue(actionUri, authorizationStrategyNameOverrides))
-                };
+                // Set metadata with 4 resource claims, with Resource 3 not having an authorization strategy.
+                ResourceAuthorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
-                return
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
-            }
+                var resourceClaim = AuthorizationContextProvider.GetResourceUris().Single();
+                var actionUri = AuthorizationContextProvider.GetAction();
 
-            protected override IResourceAuthorizationMetadataProvider CreateResourceAuthorizationMetadataProvider(
-                string resourceClaim,
-                string actionUri)
-            {
-                // Return metadata with 4 resource claims, with Resource 3 not having an authorization strategy.
-                var authorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
-
-                A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
+                A.CallTo(() => ResourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
                     .Returns(
                         new List<ResourceClaimAuthorizationMetadata>
                             {
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource1ClaimUri, AuthorizationStrategies = null //"First"
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource2ClaimUri, AuthorizationStrategies = new [] { "Second", "AnotherSecond" }
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource3ClaimUri, AuthorizationStrategies = null
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource4ClaimUri, AuthorizationStrategies = new [] { "Fourth", "AnotherFourth" }
-                                }
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource1ClaimUri, AuthorizationStrategies = null //"First"
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource2ClaimUri, AuthorizationStrategies = new [] { "Second", "AnotherSecond" }
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource3ClaimUri, AuthorizationStrategies = null
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource4ClaimUri, AuthorizationStrategies = new [] { "Fourth", "AnotherFourth" }
+                                    }
                             }
 
                             // Trim out lineage from bottom up to incoming claim name
                             .SkipWhile(
                                 rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
                             .ToList());
-
-                return authorizationMetadataProvider;
             }
         }
 
         public class When_authorizing_a_request_for_a_resource_with_a_default_authorization_strategy_defined
             : When_authorizing_a_request_affected_by_authorization_strategies
         {
+            private IEnumerable<string> _actualAuthorizationStrategyNames;
+
             protected override void Act()
             {
                 // Caller has Read access to Resource 4 (the top level claim)
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource4ClaimUri, ReadActionUri);
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, ReadActionUri)
+                });
 
                 // Request is for Read access to Resource 2 (lower level claim)
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource2ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                var actualMetadataForAuthorization = AuthorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                    ClaimSetName, new List<string> { Resource2ClaimUri }, ReadActionUri);
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).Wait();
+                _actualAuthorizationStrategyNames = actualMetadataForAuthorization.AuthorizationStrategies
+                    .Select(strat => strat.GetType().Name)
+                    .ToArray();
             }
 
             [Assert]
             public void Should_attempt_to_authorize_using_the_authorization_strategies_assigned_to_the_requested_resource_claim()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                _actualAuthorizationStrategyNames.ShouldBeEquivalentTo(
+                    new[]
+                    {
+                            nameof(Feature_Authorization_strategy_selection.SecondAuthorizationStrategy),
+                            nameof(Feature_Authorization_strategy_selection.AnotherSecondAuthorizationStrategy)
+                    });
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_default_authorization_strategies_from_higher_up_hierarchy()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                _actualAuthorizationStrategyNames.ShouldSatisfyAllConditions(
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.FourthAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.AnotherFourthAuthorizationStrategy))
+                );
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                _actualAuthorizationStrategyNames.ShouldSatisfyAllConditions(
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.OverrideAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.AnotherOverrideAuthorizationStrategy))
+                );
             }
         }
 
@@ -589,55 +690,45 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has Read access to Resource 4 (top level claim), with 2 auth strategies applied as an override
-                var claimsPrincipal =
-                    Given_a_principal_with_a_single_resource_claim_and_some_authorization_strategy_overrides(
-                        Resource4ClaimUri,
-                        ReadActionUri,
-                        "Override", "AnotherOverride");
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: new[] { "Override", "AnotherOverride" })
+                });
 
                 // Request is for Read access to Resource 2
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource2ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
             public void Should_attempt_to_authorize_using_the_override_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_default_authorization_strategies_of_the_requested_resource()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -645,71 +736,66 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             When_authorizing_a_request_for_a_resource_with_an_explicit_authorization_strategy_defined_that_is_ABOVE_one_of_the_callers_claim_with_an_authorization_override_defined
             : When_authorizing_a_request_affected_by_authorization_strategies
         {
+            private string[] _actualAuthorizationStrategyNames;
+
             protected override void Act()
             {
                 // Caller has claims for Resources 1 and 3 (intentionally supplied out of order)
-                Claim[] claims =
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
                 {
                     // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this test data, Resource2 is "lower" than Resource3 in the hierarchy, and should be the one matched first.
-                    JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(ReadActionUri)),
-                    JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(ReadActionUri, new [] { "Override", "AnotherOverride" }))
+                    Helper.CreateResourceClaim(Resource3ClaimUri, ReadActionUri),
 
                     // This claim is "below" requested resource, so it should be ignored
                     // (NOTE: This will not happen with the current implementation of the API, but has been added for full coverage/definition of expected behavior)
-                };
-
-                // Caller has Read access to Resources 1 and 3 (and has overrides on Resource 3)
-                var claimsPrincipal =
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                    Helper.CreateResourceClaim(Resource1ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: new[] { "Override", "AnotherOverride" })
+                });
 
                 // Request is for Read access to Resource 2
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource2ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                var actualMetadataForAuthorization = AuthorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(ClaimSetName, new List<string> { Resource2ClaimUri }, ReadActionUri);
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                _actualAuthorizationStrategyNames = actualMetadataForAuthorization.AuthorizationStrategies
+                    .Select(strat => strat.GetType().Name)
+                    .ToArray();
             }
 
             [Assert]
             public void
                 Should_attempt_to_authorize_using_the_strategy_obtained_from_the_next_lowest_level_resource_claim_with_an_assigned_authorization_strategy()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                _actualAuthorizationStrategyNames.ShouldBeEquivalentTo(
+                    new[]
+                    {
+                            nameof(Feature_Authorization_strategy_selection.SecondAuthorizationStrategy),
+                            nameof(Feature_Authorization_strategy_selection.AnotherSecondAuthorizationStrategy)
+                    });
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_lower_level_resource_overridden_authorization_strategies()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                _actualAuthorizationStrategyNames.ShouldSatisfyAllConditions(
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.OverrideAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.AnotherOverrideAuthorizationStrategy))
+                );
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
-                "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                _actualAuthorizationStrategyNames.ShouldSatisfyAllConditions(
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.FourthAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.AnotherFourthAuthorizationStrategy))
+                );
             }
         }
 
@@ -720,27 +806,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has Read access to Resource 4
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource4ClaimUri, ReadActionUri);
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, ReadActionUri)
+                });
 
                 // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource1ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -748,24 +828,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_attempt_to_authorize_using_the_strategy_obtained_from_the_next_lowest_level_resource_claim_with_an_assigned_authorization_strategy()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_top_level_claims_default_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -776,27 +856,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has Read access to Resource 3
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource3ClaimUri, ReadActionUri);
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource3ClaimUri, ReadActionUri)
+                });
 
                 // Request is for Read access to Resource 3
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource3ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource3ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -804,18 +878,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_attempt_to_authorize_using_the_strategy_obtained_from_the_next_higher_level_resource_claim_with_an_assigned_authorization_strategy()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -826,57 +900,45 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has Read access to Resource 4, with overrides
-                var claimsPrincipal =
-                    Given_a_principal_with_a_single_resource_claim_and_some_authorization_strategy_overrides(
-                        Resource4ClaimUri,
-                        ReadActionUri,
-                        "Override", "AnotherOverride");
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: new[] { "Override", "AnotherOverride" })
+                });
 
                 // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource1ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
             public void Should_attempt_to_authorize_using_the_override_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_default_authorization_strategies_on_an_intermediate_resource()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
-            
+
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -887,57 +949,45 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has Read access to Resource 3, with overrides
-                var claimsPrincipal =
-                    Given_a_principal_with_a_single_resource_claim_and_some_authorization_strategy_overrides(
-                        Resource3ClaimUri,
-                        ReadActionUri,
-                        "Override", "AnotherOverride");
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource3ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: new[] { "Override", "AnotherOverride" })
+                });
 
                 // Request is for Read access to Resource 3
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource3ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource3ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    Array.Empty<IExplicitObjectValidator>());
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
             public void Should_attempt_to_authorize_using_the_override_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_higher_level_claims_default_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
-            
+
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -947,39 +997,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has claims for Resources 2 and 3 (out of order)
-                Claim[] claims =
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
                 {
                     // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
-                    JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(ReadActionUri)),
-                    JsonClaimHelper.CreateClaim(Resource2ClaimUri, new EdFiResourceClaimValue(ReadActionUri))
-                };
-
-                var claimsPrincipal =
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                    Helper.CreateResourceClaim(Resource3ClaimUri, ReadActionUri),
+                    Helper.CreateResourceClaim(Resource2ClaimUri, ReadActionUri)
+                });
 
                 // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    ReadActionUri,
-                    new object());
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource1ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single().Value,
-                    authorizationContext.Action.Single().Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new IExplicitObjectValidator[0]);
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -987,24 +1024,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_resolve_claims_using_authorization_metadata_order_rather_than_callers_claims_order_and_invoke_lowest_matching_claims_authorization_strategy()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue(),
-                    () => AnotherSecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue());
+                    () => SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue(),
+                    () => AnotherSecondAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_the_higher_level_claim_default_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherFourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherFourthAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
 
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 "".ShouldSatisfyAllConditions(
-                    () => OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse(),
-                    () => AnotherOverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse());
+                    () => OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse(),
+                    () => AnotherOverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse());
             }
         }
 
@@ -1027,12 +1064,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 }
             }
 
-            /// <summary>
-            /// Validates an object using a specific externally defined rule set.
-            /// </summary>
-            /// <param name="object">The object to be validated.</param>
-            /// <param name="ruleSetName">The name of the externally defined rule set to be executed.</param>
-            /// <returns>The results of the validation.</returns>
             public ICollection<ValidationResult> ValidateObject(object @object, string ruleSetName)
             {
                 Invocations.Add(new Invocation(@object, ruleSetName));
@@ -1056,100 +1087,100 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
         public abstract class When_authorizing_a_request_affected_by_authorization_validation_rule_sets : When_authorizing_a_request
         {
-            protected FakeExplicitObjectValidator FakeExplicitObjectValidator1 = new FakeExplicitObjectValidator();
-            protected FakeExplicitObjectValidator FakeExplicitObjectValidator2 = new FakeExplicitObjectValidator();
+            protected FakeExplicitObjectValidator FakeExplicitObjectValidator1 = new();
+            protected FakeExplicitObjectValidator FakeExplicitObjectValidator2 = new();
 
-            protected const string CreateActionUri = @"http://ACTIONS/create";
-
-            protected virtual ClaimsPrincipal Given_a_principal_with_a_single_resource_claim_and_a_validation_rule_set_override(
-                string resourceClaimUri,
-                string actionUri,
-                string validationRuleSetNameOverride)
+            protected void Given_a_ResourceAuthorizationMetadataProvider()
             {
-                // Issue Resource claim with action
-                Claim[] claims =
-                {
-                    JsonClaimHelper.CreateClaim(resourceClaimUri, new EdFiResourceClaimValue(actionUri, null, null, validationRuleSetNameOverride))
-                };
+                // Set metadata with 4 resource claims, with Resource 3 not having an authorization strategy.
+                ResourceAuthorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
-                return
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
-            }
+                var resourceClaim = AuthorizationContextProvider.GetResourceUris().Single();
+                var actionUri = AuthorizationContextProvider.GetAction();
 
-            protected override IResourceAuthorizationMetadataProvider CreateResourceAuthorizationMetadataProvider(
-                string resourceClaim,
-                string actionUri)
-            {
-                // Return metadata with 4 resource claims, with Resource 3 not having an authorization strategy.
-                var authorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
-
-                A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
+                A.CallTo(() => ResourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
                     .Returns(
                         new List<ResourceClaimAuthorizationMetadata>
                             {
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource1ClaimUri, ValidationRuleSetName = null
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource2ClaimUri, ValidationRuleSetName = "RuleSetFor2"
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource3ClaimUri, ValidationRuleSetName = null
-                                },
-                                new ResourceClaimAuthorizationMetadata
-                                {
-                                    ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource1ClaimUri, ValidationRuleSetName = null
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource2ClaimUri, ValidationRuleSetName = "RuleSetFor2"
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource3ClaimUri, ValidationRuleSetName = null
+                                    },
+                                    new ResourceClaimAuthorizationMetadata
+                                    {
+                                        ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
 
-                                    // We need an authorization strategy defined somewhere in the lineage
-                                    AuthorizationStrategies = new List<string> { "Fourth" }
-                                }
+                                        // We need an authorization strategy defined somewhere in the lineage
+                                        AuthorizationStrategies = new List<string> { "Fourth" }
+                                    }
                             }
 
                             // Trim out lineage from bottom up to incoming claim name
                             .SkipWhile(
                                 rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
                             .ToList());
+            }
 
-                return authorizationMetadataProvider;
+            protected override void Given_a_RepositoryOperationAuthorizationDecorator()
+            {
+                var entityAuthorizer = Helper.CreateEntityAuthorizer(
+                    AuthorizationContextProvider,
+                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    explicitObjectValidators: new IExplicitObjectValidator[]
+                    {
+                            FakeExplicitObjectValidator1,
+                            FakeExplicitObjectValidator2
+                    },
+                    apiClientContextProvider: ApiClientContextProvider,
+                    authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
+                    securityRepository: SecurityRepository);
+
+                RepositoryOperationAuthorizationDecorator = Helper.CreateDecorator(
+                    AuthorizationContextProvider,
+                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
+                    apiClientContextProvider: ApiClientContextProvider,
+                    entityAuthorizer: entityAuthorizer);
             }
         }
 
         public class When_authorizing_a_request_for_a_resource_with_an_explicit_validation_rule_set_defined
             : When_authorizing_a_request_affected_by_authorization_validation_rule_sets
         {
+            private string[] _actualAuthorizationStrategyNames;
+
             protected override void Act()
             {
-                // Caller has Read access to Resource 4
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource4ClaimUri, CreateActionUri);
+                // Caller has Create access to Resource 4
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, CreateActionUri)
+                });
 
-                // Request is for Read access to Resource 2
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Initialize authorization context provider with only the action
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource2ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
+
+                var actualMetadataForAuthorization = AuthorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(ClaimSetName, new List<string> { Resource2ClaimUri }, CreateActionUri);
+
+                _actualAuthorizationStrategyNames = actualMetadataForAuthorization.AuthorizationStrategies
+                    .Select(strat => strat.GetType().Name)
+                    .ToArray();
             }
 
             [Assert]
@@ -1161,7 +1192,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
 
                 Assert.That(
@@ -1169,7 +1200,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
@@ -1184,16 +1215,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                _actualAuthorizationStrategyNames.ShouldSatisfyAllConditions(
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.OverrideAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldNotContain(nameof(Feature_Authorization_strategy_selection.SecondAuthorizationStrategy)),
+                    () => _actualAuthorizationStrategyNames.ShouldContain(nameof(Feature_Authorization_strategy_selection.FourthAuthorizationStrategy))
+                );
             }
         }
 
@@ -1203,36 +1236,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             protected override void Act()
             {
-                // Caller has Read access to Resource 4
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim_and_a_validation_rule_set_override(
-                    Resource4ClaimUri,
-                    CreateActionUri,
-                    "OverrideRuleSet");
+                // Caller has Create access to Resource 4
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, CreateActionUri, validationRuleSetNameOverride: "OverrideRuleSet")
+                });
 
-                // Request is for Read access to Resource 2
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Request is for Create access to Resource 2
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource2ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1243,7 +1262,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
 
                 Assert.That(
@@ -1251,7 +1270,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
@@ -1266,16 +1285,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1286,48 +1305,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has claims for Resources 1 and 3 (out of order)
-                Claim[] claims =
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
                 {
                     // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
-                    JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(CreateActionUri)),
-                    JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(CreateActionUri, null, null, "OverrideRuleSet"))
+                    Helper.CreateResourceClaim(Resource3ClaimUri, CreateActionUri),
 
                     // This claim is "below" requested resource, so it should be ignored
                     // (NOTE: This will not happen with the current implementation of the API, but has been added for full coverage/definition of expected behavior)
-                };
+                    Helper.CreateResourceClaim(Resource1ClaimUri, CreateActionUri, validationRuleSetNameOverride: "OverrideRuleSet")
+                });
 
-                // Caller has Read access to Resources 1 and 3
-                var claimsPrincipal =
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                // Request is for Create access to Resource 2
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource2ClaimUri });
 
-                // Request is for Read access to Resource 2
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource2ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
-
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1339,7 +1339,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
 
                 Assert.That(
@@ -1347,7 +1347,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
@@ -1362,16 +1362,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1381,33 +1381,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             protected override void Act()
             {
-                // Caller has Read access to Resource 4
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource4ClaimUri, CreateActionUri);
+                // Caller has Create access to Resource 4
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, CreateActionUri)
+                });
 
-                // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Request is for Create access to Resource 1
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource1ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1419,7 +1408,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
 
                 Assert.That(
@@ -1427,7 +1416,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
@@ -1442,16 +1431,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1461,33 +1450,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             protected override void Act()
             {
-                // Caller has Read access to Resource 3
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim(Resource3ClaimUri, CreateActionUri);
+                // Caller has Create access to Resource 3
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource3ClaimUri, CreateActionUri)
+                });
 
-                // Request is for Read access to Resource 3
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource3ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Request is for Create access to Resource 3
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource3ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1499,7 +1477,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor4"
+                                "RuleSetFor4"
                         }));
 
                 Assert.That(
@@ -1507,7 +1485,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor4"
+                                "RuleSetFor4"
                         }));
             }
 
@@ -1522,16 +1500,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor4"
+                                "RuleSetFor4"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1541,36 +1519,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             protected override void Act()
             {
-                // Caller has Read access to Resource 4
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim_and_a_validation_rule_set_override(
-                    Resource4ClaimUri,
-                    CreateActionUri,
-                    "OverrideRuleSet");
+                // Caller has Create access to Resource 4
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource4ClaimUri, CreateActionUri, validationRuleSetNameOverride: "OverrideRuleSet")
+                });
 
-                // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Request is for Create access to Resource 1
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource1ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1581,7 +1545,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
 
                 Assert.That(
@@ -1589,7 +1553,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
@@ -1604,16 +1568,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1623,36 +1587,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             protected override void Act()
             {
-                // Caller has Read access to Resource 3
-                var claimsPrincipal = Given_a_principal_with_a_single_resource_claim_and_a_validation_rule_set_override(
-                    Resource3ClaimUri,
-                    CreateActionUri,
-                    "OverrideRuleSet");
+                // Caller has Create access to Resource 3
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource3ClaimUri, CreateActionUri, validationRuleSetNameOverride: "OverrideRuleSet")
+                });
 
-                // Request is for Read access to Resource 3
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource3ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Request is for Create access to Resource 3
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource3ClaimUri });
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1663,7 +1613,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
 
                 Assert.That(
@@ -1671,7 +1621,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
@@ -1686,16 +1636,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "OverrideRuleSet"
+                                "OverrideRuleSet"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1705,44 +1655,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Caller has claims for Resources 2 and 3 (out of order)
-                Claim[] claims =
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
                 {
                     // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
-                    JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(CreateActionUri)),
-                    JsonClaimHelper.CreateClaim(Resource2ClaimUri, new EdFiResourceClaimValue(CreateActionUri))
-                };
+                    Helper.CreateResourceClaim(Resource3ClaimUri, CreateActionUri),
+                    Helper.CreateResourceClaim(Resource2ClaimUri, CreateActionUri)
+                });
 
-                var claimsPrincipal =
-                    new ClaimsPrincipal(
-                        new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                // Request is for Create access to Resource 1
+                Given_an_authorizationContextProvider(CreateActionUri, new[] { Resource1ClaimUri });
 
-                // Request is for Read access to Resource 1
-                var authorizationContext = new EdFiAuthorizationContext(
-                    claimsPrincipal,
-                    new[] {Resource1ClaimUri},
-                    CreateActionUri,
-                    new object());
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider();
+                Given_an_AuthorizationBasisMetadataSelector();
 
-                // Get the strategy metadata provider, using the authorization context values
-                var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
-                    authorizationContext.Resource.Single()
-                        .Value,
-                    authorizationContext.Action.Single()
-                        .Value);
+                Given_a_RepositoryOperationAuthorizationDecorator();
 
-                var provider = new EdFiAuthorizationProvider(
-                    authorizationMetadataProvider,
-                    AuthorizationStrategies,
-                    SecurityRepository,
-                    new[]
-                    {
-                        FakeExplicitObjectValidator1, FakeExplicitObjectValidator2
-                    });
-
-                provider.AuthorizeSingleItemAsync(authorizationContext, CancellationToken.None).WaitSafely();
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             [Assert]
@@ -1754,7 +1686,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
 
                 Assert.That(
@@ -1762,7 +1694,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
 
                 Assert.That(
@@ -1773,16 +1705,144 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Is.EqualTo(
                         new[]
                         {
-                            "RuleSetFor2"
+                                "RuleSetFor2"
                         }));
             }
 
             [Assert]
             public void Should_only_attempt_to_authorize_using_the_sole_authorization_strategy_defined_on_the_top_level_claim_in_the_lineage()
             {
-                OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                OverrideAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                SecondAuthorizationStrategy.FilteringWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.FilteringWasCalled.ShouldBeTrue();
+            }
+        }
+
+        // ================ Begin Detecting Missing or Undefined Authorization Strategy Scenarios ===============
+        public class UnusedAuthorizationStrategy : AuthorizationStrategyBase { }
+
+        public abstract class When_authorizing_a_request_with_missing_or_undefined_authorization_strategies
+            : When_authorizing_a_request
+        {
+            protected void Given_a_ResourceAuthorizationMetadataProvider(string[] authorizationStrategyNames = null)
+            {
+                ResourceAuthorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
+
+                var resourceClaim = AuthorizationContextProvider.GetResourceUris().Single();
+                var actionUri = AuthorizationContextProvider.GetAction();
+
+                A.CallTo(() => ResourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
+                    .Returns(
+                        new List<ResourceClaimAuthorizationMetadata>
+                            {
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = resourceClaim,
+                                    AuthorizationStrategies  = authorizationStrategyNames
+                                }
+                            }
+                    .ToList());
+            }
+
+            protected override void Given_an_AuthorizationBasisMetadataSelector()
+            {
+                AuthorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
+                    ResourceAuthorizationMetadataProvider,
+                    SecurityRepository,
+                    new IAuthorizationStrategy[]
+                    {
+                        new UnusedAuthorizationStrategy()
+                    },
+                    ClaimSetClaimsProvider);
+            }
+        }
+
+        public class When_no_matching_authorization_strategy_implementation_can_be_found
+            : When_authorizing_a_request_with_missing_or_undefined_authorization_strategies
+        {
+            protected override void Act()
+            {
+                Given_a_claimSetProvider(new EdFiResourceClaim[] {
+                    Helper.CreateResourceClaim(Resource1ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: new[] { "Missing", "AnotherMissing" })
+                });
+
+                // Request is for Read access to Resource 1
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource1ClaimUri });
+
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider(new[] { "Missing", "AnotherMissing" });
+                Given_an_AuthorizationBasisMetadataSelector();
+
+                Given_a_RepositoryOperationAuthorizationDecorator();
+
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
+            }
+
+            [Assert]
+            public void Should_throw_exception_indicating_that_the_authorization_strategy_could_not_be_found()
+            {
+                ActualException.ShouldBeExceptionType<Exception>()
+                    .Message.ShouldBe("Could not find authorization implementation for strategy 'Missing' based on naming convention of '{strategyName}AuthorizationStrategy'.");
+            }
+        }
+
+        public class When_there_is_no_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
+            : When_authorizing_a_request_with_missing_or_undefined_authorization_strategies
+        {
+            protected override void Act()
+            {
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource2ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: Array.Empty<string>())
+                });
+
+                // Request is for Read access to Resource 2
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource2ClaimUri });
+
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider(Array.Empty<string>());
+                Given_an_AuthorizationBasisMetadataSelector();
+
+                Given_a_RepositoryOperationAuthorizationDecorator();
+
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
+            }
+
+            [Assert]
+            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
+            {
+                ActualException.ShouldBeExceptionType<Exception>()
+                    .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
+            }
+        }
+
+        public class When_there_is_no_value_present_for_the_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
+            : When_authorizing_a_request_with_missing_or_undefined_authorization_strategies
+        {
+            protected override void Act()
+            {
+                Given_a_claimSetProvider(new EdFiResourceClaim[]
+                {
+                    Helper.CreateResourceClaim(Resource2ClaimUri, ReadActionUri, authorizationStrategyNameOverrides: null)
+                });
+
+                // Request is for Read access to Resource 2
+                Given_an_authorizationContextProvider(ReadActionUri, new[] { Resource2ClaimUri });
+
+                // Set the strategy metadata provider, using the authorization context values
+                Given_a_ResourceAuthorizationMetadataProvider(null);
+                Given_an_AuthorizationBasisMetadataSelector();
+
+                Given_a_RepositoryOperationAuthorizationDecorator();
+
+                RepositoryOperationAuthorizationDecorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
+            }
+
+            [Assert]
+            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
+            {
+                ActualException.ShouldBeExceptionType<Exception>()
+                    .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
             }
         }
     }
@@ -1793,17 +1853,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public abstract class When_authorizing : TestFixtureBase
         {
             protected const string TestResource = "http://ed-fi.org/ods/resource/test";
+            protected const string ClaimSetName = "TestClaimSet";
 
             protected string SuppliedPrincipalClaim;
             protected string SuppliedPrincipalAction;
             protected string SuppliedRequestedAction;
             protected string SuppliedResourceAuthorizationClaim;
             protected string SuppliedResourceAuthorizationStrategy;
-            private EdFiAuthorizationContext _suppliedEdFiAuthorizationContext;
-
+            private IAuthorizationContextProvider _suppliedAuthorizationContextProvider;
             private IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
-            private IEducationOrganizationAuthorizationSegmentsValidator _educationOrganizationAuthorizationSegmentsValidator;
-            private StubSecurityRepository _securityRepository;
+            private ISecurityRepository _securityRepository;
+            private IClaimSetClaimsProvider _claimSetClaimsProvider;
+            private IApiClientContextProvider _apiClientContextProvider;
+            private AuthorizationFilteringProvider _authorizationFilteringProvider;
 
             protected override void Arrange()
             {
@@ -1812,30 +1874,98 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var suppliedResourceClaimsAuthorizationStrategyMetadata =
                     GetEdFiClaimsAuthorizationStrategyMetadata(SuppliedResourceAuthorizationStrategy, SuppliedResourceAuthorizationClaim);
 
-                _suppliedEdFiAuthorizationContext = GetEdFiAuthorizationContext(SuppliedRequestedAction);
+                _suppliedAuthorizationContextProvider = GetAuthorizationContextProvider(SuppliedRequestedAction);
+
+                _claimSetClaimsProvider = GetClaimsPrincipal();
 
                 _resourceAuthorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
                 A.CallTo(() => _resourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(A<string>.Ignored, A<string>.Ignored))
                     .Returns(suppliedResourceClaimsAuthorizationStrategyMetadata);
 
-                var edOrgCache = Stub<IEducationOrganizationCache>();
+                _securityRepository = Stub<ISecurityRepository>();
 
-                A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                    .Returns(new EducationOrganizationIdentifiers(4, "School"));
+                A.CallTo(() => _securityRepository.GetActionByName("Create"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1,
+                            ActionName = "Create",
+                            ActionUri = "http://ed-fi.org/ods/actions/create"
+                        });
 
-                _securityRepository = new StubSecurityRepository();
+                A.CallTo(() => _securityRepository.GetActionByName("Read"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1,
+                            ActionName = "Read",
+                            ActionUri = "http://ed-fi.org/ods/actions/read"
+                        });
+
+                A.CallTo(() => _securityRepository.GetActionByName("Update"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1,
+                            ActionName = "Update",
+                            ActionUri = "http://ed-fi.org/ods/actions/update"
+                        });
+
+                A.CallTo(() => _securityRepository.GetActionByName("Delete"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1,
+                            ActionName = "Delete",
+                            ActionUri = "http://ed-fi.org/ods/actions/delete"
+                        });
+
+                A.CallTo(() => _securityRepository.GetActionByName("ReadChanges"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1,
+                            ActionName = "ReadChanges",
+                            ActionUri = "http://ed-fi.org/ods/actions/readChanges"
+                        });
+
+                _authorizationFilteringProvider = new AuthorizationFilteringProvider();
+
+                _apiClientContextProvider = Stub<IApiClientContextProvider>();
+
+                var apiClientContext = Stub<ApiClientContext>(x =>
+                    x.WithArgumentsForConstructor(new object[] {
+                            null, ClaimSetName, null, null, null, null, null, null, null, 0 })
+                    );
+
+                A.CallTo(() => _apiClientContextProvider.GetApiClientContext())
+                    .Returns(apiClientContext);
             }
 
             protected override void Act()
             {
-                var provider = new EdFiAuthorizationProvider(
+                var authorizationBasisMetadataSelector = Helper.CreateAuthorizationBasisMetadataSelector(
                     _resourceAuthorizationMetadataProvider,
-                    GetAuthorizationStrategies(),
                     _securityRepository,
-                    new IExplicitObjectValidator[0]);
+                    GetAuthorizationStrategies(),
+                    _claimSetClaimsProvider);
 
-                provider.AuthorizeSingleItemAsync(_suppliedEdFiAuthorizationContext, CancellationToken.None).WaitSafely();
+                var entityAuthorizer = Helper.CreateEntityAuthorizer(
+                    _suppliedAuthorizationContextProvider,
+                    authorizationFilteringProvider: _authorizationFilteringProvider,
+                    apiClientContextProvider: _apiClientContextProvider,
+                    authorizationBasisMetadataSelector: authorizationBasisMetadataSelector,
+                    securityRepository: _securityRepository);
+
+                var decorator = Helper.CreateDecorator(
+                    _suppliedAuthorizationContextProvider,
+                    authorizationFilteringProvider: _authorizationFilteringProvider,
+                    authorizationBasisMetadataSelector: authorizationBasisMetadataSelector,
+                    apiClientContextProvider: _apiClientContextProvider,
+                    entityAuthorizer: entityAuthorizer);
+
+                decorator.AuthorizeSingleItem(new FakeEntity(), CancellationToken.None);
             }
 
             protected virtual void SetPrincipalAndStrategyAndContextValues()
@@ -1855,75 +1985,63 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 string claim)
             {
                 return new List<ResourceClaimAuthorizationMetadata>
-                {
-                    new ResourceClaimAuthorizationMetadata
                     {
-                        ClaimName = claim, AuthorizationStrategies  = new List<string> { strategy }
-                    }
-                };
+                        new()
+                        {
+                            ClaimName = claim,
+                            AuthorizationStrategies = new List<string> { strategy }
+                        }
+                    };
             }
 
             //The context to authorize.
-            protected virtual EdFiAuthorizationContext GetEdFiAuthorizationContext(string action)
+            protected virtual IAuthorizationContextProvider GetAuthorizationContextProvider(string action)
             {
-                return GetEdFiAuthorizationContext(TestResource, action);
+                return GetAuthorizationContextProvider(TestResource, action);
             }
 
-            protected virtual EdFiAuthorizationContext GetEdFiAuthorizationContext(string resource, string action)
+            protected virtual IAuthorizationContextProvider GetAuthorizationContextProvider(string resource, string action)
             {
-                return new EdFiAuthorizationContext(
-                    GetClaimsPrincipal(),
-                    new[] {resource},
-                    action,
-                    new object());
+                var _authorizationContextProvider = new AuthorizationContextProvider(new HashtableContextStorage());
+
+                _authorizationContextProvider.SetAction(action);
+                _authorizationContextProvider.SetResourceUris(new[] { resource });
+
+                return _authorizationContextProvider;
             }
 
-            //The current principal
-            protected virtual ClaimsPrincipal GetClaimsPrincipal()
+            protected virtual IClaimSetClaimsProvider GetClaimsPrincipal()
             {
                 return GetClaimsPrincipal(SuppliedPrincipalClaim, SuppliedPrincipalAction);
             }
 
-            protected virtual ClaimsPrincipal GetClaimsPrincipal(string claim, string action)
+            protected virtual IClaimSetClaimsProvider GetClaimsPrincipal(string claim, string action)
             {
-                var claimsPrincipal = Stub<ClaimsPrincipal>();
+                var claimSetClaimsProvider = Stub<IClaimSetClaimsProvider>();
 
-                var claims = new List<Claim>
+                EdFiResourceClaim[] resourceClaims =
                 {
-                    JsonClaimHelper.CreateClaim(claim, new EdFiResourceClaimValue(action))
+                    Helper.CreateResourceClaim(claim, action)
                 };
 
-                A.CallTo(() => claimsPrincipal.Claims)
-                    .Returns(claims);
+                A.CallTo(() => claimSetClaimsProvider.GetClaims(ClaimSetName))
+                    .Returns(resourceClaims);
 
-                return claimsPrincipal;
+                return claimSetClaimsProvider;
             }
 
             protected virtual IAuthorizationStrategy[] GetAuthorizationStrategies()
             {
-                _educationOrganizationAuthorizationSegmentsValidator = Stub<IEducationOrganizationAuthorizationSegmentsValidator>();
-
-                A.CallTo(() => _educationOrganizationAuthorizationSegmentsValidator.ValidateAuthorizationSegments(A<IReadOnlyList<ClaimsAuthorizationSegment>>.Ignored))
-                    .Returns(Array.Empty<string>());
-
-                var edOrgCache = Stub<IEducationOrganizationCache>();
-
-                A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                    .Returns(new EducationOrganizationIdentifiers(4, "School"));
-
                 return new IAuthorizationStrategy[]
                 {
-                    new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
-                        new ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>(edOrgCache))
-                    {
-                        AuthorizationSegmentsToFiltersConverter = Stub<IAuthorizationSegmentsToFiltersConverter>(),
-                        AuthorizationSegmentsVerifier = Stub<IAuthorizationSegmentsVerifier>(),
-                        EducationOrganizationCache = Stub<IEducationOrganizationCache>(),
-                        EducationOrganizationAuthorizationSegmentsValidator = _educationOrganizationAuthorizationSegmentsValidator,
-                        RelationshipsAuthorizationContextDataProviderFactory =
-                            Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
-                    },
-                    new NoFurtherAuthorizationRequiredAuthorizationStrategy()
+                        new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
+                            Stub<IDomainModelProvider>()
+                            )
+                        {
+                            RelationshipsAuthorizationContextDataProviderFactory =
+                                Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
+                        },
+                        new NoFurtherAuthorizationRequiredAuthorizationStrategy()
                 };
             }
         }
@@ -1967,8 +2085,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception()
             {
-                ActualException.ShouldNotBeNull();
-                ActualException.Message.ShouldContain("Are you missing a claim?");
+
+                ActualException.ShouldBeExceptionType<SecurityAuthorizationException>()
+                    .Message.ShouldContain("The API client has been assigned the 'TestClaimSet' claim set. " +
+                    "Assign a different claim set which includes one of the following claims to access this resource: http://ed-fi.org/ods/identity/claims/domains/edFiTypes");
             }
         }
 
@@ -1990,265 +2110,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_authorization_failed_for_the_requested_action()
             {
-                ActualException.ShouldNotBeNull();
-
-                ActualException.Message.ShouldBe(
+                ActualException.ShouldBeExceptionType<SecurityAuthorizationException>()
+                    .Message.ShouldBe(
                     string.Format(
                         "Access to the resource could not be authorized for the requested action '{0}'.",
                         SuppliedRequestedAction));
             }
         }
     }
-
-    [TestFixture]
-    public class Feature_Detecting_missing_or_undefined_authorization_strategies
-    {
-        // Feature constants
-        private const string Resource1ClaimUri = @"http://CLAIMS/resource1";
-        private const string Resource2ClaimUri = @"http://CLAIMS/resource2";
-        private const string ReadActionUri = @"http://ACTIONS/read";
-
-        // Feature artifacts
-        public class UnusedAuthorizationStrategy : IAuthorizationStrategy
-        {
-            public bool SingleItemWasCalled { get; private set; }
-
-            public bool FilteringWasCalled { get; private set; }
-
-            public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
-                CancellationToken cancellationToken)
-            {
-                SingleItemWasCalled = true;
-
-                return Task.CompletedTask;
-            }
-
-            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-                IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext)
-            {
-                FilteringWasCalled = true;
-
-                return new AuthorizationStrategyFiltering()
-                {
-                    AuthorizationStrategyName = "Test",
-                    Filters = Array.Empty<AuthorizationFilterContext>()
-                };
-            }
-        }
-
-        public class When_no_matching_authorization_strategy_implementation_can_be_found
-            : TestFixtureBase
-        {
-            // Supplied values
-
-            // Actual values
-
-            protected override void Act()
-            {
-                // Execute code under test
-                var provider = new EdFiAuthorizationProvider(
-                    Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
-                        Resource1ClaimUri,
-                        ReadActionUri,
-                        new [] {"Missing", "AnotherMissing"}),
-                    Given_a_collection_of_unused_authorization_strategies(),
-                    Given_a_security_repository_returning_all_actions(),
-                    new IExplicitObjectValidator[0]);
-
-                // Request is for Resource Claim 1
-                provider.AuthorizeSingleItemAsync(
-                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-                            Resource1ClaimUri,
-                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource1ClaimUri)),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
-
-            [Assert]
-            public void Should_throw_exception_indicating_that_the_authorization_strategy_could_not_be_found()
-            {
-                ActualException.ShouldBeExceptionType<Exception>();
-                ActualException.Message.ShouldContain("Missing");
-            }
-        }
-
-        public class When_there_is_no_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
-            : TestFixtureBase
-        {
-            // Supplied values
-
-            // Actual values
-
-            protected override void Act()
-            {
-                // Execute code under test
-
-                var provider = new EdFiAuthorizationProvider(
-                    Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
-                        Resource2ClaimUri,
-                        ReadActionUri,
-                        Array.Empty<string>()),
-                    Given_a_collection_of_unused_authorization_strategies(),
-                    Given_a_security_repository_returning_all_actions(),
-                    new IExplicitObjectValidator[0]);
-
-                provider.AuthorizeSingleItemAsync(
-                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-                            Resource2ClaimUri,
-                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource2ClaimUri)),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
-
-            [Assert]
-            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
-            {
-                ActualException.ShouldBeExceptionType<Exception>();
-                ActualException.Message.ShouldContain("No authorization strategies were defined");
-            }
-        }
-
-        public class When_there_is_no_value_present_for_the_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
-            : TestFixtureBase
-        {
-            // Supplied values
-
-            // Actual values
-
-            protected override void Act()
-            {
-                // Execute code under test
-
-                var provider = new EdFiAuthorizationProvider(
-                    Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
-                        Resource2ClaimUri,
-                        ReadActionUri,
-                        null),
-                    Given_a_collection_of_unused_authorization_strategies(),
-                    Given_a_security_repository_returning_all_actions(),
-                    new IExplicitObjectValidator[0]);
-
-                provider.AuthorizeSingleItemAsync(
-                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-                            Resource2ClaimUri,
-                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource2ClaimUri)),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
-
-            [Assert]
-            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
-            {
-                ActualException.ShouldBeExceptionType<Exception>();
-                ActualException.Message.ShouldContain("No authorization strategies were defined");
-            }
-        }
-
-#region Givens
-
-        private static EdFiAuthorizationContext
-            Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-            string resourceClaimUri,
-            ClaimsPrincipal principal)
-        {
-            return new EdFiAuthorizationContext(
-                principal,
-                new[] {resourceClaimUri},
-                ReadActionUri,
-                new object());
-        }
-
-        private static IResourceAuthorizationMetadataProvider
-            Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
-            string resourceClaim,
-            string actionUri,
-            string[] authorizationStrategyNames)
-        {
-            var authorizationMetadataProvider = A.Fake<IResourceAuthorizationMetadataProvider>();
-
-            A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
-                .Returns(
-                    new List<ResourceClaimAuthorizationMetadata>
-                        {
-                            new ResourceClaimAuthorizationMetadata
-                            {
-                                ClaimName = resourceClaim,  
-                                AuthorizationStrategies  = authorizationStrategyNames
-                            }
-                        }
-                        .ToList());
-
-            return authorizationMetadataProvider;
-        }
-
-        private static ISecurityRepository Given_a_security_repository_returning_all_actions()
-        {
-            var securityRepository = A.Fake<ISecurityRepository>();
-
-            A.CallTo(() => securityRepository.GetActionByName("Create"))
-                .Returns(
-                    new Action
-                    {
-                        ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
-                    });
-
-            A.CallTo(() => securityRepository.GetActionByName("Read"))
-                .Returns(
-                    new Action
-                    {
-                        ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
-                    });
-
-            A.CallTo(() => securityRepository.GetActionByName("Update"))
-                .Returns(
-                    new Action
-                    {
-                        ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
-                    });
-
-            A.CallTo(() => securityRepository.GetActionByName("Delete"))
-                .Returns(
-                    new Action
-                    {
-                        ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
-                    });
-            
-            A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
-                .Returns(
-                    new Action
-                    {
-                        ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
-                    });
-
-            return securityRepository;
-        }
-
-        private static IAuthorizationStrategy[] Given_a_collection_of_unused_authorization_strategies()
-        {
-            return new IAuthorizationStrategy[]
-            {
-                new UnusedAuthorizationStrategy()
-            };
-        }
-
-        private static ClaimsPrincipal Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(
-            string resourceClaim)
-        {
-            var claimsIdentity =
-                new ClaimsIdentity(
-                    new[]
-                    {
-                        JsonClaimHelper.CreateClaim(
-                            resourceClaim,
-                            new EdFiResourceClaimValue(ReadActionUri))
-                    });
-
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            return claimsPrincipal;
-        }
-
-#endregion
-    }
-    #endif
 }

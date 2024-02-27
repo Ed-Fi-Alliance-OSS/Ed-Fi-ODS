@@ -88,6 +88,11 @@ namespace EdFi.TestFixture
         {
             return A.Fake<T>();
         }
+        protected T Stub<T>(Action<FakeItEasy.Creation.IFakeOptions<T>> optionsBuilder)
+            where T : class
+        {
+            return A.Fake<T>(optionsBuilder);
+        }
 
         protected virtual bool HandleArrangeException(Exception ex)
         {
