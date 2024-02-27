@@ -575,6 +575,24 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        {
+            var vendorName = userName.Split(',')[0]
+                .Trim();
+
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
+
+                if (vendor == null)
+                {
+                    vendor = Vendor.Create(vendorName, namespacePrefixes);
+                    context.SaveChanges();
+                }
+                return vendor;
+            }
+        }
+        
         public Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes)
         {
             string name = vendorName.Split(',')[0].Trim();
