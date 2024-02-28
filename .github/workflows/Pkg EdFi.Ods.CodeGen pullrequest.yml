@@ -1,0 +1,100 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Pkg EdFi.Ods.CodeGen Pull Request Build and Test
+
+on:
+  pull_request:
+    branches: [main-5x, 'b-v*-patch*','feature-*']
+    paths:
+      - Utilities/CodeGeneration/**/*
+      - Application/EdFi.Common/**/*
+
+env:
+  # These vars are used by `build.githubactions.ps1 CheckoutBranch`
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
+        with:
+          dotnet-version: 3.1.x   
+      - name: Check out Ed-Fi-ODS
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          path: Ed-Fi-ODS/
+      - name: Build Code Generation
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
+        run: |
+          dotnet build --configuration Release
+
+      - name: Run Unit Tests
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
+        run: |
+          dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
+
+      - name: Upload Unit Test Results
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        if: always()
+        with:
+          name: unit-tests
+          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
+          retention-days: 5
+          if-no-files-found: warn
+
+      # Integration tests require presence of the `Ed-Fi-ODS-Implementation` and `Ed-Fi-Extensions` repositories
+      - name: Check out Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation
+
+      - name: Confirm Branch Exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+
+      - name: Check out Ed-Fi-ODS-Extensions
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions
+
+      - name: Confirm Branch Exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+
+      - name: Create Soft Link to Extensions
+        # For some reason, the integration tests when running in GitHub end up
+        # looking for the Extensions under Ed-Fi-ODS/Ed-Fi-ODS/Ed-Fi-Extensions,
+        # instead of looking in Ed-Fi-ODS/Ed-Fi-Extensions. Try resolving this
+        # by creating a Unix soft link to the directory.
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          ln -s ../Ed-Fi-Extensions .
+
+      - name: Run Integration Tests
+        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
+        run: |
+          dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
+
+      - name: Upload Integration Test Results
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        if: always()
+        with:
+          name: integration-tests
+          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
+          retention-days: 5
+          if-no-files-found: warn
+
