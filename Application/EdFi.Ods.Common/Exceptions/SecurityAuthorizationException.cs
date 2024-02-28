@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Exceptions
         {
             if (error != null)
             {
-                ((IEdFiProblemDetails)this).Errors = new[] { error };
+                this.SetErrors(error);
             }
         }
 
@@ -47,7 +47,7 @@ namespace EdFi.Ods.Common.Exceptions
         {
             if (error != null)
             {
-                ((IEdFiProblemDetails)this).Errors = new[] { error };
+                this.SetErrors(error);
             }
         }
 
@@ -63,7 +63,7 @@ namespace EdFi.Ods.Common.Exceptions
         {
             if (error != null)
             {
-                ((IEdFiProblemDetails)this).Errors = new[] { error };
+                this.SetErrors(error);
             }
         }
         

@@ -30,7 +30,7 @@ public class SecurityAuthenticationException : EdFiProblemDetailsExceptionBase
     {
         if (error != null)
         {
-            ((IEdFiProblemDetails)this).Errors = new[] { error };
+            this.SetErrors(error);
         }
     }
 
@@ -44,10 +44,7 @@ public class SecurityAuthenticationException : EdFiProblemDetailsExceptionBase
     public SecurityAuthenticationException(string detail, string error, Exception innerException)
         : base(detail, error, innerException)
     {
-        if (error != null)
-        {
-            ((IEdFiProblemDetails)this).Errors = new[] { error };
-        }
+        this.SetErrors(error);
     }
 
     // ---------------------------
