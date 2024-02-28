@@ -464,7 +464,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     .AsSelf()
                     .SingleInstance();
 
-                builder.RegisterType<ComplementErrorDetailsMiddleware>()
+                builder.RegisterType<ProblemDetailsErrorEnrichmentMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()
                     .SingleInstance();
