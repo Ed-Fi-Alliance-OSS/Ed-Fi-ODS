@@ -29,74 +29,46 @@ jobs:
           dotnet-version: 3.1.x   
       - name: Support longpaths
         run: git config --system core.longpaths true
-      - name: Check out Ed-Fi-ODS
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-      - name: Build Code Generation
-        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
-        run: |
-          dotnet build --configuration Release
-
-      - name: Run Unit Tests
-        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
-        run: |
-          dotnet test --filter  FullyQualifiedName~UnitTests --logger "trx;LogFileName=unit-tests.trx" --logger "console;verbosity=detailed"
-
-      - name: Upload Unit Test Results
-        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-        if: always()
-        with:
-          name: unit-tests
-          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/unit-tests.trx
-          retention-days: 5
-          if-no-files-found: warn
-
-      # Integration tests require presence of the `Ed-Fi-ODS-Implementation` and `Ed-Fi-Extensions` repositories
-      - name: Check out Ed-Fi-ODS-Implementation
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation
-
-      - name: Confirm Branch Exists in Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
         working-directory: ./Ed-Fi-ODS/
         shell: pwsh
         run: |
-          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-
-      - name: Check out Ed-Fi-ODS-Extensions
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions
-
-      - name: Confirm Branch Exists in Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+      - name: Is pull request branch exists in Ed-Fi-Extensions
         working-directory: ./Ed-Fi-ODS/
         shell: pwsh
         run: |
-          ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
-
-      - name: Create Soft Link to Extensions
-        # For some reason, the integration tests when running in GitHub end up
-        # looking for the Extensions under Ed-Fi-ODS/Ed-Fi-ODS/Ed-Fi-Extensions,
-        # instead of looking in Ed-Fi-ODS/Ed-Fi-Extensions. Try resolving this
-        # by creating a Unix soft link to the directory.
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+      - name: build
         working-directory: ./Ed-Fi-ODS/
         run: |
-          ln -s ../Ed-Fi-Extensions .
-
-      - name: Run Integration Tests
-        working-directory: ./Ed-Fi-ODS/Utilities/CodeGeneration
+          .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
+        shell: pwsh
+      - name: Run Unit tests for  codegen Project 
+        working-directory: ./Ed-Fi-ODS/    
         run: |
-          dotnet test --filter  FullyQualifiedName~IntegrationTests --logger "trx;LogFileName=integration-tests.trx"  --logger "console;verbosity=detailed"
-
-      - name: Upload Integration Test Results
-        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-        if: always()
-        with:
-          name: integration-tests
-          path: ./Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/TestResults/integration-tests.trx
-          retention-days: 5
-          if-no-files-found: warn
-
+          $ErrorActionPreference = 'Stop'
+          $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+          $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\reports\"
+          if (Test-Path $reports) {
+              Remove-Item -Path $reports -Force -Recurse | Out-Null
+          }
+          New-Item -ItemType Directory -Force -Path $reports | Out-Null
+          $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
+          & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
+        shell: pwsh
