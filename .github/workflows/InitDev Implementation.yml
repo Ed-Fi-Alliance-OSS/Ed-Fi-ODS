@@ -20,5 +20,5 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-        event-type: triggered-from-ods-repo
+        event-type: triggered-from-ods-repo-6x
         client-payload: '{"branch": "${{ GITHUB.HEAD_REF }}"}'

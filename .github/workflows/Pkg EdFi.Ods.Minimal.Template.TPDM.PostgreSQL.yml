@@ -11,7 +11,7 @@ on:
       - main-6x
   workflow_dispatch:
   repository_dispatch:
-    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
+    types: [triggered-from-implementation-repo-6x ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
 
 env:
   EDFI_STANDARD_REFERENCE: "v4.0.0"
