@@ -23,6 +23,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
@@ -183,7 +184,7 @@ namespace EdFi.Ods.Api.Controllers
                     "The limit parameter was incorrect.",
                     new[] { $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}." })
                 {
-                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();
 
                 return BadRequest(problemDetails);
@@ -343,7 +344,7 @@ namespace EdFi.Ods.Api.Controllers
                     "The request data was constructed incorrectly.",
                     new[] { "Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
                 {
-                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();
 
                 return BadRequest(problemDetails);
@@ -398,7 +399,7 @@ namespace EdFi.Ods.Api.Controllers
                 _dataManagementResourceContextProvider.Get().Resource,
                 validationResults);
 
-            problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            problemDetails.CorrelationId = _logContextAccessor.GetCorrelationId();
 
             return BadRequest(problemDetails);
         }

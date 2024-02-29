@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using Microsoft.AspNetCore.Http;
 
@@ -29,18 +30,18 @@ public class RequestCorrelationMiddleware : IMiddleware
         // Capture correlation from the header, if present
         if (context.Request.Headers.TryGetValue(CorrelationConstants.HttpHeader, out var headerValues))
         {
-            _logContextAccessor.SetValue(CorrelationConstants.LogContextKey, headerValues[0]);
+            _logContextAccessor.SetCorrelationId(headerValues[0]);
         }
         else
         {
             // Capture correlation from the query string, if present
             if (context.Request.Query.TryGetValue(CorrelationConstants.QueryString, out var queryStringValues))
             {
-                _logContextAccessor.SetValue(CorrelationConstants.LogContextKey,  queryStringValues[0]);
+                _logContextAccessor.SetCorrelationId(queryStringValues[0]);
             }
             else
             {
-                _logContextAccessor.SetValue(CorrelationConstants.LogContextKey, Guid.NewGuid().ToString());
+                _logContextAccessor.SetCorrelationId(Guid.NewGuid().ToString());
             }
         }
 

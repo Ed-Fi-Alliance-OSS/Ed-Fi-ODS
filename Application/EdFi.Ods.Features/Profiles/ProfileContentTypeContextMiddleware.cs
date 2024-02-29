@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Profiles;
@@ -214,7 +215,7 @@ public class ProfileContentTypeContextMiddleware
             string headerName,
             LogMessageFormatType logMessageFormatType)
         {
-            string correlationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string correlationId = _logContextAccessor.GetCorrelationId();
             string errorMessage = string.Format(_logMessageFormatSpecifiers[(int)logMessageFormatType], headerName);
 
             return response.WriteProblemDetailsAsync(
@@ -228,7 +229,7 @@ public class ProfileContentTypeContextMiddleware
 
         Task WriteResponseMessage(HttpResponse response, int statusCode, string errorMessage)
         {
-            string correlationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string correlationId = _logContextAccessor.GetCorrelationId();
 
             return response.WriteProblemDetailsAsync(
                 statusCode,

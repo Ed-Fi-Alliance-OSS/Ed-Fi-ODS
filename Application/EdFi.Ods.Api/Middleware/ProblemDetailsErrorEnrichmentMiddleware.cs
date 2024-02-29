@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using log4net;
 using Microsoft.AspNetCore.Http;
@@ -40,7 +41,7 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
                 NotFoundException.DefaultDetail,
                 $"Path '{context.Request.Path}' does not exist. Check the resource name and try again.");
 
-            string correlationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string correlationId = _logContextAccessor.GetCorrelationId();
             problemDetails.CorrelationId = correlationId;
 
             await context.Response.WriteProblemDetailsAsync(problemDetails);
@@ -57,7 +58,7 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
                 new MethodNotAllowedException(MethodNotAllowedException.DefaultPostDetail) :
                 new MethodNotAllowedException();
 
-            string correlationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string correlationId = _logContextAccessor.GetCorrelationId();
             problemDetails.CorrelationId = correlationId;
 
             await context.Response.WriteProblemDetailsAsync(problemDetails);

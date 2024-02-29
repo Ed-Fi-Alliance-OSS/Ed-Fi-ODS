@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.ProblemDetails;
 using log4net;
@@ -29,7 +30,7 @@ public class EdFiProblemDetailsProvider : IEdFiProblemDetailsProvider
     /// <inheritdoc cref="IEdFiProblemDetailsProvider.GetProblemDetails" />
     public IEdFiProblemDetails GetProblemDetails(Exception exception)
     {
-        string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+        string correlationId = _logContextAccessor.GetCorrelationId();
 
         // Handle Problem Details exceptions directly
         if (exception is EdFiProblemDetailsExceptionBase problemDetailsException)

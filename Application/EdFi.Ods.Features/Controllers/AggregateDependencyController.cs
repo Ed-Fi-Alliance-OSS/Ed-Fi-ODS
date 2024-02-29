@@ -75,7 +75,7 @@ namespace EdFi.Ods.Features.Controllers
                         "There was a problem preparing the resource dependency information.",
                         new[] { message })
                     {
-                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());
             }
         }

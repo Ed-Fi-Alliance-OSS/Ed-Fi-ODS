@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
@@ -160,7 +161,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                 SecurityAuthorizationException.DefaultDetail,
                 errorMessage)
             {
-                CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                CorrelationId = _logContextAccessor.GetCorrelationId()
             }.AsSerializableModel();
 
             context.Result = new ObjectResult(problemDetails) { StatusCode = problemDetails.Status };
