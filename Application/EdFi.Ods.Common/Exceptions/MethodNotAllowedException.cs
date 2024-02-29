@@ -13,16 +13,18 @@ public class MethodNotAllowedException : EdFiProblemDetailsExceptionBase
     // Fields containing override values for Problem Details
     private const string TypePart = "method-not-allowed";
     private const string TitleText = "Method Not Allowed";
+    private const string DefaultDetail = "The request construction was invalid.";
+
     private const int StatusValue = StatusCodes.Status405MethodNotAllowed;
 
-    public const string DefaultPutDeleteDetail = "Id is required in the URL.";
-    public const string DefaultPostDetail = "Remove Id from the URL.";
-
-    public MethodNotAllowedException()
-        : base(DefaultPutDeleteDetail, DefaultPutDeleteDetail) { }
-
-    public MethodNotAllowedException(string detail)
-        : base(detail, detail) { }
+    public MethodNotAllowedException(string error)
+        : base(DefaultDetail, error)
+    {
+        if (error != null)
+        {
+            this.SetErrors(error);
+        }
+    }
 
     // ---------------------------
     //  Boilerplate for overrides

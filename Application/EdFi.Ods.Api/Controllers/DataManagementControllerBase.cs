@@ -254,6 +254,20 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(result.Resource);
         }
 
+        [HttpPut][HttpDelete]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public virtual Task<IActionResult> PutOrDelete()
+        {
+            var problemDetails = new MethodNotAllowedException("Resource collections can only be modified using the POST method.")
+            {
+                CorrelationId = _logContextAccessor.GetCorrelationId()
+            };
+
+            return Task.FromResult<IActionResult>(
+                new ObjectResult(problemDetails.AsSerializableModel()) { StatusCode = problemDetails.Status });
+        }
+
         [HttpPut("{id}")]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -319,6 +333,20 @@ namespace EdFi.Ods.Api.Controllers
         {
             var problemDetails = _errorTranslator.GetProblemDetails(resource, ModelState);
             return StatusCode(problemDetails.Status, problemDetails);
+        }
+
+        [HttpPost("{id}")]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public virtual Task<IActionResult> Post(Guid id)
+        {
+            var problemDetails = new MethodNotAllowedException("Resource items can only be updated using the PUT method.")
+            {
+                CorrelationId = _logContextAccessor.GetCorrelationId()
+            };
+
+            return Task.FromResult<IActionResult>(
+                new ObjectResult(problemDetails.AsSerializableModel()) { StatusCode = problemDetails.Status });
         }
 
         [HttpPost]

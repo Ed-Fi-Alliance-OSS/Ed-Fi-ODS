@@ -87,8 +87,10 @@ namespace EdFi.Ods.Api.Middleware
         {
             // Base method will set the StatusCode to 401 without checking if the response HasStarted.
             // If authentication fails in EdFiApiAuthenticationMiddleware, we dont need to set Status code again. 
-            if (Context.Response.StatusCode == StatusCodes.Status401Unauthorized && Context.Response.HasStarted)
-                return Task.FromResult(0);
+            if (Context.Response is { StatusCode: StatusCodes.Status401Unauthorized, HasStarted: true })
+            {
+                return Task.CompletedTask;
+            }
 
             return base.HandleChallengeAsync(properties);
         }

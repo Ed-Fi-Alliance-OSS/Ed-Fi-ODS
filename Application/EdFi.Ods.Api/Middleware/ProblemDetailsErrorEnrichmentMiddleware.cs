@@ -54,12 +54,11 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
         // If the response hasn't started, this indicates it's not a Problem Details response body yet
         if (context.Response is { StatusCode: 405, HasStarted: false })
         {
-            var problemDetails = context.Request.Method == "POST" ? 
-                new MethodNotAllowedException(MethodNotAllowedException.DefaultPostDetail) :
-                new MethodNotAllowedException();
-
-            string correlationId = _logContextAccessor.GetCorrelationId();
-            problemDetails.CorrelationId = correlationId;
+            var problemDetails = new MethodNotAllowedException(
+                $"The endpoint of the request does not support the '{context.Request.Method}' method.")
+            {
+                CorrelationId = _logContextAccessor.GetCorrelationId()
+            };
 
             await context.Response.WriteProblemDetailsAsync(problemDetails);
 
