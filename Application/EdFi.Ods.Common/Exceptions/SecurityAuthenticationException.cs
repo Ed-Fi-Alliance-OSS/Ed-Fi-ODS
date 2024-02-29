@@ -16,17 +16,16 @@ public class SecurityAuthenticationException : EdFiProblemDetailsExceptionBase
     private const string TitleText = "Authentication Failed";
     private const int StatusValue = StatusCodes.Status401Unauthorized;
 
-    public const string DefaultDetail = "Access could not be authorized.";
+    private const string DefaultDetail = "The caller could not be authenticated.";
 
     /// <summary>
     /// Initializes a new instance of the ProblemDetails-based <see cref="SecurityAuthenticationException"/> class using
     /// the supplied detail, and error (which is made available in the <see cref="IEdFiProblemDetails.Errors" /> collection
     /// as well as used for the exception's <see cref="Exception.Message" /> property to be used for exception logging).
     /// </summary>
-    /// <param name="detail"></param>
     /// <param name="error"></param>
-    public SecurityAuthenticationException(string detail, string error)
-        : base(detail, error)
+    public SecurityAuthenticationException(string error)
+        : base(DefaultDetail, error)
     {
         if (error != null)
         {
@@ -38,13 +37,15 @@ public class SecurityAuthenticationException : EdFiProblemDetailsExceptionBase
     /// Initializes a new instance of the ProblemDetails-based <see cref="SecurityAuthenticationException"/> class using
     /// the supplied detail, and error and inner exception.
     /// </summary>
-    /// <param name="detail"></param>
     /// <param name="error"></param>
     /// <param name="innerException"></param>
-    public SecurityAuthenticationException(string detail, string error, Exception innerException)
-        : base(detail, error, innerException)
+    public SecurityAuthenticationException(string error, Exception innerException)
+        : base(DefaultDetail, error, innerException)
     {
-        this.SetErrors(error);
+        if (error != null)
+        {
+            this.SetErrors(error);
+        }
     }
 
     // ---------------------------

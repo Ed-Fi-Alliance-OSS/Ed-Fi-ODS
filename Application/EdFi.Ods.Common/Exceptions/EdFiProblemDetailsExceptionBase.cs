@@ -67,6 +67,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │    ├──┤ DatabaseConnectionException |
   │    │  └─────────────────────────────┘
   │    │  ┌──────────────────────────────┐
+  │    ├──┤ ClientConfigurationException |
+  │    │  └──────────────────────────────┘
+  │    │  ┌──────────────────────────────┐
   │    └──┤ SystemConfigurationException |
   │       └──────────────────────────────┘
   │         △

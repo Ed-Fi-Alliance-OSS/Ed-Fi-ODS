@@ -22,7 +22,10 @@ namespace EdFi.Ods.Common.Exceptions
         public SecurityConfigurationException(string detail, string error) 
             : base(detail, error)
         {
-            this.SetErrors(error);
+            if (error != null)
+            {
+                this.SetErrors(error);
+            }
         }
 
         // ---------------------------

@@ -14,7 +14,6 @@ public class FeatureDisabledProfileResourceModelProvider : IProfileResourceModel
 
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
-        // Force a bad request if a profile claim exists and profiles are disabled.
         throw new FeatureDisabledException(ProfilesFeatureName);
     }
 }

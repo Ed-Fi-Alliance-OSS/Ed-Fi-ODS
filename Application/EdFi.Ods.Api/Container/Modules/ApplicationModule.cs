@@ -498,8 +498,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
                 builder.RegisterType<ErrorTranslator>().SingleInstance();
 
-                builder.RegisterType<AuthenticateResultTranslator>().SingleInstance();
-
                 builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
 
                 builder.RegisterType<CachingInterceptor>()

@@ -80,13 +80,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             {
                 _logger.Debug("ChangeQueries is not enabled.");
 
-                return ControllerHelpers.NotFound("ChangeQueries is not enabled.");
+                return ControllerHelpers.FeatureDisabled(
+                    ChangeQueriesConstants.FeatureName,
+                    _logContextAccessor.GetCorrelationId());
             }
 
             if (!_domainModelProvider.GetDomainModel()
                     .ResourceModel.TryGetResourceByApiCollectionName(schema, resource, out var resourceClass))
             {
-                return ControllerHelpers.NotFound($"The resource {resource} could not be found.");
+                return ControllerHelpers.NotFound(_logContextAccessor.GetCorrelationId());
             }
 
             var parameterMessages = urlQueryParametersRequest.Validate(_defaultPageLimitSize).ToArray();

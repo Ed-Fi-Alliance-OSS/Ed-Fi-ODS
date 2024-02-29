@@ -25,9 +25,13 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
     {
         ProfileName = profileName;
         ContentTypeUsage = contentTypeUsage;
-        
-        this.SetErrors(error);
+
+        if (error != null)
+        {
+            this.SetErrors(error);
+        }
     }
+
     public ProfileContentTypeUsageException(int status, string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
         : this(detail,  error, profileName,  contentTypeUsage)
     {
