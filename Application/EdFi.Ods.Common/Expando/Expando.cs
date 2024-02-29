@@ -209,38 +209,6 @@ namespace EdFi.Ods.Common.Expando
         }
 
         /// <summary>
-        /// Property setter implementation tries to retrieve value from instance 
-        /// first then into this object
-        /// </summary>
-        /// <param name="binder"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public override bool TrySetMember(SetMemberBinder binder, object value)
-        {
-            // first check to see if there's a native property to set
-            if (Instance != null)
-            {
-                try
-                {
-                    bool result = SetProperty(Instance, binder.Name, value);
-
-                    if (result)
-                    {
-                        return true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-
-            // no match - set or add to dictionary
-            Properties[binder.Name.ToLowerInvariant()] = value;
-            return true;
-        }
-
-        /// <summary>
         /// Dynamic invocation method. Currently allows only for Reflection based
         /// operation (no ability to add methods dynamically).
         /// </summary>
@@ -289,7 +257,7 @@ namespace EdFi.Ods.Common.Expando
 
                 if (mi.MemberType == MemberTypes.Property)
                 {
-                    result = ((PropertyInfo) mi).GetValue(instance, null);
+                    result = ((PropertyInfo)mi).GetValue(instance, null);
                     return true;
                 }
             }
@@ -320,7 +288,7 @@ namespace EdFi.Ods.Common.Expando
 
                 if (mi.MemberType == MemberTypes.Property)
                 {
-                    ((PropertyInfo) mi).SetValue(Instance, value, null);
+                    ((PropertyInfo)mi).SetValue(Instance, value, null);
                     return true;
                 }
             }
