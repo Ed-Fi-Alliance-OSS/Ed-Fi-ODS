@@ -69,9 +69,10 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             string edFiOdsImplementationApplicationPath = _solutionPath;
 
-            string edFiOdsApplicationPath = _solutionPath.Replace(
-                CodeRepositoryConventions.EdFiOdsImplementationFolderName,
-                CodeRepositoryConventions.EdFiOdsFolderName);
+            int index = _solutionPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsImplementationFolderName);
+
+            string edFiOdsApplicationPath = _solutionPath.Remove(index, CodeRepositoryConventions.EdFiOdsImplementationFolderName.Length)
+                                            .Insert(index, CodeRepositoryConventions.EdFiOdsFolderName);
 
             directoriesToEvaluate = GetProjectDirectoriesToEvaluate(edFiOdsImplementationApplicationPath)
                 .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
