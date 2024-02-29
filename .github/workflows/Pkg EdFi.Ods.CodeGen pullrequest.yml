@@ -1,0 +1,77 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Pkg EdFi.Ods.CodeGen Pull Request Build and Test
+
+on:
+  pull_request:
+    branches: [main-5x, 'b-v*-patch*','feature-*']
+    paths:
+      - Utilities/CodeGeneration/**/*
+      - Application/EdFi.Common/**/*
+
+env:
+  # These vars are used by `build.githubactions.ps1 CheckoutBranch`
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  CONFIGURATION: "Release"
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}  
+  INFORMATIONAL_VERSION: "5.4"
+  BUILD_INCREMENTER: "1"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
+        with:
+          dotnet-version: 3.1.x   
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+      - name: build
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
+        shell: pwsh
+      - name: Run Unit tests for  codegen Project 
+        working-directory: ./Ed-Fi-ODS/    
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+          $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
+          if (Test-Path $reports) {
+              Remove-Item -Path $reports -Force -Recurse | Out-Null
+          }
+          New-Item -ItemType Directory -Force -Path $reports | Out-Null
+          $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
+          & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"

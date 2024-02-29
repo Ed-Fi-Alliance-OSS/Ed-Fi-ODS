@@ -25,13 +25,20 @@ namespace EdFi.Ods.CodeGen.Helpers
                 throw new ArgumentNullException(nameof(codeRepositoryPath));
             }
 
-            var dirList = codeRepositoryPath.Split(Path.DirectorySeparatorChar)
-                .ToList();
+            int index = codeRepositoryPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsFolderName);
 
-            var root = string.Join(
-                Path.DirectorySeparatorChar,
-                dirList.TakeWhile(x => !x.EqualsIgnoreCase(CodeRepositoryConventions.EdFiOdsFolderName)));
+            var root = codeRepositoryPath.Substring(0, index);
 
+            if (Directory.Exists(codeRepositoryPath))
+            {
+                bool IsEdFiOdsFolderExist = Directory.GetDirectories(codeRepositoryPath).Where(s => s.Equals(codeRepositoryPath + CodeRepositoryConventions.EdFiOdsFolderName)).Any();
+
+                if (IsEdFiOdsFolderExist)
+                {
+                    root = codeRepositoryPath;
+                }
+            }
+            
             _repositoryByName.Add(CodeRepositoryConventions.Root, root);
             _repositoryByName.Add(CodeRepositoryConventions.Ods, Path.Combine(root, CodeRepositoryConventions.EdFiOdsFolderName));
 
