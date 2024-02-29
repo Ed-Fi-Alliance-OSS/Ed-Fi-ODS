@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +19,6 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -37,7 +35,6 @@ using EdFi.Ods.Common.Validation;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Net.Http.Headers;
 using Polly;
 using Polly.Retry;
@@ -259,10 +256,24 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual Task<IActionResult> PutOrDelete()
         {
-            var problemDetails = new MethodNotAllowedException("Resource collections can only be modified using the POST method.")
+            string operation;
+
+            MethodNotAllowedException problemDetails;
+
+            if (Request.Method == HttpMethods.Put)
             {
-                CorrelationId = _logContextAccessor.GetCorrelationId()
-            };
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be replaced. To \"upsert\" an item in the collection, use POST. To update a specific item, use PUT and include the \"id\" in the route.")
+                {
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
+                };
+            }
+            else
+            {
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be deleted. To delete a specific item, use DELETE and include the \"id\" in the route.")
+                {
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
+                };
+            }
 
             return Task.FromResult<IActionResult>(
                 new ObjectResult(problemDetails.AsSerializableModel()) { StatusCode = problemDetails.Status });
@@ -340,7 +351,7 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual Task<IActionResult> Post(Guid id)
         {
-            var problemDetails = new MethodNotAllowedException("Resource items can only be updated using the PUT method.")
+            var problemDetails = new MethodNotAllowedException("Resource items can only be updated using PUT. To \"upsert\" an item in the resource collection using POST, remove the \"id\" from the route.")
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId()
             };
