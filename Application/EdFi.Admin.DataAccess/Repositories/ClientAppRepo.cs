@@ -395,8 +395,9 @@ namespace EdFi.Admin.DataAccess.Repositories
                 {
                     var vendor = context.Vendors.SingleOrDefault(v => v.VendorId == vendorId);
                     application = Application.Create(applicationName, educationOrganizationId, vendor, claimSetName, operationalContextUri);
-                    context.SaveChanges();
                 }
+                context.Applications.Update(application);
+                context.SaveChanges();
                 return application;
             }
         }        
