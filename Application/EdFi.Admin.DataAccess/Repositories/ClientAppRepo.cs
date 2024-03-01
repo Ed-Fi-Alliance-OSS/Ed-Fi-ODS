@@ -299,6 +299,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return context.Vendors.Include(u => u.VendorNamespacePrefixes).Include(a=>a.Applications)
+                    .Include(b=>b.Users)
                     .ToList();
             }
         }
@@ -601,7 +602,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
         
-        public Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes)
+        public Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes, string contactName, string contactEmailAddress)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -611,7 +612,12 @@ namespace EdFi.Admin.DataAccess.Repositories
                 {
                     vendor = Vendor.Create(vendorName, namespacePrefixes);
                 }
-                context.Vendors.Update(vendor);
+
+                var user = new User { FullName = contactName, Email = contactEmailAddress,Vendor=vendor };
+
+                vendor.Users.Add(user);
+
+                context.Vendors.Add(vendor);
                 context.SaveChanges();
                 return vendor;
             }
