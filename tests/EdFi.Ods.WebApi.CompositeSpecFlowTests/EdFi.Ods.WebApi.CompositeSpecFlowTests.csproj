@@ -33,19 +33,19 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.44" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.47" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.2.4" />
       </ItemGroup>
     </Otherwise>
   </Choose>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '5.0.0' ">
+ <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '5.0.0' ">
   <ItemGroup>
     <MySourceDirectory Include="$(MSBuildProjectDirectory)\5.0.0\**\*" />
     <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
   </ItemGroup>
   <Copy SourceFiles="@(MySourceDirectory)" DestinationFiles="@(MySourceDirectory->'$(MSBuildProjectDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" />
 </Target>
- <Target Name="CopyDirectory" AfterTargets="AfterBuild"  Condition=" '$(StandardVersion)' == '4.0.0' ">
+ <Target Name="CopyDirectory" AfterTargets="AfterBuild" Condition=" '$(StandardVersion)' == '4.0.0' ">
   <ItemGroup>
     <MySourceDirectory Include="$(MSBuildProjectDirectory)\4.0.0\**\*" />
     <MyDestinationDirectory Include="$(MSBuildProjectDirectory)\" />  
