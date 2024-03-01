@@ -7,7 +7,7 @@ name: Pkg EdFi.Ods.CodeGen Pull Request Build and Test
 
 on:
   pull_request:
-    branches: [main-5x, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
     paths:
       - Utilities/CodeGeneration/**/*
       - Application/EdFi.Common/**/*

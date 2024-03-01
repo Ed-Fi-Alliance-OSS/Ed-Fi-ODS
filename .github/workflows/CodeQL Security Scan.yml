@@ -7,9 +7,9 @@ name: CodeQL Security Scan Pull request
 
 on:
   pull_request:
-    branches: [main-5x, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   push:
-    branches: [main-5x, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
 
 env:
   INFORMATIONAL_VERSION: "5.4"
