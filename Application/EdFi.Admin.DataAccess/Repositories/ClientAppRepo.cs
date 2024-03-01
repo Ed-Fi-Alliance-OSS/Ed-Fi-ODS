@@ -378,14 +378,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public Vendor UpdateVendor(Vendor vendor)
-        {
-            using var context = _contextFactory.CreateContext();
-            context.Vendors.Update(vendor);
-            context.SaveChanges();
-            return vendor;
-        }
-
         public Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId,string claimSetName= "Ed-Fi Sandbox", string operationalContextUri = "uri://ed-fi-api-host.org")
         {
             using (var context = _contextFactory.CreateContext())
@@ -402,15 +394,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return application;
             }
         }        
-
-        public Application[] GetVendorApplications(int vendorId)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                return context.Applications.Where(a => a.Vendor.VendorId == vendorId)
-                    .ToArray();
-            }
-        }
 
         public void AddApiClientToUserWithVendorApplication(int userId, ApiClient client)
         {

@@ -37,8 +37,6 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName);
 
-        Application[] GetVendorApplications(int vendorId);
-
         void AddApiClientToUserWithVendorApplication(int userId, ApiClient client);
 
         ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId,
@@ -61,9 +59,6 @@ namespace EdFi.Admin.DataAccess.Repositories
         void DeleteApplication(int applicationId);
 
         void DeleteVendor(int vendorId);
-
-        Vendor UpdateVendor(Vendor vendor);
-
 
         IEnumerable<Vendor> GetVendors();
 
