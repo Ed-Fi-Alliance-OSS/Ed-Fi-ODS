@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Common.Security.Authorization;
 
@@ -13,7 +14,8 @@ public interface IEntityAuthorizer
     /// </summary>
     /// <param name="entity">The entity to be authorized.</param>
     /// <param name="actionUri">The action being performed on the entity.</param>
+    /// <param name="authorizationPhase">The phase of authorization of the entity (either existing or proposed).</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task AuthorizeEntityAsync(object entity, string actionUri, CancellationToken cancellationToken);
+    Task AuthorizeEntityAsync(object entity, string actionUri, AuthorizationPhase authorizationPhase, CancellationToken cancellationToken);
 }

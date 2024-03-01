@@ -78,7 +78,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             // Authorize the entity
             var action = _authorizationContextProvider.GetAction();
-            await _entityAuthorizer.Value.AuthorizeEntityAsync(@event.Entity, action, cancellationToken);
+            await _entityAuthorizer.Value.AuthorizeEntityAsync(@event.Entity, action, AuthorizationPhase.ProposedData, cancellationToken);
 
             string tableName;
             string[] updateTargetColumnNames;

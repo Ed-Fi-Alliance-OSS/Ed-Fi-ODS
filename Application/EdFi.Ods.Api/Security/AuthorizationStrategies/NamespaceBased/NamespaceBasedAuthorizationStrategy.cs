@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
     public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy
     {
-        private const string AuthorizationStrategyName = "NamespaceBased";
+        internal const string AuthorizationStrategyName = "NamespaceBased";
 
         private readonly ConcurrentDictionary<FullName, string> _namespacePropertyByResourceFullName = new();
 

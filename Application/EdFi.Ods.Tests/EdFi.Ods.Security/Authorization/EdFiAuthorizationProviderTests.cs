@@ -61,7 +61,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
         public void AuthorizeSingleItem(TFakeEntity entity, CancellationToken cancellationToken)
         {
-            base.AuthorizeSingleItemAsync(entity, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
+            base.AuthorizeExistingSingleItemAsync(entity, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
         }
     }
 

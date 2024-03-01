@@ -59,7 +59,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         resource,
                         new[] { resourceUri },
                         action,
-                        data),
+                        data,
+                        AuthorizationPhase.ProposedData),
                     new AuthorizationFilterContext());
             
                 //Assert
@@ -97,7 +98,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         resource,
                         new[] { resourceUri },
                         action,
-                        data),
+                        data,
+                        AuthorizationPhase.ProposedData),
                     new AuthorizationFilterContext());
 
                 //Assert
@@ -136,7 +138,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                             resource,
                             new[] { resourceUri },
                             action,
-                            data)));
+                            data,
+                            AuthorizationPhase.ProposedData)));
 
                 //Assert
                 exception.Message.ShouldBe(
@@ -176,7 +179,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         resource,
                         new[] { resourceUri },
                         action,
-                        data));
+                        data,
+                        AuthorizationPhase.ProposedData));
 
                 //Assert
                 // No exception
@@ -214,7 +218,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         resource,
                         new[] { resourceUri },
                         action,
-                        data));
+                        data,
+                        AuthorizationPhase.ProposedData));
 
                 //Assert
             }
@@ -254,7 +259,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                                 resource,
                                 new[] { resourceUri },
                                 action,
-                                data)))
+                                data,
+                                AuthorizationPhase.ProposedData)))
                     .MessageShouldContain(
                         "There is no Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
 
@@ -287,7 +293,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                             resource,
                             new[] { resourceUri },
                             action,
-                            data)));
+                            data,
+                            AuthorizationPhase.ProposedData)));
 
                 // Assert
                 exception.Message.ShouldBe(

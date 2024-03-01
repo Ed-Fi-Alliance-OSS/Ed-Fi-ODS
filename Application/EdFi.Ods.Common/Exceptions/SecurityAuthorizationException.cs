@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions
@@ -66,7 +67,12 @@ namespace EdFi.Ods.Common.Exceptions
                 ((IEdFiProblemDetails)this).Errors = new[] { error };
             }
         }
-        
+
+        /// <summary>
+        /// Additional type parts to be appended to this exception instance.
+        /// </summary>
+        public IEnumerable<string> InstanceTypeParts { get; set; } = Enumerable.Empty<string>();
+
         // ---------------------------
         //  Boilerplate for overrides
         // ---------------------------
@@ -82,6 +88,11 @@ namespace EdFi.Ods.Common.Exceptions
             }
 
             yield return TypePart;
+
+            foreach (var part in InstanceTypeParts)
+            {
+                yield return part;
+            }
         }
         // ---------------------------
     }

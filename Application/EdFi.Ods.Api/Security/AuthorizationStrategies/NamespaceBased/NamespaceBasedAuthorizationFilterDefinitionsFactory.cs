@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
@@ -115,10 +116,19 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
+                string existingLiteral = authorizationContext.GetPhaseText("existing ");
+
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail,
-                        "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
+                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
+                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{NamespaceBasedAuthorizationStrategy.AuthorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
+                    {
+                        InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
+                            // On proposed data
+                            ? new []{ "namespace", "access-denied", "namespace-required" }
+                            // On existing data
+                            : new []{ "namespace", "invalid-data", "namespace-uninitialized" }
+                    });
             }
 
             var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);

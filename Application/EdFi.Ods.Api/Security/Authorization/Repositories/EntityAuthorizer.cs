@@ -90,7 +90,7 @@ public class EntityAuthorizer : IEntityAuthorizer
     }
 
     /// <inheritdoc cref="IEntityAuthorizer.AuthorizeEntityAsync" />
-    public async Task AuthorizeEntityAsync(object entity, string actionUri, CancellationToken cancellationToken)
+    public async Task AuthorizeEntityAsync(object entity, string actionUri, AuthorizationPhase authorizationPhase, CancellationToken cancellationToken)
     {
         // Make sure Authorization context is present before proceeding
         _authorizationContextProvider.VerifyAuthorizationContextExists();
@@ -105,7 +105,8 @@ public class EntityAuthorizer : IEntityAuthorizer
             resource,
             resourceClaimUris,
             actionUri,
-            entity);
+            entity,
+            authorizationPhase);
 
         var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
             apiClientContext.ClaimSetName, resourceClaimUris, actionUri);
