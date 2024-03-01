@@ -48,13 +48,13 @@ namespace EdFi.Admin.DataAccess.Models
                 ApiClients = ApiClients
             };
 
-        public static Application Create(string applicationName, long educationOrganizationId, Vendor vendor)
+        public static Application Create(string applicationName, long educationOrganizationId, Vendor vendor, string claimSetName, string operationalContextUri)
         {
             var application = new Application
             {
                 ApplicationName = applicationName,
-                ClaimSetName = "Ed-Fi Sandbox",
-                OperationalContextUri = "uri://ed-fi-api-host.org",
+                ClaimSetName = claimSetName,
+                OperationalContextUri = operationalContextUri,
                 Vendor =vendor
             };
 

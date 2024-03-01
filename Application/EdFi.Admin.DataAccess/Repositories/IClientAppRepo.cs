@@ -51,7 +51,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes);
 
-        Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId);
+        Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId, string claimSetName, string operationalContextUri);
 
         Vendor GetVendor(int vendorId);
 

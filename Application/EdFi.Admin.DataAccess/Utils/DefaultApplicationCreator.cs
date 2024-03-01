@@ -40,7 +40,7 @@ namespace EdFi.Admin.DataAccess.Utils
                 var vendor = context.Vendors
                     .Where(x => x.VendorId == vendorId)
                     .Include(x => x.Applications).ThenInclude(x => x.ApplicationEducationOrganizations)
-                    .Single();
+                    .FirstOrDefault();
 
                 var defaultAppName = _configuration.GetSection("DefaultApplicationName").Value ?? "Default Sandbox Application";
                 var applicationName = defaultAppName + " " + sandboxType;
