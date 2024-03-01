@@ -92,7 +92,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
             _transaction?.Dispose();
         }
 
-        protected ApiClient LoadAnApiClient(Application application, int apiClientId)
+        protected ApiClient LoadAnApiClient(Application application)
         {
             var a = TestFixtureContext.Clients.Add(
                 new ApiClient
@@ -104,8 +104,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                     UseSandbox = true,
                     SandboxType = SandboxType.Minimal,
                     SecretIsHashed = false,
-                    Application = application,
-                    ApiClientId = apiClientId
+                    Application = application
                 });
 
             TestFixtureContext.SaveChanges();
@@ -206,7 +205,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
-                    var apiClient = LoadAnApiClient(application, 1);
+                    var apiClient = LoadAnApiClient(application);
                     _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
@@ -233,7 +232,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 {
                     base.Arrange();
 
-                    Client = LoadAnApiClient(null, 0);
+                    Client = LoadAnApiClient(null);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -263,7 +262,6 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 protected const int edOrgId2 = 34;
                 protected const string profileName1 = "three";
                 protected const string profileName2 = "four";
-                protected const int apiClientId = 5;
 
                 protected override void Arrange()
                 {
@@ -275,7 +273,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
                     var application = LoadAnApplication(vendor, claimSetName);
 
-                    Client = LoadAnApiClient(application, apiClientId);
+                    Client = LoadAnApiClient(application);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId1);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId2);
 
@@ -382,7 +380,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                     base.Arrange();
 
                     var application = LoadAnApplication(null, "Sandbox");
-                    Client = LoadAnApiClient(application, 5);
+                    Client = LoadAnApiClient(application);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
