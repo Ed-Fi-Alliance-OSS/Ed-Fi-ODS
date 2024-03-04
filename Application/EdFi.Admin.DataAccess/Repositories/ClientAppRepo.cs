@@ -341,14 +341,16 @@ namespace EdFi.Admin.DataAccess.Repositories
                 context.ApplicationEducationOrganizations.Remove(applicationEducationOrganization);
             }
 
-            foreach (var apiClient in application.ApiClients)
-            {
-                DeleteClient(apiClient.Key);
-            }
+            var apiClientKeysToDelete = application.ApiClients.Select(a => a.Key).ToList();
 
             context.Applications.Remove(application);
 
             context.SaveChanges();
+
+            foreach (var key in apiClientKeysToDelete)
+            {
+                DeleteClient(key);
+            }
         }
 
         public void DeleteVendor(int vendorId)
@@ -360,10 +362,14 @@ namespace EdFi.Admin.DataAccess.Repositories
                 var applications = context.Applications.Include(c => c.Vendor)
                     .ThenInclude(c => c.VendorNamespacePrefixes)
                     .Include(c => c.ApplicationEducationOrganizations)
+                    .Include(c => c.ApiClients)
                     .Where(x => x.Vendor.VendorId == vendor.VendorId);
+
+                List<string> apiClientKeysToDelete = new();
 
                 foreach (var application in applications)
                 {
+                    apiClientKeysToDelete.AddRange(application.ApiClients.Select(a => a.Key).ToList());
                     context.ApplicationEducationOrganizations.RemoveRange(application.ApplicationEducationOrganizations);
                     context.Applications.Remove(application);
                 }
@@ -372,9 +378,13 @@ namespace EdFi.Admin.DataAccess.Repositories
                 {
                     context.Users.Remove(user);
                 }
-
                 context.Vendors.Remove(vendor);
                 context.SaveChanges();
+
+                foreach (var key in apiClientKeysToDelete)
+                {
+                    DeleteClient(key);
+                }
             }
         }
 
