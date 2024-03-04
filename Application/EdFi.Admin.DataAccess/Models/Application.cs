@@ -47,5 +47,24 @@ namespace EdFi.Admin.DataAccess.Models
                 Application = this,
                 ApiClients = ApiClients
             };
+
+        public static Application Create(string applicationName, long educationOrganizationId, Vendor vendor, string claimSetName, string operationalContextUri)
+        {
+            var application = new Application
+            {
+                ApplicationName = applicationName,
+                ClaimSetName = claimSetName,
+                OperationalContextUri = operationalContextUri,
+                Vendor =vendor
+            };
+
+            application.ApplicationEducationOrganizations.Add(
+                    new ApplicationEducationOrganization
+                    {
+                        Application = application,
+                        EducationOrganizationId = educationOrganizationId
+                    });
+            return application;
+        }
     }
 }
