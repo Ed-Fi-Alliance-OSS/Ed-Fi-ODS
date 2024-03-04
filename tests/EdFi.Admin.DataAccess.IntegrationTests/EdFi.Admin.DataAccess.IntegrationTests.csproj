@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-      <Engine Condition="'$(Engine)' == '' ">SQLServer</Engine>
+      <Engine Condition="'$(Engine)' == '' ">SqlServer</Engine>
     </PropertyGroup>
 	<PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

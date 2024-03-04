@@ -17,7 +17,7 @@ using System.Transactions;
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {
     [TestFixture]
-    public class SQLServerUserContextFactoryTests
+    public class SqlServerUserContextFactoryTests
     {
         protected SqlServerUsersContext _context;
         protected TransactionScope _transaction;
@@ -63,7 +63,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         }
 
         [TestFixture]
-        public class When_creating_a_user : SQLServerUserContextFactoryTests
+        public class When_creating_a_user : SqlServerUserContextFactoryTests
         {
             private string emailAddress;
 
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         }
 
         [TestFixture]
-        public class When_adding_an_lea_mapping_to_a_client : SQLServerUserContextFactoryTests
+        public class When_adding_an_lea_mapping_to_a_client : SqlServerUserContextFactoryTests
         {
             private string clientName;
             private int leaId;
@@ -131,7 +131,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         }
 
         [TestFixture]
-        public class When_adding_an_lea_mapping_to_an_application : SQLServerUserContextFactoryTests
+        public class When_adding_an_lea_mapping_to_an_application : SqlServerUserContextFactoryTests
         {
             private string appName;
             private int leaId;
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         }
 
         [TestFixture]
-        public class When_adding_an_application_to_a_vendor : SQLServerUserContextFactoryTests
+        public class When_adding_an_application_to_a_vendor : SqlServerUserContextFactoryTests
         {
             private string vendorName;
             private string appName;
@@ -218,7 +218,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         }
 
         [TestFixture]
-        public class When_adding_a_local_education_agency_to_an_application : SQLServerUserContextFactoryTests
+        public class When_adding_a_local_education_agency_to_an_application : SqlServerUserContextFactoryTests
         {
             private string vendorName;
             private string appName;
