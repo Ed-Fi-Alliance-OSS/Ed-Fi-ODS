@@ -12,7 +12,6 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Security.DataAccess.Repositories;
-using EdFi.Security.DataAccess.Claims;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -28,10 +27,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<SecurityTableGateway>()
                 .As<ISecurityTableGateway>()
                 .EnableInterfaceInterceptors()
-                .SingleInstance();
-            
-            builder.RegisterType<ResourceClaimsValidator>()
-                .As<IResourceClaimsValidator>()
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()

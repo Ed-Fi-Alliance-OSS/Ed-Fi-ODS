@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Security.DataAccess.Claims;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
@@ -18,12 +17,9 @@ namespace EdFi.Security.DataAccess.Repositories
     public class SecurityRepository : ISecurityRepository
     {
         private readonly ISecurityTableGateway _securityTableGateway;
-        private readonly IResourceClaimsValidator _resourceClaimsValidator;
-
-        public SecurityRepository(ISecurityTableGateway securityTableGateway, IResourceClaimsValidator resourceClaimsValidator)
+        public SecurityRepository(ISecurityTableGateway securityTableGateway)
         {
             _securityTableGateway = securityTableGateway ?? throw new ArgumentNullException(nameof(securityTableGateway));
-            _resourceClaimsValidator = resourceClaimsValidator ?? throw new ArgumentNullException(nameof(resourceClaimsValidator));
         }
 
         public virtual Action GetActionByName(string actionName)
@@ -51,17 +47,14 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <returns>The lineage of resource claim URIs.</returns>
         public virtual IList<string> GetResourceClaimLineage(string resourceClaimUri)
         {
-            // Verify the resource claim lineage has no cycles
-            _resourceClaimsValidator.ValidateResourceClaimLineageForResourceClaim(resourceClaimUri);
-
             return GetResourceClaimLineageForResourceClaim(resourceClaimUri)
                 .Select(c => c.ClaimName)
                 .ToList();
         }
 
-        private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri)
+        private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri, HashSet<ResourceClaim> resourceClaimLineage = null)
         {
-            var resourceClaimLineage = new List<ResourceClaim>();
+            resourceClaimLineage ??= new HashSet<ResourceClaim>();
 
             ResourceClaim resourceClaim;
 
@@ -79,11 +72,14 @@ namespace EdFi.Security.DataAccess.Repositories
 
             if (resourceClaim != null)
             {
-                resourceClaimLineage.Add(resourceClaim);
+                if (!resourceClaimLineage.Add(resourceClaim))
+                {
+                    throw new InvalidOperationException($"The lineage for resource claim '{resourceClaimUri}' is not well-formed. A cycle was detected in the resource claim lineage.");
+                }
 
                 if (resourceClaim.ParentResourceClaim != null)
                 {
-                    resourceClaimLineage.AddRange(GetResourceClaimLineageForResourceClaim(resourceClaim.ParentResourceClaim.ClaimName));
+                    resourceClaimLineage.UnionWith(GetResourceClaimLineageForResourceClaim(resourceClaim.ParentResourceClaim.ClaimName, resourceClaimLineage));
                 }
             }
 
@@ -97,17 +93,14 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
         public virtual IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            // Verify the resource claim lineage has no cycles
-            _resourceClaimsValidator.ValidateResourceClaimLineageForResourceClaim(resourceClaimUri);
-            
-            var strategies = new List<ResourceClaimAction>();
+            var strategies = new HashSet<ResourceClaimAction>();
 
             AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
 
-            return strategies;
+            return strategies.ToList();
         }
 
-        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAction> strategies, string resourceClaimUri, string action)
+        private void AddStrategiesForResourceClaimLineage(HashSet<ResourceClaimAction> strategies, string resourceClaimUri, string action)
         {
             //check for exact match on resource and action
             var claimAndStrategy = _securityTableGateway.GetResourceClaimActionAuthorizations()
