@@ -20,7 +20,6 @@ namespace EdFi.SdkGen.Console
         private const string Profiles = "Profiles";
         private const string Composites = "Composites";
         private const string Identity = "Identity";
-        private const string Java = "java";
         private const string All = "All";
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
@@ -68,15 +67,15 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-                    $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
+                    $"-Xms3g -jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
                     $"--additional-properties packageName={_options.Namespace},targetFramework=net8.0,netCoreProjectFile=true",
-                    "--global-property modelTests=false --global-property apiTests=false --skip-validate-spec"
+                    "--global-property modelTests=false --global-property apiTests=false --global-property apiDocs=false --global-property modelDocs=false --skip-validate-spec"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
 
-                ShellProcess(Java, @params);
+                ShellProcess(_options.JavaPath, @params);
             }
         }
 

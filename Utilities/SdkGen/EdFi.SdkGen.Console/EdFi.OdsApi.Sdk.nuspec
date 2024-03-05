@@ -15,8 +15,8 @@
     <dependencies>
       <dependency id="NewtonSoft.Json" version="13.0.1" />
       <dependency id="JsonSubTypes" version="1.8.0" />
-      <dependency id="FubarCoder.RestSharp.Portable.Core" version="4.0.8" />
-      <dependency id="FubarCoder.RestSharp.Portable.HttpClient" version="4.0.8" />
+      <dependency id="RestSharp" version="110.2.0" />
+      <dependency id="Polly" version="8.1.0" />
     </dependencies>
   </metadata>
   <files>
