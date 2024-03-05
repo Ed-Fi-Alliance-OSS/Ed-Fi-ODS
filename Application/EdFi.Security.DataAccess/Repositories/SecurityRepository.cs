@@ -77,7 +77,7 @@ namespace EdFi.Security.DataAccess.Repositories
             
             if (resourceClaimLineage.Contains(resourceClaim))
             {
-                throw new InvalidOperationException($"A cycle was detected in the resource claim hierarchy of the security metadata: '{string.Join("' -> '", resourceClaimLineage.SkipWhile(rc => rc.ResourceClaimId != resourceClaim.ResourceClaimId))}' --> '{resourceClaimUri}'");
+                throw new InvalidOperationException($"A cycle was detected in the resource claim hierarchy of the security metadata: '{string.Join("' -> '", resourceClaimLineage.SkipWhile(rc => rc.ResourceClaimId != resourceClaim.ResourceClaimId).Select(rc => rc.ClaimName))}' --> '{resourceClaimUri}'");
             }
             
             resourceClaimLineage.Add(resourceClaim);
