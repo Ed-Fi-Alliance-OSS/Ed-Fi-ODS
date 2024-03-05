@@ -17,6 +17,7 @@ namespace EdFi.Security.DataAccess.Repositories
     public class SecurityRepository : ISecurityRepository
     {
         private readonly ISecurityTableGateway _securityTableGateway;
+
         public SecurityRepository(ISecurityTableGateway securityTableGateway)
         {
             _securityTableGateway = securityTableGateway ?? throw new ArgumentNullException(nameof(securityTableGateway));
@@ -93,14 +94,14 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
         public virtual IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            var strategies = new HashSet<ResourceClaimAction>();
+            var strategies = new List<ResourceClaimAction>();
 
             AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
 
-            return strategies.ToList();
+            return strategies;
         }
 
-        private void AddStrategiesForResourceClaimLineage(HashSet<ResourceClaimAction> strategies, string resourceClaimUri, string action)
+        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAction> strategies, string resourceClaimUri, string action)
         {
             //check for exact match on resource and action
             var claimAndStrategy = _securityTableGateway.GetResourceClaimActionAuthorizations()
