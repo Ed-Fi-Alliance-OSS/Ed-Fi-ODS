@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Security.DataAccess.Claims;
 
 namespace EdFi.Security.DataAccess.UnitTests.Repositories;
 
@@ -18,13 +19,15 @@ using Shouldly;
 public class SecurityRepositoryTests
 {
     private ISecurityTableGateway _securityTableGateway;
+    private IResourceClaimsValidator _resourceClaimsValidator;
     private SecurityRepository _securityRepository;
 
     [SetUp]
     public void SetUp()
     {
         _securityTableGateway = A.Fake<ISecurityTableGateway>();
-        _securityRepository = new SecurityRepository(_securityTableGateway);
+        _resourceClaimsValidator = A.Fake<IResourceClaimsValidator>();
+        _securityRepository = new SecurityRepository(_securityTableGateway, _resourceClaimsValidator);
     }
 
     [Test]
@@ -212,7 +215,8 @@ public class SecurityRepositoryTests
     {
         // Arrange
         var securityTableGateway = A.Fake<ISecurityTableGateway>();
-        var repository = new SecurityRepository(securityTableGateway);
+        var resourceClaimsValidator = A.Fake<IResourceClaimsValidator>();
+        var repository = new SecurityRepository(securityTableGateway, resourceClaimsValidator);
 
         var suppliedResourceClaimUri = "urn:some:resource";
         var suppliedActionUri = "read";
@@ -247,7 +251,8 @@ public class SecurityRepositoryTests
     {
         // Arrange
         var securityTableGateway = A.Fake<ISecurityTableGateway>();
-        var repository = new SecurityRepository(securityTableGateway);
+        var resourceClaimsValidator = A.Fake<IResourceClaimsValidator>();
+        var repository = new SecurityRepository(securityTableGateway, resourceClaimsValidator);
 
         var suppliedParentResourceClaimUri = "urn:some:resource:parent";
         var suppliedChildResourceClaimUri = "urn:some:resource:child";
@@ -310,7 +315,8 @@ public class SecurityRepositoryTests
     {
         // Arrange
         var securityTableGateway = A.Fake<ISecurityTableGateway>();
-        var repository = new SecurityRepository(securityTableGateway);
+        var resourceClaimsValidator = A.Fake<IResourceClaimsValidator>();
+        var repository = new SecurityRepository(securityTableGateway, resourceClaimsValidator);
 
         var resourceName = "Some Resource";
         var resourceClaim = new ResourceClaim { ResourceName = resourceName };
