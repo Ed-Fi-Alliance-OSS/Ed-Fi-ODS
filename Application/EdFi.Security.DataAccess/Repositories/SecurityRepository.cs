@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Security.DataAccess.Claims;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
@@ -17,10 +18,12 @@ namespace EdFi.Security.DataAccess.Repositories
     public class SecurityRepository : ISecurityRepository
     {
         private readonly ISecurityTableGateway _securityTableGateway;
+        private readonly IResourceClaimsValidator _resourceClaimsValidator;
 
-        public SecurityRepository(ISecurityTableGateway securityTableGateway)
+        public SecurityRepository(ISecurityTableGateway securityTableGateway, IResourceClaimsValidator resourceClaimsValidator)
         {
             _securityTableGateway = securityTableGateway ?? throw new ArgumentNullException(nameof(securityTableGateway));
+            _resourceClaimsValidator = resourceClaimsValidator ?? throw new ArgumentNullException(nameof(resourceClaimsValidator));
         }
 
         public virtual Action GetActionByName(string actionName)
@@ -36,7 +39,6 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-
             return _securityTableGateway.GetClaimSetResourceClaimActions()
                 .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
@@ -49,6 +51,9 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <returns>The lineage of resource claim URIs.</returns>
         public virtual IList<string> GetResourceClaimLineage(string resourceClaimUri)
         {
+            // Verify the resource claim lineage has no cycles
+            _resourceClaimsValidator.ValidateResourceClaimLineageForResourceClaim(resourceClaimUri);
+
             return GetResourceClaimLineageForResourceClaim(resourceClaimUri)
                 .Select(c => c.ClaimName)
                 .ToList();
@@ -92,6 +97,9 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
         public virtual IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
+            // Verify the resource claim lineage has no cycles
+            _resourceClaimsValidator.ValidateResourceClaimLineageForResourceClaim(resourceClaimUri);
+            
             var strategies = new List<ResourceClaimAction>();
 
             AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
