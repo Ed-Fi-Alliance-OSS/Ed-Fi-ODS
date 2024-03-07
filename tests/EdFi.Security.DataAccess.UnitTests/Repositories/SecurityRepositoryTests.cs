@@ -174,16 +174,16 @@ public class SecurityRepositoryTests
         var resourceClaimA = new ResourceClaim { ClaimName = "uri-A", ResourceClaimId = 1, ParentResourceClaim = null, ParentResourceClaimId = null};
         var resourceClaimB = new ResourceClaim { ClaimName = "uri-B", ResourceClaimId = 2, ParentResourceClaim = resourceClaimA, ParentResourceClaimId = 1};
         var resourceClaimC = new ResourceClaim { ClaimName = "uri-C", ResourceClaimId = 3, ParentResourceClaim = resourceClaimB, ParentResourceClaimId = 2};
-        var resourceClaimD = new ResourceClaim { ClaimName = "uri-D", ResourceClaimId = 4, ParentResourceClaim = resourceClaimB, ParentResourceClaimId = 3};
+        var resourceClaimD = new ResourceClaim { ClaimName = "uri-D", ResourceClaimId = 4, ParentResourceClaim = resourceClaimC, ParentResourceClaimId = 3};
         
         resourceClaimA.ParentResourceClaimId = resourceClaimC.ResourceClaimId;
         resourceClaimA.ParentResourceClaim = resourceClaimC;
         
         A.CallTo(() => _securityTableGateway.GetResourceClaims())
-            .Returns(new List<ResourceClaim> { resourceClaimA, resourceClaimB, resourceClaimC });
+            .Returns(new List<ResourceClaim> { resourceClaimA, resourceClaimB, resourceClaimC, resourceClaimD });
 
         // Act & Assert
-        Should.Throw<InvalidOperationException>(() => _securityRepository.GetResourceClaimLineage("uri-C"))
+        Should.Throw<InvalidOperationException>(() => _securityRepository.GetResourceClaimLineage("uri-D"))
             .Message.ShouldBe("A cycle was detected in the resource claim hierarchy of the security metadata: 'uri-C' -> 'uri-B' -> 'uri-A' -> 'uri-C'");
     }
 
