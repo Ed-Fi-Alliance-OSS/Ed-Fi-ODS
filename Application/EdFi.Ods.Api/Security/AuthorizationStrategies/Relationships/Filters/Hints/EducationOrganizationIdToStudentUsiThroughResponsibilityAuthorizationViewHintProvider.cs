@@ -15,7 +15,7 @@ public class EducationOrganizationIdToStudentUsiThroughResponsibilityAuthorizati
         if (viewName.StartsWith("EducationOrganizationIdToStudentUSIThrough", StringComparison.OrdinalIgnoreCase)
             && viewName.EndsWith("Responsibility", StringComparison.OrdinalIgnoreCase))
         {
-            return "Ensure that a corresponding 'StudentEducationOrganizationResponsibilityAssociation' resource item has been created.";
+            return "You may need to create a corresponding 'StudentEducationOrganizationResponsibilityAssociation' resource item.";
         }
 
         return null;

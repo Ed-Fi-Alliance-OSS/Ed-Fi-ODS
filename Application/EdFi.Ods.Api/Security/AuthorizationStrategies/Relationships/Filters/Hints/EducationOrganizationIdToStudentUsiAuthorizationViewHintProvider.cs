@@ -14,7 +14,7 @@ public class EducationOrganizationIdToStudentUsiAuthorizationViewHintProvider : 
         if (viewName.Equals("EducationOrganizationIdToStudentUSI", StringComparison.OrdinalIgnoreCase)
             || viewName.Equals("EducationOrganizationIdToStudentUSIIncludingDeletes", StringComparison.OrdinalIgnoreCase))
         {
-            return "Ensure that a corresponding 'StudentSchoolAssociation' resource item has been created.";
+            return "You may need to create a corresponding 'StudentSchoolAssociation' resource item.";
         }
 
         return null;
