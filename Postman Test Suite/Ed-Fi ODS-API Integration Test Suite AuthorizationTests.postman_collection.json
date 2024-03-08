@@ -5591,7 +5591,7 @@
 													"pm.test(\"Should return appropriate problem details for authorization failure.\", () => {",
 													"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
 													"    pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");",
-													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and the resource item's 'ContactUniqueId' value./);",
+													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and the resource item's '(Parent|Contact)UniqueId' value./);",
 													"});",
 													"",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association'`, () => {",
