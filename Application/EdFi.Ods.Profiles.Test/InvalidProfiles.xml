@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  <!--  Misconfigured Profiles-->
+  <Profile name="Test-Profile-With-Unexisting-Resource">
+    <Resource name="Schools">
+      <ReadContentType memberSelection="IncludeAll"/>
+      <WriteContentType memberSelection="IncludeAll"/>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-With-Unexisting-Property">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitutions"/>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="ShortNameOfInstitutions"/>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+</Profiles>
