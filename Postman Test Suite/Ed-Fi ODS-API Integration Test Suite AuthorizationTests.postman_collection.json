@@ -5501,6 +5501,149 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "When_updating_an_unassociated_contact_should_fail_with_403_forbidden",
+							"item": [
+								{
+									"name": "Initialize Contact Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201) ",
+													" });",
+													"",
+													"if (pm.response.code === 201 ) {",
+													"    const scenarioId = pm.environment.get('scenarioId');",
+													"    pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"    pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"{{ParentOrContactCollectionName}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_an_unassociated_contact_should_fail_with_403_forbidden",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403) ",
+													" });",
+													"",
+													"const problemDetails = pm.response.json();",
+													"const parentOrContactProperName = pm.environment.get('ParentOrContactProperName');",
+													"",
+													"pm.test(\"Should return appropriate problem details for authorization failure.\", () => {",
+													"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"    pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");",
+													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and the resource item's 'ContactUniqueId' value./);",
+													"});",
+													"",
+													"pm.test(`Should hint to create 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association'`, () => {",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create corresponding 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association' resource items.`);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"gotmarried\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"{{ParentOrContactUniqueIdName}}\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n }\r\n"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:{{scenarioId}}:parentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"{{ParentOrContactCollectionName}}",
+												"{{known:{{scenarioId}}:parentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -7752,15 +7895,17 @@
 													" });\r",
 													"\r",
 													"const responseItem = pm.response.json();\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-													"  const problemDetails = pm.response.json();\r",
-													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
-													""
+													"\r",
+													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' resource item.\");\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -7822,13 +7967,12 @@
 													"});\r",
 													"\r",
 													"const responseItem = pm.response.json();\r",
+													"const problemDetails = pm.response.json();\r",
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-													"  const problemDetails = pm.response.json();\r",
-													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
 													""
 												],
