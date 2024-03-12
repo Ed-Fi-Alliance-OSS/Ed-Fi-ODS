@@ -24,7 +24,6 @@ namespace EdFi.Ods.Common.Exceptions
 
         public SafeDistributedCacheException(string message)
             : base(message) { }
-
         public SafeDistributedCacheException() : base()
         {
         }
