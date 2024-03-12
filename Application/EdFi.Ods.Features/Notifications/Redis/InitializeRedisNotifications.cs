@@ -8,6 +8,8 @@ using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Services.Redis;
 using log4net;
+using StackExchange.Redis;
+using static StackExchange.Redis.RedisChannel;
 
 namespace EdFi.Ods.Features.Notifications.Redis;
 
@@ -39,7 +41,7 @@ public class InitializeRedisNotifications : IExternalTask
             var subscriber = _redisConnectionProvider.Get().Multiplexer.GetSubscriber();
 
             subscriber.Subscribe(
-                _redisNotificationSettings.Channel,
+                new RedisChannel(_redisNotificationSettings.Channel, PatternMode.Auto),
                 (channel, message) => { _notificationsMessageSink.Receive(message); });
         }
         catch (Exception ex)
