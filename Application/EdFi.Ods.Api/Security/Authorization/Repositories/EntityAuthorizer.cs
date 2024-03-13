@@ -370,7 +370,7 @@ public class EntityAuthorizer : IEntityAuthorizer
 
             object[] claimEndpointValues = resultsWithPendingExistenceChecks.SelectMany(x => x.FilterResults.Select(f => f.FilterContext))
                 .FirstOrDefault()
-                ?.ClaimEndpointValues.OrderBy(Convert.ToInt32).ToArray();
+                ?.ClaimEndpointValues.OrderBy(Convert.ToInt64).ToArray();
 
             string claimOrClaims = Inflector.Inflect("claim", claimEndpointValues?.Length ?? 0);
 
