@@ -89,9 +89,6 @@ namespace EdFi.Ods.Api.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // TODO: Remove once migration to .NET 8 is done
-            services.AddSingleton<IApplicationBuilderFactory, CustomApplicationBuilderFactory>();
-
             // Provide access to the web host environment through the container
             services.AddSingleton(_webHostEnvironment);
 

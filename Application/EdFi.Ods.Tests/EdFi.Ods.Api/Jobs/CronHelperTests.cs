@@ -7,6 +7,7 @@ using EdFi.Ods.Api.Jobs;
 
 using EdFi.Ods.Common.Configuration;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Jobs
 {

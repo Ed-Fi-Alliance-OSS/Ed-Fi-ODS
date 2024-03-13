@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using FakeItEasy;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching;
 
