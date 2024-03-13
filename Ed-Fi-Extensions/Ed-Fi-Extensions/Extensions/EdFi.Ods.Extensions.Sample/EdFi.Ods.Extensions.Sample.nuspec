@@ -14,7 +14,7 @@
   </metadata>
   <files>
     <file src="../../LICENSE.txt" />
-    <file src="bin\$configuration$\net6.0\EdFi.Ods.Extensions.Sample.dll" target="."/>
+    <file src="bin\$configuration$\net8.0\EdFi.Ods.Extensions.Sample.dll" target="."/>
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="Artifacts/."/>
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="Artifacts/."/> 
   </files>

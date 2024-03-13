@@ -4,7 +4,7 @@
     <ExtensionVersion Condition="'$(ExtensionVersion)' == '' ">1.0.0</ExtensionVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Extensions.SampleStudentTransportation</AssemblyName>
     <RootNamespace>EdFi.Ods.Extensions.SampleStudentTransportation</RootNamespace>
     <RestorePackages>true</RestorePackages>
@@ -17,7 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Versions\*\Standard\**" />

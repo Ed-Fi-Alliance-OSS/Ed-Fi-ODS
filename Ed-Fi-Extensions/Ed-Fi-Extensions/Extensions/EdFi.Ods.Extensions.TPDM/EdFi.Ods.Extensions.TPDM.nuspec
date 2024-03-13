@@ -16,6 +16,6 @@
     <file src="../../LICENSE.txt" />
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="Artifacts/." />
     <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="Artifacts/." />
-    <file src="bin\$Configuration$\net6.0\EdFi.Ods.Extensions.TPDM.dll" target="." />
+    <file src="bin\$configuration$\net8.0\EdFi.Ods.Extensions.TPDM.dll" target="." />
   </files>
 </package>
