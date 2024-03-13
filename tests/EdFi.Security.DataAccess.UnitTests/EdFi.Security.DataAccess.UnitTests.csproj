@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Security.DataAccess.UnitTests</AssemblyName>
     <RootNamespace>EdFi.Security.DataAccess.UnitTests</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.18" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFrameworkTesting.FakeItEasy" Version="1.3.0" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>EdFi.Security.DataAccess</PackageId>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Security.DataAccess</AssemblyName>
     <RootNamespace>EdFi.Security.DataAccess</RootNamespace>
     <RestorePackages>true</RestorePackages>
@@ -15,14 +15,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.18" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
-    <PackageReference Include="Npgsql" Version="4.1.5" />
+    <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>

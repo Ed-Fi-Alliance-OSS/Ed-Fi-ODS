@@ -15,7 +15,7 @@ namespace EdFi.Common.Security
         /// </summary>
         /// <param name="stringToHash"></param>
         /// <returns></returns>
-        public static byte[] GetSha256Hash(string stringToHash) => new SHA256Managed()
+        public static byte[] GetSha256Hash(string stringToHash) => SHA256.Create()
            .ComputeHash(Encoding.UTF8.GetBytes(stringToHash), 0, Encoding.UTF8.GetByteCount(stringToHash));
     }
 }
