@@ -48,7 +48,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             // if necessary in the future.
             const string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             var res = new StringBuilder(length);
-            using (var rng = RandomNumberGenerator.Create())
+            using (var rng = new RNGCryptoServiceProvider())
             {
                 int count = (int)Math.Ceiling(Math.Log(alphabet.Length, 2) / 8.0);
                 Debug.Assert(count <= sizeof(uint));

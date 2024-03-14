@@ -28,7 +28,7 @@ namespace EdFi.LoadTools.Test
         }
 
         [Test]
-        [Category("RunManually")]
+        [Category("Run Manually")]
         public async Task Should_retrieve_swagger_information()
         {
             var retriever = new SwaggerRetriever(new TestApiMetadataConfiguration(_configuration));

@@ -33,7 +33,7 @@ namespace EdFi.LoadTools.Test
             }
 
             [Test]
-            [Category("RunManually")]
+            [Category("Run Manually")]
             public void Should_display_all_Xml_metadata()
             {
                 Assert.IsTrue(_metadata.Any());

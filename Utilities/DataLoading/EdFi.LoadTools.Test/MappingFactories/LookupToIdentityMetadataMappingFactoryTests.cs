@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
         }
 
         [Test]
-        [Category("RunManually")]
+        [Category("Run Manually")]
         public void Should_map_lookup_to_identity()
         {
             foreach (var mapping in _mappings.OrderBy(x => x.SourceName))

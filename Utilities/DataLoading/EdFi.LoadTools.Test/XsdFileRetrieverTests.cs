@@ -46,7 +46,7 @@ namespace EdFi.LoadTools.Test
         }
 
         [Test]
-        [Category("RunManually")]
+        [Category("Run Manually")]
         public async Task Should_get_xsd_metadata_information_and_download_files()
         {
             var odsVersionInformation = new OdsVersionInformation
@@ -56,12 +56,7 @@ namespace EdFi.LoadTools.Test
                     new Dictionary<string, string>
                     {
                         {"name", "Ed-Fi"},
-                        {"version", "3.3.1-b"}
-                    },
-                    new Dictionary<string, string>
-                    {
-                        {"name", "TPDM"},
-                        {"version", "1.1.0"}
+                        {"version", "3.2.0-c"}
                     }
                 }
             };
