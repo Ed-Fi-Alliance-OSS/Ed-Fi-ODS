@@ -31,7 +31,7 @@ namespace EdFi.LoadTools.Test
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void ShouldSuccessfullyRetrieveBearerToken()
         {
             var config = new TestOAuthConfiguration
