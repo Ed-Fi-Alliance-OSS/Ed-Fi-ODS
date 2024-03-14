@@ -11,6 +11,11 @@ on:
       - Utilities/CodeGeneration/**/*
       - Application/EdFi.Common/**/*
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Rebuild Database Templates workflow'
+        required: false
+        default: 'distinct_id'
 
 env:
   INFORMATIONAL_VERSION: "6.2"
@@ -27,6 +32,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:

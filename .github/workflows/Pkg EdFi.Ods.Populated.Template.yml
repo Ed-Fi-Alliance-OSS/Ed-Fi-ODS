@@ -10,6 +10,11 @@ on:
     branches:
       - main-6x
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Rebuild Database Templates workflow'
+        required: false
+        default: 'distinct_id'
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
 
@@ -30,6 +35,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
