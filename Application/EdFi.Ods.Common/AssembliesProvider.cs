@@ -21,7 +21,7 @@ namespace EdFi.Ods.Common
 
         public Assembly[] GetAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
 
-        public Assembly Get(string assemblyName) => GetAssemblies().FirstOrDefault(x=> x.GetName().Name.EqualsIgnoreCase(assemblyName));
+        public Assembly Get(string assemblyName) => GetAssemblies().FirstOrDefault(x => x.GetName().Name.EqualsIgnoreCase(assemblyName));
 
         public Assembly[] GetAssembliesContaining<T>()
             => GetAssemblies()
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Common
             {
                 AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) =>
                 {
-                    var assembly = Assembly.ReflectionOnlyLoad(e.Name);
+                    var assembly = Assembly.Load(e.Name);
 
                     if (assembly == null)
                     {
@@ -71,12 +71,12 @@ namespace EdFi.Ods.Common
                 // return the assemblies that are only plugins and exclude non plugin assembles (e.g. log4net.dll)
                 foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll", SearchOption.AllDirectories))
                 {
-                    var assembly = Assembly.ReflectionOnlyLoadFrom(fileInfo.FullName);
+                    var assembly = Assembly.Load(fileInfo.FullName);
 
                     // load in the referenced assemblies into the reflection domain
                     foreach (AssemblyName referencedAssembly in assembly.GetReferencedAssemblies())
                     {
-                        Assembly.ReflectionOnlyLoad(referencedAssembly.FullName);
+                        Assembly.Load(referencedAssembly.FullName);
                     }
 
                     if (assembly.GetTypes().Any(t =>

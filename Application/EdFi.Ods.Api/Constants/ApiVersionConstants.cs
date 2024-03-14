@@ -27,12 +27,12 @@ namespace EdFi.Ods.Api.Constants
         /// <summary>
         /// Informational version of the ods api.
         /// </summary>
-        public const string InformationalVersion = "5.3";
+        public const string InformationalVersion = "5.4";
 
         /// <summary>
         /// Semantic version of the ods api.
         /// </summary>
-        public const string Version = "5.3";
+        public const string Version = "5.4";
 
         /// <summary>
         /// Suite version of the ods api.

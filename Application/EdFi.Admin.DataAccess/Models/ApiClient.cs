@@ -164,7 +164,7 @@ namespace EdFi.Admin.DataAccess.Models
             var numBytes = (length + 3) / 4 * 3;
             var bytes = new byte[numBytes];
 
-            using (var rng = new RNGCryptoServiceProvider())
+            using (var rng = RandomNumberGenerator.Create())
             {
                 do
                 {
