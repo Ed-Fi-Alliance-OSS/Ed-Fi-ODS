@@ -148,7 +148,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 PropertyNamespacePrefix = propertyNamespacePrefix,
                 NullPropertyPrefix = Property.EntityProperty.Entity.IsEntityExtension
                     ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
-                    : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}."
+                    : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
+                IsNullable = Property.PropertyType.IsNullable
             };
         }
 
