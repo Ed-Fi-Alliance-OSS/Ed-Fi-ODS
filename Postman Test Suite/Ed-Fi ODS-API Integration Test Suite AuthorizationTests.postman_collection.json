@@ -5644,6 +5644,314 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "When_associating_an_unexisting_student_should_fail_with_403_forbidden",
+							"item": [
+								{
+									"name": "Initialize Contact Data for Post Request Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201) ",
+													" });",
+													"",
+													"if (pm.response.code === 201 ) {",
+													"    const scenarioId = pm.environment.get('scenarioId');",
+													"    pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"    pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+													"}",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"{{ParentOrContactCollectionName}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_associating_an_unexisting_student_should_fail_with_403_forbidden",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403) ",
+													" });",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return appropriate problem details for authorization failure.\", () => {",
+													"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
+													"    pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");",
+													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+)\\) and the resource item's 'StudentUniqueId' value./);",
+													"});",
+													"",
+													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create a corresponding 'StudentSchoolAssociation' resource item.`);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':unexistingResponseDetail',problemDetails.detail);",
+													"pm.environment.set('known:'+scenarioId+':unexistingResponseErrors',problemDetails.errors);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"pm.environment.set('known:'+scenarioId+':unexitingStudentUniqueId',\"98987676\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:unexitingStudentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"{{StudentParentOrContactAssociationCollectionName}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Student Data for Post Request Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Unassociated_student_response_should_match_unexisting_response",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is  403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403) ",
+													" });",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const unexistingResponseDetail = pm.environment.get('known:'+scenarioId+':unexistingResponseDetail');",
+													"const unexistingResponseErrors = pm.environment.get('known:'+scenarioId+':unexistingResponseErrors');",
+													"",
+													"const problemDetails = pm.response.json();",
+													"pm.test(\"Response messages should match.\", () => {",
+													"    pm.expect(problemDetails.detail).to.equal(unexistingResponseDetail);",
+													"    pm.expect(problemDetails.errors[0]).to.equal(unexistingResponseErrors[0]);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{StudentParentOrContactAssociationCollectionName}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"{{StudentParentOrContactAssociationCollectionName}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
