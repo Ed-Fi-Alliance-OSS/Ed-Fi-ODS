@@ -2120,61 +2120,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_a
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ProfileContentType("application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall")]
-    [Route("ed-fi/students")]
-    public partial class StudentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Readable.Student,
-        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Writable.Student,
-        Entities.Common.EdFi.IStudent,
-        Entities.NHibernate.StudentAggregate.EdFi.Student,
-        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPut,
-        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPost,
-        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentDelete,
-        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample>
-    {
-        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.BirthCity = request.BirthCity;
-            specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
-            specification.BirthDate = request.BirthDate;
-            specification.BirthInternationalProvince = request.BirthInternationalProvince;
-            specification.BirthSexDescriptor = request.BirthSexDescriptor;
-            specification.BirthStateAbbreviationDescriptor = request.BirthStateAbbreviationDescriptor;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
-            specification.DateEnteredUS = request.DateEnteredUS;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.MultipleBirthStatus = request.MultipleBirthStatus;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.PersonId = request.PersonId;
-            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
-            specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetReadContentType()
-        {
-            return "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json";
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -2226,6 +2171,61 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ProfileContentType("application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Readable.Student,
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Writable.Student,
+        Entities.Common.EdFi.IStudent,
+        Entities.NHibernate.StudentAggregate.EdFi.Student,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPut,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPost,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample>
+    {
+        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BirthCity = request.BirthCity;
+            specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
+            specification.BirthDate = request.BirthDate;
+            specification.BirthInternationalProvince = request.BirthInternationalProvince;
+            specification.BirthSexDescriptor = request.BirthSexDescriptor;
+            specification.BirthStateAbbreviationDescriptor = request.BirthStateAbbreviationDescriptor;
+            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.DateEnteredUS = request.DateEnteredUS;
+            specification.FirstName = request.FirstName;
+            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
+            specification.Id = request.Id;
+            specification.LastSurname = request.LastSurname;
+            specification.MaidenName = request.MaidenName;
+            specification.MiddleName = request.MiddleName;
+            specification.MultipleBirthStatus = request.MultipleBirthStatus;
+            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+
+        protected override string GetReadContentType()
+        {
+            return "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json";
         }
     }
 }
