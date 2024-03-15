@@ -11,6 +11,11 @@ on:
       - Utilities/CodeGeneration/**/*
       - Application/EdFi.Common/**/*
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Rebuild Database Templates workflow'
+        required: false
+        default: 'distinct_id'
 
 env:
   INFORMATIONAL_VERSION: "6.2"
@@ -27,6 +32,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
@@ -81,7 +88,7 @@ jobs:
 
     - name: Upload EdFi.Ods.CodeGen NugetPackage
       if: success()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg
