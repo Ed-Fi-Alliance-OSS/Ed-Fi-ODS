@@ -71,7 +71,7 @@ jobs:
           Restart-Service postgresql-x64-11
     - name: Connect to PostgreSQL
       run: |
-          & 'C:\Program Files\PostgreSQL\11\bin\psql.exe' -h localhost -U postgres -d mydatabase -c "SELECT version();"          
+          & 'C:\Program Files\PostgreSQL\11\bin\psql.exe' -h localhost -U postgres -d postgres -c "SELECT version();"          
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
