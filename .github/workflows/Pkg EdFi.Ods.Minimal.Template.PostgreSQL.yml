@@ -28,24 +28,14 @@ jobs:
   build:
 
     runs-on: windows-latest
-    services:
-      postgres:
-        image: postgres:11
-        env:
-          POSTGRES_HOST_AUTH_METHOD: trust
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
       with:
           dotnet-version: 3.1.x   
+    - name: Support longpaths
+      run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
@@ -72,9 +62,16 @@ jobs:
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: Install Postgres11
+      shell: pwsh
+      run: |
+          choco install postgresql11
+          $confPath = "C:\Program Files\PostgreSQL\11\data\pg_hba.conf"
+          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
+          Restart-Service postgresql-x64-11
     - name: Connect to PostgreSQL
       run: |
-          & 'C:\Program Files\PostgreSQL\11\bin\psql.exe' -h localhost -U postgres -d mydatabase -c "SELECT version();"        
+          & 'C:\Program Files\PostgreSQL\11\bin\psql.exe' -h localhost -U postgres -d mydatabase -c "SELECT version();"          
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
