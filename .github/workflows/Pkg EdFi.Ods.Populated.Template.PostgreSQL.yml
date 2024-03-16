@@ -67,7 +67,7 @@ jobs:
       run: |
           choco install postgresql11 --params '/Password:postgres'
           $confPath = "C:\Program Files\PostgreSQL\11\data\pg_hba.conf"
-          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
+          (Get-Content $confPath).Replace("md5","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-11
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
