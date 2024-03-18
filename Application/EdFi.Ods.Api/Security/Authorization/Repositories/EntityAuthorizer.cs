@@ -15,6 +15,7 @@ using EdFi.Common.Inflection;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
@@ -41,6 +42,7 @@ public class EntityAuthorizer : IEntityAuthorizer
     private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ViewBasedAuthorizationQueryContext> _viewBasedAuthorizationQueryContextProvider;
+    private readonly IAuthorizationViewHintProvider[] _authorizationViewHintProviders;
     private readonly ISessionFactory _sessionFactory;
 
     private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
@@ -53,7 +55,7 @@ public class EntityAuthorizer : IEntityAuthorizer
         Update = 0x4,
         Delete = 0x8,
     }
-    
+
     public EntityAuthorizer(
         IAuthorizationContextProvider authorizationContextProvider,
         IAuthorizationFilteringProvider authorizationFilteringProvider,
@@ -65,7 +67,8 @@ public class EntityAuthorizer : IEntityAuthorizer
         ISessionFactory sessionFactory,
         ISecurityRepository securityRepository,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider)
+        IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider,
+        IAuthorizationViewHintProvider[] authorizationViewHintProviders)
     {
         _authorizationContextProvider = authorizationContextProvider;
         _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -76,6 +79,7 @@ public class EntityAuthorizer : IEntityAuthorizer
         _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _viewBasedAuthorizationQueryContextProvider = viewBasedAuthorizationQueryContextProvider;
+        _authorizationViewHintProviders = authorizationViewHintProviders;
         _sessionFactory = sessionFactory;
         
         // Lazy initialization
@@ -256,58 +260,48 @@ public class EntityAuthorizer : IEntityAuthorizer
         EdFiAuthorizationContext authorizationContext,
         CancellationToken cancellationToken)
     {
-        string sql = BuildExistenceCheckSql(resultsWithPendingExistenceChecks);
+        // Before building and executing authorization SQL, check for null values on subject endpoints
+        var parameterDetails = resultsWithPendingExistenceChecks.SelectMany(
+                x => x.FilterResults.Select(f => (ParameterName: f.FilterContext.SubjectEndpointName, ParameterValue: f.FilterContext.SubjectEndpointValue)))
+            .GroupBy(x => x.ParameterName)
+            .Select(x => x.First())
+            .ToArray();
 
-        // Execute the query
-        using var sessionScope = new SessionScope(_sessionFactory);
+        int? validationResult = 0;
 
-        await using var cmd = sessionScope.Session.Connection.CreateCommand();
-        sessionScope.Session.GetCurrentTransaction()?.Enlist(cmd);
+        // Ensure all the parameter values actually have values before hitting the database...
+        if (parameterDetails.All(pd => pd.ParameterValue != null))
+        {
+            validationResult = await ExecuteSingleItemAuthorizationQuery();
+        }
 
-        // Assign the command text
-        cmd.CommandText = sql;
-
-        // Assign all parameters
-        var parameters =
-            resultsWithPendingExistenceChecks.SelectMany(
-                    x => x.FilterResults.Select(
-                        f =>
-                        {
-                            var parameter = cmd.CreateParameter();
-                            parameter.ParameterName = f.FilterContext.SubjectEndpointName;
-                            parameter.Value = f.FilterContext.SubjectEndpointValue;
-
-                            return parameter;
-                        }))
-                .GroupBy(x => x.ParameterName)
-                .Select(x => x.First())
-                .ToArray();
-
-        cmd.Parameters.AddRange(parameters);
-
-        // Check for previous identical execution in current context
-        var viewBasedAuthorizationQueryContext = _viewBasedAuthorizationQueryContextProvider.Get();
-
-        if (IsRedundantAuthorizationForCurrentContext())
+        // Result will be null if it's redundant with an earlier check already performed in this call context
+        if (validationResult == null)
         {
             return;
         }
 
-        _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
-
-        // Process the pending AND SQL checks, ensure that they are all 1, or throw an exception
-        var result = (int?)await cmd.ExecuteScalarAsync(cancellationToken);
-
-        if (result == 0)
+        if (validationResult == 0)
         {
+            var authorizationViewNames = resultsWithPendingExistenceChecks.SelectMany(
+                    x => x.FilterResults.Select(f => f.FilterDefinition)
+                        .OfType<ViewBasedAuthorizationFilterDefinition>()
+                        .Select(f => f.ViewName))
+                .Distinct();
+
+            var hints = authorizationViewNames.SelectMany(
+                    v => _authorizationViewHintProviders.Select(p => p.GetFailureHint(v)).Where(h => !string.IsNullOrEmpty(h)))
+                .Distinct()
+                .ToArray();
+
+            if (hints.Any())
+            {
+                throw new SecurityAuthorizationException(
+                    $"{SecurityAuthorizationException.DefaultDetail} Hint: {string.Join(" ", hints)}",
+                    GetAuthorizationFailureMessage());
+            }
+
             throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, GetAuthorizationFailureMessage());
-        }
-
-        // Save the SQL and parameters for this query execution into the current context (if context is present but uninitialized)
-        if (viewBasedAuthorizationQueryContext is { Sql: null })
-        {
-            viewBasedAuthorizationQueryContext.Sql = cmd.CommandText;
-            viewBasedAuthorizationQueryContext.Parameters = parameters;
         }
 
         string BuildExistenceCheckSql(AuthorizationStrategyFilterResults[] resultsWithPendingExistenceChecks)
@@ -415,28 +409,76 @@ public class EntityAuthorizer : IEntityAuthorizer
             return claimEndpointValuesText;
         }
 
-        bool IsRedundantAuthorizationForCurrentContext()
+        async Task<int?> ExecuteSingleItemAuthorizationQuery()
         {
-            // Has the context been set (indicating we're upserting) and is the current SQL already present? 
-            if (viewBasedAuthorizationQueryContext != null && viewBasedAuthorizationQueryContext.Sql == sql)
-            {
-                // Check the parameters for equality
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    // Do parameter values differ?
-                    if (!parameters[i].Value.Equals(viewBasedAuthorizationQueryContext.Parameters[i].Value))
-                    {
-                        // Authorization is not redundant
-                        return false;
-                    }
-                }
+            string sql = BuildExistenceCheckSql(resultsWithPendingExistenceChecks);
 
-                // SQL and parameters match - authorization is redundant
-                return true;
+            // Execute the query
+            using var sessionScope = new SessionScope(_sessionFactory);
+
+            await using var cmd = sessionScope.Session.Connection.CreateCommand();
+            sessionScope.Session.GetCurrentTransaction()?.Enlist(cmd);
+
+            // Assign the command text
+            cmd.CommandText = sql;
+
+            // Assign all parameters
+            var parameters = parameterDetails.Select(pd => {
+                    var parameter = cmd.CreateParameter();
+                    parameter.ParameterName = pd.ParameterName;
+                    parameter.Value = pd.ParameterValue;
+
+                    return parameter;
+                })
+                .ToArray();
+
+            cmd.Parameters.AddRange(parameters);
+
+            // Check for previous identical execution in current context
+            var viewBasedAuthorizationQueryContext = _viewBasedAuthorizationQueryContextProvider.Get();
+
+            if (IsRedundantAuthorizationForCurrentContext())
+            {
+                return null;
             }
 
-            // No context present, or SQL doesn't match -- not redundant
-            return false;
+            _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
+
+            // Process the pending AND SQL checks to get a result (0 for failure, 1 for success)
+            validationResult = (int?) await cmd.ExecuteScalarAsync(cancellationToken) ?? 0;
+
+            // Save the SQL and parameters for this query execution into the current context (if context is present but uninitialized)
+            if (viewBasedAuthorizationQueryContext is { Sql: null })
+            {
+                viewBasedAuthorizationQueryContext.Sql = cmd.CommandText;
+                viewBasedAuthorizationQueryContext.Parameters = parameters;
+            }
+
+            return validationResult;
+            
+            bool IsRedundantAuthorizationForCurrentContext()
+            {
+                // Has the context been set (indicating we're upserting) and is the current SQL already present? 
+                if (viewBasedAuthorizationQueryContext != null && viewBasedAuthorizationQueryContext.Sql == sql)
+                {
+                    // Check the parameters for equality
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        // Do parameter values differ?
+                        if (!parameters[i].Value.Equals(viewBasedAuthorizationQueryContext.Parameters[i].Value))
+                        {
+                            // Authorization is not redundant
+                            return false;
+                        }
+                    }
+
+                    // SQL and parameters match - authorization is redundant
+                    return true;
+                }
+
+                // No context present, or SQL doesn't match -- not redundant
+                return false;
+            }
         }
     }
 }

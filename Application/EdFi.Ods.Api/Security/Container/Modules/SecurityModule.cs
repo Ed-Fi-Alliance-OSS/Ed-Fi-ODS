@@ -16,6 +16,7 @@ using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Api.Security.Utilities;
 
@@ -82,6 +83,11 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<AuthorizationFilterDefinitionProvider>()
                 .As<IAuthorizationFilterDefinitionProvider>()
+                .SingleInstance();
+
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .Where(t => typeof(IAuthorizationViewHintProvider).IsAssignableFrom(t))
+                .As<IAuthorizationViewHintProvider>()
                 .SingleInstance();
             
             builder.RegisterType<AuthorizationTablesAndViewsProvider>()
