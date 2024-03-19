@@ -26,6 +26,10 @@ namespace EdFi.Ods.CodeGen.Helpers
             }
 
             int index = codeRepositoryPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsFolderName);
+            if (index == -1)
+            {
+                index = codeRepositoryPath.Length - 1;
+            }
 
             var root = codeRepositoryPath.Substring(0, index);
 
