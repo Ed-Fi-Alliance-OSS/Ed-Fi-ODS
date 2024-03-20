@@ -33,7 +33,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
                 .AddEnvironmentVariables()
                 .Build();
 
-            var engine = config.GetSection("ApiSettings").GetValue<string>("Engine");
+            var engine = config.GetSection("ApiSettings")["Engine"];
             TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));

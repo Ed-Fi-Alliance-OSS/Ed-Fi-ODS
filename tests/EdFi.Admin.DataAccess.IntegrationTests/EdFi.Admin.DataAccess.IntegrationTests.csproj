@@ -14,21 +14,10 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-	<Choose>
-		<When Condition="'$(UseProjectsOverPackages)' == 'true'">
-			<ItemGroup>
-				<ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
-				<ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<PackageReference Include="EdFi.Suite3.Common" Version="7.2.99" />
-				<PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.90" />
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-  <ItemGroup>
+	<ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="NCrunch.Framework" Version="4.17.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
@@ -39,8 +28,8 @@
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.39" />
   </ItemGroup>
   <ItemGroup>
-	  <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
-	  <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
+    <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

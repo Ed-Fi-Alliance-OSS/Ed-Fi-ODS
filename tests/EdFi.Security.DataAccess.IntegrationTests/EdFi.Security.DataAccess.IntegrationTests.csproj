@@ -15,21 +15,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-	<Choose>
-		<When Condition="'$(UseProjectsOverPackages)' == 'true'">
-			<ItemGroup>
-				<ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
-				<ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<PackageReference Include="EdFi.Suite3.Common" Version="7.2.99" />
-				<PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.2.138" />
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-	<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="8.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
@@ -40,6 +26,7 @@
     <PackageReference Include="Shouldly" Version="4.2.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
   <ItemGroup>

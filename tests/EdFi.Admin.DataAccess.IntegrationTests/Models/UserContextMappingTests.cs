@@ -11,14 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Admin.DataAccess.IntegrationTests.Models
 {
     public class UserContextMappingTests
     {
         [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_creating_a_user : UserContextTestBase
         {
             private string emailAddress;
@@ -49,7 +48,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
         }
 
         [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_lea_mapping_to_a_client : UserContextTestBase
         {
             private string clientName;
@@ -100,7 +99,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
         }
 
         [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_lea_mapping_to_an_application : UserContextTestBase
         {
             private string appName;
@@ -146,7 +145,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
         }
 
         [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_application_to_a_vendor : UserContextTestBase
         {
             private string vendorName;

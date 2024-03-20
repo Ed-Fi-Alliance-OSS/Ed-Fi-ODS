@@ -9,11 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.UnitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\EdFi.Common\EdFi.Common.csproj", "{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.IntegrationTests", "..\..\tests\EdFi.Admin.DataAccess.IntegrationTests\EdFi.Admin.DataAccess.IntegrationTests.csproj", "{3724A4B9-E307-4C47-8750-CDF1CDFD1B0C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.TestFixture", "..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj", "{73E94219-CA19-4095-8346-429538C5EEBA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Common", "..\Test.Common\Test.Common.csproj", "{884B29DB-6752-4BCF-BC1B-C1C49772E370}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.IntegrationTests", "..\..\tests\EdFi.Admin.DataAccess.IntegrationTests\EdFi.Admin.DataAccess.IntegrationTests.csproj", "{F83382D4-DEC4-4F44-88F1-777F70D098C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +29,10 @@ Global
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3724A4B9-E307-4C47-8750-CDF1CDFD1B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3724A4B9-E307-4C47-8750-CDF1CDFD1B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3724A4B9-E307-4C47-8750-CDF1CDFD1B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3724A4B9-E307-4C47-8750-CDF1CDFD1B0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73E94219-CA19-4095-8346-429538C5EEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73E94219-CA19-4095-8346-429538C5EEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73E94219-CA19-4095-8346-429538C5EEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73E94219-CA19-4095-8346-429538C5EEBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{884B29DB-6752-4BCF-BC1B-C1C49772E370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{884B29DB-6752-4BCF-BC1B-C1C49772E370}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{884B29DB-6752-4BCF-BC1B-C1C49772E370}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{884B29DB-6752-4BCF-BC1B-C1C49772E370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F83382D4-DEC4-4F44-88F1-777F70D098C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83382D4-DEC4-4F44-88F1-777F70D098C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83382D4-DEC4-4F44-88F1-777F70D098C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83382D4-DEC4-4F44-88F1-777F70D098C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
