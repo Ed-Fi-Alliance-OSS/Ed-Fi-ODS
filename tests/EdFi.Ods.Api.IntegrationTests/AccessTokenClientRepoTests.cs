@@ -3,27 +3,27 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Admin.DataAccess;
-using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Admin.DataAccess.Models;
-using EdFi.Admin.DataAccess.Providers;
-using EdFi.Common.Configuration;
-using EdFi.TestFixture;
-using Microsoft.Extensions.Configuration;
-using NUnit.Framework;
-using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Transactions;
+using EdFi.Admin.DataAccess;
+using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.TestFixture;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
+using NUnit.Framework;
+using Shouldly;
 
 // ReSharper disable InconsistentNaming
 
-namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
+namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
     public class AccessTokenClientRepoTests : TestFixtureBase
