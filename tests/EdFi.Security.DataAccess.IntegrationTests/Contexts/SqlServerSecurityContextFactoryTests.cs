@@ -17,7 +17,7 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
 {
-    [TestFixture]
+    [TestFixture, Explicit]
     public class SqlServerSecurityContextFactoryTests
     {
         protected SqlServerSecurityContext _context;

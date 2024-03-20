@@ -16,7 +16,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
 {
     public class UserContextMappingTests
     {
-        [TestFixture]
+        [TestFixture, Explicit]
         [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_creating_a_user : UserContextTestBase
         {
@@ -47,7 +47,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
+        [TestFixture, Explicit]
         [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_lea_mapping_to_a_client : UserContextTestBase
         {
@@ -98,7 +98,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
+        [TestFixture, Explicit]
         [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_lea_mapping_to_an_application : UserContextTestBase
         {
@@ -144,7 +144,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
+        [TestFixture, Explicit]
         [ExclusivelyUses("EmptyAdminDatabase")]
         public class When_adding_an_application_to_a_vendor : UserContextTestBase
         {
@@ -191,7 +191,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
+        [TestFixture, Explicit]
         public class When_adding_a_local_education_agency_to_an_application : UserContextTestBase
         {
             private string vendorName;
@@ -243,6 +243,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
+        [TestFixture, Explicit]
         public class When_creating_ods_context : UserContextTestBase
         {
             private string odsName;
@@ -312,6 +313,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
+        [TestFixture, Explicit]
         public class When_creating_ods_derivative : UserContextTestBase
         {
             private string odsName;

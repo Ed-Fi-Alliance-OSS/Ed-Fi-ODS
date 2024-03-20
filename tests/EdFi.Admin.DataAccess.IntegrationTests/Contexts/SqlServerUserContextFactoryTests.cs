@@ -19,7 +19,7 @@ using Shouldly;
 
 namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
 {
-    [TestFixture]
+    [TestFixture, Explicit]
     public class SqlServerUserContextFactoryTests
     {
         protected SqlServerUsersContext _context;

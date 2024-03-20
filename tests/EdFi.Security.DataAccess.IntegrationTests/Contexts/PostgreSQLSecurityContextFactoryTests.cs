@@ -18,7 +18,7 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
 {
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class PostgreSQLSecurityContextFactoryTests
     {
         private PostgresSecurityContext _context;

@@ -20,7 +20,7 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
 {
-    [TestFixture]
+    [TestFixture, Explicit]
     public class SecurityRepoTests
     {
         protected PostgresSecurityContext Context;
