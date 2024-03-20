@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         protected override void Arrange()
         {
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
             _transaction = new TransactionScope();
             
             var config = new ConfigurationBuilder()
