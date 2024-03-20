@@ -12,7 +12,7 @@ using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
+namespace EdFi.Admin.DataAccess.IntegrationTests.Models
 {
     public abstract class UserContextTestBase : TestFixtureBase
     {

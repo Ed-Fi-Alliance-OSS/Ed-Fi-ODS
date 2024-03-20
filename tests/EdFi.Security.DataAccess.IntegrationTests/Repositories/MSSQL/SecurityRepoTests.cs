@@ -103,14 +103,10 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
             {
                 string resourceName = "ResourceNameTest" + Guid.NewGuid().ToString("N");
 
-                //using FirstOrDefault Application because SecurityRepository.GetApplication always filter by ApplicationName == "Ed-Fi ODS API"
-                // var testApplication = Context.Applications.FirstOrDefault();
-
                 //Load a fake ClaimSet
                 var testClaimSet = new ClaimSet()
                 {
                     ClaimSetName = _claimSetName,
-                    // Application = testApplication,
                     IsEdfiPreset = false,
                     ForApplicationUseOnly = true
                 };
@@ -120,10 +116,8 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
                 //Load a fake ResourceClaim
                 var testResourceClaim = new ResourceClaim()
                 {
-                    // DisplayName = resourceName,
                     ResourceName = resourceName,
                     ClaimName = "http://ed-fi.org/ods/identity/claims/domains/" + resourceName,
-                    // Application = testApplication
                 };
                 Context.ResourceClaims.Add(testResourceClaim);
                 Context.SaveChangesForTest();
@@ -145,11 +139,9 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
                 _result = Context.ClaimSetResourceClaimActions
                     .Include(csrc => csrc.Action)
                     .Include(csrc => csrc.ClaimSet)
-                    // .Include(csrc => csrc.ClaimSet.Application)
                     .Include(csrc => csrc.ResourceClaim)
                     .Include(csrc => csrc.AuthorizationStrategyOverrides)
                     .ThenInclude(aso => aso.AuthorizationStrategy)
-                    // .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(testApplication.ApplicationId))
                     .ToList();
             }
 

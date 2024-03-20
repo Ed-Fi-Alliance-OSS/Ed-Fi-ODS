@@ -13,7 +13,7 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
+namespace EdFi.Admin.DataAccess.IntegrationTests.Models
 {
     public class UserContextMappingTests
     {

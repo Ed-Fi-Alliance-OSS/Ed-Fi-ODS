@@ -3,14 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Security.DataAccess.Contexts;
-using EdFi.Security.DataAccess.Models;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
-using System;
 using System.Linq;
 using System.Transactions;
+using EdFi.Security.DataAccess.Models;
 using EdFi.TestFixture;
 using Microsoft.EntityFrameworkCore;
 using Action = EdFi.Security.DataAccess.Models.Action;
@@ -65,92 +65,55 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
             _context.Actions.Count().ShouldBe(originalCount);
         }
 
-        // [TestFixture]
-        // public class When_creating_an_application : SqlServerSecurityContextFactoryTests
-        // {
-        //     [Test]
-        //     public void Should_persist_the_user_to_the_database()
-        //     {
-        //         string applicationName = "Test Application";
-        //
-        //         //Arrange
-        //         var application = new Application() { ApplicationName = applicationName };
-        //
-        //         //Act
-        //         _context.Applications.Add(application);
-        //         _context.SaveChangesForTest();
-        //
-        //         //Assert
-        //         _context.Applications.Count(x => x.ApplicationName == applicationName)
-        //             .ShouldBe(1);
-        //     }
-        // }
+        [TestFixture]
+        public class When_creating_a_claim : SqlServerSecurityContextFactoryTests
+        {
+            private const string claimSetName = "ClaimSet";
+        
+            [Test]
+            public void Should_create_claimSet()
+            {
+                var testClaimSet = new ClaimSet()
+                {
+                    ClaimSetName = claimSetName,
+                    IsEdfiPreset = false,
+                    ForApplicationUseOnly = true
+                };
+        
+                //Arrange
+                _context.ClaimSets.Add(testClaimSet);
+                _context.SaveChangesForTest();
+        
+                //Act
+                var claimSetFromDb = _context.ClaimSets.Where(v => v.ClaimSetName == claimSetName).Single();
+        
+                //Assert
+                claimSetFromDb.ShouldNotBeNull();
+            }
+        
+            [Test]
+            public void Should_create_resourceClaim()
+            {
+                string resourceName = "ResourceClaimDisplayNameTest";
+                string claimName = "http://ed-fi.org/ods/identity/claims/domains/" + resourceName;
 
-        // [TestFixture]
-        // public class When_creating_a_claim : SqlServerSecurityContextFactoryTests
-        // {
-        //     private string appName = string.Format("{0}_TestData", DateTime.Now.Ticks);
-        //     private const string claimSetName = "ClaimSet";
-        //     private Application applicationTest;
-        //
-        //     [Test]
-        //     public void Should_create_claimSet()
-        //     {
-        //         applicationTest = new Application() { ApplicationName = appName };
-        //
-        //         _context.Applications.Add(applicationTest);
-        //         _context.SaveChangesForTest();
-        //
-        //         var testApplication = _context.Applications.Where(v => v.ApplicationName == appName).FirstOrDefault();
-        //
-        //         var testClaimSet = new ClaimSet()
-        //         {
-        //             ClaimSetName = claimSetName,
-        //             Application = testApplication,
-        //             IsEdfiPreset = false,
-        //             ForApplicationUseOnly = true
-        //         };
-        //
-        //         //Arrange
-        //         _context.ClaimSets.Add(testClaimSet);
-        //         _context.SaveChangesForTest();
-        //
-        //         //Act
-        //         var claimSetFromDb = _context.ClaimSets.Where(v => v.ClaimSetName == claimSetName).Single();
-        //
-        //         //Assert
-        //         claimSetFromDb.ShouldNotBeNull();
-        //     }
-        //
-        //     [Test]
-        //     public void Should_create_resourceClaim()
-        //     {
-        //         applicationTest = new Application() { ApplicationName = appName };
-        //
-        //         _context.Applications.Add(applicationTest);
-        //         _context.SaveChangesForTest();
-        //
-        //         var testApplication = _context.Applications.Where(v => v.ApplicationName == appName).FirstOrDefault();
-        //
-        //         string displayName = "ResourceClaimDisplayNameTest";
-        //
-        //         var testResourceClaim = new ResourceClaim()
-        //         {
-        //             ResourceName = displayName,
-        //             ClaimName = "http://ed-fi.org/ods/identity/claims/domains/" + displayName,
-        //             Application = testApplication
-        //         };
-        //
-        //         //Arrange
-        //         _context.ResourceClaims.Add(testResourceClaim);
-        //         _context.SaveChangesForTest();
-        //
-        //         //Act
-        //         var resourceClaimSetFromDb = _context.ResourceClaims.Where(v => v.DisplayName == displayName).Single();
-        //
-        //         //Assert
-        //         resourceClaimSetFromDb.ShouldNotBeNull();
-        //     }
-        // }
+
+                var testResourceClaim = new ResourceClaim()
+                {
+                    ResourceName = resourceName,
+                    ClaimName = claimName,
+                };
+        
+                //Arrange
+                _context.ResourceClaims.Add(testResourceClaim);
+                _context.SaveChangesForTest();
+        
+                //Act
+                var resourceClaimSetFromDb = _context.ResourceClaims.Where(v => v.ClaimName == claimName).Single();
+        
+                //Assert
+                resourceClaimSetFromDb.ShouldNotBeNull();
+            }
+        }
     }
 }
