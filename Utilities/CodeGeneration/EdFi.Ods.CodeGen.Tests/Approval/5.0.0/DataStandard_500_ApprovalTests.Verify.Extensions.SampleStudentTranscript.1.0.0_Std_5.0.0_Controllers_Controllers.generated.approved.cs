@@ -46,7 +46,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionC
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InstitutionControlDescriptorId = request.InstitutionControlDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -76,7 +79,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionL
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InstitutionLevelDescriptorId = request.InstitutionLevelDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -140,6 +146,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SpecialEduca
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SpecialEducationGraduationStatusDescriptorId = request.SpecialEducationGraduationStatusDescriptorId;
         }
     }
@@ -170,6 +179,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SubmissionCe
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SubmissionCertificationDescriptorId = request.SubmissionCertificationDescriptorId;
         }
     }
