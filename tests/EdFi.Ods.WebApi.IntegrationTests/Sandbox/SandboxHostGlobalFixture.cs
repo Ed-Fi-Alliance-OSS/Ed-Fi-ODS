@@ -16,20 +16,34 @@ using Test.Common;
 namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
 {
     [SetUpFixture]
-    public class SandboxHostGlobalFixture
+    public class SandboxHostGlobalFixture : OneTimeGlobalDatabaseSetupBase
     {
-        private MsSqlDatabaseHelper _databaseHelper;
+        public static SandboxHostGlobalFixture Instance { get; private set; }
 
-        public static IHost Host { get; set; }
+        public SandboxHostGlobalFixture()
+        {
+            Instance = this;
+        }
 
-        public static IConfiguration Configuration { get; private set; }
+        public HttpClient HttpClient { get; private set; }
 
-        public static HttpClient HttpClient { get; private set; }
+        protected override string DatabaseCopyPrefix
+        {
+            get => "EdFiOdsWebApiIntegrationTestsSandbox";
+        }
+
+        private IHost Host { get; set; }
 
         [OneTimeSetUp]
-        public async Task OneTimeSetup()
+        public override async Task OneTimeSetUpAsync()
         {
+            await base.OneTimeSetUpAsync();
+
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                 .ConfigureAppConfiguration(configurationBuilder => {
+                     configurationBuilder.SetBasePath(TestContext.CurrentContext.TestDirectory);
+                     configurationBuilder.AddConfiguration(Configuration);
+                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
@@ -39,40 +53,20 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     })
                 .Build();
 
-            Configuration = (IConfiguration) Host.Services.GetService(typeof(IConfiguration));
-
-            CreateDatabase();
-
-            await Host.StartAsync(GlobalWebApiIntegrationTestFixture.CancellationToken);
+            await Host.StartAsync(GlobalWebApiIntegrationTestFixture.Instance.CancellationToken);
 
             HttpClient = new HttpClient {BaseAddress = new Uri(TestConstants.SandboxBaseUrl)};
-
-            void CreateDatabase()
-            {
-                var populatedTemplateDatabaseName = Configuration.GetValue<string>("TestDatabaseTemplateName");
-
-                if (string.IsNullOrWhiteSpace(populatedTemplateDatabaseName))
-                {
-                    throw new ApplicationException(
-                        "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
-                }
-
-                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
-
-                // sandbox databases
-                _databaseHelper.CopyDatabase(populatedTemplateDatabaseName, GlobalWebApiIntegrationTestFixture.DatabaseName);
-            }
         }
 
         [OneTimeTearDown]
-        public async Task OneTimeTearDown()
+        public override async Task OneTimeTearDownAsync()
         {
+            await base.OneTimeTearDownAsync();
+
             HttpClient?.Dispose();
 
             await Host?.StopAsync();
             Host?.Dispose();
-
-            _databaseHelper.DropDatabase(GlobalWebApiIntegrationTestFixture.DatabaseName);
         }
     }
 }
