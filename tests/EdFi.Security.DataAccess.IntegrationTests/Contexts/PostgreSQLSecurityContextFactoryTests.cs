@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore;
+using EdFi.Common.Configuration;
 using EdFi.Security.DataAccess.Models;
 using EdFi.TestFixture;
 using Action = EdFi.Security.DataAccess.Models.Action;
@@ -18,7 +19,7 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
 {
 
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class PostgreSQLSecurityContextFactoryTests
     {
         private PostgresSecurityContext _context;
@@ -30,12 +31,18 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             var builder = new ConfigurationBuilder()
-               .AddJsonFile($"appSettings.json", true, true)
-               .AddJsonFile($"appSettings.development.json", true, true);
+               .AddJsonFile($"appsettings.json", true, true)
+               .AddJsonFile($"appsettings.Development.json", true, true);
 
             var config = builder.Build();
-            var connectionString = config.GetConnectionString("PostgreSQL");
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
 
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("PostgresSQL UserContext integration tests are not being run because the engine is not set to Postgres.");
+            }
+
+            var connectionString = config.GetConnectionString("PostgreSQL");
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseNpgsql(connectionString);
             optionsBuilder.UseLowerCaseNamingConvention();
@@ -47,7 +54,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]

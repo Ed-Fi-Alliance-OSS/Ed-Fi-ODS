@@ -16,26 +16,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using EdFi.Common.Configuration;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
 {
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class SecurityRepoTests
     {
-        protected SqlServerSecurityContext Context;
-        protected TransactionScope Transaction;
+        private SqlServerSecurityContext Context;
+        private TransactionScope Transaction;
 
         [SetUp]
         public void Setup()
         {
             // Read settings
             var builder = new ConfigurationBuilder()
-               .AddJsonFile($"appSettings.json", true, true)
-               .AddJsonFile($"appSettings.development.json", true, true);
+               .AddJsonFile($"appsettings.json", true, true)
+               .AddJsonFile($"appsettings.Development.json", true, true);
 
             var config = builder.Build();
-            
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("SQLServer SecurityRepo integration tests are not being run because the engine is not set to SQL Server.");
+            }
+
             // Setup SQL Server
             var connectionString = config.GetConnectionString("MSSQL");
 
@@ -67,7 +74,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
         [TearDown]
         public void Teardown()
         {
-            Transaction.Dispose();
+            Transaction?.Dispose();
         }
 
         private const string ActionName = "ActionTest";

@@ -19,7 +19,7 @@ using Shouldly;
 
 namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
 {
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class SqlServerUserContextFactoryTests
     {
         protected SqlServerUsersContext _context;
@@ -29,10 +29,17 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
         public void Setup()
         {
             var builder = new ConfigurationBuilder()
-                .AddJsonFile($"appSettings.json", true, true)
-                .AddJsonFile($"appSettings.development.json", true, true);
+                .AddJsonFile($"appsettings.json", true, true)
+                .AddJsonFile($"appsettings.Development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("SQLServer SecurityContextFactory integration tests are not being run because the engine is not set to SQL Server.");
+            }
+            
             var connectionString = config.GetConnectionString("MSSQL");
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -45,7 +52,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]

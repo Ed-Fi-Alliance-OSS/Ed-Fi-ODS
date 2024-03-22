@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Linq;
 using System.Transactions;
+using EdFi.Common.Configuration;
 using EdFi.Security.DataAccess.Models;
 using EdFi.TestFixture;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
 {
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class SqlServerSecurityContextFactoryTests
     {
         protected SqlServerSecurityContext _context;
@@ -31,6 +32,13 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
                .AddJsonFile($"appSettings.development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("SQLServer UserContext integration tests are not being run because the engine is not set to SQL Server.");
+            }
+
             var connectionString = config.GetConnectionString("MSSQL");
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -43,7 +51,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]

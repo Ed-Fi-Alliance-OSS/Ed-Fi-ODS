@@ -16,16 +16,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using EdFi.Common.Configuration;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
 {
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class SecurityRepoTests
     {
-        protected PostgresSecurityContext Context;
-        protected PostgresSecurityContext OpenContext;
-        protected TransactionScope Transaction;
+        private PostgresSecurityContext Context;
+        private TransactionScope Transaction;
 
         [SetUp]
         public void Setup()
@@ -34,10 +34,16 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             var builder = new ConfigurationBuilder()
-               .AddJsonFile($"appSettings.json", true, true)
-               .AddJsonFile($"appSettings.development.json", true, true);
+               .AddJsonFile($"appsettings.json", true, true)
+               .AddJsonFile($"appsettings.Development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("PostgresSQL SecurityRepo integration tests are not being run because the engine is not set to Postgres.");
+            }
 
             // Setup PostgreSQL
             var connectionString = config.GetConnectionString("PostgreSQL");
@@ -46,7 +52,6 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
             optionsBuilder.UseNpgsql(connectionString);
             optionsBuilder.UseLowerCaseNamingConvention();
             Context = new PostgresSecurityContext(optionsBuilder.Options);
-            OpenContext = new PostgresSecurityContext(optionsBuilder.Options);
 
             // Startup a transaction so we can dispose of any changes after running the tests
             Transaction = new TransactionScope();
@@ -72,7 +77,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
         [TearDown]
         public void Teardown()
         {
-            Transaction.Dispose();
+            Transaction?.Dispose();
         }
 
         private const string ActionName = "ActionTest";

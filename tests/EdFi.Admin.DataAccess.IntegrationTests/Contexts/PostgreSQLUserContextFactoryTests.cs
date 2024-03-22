@@ -8,6 +8,7 @@ using System.Linq;
 using System.Transactions;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@ using Shouldly;
 namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
 {
 
-    [TestFixture, Explicit]
+    [TestFixture, Category("DataAccessIntegrationTests")]
     public class PostgreSQLUserContextFactoryTests
     {
         private PostgresUsersContext _context;
@@ -29,10 +30,17 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             var builder = new ConfigurationBuilder()
-               .AddJsonFile($"appSettings.json", true, true)
-               .AddJsonFile($"appSettings.development.json", true, true);
+               .AddJsonFile($"appsettings.json", true, true)
+               .AddJsonFile($"appsettings.Development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("PostgreSQL UserContextFactory integration tests are not being run because the engine is not set to Postgres.");
+            }
+            
             var connectionString = config.GetConnectionString("PostgreSQL");
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -45,7 +53,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]

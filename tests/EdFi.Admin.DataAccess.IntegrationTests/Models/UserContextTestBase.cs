@@ -33,7 +33,12 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Models
                 .AddEnvironmentVariables()
                 .Build();
 
-            var engine = config.GetSection("ApiSettings")["Engine"];
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase) && !engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("UserContext integration tests are not being run because the database engine is not configured.");
+            }
+            
             TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
