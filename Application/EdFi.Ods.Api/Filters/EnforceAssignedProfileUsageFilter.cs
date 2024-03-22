@@ -161,23 +161,14 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
 
         string[] GetAssignedProfilesForRequest()
         {
-            try
-            {
-                return apiClientContext.Profiles.Where(
-                        p => _profileResourceModelProvider.GetProfileResourceModel(p)
-                                .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
-                            && (relevantContentTypeUsage == ContentTypeUsage.Readable
-                                ? contentTypes.Readable
-                                : contentTypes.Writable)
-                            != null)
-                    .ToArray();
-            }
-            catch (FeatureDisabledException ex)
-            {
-                // Force a client configuration error response if profile(s) are assigned and the Profiles feature is disabled.
-                throw new ClientConfigurationException(ClientConfigurationException.DefaultDetail,
-                    $"The API client has been configured with an assigned profile but the '{ex.FeatureName}' feature is disabled.");
-            }
+            return apiClientContext.Profiles.Where(
+                    p => _profileResourceModelProvider.GetProfileResourceModel(p)
+                            .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
+                        && (relevantContentTypeUsage == ContentTypeUsage.Readable
+                            ? contentTypes.Readable
+                            : contentTypes.Writable)
+                        != null)
+                .ToArray();
         }
     }
 }

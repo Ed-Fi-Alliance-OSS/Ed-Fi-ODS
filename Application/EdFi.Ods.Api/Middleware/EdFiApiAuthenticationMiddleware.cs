@@ -103,7 +103,7 @@ namespace EdFi.Ods.Api.Middleware
 
                 if (result.None)
                 {
-                    problemDetails = new SecurityAuthenticationException("Authorization header is missing.");
+                    problemDetails = new SecurityAuthenticationException(AuthenticationFailureMessages.MissingAuthorizationHeader);
                 }
                 else
                 {

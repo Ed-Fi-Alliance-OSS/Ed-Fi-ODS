@@ -175,11 +175,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISystemDateProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
-                .As<IProfileResourceModelProvider>()
-                .PreserveExistingDefaults()
-                .SingleInstance();
-
             builder.RegisterType<EdFiOdsInstanceIdentificationProvider>()
                 .As<IEdFiOdsInstanceIdentificationProvider>()
                 .SingleInstance();

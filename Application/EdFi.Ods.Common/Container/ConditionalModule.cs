@@ -27,6 +27,17 @@ namespace EdFi.Ods.Common.Container
 
         public abstract void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder);
 
+        /// <summary>
+        /// Register implementations needed to prevent dependency injection failures (often on controllers)
+        /// due to lack of registered dependencies. The components registered should throw a `FeatureDisabledException`
+        /// when its members are invoked.
+        /// </summary>
+        /// <param name="builder"></param>
+        protected virtual void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
+        {
+            // Nothing to do, by default
+        }
+
         protected override void Load(ContainerBuilder builder)
         {
             if (IsSelected())
@@ -35,6 +46,8 @@ namespace EdFi.Ods.Common.Container
             }
             else
             {
+                ApplyFeatureDisabledRegistrations(builder);
+
                 _logger.Debug($"{_moduleName} Module is disabled and will not be installed.");
             }
         }

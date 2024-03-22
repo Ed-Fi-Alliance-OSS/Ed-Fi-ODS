@@ -9,5 +9,6 @@ public class AuthenticationFailureMessages
 {
     public const string UnknownAuthorizationHeaderScheme = "Unknown Authorization header scheme.";
     public const string MissingAuthorizationHeaderBearerTokenValue = "Missing Authorization header bearer token value.";
+    public const string MissingAuthorizationHeader = "Authorization header is missing.";
     public const string InvalidAuthorizationHeader = "Invalid Authorization header.";
 }

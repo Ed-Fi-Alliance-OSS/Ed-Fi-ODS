@@ -256,8 +256,6 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual Task<IActionResult> PutOrDelete()
         {
-            string operation;
-
             MethodNotAllowedException problemDetails;
 
             if (Request.Method == HttpMethods.Put)
