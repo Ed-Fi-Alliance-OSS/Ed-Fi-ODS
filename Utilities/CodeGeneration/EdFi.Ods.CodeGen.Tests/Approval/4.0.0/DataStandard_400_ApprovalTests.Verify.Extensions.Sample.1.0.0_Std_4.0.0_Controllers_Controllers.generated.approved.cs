@@ -47,6 +47,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ArtMediumDescriptorId = request.ArtMediumDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -153,7 +156,10 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.FavoriteBookCategoryDescriptorId = request.FavoriteBookCategoryDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -183,7 +189,10 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MembershipTypeDescriptorId = request.MembershipTypeDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -218,6 +227,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.ExhibitDate = request.ExhibitDate;
             specification.HoursPerDay = request.HoursPerDay;
+            specification.Id = request.Id;
             specification.IdentificationCode = request.IdentificationCode;
             specification.KilnReservation = request.KilnReservation;
             specification.KilnReservationLength = request.KilnReservationLength;

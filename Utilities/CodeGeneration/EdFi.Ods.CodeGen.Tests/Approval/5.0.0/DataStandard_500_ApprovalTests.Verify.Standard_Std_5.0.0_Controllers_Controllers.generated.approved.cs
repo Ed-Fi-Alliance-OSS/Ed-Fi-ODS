@@ -47,6 +47,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AbsenceEventCategoryDescriptorId = request.AbsenceEventCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -77,6 +80,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicHonorCategoryDescriptorId = request.AcademicHonorCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -107,6 +113,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptorId = request.AcademicSubjectDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -172,6 +181,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccommodationDescriptorId = request.AccommodationDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -239,6 +251,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountTypeDescriptorId = request.AccountTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -269,6 +284,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AchievementCategoryDescriptorId = request.AchievementCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -299,6 +317,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdditionalCreditTypeDescriptorId = request.AdditionalCreditTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -329,6 +350,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AddressTypeDescriptorId = request.AddressTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -359,6 +383,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationEnvironmentDescriptorId = request.AdministrationEnvironmentDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -389,6 +416,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptorId = request.AdministrativeFundingControlDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -419,6 +449,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AncestryEthnicOriginDescriptorId = request.AncestryEthnicOriginDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -491,6 +524,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentCategoryDescriptorId = request.AssessmentCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -521,6 +557,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentIdentificationSystemDescriptorId = request.AssessmentIdentificationSystemDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -590,6 +629,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemCategoryDescriptorId = request.AssessmentItemCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -620,6 +662,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemResultDescriptorId = request.AssessmentItemResultDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -650,6 +695,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentPeriodDescriptorId = request.AssessmentPeriodDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -680,6 +728,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentReportingMethodDescriptorId = request.AssessmentReportingMethodDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -747,6 +798,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AssignmentLateStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssignmentLateStatusDescriptorId = request.AssignmentLateStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -777,6 +831,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttemptStatusDescriptorId = request.AttemptStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -807,6 +864,9 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceEventCategoryDescriptorId = request.AttendanceEventCategoryDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -870,6 +930,9 @@ namespace EdFi.Ods.Api.Services.Controllers.BarrierToInternetAccessInResidenceDe
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BarrierToInternetAccessInResidenceDescriptorId = request.BarrierToInternetAccessInResidenceDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -900,6 +963,9 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BehaviorDescriptorId = request.BehaviorDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1034,6 +1100,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarEventDescriptorId = request.CalendarEventDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1064,6 +1133,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarTypeDescriptorId = request.CalendarTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1094,6 +1166,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CareerPathwayDescriptorId = request.CareerPathwayDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1124,6 +1199,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterApprovalAgencyTypeDescriptorId = request.CharterApprovalAgencyTypeDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1154,6 +1232,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptorId = request.CharterStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1227,6 +1308,9 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CitizenshipStatusDescriptorId = request.CitizenshipStatusDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1290,6 +1374,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassroomPositionDescriptorId = request.ClassroomPositionDescriptorId;
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1355,7 +1442,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CohortScopeDescriptorId = request.CohortScopeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1385,7 +1475,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CohortTypeDescriptorId = request.CohortTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1415,7 +1508,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CohortYearTypeDescriptorId = request.CohortYearTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1446,6 +1542,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CommunityOrganizationId = request.CommunityOrganizationId;
+            specification.Id = request.Id;
         }
     }
 }
@@ -1477,6 +1574,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CommunityOrganizationId = request.CommunityOrganizationId;
             specification.CommunityProviderId = request.CommunityProviderId;
+            specification.Id = request.Id;
             specification.LicenseExemptIndicator = request.LicenseExemptIndicator;
             specification.ProviderCategoryDescriptor = request.ProviderCategoryDescriptor;
             specification.ProviderProfitabilityDescriptor = request.ProviderProfitabilityDescriptor;
@@ -1552,7 +1650,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CompetencyLevelDescriptorId = request.CompetencyLevelDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1663,7 +1764,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.ContactTypeDescriptorId = request.ContactTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1693,7 +1797,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.ContentClassDescriptorId = request.ContentClassDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1723,7 +1830,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.ContinuationOfServicesReasonDescriptorId = request.ContinuationOfServicesReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1753,7 +1863,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CostRateDescriptorId = request.CostRateDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1783,7 +1896,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CountryDescriptorId = request.CountryDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1861,7 +1977,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseAttemptResultDescriptorId = request.CourseAttemptResultDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1891,7 +2010,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseDefinedByDescriptorId = request.CourseDefinedByDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1921,7 +2043,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseGPAApplicabilityDescriptorId = request.CourseGPAApplicabilityDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1951,7 +2076,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseIdentificationSystemDescriptorId = request.CourseIdentificationSystemDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -1981,7 +2109,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseLevelCharacteristicDescriptorId = request.CourseLevelCharacteristicDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2049,7 +2180,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CourseRepeatCodeDescriptorId = request.CourseRepeatCodeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2174,7 +2308,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CredentialFieldDescriptorId = request.CredentialFieldDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2204,7 +2341,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CredentialTypeDescriptorId = request.CredentialTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2234,7 +2374,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CreditCategoryDescriptorId = request.CreditCategoryDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2264,7 +2407,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CreditTypeDescriptorId = request.CreditTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2294,7 +2440,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CTEProgramServiceDescriptorId = request.CTEProgramServiceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2324,7 +2473,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.CurriculumUsedDescriptorId = request.CurriculumUsedDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2354,7 +2506,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DeliveryMethodDescriptorId = request.DeliveryMethodDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2418,7 +2573,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DiagnosisDescriptorId = request.DiagnosisDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2448,7 +2606,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DiplomaLevelDescriptorId = request.DiplomaLevelDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2478,7 +2639,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DiplomaTypeDescriptorId = request.DiplomaTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2508,7 +2672,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisabilityDescriptorId = request.DisabilityDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2538,7 +2705,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisabilityDesignationDescriptorId = request.DisabilityDesignationDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2568,7 +2738,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisabilityDeterminationSourceTypeDescriptorId = request.DisabilityDeterminationSourceTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2638,7 +2811,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisciplineActionLengthDifferenceReasonDescriptorId = request.DisciplineActionLengthDifferenceReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2668,7 +2844,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisciplineDescriptorId = request.DisciplineDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2739,7 +2918,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.DisciplineIncidentParticipationCodeDescriptorId = request.DisciplineIncidentParticipationCodeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2769,7 +2951,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EducationalEnvironmentDescriptorId = request.EducationalEnvironmentDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2846,7 +3031,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationAssociationType
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EducationOrganizationAssociationTypeDescriptorId = request.EducationOrganizationAssociationTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2876,7 +3064,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EducationOrganizationCategoryDescriptorId = request.EducationOrganizationCategoryDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2906,7 +3097,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EducationOrganizationIdentificationSystemDescriptorId = request.EducationOrganizationIdentificationSystemDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -2972,6 +3166,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationNetworkId = request.EducationOrganizationNetworkId;
+            specification.Id = request.Id;
             specification.NetworkPurposeDescriptor = request.NetworkPurposeDescriptor;
         }
     }
@@ -3068,7 +3263,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EducationPlanDescriptorId = request.EducationPlanDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3099,6 +3297,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
+            specification.Id = request.Id;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
         }
     }
@@ -3129,7 +3328,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.ElectronicMailTypeDescriptorId = request.ElectronicMailTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3159,7 +3361,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EligibilityDelayReasonDescriptors.Ed
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EligibilityDelayReasonDescriptorId = request.EligibilityDelayReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3189,7 +3394,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EligibilityEvaluationTypeDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EligibilityEvaluationTypeDescriptorId = request.EligibilityEvaluationTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3219,7 +3427,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EmploymentStatusDescriptorId = request.EmploymentStatusDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3249,7 +3460,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EnrollmentTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EnrollmentTypeDescriptorId = request.EnrollmentTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3279,7 +3493,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EntryGradeLevelReasonDescriptorId = request.EntryGradeLevelReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3309,7 +3526,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EntryTypeDescriptorId = request.EntryTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3339,7 +3559,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EvaluationDelayReasonDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EvaluationDelayReasonDescriptorId = request.EvaluationDelayReasonDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3410,7 +3633,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.EventCircumstanceDescriptorId = request.EventCircumstanceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3440,7 +3666,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.ExitWithdrawTypeDescriptorId = request.ExitWithdrawTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3505,7 +3734,10 @@ namespace EdFi.Ods.Api.Services.Controllers.FinancialCollectionDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.FinancialCollectionDescriptorId = request.FinancialCollectionDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3696,7 +3928,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GradebookEntryTypeDescriptorId = request.GradebookEntryTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3726,7 +3961,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GradeLevelDescriptorId = request.GradeLevelDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3756,7 +3994,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GradePointAverageTypeDescriptorId = request.GradePointAverageTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3786,7 +4027,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GradeTypeDescriptorId = request.GradeTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3854,7 +4098,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GradingPeriodDescriptorId = request.GradingPeriodDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3921,7 +4168,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GraduationPlanTypeDescriptorId = request.GraduationPlanTypeDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3951,7 +4201,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.GunFreeSchoolsActReportingStatusDescriptorId = request.GunFreeSchoolsActReportingStatusDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -3981,7 +4234,10 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.HomelessPrimaryNighttimeResidenceDescriptorId = request.HomelessPrimaryNighttimeResidenceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4011,7 +4267,10 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
             specification.HomelessProgramServiceDescriptorId = request.HomelessProgramServiceDescriptorId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4041,7 +4300,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IDEAPartDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IDEAPartDescriptorId = request.IDEAPartDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4071,7 +4333,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IdentificationDocumentUseDescriptorId = request.IdentificationDocumentUseDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4101,7 +4366,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IncidentLocationDescriptorId = request.IncidentLocationDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4131,7 +4399,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IndicatorDescriptorId = request.IndicatorDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4161,7 +4432,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IndicatorGroupDescriptorId = request.IndicatorGroupDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4191,7 +4465,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.IndicatorLevelDescriptorId = request.IndicatorLevelDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4221,7 +4498,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InstitutionTelephoneNumberTypeDescriptorId = request.InstitutionTelephoneNumberTypeDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4251,7 +4531,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InteractivityStyleDescriptorId = request.InteractivityStyleDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4281,7 +4564,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InternetAccessDescriptorId = request.InternetAccessDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4311,7 +4597,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessTypeInResidenceDescrip
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InternetAccessTypeInResidenceDescriptorId = request.InternetAccessTypeInResidenceDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4341,7 +4630,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetPerformanceInResidenceDescri
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InternetPerformanceInResidenceDescriptorId = request.InternetPerformanceInResidenceDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4410,7 +4702,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InterventionClassDescriptorId = request.InterventionClassDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4440,7 +4735,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.InterventionEffectivenessRatingDescriptorId = request.InterventionEffectivenessRatingDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4544,7 +4842,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LanguageDescriptorId = request.LanguageDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4574,7 +4875,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LanguageInstructionProgramServiceDescriptorId = request.LanguageInstructionProgramServiceDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4604,7 +4908,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LanguageUseDescriptorId = request.LanguageUseDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4674,7 +4981,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LearningStandardCategoryDescriptorId = request.LearningStandardCategoryDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4740,7 +5050,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LearningStandardEquivalenceStrengthDescriptorId = request.LearningStandardEquivalenceStrengthDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4770,7 +5083,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LearningStandardScopeDescriptorId = request.LearningStandardScopeDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4800,7 +5116,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LevelOfEducationDescriptorId = request.LevelOfEducationDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4830,7 +5149,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LicenseStatusDescriptorId = request.LicenseStatusDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4860,7 +5182,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LicenseTypeDescriptorId = request.LicenseTypeDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4890,7 +5215,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LimitedEnglishProficiencyDescriptorId = request.LimitedEnglishProficiencyDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5065,7 +5393,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LocaleDescriptorId = request.LocaleDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5097,6 +5428,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptor = request.CharterStatusDescriptor;
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
+            specification.Id = request.Id;
             specification.LocalEducationAgencyCategoryDescriptor = request.LocalEducationAgencyCategoryDescriptor;
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.ParentLocalEducationAgencyId = request.ParentLocalEducationAgencyId;
@@ -5130,7 +5462,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.LocalEducationAgencyCategoryDescriptorId = request.LocalEducationAgencyCategoryDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5267,7 +5602,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MagnetSpecialProgramEmphasisSchoolDescriptorId = request.MagnetSpecialProgramEmphasisSchoolDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5297,7 +5635,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MediumOfInstructionDescriptorId = request.MediumOfInstructionDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5327,7 +5668,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MethodCreditEarnedDescriptorId = request.MethodCreditEarnedDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5357,7 +5701,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MigrantEducationProgramServiceDescriptorId = request.MigrantEducationProgramServiceDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5387,7 +5734,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ModelEntityDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.ModelEntityDescriptorId = request.ModelEntityDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5417,7 +5767,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
             specification.MonitoredDescriptorId = request.MonitoredDescriptorId;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -5447,6 +5800,9 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.NeglectedOrDelinquentProgramDescriptorId = request.NeglectedOrDelinquentProgramDescriptorId;
         }
     }
@@ -5477,6 +5833,9 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.NeglectedOrDelinquentProgramServiceDescriptorId = request.NeglectedOrDelinquentProgramServiceDescriptorId;
         }
     }
@@ -5507,6 +5866,9 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.NetworkPurposeDescriptorId = request.NetworkPurposeDescriptorId;
         }
     }
@@ -5648,6 +6010,9 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.OperationalStatusDescriptorId = request.OperationalStatusDescriptorId;
         }
     }
@@ -5712,6 +6077,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OrganizationDepartments.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
+            specification.Id = request.Id;
             specification.OrganizationDepartmentId = request.OrganizationDepartmentId;
             specification.ParentEducationOrganizationId = request.ParentEducationOrganizationId;
         }
@@ -5743,6 +6109,9 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.OtherNameTypeDescriptorId = request.OtherNameTypeDescriptorId;
         }
     }
@@ -5773,6 +6142,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ParticipationDescriptorId = request.ParticipationDescriptorId;
         }
     }
@@ -5803,6 +6175,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ParticipationStatusDescriptorId = request.ParticipationStatusDescriptorId;
         }
     }
@@ -5833,6 +6208,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PerformanceBaseConversionDescriptorId = request.PerformanceBaseConversionDescriptorId;
         }
     }
@@ -5863,6 +6241,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PerformanceLevelDescriptorId = request.PerformanceLevelDescriptorId;
         }
     }
@@ -5925,6 +6306,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PersonalInformationVerificationDescriptorId = request.PersonalInformationVerificationDescriptorId;
         }
     }
@@ -5955,6 +6339,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PlatformTypeDescriptorId = request.PlatformTypeDescriptorId;
         }
     }
@@ -5985,6 +6372,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PopulationServedDescriptorId = request.PopulationServedDescriptorId;
         }
     }
@@ -6015,6 +6405,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PostingResultDescriptorId = request.PostingResultDescriptorId;
         }
     }
@@ -6079,6 +6472,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PostSecondaryEventCategoryDescriptorId = request.PostSecondaryEventCategoryDescriptorId;
         }
     }
@@ -6110,6 +6506,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
+            specification.Id = request.Id;
             specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.PostSecondaryInstitutionLevelDescriptor = request.PostSecondaryInstitutionLevelDescriptor;
         }
@@ -6141,6 +6538,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PostSecondaryInstitutionLevelDescriptorId = request.PostSecondaryInstitutionLevelDescriptorId;
         }
     }
@@ -6171,6 +6571,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAccessDescripto
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PrimaryLearningDeviceAccessDescriptorId = request.PrimaryLearningDeviceAccessDescriptorId;
         }
     }
@@ -6201,6 +6604,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAwayFromSchoolD
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PrimaryLearningDeviceAwayFromSchoolDescriptorId = request.PrimaryLearningDeviceAwayFromSchoolDescriptorId;
         }
     }
@@ -6231,6 +6637,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceProviderDescrip
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PrimaryLearningDeviceProviderDescriptorId = request.PrimaryLearningDeviceProviderDescriptorId;
         }
     }
@@ -6261,6 +6670,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProficiencyDescriptorId = request.ProficiencyDescriptorId;
         }
     }
@@ -6325,6 +6737,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramAssignmentDescriptorId = request.ProgramAssignmentDescriptorId;
         }
     }
@@ -6355,6 +6770,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramCharacteristicDescriptorId = request.ProgramCharacteristicDescriptorId;
         }
     }
@@ -6540,6 +6958,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationPeriodDescriptors.E
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramEvaluationPeriodDescriptorId = request.ProgramEvaluationPeriodDescriptorId;
         }
     }
@@ -6570,6 +6991,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramEvaluationTypeDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramEvaluationTypeDescriptorId = request.ProgramEvaluationTypeDescriptorId;
         }
     }
@@ -6600,6 +7024,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramSponsorDescriptorId = request.ProgramSponsorDescriptorId;
         }
     }
@@ -6630,6 +7057,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgramTypeDescriptorId = request.ProgramTypeDescriptorId;
         }
     }
@@ -6660,6 +7090,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgressDescriptorId = request.ProgressDescriptorId;
         }
     }
@@ -6690,6 +7123,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProgressLevelDescriptorId = request.ProgressLevelDescriptorId;
         }
     }
@@ -6753,6 +7189,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProviderCategoryDescriptorId = request.ProviderCategoryDescriptorId;
         }
     }
@@ -6783,6 +7222,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProviderProfitabilityDescriptorId = request.ProviderProfitabilityDescriptorId;
         }
     }
@@ -6813,6 +7255,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ProviderStatusDescriptorId = request.ProviderStatusDescriptorId;
         }
     }
@@ -6843,6 +7288,9 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PublicationStatusDescriptorId = request.PublicationStatusDescriptorId;
         }
     }
@@ -6873,6 +7321,9 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.QuestionFormDescriptorId = request.QuestionFormDescriptorId;
         }
     }
@@ -6903,6 +7354,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RaceDescriptorId = request.RaceDescriptorId;
         }
     }
@@ -6933,6 +7387,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RatingLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RatingLevelDescriptorId = request.RatingLevelDescriptorId;
         }
     }
@@ -6963,6 +7420,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ReasonExitedDescriptorId = request.ReasonExitedDescriptorId;
         }
     }
@@ -6993,6 +7453,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ReasonNotTestedDescriptorId = request.ReasonNotTestedDescriptorId;
         }
     }
@@ -7023,6 +7486,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RecognitionTypeDescriptorId = request.RecognitionTypeDescriptorId;
         }
     }
@@ -7053,6 +7519,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RelationDescriptorId = request.RelationDescriptorId;
         }
     }
@@ -7083,6 +7552,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RepeatIdentifierDescriptorId = request.RepeatIdentifierDescriptorId;
         }
     }
@@ -7152,6 +7624,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ReporterDescriptionDescriptorId = request.ReporterDescriptionDescriptorId;
         }
     }
@@ -7182,6 +7657,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportingTagDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ReportingTagDescriptorId = request.ReportingTagDescriptorId;
         }
     }
@@ -7212,6 +7690,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ResidencyStatusDescriptorId = request.ResidencyStatusDescriptorId;
         }
     }
@@ -7242,6 +7723,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ResponseIndicatorDescriptorId = request.ResponseIndicatorDescriptorId;
         }
     }
@@ -7272,6 +7756,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ResponsibilityDescriptorId = request.ResponsibilityDescriptorId;
         }
     }
@@ -7337,6 +7824,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RestraintEventReasonDescriptorId = request.RestraintEventReasonDescriptorId;
         }
     }
@@ -7367,6 +7857,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ResultDatatypeTypeDescriptorId = request.ResultDatatypeTypeDescriptorId;
         }
     }
@@ -7397,6 +7890,9 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.RetestIndicatorDescriptorId = request.RetestIndicatorDescriptorId;
         }
     }
@@ -7431,6 +7927,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
             specification.CharterApprovalSchoolYear = request.CharterApprovalSchoolYear;
             specification.CharterStatusDescriptor = request.CharterStatusDescriptor;
+            specification.Id = request.Id;
             specification.InternetAccessDescriptor = request.InternetAccessDescriptor;
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.MagnetSpecialProgramEmphasisSchoolDescriptor = request.MagnetSpecialProgramEmphasisSchoolDescriptor;
@@ -7466,6 +7963,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SchoolCategoryDescriptorId = request.SchoolCategoryDescriptorId;
         }
     }
@@ -7496,6 +7996,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceBasisDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SchoolChoiceBasisDescriptorId = request.SchoolChoiceBasisDescriptorId;
         }
     }
@@ -7526,6 +8029,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SchoolChoiceImplementStatusDescriptorId = request.SchoolChoiceImplementStatusDescriptorId;
         }
     }
@@ -7556,6 +8062,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SchoolFoodServiceProgramServiceDescriptorId = request.SchoolFoodServiceProgramServiceDescriptorId;
         }
     }
@@ -7586,6 +8095,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SchoolTypeDescriptorId = request.SchoolTypeDescriptorId;
         }
     }
@@ -7736,6 +8248,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SectionCharacteristicDescriptorId = request.SectionCharacteristicDescriptorId;
         }
     }
@@ -7766,6 +8281,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SectionTypeDescriptorId = request.SectionTypeDescriptorId;
         }
     }
@@ -7796,6 +8314,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SeparationDescriptorId = request.SeparationDescriptorId;
         }
     }
@@ -7826,6 +8347,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SeparationReasonDescriptorId = request.SeparationReasonDescriptorId;
         }
     }
@@ -7856,6 +8380,9 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.ServiceDescriptorId = request.ServiceDescriptorId;
         }
     }
@@ -7923,6 +8450,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SexDescriptorId = request.SexDescriptorId;
         }
     }
@@ -7986,6 +8516,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SourceSystemDescriptorId = request.SourceSystemDescriptorId;
         }
     }
@@ -8016,6 +8549,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationExitReasonDescriptor
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SpecialEducationExitReasonDescriptorId = request.SpecialEducationExitReasonDescriptorId;
         }
     }
@@ -8046,6 +8582,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SpecialEducationProgramServiceDescriptorId = request.SpecialEducationProgramServiceDescriptorId;
         }
     }
@@ -8076,6 +8615,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SpecialEducationSettingDescriptorId = request.SpecialEducationSettingDescriptorId;
         }
     }
@@ -8192,6 +8734,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StaffClassificationDescriptorId = request.StaffClassificationDescriptorId;
         }
     }
@@ -8413,6 +8958,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StaffIdentificationSystemDescriptorId = request.StaffIdentificationSystemDescriptorId;
         }
     }
@@ -8479,6 +9027,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StaffLeaveEventCategoryDescriptorId = request.StaffLeaveEventCategoryDescriptorId;
         }
     }
@@ -8623,6 +9174,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StateAbbreviationDescriptorId = request.StateAbbreviationDescriptorId;
         }
     }
@@ -8653,6 +9207,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
         }
     }
@@ -8866,6 +9421,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StudentCharacteristicDescriptorId = request.StudentCharacteristicDescriptorId;
         }
     }
@@ -9012,6 +9570,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
             specification.NonTraditionalGenderStatus = request.NonTraditionalGenderStatus;
             specification.PrivateCTEProgram = request.PrivateCTEProgram;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
@@ -9244,6 +9803,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.HomelessPrimaryNighttimeResidenceDescriptor = request.HomelessPrimaryNighttimeResidenceDescriptor;
             specification.HomelessUnaccompaniedYouth = request.HomelessUnaccompaniedYouth;
+            specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
@@ -9277,6 +9837,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
         }
     }
@@ -9387,6 +9950,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
             specification.Dosage = request.Dosage;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EnglishLearnerParticipation = request.EnglishLearnerParticipation;
+            specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
@@ -9424,6 +9988,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
             specification.ContinuationOfServicesReasonDescriptor = request.ContinuationOfServicesReasonDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EligibilityExpirationDate = request.EligibilityExpirationDate;
+            specification.Id = request.Id;
             specification.LastQualifyingMove = request.LastQualifyingMove;
             specification.PriorityForServices = request.PriorityForServices;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
@@ -9467,6 +10032,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.ELAProgressLevelDescriptor = request.ELAProgressLevelDescriptor;
+            specification.Id = request.Id;
             specification.MathematicsProgressLevelDescriptor = request.MathematicsProgressLevelDescriptor;
             specification.NeglectedOrDelinquentProgramDescriptor = request.NeglectedOrDelinquentProgramDescriptor;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
@@ -9502,6 +10068,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.StudentParticipationCodeDescriptorId = request.StudentParticipationCodeDescriptorId;
         }
     }
@@ -9534,6 +10103,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
@@ -9753,6 +10323,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
             specification.BeginDate = request.BeginDate;
             specification.DirectCertification = request.DirectCertification;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
@@ -9874,6 +10445,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
             specification.IdeaEligibility = request.IdeaEligibility;
             specification.IEPBeginDate = request.IEPBeginDate;
             specification.IEPEndDate = request.IEPEndDate;
@@ -9972,6 +10544,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
@@ -10006,6 +10579,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SubmissionStatusDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SubmissionStatusDescriptorId = request.SubmissionStatusDescriptorId;
         }
     }
@@ -10036,6 +10612,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SupporterMilitaryConnectionDescripto
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SupporterMilitaryConnectionDescriptorId = request.SupporterMilitaryConnectionDescriptorId;
         }
     }
@@ -10105,6 +10684,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SurveyCategoryDescriptorId = request.SurveyCategoryDescriptorId;
         }
     }
@@ -10169,6 +10751,9 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.SurveyLevelDescriptorId = request.SurveyLevelDescriptorId;
         }
     }
@@ -10590,6 +11175,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TeachingCredentialBasisDescriptorId = request.TeachingCredentialBasisDescriptorId;
         }
     }
@@ -10620,6 +11208,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TeachingCredentialDescriptorId = request.TeachingCredentialDescriptorId;
         }
     }
@@ -10650,6 +11241,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TechnicalSkillsAssessmentDescriptorId = request.TechnicalSkillsAssessmentDescriptorId;
         }
     }
@@ -10680,6 +11274,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TelephoneNumberTypeDescriptorId = request.TelephoneNumberTypeDescriptorId;
         }
     }
@@ -10710,6 +11307,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TermDescriptorId = request.TermDescriptorId;
         }
     }
@@ -10740,6 +11340,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TitleIPartAParticipantDescriptorId = request.TitleIPartAParticipantDescriptorId;
         }
     }
@@ -10770,6 +11373,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TitleIPartAProgramServiceDescriptorId = request.TitleIPartAProgramServiceDescriptorId;
         }
     }
@@ -10800,6 +11406,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TitleIPartASchoolDesignationDescriptorId = request.TitleIPartASchoolDesignationDescriptorId;
         }
     }
@@ -10830,6 +11439,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.TribalAffiliationDescriptorId = request.TribalAffiliationDescriptorId;
         }
     }
@@ -10860,6 +11472,9 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.VisaDescriptorId = request.VisaDescriptorId;
         }
     }
@@ -10890,6 +11505,9 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.WeaponDescriptorId = request.WeaponDescriptorId;
         }
     }

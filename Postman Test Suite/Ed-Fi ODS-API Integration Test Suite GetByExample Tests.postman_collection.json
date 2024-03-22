@@ -693,6 +693,374 @@
 			]
 		},
 		{
+			"name": "Descriptor Derived Resource Tests",
+			"item": [
+				{
+					"name": "Initialize",
+					"item": [
+						{
+							"name": "Initialize AcademicSubjectDescriptors",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"const tpdm_namespace = pm.environment.get('supplied:tpdm_namespace');\r",
+											"const science_codeValue = pm.environment.get('supplied:codeValue');\r",
+											"const english_id = pm.environment.get('supplied:english_id');\r",
+											"\r",
+											"pm.environment.set('known:all_academicSubjectDescriptors', responseItems);\r",
+											"pm.environment.set('known:tpdm_academicSubjectDescriptors', _.filter(responseItems, x => _.startsWith(x.namespace, tpdm_namespace)));\r",
+											"pm.environment.set('known:science_descriptor', _.filter(responseItems, x => _.startsWith(x.codeValue, science_codeValue)));\r",
+											"pm.environment.set('known:english_descriptor', _.filter(responseItems, x => _.startsWith(x.id, english_id)));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:edfi_namespace', 'uri://ed-fi.org/AcademicSubjectDescriptor');\r",
+											"pm.environment.set('supplied:tpdm_namespace', 'uri://tpdm.ed-fi.org/AcademicSubjectDescriptor');\r",
+											"pm.environment.set('supplied:codeValue', 'Science');\r",
+											"pm.environment.set('supplied:english_id', 'b61860ad52da43fb98a6e4fda8747e9f');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by namespace",
+					"item": [
+						{
+							"name": "When filtering by an existing namespace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return filtered descriptors\", () => {\r",
+											"    const tpdm_academicSubjectDescriptors = pm.environment.get('known:tpdm_academicSubjectDescriptors');\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(tpdm_academicSubjectDescriptors);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?namespace={{supplied:tpdm_namespace}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "{{supplied:tpdm_namespace}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent namespace",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?namespace=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "namespace",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by codeValue",
+					"item": [
+						{
+							"name": "When filtering by an existing codeValue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return 'Science' descriptor\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const science_descriptor = pm.environment.get('known:science_descriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(science_descriptor);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?codeValue={{supplied:codeValue}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "codeValue",
+											"value": "{{supplied:codeValue}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent codeValue",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?codeValue=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "codeValue",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by id",
+					"item": [
+						{
+							"name": "When  filtering by an existing id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return 'English' descriptor\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const english_descriptor = pm.environment.get('known:english_descriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(english_descriptor);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?id={{supplied:english_id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{supplied:english_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When  filtering by a non-existent id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?id=b61860ad52da43fb98a6e4fda8747e00",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "b61860ad52da43fb98a6e4fda8747e00"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Clean Up Test Data",
 			"item": [
 				{
