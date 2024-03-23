@@ -5,7 +5,9 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Security.Authorization;
 using NUnit.Framework;
 using Shouldly;
@@ -31,8 +33,16 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             using (var session = SessionFactory.OpenStatelessSession())
             {
-                expectedCount = session.CreateSQLQuery("SELECT Count(*) FROM edfi.\"EducationOrganization\";")
-                    .UniqueResult<int>();
+                if (OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
+                {
+                    expectedCount = session.CreateSQLQuery("SELECT Count(*) FROM edfi.\"EducationOrganization\";")
+                        .UniqueResult<int>();
+                }
+                else
+                {
+                    expectedCount = (int)session.CreateSQLQuery("SELECT COUNT(*) FROM edfi.\"educationorganization\"")
+                        .UniqueResult<long>();
+                }
             }
 
             var results = (await Provider.GetAllEducationOrganizationIdentifiers().ConfigureAwait(true)).ToList();
@@ -48,7 +58,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             using (var session = SessionFactory.OpenStatelessSession())
             {
-                schoolId = session.CreateSQLQuery("SELECT TOP 1 SchoolId FROM edfi.\"School\";").UniqueResult<int>();
+                if (OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
+                {
+                    schoolId = session.CreateSQLQuery("SELECT TOP 1 SchoolId FROM edfi.\"School\";").UniqueResult<int>();
+                }
+                else
+                {
+                    schoolId = session.CreateSQLQuery("SELECT \"schoolid\" FROM edfi.\"school\" LIMIT 1;").UniqueResult<int>();
+                }
             }
 
             var result = Provider.GetEducationOrganizationIdentifiers(schoolId);
