@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GenerateSecurityGraphs": {
+      "commandName": "Project",
+      "commandLineArgs": "-o \"C:\\graphs\" -f\r\n"
+    }
+  }
+}

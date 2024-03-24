@@ -36,7 +36,6 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-
             return _securityTableGateway.GetClaimSetResourceClaimActions()
                 .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
@@ -54,10 +53,9 @@ namespace EdFi.Security.DataAccess.Repositories
                 .ToList();
         }
 
-        private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri)
+        private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri, List<ResourceClaim> resourceClaimLineage = null)
         {
-            var resourceClaimLineage = new List<ResourceClaim>();
-
+            resourceClaimLineage ??= new List<ResourceClaim>();
             ResourceClaim resourceClaim;
 
             try
@@ -72,14 +70,21 @@ namespace EdFi.Security.DataAccess.Repositories
                 throw new InvalidOperationException($"Multiple resource claims with a claim name of '{resourceClaimUri}' were found in the Ed-Fi API's security configuration. Authorization cannot be performed.", ex);
             }
 
-            if (resourceClaim != null)
+            if (resourceClaim == null)
             {
-                resourceClaimLineage.Add(resourceClaim);
+                return resourceClaimLineage;
+            }
+            
+            if (resourceClaimLineage.Any(rc => rc.ClaimName == resourceClaim.ClaimName))
+            {
+                throw new InvalidOperationException($"A cycle was detected in the resource claim hierarchy of the security metadata: '{string.Join("' -> '", resourceClaimLineage.SkipWhile(rc => rc.ClaimName != resourceClaim.ClaimName).Select(rc => rc.ClaimName))}' -> '{resourceClaimUri}'");
+            }
+            
+            resourceClaimLineage.Add(resourceClaim);
 
-                if (resourceClaim.ParentResourceClaim != null)
-                {
-                    resourceClaimLineage.AddRange(GetResourceClaimLineageForResourceClaim(resourceClaim.ParentResourceClaim.ClaimName));
-                }
+            if (resourceClaim.ParentResourceClaim != null)
+            {
+                GetResourceClaimLineageForResourceClaim(resourceClaim.ParentResourceClaim.ClaimName, resourceClaimLineage);
             }
 
             return resourceClaimLineage;

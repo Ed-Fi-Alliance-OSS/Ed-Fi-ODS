@@ -12,6 +12,7 @@ using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using Microsoft.OpenApi.Models;
 using Moq;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedAutoPropertyAccessor.Local

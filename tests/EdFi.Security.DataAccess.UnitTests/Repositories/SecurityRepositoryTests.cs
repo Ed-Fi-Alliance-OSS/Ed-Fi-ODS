@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Linq;
 
 namespace EdFi.Security.DataAccess.UnitTests.Repositories;
@@ -164,6 +165,26 @@ public class SecurityRepositoryTests
 
         // Assert
         lineage.ShouldBeEmpty();
+    }
+    
+    [Test]
+    public void GetResourceClaimLineage_ThrowsException_WhenResourceClaimLineageContainsCycle()
+    {
+        // Arrange
+        var resourceClaimA = new ResourceClaim { ClaimName = "uri-A", ResourceClaimId = 1, ParentResourceClaim = null, ParentResourceClaimId = null};
+        var resourceClaimB = new ResourceClaim { ClaimName = "uri-B", ResourceClaimId = 2, ParentResourceClaim = resourceClaimA, ParentResourceClaimId = 1};
+        var resourceClaimC = new ResourceClaim { ClaimName = "uri-C", ResourceClaimId = 3, ParentResourceClaim = resourceClaimB, ParentResourceClaimId = 2};
+        var resourceClaimD = new ResourceClaim { ClaimName = "uri-D", ResourceClaimId = 4, ParentResourceClaim = resourceClaimC, ParentResourceClaimId = 3};
+        
+        resourceClaimA.ParentResourceClaimId = resourceClaimC.ResourceClaimId;
+        resourceClaimA.ParentResourceClaim = resourceClaimC;
+        
+        A.CallTo(() => _securityTableGateway.GetResourceClaims())
+            .Returns(new List<ResourceClaim> { resourceClaimA, resourceClaimB, resourceClaimC, resourceClaimD });
+
+        // Act & Assert
+        Should.Throw<InvalidOperationException>(() => _securityRepository.GetResourceClaimLineage("uri-D"))
+            .Message.ShouldBe("A cycle was detected in the resource claim hierarchy of the security metadata: 'uri-C' -> 'uri-B' -> 'uri-A' -> 'uri-C'");
     }
 
     [Test]

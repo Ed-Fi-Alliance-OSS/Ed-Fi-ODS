@@ -66,10 +66,6 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
         exit 1 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
-      with:
-        dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -166,9 +162,9 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL*.nupkg
     - name: Move Log Files
       run: |
-        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net6.0/logfile.txt"
-        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net6.0/TestHarnessLog.log"
-        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net6.0/TestHarnessRequestResponseDetailsLog.log"        
+        $bulkLoadClientSourcePath = "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/${{ env.CONFIGURATION }}/net8.0/logfile.txt"
+        $testHarnessSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessLog.log"
+        $testHarnessRequestResponseDetailsSourcePath = "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/${{ env.CONFIGURATION }}/net8.0/TestHarnessRequestResponseDetailsLog.log"        
         $destinationPath = "${{ github.workspace }}/CreateDatabaseTemplateLogs/"
         # Create the destination folder if it doesn't exist
         if (!(Test-Path -Path $destinationPath)) {

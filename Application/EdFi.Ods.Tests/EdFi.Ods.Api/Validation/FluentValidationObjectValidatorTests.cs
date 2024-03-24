@@ -118,8 +118,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                 Assert.That(
                     string.Join(Environment.NewLine, _actualValidationResults.Select(vr => vr.ToString())),
                     Does.Contain("between 1 and 3 characters")
-                        .And.ContainsSubstring("between 1 and 5 characters")
-                        .And.Not.ContainsSubstring("age is quite odd"));
+                        .And.Contains("between 1 and 5 characters")
+                        .And.Not.Contains("age is quite odd"));
             }
         }
 

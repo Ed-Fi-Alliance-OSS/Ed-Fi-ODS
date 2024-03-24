@@ -294,14 +294,116 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public Application[] GetVendorApplications(int vendorId)
+        public IEnumerable<Vendor> GetVendors()
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.Applications.Where(a => a.Vendor.VendorId == vendorId)
-                    .ToArray();
+                return context.Vendors.Include(u => u.VendorNamespacePrefixes).Include(a=>a.Applications)
+                    .Include(b=>b.Users)
+                    .ToList();
             }
         }
+
+        public IEnumerable<Application> GetApplications()
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Applications.Include(u => u.ApplicationEducationOrganizations).Include(a=>a.Vendor).ToList();
+            }
+        }
+
+        public Vendor GetVendor(int vendorId)
+        {
+            using var context = _contextFactory.CreateContext();
+            return context.Vendors.FirstOrDefault(c => c.VendorId == vendorId);
+        }
+
+        public Application GetApplication(int applicationId)
+        {
+            using var context = _contextFactory.CreateContext();
+            var application = context.Applications
+                                .Where(x => x.ApplicationId == applicationId)
+                                .Include(x => x.ApplicationEducationOrganizations)
+                                .FirstOrDefault();
+            return application;
+        }
+
+        public void DeleteApplication(int applicationId)
+        {
+            using var context = _contextFactory.CreateContext();
+            var application = context.Applications.Include(a => a.ApiClients).First(x => x.ApplicationId == applicationId);
+
+            var applicationEducationOrganizations = context.ApplicationEducationOrganizations.Include(x => x.Application)
+                .Where(x => x.Application.ApplicationId == application.ApplicationId);
+
+            foreach (var applicationEducationOrganization in applicationEducationOrganizations)
+            {
+                context.ApplicationEducationOrganizations.Remove(applicationEducationOrganization);
+            }
+
+            var apiClientKeysToDelete = application.ApiClients.Select(a => a.Key).ToList();
+
+            context.Applications.Remove(application);
+
+            context.SaveChanges();
+
+            foreach (var key in apiClientKeysToDelete)
+            {
+                DeleteClient(key);
+            }
+        }
+
+        public void DeleteVendor(int vendorId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = context.Vendors.First(x => x.VendorId == vendorId);
+
+                var applications = context.Applications.Include(c => c.Vendor)
+                    .ThenInclude(c => c.VendorNamespacePrefixes)
+                    .Include(c => c.ApplicationEducationOrganizations)
+                    .Include(c => c.ApiClients)
+                    .Where(x => x.Vendor.VendorId == vendor.VendorId);
+
+                List<string> apiClientKeysToDelete = new();
+
+                foreach (var application in applications)
+                {
+                    apiClientKeysToDelete.AddRange(application.ApiClients.Select(a => a.Key).ToList());
+                    context.ApplicationEducationOrganizations.RemoveRange(application.ApplicationEducationOrganizations);
+                    context.Applications.Remove(application);
+                }
+
+                foreach (var user in vendor.Users)
+                {
+                    context.Users.Remove(user);
+                }
+                context.Vendors.Remove(vendor);
+                context.SaveChanges();
+
+                foreach (var key in apiClientKeysToDelete)
+                {
+                    DeleteClient(key);
+                }
+            }
+        }
+
+        public Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId,string claimSetName= "Ed-Fi Sandbox", string operationalContextUri = "uri://ed-fi-api-host.org")
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var application = context.Applications.SingleOrDefault(v => v.ApplicationName == applicationName);
+
+                if (application == null)
+                {
+                    var vendor = context.Vendors.SingleOrDefault(v => v.VendorId == vendorId);
+                    application = Application.Create(applicationName, educationOrganizationId, vendor, claimSetName, operationalContextUri);
+                }
+                context.Applications.Update(application);
+                context.SaveChanges();
+                return application;
+            }
+        }        
 
         public void AddApiClientToUserWithVendorApplication(int userId, ApiClient client)
         {
@@ -489,7 +591,27 @@ namespace EdFi.Admin.DataAccess.Repositories
                     vendor = Vendor.Create(vendorName, namespacePrefixes);
                     context.SaveChanges();
                 }
+                return vendor;
+            }
+        }
+        
+        public Vendor CreateOrGetVendor(string vendorName, IEnumerable<string> namespacePrefixes, string contactName, string contactEmailAddress)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
 
+                if (vendor == null)
+                {
+                    vendor = Vendor.Create(vendorName, namespacePrefixes);
+                }
+
+                var user = new User { FullName = contactName, Email = contactEmailAddress,Vendor=vendor };
+
+                vendor.Users.Add(user);
+
+                context.Vendors.Add(vendor);
+                context.SaveChanges();
                 return vendor;
             }
         }

@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
@@ -96,7 +97,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             ISessionFactory sessionFactory = null,
             ISecurityRepository securityRepository = null,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider = null,
-            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider = null
+            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContextProvider = null,
+            IAuthorizationViewHintProvider[] authorizationViewHintProviders = null
             )
         {
             return new EntityAuthorizer(
@@ -110,7 +112,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 sessionFactory ?? A.Fake<ISessionFactory>(),
                 securityRepository ?? A.Fake<ISecurityRepository>(),
                 dataManagementResourceContextProvider ?? A.Fake<IContextProvider<DataManagementResourceContext>>(),
-                viewBasedAuthorizationQueryContextProvider ?? A.Fake<IContextProvider<ViewBasedAuthorizationQueryContext>>());
+                viewBasedAuthorizationQueryContextProvider ?? A.Fake<IContextProvider<ViewBasedAuthorizationQueryContext>>(),
+                authorizationViewHintProviders ?? A.CollectionOfFake<IAuthorizationViewHintProvider>(0).ToArray());
         }
 
         public static AuthorizationBasisMetadataSelector CreateAuthorizationBasisMetadataSelector(

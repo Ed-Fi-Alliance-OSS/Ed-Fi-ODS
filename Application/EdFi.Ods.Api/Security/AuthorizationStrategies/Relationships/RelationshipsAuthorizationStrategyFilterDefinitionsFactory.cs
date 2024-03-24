@@ -109,19 +109,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (filterContext.SubjectEndpointValue == null)
             {
-                if (filterContext.SubjectEndpointName.EndsWith("USI"))
-                {
-                    var subjectSubstring = filterContext.SubjectEndpointName.Substring(
-                        0, filterContext.SubjectEndpointName.Length - 3);
-
-                    throw new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail,
-                        $"Either the referenced '{subjectSubstring}' was not found or no relationships have been established between the caller's education organization id claims ({string.Join(", ", filterContext.ClaimParameterValues)}) and the referenced '{subjectSubstring}'.");
-                }
-
-                throw new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultDetail,
-                    $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName}' of the resource is empty.");
+                // We will defer to the final authorization check to produce identical messages
+                // whether the endpoint values are null or not.
+                return InstanceAuthorizationResult.NotPerformed();
             }
 
             // If the subject's endpoint name is an Education Organization Id, we can try to authenticate it here.

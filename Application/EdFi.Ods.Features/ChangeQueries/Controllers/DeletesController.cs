@@ -107,7 +107,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
             {
-                Response.Headers.Add("Total-Count", deletedItemsResponse.Count.ToString());
+                Response.Headers.Append("Total-Count", deletedItemsResponse.Count.ToString());
             }
             
             // Explicitly serialize the response to remain backwards compatible with pre .net core

@@ -8,8 +8,9 @@ using System.Xml.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.ResourcePipeline;
-using NUnit.Framework;
 using Newtonsoft.Json.Linq;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {
