@@ -103,7 +103,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
-            if (result.StatusCode != HttpStatusCode.Created)
+            if ((HttpStatusCode)result.StatusCode != HttpStatusCode.Created)
             {
                 Log.Error("Unable to create the resource since a resource with the same key already exists. If the underlying ODS already has data, this might be a randomly-generated key collision.");
                 return false;
