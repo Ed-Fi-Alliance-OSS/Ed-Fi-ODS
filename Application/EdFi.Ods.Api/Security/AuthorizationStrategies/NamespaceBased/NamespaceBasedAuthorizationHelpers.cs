@@ -13,13 +13,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
 public static class NamespaceBasedAuthorizationHelpers
 {
-    public static IList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
+    public static IList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext, string authorizationStrategyName)
     {
         var namespacePrefixes = authorizationContext.ApiClientContext.NamespacePrefixes;
 
         if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
         {
-            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, $"Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim values were all empty.");
+            throw new SecurityAuthorizationException(
+                SecurityAuthorizationException.DefaultDetail + " The caller has not been configured correctly for accessing resources authorized by Namespace.",
+                $"The API client has been given permissions on a resource that uses the '{authorizationStrategyName}' authorization strategy but the client doesn't have any namespace prefixes assigned.")
+            {
+                InstanceTypeParts = ["namespace", "invalid-client", "no-namespaces"]
+            };
         }
 
         return namespacePrefixes;

@@ -99,7 +99,8 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     
     private InstanceAuthorizationResult AuthorizeInstance(
         EdFiAuthorizationContext authorizationContext,
-        AuthorizationFilterContext authorizationFilterContext)
+        AuthorizationFilterContext authorizationFilterContext,
+        string authorizationStrategyName)
     {
         try
         {
@@ -121,26 +122,29 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{NamespaceBasedAuthorizationStrategy.AuthorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
+                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data
-                            ? new []{ "namespace", "access-denied", "namespace-required" }
+                            ? ["namespace", "access-denied", "namespace-required"]
                             // On existing data
-                            : new []{ "namespace", "invalid-data", "namespace-uninitialized" }
+                            : ["namespace", "invalid-data", "namespace-uninitialized"]
                     });
             }
 
-            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
+            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext, authorizationStrategyName);
 
             if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
             {
+                string existingLiteral = authorizationContext.GetPhaseText("existing ");
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail,
-                        $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
+                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('{claimNamespacePrefixesText}').", null)
+                    {
+                        InstanceTypeParts = ["namespace", "access-denied", "namespace-mismatch"]
+                    });
             }
         }
         catch (SecurityAuthorizationException ex)

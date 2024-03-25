@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Authorization;
@@ -101,11 +102,6 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         string requestAction)
     {
         var claimCheckResponse = PerformClaimCheck(claimSetName, requestResourceClaimUris, requestAction);
-            
-        if (!claimCheckResponse.Success)
-        {
-            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, claimCheckResponse.SecurityExceptionMessage);
-        }
 
         var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;
 
@@ -195,12 +191,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         // Intersect the potentially authorizing resource claims against the principal's claims
         var claimCheckResponse = GetRelevantClaimSetClaims(authorizingResourceClaimNames);
 
-        if (claimCheckResponse.Success)
-        {
-            claimCheckResponse.RequestedAction = requestAction;
-            claimCheckResponse.RequestedResourceUris = resourceClaimUris;
-            claimCheckResponse.AuthorizationMetadata = resourceClaimAuthorizationMetadata;
-        }
+        claimCheckResponse.RequestedAction = requestAction;
+        claimCheckResponse.RequestedResourceUris = resourceClaimUris;
+        claimCheckResponse.AuthorizationMetadata = resourceClaimAuthorizationMetadata;
 
         return claimCheckResponse;
             
@@ -251,15 +244,12 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             // 1) First check: Lets make sure the claim set at least has a claim that applies for this resource.
             if (!claimSetClaimsToEvaluate.Any())
             {
-                response.Success = false;
-
-                // var apiClientResourceClaims = claimSetClaims.Select(c => c.ClaimName)
-                //     .Where(x => x.StartsWith(EdFiConventions.EdFiOdsResourceClaimBaseUri));
-
-                response.SecurityExceptionMessage =
-                    $@"The API client has been assigned the '{claimSetName}' claim set. Assign a different claim set which includes one of the following claims to access this resource: {string.Join(", ", authorizingClaimNames)}";
-
-                return response;
+                throw new SecurityAuthorizationException(
+                    SecurityAuthorizationException.DefaultDetail + " You do not have permissions to access this resource.",
+                    $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following resource claims to provide access to this resource: '{string.Join("', '", authorizingClaimNames)}'.")
+                {
+                    InstanceTypeParts = ["access-denied", "resource"]
+                };
             }
 
             // 2) Second check: Of the claims that apply for this resource do we have any that match the action requested or a higher action?
@@ -269,15 +259,14 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
             if (!claimsWithMatchingActions.Any())
             {
-                response.Success = false;
-
-                response.SecurityExceptionMessage =
-                    $"Access to the resource could not be authorized for the requested action '{requestAction}'.";
-
-                return response;
+                throw new SecurityAuthorizationException(
+                    SecurityAuthorizationException.DefaultDetail + " You do not have permissions to perform the requested operation on the resource.",
+                    $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following resource claims: '{string.Join("', '", authorizingClaimNames)}'.")
+                {
+                    InstanceTypeParts = ["access-denied", "action"]
+                };
             }
 
-            response.Success = true;
             response.RelevantClaims = claimsWithMatchingActions;
 
             return response;
@@ -305,8 +294,6 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
     private class ClaimCheckResponse
     {
-        public bool Success { get; set; }
-
         public IList<EdFiResourceClaim> RelevantClaims { get; set; }
 
         public string RequestedAction { get; set; }

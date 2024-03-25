@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
     public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy
     {
-        internal const string AuthorizationStrategyName = "NamespaceBased";
+        private const string AuthorizationStrategyName = "NamespaceBased";
 
         private readonly ConcurrentDictionary<FullName, string> _namespacePropertyByResourceFullName = new();
 
@@ -27,7 +27,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
+            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext, AuthorizationStrategyName);
 
             var resource = authorizationContext.Resource;
 

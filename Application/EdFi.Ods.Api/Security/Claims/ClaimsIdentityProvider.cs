@@ -37,8 +37,11 @@ namespace EdFi.Ods.Api.Security.Claims
             if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
                 throw new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultTechnicalProblemDetail,
-                    "No API key information was available for authorization.");
+                    SecurityAuthorizationException.DefaultTechnicalProblemDetail + " No information was available about the caller.",
+                    "No API client details were available for performing authorization.")
+                {
+                    InstanceTypeParts = ["no-client-details"]
+                };
             }
 
             return GetClaimsIdentity(apiClientContext.ClaimSetName);

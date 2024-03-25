@@ -239,7 +239,7 @@ public class EntityAuthorizer : IEntityAuthorizer
                                 {
                                     FilterDefinition = x.FilterDefinition,
                                     FilterContext = x.FilterContext,
-                                    Result = x.FilterDefinition.AuthorizeInstance(authorizationContext1, x.FilterContext)
+                                    Result = x.FilterDefinition.AuthorizeInstance(authorizationContext1, x.FilterContext, s.AuthorizationStrategyName)
                                 })
                             .ToArray()
                     })
