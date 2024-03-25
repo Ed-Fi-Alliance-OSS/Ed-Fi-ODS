@@ -42,8 +42,10 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(null);
 
         // Act & Assert
-        Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity())
-            .Message.ShouldBe("No API key information was available for authorization.");
+        var exception = Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity());
+        exception.Detail.ShouldContain("There was a problem authorizing the request. No information was available about the caller.");
+        exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:no-client-details"));
+        exception.Message.ShouldContain("No API client details were available for performing authorization.");
     }
 
     [Test]
@@ -53,8 +55,10 @@ public class ClaimsIdentityProviderTests
         A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(ApiClientContext.Empty);
 
         // Act & Assert
-        Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity())
-            .Message.ShouldBe("No API key information was available for authorization.");
+        var exception = Should.Throw<SecurityAuthorizationException>(() => _identityProvider.GetClaimsIdentity());
+        exception.Detail.ShouldContain("There was a problem authorizing the request. No information was available about the caller.");
+        exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:no-client-details"));
+        exception.Message.ShouldContain("No API client details were available for performing authorization.");
     }
 
     [Test]

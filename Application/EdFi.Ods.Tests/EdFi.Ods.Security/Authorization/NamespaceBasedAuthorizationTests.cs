@@ -4,9 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.NamingConventions;
@@ -20,7 +18,6 @@ using EdFi.Ods.Tests._Helpers;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {
@@ -31,7 +28,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         public class SingleItemAuthorizationTests
         {
             [Test]
-            public void AuthorizationContextNamespaceIsEmpty_ShouldThrowAnException()
+            [TestCase(
+                AuthorizationPhase.ProposedData, 
+                "Access to the resource could not be authorized. The 'Namespace' value has not been assigned but is required for authorization purposes.",
+                $"{EdFiProblemDetailsExceptionBase.BaseTypePrefix}:security:authorization:namespace:access-denied:namespace-required")]
+            [TestCase(
+                AuthorizationPhase.ExistingData,
+                "Access to the resource could not be authorized. The existing 'Namespace' value has not been assigned but is required for authorization purposes.",
+                $"{EdFiProblemDetailsExceptionBase.BaseTypePrefix}:security:authorization:namespace:invalid-data:namespace-uninitialized")]
+            public void AuthorizationContextNamespaceIsEmpty_ShouldThrowAnException(AuthorizationPhase authorizationPhase, string expectedExceptionDetail, string expectedExceptionType)
             {
                 //Arrange
                 var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
@@ -60,16 +65,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         new[] { resourceUri },
                         action,
                         data,
-                        AuthorizationPhase.ProposedData),
-                    new AuthorizationFilterContext());
+                        authorizationPhase),
+                    new AuthorizationFilterContext(),
+                    "NamespaceBased");
             
                 //Assert
-                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
-                result.Exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
+                var exception = (SecurityAuthorizationException)result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
+                exception.Detail.ShouldContain(expectedExceptionDetail);
+                exception.Type.ShouldBe(expectedExceptionType);
             }
 
             [Test]
-            public void NonMatchingNamespaceClaims_ShouldThrowAnException()
+            [TestCase(
+                AuthorizationPhase.ProposedData,
+                "Access to the resource could not be authorized. The 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').")]
+            [TestCase(
+                AuthorizationPhase.ExistingData,
+                "Access to the resource could not be authorized. The existing 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').")]
+            public void NonMatchingNamespaceClaims_ShouldThrowAnException(AuthorizationPhase authorizationPhase, string expectedExceptionDetail)
             {
                 //Arrange
                 var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
@@ -99,12 +112,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         new[] { resourceUri },
                         action,
                         data,
-                        AuthorizationPhase.ProposedData),
-                    new AuthorizationFilterContext());
+                        authorizationPhase),
+                    new AuthorizationFilterContext(),
+                    "NamespaceBased");
 
                 //Assert
-                result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
-                result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
+                var exception = (SecurityAuthorizationException)result.Exception.ShouldBeExceptionType<SecurityAuthorizationException>();
+                exception.Detail.ShouldContain(expectedExceptionDetail);
+                exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:namespace:access-denied:namespace-mismatch"));
             }
         }
 
@@ -142,9 +157,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                             AuthorizationPhase.ProposedData)));
 
                 //Assert
-                exception.Message.ShouldBe(
-                    "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
-                    + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
+
+                exception.Detail.ShouldContain("Access to the resource could not be authorized. The caller has not been configured correctly for accessing resources authorized by Namespace.");
+                exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:namespace:invalid-client:no-namespaces"));
+                exception.Message.ShouldContain(
+                    "The API client has been given permissions on a resource that uses the 'NamespaceBased' authorization strategy but the client doesn't have any namespace prefixes assigned.");
             }
 
             [Test]
@@ -297,9 +314,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                             AuthorizationPhase.ProposedData)));
 
                 // Assert
-                exception.Message.ShouldBe(
-                    "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
-                    + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
+                exception.Detail.ShouldContain("Access to the resource could not be authorized. The caller has not been configured correctly for accessing resources authorized by Namespace.");
+                exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:namespace:invalid-client:no-namespaces"));
+                exception.Message.ShouldContain(
+                    "The API client has been given permissions on a resource that uses the 'NamespaceBased' authorization strategy but the client doesn't have any namespace prefixes assigned.");
             }
         }
         
