@@ -27,7 +27,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
+            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext, AuthorizationStrategyName);
 
             var resource = authorizationContext.Resource;
 

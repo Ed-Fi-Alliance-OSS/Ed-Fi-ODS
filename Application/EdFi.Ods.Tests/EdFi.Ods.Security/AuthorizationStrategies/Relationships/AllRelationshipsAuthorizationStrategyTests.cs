@@ -88,7 +88,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 new Resource("Ignored"),
                 new[] { "resource" },
                 "action",
-                entity);
+                entity,
+                AuthorizationPhase.ProposedData);
         }
 
         public class When_authorizing_a_multiple_item_request

@@ -105,7 +105,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             {
                 A.CallTo(
                     () => Given<IEntityAuthorizer>()
-                        .AuthorizeEntityAsync(Supplied<Student>(), "Action", A<CancellationToken>.Ignored)).MustHaveHappenedOnceExactly();
+                        .AuthorizeEntityAsync(Supplied<Student>(), "Action", AuthorizationPhase.ExistingData, A<CancellationToken>.Ignored)).MustHaveHappenedOnceExactly();
             }
 
             [Assert]

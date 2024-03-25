@@ -130,7 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             suppliedFilterText,
                             (criteria, junction, arg3, arg4, arg5) => { },
                             (filterDefinition, filterContext, resource, filterIndex, qb, useOuterJoins) => { },
-                            (ctx1, ctx2) => null));
+                            (ctx1, ctx2, ctx3) => null));
 
                 Supplied("ResourceUriValue", "uri://some-value");
 

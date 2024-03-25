@@ -48,15 +48,15 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         }
 
         /// <summary>
-        /// Invokes authorization of the request using the resource/action currently in context.
+        /// Invokes authorization of the request using the supplied (existing) entity and the resource/action currently in context for request.
         /// </summary>
         /// <param name="entity">The request/entity being authorized.</param>
         /// <param name="cancellationToken"></param>
-        protected async Task AuthorizeSingleItemAsync(TEntity entity, CancellationToken cancellationToken)
+        protected async Task AuthorizeExistingSingleItemAsync(TEntity entity, CancellationToken cancellationToken)
         {
             var action = _authorizationContextProvider.GetAction();
 
-            await AuthorizeSingleItemAsync(entity, action, cancellationToken);
+            await _entityAuthorizer.AuthorizeEntityAsync(entity, action, AuthorizationPhase.ExistingData, cancellationToken);
         }
 
         /// <summary>
@@ -66,9 +66,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="entity">The request/entity being authorized.</param>
         /// <param name="actionUri">The action being performed with the request/entity.</param>
         /// <param name="cancellationToken"></param>
-        protected async Task AuthorizeSingleItemAsync(TEntity entity, string actionUri, CancellationToken cancellationToken)
+        protected async Task AuthorizeProposedSingleItemAsync(TEntity entity, string actionUri, CancellationToken cancellationToken)
         {
-            await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, cancellationToken);
+            await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ProposedData, cancellationToken);
         }
 
         protected IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering()

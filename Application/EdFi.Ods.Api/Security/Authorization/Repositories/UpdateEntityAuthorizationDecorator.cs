@@ -72,7 +72,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var updateActionUri = _securityRepository.GetActionByName("Update").ActionUri;
 
             // Authorize the request
-            await AuthorizeSingleItemAsync(persistentEntity, updateActionUri, cancellationToken);
+            await AuthorizeProposedSingleItemAsync(persistentEntity, updateActionUri, cancellationToken);
 
             // Pass call through to the repository operation
             await _next.UpdateAsync(persistentEntity, cancellationToken);

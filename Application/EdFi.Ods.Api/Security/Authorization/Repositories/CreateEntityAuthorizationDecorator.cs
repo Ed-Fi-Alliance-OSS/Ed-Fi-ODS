@@ -73,7 +73,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 .ActionUri;
 
             // Authorize the request
-            await AuthorizeSingleItemAsync(entity, createActionUri, cancellationToken);
+            await AuthorizeProposedSingleItemAsync(entity, createActionUri, cancellationToken);
 
             // Pass the call through to the decorated repository method
             await _next.CreateAsync(entity, enforceOptimisticLock, cancellationToken);

@@ -24,18 +24,19 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="EdFiAuthorizationContext"/> class using the principal, resource, action and Ed-Fi authorization context data.
         /// </summary>
         /// <param name="apiClientContext">Direct information about the current API client, typically presented as claims.</param>
-        /// <param name="claimSetClaims"></param>
         /// <param name="resource">The semantic model's representation of the resource being authorized.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
         /// <param name="data">An object containing the data available for authorization which implements one of the
         /// model interfaces (e.g. IStudent).</param>
+        /// <param name="authorizationPhase">Indicates the phase of authorization to be performed on the <see cref="data" /> (as the existing or proposed entity).</param>
         public EdFiAuthorizationContext(
             ApiClientContext apiClientContext,
             Resource resource,
             string[] resourceClaimUris,
             string action,
-            object data)
+            object data,
+            AuthorizationPhase authorizationPhase)
         {
             Preconditions.ThrowIfNull(apiClientContext, nameof(apiClientContext));
             Preconditions.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
@@ -46,6 +47,7 @@ namespace EdFi.Ods.Common.Security.Claims
             Resource = resource;
             ResourceClaimUris = resourceClaimUris;
             Action = action;
+            AuthorizationPhase = authorizationPhase;
 
             if (data != null)
             {
@@ -88,6 +90,12 @@ namespace EdFi.Ods.Common.Security.Claims
         /// the model interfaces (e.g. IStudent).
         /// </summary>
         public object Data { get; }
+
+        /// <summary>
+        /// Indicates whether the entity instance in the <see cref="Data" /> property represents an existing entity (loaded
+        /// from the database), or the proposed entity.
+        /// </summary>
+        public AuthorizationPhase AuthorizationPhase { get; }
 
         /// <summary>
         /// Gets the <see cref="Type"/> of the data associated with the request represented by the authorization context.
