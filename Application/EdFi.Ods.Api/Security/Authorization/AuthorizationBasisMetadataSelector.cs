@@ -301,7 +301,5 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         public IList<string> RequestedResourceUris { get; set; }
 
         public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
-
-        public string SecurityExceptionMessage { get; set; }
     }
 }
