@@ -65,14 +65,10 @@ jobs:
     - name: Install Postgres11
       shell: pwsh
       run: |
-          choco install postgresql11
+          choco install postgresql11 --params '/Password:postgres'
           $confPath = "C:\Program Files\PostgreSQL\11\data\pg_hba.conf"
           (Get-Content $confPath).Replace("md5","trust") | Set-Content $confPath
-          Restart-Service postgresql-x64-11
-          Start-Service postgresql-x64-11
-    - name: Connect to PostgreSQL
-      run: |
-          & 'C:\Program Files\PostgreSQL\11\bin\psql.exe' -h localhost -U postgres -d postgres -c "SELECT version();"          
+          Restart-Service postgresql-x64-11         
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
