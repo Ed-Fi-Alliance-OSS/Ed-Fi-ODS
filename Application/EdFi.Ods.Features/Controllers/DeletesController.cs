@@ -19,7 +19,7 @@ namespace EdFi.Ods.Features.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("{schema}/{resource}/deletes")]
+    [Route("{schema}/{resource}/deletes", Order = -1)]
     public class DeletesController : ControllerBase
     {
         private readonly IGetDeletedResourceIds _getDeletedResourceIdsRepository;
