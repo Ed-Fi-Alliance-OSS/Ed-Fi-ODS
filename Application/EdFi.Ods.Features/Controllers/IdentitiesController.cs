@@ -9,6 +9,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -36,11 +38,16 @@ namespace EdFi.Ods.Features.Controllers
         private const string NoIdentitySystem = "There is no integrated Unique Identity System";
         private readonly IIdentityService _identitySubsystem;
         private readonly IIdentityServiceAsync _identitySubsystemAsync;
+        private readonly ReverseProxySettings _reverseProxySettings;
 
-        public IdentitiesController(IIdentityService identitySubsystem, IIdentityServiceAsync identitySubsystemAsync)
+        public IdentitiesController(
+            IIdentityService identitySubsystem, 
+            IIdentityServiceAsync identitySubsystemAsync, 
+            ApiSettings apiSettings)
         {
             _identitySubsystem = identitySubsystem;
             _identitySubsystemAsync = identitySubsystemAsync;
+            _reverseProxySettings = apiSettings.GetReverseProxySettings();
         }
 
         /// <summary>
@@ -54,7 +61,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="502">The underlying identity system returned an error.</response>
         /// <returns>The identity information for the provided Unique Id</returns>
         [HttpGet]
-        [Route("{id}", Name = "IdentitiesGetById")]
+        [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute(Name = "id")] string uniqueId)
         {
             try
@@ -114,8 +121,8 @@ namespace EdFi.Ods.Features.Controllers
                 switch (result.StatusCode)
                 {
                     case IdentityStatusCode.Success:
-                        var route = Url.Link("IdentitiesGetById", new { id = result.Data });
-                        return Created(new Uri(route), result.Data);
+                        var route = new Uri($"{Request.GetResourceUrl(_reverseProxySettings)}/{result.Data}");
+                        return Created(route, result.Data);
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
                     case IdentityStatusCode.InvalidProperties:
@@ -152,7 +159,7 @@ namespace EdFi.Ods.Features.Controllers
                     switch (result.StatusCode)
                     {
                         case IdentityStatusCode.Success:
-                            var route = Url.Link("IdentitiesSearchResult", new { id = result.Data });
+                            var route = new Uri($"{Request.GetResourceUrl(_reverseProxySettings)}/results/{result.Data}");
                             return Accepted(route);
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
@@ -202,7 +209,7 @@ namespace EdFi.Ods.Features.Controllers
                     switch (result.StatusCode)
                     {
                         case IdentityStatusCode.Success:
-                            var route = Url.Link("IdentitiesSearchResult", new { id = result.Data });
+                            var route = new Uri($"{Request.GetResourceUrl(_reverseProxySettings)}/results/{result.Data}");
                             return Accepted(route);
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
@@ -235,7 +242,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpGet]
-        [Route("results/{id}", Name = "IdentitiesSearchResult")]
+        [Route("results/{id}")]
         public async Task<IActionResult> Result([FromRoute(Name = "id")] string searchToken)
         {
             try
