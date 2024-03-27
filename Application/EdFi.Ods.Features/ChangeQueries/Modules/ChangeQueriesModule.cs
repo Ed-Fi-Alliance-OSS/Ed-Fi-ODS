@@ -35,6 +35,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             builder.RegisterType<FeatureDisabledDeletedItemsResourceDataProvider>()
                 .As<IDeletedItemsResourceDataProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<FeatureDisabledKeyChangesResourceDataProvider>()
+                .As<IKeyChangesResourceDataProvider>()
+                .SingleInstance();
         }
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
