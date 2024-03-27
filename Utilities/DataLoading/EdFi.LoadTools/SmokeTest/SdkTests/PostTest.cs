@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
@@ -26,6 +27,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             _propertyBuilders = propertyBuilders;
             _createdDictionary = createdDictionary;
         }
+
+        // POST tests don't rely on existing data
+        protected override bool NoDataAvailableForTheResource => false;
 
         protected override object[] GetParams(MethodInfo methodInfo)
         {
@@ -97,24 +101,22 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return ResourceApi.PostMethod;
         }
 
-        protected override bool CheckResult(dynamic result)
+        protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
-            var location = result.Headers["Location"];
-            var resource = GetResourceFromLocation(location);
-
-            if (ResultsDictionary.ContainsKey(ResourceApi.ModelType.Name))
+            if ((HttpStatusCode)result.StatusCode != HttpStatusCode.Created)
             {
-                ResultsDictionary[ResourceApi.ModelType.Name].Add(resource);
+                Log.Error("Unable to create the resource since a resource with the same key already exists. If the underlying ODS already has data, this might be a randomly-generated key collision.");
+                return false;
             }
 
-            return true;
-        }
+            var location = result.Headers["Location"];
+            var resourceUri = new Uri(location[0]);
 
-        private object GetResourceFromLocation(string location)
-        {
-            var resourceUri = new Uri(location);
+            // Add the POSTed resource to the ResultsDictionary so that it can be referenced by subsequent POSTs
+            ResultsDictionary.Add(ResourceApi.ModelType.Name, new List<object> { requestParameters.Single() });
             _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
-            return GetResourceFromUri(resourceUri);
+
+            return true;
         }
     }
 }

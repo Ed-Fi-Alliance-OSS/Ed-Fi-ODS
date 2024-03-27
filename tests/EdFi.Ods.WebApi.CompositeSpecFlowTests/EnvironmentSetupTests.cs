@@ -3,7 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.SqlClient;
+using Dapper;
+using EdFi.Common.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -21,18 +22,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Test]
         public async Task ShouldBuildDbAndSetupWebServer()
         {
-            var connectionStringProvider = (IOdsDatabaseConnectionStringProvider)
-                CompositesSpecFlowTestFixture.ServiceProvider.GetService(typeof(IOdsDatabaseConnectionStringProvider));
-
-            connectionStringProvider.ShouldNotBeNull();
-            connectionStringProvider.GetConnectionString().ShouldContain(CompositesSpecFlowTestFixture.SpecFlowDatabaseName);
-
             var cancellationToken = new CancellationToken();
-            await using var conn = new SqlConnection(connectionStringProvider.GetConnectionString());
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            await conn.OpenAsync(cancellationToken);
+            int count;
 
-            int count = await conn.QuerySingleAsync<int>("select count(*) from dbo.DeployJournal;", cancellationToken);
+            if (CompositesSpecFlowTestFixture.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
+            {
+                count = await conn.QuerySingleAsync<int>("select count(*) from dbo.DeployJournal;", cancellationToken);
+            }
+            else
+            {
+                count = await conn.QuerySingleAsync<int>("select count(*) from public.\"DeployJournal\";", cancellationToken);
+            }
 
             count.ShouldNotBe(0);
 

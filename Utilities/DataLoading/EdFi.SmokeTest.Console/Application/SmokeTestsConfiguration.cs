@@ -84,6 +84,8 @@ namespace EdFi.SmokeTest.Console.Application
 
         public string NamespacePrefix { get; set; }
 
+        public int? ParentEdOrgId { get; set; }
+
         string IOAuthSessionToken.SessionToken { get; set; }
 
         // IOAuthTokenConfiguration
@@ -132,6 +134,7 @@ namespace EdFi.SmokeTest.Console.Application
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
                 NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
+                ParentEdOrgId = configuration.GetValue<int?>("ParentEdOrgId"),
                 SdkLibraryPath = configuration.GetValue<string>("SdkLibraryPath"),
                 TestSet = testSet,
                 ApiMode = apiMode

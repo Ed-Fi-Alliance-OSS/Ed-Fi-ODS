@@ -7,6 +7,8 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.WebApi.IntegrationTests.Sandbox;
+using EdFi.Ods.WebApi.IntegrationTests.YearSpecific;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
@@ -26,11 +28,9 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
         public string GetConnectionString()
         {
-            var template = _apiSettings.GetApiMode() == ApiMode.YearSpecific
-                ? $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_{_schoolYearContextProvider.GetSchoolYear()}"
-                : GlobalWebApiIntegrationTestFixture.DatabaseName;
-
-            return string.Format(_configuration.GetConnectionString("EdFi_Ods"), template);
+            return _apiSettings.GetApiMode() == ApiMode.YearSpecific
+                ? YearSpecificHostGlobalFixture.Instance.GetConnectionString(_schoolYearContextProvider.GetSchoolYear().ToString())
+                : SandboxHostGlobalFixture.Instance.GetConnectionString();
         }
     }
 }

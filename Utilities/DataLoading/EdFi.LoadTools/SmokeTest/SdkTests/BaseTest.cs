@@ -91,9 +91,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                 var responseStatusCode = (HttpStatusCode) result.StatusCode;
 
-                if (IsExpectedResponse(responseStatusCode))
+                if (IsExpectedResponse(responseStatusCode) && CheckResult(result, @params))
                 {
-                    CheckResult(result);
                     Log.Info($"{(int) responseStatusCode} {responseStatusCode}");
                     return Task.FromResult(true);
                 }
@@ -105,25 +104,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         protected abstract MethodInfo GetMethodInfo();
 
-        protected virtual object[] GetParams(MethodInfo methodInfo)
-        {
-            var obj = GetResult();
+        protected abstract object[] GetParams(MethodInfo methodInfo);
 
-            if (obj == null)
-            {
-                return null;
-            }
-
-            var type = obj.GetType();
-
-            return methodInfo.GetParameters()
-                .Select(
-                    p => type.GetProperty(p.Name)
-                        ?.GetValue(obj, null))
-                .ToArray();
-        }
-
-        protected virtual bool CheckResult(dynamic result)
+        protected virtual bool CheckResult(dynamic result, object[] requestParameters)
         {
             return true;
         }

@@ -7,13 +7,13 @@ name: Pkg EdFi.Ods.Populated.Template.PostgreSQL
 
 on:
   push:
-    branches: [main-5x, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
 
 env:
-  EDFI_STANDARD_REFERENCE: "v4.0.0"
+  EDFI_STANDARD_REFERENCE: "v3.3.1-b"
   INFORMATIONAL_VERSION: "5.4"
   BUILD_INCREMENTER: "1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -62,13 +62,13 @@ jobs:
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Install Postgres13
+    - name: Install Postgres11
       shell: pwsh
       run: |
-          choco install postgresql13 --params '/Password:postgres'
-          $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
-          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-          Restart-Service postgresql-x64-13
+          choco install postgresql11 --params '/Password:postgres'
+          $confPath = "C:\Program Files\PostgreSQL\11\data\pg_hba.conf"
+          (Get-Content $confPath).Replace("md5","trust") | Set-Content $confPath
+          Restart-Service postgresql-x64-11
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |

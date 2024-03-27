@@ -17,28 +17,39 @@ using Test.Common;
 namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
 {
     [SetUpFixture]
-    public class YearSpecificHostGlobalFixture
+    public class YearSpecificHostGlobalFixture : OneTimeGlobalDatabaseSetupBase
     {
-        private MsSqlDatabaseHelper _databaseHelper;
+        public static YearSpecificHostGlobalFixture Instance { get; private set; }
 
-        public static IHost Host { get; set; }
+        public YearSpecificHostGlobalFixture()
+        {
+            Instance = this;
+        }
 
-        public static IConfiguration Configuration { get; private set; }
+        public override string[] OdsTokens { get; set; } = { "2014", "2015" };
 
-        public static HttpClient HttpClient { get; private set; }
+        public HttpClient HttpClient { get; private set; }
+
+        protected override string DatabaseCopyPrefix
+        {
+            get => "EdFiOdsWebApiIntegrationTestsYearSpecific";
+        }
+        
+        private IHost Host { get; set; }
 
         [OneTimeSetUp]
-        public async Task OneTimeStartup()
+        public override async Task OneTimeSetUpAsync()
         {
+            await base.OneTimeSetUpAsync();
+
             var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebApiIntegrationTestFixture).Assembly.Location);
 
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configBuilder) =>
+                .ConfigureAppConfiguration(configBuilder =>
                     {
-                        configBuilder.SetBasePath(executableAbsoluteDirectory)
-                            .AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.json"))
-                            .AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json"));
+                        configBuilder.SetBasePath(executableAbsoluteDirectory);
+                        configBuilder.AddConfiguration(Configuration);
+                        configBuilder.AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json"));
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
@@ -49,45 +60,20 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
                     })
                 .Build();
 
-            Configuration = (IConfiguration) Host.Services.GetService(typeof(IConfiguration));
-
             HttpClient = new HttpClient {BaseAddress = new Uri(TestConstants.YearSpecificBaseUrl)};
 
-            CreateDatabases();
-
-            await Host.StartAsync(GlobalWebApiIntegrationTestFixture.CancellationToken);
-
-            void CreateDatabases()
-            {
-                string populatedTemplateDatabaseName = Configuration.GetValue<string>("TestDatabaseTemplateName");
-
-                if (string.IsNullOrWhiteSpace(populatedTemplateDatabaseName))
-                {
-                    throw new ApplicationException(
-                        "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
-                }
-
-                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
-
-                // year specific databases
-                _databaseHelper.CopyDatabase(
-                    populatedTemplateDatabaseName, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2014");
-
-                _databaseHelper.CopyDatabase(
-                    populatedTemplateDatabaseName, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2015");
-            }
+            await Host.StartAsync(GlobalWebApiIntegrationTestFixture.Instance.CancellationToken);
         }
 
         [OneTimeTearDown]
-        public async Task OneTimeTearDown()
+        public override async Task OneTimeTearDownAsync()
         {
+            await base.OneTimeTearDownAsync();
+
             HttpClient.Dispose();
 
             await Host?.StopAsync();
             Host?.Dispose();
-
-            _databaseHelper.DropDatabase($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2014");
-            _databaseHelper.DropDatabase($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2015");
         }
     }
 }

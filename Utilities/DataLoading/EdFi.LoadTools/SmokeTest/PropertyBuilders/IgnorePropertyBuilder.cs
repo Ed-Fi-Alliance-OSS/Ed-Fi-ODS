@@ -15,7 +15,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     /// </summary>
     public class IgnorePropertyBuilder : BaseBuilder
     {
-        private static readonly List<string> IgnoredPropertyNames = new List<string>
+        private static readonly List<string> _ignoredPropertyNames = new List<string>
         {
             "id",
             "_etag",
@@ -27,7 +27,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            return IgnoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase);
+            return _ignoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

@@ -4,15 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Common.Extensions;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 
@@ -33,21 +32,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             return client;
         }
 
-        public static async Task<T> GetAsync<T>(string connectionString, string query, CancellationToken cancellationToken)
+        public static async Task<T> GetAsync<T>(string query, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            await using var conn = new SqlConnection(connectionString);
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            await conn.OpenAsync(cancellationToken);
             return await conn.QuerySingleOrDefaultAsync<T>(query, cancellationToken);
         }
 
         public static string GetQueryString(string correlationId)
             => $"?{SpecialQueryStringParameters.CorrelationId}={correlationId}";
 
-        public static async Task<Guid> GetResourceIdAsync(string connectionString, string tableName, object keyValues,
-            CancellationToken cancellationToken)
+        public static async Task<Guid> GetResourceIdAsync(string tableName, object keyValues, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -59,14 +56,25 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                         ? kvp.Value.ToString().SingleQuoted()
                         : kvp.Value)));
 
-            await using var conn = new SqlConnection(connectionString);
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            await conn.OpenAsync(cancellationToken);
-
-            string query = $@"
-                  SELECT Id
-                  FROM  [edfi].[{tableName}]
-                  WHERE {whereClause}";
+            string query;
+            
+            if (CompositesSpecFlowTestFixture.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = $@"
+                SELECT Id
+                FROM  [edfi].[{tableName}]
+                WHERE {whereClause}";
+            }
+            else
+            {
+                query = $@"
+                SELECT Id
+                FROM  edfi.""{tableName.ToLowerInvariant()}""
+                WHERE {whereClause}";
+            }
+            
 
             return await conn.QuerySingleOrDefaultAsync<Guid>(query, cancellationToken);
         }
