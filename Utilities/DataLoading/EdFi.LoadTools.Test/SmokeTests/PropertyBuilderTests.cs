@@ -9,8 +9,8 @@ using System.Globalization;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
+using FakeItEasy;
 using Microsoft.OpenApi.Models;
-using Moq;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -43,7 +43,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                        };
 
             var propInfo = typeof(Class1).GetProperty("class2Property1");
-            var builder = new ExistingResourceBuilder(dict, Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new ExistingResourceBuilder(dict, A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsNotNull(obj.class2Property1);
         }
@@ -58,12 +58,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("listProperty1");
 
-            var propInfoMetadataLookup =
-                Mock.Of<IPropertyInfoMetadataLookup>(
-                    x => x.GetMetadata(propInfo) == new OpenApiParameter
-                                                    {
-                                                        Required = true
-                                                    });
+            var propInfoMetadataLookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => propInfoMetadataLookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true
+                });
 
             var builder = new ListPropertyBuilder(propInfoMetadataLookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
@@ -94,7 +94,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                        };
 
             var propInfo = typeof(Class1).GetProperty("class2ReferenceProperty");
-            var builder = new ReferencePropertyBuilder(dict, Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new ReferencePropertyBuilder(dict, A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsNotNull(obj.class2ReferenceProperty);
             Assert.AreEqual(5, obj.class2ReferenceProperty.intProperty);
@@ -110,13 +110,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("stringProperty1");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                                               {
-                                                   Required = true,
-                                                   Schema = new OpenApiSchema()
-                                               });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema()
+                });
 
             var builder = new StringPropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
@@ -135,12 +135,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("startTime");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                                               {
-                                                   Required = true
-                                               });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                });
 
             var builder = new TimeStringPropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
@@ -161,7 +161,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("testUniqueId");
-            var builder = new UniqueIdPropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new UniqueIdPropertyBuilder(A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsFalse(string.IsNullOrEmpty(obj.testUniqueId));
         }
@@ -176,12 +176,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("dateTimeProperty1");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                    {
-                        Required = true
-                    });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true
+                });
+
             var builder = new DateTimePropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreNotEqual(obj.dateTimeProperty1, default(DateTime));
@@ -192,12 +193,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("dateTimeProperty1");
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                    {
-                        Required = false
-                    });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = false
+                });
 
             var builder = new DateTimePropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
@@ -234,7 +235,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             public string _etag { get; set; }
 
-            public string _lastModifiedDate { get;set; }
+            public string _lastModifiedDate { get; set; }
         }
 
         private class Class2
@@ -263,7 +264,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("id");
-            var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new IgnorePropertyBuilder(A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsTrue(string.IsNullOrEmpty(obj.id));
         }
@@ -273,7 +274,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("_etag");
-            var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new IgnorePropertyBuilder(A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsTrue(string.IsNullOrEmpty(obj._etag));
         }
@@ -283,7 +284,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("link");
-            var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new IgnorePropertyBuilder(A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsNull(obj.link);
         }
@@ -293,7 +294,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("_lastModifiedDate");
-            var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            var builder = new IgnorePropertyBuilder(A.Fake<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsNull(obj._lastModifiedDate);
         }
@@ -308,14 +309,14 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("nullableProperty1");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                                               {
-                                                   Required = false
-                                               });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = false
+                });
 
-            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsFalse(obj.nullableProperty1.HasValue);
         }
@@ -326,15 +327,15 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("nullableProperty1");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                                               {
-                                                   Required = true,
-                                                   Schema = new OpenApiSchema()
-                                               });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema()
+                });
 
-            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreNotEqual(default(int), obj.nullableProperty1);
         }
@@ -345,14 +346,14 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var obj = new Class1();
             var propInfo = typeof(Class1).GetProperty("nullableProperty1");
 
-            var lookup = Mock.Of<IPropertyInfoMetadataLookup>(
-                f =>
-                    f.GetMetadata(propInfo) == new OpenApiParameter
-                                               {
-                                                   Required = false
-                                               });
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = false
+                });
 
-            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreEqual(default(int?), obj.nullableProperty1);
         }

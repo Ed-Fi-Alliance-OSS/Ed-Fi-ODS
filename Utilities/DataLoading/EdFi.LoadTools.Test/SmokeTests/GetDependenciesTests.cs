@@ -6,12 +6,12 @@
 using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.CommonTests;
+using FakeItEasy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Moq;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -62,7 +62,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public async Task Should_succeed_against_a_running_serverAsync()
         {
-            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == _address);
+            var configuration = A.Fake<IApiMetadataConfiguration>();
+            A.CallTo(() => configuration.Url).Returns(_address);
+
             var subject = new GetStaticDependenciesTest(configuration);
             var result = await subject.PerformTest();
             Assert.IsTrue(result);
@@ -72,7 +74,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public async Task Should_fail_against_no_serverAsync()
         {
             const string DependenciesUrl = "http://localhost:12345";
-            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.DependenciesUrl == DependenciesUrl);
+
+            var configuration = A.Fake<IApiMetadataConfiguration>();
+            A.CallTo(() => configuration.DependenciesUrl).Returns(DependenciesUrl);
+
             var subject = new GetStaticDependenciesTest(configuration);
             var result = await subject.PerformTest();
             Assert.IsFalse(result);
