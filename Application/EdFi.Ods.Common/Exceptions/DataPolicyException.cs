@@ -27,13 +27,13 @@ public class DataPolicyException : BadRequestDataException
     public DataPolicyException(string profileName)
         : base(DefaultDetail)
     {
-        ((IEdFiProblemDetails)this).Errors = new[] { string.Format(ResourceMessageFormat, profileName) };
+        this.SetErrors(string.Format(ResourceMessageFormat, profileName));
     }
 
     public DataPolicyException(string profileName, string childTypeName)
         : base(DefaultDetail)
     {
-        ((IEdFiProblemDetails)this).Errors = new[] { string.Format(ResourceChildMessageFormat, profileName, childTypeName) };
+        this.SetErrors(string.Format(ResourceChildMessageFormat, profileName, childTypeName));
     }
     
     // ---------------------------

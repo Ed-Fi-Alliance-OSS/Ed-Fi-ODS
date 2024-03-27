@@ -982,6 +982,450 @@
 							]
 						},
 						{
+							"name": "GetAll_401_Tests",
+							"item": [
+								{
+									"name": "when_auth_header_is_not_specified_should_return_401",
+									"item": [
+										{
+											"name": "when_auth_header_is_not_specified_should_return_401",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 401\", () => {",
+															"  pm.expect(pm.response.code).to.equal(401);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the Authorization header is missing.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authentication\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The caller could not be authenticated.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"Authorization header is missing.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "noauth"
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "when_auth_header_scheme_is_invalid_should_return_401",
+									"item": [
+										{
+											"name": "when_auth_header_scheme_is_invalid_should_return_401",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 401\", () => {",
+															"  pm.expect(pm.response.code).to.equal(401);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the Authorization header scheme is invalid.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authentication\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The caller could not be authenticated.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"Unknown Authorization header scheme.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "password",
+															"value": "123",
+															"type": "string"
+														},
+														{
+															"key": "username",
+															"value": "johndoe",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "when_auth_header_bearer_value_is_missing_should_return_401",
+									"item": [
+										{
+											"name": "when_auth_header_bearer_value_is_missing_should_return_401",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 401\", () => {",
+															"  pm.expect(pm.response.code).to.equal(401);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the Authorization header scheme is invalid.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authentication\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The caller could not be authenticated.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"Missing Authorization header bearer token value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": " ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "when_auth_header_bearer_value_is_invalid_should_return_401",
+									"item": [
+										{
+											"name": "when_auth_header_bearer_value_is_invalid_should_return_401",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 401\", () => {",
+															"  pm.expect(pm.response.code).to.equal(401);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the Authorization header scheme is invalid.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authentication\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The caller could not be authenticated.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"Invalid Authorization header.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "d49f5c606f03406db2e01b1c82d2997f",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "GetAll_405_Tests",
+							"item": [
+								{
+									"name": "when_http_method_is_patch_should_return_405",
+									"item": [
+										{
+											"name": "when_http_method_is_patch_should_return_405",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 405\", () => {",
+															"  pm.expect(pm.response.code).to.equal(405);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the HTTP method is not supported.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"The endpoint of the request does not support the 'PATCH' method.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "PATCH",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "when_http_method_is_options_should_return_405",
+									"item": [
+										{
+											"name": "when_http_method_is_options_should_return_405",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 405\", () => {",
+															"  pm.expect(pm.response.code).to.equal(405);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the HTTP method is not supported.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"",
+															"  pm.expect(problemDetails.errors).contains(\"The endpoint of the request does not support the 'OPTIONS' method.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "OPTIONS",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "when_http_method_is_head_should_return_405",
+									"item": [
+										{
+											"name": "when_http_method_is_head_should_return_405",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 405\", () => {",
+															"  pm.expect(pm.response.code).to.equal(405);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "HEAD",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
 							"name": "GetByExample_200_Tests",
 							"item": [
 								{
@@ -5515,7 +5959,8 @@
 															"\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"Remove Id from the URL.\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+															"  pm.expect(problemDetails.errors).contains(\"Resource items can only be updated using PUT. To \\\"upsert\\\" an item in the resource collection using POST, remove the \\\"id\\\" from the route.\")\r",
 															"\r",
 															"});"
 														],
@@ -7592,7 +8037,8 @@
 															"\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"Id is required in the URL.\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+															"  pm.expect(problemDetails.errors).contains(\"Resource collections cannot be replaced. To \\\"upsert\\\" an item in the collection, use POST. To update a specific item, use PUT and include the \\\"id\\\" in the route.\")\r",
 															"\r",
 															"});"
 														],
@@ -8478,7 +8924,8 @@
 															"\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"Id is required in the URL.\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+															"  pm.expect(problemDetails.errors).contains(\"Resource collections cannot be deleted. To delete a specific item, use DELETE and include the \\\"id\\\" in the route.\")\r",
 															"\r",
 															"});"
 														],

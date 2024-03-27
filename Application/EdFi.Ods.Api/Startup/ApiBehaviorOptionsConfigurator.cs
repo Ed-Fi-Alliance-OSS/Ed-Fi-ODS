@@ -6,6 +6,7 @@
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
@@ -38,9 +39,9 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
                 var problemDetails = _errorTranslator.GetProblemDetails(
                     _dataManagementResourceContextProvider.Get()?.Resource,
                     actionContext.ModelState);
-                
-                problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
-                
+
+                problemDetails.CorrelationId = _logContextAccessor.GetCorrelationId();
+
                 return new BadRequestObjectResult(problemDetails);
             }
             

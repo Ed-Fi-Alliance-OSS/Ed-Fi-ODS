@@ -21,7 +21,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
     [TestFixture]
     public class NotificationsMessageSinkTests
     {
-        private MemoryAppender _memoryAppender;
+        private MemoryAppender? _memoryAppender;
 
         [SetUp]
         public void Setup()
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
         [TearDown]
         public void Teardown()
         {
-            _memoryAppender.GetEvents().Select(e => e.RenderedMessage).ForEach(s => Console.WriteLine(s));
+            _memoryAppender!.GetEvents().Select(e => e.RenderedMessage).ForEach(s => Console.WriteLine(s));
 
             // Clean up and clear the MemoryAppender after each test
             Log4NetTestHelper.ClearMemoryAppender();
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             // Assert
             A.CallTo(() => mediator.Publish(A<INotification>._, CancellationToken.None)).MustNotHaveHappened();
             
-            _memoryAppender.GetEvents()
+            _memoryAppender!.GetEvents()
                 .ShouldContain(e => 
                     e.Level == Level.Error 
                     && e.RenderedMessage == $"Message received with unrecognized notification type 'non-attributed-test-notification'...");
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             sink.Receive(invalidMessageContent);
 
             // Assert
-            _memoryAppender.GetEvents()
+            _memoryAppender!.GetEvents()
                 .ShouldContain(e => 
                         e.Level == Level.Error 
                         && e.RenderedMessage == "An error occurred while processing the incoming message content: 'InvalidMessageContent'...");
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Features.UnitTests.Notifications
             sink.Receive(validMessageContent);
 
             // Assert
-            _memoryAppender.GetEvents()
+            _memoryAppender!.GetEvents()
                 .ShouldContain(e => 
                     e.Level == Level.Info 
                     && e.RenderedMessage == $"Received notification message 'test-notification' associated with type '{nameof(TestNotification)}'...");

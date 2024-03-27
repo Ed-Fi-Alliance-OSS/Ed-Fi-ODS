@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
@@ -79,13 +80,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             {
                 _logger.Debug("ChangeQueries is not enabled.");
 
-                return ControllerHelpers.NotFound("ChangeQueries is not enabled.");
+                return ControllerHelpers.FeatureDisabled(
+                    ChangeQueriesConstants.FeatureName,
+                    _logContextAccessor.GetCorrelationId());
             }
 
             if (!_domainModelProvider.GetDomainModel()
                     .ResourceModel.TryGetResourceByApiCollectionName(schema, resource, out var resourceClass))
             {
-                return ControllerHelpers.NotFound($"The resource {resource} could not be found.");
+                return ControllerHelpers.NotFound(_logContextAccessor.GetCorrelationId());
             }
 
             var parameterMessages = urlQueryParametersRequest.Validate(_defaultPageLimitSize).ToArray();
@@ -95,7 +98,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return BadRequest(
                     new BadRequestException("The parameters provided to the request were invalid.", parameterMessages)
                     {
-                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());
             }
 

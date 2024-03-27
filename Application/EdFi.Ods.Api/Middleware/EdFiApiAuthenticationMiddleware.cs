@@ -5,10 +5,9 @@
 
 using System;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security;
 using log4net;
@@ -21,21 +20,18 @@ namespace EdFi.Ods.Api.Middleware
     public class EdFiApiAuthenticationMiddleware
     {
         private readonly IApiClientContextProvider _apiClientContextProvider;
-        private readonly AuthenticateResultTranslator _authenticateResultTranslator;
         private readonly RequestDelegate _next;
         private readonly ILogContextAccessor _logContextAccessor;
 
         public EdFiApiAuthenticationMiddleware(RequestDelegate next,
             IAuthenticationSchemeProvider schemes,
             IApiClientContextProvider apiClientContextProvider,
-            AuthenticateResultTranslator authenticateResultTranslator,
             ILogContextAccessor logContextAccessor)
         {
             if (schemes != null)
             {
                 _next = next ?? throw new ArgumentNullException(nameof(next));
                 _apiClientContextProvider = apiClientContextProvider;
-                _authenticateResultTranslator = authenticateResultTranslator;
                 Schemes = schemes;
                 _logContextAccessor = logContextAccessor;
             }
@@ -90,17 +86,32 @@ namespace EdFi.Ods.Api.Middleware
                         context.Request.Path.StartsWithSegments("/composites") ||
                         context.Request.Path.StartsWithSegments("/changeQueries"))
                 {
-                    string correlationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
-
-                    var problemDetails = (EdFiProblemDetailsExceptionBase)_authenticateResultTranslator.GetProblemDetails(result);
-
-                    problemDetails.CorrelationId = correlationId;
+                    var problemDetails = GetProblemDetailsExceptionFromResult(result);
+                    problemDetails.CorrelationId = _logContextAccessor.GetCorrelationId();;
 
                     await context.Response.WriteProblemDetailsAsync(problemDetails);
+
+                    return;
                 }
             }
 
-        await _next(context);
+            await _next(context);
+
+            EdFiProblemDetailsExceptionBase GetProblemDetailsExceptionFromResult(AuthenticateResult result)
+            {
+                EdFiProblemDetailsExceptionBase problemDetails;
+
+                if (result.None)
+                {
+                    problemDetails = new SecurityAuthenticationException(AuthenticationFailureMessages.MissingAuthorizationHeader);
+                }
+                else
+                {
+                    problemDetails = new SecurityAuthenticationException(result.Failure.Message, result.Failure);
+                }
+
+                return problemDetails;
+            }
+        }
     }
-}
 }

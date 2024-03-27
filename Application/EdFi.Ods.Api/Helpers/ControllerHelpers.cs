@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Net;
 using EdFi.Ods.Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Helpers
@@ -12,16 +12,32 @@ namespace EdFi.Ods.Api.Helpers
     public static class ControllerHelpers
     {
         /// <summary>
-        /// Gets an IActionResult returning a 404 Not Found status with no response body.
+        /// Gets an IActionResult returning a 404 Not Found status with a default response body indicating the resource could not be found.
         /// </summary>
         /// <returns></returns>
-        public static IActionResult NotFound(string error)
+        public static IActionResult NotFound(string correlationId = null)
         {
-            var problemDetails = new NotFoundException(error);
+            var problemDetails = new NotFoundException()
+            {
+                CorrelationId = correlationId
+            };
 
-            return new ObjectResult(problemDetails)
+            return new ObjectResult(problemDetails.AsSerializableModel())
             {
                 StatusCode = problemDetails.Status,
+            };
+        }
+
+        public static IActionResult FeatureDisabled(string featureName, string correlationId = null)
+        {
+            return new ObjectResult(
+                new FeatureDisabledException(featureName, StatusCodes.Status404NotFound)
+                    {
+                        CorrelationId = correlationId
+                    }
+                    .AsSerializableModel())
+            {
+                StatusCode = StatusCodes.Status404NotFound
             };
         }
     }

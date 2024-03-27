@@ -175,11 +175,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISystemDateProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
-                .As<IProfileResourceModelProvider>()
-                .PreserveExistingDefaults()
-                .SingleInstance();
-
             builder.RegisterType<EdFiOdsInstanceIdentificationProvider>()
                 .As<IEdFiOdsInstanceIdentificationProvider>()
                 .SingleInstance();
@@ -464,7 +459,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     .AsSelf()
                     .SingleInstance();
 
-                builder.RegisterType<ComplementErrorDetailsMiddleware>()
+                builder.RegisterType<ProblemDetailsErrorEnrichmentMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()
                     .SingleInstance();
@@ -497,8 +492,6 @@ namespace EdFi.Ods.Api.Container.Modules
                     .SingleInstance();
 
                 builder.RegisterType<ErrorTranslator>().SingleInstance();
-
-                builder.RegisterType<AuthenticateResultTranslator>().SingleInstance();
 
                 builder.RegisterType<ModelStateKeyConverter>().EnableClassInterceptors().SingleInstance();
 

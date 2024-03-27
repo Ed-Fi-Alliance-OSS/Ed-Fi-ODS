@@ -18,11 +18,11 @@ namespace EdFi.Ods.Features.UnitTests.Notifications;
 [TestFixture]
 public class ExpireCacheHandlerTests
 {
-    private MemoryAppender _memoryAppender;
-    private IClearableInterceptor _fakeClearableInterceptor;
+    private MemoryAppender? _memoryAppender;
+    private IClearableInterceptor? _fakeClearableInterceptor;
 
-    private IInterceptor _interceptorOutPlaceholder;
-    private IIndex<string, IInterceptor> _fakeInterceptorIndex;
+    private IInterceptor? _interceptorOutPlaceholder;
+    private IIndex<string, IInterceptor>? _fakeInterceptorIndex;
 
     [SetUp]
     public void Setup()
@@ -40,7 +40,7 @@ public class ExpireCacheHandlerTests
     [TearDown]
     public void Teardown()
     {
-        _memoryAppender.GetEvents().Select(e => e.RenderedMessage).ForEach(s => Console.WriteLine(s));
+        _memoryAppender!.GetEvents().Select(e => e.RenderedMessage).ForEach(s => Console.WriteLine(s));
 
         // Clean up and clear the MemoryAppender after each test
         Log4NetTestHelper.ClearMemoryAppender();
@@ -50,9 +50,9 @@ public class ExpireCacheHandlerTests
     public void Handle_ClearableInterceptor_ClearsSecurityMetadata()
     {
         // Arrange
-        A.CallTo(() => _fakeClearableInterceptor.Clear()).DoesNothing();
+        A.CallTo(() => _fakeClearableInterceptor!.Clear()).DoesNothing();
 
-        A.CallTo(() => _fakeInterceptorIndex.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
+        A.CallTo(() => _fakeInterceptorIndex!.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
             .Returns(true)
             .AssignsOutAndRefParameters(_fakeClearableInterceptor);
 
@@ -62,16 +62,16 @@ public class ExpireCacheHandlerTests
         handler.Handle(new ExpireCache() { CacheType = "the-one" }, CancellationToken.None).Wait();
 
         // Assert
-        A.CallTo(() => _fakeClearableInterceptor.Clear()).MustHaveHappened();
+        A.CallTo(() => _fakeClearableInterceptor!.Clear()).MustHaveHappened();
     }
 
     [Test]
     public void Handle_ClearableInterceptor_Exception_LogsError()
     {
         // Arrange
-        A.CallTo(() => _fakeClearableInterceptor.Clear()).Throws<Exception>();
+        A.CallTo(() => _fakeClearableInterceptor!.Clear()).Throws<Exception>();
 
-        A.CallTo(() => _fakeInterceptorIndex.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
+        A.CallTo(() => _fakeInterceptorIndex!.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
             .Returns(true)
             .AssignsOutAndRefParameters(_fakeClearableInterceptor);
 
@@ -81,7 +81,7 @@ public class ExpireCacheHandlerTests
         handler.Handle(new ExpireCache() { CacheType = "the-one" }, CancellationToken.None).Wait();
 
         // Assert
-        _memoryAppender.GetEvents()
+        _memoryAppender!.GetEvents()
             .ShouldContain(e => e.Level == Level.Error && e.RenderedMessage == $"Unable to clear cache.");
     }
 
@@ -91,7 +91,7 @@ public class ExpireCacheHandlerTests
         // Arrange
         var nonClearableInterceptor = A.Fake<IInterceptor>(); // Mock a non-clearable interceptor
 
-        A.CallTo(() => _fakeInterceptorIndex.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
+        A.CallTo(() => _fakeInterceptorIndex!.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
             .Returns(true)
             .AssignsOutAndRefParameters(nonClearableInterceptor);
 
@@ -101,7 +101,7 @@ public class ExpireCacheHandlerTests
         handler.Handle(new ExpireCache() { CacheType = "the-one" }, CancellationToken.None).Wait();
 
         // Assert
-        _memoryAppender.GetEvents()
+        _memoryAppender!.GetEvents()
             .ShouldContain(e => 
                 e.Level == Level.Warn
                 && e.RenderedMessage == $"Notification to clear the 'the-one' cache was received, but the registered {nameof(IInterceptor)} (named 'cache-the-one') is not clearable...");
@@ -113,7 +113,7 @@ public class ExpireCacheHandlerTests
         // Arrange
         var nonClearableInterceptor = A.Fake<IInterceptor>(); // Mock a non-clearable interceptor
 
-        A.CallTo(() => _fakeInterceptorIndex.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
+        A.CallTo(() => _fakeInterceptorIndex!.TryGetValue("cache-the-one", out _interceptorOutPlaceholder))
             .Returns(true)
             .AssignsOutAndRefParameters(nonClearableInterceptor);
 
@@ -123,7 +123,7 @@ public class ExpireCacheHandlerTests
         handler.Handle(new ExpireCache() { CacheType = "something-else" }, CancellationToken.None).Wait();
 
         // Assert
-        _memoryAppender.GetEvents()
+        _memoryAppender!.GetEvents()
             .ShouldContain(e => 
                 e.Level == Level.Warn
                 && e.RenderedMessage == $"Notification to clear the 'something-else' cache was received, but no {nameof(IInterceptor)} has been registered with a name of 'cache-something-else'...");

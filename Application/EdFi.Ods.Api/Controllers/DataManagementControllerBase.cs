@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,9 +19,9 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Logging;
@@ -36,7 +35,6 @@ using EdFi.Ods.Common.Validation;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Net.Http.Headers;
 using Polly;
 using Polly.Retry;
@@ -183,7 +181,7 @@ namespace EdFi.Ods.Api.Controllers
                     "The limit parameter was incorrect.",
                     new[] { $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}." })
                 {
-                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();
 
                 return BadRequest(problemDetails);
@@ -253,6 +251,32 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(result.Resource);
         }
 
+        [HttpPut][HttpDelete]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public virtual Task<IActionResult> PutOrDelete()
+        {
+            MethodNotAllowedException problemDetails;
+
+            if (Request.Method == HttpMethods.Put)
+            {
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be replaced. To \"upsert\" an item in the collection, use POST. To update a specific item, use PUT and include the \"id\" in the route.")
+                {
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
+                };
+            }
+            else
+            {
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be deleted. To delete a specific item, use DELETE and include the \"id\" in the route.")
+                {
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
+                };
+            }
+
+            return Task.FromResult<IActionResult>(
+                new ObjectResult(problemDetails.AsSerializableModel()) { StatusCode = problemDetails.Status });
+        }
+
         [HttpPut("{id}")]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -320,6 +344,20 @@ namespace EdFi.Ods.Api.Controllers
             return StatusCode(problemDetails.Status, problemDetails);
         }
 
+        [HttpPost("{id}")]
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public virtual Task<IActionResult> Post(Guid id)
+        {
+            var problemDetails = new MethodNotAllowedException("Resource items can only be updated using PUT. To \"upsert\" an item in the resource collection using POST, remove the \"id\" from the route.")
+            {
+                CorrelationId = _logContextAccessor.GetCorrelationId()
+            };
+
+            return Task.FromResult<IActionResult>(
+                new ObjectResult(problemDetails.AsSerializableModel()) { StatusCode = problemDetails.Status });
+        }
+
         [HttpPost]
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -343,7 +381,7 @@ namespace EdFi.Ods.Api.Controllers
                     "The request data was constructed incorrectly.",
                     new[] { "Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
                 {
-                    CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();
 
                 return BadRequest(problemDetails);
@@ -398,7 +436,7 @@ namespace EdFi.Ods.Api.Controllers
                 _dataManagementResourceContextProvider.Get().Resource,
                 validationResults);
 
-            problemDetails.CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            problemDetails.CorrelationId = _logContextAccessor.GetCorrelationId();
 
             return BadRequest(problemDetails);
         }

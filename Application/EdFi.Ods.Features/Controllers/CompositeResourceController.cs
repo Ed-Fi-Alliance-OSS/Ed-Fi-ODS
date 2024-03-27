@@ -131,7 +131,7 @@ namespace EdFi.Ods.Features.Controllers
                             "The limit parameter was incorrect.",
                             new[] { "Limit must be omitted or set to a value between 1 and 100." })
                         {
-                            CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                            CorrelationId = _logContextAccessor.GetCorrelationId()
                         }.AsSerializableModel();
                 
                         return BadRequest(problemDetails);

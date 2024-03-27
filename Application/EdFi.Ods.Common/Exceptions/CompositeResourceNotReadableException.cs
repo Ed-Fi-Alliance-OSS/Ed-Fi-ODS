@@ -29,13 +29,11 @@ public class CompositeResourceNotReadableException : SecurityAuthorizationExcept
         // If the inner exception is a Problem Details-based exception, concatenate the errors.
         if (inner is IEdFiProblemDetails innerProblemDetails)
         {
-            ((IEdFiProblemDetails)this).Errors = innerProblemDetails.Errors
-                .Prepend(error)
-                .ToArray();
+            this.SetErrors(innerProblemDetails.Errors.Prepend(error).ToArray());
         }
         else
         {
-            ((IEdFiProblemDetails)this).Errors = new[] { error };
+            this.SetErrors(error);
         }
     }
 

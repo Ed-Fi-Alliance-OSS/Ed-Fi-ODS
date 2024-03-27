@@ -10875,7 +10875,7 @@
 											"\r",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-											"  pm.expect(problemDetails.detail).to.equal(\"The resource nonExisting could not be found.\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The specified resource could not be found.\");\r",
 											"\r",
 											"});"
 										],
@@ -10918,7 +10918,7 @@
 											"\r",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-											"  pm.expect(problemDetails.detail).to.equal(\"The resource nonExisting could not be found.\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The specified resource could not be found.\");\r",
 											"\r",
 											"});"
 										],

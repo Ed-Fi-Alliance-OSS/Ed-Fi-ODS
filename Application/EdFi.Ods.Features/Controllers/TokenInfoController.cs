@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Features.Controllers
                         "An invalid token was provided",
                         new[] { "The token was not present, or was not processable as a GUID value." })
                     {
-                        CorrelationId = (string)_logContextAccessor.GetValue(CorrelationConstants.LogContextKey)
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());
             }
 
