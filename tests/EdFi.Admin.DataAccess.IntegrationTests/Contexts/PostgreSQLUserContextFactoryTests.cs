@@ -41,7 +41,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
                 Assert.Inconclusive("PostgreSQL UserContextFactory integration tests are not being run because the engine is not set to Postgres.");
             }
             
-            var connectionString = config.GetConnectionString("PostgreSQL");
+            var connectionString = config.GetConnectionString("EdFi_Admin");
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseNpgsql(connectionString);
