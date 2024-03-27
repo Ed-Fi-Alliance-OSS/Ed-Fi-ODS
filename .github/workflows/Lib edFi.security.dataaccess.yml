@@ -62,7 +62,7 @@ jobs:
       shell: pwsh
     - name: Run Unit tests
       run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"
+        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj" -TestFilter "DataAccessIntegrationTests"
       shell: pwsh
     - name: pack
       run: |

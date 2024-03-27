@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
+using Category = NUnit.Framework.CategoryAttribute;
 
-namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
+namespace EdFi.Admin.DataAccess.IntegrationTests.Models
 {
     public class UserContextMappingTests
     {
-        [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [TestFixture, Category("DataAccessIntegrationTests")]
+        [ExclusivelyUses("TestAdminDatabase")]
         public class When_creating_a_user : UserContextTestBase
         {
             private string emailAddress;
@@ -48,8 +48,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [TestFixture, Category("DataAccessIntegrationTests")]
+        [ExclusivelyUses("TestAdminDatabase")]
         public class When_adding_an_lea_mapping_to_a_client : UserContextTestBase
         {
             private string clientName;
@@ -99,8 +99,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [TestFixture, Category("DataAccessIntegrationTests")]
+        [ExclusivelyUses("TestAdminDatabase")]
         public class When_adding_an_lea_mapping_to_an_application : UserContextTestBase
         {
             private string appName;
@@ -145,8 +145,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
-        [ExclusivelyUses(TestSingletons.EmptyAdminDatabase)]
+        [TestFixture, Category("DataAccessIntegrationTests")]
+        [ExclusivelyUses("TestAdminDatabase")]
         public class When_adding_an_application_to_a_vendor : UserContextTestBase
         {
             private string vendorName;
@@ -192,7 +192,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
-        [TestFixture]
+        [TestFixture, Category("DataAccessIntegrationTests")]
         public class When_adding_a_local_education_agency_to_an_application : UserContextTestBase
         {
             private string vendorName;
@@ -244,6 +244,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
+        [TestFixture, Category("DataAccessIntegrationTests")]
         public class When_creating_ods_context : UserContextTestBase
         {
             private string odsName;
@@ -313,6 +314,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             }
         }
 
+        [TestFixture, Category("DataAccessIntegrationTests")]
         public class When_creating_ods_derivative : UserContextTestBase
         {
             private string odsName;

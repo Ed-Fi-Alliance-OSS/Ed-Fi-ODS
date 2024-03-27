@@ -104,7 +104,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
         public class When_handling_an_invalid_token_request
             : TestFixtureBase
         {
-            private IClientAppRepo _clientAppRepo;
             private IAccessTokenFactory _accessTokenFactory;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenRequest _tokenRequest;
@@ -113,7 +112,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
 
             protected override void Arrange()
             {
-                _clientAppRepo = A.Fake<IClientAppRepo>();
                 _accessTokenFactory = A.Fake<IAccessTokenFactory>();
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
