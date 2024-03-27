@@ -44,7 +44,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
             }
 
             // Setup SQL Server
-            var connectionString = config.GetConnectionString("MSSQL");
+            var connectionString = config.GetConnectionString("EdFi_Admin");
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(connectionString);

@@ -46,7 +46,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
             }
 
             // Setup PostgreSQL
-            var connectionString = config.GetConnectionString("PostgreSQL");
+            var connectionString = config.GetConnectionString("EdFi_Security");
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseNpgsql(connectionString);
