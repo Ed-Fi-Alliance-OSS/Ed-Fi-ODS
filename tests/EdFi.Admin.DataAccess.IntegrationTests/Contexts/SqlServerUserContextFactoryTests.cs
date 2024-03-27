@@ -40,7 +40,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
                 Assert.Inconclusive("SQLServer SecurityContextFactory integration tests are not being run because the engine is not set to SQL Server.");
             }
             
-            var connectionString = config.GetConnectionString("MSSQL");
+            var connectionString = config.GetConnectionString("EdFi_Admin");
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(connectionString);
@@ -59,7 +59,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext_make_a_change_and_save_it()
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
-            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Trusted_Connection=True; Encrypt=False;");
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns(_context.Database.GetConnectionString());
 
             var context = new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext();
