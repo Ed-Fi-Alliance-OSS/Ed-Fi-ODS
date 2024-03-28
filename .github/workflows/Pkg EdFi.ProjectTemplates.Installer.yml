@@ -37,10 +37,10 @@ jobs:
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-    - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
+    - name: Setup .NET Framework 4.8
+      uses: warrenbuckley/Setup-MSBuild@v1
       with:
-        dotnet-version: '4.8'        
+        msbuild-version: '16.0'    # Use '16.0' for .NET Framework 4.x  
     - name: Cache Nuget packages
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
@@ -57,16 +57,13 @@ jobs:
             }
       shell: pwsh
     - name: Restore NuGet packages
-      run: |
-        .\build.githubactions.ps1 restore -Solution "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln"
+      run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
       shell: pwsh                
     - name: build
-      run: |
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" -ProjectFile "Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.csproj"
+      run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=Release
       shell: pwsh
     - name: pack
-      run: |
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" -ProjectFile "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.csproj" -PackageName  "EdFi.Suite3.ProjectTemplates.Installer"
+      run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.csproj" /p:Configuration=Release /t:Pack
       shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
