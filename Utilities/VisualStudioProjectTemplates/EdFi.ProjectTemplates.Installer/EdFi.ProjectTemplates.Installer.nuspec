@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.Suite3.ProjectTemplates.Installer</id>
+    <version>0.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <copyright>$copyright$</copyright>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EdFi.Suite3.ProjectTemplates.Installer</description>
+    <releaseNotes></releaseNotes>
+    <license type="file">LICENSE.txt</license>
+  </metadata>
+  <files>
+    <file src="../../LICENSE.txt" />  
+    <file src="bin\$configuration$\LICENSE.txt" />
+    <file src="Versions/**/*.*" target="Artifacts/." />
+    <file src="bin\$configuration$\EdFi.ProjectTemplates.Installer.dll" target="." />
+    <file src="bin\$configuration$\EdFi.ProjectTemplates.Installer.vsix" target="." />    
+    <file src="bin\$configuration$\EdFi.ProjectTemplates.Installer.pdb" target="." />
+    <file src="bin\$configuration$\extension.vsixmanifest" target="." />    
+    <file src="bin\$configuration$\Release Notes.rtf" target="." />       
+    <file src="bin\$configuration$\ed-fi-logo.png" target="." />
+    <file src="bin\$configuration$\TemplateIcon.png" target="." />      
+  </files>
+</package>
