@@ -16,7 +16,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
     public class ModelDependencySort : IModelDependencySort
     {
         private readonly IResourceApi[] _apis;
-        private readonly AdjacencyGraph<Type, MEdge> _graph;
+        private readonly Lazy<AdjacencyGraph<Type, MEdge>> _graph;
         private readonly Type[] _models;
         private readonly List<string> _schemaNames;
 
@@ -25,17 +25,17 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             _schemaNames = schemaNames;
             _models = categorizer.ModelTypes.ToArray();
             _apis = categorizer.ResourceApis.ToArray();
-            _graph = BuildModelGraph();
+            _graph = new Lazy<AdjacencyGraph<Type, MEdge>>(BuildModelGraph);
         }
 
         public IEnumerable<Type> OrderedModels()
         {
-            return _graph.TopologicalSort();
+            return _graph.Value.TopologicalSort();
         }
 
         public IEnumerable<IResourceApi> OrderedApis()
         {
-            return from type in _graph.TopologicalSort()
+            return from type in _graph.Value.TopologicalSort()
                    from api in _apis
                    where type == api.ModelType
                    select api;
@@ -119,9 +119,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                                 && IsMatch(model.Name, regex)
                                 && model.Name == modelName
                           select new
-                                 {
-                                     property, model
-                                 })
+                            {
+                                property, model
+                            })
                         .GroupBy(x => x.property).ToList();
 
             //
