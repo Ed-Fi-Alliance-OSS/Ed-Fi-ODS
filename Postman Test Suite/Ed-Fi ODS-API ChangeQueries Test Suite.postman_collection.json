@@ -3841,7 +3841,8 @@
 											"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra II\");",
 											"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#SCED course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"SCED course code\");",
-											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"SCED course code\");"
+											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"SCED course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseCode',\"SCED course code\");"
 										],
 										"type": "text/javascript"
 									}
@@ -3859,7 +3860,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"courseCode\": \"{{supplied:{{scenarioId}}:courseCode}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",

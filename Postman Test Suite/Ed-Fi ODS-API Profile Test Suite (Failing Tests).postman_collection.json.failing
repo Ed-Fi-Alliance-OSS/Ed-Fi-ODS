@@ -1,0 +1,1435 @@
+{
+	"info": {
+		"_postman_id": "6217a971-86c6-4e25-9374-62bf527472f9",
+		"name": "Ed-Fi ODS/API Profile Test Suite (Failing Tests)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33821313"
+	},
+	"item": [
+		{
+			"name": "Load Descriptor Data",
+			"item": [
+				{
+					"name": "Initiailze   addressTypeDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    const __ = require('lodash');",
+									"     ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/AddressTypeDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/addressTypeDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"",
+									"}  \t"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/addressTypeDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"addressTypeDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   AssessmentReportingMethodDescriptors  List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"const __ = require('lodash');",
+									"const descriptorList=['A1','A2','A3','A4'];",
+									"",
+									"",
+									"    \t__.each(descriptorList, eachDescriptor => {",
+									"    \t    ",
+									"        \t    let payload = { ",
+									"                codeValue: eachDescriptor ,",
+									"                description: eachDescriptor ,",
+									"                namespace: 'uri://ed-fi.org/AssessmentReportingMethodDescriptor' ,",
+									"                shortDescription: eachDescriptor",
+									"            };",
+									"",
+									"            let  descriptorPostRequest = {",
+									"              url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/assessmentReportingMethodDescriptors\",",
+									"              method:'POST',",
+									"              header: {",
+									"                    \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                    \"Content-Type\": \"application/json\"",
+									"                },",
+									"              body: {",
+									"                    mode: 'raw',",
+									"                    raw: JSON.stringify(payload)",
+									"                }",
+									"            };",
+									"",
+									"    ",
+									"             pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                    if (err) {",
+									"                        console.log(err);",
+									"                    } else {",
+									"                        console.log(descriptor);",
+									"                    }",
+									"            });",
+									"    ",
+									"    ",
+									"     \t});",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/AssessmentReportingMethodDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"AssessmentReportingMethodDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   StateAbbreviationDescriptors  List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['S1','S2','S3','S4'];",
+									"    ",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/StateAbbreviationDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/StateAbbreviationDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StateAbbreviationDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StateAbbreviationDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   SchoolCategoryDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['S1','S2','S3','S4'];",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/SchoolCategoryDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/SchoolCategoryDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/SchoolCategoryDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"SchoolCategoryDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   GradeLevelDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    ",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['G1','G2','G3','G4'];",
+									"    ",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/GradeLevelDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/GradeLevelDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/GradeLevelDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"GradeLevelDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   CountryDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['C1','C2','C3','C4'];",
+									"    ",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/CountryDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/CountryDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"    ",
+									"    ",
+									"     \t});",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/CountryDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"CountryDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   PerformanceLevelDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['P1','P2','P3','P4'];",
+									"    ",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/PerformanceLevelDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/PerformanceLevelDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/PerformanceLevelDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"PerformanceLevelDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   ResultDatatypeTypeDescriptors List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+									"",
+									"if (profilesFeatureIsEnabled === true){",
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const __ = require('lodash');",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/ResultDatatypeTypeDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/resultDatatypeTypeDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/resultDatatypeTypeDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"resultDatatypeTypeDescriptors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Feature:Embedded one to one references can be included and excluded",
+			"item": [
+				{
+					"name": "Initial Setup",
+					"item": [
+						{
+							"name": "Initialize Known Assessment Data for Get Requests",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    const __ = require('lodash');",
+											"    const responseItems = pm.response.json();",
+											"    pm.environment.set('known:embedded:assessmentGuid', __.first(responseItems)[\"id\"]);",
+											"    pm.environment.set('known:contentStandardTitle', __.first(responseItems)[\"contentStandard\"][\"title\"]);",
+											"    pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "The Read content type can include embedded one to one references",
+					"item": [
+						{
+							"name": "The Read content type can include embedded one to one references",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });",
+											"",
+											"",
+											"    pm.test(\"Should the item return contain the embedded object ContentStandard\", () => {",
+											"    ",
+											"     const responseItem = pm.response.json();",
+											"     const properties = Object.keys(responseItem); ",
+											"     pm.expect(properties).to.include.any.members(['contentStandard']);",
+											"    });",
+											"}",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard"
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "The Read content type can exclude embedded one to one references",
+					"item": [
+						{
+							"name": "The Read content type can exclude embedded one to one references",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });",
+											"",
+											"",
+											"    pm.test(\"Should the item return should not contain the embedded object ContentStandard\", () => {",
+											"        ",
+											"         const responseItem = pm.response.json();",
+											"         const properties = Object.keys(responseItem); ",
+											"         pm.expect(properties).to.not.include.any.members(['contentStandard']);",
+											"    });",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.readable+json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Read content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Excludes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the response should not contain the embedded object ContentStandard"
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The Read content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Excludes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the response should not contain the embedded object ContentStandard",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "The Write content type can exclude embedded one to one references",
+					"item": [
+						{
+							"name": "The Write content type can exclude embedded one to one references",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 204\", () => {",
+											"        pm.expect(pm.response.code).to.equal(204);",
+											"    });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"pm.environment.set('scenarioId',createScenarioId());",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':edfiAssessmentTitle',newGuid());",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \r\n  \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n     \"title\":\"{{supplied:{{scenarioId}}:edfiAssessmentTitle}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n \r\n \r\n \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get contentStandard Change",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });",
+											"",
+											"",
+											"    pm.test(\"Should the item return with updated the embedded object ContentStandard\", () => {",
+											"        ",
+											"         const responseItem = pm.response.json();",
+											"         pm.expect(responseItem[\"contentStandard\"][\"title\"]).to.equal(pm.environment.get('known:contentStandardTitle'));",
+											"    });",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "The Write content type can include embedded one to one references",
+					"item": [
+						{
+							"name": "The Write content type can include embedded one to one references",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 204\", () => {",
+											"        pm.expect(pm.response.code).to.equal(204);",
+											"    });",
+											"}",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"pm.environment.set('scenarioId',createScenarioId());",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':edfiAssessmentTitle',newGuid());",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n     \"title\":\"{{supplied:{{scenarioId}}:edfiAssessmentTitle}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n \r\n \r\n \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Get contentStandard Change",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"",
+											"if (profilesFeatureIsEnabled === true){",
+											"    pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });",
+											"",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    pm.test(\"Should the item return should not have update of embedded object ContentStandard\", () => {",
+											"        ",
+											"         pm.expect(responseItem[\"contentStandard\"][\"title\"]).to.not.equal(pm.environment.get('known:contentStandardTitle'));",
+											"    });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:embedded:assessmentGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"assessments",
+										"{{known:embedded:assessmentGuid}}"
+									]
+								},
+								"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Clean Up Test Data",
+			"item": [
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_255901}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
+					"",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_EmbeddedObject\",\"AccessToken_ProfileTest_EmbeddedObject\",\"ApiKey_ProfileTest_EmbeddedObject\",\"ApiSecret_ProfileTest_EmbeddedObject\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ResourceReadOnly\",\"AccessToken_ProfileTest_ResourceReadOnly\",\"ApiKey_ProfileTest_ResourceReadOnly\",\"ApiSecret_ProfileTest_ResourceReadOnly\")",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_SpecificDescriptors\",\"AccessToken_ProfileTest_SpecificDescriptors\",\"ApiKey_ProfileTest_SpecificDescriptors\",\"ApiSecret_ProfileTest_SpecificDescriptors\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_SpecificTypesDescriptors\",\"AccessToken_ProfileTest_SpecificTypesDescriptors\",\"ApiKey_ProfileTest_SpecificTypesDescriptors\",\"ApiSecret_ProfileTest_SpecificTypesDescriptors\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_IncludeAll\",\"AccessToken_ProfileTest_IncludeAll\",\"ApiKey_ProfileTest_IncludeAll\",\"ApiSecret_ProfileTest_IncludeAll\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_IncludeOnly\",\"AccessToken_ProfileTest_IncludeOnly\",\"ApiKey_ProfileTest_IncludeOnly\",\"ApiSecret_ProfileTest_IncludeOnly\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ReferencesIncludeOnly\",\"AccessToken_ProfileTest_ReferencesIncludeOnly\",\"ApiKey_ProfileTest_ReferencesIncludeOnly\",\"ApiSecret_ProfileTest_ReferencesIncludeOnly\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ChildCollectionIncludeOnly\",\"AccessToken_ProfileTest_ChildCollectionIncludeOnly\",\"ApiKey_ProfileTest_ChildCollectionIncludeOnly\",\"ApiSecret_ProfileTest_ChildCollectionIncludeOnly\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_AcademicWeekReferences\",\"AccessToken_ProfileTest_AcademicWeekReferences\",\"ApiKey_ProfileTest_AcademicWeekReferences\",\"ApiSecret_ProfileTest_AcademicWeekReferences\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_StaffOnlyIncludeAll\",\"AccessToken_ProfileTest_StaffOnlyIncludeAll\",\"ApiKey_ProfileTest_StaffOnlyIncludeAll\",\"ApiSecret_ProfileTest_StaffOnlyIncludeAll\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_NonExisting\",\"AccessToken_ProfileTest_NonExisting\",\"ApiKey_ProfileTest_NonExisting\",\"ApiSecret_ProfileTest_NonExisting\")",
+					"",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_IncludeAll_StaffOnlyIncludeAll\",\"AccessToken_ProfileTest_IncludeAll_StaffOnlyIncludeAll\",\"ApiKey_ProfileTest_IncludeAll_StaffOnlyIncludeAll\",\"ApiSecret_ProfileTest_IncludeAll_StaffOnlyIncludeAll\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_Excludes_EmbeddedObject\",\"AccessToken_ProfileTest_Excludes_EmbeddedObject\",\"ApiKey_ProfileTest_Excludes_EmbeddedObject\",\"ApiSecret_ProfileTest_Excludes_EmbeddedObject\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_WritableIncludes_EmbeddedObject\",\"AccessToken_ProfileTest_WritableIncludes_EmbeddedObject\",\"ApiKey_ProfileTest_WritableIncludes_EmbeddedObject\",\"ApiSecret_ProfileTest_WritableIncludes_EmbeddedObject\")",
+					"",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_WritableExcludes_EmbeddedObject\",\"AccessToken_ProfileTest_WritableExcludes_EmbeddedObject\",\"ApiKey_ProfileTest_WritableExcludes_EmbeddedObject\",\"ApiSecret_ProfileTest_WritableExcludes_EmbeddedObject\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ResourceWriteOnly\",\"AccessToken_ProfileTest_ResourceWriteOnly\",\"ApiKey_ProfileTest_ResourceWriteOnly\",\"ApiSecret_ProfileTest_ResourceWriteOnly\")",
+					"",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ExcludeOnlySpecificDescriptors\",\"AccessToken_ProfileTest_ExcludeOnlySpecificDescriptors\",\"ApiKey_ProfileTest_ExcludeOnlySpecificDescriptors\",\"ApiSecret_ProfileTest_ExcludeOnlySpecificDescriptors\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"AccessToken_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"ApiKey_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"ApiSecret_ProfileTest_ExcludeOnlySpecificTypesDescriptors\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_StudentOnlyResourceIncludeAll\",\"AccessToken_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiKey_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiSecret_ProfileTest_StudentOnlyResourceIncludeAll\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"AccessToken_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiKey_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiSecret_ProfileTest_StaffOnlyStudentOnlyIncludeAll\")",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"   // console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/x-www-form-urlencoded\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"urlencoded\",",
+					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
