@@ -11,13 +11,13 @@ using log4net;
 
 namespace EdFi.SdkGen.Console
 {
-    public class SwaggerCodgenCliUpdater
+    public class OpenApiCodgenCliUpdater
     {
         private const int BufferSize = 4096;
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
 
-        public SwaggerCodgenCliUpdater(Options options)
+        public OpenApiCodgenCliUpdater(Options options)
         {
             _options = options;
         }
@@ -30,12 +30,12 @@ namespace EdFi.SdkGen.Console
             }
 
             // run the task synchronously to avoid collitions to get the jar file.
-            DownloadSwaggerCodegenCli().Wait();
+            DownloadOpenApiCodegenCli().Wait();
         }
 
         private bool ShouldUpdate()
         {
-            _log.Info("Checking if the swagger-codegen-cli is valid");
+            _log.Info("Checking if the openapi-codegen-cli is valid");
 
             if (_options.Force)
             {
@@ -52,7 +52,7 @@ namespace EdFi.SdkGen.Console
             return false;
         }
 
-        private async Task DownloadSwaggerCodegenCli()
+        private async Task DownloadOpenApiCodegenCli()
         {
             _log.Info($"Downloading a new copy of the {_options.CliExecutableFullName()}");
 
@@ -60,7 +60,7 @@ namespace EdFi.SdkGen.Console
             {
                 var downloadUrl = _options.CliDownloadUrl();
 
-                _log.Debug($"Downloading swagger-codegen-cli.jar from {downloadUrl}");
+                _log.Debug($"Downloading openApi-codegen-cli.jar from {downloadUrl}");
 
                 using (HttpResponseMessage response = await httpClient.GetAsync(downloadUrl))
                 {

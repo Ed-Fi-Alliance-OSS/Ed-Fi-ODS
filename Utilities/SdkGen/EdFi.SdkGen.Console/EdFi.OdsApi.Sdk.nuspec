@@ -14,9 +14,9 @@
     <tags>Ed-Fi SDK</tags>
     <dependencies>
       <dependency id="NewtonSoft.Json" version="13.0.3" />
-      <dependency id="JsonSubTypes" version="1.2.0" />
-      <dependency id="FubarCoder.RestSharp.Portable.Core" version="4.0.7" />
-      <dependency id="FubarCoder.RestSharp.Portable.HttpClient" version="4.0.7" />
+      <dependency id="JsonSubTypes" version="1.8.0" />
+      <dependency id="FubarCoder.RestSharp.Portable.Core" version="4.0.8" />
+      <dependency id="FubarCoder.RestSharp.Portable.HttpClient" version="4.0.8" />
     </dependencies>
   </metadata>
   <files>

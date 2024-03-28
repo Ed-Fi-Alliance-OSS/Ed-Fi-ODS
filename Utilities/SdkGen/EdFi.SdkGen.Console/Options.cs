@@ -12,16 +12,16 @@ namespace EdFi.SdkGen.Console
 {
     public sealed class Options
     {
-        private const string SdkCodeGenExecuteable = "sdk-generate.jar";
-        private const string SdkCodegenVersionKey = "swagger-codgen-version";
-        private const string SwaggerCodegeCliJarName = "swagger-codegen-cli";
-        private const string CliDownloadUri = "https://oss.sonatype.org/content/repositories/releases/io/swagger/swagger-codegen-cli";
+        private const string SdkCodeGenExecuteable = "openapi-generator-cli.jar";
+        private const string SdkCodegenVersionKey = "openApi-codgen-version";
+        private const string OpenApiCodegenCliJarName = "openapi-generator-cli";
+        private const string CliDownloadUri = "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli";
 
         [Option(
             'm',
             "metaDataEndpoint",
             Default = "http://localhost:54746/metadata?sdk=true",
-            HelpText = "the swagger metadata endpoint to download"
+            HelpText = "the openapi metadata endpoint to download"
         )]
         public string MetaDataEndpoint { get; set; }
 
@@ -29,7 +29,7 @@ namespace EdFi.SdkGen.Console
             'v',
             "cliVersion",
             Default = "2.4.15",
-            HelpText = "the version of swagger-codegen-cli to download")]
+            HelpText = "the version of openapi-codegen-cli to download")]
         public string CliVersion { get; set; }
 
         [Option(
@@ -43,14 +43,14 @@ namespace EdFi.SdkGen.Console
             'o',
             "output",
             Default = "./csharp",
-            HelpText = "the output folder for the swagger generation")]
+            HelpText = "the output folder for the openapi generation")]
         public string OutputFolder { get; set; }
 
         [Option(
             'f',
             "forceCliUpdate",
             Default = false,
-            HelpText = "force the update of the swagger-codgen-cli to the version specified")]
+            HelpText = "force the update of the openapi-codgen-cli to the version specified")]
         public bool Force { get; set; }
 
         [Option(
@@ -83,7 +83,7 @@ namespace EdFi.SdkGen.Console
       
         public string CliVersionText() => $"{SdkCodegenVersionKey}:{CliVersion}";
 
-        public string CliDownloadUrl() => $"{CliDownloadUri}/{CliVersion}/{SwaggerCodegeCliJarName}-{CliVersion}.jar";
+        public string CliDownloadUrl() => $"{CliDownloadUri}/{CliVersion}/{OpenApiCodegenCliJarName}-{CliVersion}.jar";
 
         public string CliExecutableFullName() => Path.Combine(Environment.CurrentDirectory, SdkCodeGenExecuteable);
     }

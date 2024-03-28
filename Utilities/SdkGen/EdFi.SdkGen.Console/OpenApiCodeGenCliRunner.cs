@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace EdFi.SdkGen.Console
 {
-    public class SwaggerCodeGenCliRunner
+    public class OpenApiCodeGenCliRunner
     {
         private const string Profiles = "Profiles";
         private const string Composites = "Composites";
@@ -25,7 +25,7 @@ namespace EdFi.SdkGen.Console
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Options _options;
        
-        public SwaggerCodeGenCliRunner(Options options)
+        public OpenApiCodeGenCliRunner(Options options)
         {
             _options = options;
         }
@@ -33,7 +33,7 @@ namespace EdFi.SdkGen.Console
         public void Run()
         {
             // run the task synchronously to avoid collisions to get the end points.
-            var endpointTask = Task.Run(() => GetSwaggerEndpoints(_options.MetaDataEndpoint));
+            var endpointTask = Task.Run(() => GetOpenApiEndpoints(_options.MetaDataEndpoint));
             endpointTask.Wait();
             var coreEdfiNamespaceList = new[] { @".*/metadata/composites/v1/ed-fi/([A-Za-z\-]+)/swagger.json", @".*/metadata/data/v3/ed-fi/swagger.json" };           
             var apiEndPoints = endpointTask.Result
@@ -47,7 +47,7 @@ namespace EdFi.SdkGen.Console
             RunCliCodegen(apiEndPoints);
         }
 
-        private void RunCliCodegen(IEnumerable<SwaggerDetail> apiEndpoints)
+        private void RunCliCodegen(IEnumerable<OpenApiDetail> apiEndpoints)
         {
             foreach (var apiEndpoint in apiEndpoints)
             {
@@ -68,10 +68,10 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-                    $"-jar {_options.CliExecutableFullName()}", "generate", "-l csharp", $"-i {apiEndpoint.EndpointUri}",
+                    $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true", "-DmodelTests=false -DapiTests=false",
-                    "-Dhttps.protocols=TLSv1.2"
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=v6.0,netCoreProjectFile=true",
+                    "--global-property modelTests=false --global-property apiTests=false --skip-validate-spec"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
@@ -80,17 +80,17 @@ namespace EdFi.SdkGen.Console
             }
         }
 
-        private async Task<IEnumerable<SwaggerDetail>> GetSwaggerEndpoints(string swaggerEndpoint)
+        private async Task<IEnumerable<OpenApiDetail>> GetOpenApiEndpoints(string openapiEndpoint)
         {
-            _log.Info($"Downloading swagger endpoint data from {swaggerEndpoint}");
+            _log.Info($"Downloading openapi endpoint data from {openapiEndpoint}");
 
             using (var client = new HttpClient())
             {
-                using (var response = await client.GetAsync(swaggerEndpoint))
+                using (var response = await client.GetAsync(openapiEndpoint))
                 {
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<IEnumerable<SwaggerDetail>>(json);
+                    return JsonConvert.DeserializeObject<IEnumerable<OpenApiDetail>>(json);
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace EdFi.SdkGen.Console
         }
 
         // instead of adding a reference to the api project it is easier to use an internal dto
-        private class SwaggerDetail
+        private class OpenApiDetail
         {
             public string Name { get; set; }
 
