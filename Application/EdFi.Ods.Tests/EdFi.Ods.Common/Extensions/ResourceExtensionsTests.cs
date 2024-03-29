@@ -92,6 +92,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                 _derivedResource = resourceModel.GetAllResources()
                     .First(r => r.IsDerived);
 
+                var baseKeyProperties = _derivedResource.Entity.InheritedAlternateIdentifiers
+                    .SelectMany(x => x.Properties);
+
                 _expectedResourceProperties = _derivedResource.AllProperties.Where(
                         p => ModelComparers.Entity.Equals(
                             _derivedResource.Entity,
@@ -99,11 +102,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     .Union(
                         _derivedResource.IdentifyingProperties.Where(
                             p => p.EntityProperty != null
-                                 && p.EntityProperty.IncomingAssociations.Any()));
+                                 && p.EntityProperty.IncomingAssociations.Any()))
+                    .Union(
+                        _derivedResource.AllProperties.Where(
+                            p => baseKeyProperties.Contains(p.EntityProperty, ModelComparers.EntityProperty)));
             }
 
             [Test]
-            public void Should_Return_All_Local_Properties_In_Conjunction_With_Any_Identifying_Properties_With_Incoming_Associations()
+            public void Should_Return_All_Local_Properties_In_Conjunction_With_Base_Key_Properties_And_Any_Identifying_Properties_With_Incoming_Associations()
             {
                 Assert.That(_derivedResource.AllRequestProperties(), Is.EquivalentTo(_expectedResourceProperties));
             }

@@ -12,6 +12,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.ArtMediumDescriptors
     public class ArtMediumDescriptorGetByExample
     {
         public int ArtMediumDescriptorId { get; set; }
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -166,7 +169,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescrip
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
         public int FavoriteBookCategoryDescriptorId { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -212,7 +218,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.MembershipTypeDescriptors
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
         public int MembershipTypeDescriptorId { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -263,6 +272,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociatio
         public long EducationOrganizationId { get; set; }
         public DateTime ExhibitDate { get; set; }
         public decimal HoursPerDay { get; set; }
+        public Guid Id { get; set; }
         public string IdentificationCode { get; set; }
         public TimeSpan KilnReservation { get; set; }
         public string KilnReservationLength { get; set; }
