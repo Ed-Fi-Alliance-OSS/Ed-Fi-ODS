@@ -22,14 +22,14 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  └─────────────────────────┘
   │    │    △
   │    │    │  ┌────────────────────────────────┐
-  │    │    ├──┤ KeyChangeNotSupportedException |
-  │    │    │  └────────────────────────────────┘
-  │    │    │  ┌─────────────────────┐
-  │    │    └──┤ DataPolicyException |
-  │    │       └─────────────────────┘
+  │    │    └──┤ KeyChangeNotSupportedException |
+  │    │       └────────────────────────────────┘
   │    │  ┌──────────────────────────────┐
-  │    └──┤ BadRequestParameterException |
-  │       └──────────────────────────────┘
+  │    ├──┤ BadRequestParameterException |
+  │    │  └──────────────────────────────┘
+  │    │  ┌─────────────────────┐
+  │    └──┤ DataPolicyException |
+  │       └─────────────────────┘
   │  ┌─────────────────────────────────┐
   ├──┤ SecurityAuthenticationException | 401 Unauthorized
   │  └─────────────────────────────────┘
@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Exceptions;
   │    ├──┤ NonUniqueConflictException  |
   │    │  └─────────────────────────────┘
   │    │  ┌──────────────────────────────────────┐
-  │    │──┤  InvalidReferenceConflictException   |
+  │    ├──┤  InvalidReferenceConflictException   |
   │    │  └──────────────────────────────────────┘
   │    │  ┌──────────────────────────────────────┐
   │    └──┤   NaturalKeyConflictException        |

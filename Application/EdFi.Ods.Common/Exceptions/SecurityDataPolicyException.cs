@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Exceptions
         private const string TitleText = "Data Policy Failure Due to Incorrect Usage";
         private const int StatusValue = StatusCodes.Status403Forbidden;
 
-        public const string DefaultDetail = "A Data Policy failure was encountered.";
+        public const string DefaultDetail = "A data policy failure was encountered.";
 
         /// <summary>
         /// Initializes a new instance of the ProblemDetails-based <see cref="SecurityDataPolicyException"/> class using

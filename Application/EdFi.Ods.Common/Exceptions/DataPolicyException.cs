@@ -10,7 +10,7 @@ namespace EdFi.Ods.Common.Exceptions;
 /// <summary>
 /// An exception that indicates that a Profile (Data Policy) has prevented the request data from being processed.
 /// </summary>
-public class DataPolicyException : BadRequestDataException
+public class DataPolicyException : BadRequestException
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "data-policy";
