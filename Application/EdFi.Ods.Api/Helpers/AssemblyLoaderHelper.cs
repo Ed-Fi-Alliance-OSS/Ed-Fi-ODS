@@ -139,7 +139,7 @@ namespace EdFi.Ods.Api.Helpers
                    && assemblyName != "sni.dll";
         }
 
-        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false)
+        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false, bool includeExtensions = true, bool includeProfiles = true)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
@@ -159,7 +159,10 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
-            var apiModelFiles = Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories);
+            // Only load extension ApiModel metadata files if the includeExtensions flag is set
+            var apiModelFiles = includeExtensions 
+                ? Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories)
+                : new string[] {};
 
             var physicalNames = new List<KeyValuePair<string, string>>();
 
@@ -226,6 +229,12 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         if (IsExtensionAssembly(assemblyMetadata))
                         {
+                            if (!includeExtensions)
+                            {
+                                _logger.Info($"Excluding extension assembly '{assembly.GetName().Name}'.");
+                                continue;
+                            }
+
                             var validator = GetExtensionValidator();
                             var validationResult = validator.ValidateObject(assemblyDirectory);
 
@@ -238,15 +247,26 @@ namespace EdFi.Ods.Api.Helpers
                                 _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
                             }
                         }
-                    }
-                    else if (IsProfileAssembly(assembly) || IsCustomPluginAssembly(assembly))
-                    {
-                        yield return assembly.Location;
-                    }
-                    else
-                    {
-                        throw new Exception(
-                            $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
+                        else if (IsProfileAssembly(assembly))
+                        {
+                            if (!includeProfiles)
+                            {
+                                _logger.Info($"Excluding profile assembly '{assembly.GetName().Name}'.");
+                                continue;
+                            }
+
+                            yield return assembly.Location;
+
+                        }
+                        else if (IsCustomPluginAssembly(assembly))
+                        {
+                            yield return assembly.Location;
+                        }
+                        else
+                        {
+                            throw new Exception(
+                                $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
+                        }
                     }
                 }
             }
