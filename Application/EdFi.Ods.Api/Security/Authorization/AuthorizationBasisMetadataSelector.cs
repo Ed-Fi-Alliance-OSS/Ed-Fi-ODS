@@ -103,6 +103,16 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
     {
         var claimCheckResponse = PerformClaimCheck(claimSetName, requestResourceClaimUris, requestAction);
 
+        if (!claimCheckResponse.Success)
+        {
+            throw new SecurityAuthorizationException(
+                $"{SecurityAuthorizationException.DefaultDetail} {claimCheckResponse.SecurityExceptionDetail}",
+                claimCheckResponse.SecurityExceptionMessage)
+            {
+                InstanceTypeParts = claimCheckResponse.SecurityExceptionInstanceTypeParts
+            };
+        }
+
         var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;
 
         // Only use the caller's first matching going up the hierarchy
@@ -191,9 +201,12 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         // Intersect the potentially authorizing resource claims against the principal's claims
         var claimCheckResponse = GetRelevantClaimSetClaims(authorizingResourceClaimNames);
 
-        claimCheckResponse.RequestedAction = requestAction;
-        claimCheckResponse.RequestedResourceUris = resourceClaimUris;
-        claimCheckResponse.AuthorizationMetadata = resourceClaimAuthorizationMetadata;
+        if (claimCheckResponse.Success)
+        {
+            claimCheckResponse.RequestedAction = requestAction;
+            claimCheckResponse.RequestedResourceUris = resourceClaimUris;
+            claimCheckResponse.AuthorizationMetadata = resourceClaimAuthorizationMetadata;
+        }
 
         return claimCheckResponse;
             
@@ -244,12 +257,13 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             // 1) First check: Lets make sure the claim set at least has a claim that applies for this resource.
             if (!claimSetClaimsToEvaluate.Any())
             {
-                throw new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultDetail + " You do not have permissions to access this resource.",
-                    $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following resource claims to provide access to this resource: '{string.Join("', '", authorizingClaimNames)}'.")
-                {
-                    InstanceTypeParts = ["access-denied", "resource"]
-                };
+                response.Success = false;
+
+                response.SecurityExceptionDetail = "You do not have permissions to access this resource.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following resource claims to provide access to this resource: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionInstanceTypeParts = ["access-denied", "resource"];
+
+                return response;
             }
 
             // 2) Second check: Of the claims that apply for this resource do we have any that match the action requested or a higher action?
@@ -259,14 +273,16 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
             if (!claimsWithMatchingActions.Any())
             {
-                throw new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultDetail + " You do not have permissions to perform the requested operation on the resource.",
-                    $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following resource claims: '{string.Join("', '", authorizingClaimNames)}'.")
-                {
-                    InstanceTypeParts = ["access-denied", "action"]
-                };
+                response.Success = false;
+
+                response.SecurityExceptionDetail = "You do not have permissions to perform the requested operation on the resource.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following resource claims: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionInstanceTypeParts = ["access-denied", "action"];
+
+                return response;
             }
 
+            response.Success = true;
             response.RelevantClaims = claimsWithMatchingActions;
 
             return response;
@@ -294,6 +310,8 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
     private class ClaimCheckResponse
     {
+        public bool Success { get; set; }
+
         public IList<EdFiResourceClaim> RelevantClaims { get; set; }
 
         public string RequestedAction { get; set; }
@@ -301,5 +319,11 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         public IList<string> RequestedResourceUris { get; set; }
 
         public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
+
+        public string SecurityExceptionDetail { get; set; }       
+
+        public string SecurityExceptionMessage { get; set; }
+
+        public IEnumerable<string> SecurityExceptionInstanceTypeParts { get; set; }
     }
 }
