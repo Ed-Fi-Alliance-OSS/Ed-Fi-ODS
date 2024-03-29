@@ -149,12 +149,12 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             string errorMessage =
                 $"Based on profile assignments, {(hasSingleProfile ? null : "one of ")}the following profile-specific content type{(hasSingleProfile ? null : "s")} is required when {(relevantContentTypeUsage == ContentTypeUsage.Readable ? "requesting" : "creating or updating")} this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
-            var problemDetails = new SecurityAuthorizationException(
-                SecurityAuthorizationException.DefaultDetail + " The request was not constructed correctly for the data policy that has been applied to this resource for the caller.",
+            var problemDetails = new SecurityDataPolicyException(
+                SecurityDataPolicyException.DefaultDetail + " The request was not constructed correctly for the data policy that has been applied to this resource for the caller.",
                 errorMessage)
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId(),
-                InstanceTypeParts = ["data-policy", "incorrect-usage"]
+                InstanceTypeParts = ["incorrect-usage"]
             }.AsSerializableModel();
 
             context.Result = new ObjectResult(problemDetails) { StatusCode = problemDetails.Status };
