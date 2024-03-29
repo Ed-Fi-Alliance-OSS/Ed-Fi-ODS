@@ -20,7 +20,7 @@ public static class NamespaceBasedAuthorizationHelpers
         if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
         {
             throw new SecurityAuthorizationException(
-                SecurityAuthorizationException.DefaultDetail + " The caller has not been configured correctly for accessing resources authorized by Namespace.",
+                SecurityAuthorizationException.DefaultTechnicalProblemDetail + " The caller has not been configured correctly for accessing resources authorized by Namespace.",
                 $"The API client has been given permissions on a resource that uses the '{authorizationStrategyName}' authorization strategy but the client doesn't have any namespace prefixes assigned.")
             {
                 InstanceTypeParts = ["namespace", "invalid-client", "no-namespaces"]
