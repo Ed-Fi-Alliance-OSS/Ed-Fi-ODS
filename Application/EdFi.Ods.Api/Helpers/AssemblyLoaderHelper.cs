@@ -247,26 +247,25 @@ namespace EdFi.Ods.Api.Helpers
                                 _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
                             }
                         }
-                        else if (IsProfileAssembly(assembly))
+                    }
+                    else if (IsProfileAssembly(assembly))
+                    {
+                        if (!includeProfiles)
                         {
-                            if (!includeProfiles)
-                            {
-                                _logger.Info($"Excluding profile assembly '{assembly.GetName().Name}'.");
-                                continue;
-                            }
+                            _logger.Info($"Excluding profile assembly '{assembly.GetName().Name}'.");
+                            continue;
+                        }
 
-                            yield return assembly.Location;
-
-                        }
-                        else if (IsCustomPluginAssembly(assembly))
-                        {
-                            yield return assembly.Location;
-                        }
-                        else
-                        {
-                            throw new Exception(
-                                $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
-                        }
+                        yield return assembly.Location;
+                    }
+                    else if (IsCustomPluginAssembly(assembly))
+                    {
+                        yield return assembly.Location;
+                    }
+                    else
+                    {
+                        throw new Exception(
+                            $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
                     }
                 }
             }
