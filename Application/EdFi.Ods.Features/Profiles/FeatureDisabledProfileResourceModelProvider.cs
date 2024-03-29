@@ -4,17 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 
-namespace EdFi.Ods.Common.Models;
+namespace EdFi.Ods.Features.Profiles;
 
 public class FeatureDisabledProfileResourceModelProvider : IProfileResourceModelProvider
 {
-    private const string ProfilesFeatureName = "Profiles";
-
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
-        // Force a bad request if a profile claim exists and profiles are disabled.
-        throw new FeatureDisabledException(ProfilesFeatureName);
+        throw new FeatureDisabledException(ProfilesConstants.FeatureName);
     }
 }

@@ -27,13 +27,13 @@ public class BadRequestException : EdFiProblemDetailsExceptionBase
     public BadRequestException(string detail, string[] errors)
         : base(detail, detail)
     {
-        ((IEdFiProblemDetails)this).Errors = errors;
+        this.SetErrors(errors);
     }
 
     public BadRequestException(string detail, string[] errors, Exception innerException)
         : base(detail, detail, innerException)
     {
-        ((IEdFiProblemDetails)this).Errors = errors;
+        this.SetErrors(errors);
     }
     
     // ---------------------------

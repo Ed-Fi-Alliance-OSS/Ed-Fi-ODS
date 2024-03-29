@@ -7,9 +7,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
@@ -93,14 +93,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         
         var resourceFullName = dataManagementResourceContext.Resource.FullName;
 
-        var assignedProfilesForRequest = apiClientContext.Profiles.Where(
-                p => _profileResourceModelProvider.GetProfileResourceModel(p)
-                        .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
-                    && (relevantContentTypeUsage == ContentTypeUsage.Readable
-                        ? contentTypes.Readable
-                        : contentTypes.Writable)
-                    != null)
-            .ToArray();
+        string[] assignedProfilesForRequest = GetAssignedProfilesForRequest();
 
         // If there are no assigned profiles relevant for this request, skip additional processing here now.
         if (assignedProfilesForRequest.Length == 0)
@@ -160,11 +153,23 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                 SecurityAuthorizationException.DefaultDetail + " The request was not constructed correctly for the data policy that has been applied to this resource for the caller.",
                 errorMessage)
             {
-                CorrelationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey),
+                CorrelationId = _logContextAccessor.GetCorrelationId(),
                 InstanceTypeParts = ["data-policy", "incorrect-usage"]
             }.AsSerializableModel();
 
             context.Result = new ObjectResult(problemDetails) { StatusCode = problemDetails.Status };
+        }
+
+        string[] GetAssignedProfilesForRequest()
+        {
+            return apiClientContext.Profiles.Where(
+                    p => _profileResourceModelProvider.GetProfileResourceModel(p)
+                            .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
+                        && (relevantContentTypeUsage == ContentTypeUsage.Readable
+                            ? contentTypes.Readable
+                            : contentTypes.Writable)
+                        != null)
+                .ToArray();
         }
     }
 }

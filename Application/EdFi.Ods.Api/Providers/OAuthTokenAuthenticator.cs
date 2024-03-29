@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
@@ -62,12 +63,12 @@ namespace EdFi.Ods.Api.Providers
             catch (CachingInterceptorCacheKeyGenerationException ex)
             {
                 _logger.Debug(ex);
-                return AuthenticateResult.Fail("Invalid Authorization Header");
+                return AuthenticateResult.Fail(AuthenticationFailureMessages.InvalidAuthorizationHeader);
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                return AuthenticateResult.Fail("Invalid Authorization Header");
+                return AuthenticateResult.Fail(AuthenticationFailureMessages.InvalidAuthorizationHeader);
             }
 
             if (_expectedUseSandboxValue.Value.HasValue &&

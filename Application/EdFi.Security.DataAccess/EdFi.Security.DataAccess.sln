@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\EdFi.Comm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess.UnitTests", "..\..\tests\EdFi.Security.DataAccess.UnitTests\EdFi.Security.DataAccess.UnitTests.csproj", "{C675AB6F-820F-422D-8A14-9E2B56142E0F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess.IntegrationTests", "..\..\tests\EdFi.Security.DataAccess.IntegrationTests\EdFi.Security.DataAccess.IntegrationTests.csproj", "{0FAB5CCE-09B5-4AAC-8366-0D94E276C524}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.TestFixture", "..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj", "{DFEC45AF-DDDC-4957-AB29-748DE3A98572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{C675AB6F-820F-422D-8A14-9E2B56142E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C675AB6F-820F-422D-8A14-9E2B56142E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C675AB6F-820F-422D-8A14-9E2B56142E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAB5CCE-09B5-4AAC-8366-0D94E276C524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAB5CCE-09B5-4AAC-8366-0D94E276C524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAB5CCE-09B5-4AAC-8366-0D94E276C524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAB5CCE-09B5-4AAC-8366-0D94E276C524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEC45AF-DDDC-4957-AB29-748DE3A98572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEC45AF-DDDC-4957-AB29-748DE3A98572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEC45AF-DDDC-4957-AB29-748DE3A98572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEC45AF-DDDC-4957-AB29-748DE3A98572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

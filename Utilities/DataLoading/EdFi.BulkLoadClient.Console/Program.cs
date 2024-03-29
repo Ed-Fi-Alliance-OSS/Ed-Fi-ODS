@@ -58,6 +58,7 @@ namespace EdFi.BulkLoadClient.Console
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .AddCommandLine(args, CommandLineOverrides.SwitchingMapping())
+                    .AddUserSecrets<CommandLineOverrides>()
                     .Build();
 
                 // apply the command line args overrides for boolean values

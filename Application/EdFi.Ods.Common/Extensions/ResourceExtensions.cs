@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Extensions
         }
 
         /// <summary>
-        /// Contains all the request properties for the resource.
+        /// Contains all the request properties for the resource, including inherited key properties.
         /// </summary>
         /// <param name="resourceClassBase">Resource object</param>
         /// <returns></returns>
@@ -67,6 +67,9 @@ namespace EdFi.Ods.Common.Extensions
                                    .Union(
                                         resourceClassBase.IdentifyingProperties.Where(
                                             x => x.IsIdentifyingAndHasAssociations()),
+                                        ModelComparers.ResourcePropertyNameOnly)
+                                   .Union(
+                                        resourceClassBase.InheritedKeyProperties(),
                                         ModelComparers.ResourcePropertyNameOnly)
                 : resourceClassBase.AllProperties;
         }
@@ -210,6 +213,19 @@ namespace EdFi.Ods.Common.Extensions
         {
             return resource.AllProperties
                            .Where(x => !ModelComparers.Entity.Equals(resource.Entity, x.EntityProperty.Entity));
+        }
+
+        /// <summary>
+        /// Finds the inherited key properties for a resource
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public static IEnumerable<ResourceProperty> InheritedKeyProperties(this ResourceClassBase resource)
+        {
+            return resource.AllProperties
+                           .Where(x => resource.Entity.InheritedAlternateIdentifiers
+                                        .SelectMany(x => x.Properties)
+                                        .Contains(x.EntityProperty));
         }
     }
 }

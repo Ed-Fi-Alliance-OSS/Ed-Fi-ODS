@@ -34,6 +34,13 @@ namespace EdFi.Ods.Features.Container.Modules
 
         public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Profiles);
 
+        protected override void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
+        {
+            builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
+                .As<IProfileResourceModelProvider>()
+                .SingleInstance();
+        }
+
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseProfileDefinitionsProvider>()

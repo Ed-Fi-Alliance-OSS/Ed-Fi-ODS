@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Features.ChangeQueries.ActionResults;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
                 if (!context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Get.ToString())
                     && !context.HttpContext.Request.Method.EqualsIgnoreCase(HttpMethod.Options.ToString()))
                 {
-                    context.Result = new SnapshotsAreReadOnlyResult((string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey));
+                    context.Result = new SnapshotsAreReadOnlyResult(_logContextAccessor.GetCorrelationId());
                     return Task.CompletedTask;
                 }
 

@@ -22,8 +22,8 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseRequestCorrelation(this IApplicationBuilder builder)
             => builder.UseMiddleware<RequestCorrelationMiddleware>();
 
-        public static IApplicationBuilder UseComplementErrorDetails(this IApplicationBuilder builder)
-            => builder.UseMiddleware<ComplementErrorDetailsMiddleware>();
+        public static IApplicationBuilder UseProblemDetailsEnrichment(this IApplicationBuilder builder)
+            => builder.UseMiddleware<ProblemDetailsErrorEnrichmentMiddleware>();
 
         /// <summary>
         /// Adds the <see cref="EdFiApiAuthenticationMiddleware"/> to the specified <see cref="IApplicationBuilder"/>, which enables authentication capabilities.

@@ -352,7 +352,7 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseEdFiApiAuthentication();
 
-            app.UseComplementErrorDetails();
+            app.UseProblemDetailsEnrichment();
 
             app.UseAuthorization();
 

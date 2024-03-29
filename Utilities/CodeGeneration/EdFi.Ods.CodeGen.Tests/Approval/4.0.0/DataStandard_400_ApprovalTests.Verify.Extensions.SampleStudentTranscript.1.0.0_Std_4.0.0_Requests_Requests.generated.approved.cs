@@ -11,7 +11,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Institutio
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
         public int InstitutionControlDescriptorId { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -57,7 +60,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Institutio
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
         public int InstitutionLevelDescriptorId { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -153,6 +159,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.SpecialEdu
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
         public int SpecialEducationGraduationStatusDescriptorId { get; set; }
     }
 
@@ -199,6 +208,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Submission
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptorGetByExample
     {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
         public int SubmissionCertificationDescriptorId { get; set; }
     }
 

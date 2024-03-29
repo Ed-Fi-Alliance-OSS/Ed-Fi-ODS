@@ -35,7 +35,7 @@ public class BadRequestDataException : BadRequestException
     public BadRequestDataException(string detail, string[] errors)
         : base(detail)
     {
-        ((IEdFiProblemDetails)this).Errors = errors;
+        this.SetErrors(errors);
     }
     
     // ---------------------------

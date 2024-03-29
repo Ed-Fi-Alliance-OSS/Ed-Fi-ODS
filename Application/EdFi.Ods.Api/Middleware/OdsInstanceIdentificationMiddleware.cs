@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using log4net;
 using Microsoft.AspNetCore.Http;
@@ -59,7 +60,7 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
         {
             _logger.Error(ex.Message);
 
-            string correlationId = (string) _logContextAccessor.GetValue(CorrelationConstants.LogContextKey);
+            string correlationId = _logContextAccessor.GetCorrelationId();
             ex.CorrelationId = correlationId;
 
             await context.Response.WriteProblemDetailsAsync(ex);

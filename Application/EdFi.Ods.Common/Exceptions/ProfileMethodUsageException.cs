@@ -21,7 +21,10 @@ namespace EdFi.Ods.Common.Exceptions
         public ProfileMethodUsageException(ContentTypeUsage usage, string error)
             : base(string.Format(DefaultDetailFormat, usage.ToString().ToLower()), error)
         {
-            ((IEdFiProblemDetails)this).Errors = new[] { error };
+            if (error != null)
+            {
+                this.SetErrors(error);
+            }
         }
 
         // ---------------------------

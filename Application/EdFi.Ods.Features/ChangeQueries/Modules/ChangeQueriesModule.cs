@@ -30,6 +30,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
 
         public override bool IsSelected() => IsFeatureEnabled(ApiFeature.ChangeQueries);
 
+        protected override void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
+        {
+            builder.RegisterType<FeatureDisabledDeletedItemsResourceDataProvider>()
+                .As<IDeletedItemsResourceDataProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<FeatureDisabledKeyChangesResourceDataProvider>()
+                .As<IKeyChangesResourceDataProvider>()
+                .SingleInstance();
+        }
+
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             // Change Queries support in NHibernate mappings 

@@ -26,7 +26,7 @@ public class NaturalKeyConflictException : ConflictException
     public NaturalKeyConflictException(string detail, string[] errors)
     : base(detail)
     {
-        ((IEdFiProblemDetails)this).Errors = errors;
+        this.SetErrors(errors);
     }
     // ---------------------------
     //  Boilerplate for overrides

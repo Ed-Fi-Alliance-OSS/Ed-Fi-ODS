@@ -27,7 +27,7 @@ public class ConflictException : EdFiProblemDetailsExceptionBase
     public ConflictException(string detail, string[] errors)
         : base(detail, detail)
     {
-        ((IEdFiProblemDetails)this).Errors = errors;
+        this.SetErrors(errors);
     }
 
     public ConflictException(string detail, Exception inner)

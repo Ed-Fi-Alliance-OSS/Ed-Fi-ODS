@@ -61,6 +61,7 @@ namespace EdFi.SmokeTest.Console
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                     .AddCommandLine(args, CommandLineOverrides.SwitchingMapping())
+                    .AddUserSecrets<CommandLineOverrides>()
                     .Build();
 
                 await SetOdsEndpoints(configRoot);
