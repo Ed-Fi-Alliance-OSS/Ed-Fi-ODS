@@ -45,7 +45,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, string, IDictionary<string, object>, JoinType> criteriaApplicator,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
-            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance)
+            Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance)
         {
             FilterName = filterName;
             HqlConditionFormatString = ProcessFormatStringForAliases(friendlyHqlConditionFormat);
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             protected set;
         }
 
-        public Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> AuthorizeInstance { get; }
+        public Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> AuthorizeInstance { get; }
 
         // NOTE: The ShouldApply property was a legacy artifact related to the NHibernate filter configuration, but with it
         // now removed, we may want to review the behavior of the authorization system when there's a misconfiguration 

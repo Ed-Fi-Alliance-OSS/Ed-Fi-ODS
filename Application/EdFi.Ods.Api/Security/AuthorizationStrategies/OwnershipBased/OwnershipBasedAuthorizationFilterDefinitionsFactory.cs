@@ -74,7 +74,8 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
     private InstanceAuthorizationResult AuthorizeInstance(
         EdFiAuthorizationContext authorizationContext,
-        AuthorizationFilterContext filterContext)
+        AuthorizationFilterContext filterContext,
+        string authorizationStrategyName)
     {
         var contextData =
             _authorizationContextDataFactory.CreateContextData<OwnershipBasedAuthorizationContextData>(
@@ -96,16 +97,22 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             {
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        $"{SecurityAuthorizationException.DefaultDetail} The resource is not owned by the caller.",
-                        "Access to the resource item could not be authorized using any of the caller's ownership tokens."));
+                        SecurityAuthorizationException.DefaultDetail + " The resource item is not owned by the caller.",
+                        null)
+                    {
+                        InstanceTypeParts = ["ownership", "access-denied", "ownership-mismatch"]
+                    });
             }
         }
         else
         {
             return InstanceAuthorizationResult.Failed(
                 new SecurityAuthorizationException(
-                    $"{SecurityAuthorizationException.DefaultDetail} The resource is not owned by the caller.",
-                    "Access to the resource item could not be authorized based on the caller's ownership token because the resource item has no owner."));
+                    SecurityAuthorizationException.DefaultDetail + " The resource item is not owned by the caller.",
+                    $"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the '{authorizationStrategyName}' authorization strategy.")
+                { 
+                    InstanceTypeParts = ["ownership", "invalid-data", "ownership-uninitialized"]
+                });
         }
 
         return InstanceAuthorizationResult.Success();

@@ -70,7 +70,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // Now that we know the entity exists, authorize access to it
             if (entity != null)
             {
-                await AuthorizeSingleItemAsync(entity, cancellationToken);
+                await AuthorizeExistingSingleItemAsync(entity, cancellationToken);
             }
 
             return entity;

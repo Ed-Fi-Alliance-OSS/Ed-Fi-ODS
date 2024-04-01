@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
         public void AuthorizeSingleItem(TFakeEntity entity, CancellationToken cancellationToken)
         {
-            base.AuthorizeSingleItemAsync(entity, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
+            base.AuthorizeExistingSingleItemAsync(entity, cancellationToken).ConfigureAwait(false).GetAwaiter().GetResult();
         }
     }
 
@@ -2088,10 +2088,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception()
             {
-
-                ActualException.ShouldBeExceptionType<SecurityAuthorizationException>()
-                    .Message.ShouldContain("The API client has been assigned the 'TestClaimSet' claim set. " +
-                    "Assign a different claim set which includes one of the following claims to access this resource: http://ed-fi.org/ods/identity/claims/domains/edFiTypes");
+                var exception = (SecurityAuthorizationException)ActualException.ShouldBeExceptionType<SecurityAuthorizationException>();
+                exception.Detail.ShouldContain("Access to the resource could not be authorized. You do not have permissions to access this resource.");
+                exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:access-denied:resource"));
+                exception.Message.ShouldContain($"The API client's assigned claim set (currently '{ClaimSetName}') must " +
+                    $"include one of the following resource claims to provide access to this resource: '{SuppliedResourceAuthorizationClaim}'.");
             }
         }
 
@@ -2113,11 +2114,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_authorization_failed_for_the_requested_action()
             {
-                ActualException.ShouldBeExceptionType<SecurityAuthorizationException>()
-                    .Message.ShouldBe(
-                    string.Format(
-                        "Access to the resource could not be authorized for the requested action '{0}'.",
-                        SuppliedRequestedAction));
+                var exception = (SecurityAuthorizationException)ActualException.ShouldBeExceptionType<SecurityAuthorizationException>();
+                exception.Detail.ShouldContain("Access to the resource could not be authorized. You do not have permissions to perform the requested operation on the resource.");
+                exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:access-denied:action"));
+                exception.Message.ShouldContain($"The API client's assigned claim set (currently '{ClaimSetName}') must grant permission of the '{SuppliedRequestedAction}' action on one of the following resource claims: '{SuppliedResourceAuthorizationClaim}'.");
             }
         }
     }

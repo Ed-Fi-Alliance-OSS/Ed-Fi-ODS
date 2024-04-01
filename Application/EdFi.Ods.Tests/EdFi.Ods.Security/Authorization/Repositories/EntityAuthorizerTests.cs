@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             "FriendlyHqlConditionFormat",
                             (_, _, _, _, _) => { },
                             (_, _, _, _, _, _) => { },
-                            (_, _) => InstanceAuthorizationResult.NotPerformed()));
+                            (_, _, _) => InstanceAuthorizationResult.NotPerformed()));
             }
 
             /// <summary>
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             /// </summary>
             protected override void Act()
             {
-                SystemUnderTest.AuthorizeEntityAsync(A.Fake<AggregateRootWithCompositeKey>(), "Action", CancellationToken.None)
+                SystemUnderTest.AuthorizeEntityAsync(A.Fake<AggregateRootWithCompositeKey>(), "Action", AuthorizationPhase.ProposedData, CancellationToken.None)
                     .WaitSafely();
             }
 

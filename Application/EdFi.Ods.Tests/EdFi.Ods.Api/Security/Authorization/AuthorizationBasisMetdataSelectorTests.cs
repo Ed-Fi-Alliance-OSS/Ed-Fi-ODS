@@ -207,11 +207,14 @@ public class AuthorizationBasisMetadataSelectorTests
         else
         {
             // Act & Assert
-            Should.Throw<SecurityAuthorizationException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+            var exception = Should.Throw<SecurityAuthorizationException>(() => _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
                     "AssignedClaimSet",
                     requestResourceClaimUris,
-                    requestActionUri))
-                .Message.ShouldBe($"Access to the resource could not be authorized for the requested action '{requestActionUri}'.");
+                    requestActionUri));
+
+            exception.Detail.ShouldContain($"Access to the resource could not be authorized. You do not have permissions to perform the requested operation on the resource.");
+            exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:access-denied:action"));
+            exception.Message.ShouldContain($"The API client's assigned claim set (currently 'AssignedClaimSet') must grant permission of the '{requestActionUri}' action on one of the following resource claims: 'resourceClaimUri2'.");
         }
     }
 

@@ -22,14 +22,14 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  └─────────────────────────┘
   │    │    △
   │    │    │  ┌────────────────────────────────┐
-  │    │    ├──┤ KeyChangeNotSupportedException |
-  │    │    │  └────────────────────────────────┘
-  │    │    │  ┌─────────────────────┐
-  │    │    └──┤ DataPolicyException |
-  │    │       └─────────────────────┘
+  │    │    └──┤ KeyChangeNotSupportedException |
+  │    │       └────────────────────────────────┘
   │    │  ┌──────────────────────────────┐
-  │    └──┤ BadRequestParameterException |
-  │       └──────────────────────────────┘
+  │    ├──┤ BadRequestParameterException |
+  │    │  └──────────────────────────────┘
+  │    │  ┌─────────────────────┐
+  │    └──┤ DataPolicyException |
+  │       └─────────────────────┘
   │  ┌─────────────────────────────────┐
   ├──┤ SecurityAuthenticationException | 401 Unauthorized
   │  └─────────────────────────────────┘
@@ -40,6 +40,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  ┌───────────────────────────────────────┐
   │    └──┤ CompositeResourceNotReadableException | 405 Method Not Allowed (TODO: ODS-6143 - Change back to 403.)
   │       └───────────────────────────────────────┘
+  │  ┌─────────────────────────────┐
+  ├──┤ SecurityDataPolicyException | 403 Forbidden
+  │  └─────────────────────────────┘
   │  ┌───────────────────┐
   ├──┤ NotFoundException | 404 Not Found
   │  └───────────────────┘
@@ -51,9 +54,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │    ├──┤ NonUniqueConflictException  |
   │    │  └─────────────────────────────┘
   │    │  ┌──────────────────────────────────────┐
-  │    │──┤  InvalidReferenceConflictException   |
+  │    ├──┤  InvalidReferenceConflictException   |
   │    │  └──────────────────────────────────────┘
- │     │  ┌──────────────────────────────────────┐
+  │    │  ┌──────────────────────────────────────┐
   │    └──┤   NaturalKeyConflictException        |
   │       └──────────────────────────────────────┘
   │  ┌──────────────────────┐

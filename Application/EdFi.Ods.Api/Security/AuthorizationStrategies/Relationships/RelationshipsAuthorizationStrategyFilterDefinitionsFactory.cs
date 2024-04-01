@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -105,10 +106,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         private InstanceAuthorizationResult AuthorizeInstance(
             EdFiAuthorizationContext authorizationContext,
-            AuthorizationFilterContext filterContext)
+            AuthorizationFilterContext filterContext,
+            string authorizationStrategyName)
         {
             if (filterContext.SubjectEndpointValue == null)
             {
+                if (!filterContext.SubjectEndpointName.EndsWith("USI"))
+                {
+                    string existingLiteral = authorizationContext.GetPhaseText("existing ");
+
+                    throw new SecurityAuthorizationException(
+                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{filterContext.SubjectEndpointName}' value is required for authorization purposes.",
+                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
+                    {
+                        InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
+                            // On proposed data
+                            ? ["relationships", "access-denied", "element-required"]
+                            // On existing data
+                            : ["relationships", "invalid-data", "element-uninitialized"]
+                    };
+                }
+
                 // We will defer to the final authorization check to produce identical messages
                 // whether the endpoint values are null or not.
                 return InstanceAuthorizationResult.NotPerformed();

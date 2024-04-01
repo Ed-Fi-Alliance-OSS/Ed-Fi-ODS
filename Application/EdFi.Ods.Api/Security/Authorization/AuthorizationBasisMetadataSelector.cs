@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Authorization;
@@ -101,10 +102,15 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         string requestAction)
     {
         var claimCheckResponse = PerformClaimCheck(claimSetName, requestResourceClaimUris, requestAction);
-            
+
         if (!claimCheckResponse.Success)
         {
-            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, claimCheckResponse.SecurityExceptionMessage);
+            throw new SecurityAuthorizationException(
+                $"{SecurityAuthorizationException.DefaultDetail} {claimCheckResponse.SecurityExceptionDetail}",
+                claimCheckResponse.SecurityExceptionMessage)
+            {
+                InstanceTypeParts = claimCheckResponse.SecurityExceptionInstanceTypeParts
+            };
         }
 
         var relevantClaimSetClaims = claimCheckResponse.RelevantClaims;
@@ -253,11 +259,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             {
                 response.Success = false;
 
-                // var apiClientResourceClaims = claimSetClaims.Select(c => c.ClaimName)
-                //     .Where(x => x.StartsWith(EdFiConventions.EdFiOdsResourceClaimBaseUri));
-
-                response.SecurityExceptionMessage =
-                    $@"The API client has been assigned the '{claimSetName}' claim set. Assign a different claim set which includes one of the following claims to access this resource: {string.Join(", ", authorizingClaimNames)}";
+                response.SecurityExceptionDetail = "You do not have permissions to access this resource.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following resource claims to provide access to this resource: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionInstanceTypeParts = ["access-denied", "resource"];
 
                 return response;
             }
@@ -271,8 +275,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             {
                 response.Success = false;
 
-                response.SecurityExceptionMessage =
-                    $"Access to the resource could not be authorized for the requested action '{requestAction}'.";
+                response.SecurityExceptionDetail = "You do not have permissions to perform the requested operation on the resource.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following resource claims: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionInstanceTypeParts = ["access-denied", "action"];
 
                 return response;
             }
@@ -315,6 +320,10 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
         public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
 
+        public string SecurityExceptionDetail { get; set; }       
+
         public string SecurityExceptionMessage { get; set; }
+
+        public IEnumerable<string> SecurityExceptionInstanceTypeParts { get; set; }
     }
 }
