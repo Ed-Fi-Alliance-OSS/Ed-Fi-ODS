@@ -16,11 +16,11 @@ public static class DeadlockPolicyHelper
 {
     public static AsyncRetryPolicy RetryPolicy { get; }
 
+    public static int RetryCount = 5;
+    public static int RetryStartingDelayMilliseconds = 100;
+
     static DeadlockPolicyHelper()
     {
-        const int RetryCount = 5;
-        const int RetryStartingDelayMilliseconds = 100;
-
         RetryPolicy = Policy.Handle<Exception>(ShouldRetry)
             .WaitAndRetryAsync(
                 RetryCount,
