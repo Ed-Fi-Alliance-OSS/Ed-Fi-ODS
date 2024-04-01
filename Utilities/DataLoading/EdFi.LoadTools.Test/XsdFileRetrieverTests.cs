@@ -56,7 +56,7 @@ namespace EdFi.LoadTools.Test
                     new Dictionary<string, string>
                     {
                         {"name", "Ed-Fi"},
-                        {"version", "3.3.1-b"}
+                        {"version", "5.0.0"}
                     },
                     new Dictionary<string, string>
                     {
@@ -65,6 +65,8 @@ namespace EdFi.LoadTools.Test
                     }
                 }
             };
+
+            _configuration.Extension = "TPDM";
 
             using var sut = new XsdFilesRetriever(
                 _configuration,

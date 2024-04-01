@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
+using FakeItEasy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +19,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
-using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -85,7 +85,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
         private OpenApiDocument _doc;
 
-        private readonly IOAuthTokenHandler _tokenHandler = Mock.Of<IOAuthTokenHandler>();
+        private readonly IOAuthTokenHandler _tokenHandler = A.Fake<IOAuthTokenHandler>();
 
         private Resource _resource;
 
@@ -185,7 +185,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray>();
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var configuration = A.Fake<IApiConfiguration>();
+            A.CallTo(() => configuration.Url).Returns(Address);
 
             var subject = new GetAllTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
@@ -199,7 +200,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var configuration = A.Fake<IApiConfiguration>();
+            A.CallTo(() => configuration.Url).Returns(Address);
+
             var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
@@ -211,7 +214,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var configuration = A.Fake<IApiConfiguration>();
+            A.CallTo(() => configuration.Url).Returns(Address);
+
             var subject = new GetByIdTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 
@@ -223,7 +228,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var configuration = A.Fake<IApiConfiguration>();
+            A.CallTo(() => configuration.Url).Returns(Address);
+
             var subject = new GetByExampleTest(_resource, dictionary, configuration, _tokenHandler);
             var result = await subject.PerformTest();
 

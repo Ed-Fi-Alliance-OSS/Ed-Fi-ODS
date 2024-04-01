@@ -10,7 +10,7 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.OdsApi.Sdk.Apis.All;
-using Moq;
+using FakeItEasy;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
@@ -19,25 +19,30 @@ namespace EdFi.LoadTools.Test.SmokeTests
     [TestFixture]
     public class DirectedGraphTests
     {
-        private static readonly ISdkLibraryFactory SdkLibraryFactory =
-            Mock.Of<ISdkLibraryFactory>(f => f.SdkLibrary == typeof(AcademicWeeksApi).Assembly);
+        private static readonly ISdkLibraryFactory _sdkLibraryFactory = FakeItEasy.A.Fake<ISdkLibraryFactory>();
+
+        [SetUp]
+        public void SetUp()
+        {
+            FakeItEasy.A.CallTo(() => _sdkLibraryFactory.SdkLibrary).Returns(typeof(AcademicWeeksApi).Assembly);
+        }
 
         [Test]
         public void Should_order_types()
         {
-            var cat = Mock.Of<ISdkCategorizer>(
-                c => c.ModelTypes == new[]
-                {
-                    typeof(A),
-                    typeof(B),
-                    typeof(C),
-                    typeof(D),
-                    typeof(DReference),
-                    typeof(E),
-                    typeof(EReference),
-                    typeof(FType),
-                    typeof(FDescriptor)
-                });
+            var cat = FakeItEasy.A.Fake<ISdkCategorizer>();
+            FakeItEasy.A.CallTo(() => cat.ModelTypes).Returns(new[]
+            {
+                typeof(A),
+                typeof(B),
+                typeof(C),
+                typeof(D),
+                typeof(DReference),
+                typeof(E),
+                typeof(EReference),
+                typeof(FType),
+                typeof(FDescriptor)
+            });
 
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedModels().ToList();
@@ -66,13 +71,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public void Should_resolve_longer_reference()
         {
-            var cat = Mock.Of<ISdkCategorizer>(
-                c => c.ModelTypes == new[]
-                {
-                    typeof(Alpha),
-                    typeof(BravoCharlieType),
-                    typeof(AlphaBravoCharlieType)
-                });
+            var cat = FakeItEasy.A.Fake<ISdkCategorizer>();
+            FakeItEasy.A.CallTo(() => cat.ModelTypes).Returns(new[]
+            {
+                typeof(Alpha), 
+                typeof(BravoCharlieType), 
+                typeof(AlphaBravoCharlieType)
+            });
 
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedModels().ToList();
@@ -90,7 +95,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Category("RunManually")]
         public void Should_order_types_from_Sdk()
         {
-            var cat = new SdkCategorizer(SdkLibraryFactory);
+            var cat = new SdkCategorizer(_sdkLibraryFactory);
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedModels().ToArray();
 
@@ -104,7 +109,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Category("RunManually")]
         public void Should_order_Apis_from_Sdk()
         {
-            var cat = new SdkCategorizer(SdkLibraryFactory);
+            var cat = new SdkCategorizer(_sdkLibraryFactory);
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedApis().ToArray();
 
