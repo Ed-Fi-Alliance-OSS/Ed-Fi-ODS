@@ -71,33 +71,8 @@ namespace EdFi.Ods.Api.Controllers
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceModel, TAggregateRoot>> GetByIdPipeline;
-
         protected Lazy<GetManyPipeline<TResourceModel, TAggregateRoot>> GetManyPipeline;
-
         protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
-
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly AsyncRetryPolicy<PutResult> _retryPolicy;
-
-        static DataManagementControllerBase()
-        {
-            const int RetryCount = 5;
-            const int RetryStartingDelayMilliseconds = 100;
-
-            _retryPolicy = Policy.HandleResult<PutResult>(res => res.ShouldRetry())
-                .WaitAndRetryAsync(
-                    RetryCount,
-                    (retryNumber, context) =>
-                    {
-                        var waitDuration = TimeSpan.FromMilliseconds(RetryStartingDelayMilliseconds * (Math.Pow(2, retryNumber)));
-
-                        (context["Logger"] as Lazy<ILog>)?.Value.Warn(
-                            $"Deadlock exception encountered during '{typeof(TAggregateRoot).Name}' entity persistence. Retrying transaction (retry #{retryNumber} of {RetryCount} after {waitDuration.TotalMilliseconds:N0}ms))...");
-
-                        return waitDuration;
-                    },
-                    onRetry: (res, ts, context) => { });
-        }
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
@@ -304,12 +279,10 @@ namespace EdFi.Ods.Api.Controllers
             var validationState = new ValidationState();
 
             // Execute the pipeline (synchronously)
-            var result = await _retryPolicy.ExecuteAsync(
-                (ctx) => PutPipeline.Value.ProcessAsync(
-                    new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
-                    CancellationToken.None),
-                contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
-
+            var result = await PutPipeline.Value.ProcessAsync(
+                new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
+                CancellationToken.None);
+            
             // Check for exceptions
             if (result.Exception != null)
             {
@@ -394,11 +367,9 @@ namespace EdFi.Ods.Api.Controllers
 
             request.ETag = Unquoted(etag);
 
-            var result = await _retryPolicy.ExecuteAsync(
-                (ctx) => PutPipeline.Value.ProcessAsync(
-                    new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
-                    CancellationToken.None),
-                contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
+            var result = await PutPipeline.Value.ProcessAsync(
+                new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
+                CancellationToken.None);
 
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
