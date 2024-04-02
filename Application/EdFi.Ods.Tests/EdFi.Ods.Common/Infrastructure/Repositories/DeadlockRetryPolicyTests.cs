@@ -3,9 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -106,7 +104,7 @@ public class DeadlockRetryPolicyTests
 
         // Assert
         await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is thrown
-        A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly); // Ensure that the retry policy (5 retries + initial attempt) is applied correctly
+        A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
     }
     
     [Test]
@@ -171,7 +169,7 @@ public class DeadlockRetryPolicyTests
 
         // Assert
         await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is thrown
-        A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly); // Ensure that the retry policy (5 retries + initial attempt) is applied correctly
+        A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
     }
 
     private static GenericADOException CreateWrappedSqlException(string message)
