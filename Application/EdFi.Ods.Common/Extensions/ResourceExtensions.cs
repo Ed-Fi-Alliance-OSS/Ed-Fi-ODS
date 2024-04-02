@@ -205,66 +205,6 @@ namespace EdFi.Ods.Common.Extensions
         }
 
         /// <summary>
-        /// Returns a property mapping dictionary keyed by the this entity property name that maps the derived entity to parent entity.
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public static IReadOnlyDictionary<string, ResourcePropertyMapping> BaseResourcePropertyMappingsByThisName(this Resource resource)
-        {
-            return _resourceThisPropertyMappingsByResource.GetOrAdd(
-                resource,
-                r =>
-                {
-                    if (!r.IsDerived)
-                        return null;
-
-                    var baseResource = r.ResourceModel.GetResourceByFullName(r.Entity.BaseEntity.FullName);
-
-                    return r.Entity
-                        .BaseAssociation
-                        .PropertyMappings
-                        .Select(
-                            pm => new
-                            {
-                                ThisProperty = r.AllPropertyByName[pm.ThisProperty.PropertyName],
-                                OtherProperty = baseResource.AllPropertyByName[pm.OtherProperty.PropertyName],
-                            })
-                        .ToDictionary(
-                            x => x.ThisProperty.PropertyName, x => new ResourcePropertyMapping(x.ThisProperty, x.OtherProperty));
-                });
-        }
-
-        /// <summary>
-        /// Returns a property mapping dictionary keyed by the other entity property name that maps the base entity to the derived entity.
-        /// </summary>
-        /// <param name="resource"></param>
-        /// <returns></returns>
-        public static IReadOnlyDictionary<string, ResourcePropertyMapping> BaseResourcePropertyMappingsByOtherName(this Resource resource)
-        {
-            return _resourceOtherPropertyMappingsByResource.GetOrAdd(
-                resource,
-                r =>
-                {
-                    if (!r.IsDerived)
-                        return null;
-
-                    var baseResource = r.ResourceModel.GetResourceByFullName(r.Entity.BaseEntity.FullName);
-
-                    return r.Entity
-                        .BaseAssociation
-                        .PropertyMappings
-                        .Select(
-                            pm => new
-                            {
-                                ThisProperty = r.AllPropertyByName[pm.ThisProperty.PropertyName],
-                                OtherProperty = baseResource.AllPropertyByName[pm.OtherProperty.PropertyName],
-                            })
-                        .ToDictionary(
-                            x => x.OtherProperty.PropertyName, x => new ResourcePropertyMapping(x.ThisProperty, x.OtherProperty));
-                });
-        }
-        
-        /// <summary>
         /// Check if resource is abstract.
         /// </summary>
         /// <param name="resourceClass">Resource object</param>
