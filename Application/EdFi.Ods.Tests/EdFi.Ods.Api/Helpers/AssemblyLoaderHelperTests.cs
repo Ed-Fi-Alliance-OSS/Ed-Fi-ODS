@@ -69,7 +69,6 @@ public class AssemblyLoaderHelperTests
             CopyDirectory(OriginalPluginFolder, UnitTestPluginFolder, true, true);
             CopyDirectory(OriginalPluginFolder, UnitTestPluginWithNonPluginAssemblyFolder, true, true);
             CopyDirectory(OriginalPluginFolder, UnitTestInvalidPluginFolder, true, true);
-
         }
 
         [OneTimeTearDown]
@@ -261,17 +260,17 @@ public class AssemblyLoaderHelperTests
 
         private static bool FileExistsInDirectory(string fileName, string directory, bool recursive)
         {
-            // Get information about the source directory
+            // Get information about the directory
             var dir = new DirectoryInfo(directory);
 
-            // Check if the source directory exists
+            // Check if the directory exists
             if (!dir.Exists)
                 throw new DirectoryNotFoundException($"Directory not found: {dir.FullName}");
 
-            // Cache directories before we start copying
+            // Cache directories
             DirectoryInfo[] dirs = dir.GetDirectories();
 
-            // Get the files in the source directory and copy to the destination directory
+            // Get the files in the directory
             foreach (FileInfo file in dir.GetFiles())
             {
                 if (file.Name.Equals(fileName, StringComparison.OrdinalIgnoreCase))
@@ -279,8 +278,7 @@ public class AssemblyLoaderHelperTests
                     return true;
                 }
             }
-
-            // If recursive and copying subdirectories, recursively call this method
+            
             if (recursive)
             {
                 foreach (DirectoryInfo subDir in dirs)
