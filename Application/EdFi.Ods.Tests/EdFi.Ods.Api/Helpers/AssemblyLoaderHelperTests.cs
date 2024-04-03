@@ -25,18 +25,18 @@ public class AssemblyLoaderHelperTests
         private const string NonPluginAssemblyFileName = "EdFi.Ods.Tests.dll";
 
         // Contains the default plugin assemblies
-        private const string UnitTestPluginFolder = "UnitTestPlugins";
+        private string _unitTestNormalPluginFolder = "UnitTestPlugins";
 
         // Contains the default plugin assemblies and a non-plugin assembly
-        private const string UnitTestPluginWithNonPluginAssemblyFolder = "UnitTestPluginsWithNonPluginAssembly";
+        private string _unitTestPluginWithNonPluginAssemblyFolder = "UnitTestPluginsWithNonPluginAssembly";
 
         // Contains the default plugin assemblies and an invalid plugin assembly.
         // The invalid plugin implements IPluginMarker, but does not have any additional
         // content which is needed make it a valid plugin assembly.
-        private const string UnitTestInvalidPluginFolder = "UnitTestPluginsWithInvalidAssembly";
+        private string _unitTestInvalidPluginFolder = "UnitTestPluginsWithInvalidAssembly";
 
         // Folder that remains empty
-        private const string UnitTestEmptyPluginFolder = "UnitTestPluginsEmpty";
+        private string _unitTestEmptyPluginFolder = "UnitTestPluginsEmpty";
 
         private Dictionary<string, string> EmbeddedReaourcePlugins = new Dictionary<string, string>()
         {
@@ -44,20 +44,32 @@ public class AssemblyLoaderHelperTests
             { "Extensions.Sample", "Extension" },
         };
 
-        private string[] UnitTestPluginFolders = new[]
-        {
-            UnitTestPluginFolder,
-            UnitTestPluginWithNonPluginAssemblyFolder,
-            UnitTestInvalidPluginFolder
-        };
+        private string[] _nonEmptyUnitTestPluginFolders;
+
+        private string _temporaryDirectory;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            foreach (var folder in UnitTestPluginFolders)
+            _temporaryDirectory = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString())).FullName;
+
+            _unitTestNormalPluginFolder = Path.Combine(_temporaryDirectory, _unitTestNormalPluginFolder);
+            _unitTestEmptyPluginFolder = Path.Combine(_temporaryDirectory, _unitTestEmptyPluginFolder);
+            _unitTestInvalidPluginFolder = Path.Combine(_temporaryDirectory, _unitTestInvalidPluginFolder);
+
+            _unitTestPluginWithNonPluginAssemblyFolder = Path.Combine(
+                _temporaryDirectory, _unitTestPluginWithNonPluginAssemblyFolder);
+
+            _nonEmptyUnitTestPluginFolders = new[]
+            {
+                _unitTestNormalPluginFolder,
+                _unitTestPluginWithNonPluginAssemblyFolder,
+                _unitTestInvalidPluginFolder
+            };
+
+            foreach (var folder in _nonEmptyUnitTestPluginFolders)
             {
                 Directory.CreateDirectory(folder);
-                Directory.CreateDirectory(Path.Combine(folder, "Extension"));
 
                 foreach (var plugin in EmbeddedReaourcePlugins)
                 {
@@ -71,13 +83,12 @@ public class AssemblyLoaderHelperTests
                                    Path.Combine(folder, plugin.Key, "Artifacts\\Metadata\\ApiModel-EXTENSION.json")))
                         {
                             Assembly.GetExecutingAssembly()
-                                .GetManifestResourceStream(
-                                    $"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION-For-Tests.json")!
+                                .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION-For-Tests.json")!
                                 .CopyTo(fileStream);
                         }
                     }
 
-                    using (var fileStream = File.Create(Path.Combine(folder, $"{plugin.Key}\\EdFi.Ods.{plugin.Key}.dll")))
+                    using (var fileStream = File.Create(Path.Combine(folder, plugin.Key, $"EdFi.Ods.{plugin.Key}.dll")))
                     {
                         Assembly.GetExecutingAssembly()
                             .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.EdFi.Ods.{plugin.Key}.dll")!
@@ -86,7 +97,12 @@ public class AssemblyLoaderHelperTests
                 }
             }
 
-            using (var fileStream = File.Create(Path.Combine(UnitTestInvalidPluginFolder, InvalidPluginAssemblyFileName)))
+            // Create a folder with an invalid plugin assembly
+            Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly"));
+
+            Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly", "Artifacts\\Metadata"));
+
+            using (var fileStream = File.Create(Path.Combine(_unitTestInvalidPluginFolder, InvalidPluginAssemblyFileName)))
             {
                 Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.{InvalidPluginAssemblyFileName}")!
@@ -95,20 +111,17 @@ public class AssemblyLoaderHelperTests
 
             // Copy a non-plugin dll into the folder to ensure that the method does not return it
             File.Copy(
-                NonPluginAssemblyFileName, Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName),
+                NonPluginAssemblyFileName, Path.Combine(_unitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName),
                 true);
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            // Delete the folders created for the tests
-            foreach (var folder in UnitTestPluginFolders)
+            // Delete the folders and files created for the tests
+            if (Directory.Exists(_temporaryDirectory))
             {
-                if (Directory.Exists(folder))
-                {
-                    Directory.Delete(folder, true);
-                }
+                Directory.Delete(_temporaryDirectory, true);
             }
         }
 
@@ -118,7 +131,7 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder);
+            var result = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestNormalPluginFolder);
 
             // Assert
             result.Select(s => s.Split("\\").Last()).ToArray()
@@ -136,13 +149,15 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder, includeExtensionAssemblies: false);
+            var result = AssemblyLoaderHelper.FindPluginAssemblies(
+                _unitTestNormalPluginFolder, includeExtensionAssemblies: false);
 
             // Assert
-            FileExistsInDirectory("EdFi.Ods.Extensions.Sample.dll", UnitTestPluginFolder, true).ShouldBeTrue();
+            FileExistsInDirectory("EdFi.Ods.Extensions.Sample.dll", Path.Combine(_unitTestNormalPluginFolder, "Extensions.Sample"), true)
+                .ShouldBeTrue();
 
-            result.Select(s => s.Split("\\").Last()).ToArray()
-                .ShouldBeEquivalentTo(new[] { "EdFi.Ods.Profiles.Sample.dll" });
+            var returnedAssemblies = result.Select(s => s.Split("\\").Last()).ToArray();
+            returnedAssemblies.ShouldBeEquivalentTo(new[] { "EdFi.Ods.Profiles.Sample.dll" });
         }
 
         [Test]
@@ -151,10 +166,10 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder);
+            var result = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestPluginWithNonPluginAssemblyFolder);
 
             // Assert
-            File.Exists(Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName)).ShouldBeTrue();
+            File.Exists(Path.Combine(_unitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName)).ShouldBeTrue();
 
             result.Select(s => s.Split("\\").Last()).ToArray()
                 .ShouldBeEquivalentTo(
@@ -171,7 +186,7 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestEmptyPluginFolder);
+            var result = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestEmptyPluginFolder);
 
             // Assert
             result.ShouldBeEmpty();
@@ -235,46 +250,13 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act & Assert
-            Should.Throw<Exception>(() => AssemblyLoaderHelper.FindPluginAssemblies(UnitTestInvalidPluginFolder).ToList()).Message
-                .ShouldBe(
-                    "No plugin artifacts were found in assembly 'InvalidPluginAssembly.dll'. Expected an IPluginMarker implementation and assembly metadata embedded resource 'assemblyMetadata.json' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
+            Should.Throw<Exception>(() => AssemblyLoaderHelper.FindPluginAssemblies(_unitTestInvalidPluginFolder).ToList())
+                .Message
+                .ShouldBe("No plugin artifacts were found in assembly 'InvalidPluginAssembly.dll'. Expected an IPluginMarker implementation and assembly metadata embedded resource 'assemblyMetadata.json' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
         }
 
-        // This method is from https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
-        // With some modifications
-        private static void CopyDirectory(string sourceDir, string destinationDir, bool recursive, bool overwrite)
-        {
-            // Get information about the source directory
-            var dir = new DirectoryInfo(sourceDir);
-
-            // Check if the source directory exists
-            if (!dir.Exists)
-                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
-
-            // Cache directories before we start copying
-            DirectoryInfo[] dirs = dir.GetDirectories();
-
-            // Create the destination directory
-            Directory.CreateDirectory(destinationDir);
-
-            // Get the files in the source directory and copy to the destination directory
-            foreach (FileInfo file in dir.GetFiles())
-            {
-                string targetFilePath = Path.Combine(destinationDir, file.Name);
-                file.CopyTo(targetFilePath, overwrite);
-            }
-
-            // If recursive and copying subdirectories, recursively call this method
-            if (recursive)
-            {
-                foreach (DirectoryInfo subDir in dirs)
-                {
-                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                    CopyDirectory(subDir.FullName, newDestinationDir, true, overwrite);
-                }
-            }
-        }
-
+        // This method uses parts of the example code found at the following link
+        // https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
         private static bool FileExistsInDirectory(string fileName, string directory, bool recursive)
         {
             // Get information about the directory
