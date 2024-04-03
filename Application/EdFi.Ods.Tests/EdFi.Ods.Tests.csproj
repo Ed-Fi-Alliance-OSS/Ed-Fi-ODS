@@ -70,4 +70,10 @@
     <None Remove="**\TestModels\*.json" />
     <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="_EmbeddedResources\InvalidPluginAssembly.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_EmbeddedResources\InvalidPluginAssembly.dll" />
+  </ItemGroup>
 </Project>
