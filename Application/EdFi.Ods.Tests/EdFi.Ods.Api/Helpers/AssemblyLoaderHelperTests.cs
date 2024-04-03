@@ -72,7 +72,7 @@ public class AssemblyLoaderHelperTests
                         {
                             Assembly.GetExecutingAssembly()
                                 .GetManifestResourceStream(
-                                    $"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION.json")!
+                                    $"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION-For-Tests.json")!
                                 .CopyTo(fileStream);
                         }
                     }
