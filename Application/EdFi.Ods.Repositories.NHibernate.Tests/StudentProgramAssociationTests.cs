@@ -80,6 +80,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             protected override void Arrange()
             {
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 RegisterDependencies();
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
