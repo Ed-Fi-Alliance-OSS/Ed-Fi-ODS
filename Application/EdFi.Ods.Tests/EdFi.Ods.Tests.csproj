@@ -71,9 +71,15 @@
     <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="_EmbeddedResources\EdFi.Ods.Extensions.Sample.dll" />
+    <None Remove="_EmbeddedResources\EdFi.Ods.Profiles.Sample.dll" />
+    <None Remove="_EmbeddedResources\Extensions.Sample-ApiModel-EXTENSION.json" />
     <None Remove="_EmbeddedResources\InvalidPluginAssembly.dll" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="_EmbeddedResources\Extensions.Sample-ApiModel-EXTENSION.json" />
+    <EmbeddedResource Include="_EmbeddedResources\EdFi.Ods.Extensions.Sample.dll" />
+    <EmbeddedResource Include="_EmbeddedResources\EdFi.Ods.Profiles.Sample.dll" />
     <EmbeddedResource Include="_EmbeddedResources\InvalidPluginAssembly.dll" />
   </ItemGroup>
 </Project>

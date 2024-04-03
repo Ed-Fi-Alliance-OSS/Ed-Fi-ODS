@@ -21,69 +21,89 @@ public class AssemblyLoaderHelperTests
     [TestFixture]
     public class When_finding_plugin_assemblies
     {
-        private const string OriginalPluginFolder = "../../../../../../Ed-Fi-Ods-Implementation/Plugin";
         private const string InvalidPluginAssemblyFileName = "InvalidPluginAssembly.dll";
+        private const string NonPluginAssemblyFileName = "EdFi.Ods.Tests.dll";
 
-        // Contains the default plugin assemblies that are copied from the original plugin folder
+        // Contains the default plugin assemblies
         private const string UnitTestPluginFolder = "UnitTestPlugins";
 
-        // Contains the default plugin assemblies that are copied from the original plugin folder
-        // and a non-plugin assembly that is a copy of the currently executing assembly dll
+        // Contains the default plugin assemblies and a non-plugin assembly
         private const string UnitTestPluginWithNonPluginAssemblyFolder = "UnitTestPluginsWithNonPluginAssembly";
 
-        // Contains the default plugin assemblies that are copied from the original plugin folder
-        // and an invalid plugin assembly that is copied from the embedded resources
+        // Contains the default plugin assemblies and an invalid plugin assembly.
+        // The invalid plugin implements IPluginMarker, but does not have any additional
+        // content which is needed make it a valid plugin assembly.
         private const string UnitTestInvalidPluginFolder = "UnitTestPluginsWithInvalidAssembly";
 
         // Folder that remains empty
         private const string UnitTestEmptyPluginFolder = "UnitTestPluginsEmpty";
 
-        private readonly string _nonPluginAssemblyFileName;
-        private readonly string _nonPluginAssemblyLocation;
-
-        public When_finding_plugin_assemblies()
+        private Dictionary<string, string> EmbeddedReaourcePlugins = new Dictionary<string, string>()
         {
-            _nonPluginAssemblyLocation = Assembly.GetCallingAssembly().Location;
-            _nonPluginAssemblyFileName = Path.GetFileName(_nonPluginAssemblyLocation);
-        }
+            { "Profiles.Sample", "Profiles" },
+            { "Extensions.Sample", "Extension" },
+        };
+
+        private string[] UnitTestPluginFolders = new[]
+        {
+            UnitTestPluginFolder,
+            UnitTestPluginWithNonPluginAssemblyFolder,
+            UnitTestInvalidPluginFolder
+        };
 
         [OneTimeSetUp]
         public void Setup()
         {
-            Directory.CreateDirectory(UnitTestPluginFolder);
-            Directory.CreateDirectory(UnitTestEmptyPluginFolder);
-            Directory.CreateDirectory(UnitTestPluginWithNonPluginAssemblyFolder);
-            Directory.CreateDirectory(UnitTestInvalidPluginFolder);
-
-            // Save the InvalidPluginAssembly.dll EmbeddedResource as a file in the UnitTestInvalidPlugins Folder
-            using (var fileStream = File.Create(Path.Combine(UnitTestInvalidPluginFolder, InvalidPluginAssemblyFileName)))
+            foreach (var folder in UnitTestPluginFolders)
             {
-                Assembly.GetExecutingAssembly().GetManifestResourceStream("EdFi.Ods.Tests._EmbeddedResources.InvalidPluginAssembly.dll")!.CopyTo(fileStream);
+                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(Path.Combine(folder, "Extension"));
+
+                foreach (var plugin in EmbeddedReaourcePlugins)
+                {
+                    Directory.CreateDirectory(Path.Combine(folder, plugin.Key));
+
+                    if (plugin.Value == "Extension")
+                    {
+                        Directory.CreateDirectory(Path.Combine(folder, plugin.Key, "Artifacts\\Metadata"));
+
+                        using (var fileStream = File.Create(
+                                   Path.Combine(folder, plugin.Key, "Artifacts\\Metadata\\ApiModel-EXTENSION.json")))
+                        {
+                            Assembly.GetExecutingAssembly()
+                                .GetManifestResourceStream(
+                                    $"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION.json")!
+                                .CopyTo(fileStream);
+                        }
+                    }
+
+                    using (var fileStream = File.Create(Path.Combine(folder, $"{plugin.Key}\\EdFi.Ods.{plugin.Key}.dll")))
+                    {
+                        Assembly.GetExecutingAssembly()
+                            .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.EdFi.Ods.{plugin.Key}.dll")!
+                            .CopyTo(fileStream);
+                    }
+                }
             }
 
+            using (var fileStream = File.Create(Path.Combine(UnitTestInvalidPluginFolder, InvalidPluginAssemblyFileName)))
+            {
+                Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.{InvalidPluginAssemblyFileName}")!
+                    .CopyTo(fileStream);
+            }
 
             // Copy a non-plugin dll into the folder to ensure that the method does not return it
-            File.Copy(_nonPluginAssemblyLocation ?? "", Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, _nonPluginAssemblyFileName), true);
-
-
-            CopyDirectory(OriginalPluginFolder, UnitTestPluginFolder, true, true);
-            CopyDirectory(OriginalPluginFolder, UnitTestPluginWithNonPluginAssemblyFolder, true, true);
-            CopyDirectory(OriginalPluginFolder, UnitTestInvalidPluginFolder, true, true);
+            File.Copy(
+                NonPluginAssemblyFileName, Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName),
+                true);
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            var foldersToDelete = new List<string>
-            {
-                UnitTestPluginFolder,
-                UnitTestEmptyPluginFolder,
-                UnitTestPluginWithNonPluginAssemblyFolder,
-                UnitTestInvalidPluginFolder
-            };
-
             // Delete the folders created for the tests
-            foreach (var folder in foldersToDelete)
+            foreach (var folder in UnitTestPluginFolders)
             {
                 if (Directory.Exists(folder))
                 {
@@ -101,14 +121,13 @@ public class AssemblyLoaderHelperTests
             var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder);
 
             // Assert
-            result.Select(s => s.Split("\\").Last()).ToList()
-                .ShouldBeEquivalentTo(new List<string>
-                {
-                "EdFi.Ods.Profiles.Sample.dll",
-                "EdFi.Ods.Extensions.Homograph.dll",
-                "EdFi.Ods.Extensions.Sample.dll",
-                "EdFi.Ods.Extensions.TPDM.dll",
-                });
+            result.Select(s => s.Split("\\").Last()).ToArray()
+                .ShouldBeEquivalentTo(
+                    new[]
+                    {
+                        "EdFi.Ods.Extensions.Sample.dll",
+                        "EdFi.Ods.Profiles.Sample.dll"
+                    });
         }
 
         [Test]
@@ -120,13 +139,10 @@ public class AssemblyLoaderHelperTests
             var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder, includeExtensionAssemblies: false);
 
             // Assert
-            FileExistsInDirectory("EdFi.Ods.Extensions.Sample.dll", UnitTestPluginFolder, true).ShouldBeTrue(); 
+            FileExistsInDirectory("EdFi.Ods.Extensions.Sample.dll", UnitTestPluginFolder, true).ShouldBeTrue();
 
-            result.Select(s => s.Split("\\").Last()).ToList()
-                .ShouldBeEquivalentTo(new List<string>
-                {
-                    "EdFi.Ods.Profiles.Sample.dll"
-                });
+            result.Select(s => s.Split("\\").Last()).ToArray()
+                .ShouldBeEquivalentTo(new[] { "EdFi.Ods.Profiles.Sample.dll" });
         }
 
         [Test]
@@ -138,16 +154,15 @@ public class AssemblyLoaderHelperTests
             var result = AssemblyLoaderHelper.FindPluginAssemblies(UnitTestPluginFolder);
 
             // Assert
-            File.Exists(Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, _nonPluginAssemblyFileName)).ShouldBeTrue();
+            File.Exists(Path.Combine(UnitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName)).ShouldBeTrue();
 
-            result.Select(s => s.Split("\\").Last()).ToList()
-                .ShouldBeEquivalentTo(new List<string>
-                {
-                    "EdFi.Ods.Profiles.Sample.dll",
-                    "EdFi.Ods.Extensions.Homograph.dll",
-                    "EdFi.Ods.Extensions.Sample.dll",
-                    "EdFi.Ods.Extensions.TPDM.dll",
-                });
+            result.Select(s => s.Split("\\").Last()).ToArray()
+                .ShouldBeEquivalentTo(
+                    new[]
+                    {
+                        "EdFi.Ods.Extensions.Sample.dll",
+                        "EdFi.Ods.Profiles.Sample.dll"
+                    });
         }
 
         [Test]
@@ -220,7 +235,9 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act & Assert
-            Should.Throw<Exception>(() => AssemblyLoaderHelper.FindPluginAssemblies(UnitTestInvalidPluginFolder).ToList()).Message.ShouldBe("No plugin artifacts were found in assembly 'InvalidPluginAssembly.dll'. Expected an IPluginMarker implementation and assembly metadata embedded resource 'assemblyMetadata.json' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
+            Should.Throw<Exception>(() => AssemblyLoaderHelper.FindPluginAssemblies(UnitTestInvalidPluginFolder).ToList()).Message
+                .ShouldBe(
+                    "No plugin artifacts were found in assembly 'InvalidPluginAssembly.dll'. Expected an IPluginMarker implementation and assembly metadata embedded resource 'assemblyMetadata.json' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
         }
 
         // This method is from https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
@@ -278,7 +295,7 @@ public class AssemblyLoaderHelperTests
                     return true;
                 }
             }
-            
+
             if (recursive)
             {
                 foreach (DirectoryInfo subDir in dirs)
