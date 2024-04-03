@@ -500,8 +500,7 @@ namespace EdFi.Ods.Api.Startup
 
                 var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(
                     pluginFolder, false, 
-                    _apiSettings.IsFeatureEnabled(ApiFeature.Extensions.GetConfigKeyName()), 
-                    _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.GetConfigKeyName()));
+                    _apiSettings.IsFeatureEnabled(ApiFeature.Extensions.GetConfigKeyName()));
 
                 // IMPORTANT: Load the plug-in assembly into the Default context
                 return assemblyFiles

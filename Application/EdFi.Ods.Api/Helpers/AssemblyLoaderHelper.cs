@@ -139,7 +139,7 @@ namespace EdFi.Ods.Api.Helpers
                    && assemblyName != "sni.dll";
         }
 
-        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false, bool includeExtensions = true, bool includeProfiles = true)
+        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false, bool includeExtensionAssemblies = true)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
@@ -159,8 +159,8 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
-            // Only load extension ApiModel metadata files if the includeExtensions flag is set
-            var apiModelFiles = includeExtensions 
+            // Only process extension ApiModel metadata files if the includeExtensions flag is set
+            var apiModelFiles = includeExtensionAssemblies 
                 ? Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories)
                 : new string[] {};
 
@@ -229,7 +229,7 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         if (IsExtensionAssembly(assemblyMetadata))
                         {
-                            if (!includeExtensions)
+                            if (!includeExtensionAssemblies)
                             {
                                 _logger.Info($"Excluding extension assembly '{assembly.GetName().Name}'.");
                                 continue;
@@ -250,12 +250,6 @@ namespace EdFi.Ods.Api.Helpers
                     }
                     else if (IsProfileAssembly(assembly))
                     {
-                        if (!includeProfiles)
-                        {
-                            _logger.Info($"Excluding profile assembly '{assembly.GetName().Name}'.");
-                            continue;
-                        }
-
                         yield return assembly.Location;
                     }
                     else if (IsCustomPluginAssembly(assembly))
