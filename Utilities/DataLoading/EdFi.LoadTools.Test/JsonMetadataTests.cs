@@ -37,7 +37,7 @@ namespace EdFi.LoadTools.Test
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void Should_display_all_Json_metadata()
         {
             var loader = new SwaggerMetadataRetriever(

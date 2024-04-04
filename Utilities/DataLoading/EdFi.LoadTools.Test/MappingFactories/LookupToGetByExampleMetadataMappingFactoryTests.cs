@@ -57,7 +57,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void Should_map_lookup_to_getByExample()
         {
             foreach (var m in _mappings.OrderBy(x => x.SourceName))
