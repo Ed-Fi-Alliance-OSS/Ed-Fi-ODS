@@ -1,0 +1,105 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Publish Ed-Fi Alliance Project Templates to Visual Studio Marketplace   
+
+on:
+  pull_request:
+    branches: [main, 'b-v*-patch*','feature-*']
+  push:
+    branches: [main, 'b-v*-patch*','feature-*']
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  INFORMATIONAL_VERSION: "7.2"
+  BUILD_INCREMENTER: "1"
+  CONFIGURATION: "Release"
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  VS_MARKETPLACE_PAT: ${{ secrets.VS_MARKETPLACE_PAT }}
+  
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    steps:
+    - name: Check for Azure token
+      if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
+      run: | 
+        echo "::error::Missing Azure Token"
+        exit 1 
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+    - name: Setup MSBuild for .NET Framework 4.8
+      uses: microsoft/setup-msbuild@v1
+    - name: Install vsce
+      run: npm install --global @vscode/vsce
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh
+    - name: Update ODS/API Version in source.extension.vsixmanifest file
+      run: |
+        $BuildCounter = ${{ github.run_number }}
+        $BuildIncrementer = ${{env.BUILD_INCREMENTER}}
+        $InformationalVersion = ${{ env.INFORMATIONAL_VERSION}}        
+        $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+        $version = "$InformationalVersion.$newRevision"
+        Write-Host "ODS/API Version : $version"
+        $vsixManifestPath = "$env:GITHUB_WORKSPACE/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/source.extension.vsixmanifest"
+        $vsixManifestContent = Get-Content $vsixManifestPath -Raw
+
+        $identityRegex = '<Identity[^>]*\sId="([^"]+)"[^>]*\sVersion="([^"]+)"'
+        $match = [regex]::Match($vsixManifestContent, $identityRegex)
+
+        if ($match.Success) {
+            $currentId = $match.Groups[1].Value
+            $currentVersion = $match.Groups[2].Value
+            Write-Host "Current Id: $currentId"
+            Write-Host "Current Version: $currentVersion"
+            $underscoreVersion = $version -replace '\.', '-'
+            $guid = New-Guid
+            $newIdentity = '<Identity Id="{0}-{1}" Version="{2}"' -f $currentId, $guid, $version
+            $newVsixManifestContent = $vsixManifestContent -replace "$identityRegex", $newIdentity
+            $newDisplayName = "Ed-Fi Alliance Project Templates-$version"
+            $newVsixManifestContent = $newVsixManifestContent -replace '(?<=<DisplayName>).*?(?=</DisplayName>)', $newDisplayName
+            Write-Host "Display Name: $newDisplayName"
+            $newVsixManifestContent | Set-Content $vsixManifestPath
+            Write-Host "Version updated in source.extension.vsixmanifest is :  $version"
+        } else {
+            Write-Host "Version attribute not found in <Identity> tag."
+        }
+      shell: pwsh
+    - name: Clean EdFi.ProjectTemplates.sln
+      run: msbuild  "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:clean
+      shell: pwsh      
+    - name: build EdFi.ProjectTemplates.sln
+      run:  msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln"   /p:Configuration=${{ env.CONFIGURATION }} /p:Platform="Any CPU" 
+      shell: pwsh
+    - name: Upload EdFi.ProjectTemplates.Installer Artifacts
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: EdFi.ProjectTemplates.Artifacts
+        path: ${{ github.workspace }}/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/bin/${{ env.CONFIGURATION }}//*.*
+    - name: Publish to Visual Studio Marketplace
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}  
+      run: |
+        & "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VSSDK/VisualStudioIntegration/Tools/Bin/VsixPublisher.exe" login -personalAccessToken  "${{ env.VS_MARKETPLACE_PAT }}"  -publisherName "Ed-FiAlliance"
+        & "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VSSDK/VisualStudioIntegration/Tools/Bin/VsixPublisher.exe" publish  -payload "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/bin/${{ env.CONFIGURATION }}/EdFi.ProjectTemplates.Installer.vsix"  -publishManifest "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/bin/${{ env.CONFIGURATION }}/vs-publish.json"  -personalAccessToken  "${{ env.VSCE_PAT }}"  -ignoreWarnings "None"
+      shell: pwsh

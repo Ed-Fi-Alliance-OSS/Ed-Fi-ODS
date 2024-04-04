@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "Visual Studio Extensions" ],
+  "identity": {
+    "internalName": "EdFi-ProjectTemplates"
+  },
+  "overview": "Release Notes.md",
+  "priceCategory": "free",
+  "publisher": "Ed-FiAlliance",
+  "private": false,
+  "qna": true
+}
