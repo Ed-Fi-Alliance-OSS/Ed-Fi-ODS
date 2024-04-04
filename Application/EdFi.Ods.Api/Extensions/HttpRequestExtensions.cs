@@ -26,6 +26,22 @@ namespace EdFi.Ods.Api.Extensions
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
         }
 
+        public static string ResourceUri(this HttpRequest request, ReverseProxySettings reverseProxySettings, bool useParentPath = false)
+        {
+            var uriBuilder = new UriBuilder(
+                    request.Scheme(reverseProxySettings),
+                    request.Host(reverseProxySettings),
+                    request.Port(reverseProxySettings),
+                    request.PathBase.Add(request.Path));
+
+            if (useParentPath)
+            {
+                uriBuilder = GetParentPath(uriBuilder.Uri);
+            }
+
+            return uriBuilder.Uri.ToString().TrimEnd('/');
+        }
+
         public static string Scheme(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             string scheme = request.Scheme;
@@ -129,6 +145,18 @@ namespace EdFi.Ods.Api.Extensions
             value = values.FirstOrDefault();
 
             return !string.IsNullOrEmpty(value);
+        }
+
+        private static UriBuilder GetParentPath(Uri uri)
+        {
+            var parentPath = PathString.Empty;
+
+            foreach(var segment in uri.Segments.SkipLast(1))
+            {
+                parentPath += segment;
+            }
+
+            return new UriBuilder(uri.Scheme, uri.Host, uri.Port, parentPath);
         }
     }
 }
