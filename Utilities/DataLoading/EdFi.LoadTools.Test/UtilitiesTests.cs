@@ -24,7 +24,7 @@ namespace EdFi.LoadTools.Test
             _foo.Bar.FirstName = "Test";
             _foo.Bar.LastName = "User";
             _foo.Bar.Spaces = "This string has spaces";
-            _foo.Bar.Birthdate = new DateTime(2000, 6, 1);
+            _foo.Bar.Birthdate = new DateTime(2000, 11, 28);
             _json = Convert.ToString(JObject.FromObject(_foo));
             Console.WriteLine(_json);
         }
@@ -37,7 +37,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsTrue(queryStr.Contains("FirstName=Test"));
             Assert.IsTrue(queryStr.Contains("LastName=User"));
             Assert.IsTrue(queryStr.Contains("Spaces=This%20string%20has%20spaces"));
-            Assert.IsTrue(queryStr.Contains("Birthdate=6%2F1%2F2000%2012"));
+            Assert.IsTrue(queryStr.Contains("Birthdate=11%2F28%2F2000"));
         }
     }
 }

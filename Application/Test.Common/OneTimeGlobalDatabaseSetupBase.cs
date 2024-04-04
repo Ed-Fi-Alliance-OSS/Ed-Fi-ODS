@@ -29,7 +29,7 @@ namespace Test.Common
         private IDatabaseHelper _databaseHelper;
 
         [OneTimeSetUp]
-        public virtual async Task OneTimeSetUpAsync()
+        public virtual Task OneTimeSetUpAsync()
         {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -158,6 +158,8 @@ namespace Test.Common
 
             _dbCopyConnectionString = connectionStringBuilder.ConnectionString;
             Configuration.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value = _dbCopyConnectionString;
+
+            return Task.CompletedTask;
         }
 
         [OneTimeTearDown]

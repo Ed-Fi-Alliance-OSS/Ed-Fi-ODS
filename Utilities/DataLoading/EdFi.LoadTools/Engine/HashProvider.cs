@@ -13,7 +13,7 @@ namespace EdFi.LoadTools.Engine
     public class HashProvider : IHashProvider
     {
         private readonly ThreadLocal<HashAlgorithm> _algorithm =
-            new ThreadLocal<HashAlgorithm>(() => new SHA1CryptoServiceProvider());
+            new ThreadLocal<HashAlgorithm>(SHA1.Create);
 
         public int Bytes => _algorithm.Value.HashSize / 8;
 

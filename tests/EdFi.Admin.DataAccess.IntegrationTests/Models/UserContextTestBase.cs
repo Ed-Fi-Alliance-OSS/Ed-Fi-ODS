@@ -27,6 +27,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", false)

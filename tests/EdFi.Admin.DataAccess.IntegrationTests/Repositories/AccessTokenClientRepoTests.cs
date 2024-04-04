@@ -41,6 +41,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
         protected override void Arrange()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             _transaction = new TransactionScope();
              Factory = Stub<IUsersContextFactory>();
 
