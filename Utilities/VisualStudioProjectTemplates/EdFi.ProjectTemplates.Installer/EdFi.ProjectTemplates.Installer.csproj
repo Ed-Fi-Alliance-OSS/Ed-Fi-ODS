@@ -63,6 +63,9 @@
     </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>extension.vsixmanifest</TargetPath>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </None>
   </ItemGroup>
   <ItemGroup>
