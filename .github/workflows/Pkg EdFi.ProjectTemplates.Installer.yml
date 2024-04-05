@@ -37,11 +37,18 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
         exit 1 
+    - name: Support longpaths
+      run: git config --system core.longpaths true        
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
-        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-        path: Ed-Fi-ODS/        
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/                
     - name: Setup MSBuild for .NET Framework 4.8
       uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce #v2.0.0
     - name: Cache Nuget packages
