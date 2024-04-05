@@ -5815,7 +5815,7 @@
 															"});\r",
 															"\r",
 															"pm.test(\"Should return a message indicating that authorization was denied, staff was not found.\", () => {\r",
-															"  pm.expect(problemDetails.errors[0]).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\([\\d\\s,]+\\) and the resource item's 'StaffUniqueId'./);\r",
+															"  pm.expect(problemDetails.errors[0]).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'StaffUniqueId'./);\r",
 															"});\r",
 															"\r",
 															"pm.test(`Should hint to create 'StaffEducationOrganizationEmploymentAssociation' or 'StaffEducationOrganizationAssignmentAssociation'`, () => {\r",
