@@ -16,10 +16,10 @@ concurrency:
 env:
   INFORMATIONAL_VERSION: "7.2"
   BUILD_INCREMENTER: "-41"
-  CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
+  CONFIGURATION: "Release"
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
@@ -65,7 +65,7 @@ jobs:
                 $newRevision = 1
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
-      shell: pwsh
+      shell: powershell
     - name: Update  version number in source.extension.vsixmanifest file
       working-directory: ./Ed-Fi-ODS/    
       run: |
@@ -95,32 +95,31 @@ jobs:
         } else {
             Write-Host "Version attribute not found in <Identity> tag."
         }
-      shell: pwsh
+      shell: powershell
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/    
       run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
-      shell: pwsh      
+      shell: powershell      
     - name: build
       run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
-      shell: pwsh
+      shell: powershell
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-ODS/    
-      shell: pwsh
+      shell: powershell
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
     - name: Install-credential-handler
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        .\build.githubactions.ps1 InstallCredentialHandler
-      shell: pwsh    
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: powershell   
     - name: publish
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.csproj" -PackageName "EdFi.Suite3.ProjectTemplates.Installer"
-      shell: pwsh     
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer"
+      shell: powershell     
     - name: Upload EdFi.Suite3.ProjectTemplates.Installer Artifacts
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/NugetPackages/*.nupkg
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg
