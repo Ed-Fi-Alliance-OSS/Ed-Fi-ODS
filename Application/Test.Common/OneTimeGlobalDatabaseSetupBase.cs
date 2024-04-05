@@ -163,9 +163,10 @@ namespace Test.Common
         }
 
         [OneTimeTearDown]
-        public virtual async Task OneTimeTearDownAsync()
+        public virtual Task OneTimeTearDownAsync()
         {
             _databaseHelper.DropMatchingDatabases(DatabaseCopyPrefix + "%");
+            return Task.CompletedTask;
         }
 
         public IDbConnection BuildOdsConnection(string token = null) => BuildConnection(GetConnectionString(token));
