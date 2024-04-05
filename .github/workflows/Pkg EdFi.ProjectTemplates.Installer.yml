@@ -98,10 +98,10 @@ jobs:
       shell: pwsh
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/    
-      run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
+      run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
       shell: pwsh      
     - name: build
-      run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
+      run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
       shell: pwsh
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-ODS/    
