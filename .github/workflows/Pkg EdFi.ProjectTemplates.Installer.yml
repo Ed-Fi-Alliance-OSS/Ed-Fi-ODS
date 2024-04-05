@@ -41,6 +41,7 @@ jobs:
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: Ed-Fi-ODS/        
     - name: Setup MSBuild for .NET Framework 4.8
       uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce #v2.0.0
     - name: Cache Nuget packages
@@ -59,6 +60,7 @@ jobs:
             }
       shell: pwsh
     - name: Update  version number in source.extension.vsixmanifest file
+      working-directory: ./Ed-Fi-ODS/    
       run: |
         $BuildCounter = ${{ github.run_number }}
         $BuildIncrementer = ${{env.BUILD_INCREMENTER}}
@@ -88,12 +90,14 @@ jobs:
         }
       shell: pwsh
     - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS/    
       run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /t:Restore
       shell: pwsh      
     - name: build
       run: msbuild "Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
       shell: pwsh
     - name: pack using nuget nuspec file
+      working-directory: ./Ed-Fi-ODS/    
       shell: pwsh
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
