@@ -7,7 +7,7 @@ name: Pkg EdFi.Ods.Minimal.Template.PostgreSQL
 
 on:
   push:
-    branches: ['b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
     inputs:
       distinct_id:
