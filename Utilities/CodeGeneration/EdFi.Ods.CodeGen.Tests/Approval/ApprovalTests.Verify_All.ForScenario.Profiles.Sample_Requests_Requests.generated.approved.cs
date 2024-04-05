@@ -5,7 +5,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly
 {
 
     [ExcludeFromCodeCoverage]
@@ -36,15 +36,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource
         public List<Guid> Ids { get; set; }
     }
 
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-ExcludeOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPost : Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School
+    public class SchoolPost : Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School
     {
     }
 
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-ExcludeOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School
+    public class SchoolPut : Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School
     {
     }
 
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly
 {
 
     [ExcludeFromCodeCoverage]
@@ -93,15 +93,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource
         public List<Guid> Ids { get; set; }
     }
 
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-IncludeOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPost : Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School
+    public class SchoolPost : Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School
     {
     }
 
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-IncludeOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School
+    public class SchoolPut : Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School
     {
     }
 
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ReadOnly
 {
 
     [ExcludeFromCodeCoverage]
@@ -164,17 +164,17 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_WriteOnly
 {
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-WriteOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPost : Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
+    public class SchoolPost : Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School
     {
     }
 
-    [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json")]
+    [ProfileContentType("application/vnd.ed-fi.school.Sample-Profile-Resource-WriteOnly.writable+json")]
     [ExcludeFromCodeCoverage]
-    public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
+    public class SchoolPut : Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School
     {
     }
 
