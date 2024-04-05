@@ -71,11 +71,6 @@
       <TargetPath>extension.vsixmanifest</TargetPath>
       <IncludeInVSIX>true</IncludeInVSIX>
     </None>
-    <Content Include="vs-publish.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <TargetPath>vs-publish.json</TargetPath>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ed-fi-logo.png">
