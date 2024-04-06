@@ -5,13 +5,14 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Type;
+using NHibernate.Util;
 
 namespace EdFi.Ods.Common.Infrastructure.SqlServer
 {
@@ -21,15 +22,6 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
     /// </summary>
     public class SqlServerTableValuedParameterListSetter : IParameterListSetter
     {
-        // Additional types here must be supported with a SQL Server user-defined table type, and explicit
-        // support in the SqlServerStructured class.
-        private static readonly Dictionary<Type, IType> _structuredTypeBySystemType
-            = new Dictionary<Type, IType>
-            {
-                {typeof(int), new SqlServerStructured<int>()},
-                {typeof(Guid), new SqlServerStructured<Guid>()}
-            };
-
         /// <summary>
         /// Sets the value of a SQL Server table-valued parameter (by name) to the supplied list of Ids.
         /// </summary>
@@ -58,24 +50,47 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
             IType nHibernateType;
 
             // If item type is not supported, pass call through to NHibernate 'SetParameterList'
-            if (!_structuredTypeBySystemType.TryGetValue(itemSystemType, out nHibernateType))
+            if (!SqlServerStructuredMappings.StructuredTypeBySystemType.TryGetValue(itemSystemType, out nHibernateType))
             {
                 query.SetParameterList(name, ids);
                 return;
             }
 
             // Create a DataTable that matches the structure of the corresponding custom SQL Server type
-            var dt = CreateDataTable(ids, itemSystemType);
+            var dt = CreateIdDataTable(ids, itemSystemType);
 
             // Set the named parameter's value, using the DataTable and the structured IType
             query.SetParameter(name, dt, nHibernateType);
         }
 
-        private static DataTable CreateDataTable(IEnumerable ids, Type itemSystemType)
+        /// <summary>
+        /// Apply an "in" constraint to the named property.
+        /// </summary>
+        /// <param name="propertyName">
+        /// The name of the Property in the class. 
+        /// View aliases must be enclosed in curly brackets.
+        /// <param name="values">An array of values.</param>
+        /// <returns>An <see cref="AbstractCriterion" />.</returns>
+        public AbstractCriterion In(string propertyName, object[] values)
+        {
+            var itemSystemType = values.First().GetType();
+
+            return Expression.Sql($"{propertyName} IN (?)",
+                             CreateIdDataTable(values, itemSystemType),
+                             SqlServerStructuredMappings.StructuredTypeBySystemType[itemSystemType]);
+        }
+
+        /// <summary>
+        /// Creates a DataTabe with a single column "Id" populated with the given values.
+        /// </summary>
+        /// <param name="ids">The ids.</param>
+        /// <param name="idType">The type of the "Id" column.</param>
+        /// <returns></returns>
+        public static DataTable CreateIdDataTable(IEnumerable ids, Type idType)
         {
             // Create a DataTable that matches the structure of the corresponding custom SQL Server type
             var dt = new DataTable();
-            dt.Columns.Add("Id", itemSystemType);
+            dt.Columns.Add("Id", idType);
 
             // Add the supplied ids as rows in the DataTable
             foreach (var id in ids)

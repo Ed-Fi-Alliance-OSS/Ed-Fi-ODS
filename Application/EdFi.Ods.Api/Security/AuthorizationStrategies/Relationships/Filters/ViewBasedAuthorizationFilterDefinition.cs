@@ -6,6 +6,7 @@
 using System;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
@@ -22,7 +23,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewTargetEndpointName,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+            IParameterListSetter parameterListSetter)
             : base(
                 filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
@@ -30,6 +32,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
                     WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (criteria, @where, subjectEndpointName, parameters, joinType) => criteria.ApplyJoinFilter(
+                    parameterListSetter,
                     @where,
                     parameters,
                     viewName,
