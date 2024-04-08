@@ -132,11 +132,11 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestNormalPluginFolder);
+            var returnedAssemblies = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestNormalPluginFolder).Select(Path.GetFileName)
+                .ToArray();
 
             // Assert
-            result.Select(s => s.Split("\\").Last()).ToArray()
-                .ShouldBeEquivalentTo(
+            returnedAssemblies.ShouldBeEquivalentTo(
                     new[]
                     {
                         "EdFi.Ods.Extensions.Sample.dll",
