@@ -105,8 +105,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,

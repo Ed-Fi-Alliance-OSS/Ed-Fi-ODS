@@ -114,9 +114,7 @@ namespace {{ResourceClassesNamespace}}
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
-                {{#StandardLink}}
+            {{#StandardLink}}
             return new Link
             {
                 Rel = resource.Name,
@@ -250,15 +248,13 @@ namespace {{ResourceClassesNamespace}}
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
-                {{#StandardLink}}
+            {{#StandardLink}}
             return new Link
             {
                 Rel = resource.Name,
                 Href = $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}/{ResourceId:n}"
             };
-                {{/StandardLink}}
+            {{/StandardLink}}
             {{/HasDiscriminator}}
         }
         {{/HRef}}

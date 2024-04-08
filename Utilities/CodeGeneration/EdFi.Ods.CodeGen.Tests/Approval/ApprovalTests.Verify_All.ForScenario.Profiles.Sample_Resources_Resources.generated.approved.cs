@@ -22,7 +22,7 @@ using FluentValidation.Results;
 
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -95,8 +95,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -1709,7 +1707,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -1787,11 +1785,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolGradeLevels = new List<SchoolGradeLevel>();
 
             // Inherited lists
-            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>();
-            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>();
-            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>();
-            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
-            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>();
+            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>();
+            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>();
+            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
+            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>();
         }
         // ------------------------------------------------------------
 
@@ -2052,17 +2050,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return null; }
             set { }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory> _educationOrganizationCategories;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
         [DataMember(Name="educationOrganizationCategories"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory> EducationOrganizationCategories
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory> EducationOrganizationCategories
         {
             get { return _educationOrganizationCategories; }
             set
             {
                 _educationOrganizationCategories = value;
-                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>(value);
+                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>(value);
             }
         }
 
@@ -2070,19 +2068,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationCategories
         {
             get { return _educationOrganizationCategoriesCovariant; }
-            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>()); }
+            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodesCovariant;
 
         [DataMember(Name="identificationCodes"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodes; }
             set
             {
                 _educationOrganizationIdentificationCodes = value;
-                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>(value);
+                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>(value);
             }
         }
 
@@ -2090,19 +2088,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodesCovariant; }
-            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
+            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
 
         [DataMember(Name="indicators"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicators; }
             set
             {
                 _educationOrganizationIndicators = value;
-                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value);
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value);
             }
         }
 
@@ -2110,19 +2108,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicatorsCovariant; }
-            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>()); }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
         [DataMember(Name="institutionTelephones"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephones; }
             set
             {
                 _educationOrganizationInstitutionTelephones = value;
-                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value);
+                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value);
             }
         }
 
@@ -2130,19 +2128,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephonesCovariant; }
-            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>()); }
+            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> _educationOrganizationInternationalAddressesCovariant;
 
         [DataMember(Name="internationalAddresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddresses; }
             set
             {
                 _educationOrganizationInternationalAddresses = value;
-                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>(value);
+                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>(value);
             }
         }
 
@@ -2150,7 +2148,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddressesCovariant; }
-            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>()); }
+            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>()); }
         }
         // -------------------------------------------------------------
 
@@ -2377,7 +2375,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategoryPutPostRequestValidator();
+            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategoryPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationCategories)
             {
@@ -2387,7 +2385,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
+            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
@@ -2397,7 +2395,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIndicators)
             {
@@ -2407,7 +2405,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
+            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInstitutionTelephones)
             {
@@ -2417,7 +2415,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
+            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInternationalAddresses)
             {
@@ -2680,7 +2678,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
@@ -3525,7 +3523,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.Extensions.TPDM
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
@@ -3813,7 +3811,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -3886,8 +3884,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -5868,7 +5864,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -5946,11 +5942,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolCategories = new List<SchoolCategory>();
 
             // Inherited lists
-            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>();
-            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>();
-            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>();
-            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>();
-            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
+            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>();
+            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>();
+            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>();
+            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
         }
         // ------------------------------------------------------------
 
@@ -6257,17 +6253,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                     Inherited Collections
         // -------------------------------------------------------------
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> _educationOrganizationAddressesCovariant;
 
         [DataMember(Name="addresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress> EducationOrganizationAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress> EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddresses; }
             set
             {
                 _educationOrganizationAddresses = value;
-                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>(value);
+                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>(value);
             }
         }
 
@@ -6275,19 +6271,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddressesCovariant; }
-            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>()); }
+            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory> _educationOrganizationCategories;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
         [DataMember(Name="educationOrganizationCategories"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory> EducationOrganizationCategories
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory> EducationOrganizationCategories
         {
             get { return _educationOrganizationCategories; }
             set
             {
                 _educationOrganizationCategories = value;
-                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>(value);
+                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>(value);
             }
         }
 
@@ -6295,19 +6291,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationCategories
         {
             get { return _educationOrganizationCategoriesCovariant; }
-            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>()); }
+            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodesCovariant;
 
         [DataMember(Name="identificationCodes"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodes; }
             set
             {
                 _educationOrganizationIdentificationCodes = value;
-                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>(value);
+                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>(value);
             }
         }
 
@@ -6315,19 +6311,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodesCovariant; }
-            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
+            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
 
         [DataMember(Name="indicators"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicators; }
             set
             {
                 _educationOrganizationIndicators = value;
-                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value);
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value);
             }
         }
 
@@ -6335,19 +6331,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicatorsCovariant; }
-            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>()); }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
         [DataMember(Name="institutionTelephones"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephones; }
             set
             {
                 _educationOrganizationInstitutionTelephones = value;
-                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value);
+                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value);
             }
         }
 
@@ -6355,7 +6351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephonesCovariant; }
-            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>()); }
+            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>()); }
         }
         // Not supported by this model, so there's "null object pattern" style implementation
         ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInternationalAddresses
@@ -6587,7 +6583,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddressPutPostRequestValidator();
+            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationAddresses)
             {
@@ -6597,7 +6593,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategoryPutPostRequestValidator();
+            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategoryPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationCategories)
             {
@@ -6607,7 +6603,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
+            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
@@ -6617,7 +6613,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIndicators)
             {
@@ -6627,7 +6623,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
+            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInstitutionTelephones)
             {
@@ -6890,7 +6886,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
@@ -7735,7 +7731,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.Extensions.TPDM
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
@@ -8023,7 +8019,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -8096,8 +8092,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -8790,7 +8784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Readable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -8868,7 +8862,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolCategories = new List<SchoolCategory>();
 
             // Inherited lists
-            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>();
+            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>();
         }
         // ------------------------------------------------------------
 
@@ -9123,17 +9117,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                     Inherited Collections
         // -------------------------------------------------------------
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> _educationOrganizationAddressesCovariant;
 
         [DataMember(Name="addresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress> EducationOrganizationAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress> EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddresses; }
             set
             {
                 _educationOrganizationAddresses = value;
-                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>(value);
+                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>(value);
             }
         }
 
@@ -9141,7 +9135,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddressesCovariant; }
-            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>()); }
+            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddress>()); }
         }
         // Not supported by this model, so there's "null object pattern" style implementation
         ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationCategories
@@ -9394,7 +9388,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddressPutPostRequestValidator();
+            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School.EducationOrganizationAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationAddresses)
             {
@@ -9657,7 +9651,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -9730,8 +9724,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -10056,7 +10048,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Writable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -10134,7 +10126,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolGradeLevels = new List<SchoolGradeLevel>();
 
             // Inherited lists
-            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>();
+            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>();
         }
         // ------------------------------------------------------------
 
@@ -10366,17 +10358,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return null; }
             set { }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> _educationOrganizationInternationalAddressesCovariant;
 
         [DataMember(Name="internationalAddresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddresses; }
             set
             {
                 _educationOrganizationInternationalAddresses = value;
-                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>(value);
+                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>(value);
             }
         }
 
@@ -10384,7 +10376,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddressesCovariant; }
-            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>()); }
+            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddress>()); }
         }
         // -------------------------------------------------------------
 
@@ -10608,7 +10600,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
+            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInternationalAddresses)
             {
@@ -10871,7 +10863,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -10944,8 +10936,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -13232,7 +13222,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ReadOnly_Readable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -13311,12 +13301,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolGradeLevels = new List<SchoolGradeLevel>();
 
             // Inherited lists
-            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>();
-            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>();
-            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>();
-            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>();
-            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
-            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>();
+            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>();
+            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>();
+            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>();
+            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
+            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>();
         }
         // ------------------------------------------------------------
 
@@ -13623,17 +13613,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                     Inherited Collections
         // -------------------------------------------------------------
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> _educationOrganizationAddressesCovariant;
 
         [DataMember(Name="addresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress> EducationOrganizationAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress> EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddresses; }
             set
             {
                 _educationOrganizationAddresses = value;
-                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>(value);
+                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>(value);
             }
         }
 
@@ -13641,19 +13631,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddressesCovariant; }
-            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>()); }
+            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory> _educationOrganizationCategories;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
         [DataMember(Name="educationOrganizationCategories"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory> EducationOrganizationCategories
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory> EducationOrganizationCategories
         {
             get { return _educationOrganizationCategories; }
             set
             {
                 _educationOrganizationCategories = value;
-                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>(value);
+                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>(value);
             }
         }
 
@@ -13661,19 +13651,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationCategories
         {
             get { return _educationOrganizationCategoriesCovariant; }
-            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>()); }
+            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodesCovariant;
 
         [DataMember(Name="identificationCodes"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodes; }
             set
             {
                 _educationOrganizationIdentificationCodes = value;
-                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>(value);
+                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>(value);
             }
         }
 
@@ -13681,19 +13671,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodesCovariant; }
-            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
+            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
 
         [DataMember(Name="indicators"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicators; }
             set
             {
                 _educationOrganizationIndicators = value;
-                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value);
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value);
             }
         }
 
@@ -13701,19 +13691,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicatorsCovariant; }
-            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>()); }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
         [DataMember(Name="institutionTelephones"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephones; }
             set
             {
                 _educationOrganizationInstitutionTelephones = value;
-                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value);
+                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value);
             }
         }
 
@@ -13721,19 +13711,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephonesCovariant; }
-            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>()); }
+            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> _educationOrganizationInternationalAddressesCovariant;
 
         [DataMember(Name="internationalAddresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddresses; }
             set
             {
                 _educationOrganizationInternationalAddresses = value;
-                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>(value);
+                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>(value);
             }
         }
 
@@ -13741,7 +13731,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddressesCovariant; }
-            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>()); }
+            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>()); }
         }
         // -------------------------------------------------------------
 
@@ -14005,7 +13995,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddressPutPostRequestValidator();
+            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationAddresses)
             {
@@ -14015,7 +14005,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategoryPutPostRequestValidator();
+            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategoryPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationCategories)
             {
@@ -14025,7 +14015,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
+            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
@@ -14035,7 +14025,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIndicators)
             {
@@ -14045,7 +14035,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
+            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInstitutionTelephones)
             {
@@ -14055,7 +14045,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
+            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInternationalAddresses)
             {
@@ -14552,7 +14542,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ReadOnly_Readable.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
@@ -15397,7 +15387,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.Extensions.TPDM
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ReadOnly_Readable.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
@@ -15685,7 +15675,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: EducationOrganization
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
+namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School
 {
     /// <summary>
     /// Represents a reference to the EducationOrganization resource.
@@ -15758,8 +15748,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -18046,7 +18034,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -18125,12 +18113,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             SchoolGradeLevels = new List<SchoolGradeLevel>();
 
             // Inherited lists
-            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>();
-            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>();
-            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>();
-            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>();
-            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
-            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>();
+            EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>();
+            EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>();
+            EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>();
+            EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
+            EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>();
         }
         // ------------------------------------------------------------
 
@@ -18437,17 +18425,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                     Inherited Collections
         // -------------------------------------------------------------
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress> _educationOrganizationAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> _educationOrganizationAddressesCovariant;
 
         [DataMember(Name="addresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress> EducationOrganizationAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress> EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddresses; }
             set
             {
                 _educationOrganizationAddresses = value;
-                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>(value);
+                _educationOrganizationAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationAddress, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>(value);
             }
         }
 
@@ -18455,19 +18443,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationAddresses
         {
             get { return _educationOrganizationAddressesCovariant; }
-            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>()); }
+            set { EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory> _educationOrganizationCategories;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory> _educationOrganizationCategories;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> _educationOrganizationCategoriesCovariant;
 
         [DataMember(Name="educationOrganizationCategories"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory> EducationOrganizationCategories
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory> EducationOrganizationCategories
         {
             get { return _educationOrganizationCategories; }
             set
             {
                 _educationOrganizationCategories = value;
-                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>(value);
+                _educationOrganizationCategoriesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationCategory, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>(value);
             }
         }
 
@@ -18475,19 +18463,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationCategory> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationCategories
         {
             get { return _educationOrganizationCategoriesCovariant; }
-            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>()); }
+            set { EducationOrganizationCategories = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodes;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> _educationOrganizationIdentificationCodesCovariant;
 
         [DataMember(Name="identificationCodes"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodes; }
             set
             {
                 _educationOrganizationIdentificationCodes = value;
-                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>(value);
+                _educationOrganizationIdentificationCodesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>(value);
             }
         }
 
@@ -18495,19 +18483,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIdentificationCode> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIdentificationCodes
         {
             get { return _educationOrganizationIdentificationCodesCovariant; }
-            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
+            set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
 
         [DataMember(Name="indicators"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicators; }
             set
             {
                 _educationOrganizationIndicators = value;
-                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value);
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value);
             }
         }
 
@@ -18515,19 +18503,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
         {
             get { return _educationOrganizationIndicatorsCovariant; }
-            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>()); }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
         [DataMember(Name="institutionTelephones"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephones; }
             set
             {
                 _educationOrganizationInstitutionTelephones = value;
-                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value);
+                _educationOrganizationInstitutionTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value);
             }
         }
 
@@ -18535,19 +18523,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return _educationOrganizationInstitutionTelephonesCovariant; }
-            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>()); }
+            set { EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>()); }
         }
-        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
+        private ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress> _educationOrganizationInternationalAddresses;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> _educationOrganizationInternationalAddressesCovariant;
 
         [DataMember(Name="internationalAddresses"), NoDuplicateMembers]
-        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
+        public ICollection<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddresses; }
             set
             {
                 _educationOrganizationInternationalAddresses = value;
-                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>(value);
+                _educationOrganizationInternationalAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationInternationalAddress, EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>(value);
             }
         }
 
@@ -18555,7 +18543,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         ICollection<Entities.Common.EdFi.IEducationOrganizationInternationalAddress> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInternationalAddresses
         {
             get { return _educationOrganizationInternationalAddressesCovariant; }
-            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>()); }
+            set { EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>(value.Cast<EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>()); }
         }
         // -------------------------------------------------------------
 
@@ -18819,7 +18807,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddressPutPostRequestValidator();
+            var educationOrganizationAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationAddresses)
             {
@@ -18829,7 +18817,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategoryPutPostRequestValidator();
+            var educationOrganizationCategoriesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategoryPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationCategories)
             {
@@ -18839,7 +18827,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
+            var educationOrganizationIdentificationCodesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCodePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
@@ -18849,7 +18837,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationIndicators)
             {
@@ -18859,7 +18847,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
+            var educationOrganizationInstitutionTelephonesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephonePutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInstitutionTelephones)
             {
@@ -18869,7 +18857,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
-            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
+            var educationOrganizationInternationalAddressesValidator = new EducationOrganization.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddressPutPostRequestValidator();
 
             foreach (var item in instance.EducationOrganizationInternationalAddresses)
             {
@@ -19366,7 +19354,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
@@ -20211,7 +20199,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.Extensions.TPDM
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
