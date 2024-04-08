@@ -77,10 +77,11 @@ public class AssemblyLoaderHelperTests
 
                     if (plugin.Value == "Extension")
                     {
-                        Directory.CreateDirectory(Path.Combine(folder, plugin.Key, "Artifacts\\Metadata"));
+                        Directory.CreateDirectory(Path.Combine(folder, plugin.Key, "Artifacts"));
+                        Directory.CreateDirectory(Path.Combine(folder, plugin.Key, "Artifacts", "Metadata"));
 
                         using (var fileStream = File.Create(
-                                   Path.Combine(folder, plugin.Key, "Artifacts\\Metadata\\ApiModel-EXTENSION.json")))
+                                   Path.Combine(folder, plugin.Key, "Artifacts", "Metadata", "ApiModel-EXTENSION.json")))
                         {
                             Assembly.GetExecutingAssembly()
                                 .GetManifestResourceStream($"EdFi.Ods.Tests._EmbeddedResources.{plugin.Key}-ApiModel-EXTENSION-For-Tests.json")!
@@ -99,8 +100,8 @@ public class AssemblyLoaderHelperTests
 
             // Create a folder with an invalid plugin assembly
             Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly"));
-
-            Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly", "Artifacts\\Metadata"));
+            Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly", "Artifacts"));
+            Directory.CreateDirectory(Path.Combine(_unitTestInvalidPluginFolder, "Profiles.InvalidPluginAssembly", "Artifacts", "Metadata"));
 
             using (var fileStream = File.Create(Path.Combine(_unitTestInvalidPluginFolder, InvalidPluginAssemblyFileName)))
             {
@@ -149,14 +150,13 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(
-                _unitTestNormalPluginFolder, includeExtensionAssemblies: false);
+            var returnedAssemblies = AssemblyLoaderHelper.FindPluginAssemblies(
+                    _unitTestNormalPluginFolder, includeExtensionAssemblies: false)
+                .Select(Path.GetFileName).ToArray();
 
             // Assert
             FileExistsInDirectory("EdFi.Ods.Extensions.Sample.dll", Path.Combine(_unitTestNormalPluginFolder, "Extensions.Sample"), true)
                 .ShouldBeTrue();
-
-            var returnedAssemblies = result.Select(s => s.Split("\\").Last()).ToArray();
             returnedAssemblies.ShouldBeEquivalentTo(new[] { "EdFi.Ods.Profiles.Sample.dll" });
         }
 
@@ -166,13 +166,13 @@ public class AssemblyLoaderHelperTests
             // Arrange
 
             // Act
-            var result = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestPluginWithNonPluginAssemblyFolder);
+            var returnedAssemblies = AssemblyLoaderHelper.FindPluginAssemblies(_unitTestPluginWithNonPluginAssemblyFolder)
+                .Select(Path.GetFileName).ToArray();
 
             // Assert
             File.Exists(Path.Combine(_unitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName)).ShouldBeTrue();
 
-            result.Select(s => s.Split("\\").Last()).ToArray()
-                .ShouldBeEquivalentTo(
+            returnedAssemblies.ShouldBeEquivalentTo(
                     new[]
                     {
                         "EdFi.Ods.Extensions.Sample.dll",
