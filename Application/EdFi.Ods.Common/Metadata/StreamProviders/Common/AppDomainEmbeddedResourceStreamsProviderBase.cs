@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
+using System.Runtime.Loader;
 using log4net;
 
 namespace EdFi.Ods.Common.Metadata.StreamProviders.Common;
@@ -26,7 +26,7 @@ public abstract class AppDomainEmbeddedResourceStreamsProviderBase
         Func<Assembly, bool> shouldProcessAssembly)
     {
         // Get assemblies that match the supplied predicate
-        return AppDomain.CurrentDomain.GetAssemblies()
+        return AssemblyLoadContext.Default.Assemblies
             .Where(shouldProcessAssembly)
             .SelectMany(a => GetEmbeddedResourceStreams(a, nameSuffix))
             .Select(x => new MetadataStream(x.name, x.source, x.stream));

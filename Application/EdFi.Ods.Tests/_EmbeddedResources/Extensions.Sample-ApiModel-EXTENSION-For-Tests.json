@@ -1,0 +1,14 @@
+{
+  "odsApiVersion": "7.2",
+  "schemaDefinition": {
+    "logicalName": "Sample",
+    "physicalName": "sample",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "aggregateDefinitions": [],
+  "aggregateExtensionDefinitions": [],
+  "entityDefinitions": [],
+  "associationDefinitions": [],
+  "edFiVersion": "5.0.0"
+}

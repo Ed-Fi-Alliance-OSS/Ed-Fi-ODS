@@ -139,7 +139,7 @@ namespace EdFi.Ods.Api.Helpers
                    && assemblyName != "sni.dll";
         }
 
-        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false)
+        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false, bool includeExtensionAssemblies = true)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
@@ -159,7 +159,10 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
-            var apiModelFiles = Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories);
+            // Only process extension ApiModel metadata files if the includeExtensions flag is set
+            var apiModelFiles = includeExtensionAssemblies 
+                ? Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories)
+                : new string[] {};
 
             var physicalNames = new List<KeyValuePair<string, string>>();
 
@@ -226,6 +229,12 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         if (IsExtensionAssembly(assemblyMetadata))
                         {
+                            if (!includeExtensionAssemblies)
+                            {
+                                _logger.Info($"Excluding extension assembly '{assembly.GetName().Name}'.");
+                                continue;
+                            }
+
                             var validator = GetExtensionValidator();
                             var validationResult = validator.ValidateObject(assemblyDirectory);
 
@@ -239,7 +248,11 @@ namespace EdFi.Ods.Api.Helpers
                             }
                         }
                     }
-                    else if (IsProfileAssembly(assembly) || IsCustomPluginAssembly(assembly))
+                    else if (IsProfileAssembly(assembly))
+                    {
+                        yield return assembly.Location;
+                    }
+                    else if (IsCustomPluginAssembly(assembly))
                     {
                         yield return assembly.Location;
                     }
