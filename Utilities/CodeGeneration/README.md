@@ -20,6 +20,3 @@ To build the application the following tools are needed:
 ## Testing the generated artifacts against the main solution
 * Run `initdev` on the main solution first
 * run `Rebuild-Solution` or `initdev -NoCodegen`
-
-## Known issues
-* must use Visual Studio 2022+ net6 is not compatible with Visual Studio 2019
