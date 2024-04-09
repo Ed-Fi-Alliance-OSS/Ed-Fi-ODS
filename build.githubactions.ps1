@@ -232,14 +232,9 @@ function Get-IsWindows {
 }
 
 function InstallCredentialHandler {
-    if (Get-IsWindows)  {
-        $moduleNames = Get-Module -ListAvailable | Select-Object -ExpandProperty Name
-        if ($moduleNames -contains '7Zip4Powershell') {
-            Write-Host "'7Zip4Powershell' exists in available modules."
-        } else {
-            Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-            Write-Host "Installed 7Zip4Powershell."
-        }
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         Write-Host "Installed 7Zip4Powershell."
     }
     $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
     $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
