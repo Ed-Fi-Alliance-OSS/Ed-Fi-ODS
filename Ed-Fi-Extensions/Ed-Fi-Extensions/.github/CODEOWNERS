@@ -1,0 +1,3 @@
+.github/**/*    @Ed-Fi-Alliance-OSS/ods-platform-automation-owners
+build.*.ps1   @Ed-Fi-Alliance-OSS/ods-platform-automation-owners
+application/EdFi.Ods.Api.IntegrationTestHarness/appsettings.json    @Ed-Fi-Alliance-OSS/ods-platform-automation-owners
