@@ -236,26 +236,27 @@ function InstallCredentialHandler {
          Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
          Write-Host "Installed 7Zip4Powershell."
     }
-    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-    $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-    $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
-    Write-Host "Downloading file from $sourceUrl..."
-    $webClient = New-Object System.Net.WebClient
-    $webClient.DownloadFile($sourceUrl, $zipFilePath)
-    Write-Host "Download complete." 
-    if (-not (Test-Path $zipFilePath)) {
-        Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
-        return
-    }
-    $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
-    if ($fileName.EndsWith('.zip')) {
-        Write-Host "Extracting $fileName..."
-        if (Test-Path $zipFilePath) {
-            Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder
-        }
-        Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
-        Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
-    }
+     # using WebClient is faster then Invoke-WebRequest but shows no progress
+     $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+     $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+     $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
+     Write-Host "Downloading file from $sourceUrl..."
+     $webClient = New-Object System.Net.WebClient
+     $webClient.DownloadFile($sourceUrl, $zipFilePath)
+     Write-Host "Download complete." 
+     if (-not (Test-Path $zipFilePath)) {
+         Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+         exit 0
+     }
+     $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
+     if ($fileName.EndsWith('.zip')) {
+         Write-Host "Extracting $fileName..."
+         
+         if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+         Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
+         Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+     }
+
 }
 
 function StandardVersions {
