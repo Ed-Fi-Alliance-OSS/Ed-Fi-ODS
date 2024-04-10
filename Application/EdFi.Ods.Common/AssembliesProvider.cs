@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using log4net;
 
@@ -15,7 +16,7 @@ namespace EdFi.Ods.Common
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(AssembliesProvider));
 
-        public Assembly[] GetAssemblies() => AppDomain.CurrentDomain.GetAssemblies();
+        public Assembly[] GetAssemblies() => AssemblyLoadContext.Default.Assemblies.ToArray();
 
         public Assembly Get(string assemblyName)
             => GetAssemblies().FirstOrDefault(x => x.GetName().Name.EqualsIgnoreCase(assemblyName));
