@@ -2,8 +2,8 @@
 
 name: Scorecard supply-chain security
 on:
-  pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+  schedule:
+    - cron: '15 23 * * 0'
   push:
     branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
