@@ -21,14 +21,14 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStra
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiClientContextProvider apiClientContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-        IPersonTypesProvider personTypesProvider, 
-        IParameterListSetter parameterListSetter)
+        IPersonTypesProvider personTypesProvider,
+        IMultiValueRestrictions multiValueRestrictions)
         : base(
             educationOrganizationIdNamesProvider,
             apiClientContextProvider,
             viewBasedSingleItemAuthorizationQuerySupport,
             personTypesProvider,
-            parameterListSetter) { }
+            multiValueRestrictions) { }
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {

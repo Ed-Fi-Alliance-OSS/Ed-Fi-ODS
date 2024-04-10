@@ -51,7 +51,7 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
         sqlParameter!.ParameterName = "ClaimEducationOrganizationIds";
         sqlParameter.SqlDbType = SqlDbType.Structured;
         sqlParameter.TypeName = SqlServerStructuredMappings.StructuredTypeNameBySystemType[edOrgSystemType];
-        sqlParameter.Value = SqlServerTableValuedParameterListSetter.CreateIdDataTable(claimEdOrgIds, edOrgSystemType);
+        sqlParameter.Value = SqlServerTableValuedParameterHelper.CreateIdDataTable(claimEdOrgIds, edOrgSystemType);
 
         cmd.Parameters.Add(sqlParameter);
     }

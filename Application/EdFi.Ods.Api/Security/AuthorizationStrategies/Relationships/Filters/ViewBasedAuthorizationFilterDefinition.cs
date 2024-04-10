@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IParameterListSetter parameterListSetter)
+            IMultiValueRestrictions multiValueRestrictions)
             : base(
                 filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
@@ -32,7 +32,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
                     WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (criteria, @where, subjectEndpointName, parameters, joinType) => criteria.ApplyJoinFilter(
-                    parameterListSetter,
+                    multiValueRestrictions,
                     @where,
                     parameters,
                     viewName,

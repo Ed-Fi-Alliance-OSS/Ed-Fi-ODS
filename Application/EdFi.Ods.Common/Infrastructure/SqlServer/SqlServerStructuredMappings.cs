@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Infrastructure.SqlServer
 {
-    public class SqlServerStructuredMappings
+    public static class SqlServerStructuredMappings
     {
         public static readonly Dictionary<Type, string> StructuredTypeNameBySystemType = new()
         {

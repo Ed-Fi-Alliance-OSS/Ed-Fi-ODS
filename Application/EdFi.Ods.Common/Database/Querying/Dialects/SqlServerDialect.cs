@@ -36,7 +36,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         {
             var itemSystemType = values[0].GetType();
 
-            var tvp = SqlServerTableValuedParameterListSetter.CreateIdDataTable(values, itemSystemType)
+            var tvp = SqlServerTableValuedParameterHelper.CreateIdDataTable(values, itemSystemType)
                 .AsTableValuedParameter(SqlServerStructuredMappings.StructuredTypeNameBySystemType[itemSystemType]);
 
             var parameters = new DynamicParameters();

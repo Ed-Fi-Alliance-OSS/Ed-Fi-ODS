@@ -5,7 +5,6 @@
 
 using System.Collections;
 using NHibernate;
-using NHibernate.Criterion;
 
 namespace EdFi.Ods.Common.Infrastructure.Activities
 {
@@ -23,25 +22,6 @@ namespace EdFi.Ods.Common.Infrastructure.Activities
         public void SetParameterList(IQuery query, string name, IEnumerable ids)
         {
             query.SetParameterList(name, ids);
-        }
-
-        /// <summary>
-        /// Apply an "in" constraint to the named property.
-        /// </summary>
-        /// <param name="propertyName">
-        /// The name of the Property in the class.
-        /// </param>
-        /// <param name="values">An array of values.</param>
-        /// <returns>An <see cref="AbstractCriterion" />.</returns>
-        public AbstractCriterion In(string propertyName, object[] values)
-        {
-            // Nhibernate's Restrictions.In() does not expect view aliases to be enclosed in
-            // curly brackets (contrary to Expression.Sql())
-            propertyName = propertyName
-                .Replace("{", string.Empty)
-                .Replace("}", string.Empty);
-
-            return Restrictions.In(propertyName, values);
         }
     }
 }

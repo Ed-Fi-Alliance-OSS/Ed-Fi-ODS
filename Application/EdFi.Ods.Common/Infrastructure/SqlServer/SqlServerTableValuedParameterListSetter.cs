@@ -3,14 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections;
 using System.Data;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.Type;
 using NHibernate.Util;
 
@@ -57,48 +55,10 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
             }
 
             // Create a DataTable that matches the structure of the corresponding custom SQL Server type
-            var dt = CreateIdDataTable(ids, itemSystemType);
+            var dt = SqlServerTableValuedParameterHelper.CreateIdDataTable(ids, itemSystemType);
 
             // Set the named parameter's value, using the DataTable and the structured IType
             query.SetParameter(name, dt, nHibernateType);
-        }
-
-        /// <summary>
-        /// Apply an "in" constraint to the named property.
-        /// </summary>
-        /// <param name="propertyName">
-        /// The name of the Property in the class. 
-        /// View aliases must be enclosed in curly brackets.
-        /// <param name="values">An array of values.</param>
-        /// <returns>An <see cref="AbstractCriterion" />.</returns>
-        public AbstractCriterion In(string propertyName, object[] values)
-        {
-            var itemSystemType = values.First().GetType();
-
-            return Expression.Sql($"{propertyName} IN (?)",
-                             CreateIdDataTable(values, itemSystemType),
-                             SqlServerStructuredMappings.StructuredTypeBySystemType[itemSystemType]);
-        }
-
-        /// <summary>
-        /// Creates a DataTabe with a single column "Id" populated with the given values.
-        /// </summary>
-        /// <param name="ids">The ids.</param>
-        /// <param name="idType">The type of the "Id" column.</param>
-        /// <returns></returns>
-        public static DataTable CreateIdDataTable(IEnumerable ids, Type idType)
-        {
-            // Create a DataTable that matches the structure of the corresponding custom SQL Server type
-            var dt = new DataTable();
-            dt.Columns.Add("Id", idType);
-
-            // Add the supplied ids as rows in the DataTable
-            foreach (var id in ids)
-            {
-                dt.Rows.Add(id);
-            }
-
-            return dt;
         }
     }
 }

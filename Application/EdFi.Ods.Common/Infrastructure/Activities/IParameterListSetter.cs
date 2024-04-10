@@ -5,7 +5,6 @@
 
 using System.Collections;
 using NHibernate;
-using NHibernate.Criterion;
 
 namespace EdFi.Ods.Common.Infrastructure.Activities
 {
@@ -21,16 +20,5 @@ namespace EdFi.Ods.Common.Infrastructure.Activities
         /// <param name="name">The name of the parameter.</param>
         /// <param name="ids">The list of Ids to be assigned to the parameter's value.</param>
         void SetParameterList(IQuery query, string name, IEnumerable ids);
-
-        /// <summary>
-        /// Apply an "in" constraint to the named property.
-        /// </summary>
-        /// <param name="propertyName">
-        /// The name of the Property in the class. 
-        /// View aliases must be enclosed in curly brackets.
-        /// </param>
-        /// <param name="values">An array of values.</param>
-        /// <returns>An <see cref="AbstractCriterion" />.</returns>
-        public AbstractCriterion In(string propertyName, object[] values);
     }
 }

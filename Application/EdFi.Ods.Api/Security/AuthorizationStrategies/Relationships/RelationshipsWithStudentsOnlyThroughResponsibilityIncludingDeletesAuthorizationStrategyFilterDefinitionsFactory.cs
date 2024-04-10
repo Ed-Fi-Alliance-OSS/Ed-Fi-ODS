@@ -22,13 +22,13 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
         IApiClientContextProvider apiClientContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
         IPersonTypesProvider personTypesProvider,
-        IParameterListSetter parameterListSetter)
+        IMultiValueRestrictions multiValueRestrictions)
         : base(
             educationOrganizationIdNamesProvider,
             apiClientContextProvider,
             viewBasedSingleItemAuthorizationQuerySupport,
             personTypesProvider,
-            parameterListSetter) { }
+            multiValueRestrictions) { }
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
