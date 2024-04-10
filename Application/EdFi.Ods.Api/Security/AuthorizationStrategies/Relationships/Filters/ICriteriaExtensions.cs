@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Infrastructure.Activities;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -29,6 +30,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         public static void ApplyJoinFilter(
             this ICriteria criteria,
+            IMultiValueRestrictions multiValueRestrictions,
             Junction whereJunction,
             IDictionary<string, object> parameters,
             string viewName,
@@ -58,12 +60,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             {
                 if (joinType == JoinType.InnerJoin)
                 {
-                    whereJunction.Add(Restrictions.In($"{authViewAlias}.{viewSourceEndpointName}", arrayOfValues));
+                    whereJunction.Add(multiValueRestrictions.In($"{{{authViewAlias}}}.{viewSourceEndpointName}", arrayOfValues));
                 }
                 else
                 {
                     var and = new AndExpression(
-                        Restrictions.In($"{authViewAlias}.{viewSourceEndpointName}", arrayOfValues),
+                        multiValueRestrictions.In($"{{{authViewAlias}}}.{viewSourceEndpointName}", arrayOfValues),
                         Restrictions.IsNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
 
                     whereJunction.Add(and);

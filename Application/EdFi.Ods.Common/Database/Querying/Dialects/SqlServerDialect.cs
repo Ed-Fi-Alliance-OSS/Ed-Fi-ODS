@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Dapper;
+using EdFi.Ods.Common.Infrastructure.SqlServer;
 
 namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
@@ -33,10 +34,15 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 
         public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
         {
-            var parameters = new DynamicParameters();
-            parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, values) });
+            var itemSystemType = values[0].GetType();
 
-            return ($"{columnName} IN {parameterName}", parameters);
+            var tvp = SqlServerTableValuedParameterHelper.CreateIdDataTable(values, itemSystemType)
+                .AsTableValuedParameter(SqlServerStructuredMappings.StructuredTypeNameBySystemType[itemSystemType]);
+
+            var parameters = new DynamicParameters();
+            parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, tvp) });
+
+            return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters);
         }
     }
 }

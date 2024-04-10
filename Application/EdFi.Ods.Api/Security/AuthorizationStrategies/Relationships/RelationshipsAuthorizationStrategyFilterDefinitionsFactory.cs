@@ -11,6 +11,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
@@ -30,17 +31,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IPersonTypesProvider _personTypesProvider;
+        private readonly IMultiValueRestrictions _multiValueRestrictions;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IPersonTypesProvider personTypesProvider)
+            IPersonTypesProvider personTypesProvider,
+            IMultiValueRestrictions multiValueRestrictions)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
             _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _personTypesProvider = personTypesProvider;
+            _multiValueRestrictions = multiValueRestrictions;
         }
         
         public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
@@ -69,7 +73,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
-                    _viewBasedSingleItemAuthorizationQuerySupport
+                    _viewBasedSingleItemAuthorizationQuerySupport,
+                    _multiValueRestrictions
                 ));
         }
 
@@ -88,7 +93,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         EducationOrganizationAuthorizationViewConstants.TargetColumnName,
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
-                        _viewBasedSingleItemAuthorizationQuerySupport))
+                        _viewBasedSingleItemAuthorizationQuerySupport,
+                        _multiValueRestrictions))
                 // Add filter definitions for using the EdOrg hierarchy inverted
                 .Concat(concreteEdOrgIdNames
                     // Sort the edorg id names to ensure a determinate alias generation during filter definition
@@ -101,7 +107,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                             ApplyTrackedChangesAuthorizationCriteria,
                             AuthorizeInstance,
-                            _viewBasedSingleItemAuthorizationQuerySupport)));
+                            _viewBasedSingleItemAuthorizationQuerySupport,
+                            _multiValueRestrictions)));
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(

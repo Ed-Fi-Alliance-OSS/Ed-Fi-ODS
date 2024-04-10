@@ -32,6 +32,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IParameterListSetter>()
                 .SingleInstance();
 
+            builder.RegisterType<SqlServerMultiValueRestrictions>()
+                .As<IMultiValueRestrictions>()
+                .SingleInstance();
+
             builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>()
                 .SingleInstance();

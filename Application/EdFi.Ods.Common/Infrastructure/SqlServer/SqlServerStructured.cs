@@ -34,18 +34,12 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
         public SqlServerStructured()
         {
             // Provide explicit support for supported SQL Server user-defined table types.
-            if (typeof(T) == typeof(Guid))
-            {
-                _sqlServerTypeName = "UniqueIdentifierTable";
-            }
-            else if (typeof(T) == typeof(int))
-            {
-                _sqlServerTypeName = "IntTable";
-            }
-            else
+            if(!SqlServerStructuredMappings.StructuredTypeNameBySystemType.TryGetValue(typeof(T), out var structuredType))
             {
                 throw new NotSupportedException($"SqlStructured support for '{GetType().FullName}' is not yet supported.");
             }
+
+            _sqlServerTypeName = structuredType;
         }
 
         public bool IsXMLElement

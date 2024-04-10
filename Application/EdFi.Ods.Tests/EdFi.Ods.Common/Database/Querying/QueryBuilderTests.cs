@@ -283,7 +283,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
-            [TestCase(DatabaseEngine.MsSql, "@p0")]
+            [TestCase(DatabaseEngine.MsSql, "(SELECT Id FROM @p0)")]
             [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1), (@p0_2), (@p0_3))")]
             public void Should_apply_where_with_IN(DatabaseEngine databaseEngine, string expectedInClause)
             {
@@ -516,7 +516,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
-            [TestCase(DatabaseEngine.MsSql, "@p0", "@p1", new[] {"p0", "p1"})]
+            [TestCase(DatabaseEngine.MsSql, "(SELECT Id FROM @p0)", "(SELECT Id FROM @p1)", new[] {"p0", "p1"})]
             [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1))",  "(VALUES (@p1_0), (@p1_1))", new[] { "p0_0", "p0_1", "p1_0", "p1_1"})]
             public void Should_apply_nested_disjunction_introducing_joins_combined_by_a_conjunction(DatabaseEngine databaseEngine, 
                 string expectedInClause1, string expectedInClause2, string[] expectedParameterNames)
@@ -560,7 +560,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
-            [TestCase(DatabaseEngine.MsSql, "@p0", "@p1", new[] {"p0", "p1"})]
+            [TestCase(DatabaseEngine.MsSql, "(SELECT Id FROM @p0)", "(SELECT Id FROM @p1)", new[] {"p0", "p1"})]
             [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1))",  "(VALUES (@p1_0), (@p1_1))", new[] { "p0_0", "p0_1", "p1_0", "p1_1"})]
             public void Should_apply_nested_conjunction_introducing_joins_combined_by_a_conjunction(DatabaseEngine databaseEngine, 
                 string expectedInClause1, string expectedInClause2, string[] expectedParameterNames)

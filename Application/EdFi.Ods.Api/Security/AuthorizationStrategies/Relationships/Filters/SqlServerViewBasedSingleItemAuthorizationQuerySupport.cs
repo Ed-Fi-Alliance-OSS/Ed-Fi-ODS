@@ -9,42 +9,13 @@ using System.Linq;
 using Microsoft.Data.SqlClient;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Models;
-using EdFi.Common;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Conventions;
-using System;
-using System.Collections.Generic;
+using EdFi.Ods.Common.Infrastructure.SqlServer;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
 public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSingleItemAuthorizationQuerySupport
 {
     private const int SqlServerParameterCountThreshold = 2000;
-
-    private readonly Type _edOrgSystemType;
-    private readonly Dictionary<Type, string> _structuredTypeBySystemType = new()
-    {
-        {typeof(int), "dbo.IntTable"},
-        {typeof(long), "dbo.BigIntTable"}
-    };
-
-    public SqlServerViewBasedSingleItemAuthorizationQuerySupport(IDomainModelProvider domainModelProvider)
-    {
-        Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
-
-        var standardModelVersion = Version.Parse(
-            domainModelProvider
-                .GetDomainModel()
-                .Schemas
-                .Single(x => x.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName))
-                .Version
-        );
-
-        _edOrgSystemType = standardModelVersion.Major < 5
-            ? typeof(int)
-            : typeof(long);
-    }
 
     public string GetItemExistenceCheckSql(ViewBasedAuthorizationFilterDefinition filterDefinition, AuthorizationFilterContext filterContext)
     {
@@ -74,20 +45,13 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
         // Assign EdOrgId claims
         var claimEdOrgIds = authorizationContext.ApiClientContext.EducationOrganizationIds;
 
+        var edOrgSystemType = claimEdOrgIds.First().GetType();
+
         var sqlParameter = cmd.CreateParameter() as SqlParameter;
-
-        DataTable dt = new();
-        dt.Columns.Add("Id", _edOrgSystemType);
-
-        foreach (var claimEdOrgId in claimEdOrgIds)
-        {
-            dt.Rows.Add(claimEdOrgId);
-        }
-
         sqlParameter!.ParameterName = "ClaimEducationOrganizationIds";
         sqlParameter.SqlDbType = SqlDbType.Structured;
-        sqlParameter.TypeName = _structuredTypeBySystemType[_edOrgSystemType];
-        sqlParameter.Value = dt;
+        sqlParameter.TypeName = SqlServerStructuredMappings.StructuredTypeNameBySystemType[edOrgSystemType];
+        sqlParameter.Value = SqlServerTableValuedParameterHelper.CreateIdDataTable(claimEdOrgIds, edOrgSystemType);
 
         cmd.Parameters.Add(sqlParameter);
     }
