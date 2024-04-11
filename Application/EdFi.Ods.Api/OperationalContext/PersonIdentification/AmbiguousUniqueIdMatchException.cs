@@ -11,7 +11,6 @@ namespace EdFi.Ods.Api.OperationalContext.PersonIdentification
     /// <summary>
     /// Thrown when the client-supplied unique Id value resolves to multiple people.
     /// </summary>
-    [Serializable]
     public class AmbiguousUniqueIdMatchException : Exception
     {
         //
@@ -28,10 +27,5 @@ namespace EdFi.Ods.Api.OperationalContext.PersonIdentification
 
         public AmbiguousUniqueIdMatchException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected AmbiguousUniqueIdMatchException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }
