@@ -26,8 +26,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Extensions
                 return;
             }
 
-            services.AddQuartz(
-                q => { q.UseMicrosoftDependencyInjectionJobFactory(); });
+            services.AddQuartz();
 
             services.AddQuartzServer(options => { options.WaitForJobsToComplete = true; });
         }
