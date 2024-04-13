@@ -5,8 +5,6 @@
 
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
 {
@@ -36,13 +34,23 @@ namespace EdFi.Ods.Common.Attributes
                 // In case of decimal types, accept default values
                 return ValidationResult.Success;
             }
-            else if (value != null && !value.Equals(value.GetType().GetDefaultValue()))
+            else if (value != null)
             {
+                if (value.Equals(value.GetType().GetDefaultValue()))
+                {
+                    return BuildValidationResult($"{validationContext.DisplayName} value must be different than {value.GetType().GetDefaultValue()}.");
+                }
+
                 return ValidationResult.Success;
             }
 
-            return new ValidationResult($"{validationContext.DisplayName} is required.",
-                new [] { validationContext.MemberNamePath() });
+            return BuildValidationResult($"{validationContext.DisplayName} is required.");
+
+            ValidationResult BuildValidationResult(string message)
+            {
+                return new ValidationResult(message,
+                    new[] { validationContext.MemberNamePath() });
+            }
         }
     }
 }

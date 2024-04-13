@@ -10258,6 +10258,62 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "LocalEducationAgencyId",
+							"item": [
+								{
+									"name": "Creating LEA With a Default LocalEducationAgencyId Fails",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"The validationErrors response should indicate that the value must be different than the default value.\", () => {\r",
+													"    pm.expect(pm.response.json().validationErrors['$.localEducationAgencyId'][0]).equal(\"LocalEducationAgencyId value must be different than 0.\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"localEducationAgencyId\": 0,\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n    }\r\n  ],\r\n  \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\",\r\n  \"nameOfInstitution\": \"LEA-100001\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				}
