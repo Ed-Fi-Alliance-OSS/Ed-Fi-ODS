@@ -54,24 +54,6 @@ namespace EdFi.Ods.Common.Caching
         }
 
         public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = (PersonType != null
-                    ? PersonType.GetHashCode()
-                    : 0);
-
-                hashCode = (hashCode * 397) ^ (IdentificationSystemDescriptorUri != null
-                    ? IdentificationSystemDescriptorUri.GetHashCode()
-                    : 0);
-
-                hashCode = (hashCode * 397) ^ (IdentificationCodeValue != null
-                    ? IdentificationCodeValue.GetHashCode()
-                    : 0);
-
-                hashCode = (hashCode * 397) ^ EducationOrganizationId;
-                return hashCode;
-            }
-        }
+            => HashCode.Combine(PersonType, IdentificationSystemDescriptorUri, IdentificationCodeValue, EducationOrganizationId);
     }
 }
