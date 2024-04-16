@@ -78,11 +78,13 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
+            return context.ClaimSetResourceClaims
+                .Include(csrc => csrc.Action)
                 .Include(csrc => csrc.ClaimSet)
                 .Include(csrc => csrc.ResourceClaim)
+                .Include(csrc => csrc.AuthorizationStrategyOverride)
                 .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
-               .ToList();
+                .ToList();
         }
 
         private List<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadata()
