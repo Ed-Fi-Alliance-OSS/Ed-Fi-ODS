@@ -78,22 +78,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assemblyMetadata.json" />
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\Metadata\ApiModel-EXTENSION.json">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\Metadata\ApiModel-EXTENSION.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\MsSql\Data\ThisFileMustExist1.sql">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\MsSql\Data\ThisFileMustExist1.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\MsSql\Structure\ThisFileMustExist2.sql">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\MsSql\Structure\ThisFileMustExist2.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\PgSql\Data\ThisFileMustExist3.sql">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\PgSql\Data\ThisFileMustExist3.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\PgSql\Structure\ThisFileMustExist4.sql">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\PgSql\Structure\ThisFileMustExist4.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Versions\1.0.0\Standard\5.0.0\Artifacts\Schemas\ThisFileMustExist5.xsd">
+    <Content Include="Versions\1.0.0\Standard\5.1.0\Artifacts\Schemas\ThisFileMustExist5.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Template_Project.csproj">
