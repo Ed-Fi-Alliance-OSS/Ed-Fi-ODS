@@ -10,7 +10,7 @@ using EdFi.Ods.Standard.Security.Authorization.Overrides;
 
 namespace EdFi.Ods.Standard.Container.Modules
 {
-    public class V500_RelationshipsAuthorizationContextDataProviderOverridesModule : Module
+    public class V510_RelationshipsAuthorizationContextDataProviderOverridesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

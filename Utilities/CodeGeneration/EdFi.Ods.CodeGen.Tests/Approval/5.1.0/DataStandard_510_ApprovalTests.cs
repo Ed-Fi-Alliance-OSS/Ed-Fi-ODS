@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace EdFi.Ods.CodeGen.Tests.Approval_Tests;
 
-public class V500 : IStandardVersionMetadata
+public class V510 : IStandardVersionMetadata
 {
     public string StandardVersion => "5.1.0";
 
