@@ -137,6 +137,13 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CrisisEvent') AND name = N'UX_CrisisEvent_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_CrisisEvent_Id ON [edfi].[CrisisEvent]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Descriptor') AND name = N'UX_Descriptor_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_Descriptor_Id ON [edfi].[Descriptor]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -699,6 +706,13 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentSpecialEducationProgramEligibilityAssociation') AND name = N'UX_StudentSpecialEducationProgramEligibilityAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StudentSpecialEducationProgramEligibilityAssociation_Id ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentTransportation') AND name = N'UX_StudentTransportation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentTransportation_Id ON [edfi].[StudentTransportation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT

@@ -517,6 +517,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels the particular bell schedule applies to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BellScheduleGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
 GO
 
+-- Extended Properties [edfi].[BusRouteDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the specific route taken by a bus for student transportation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BusRouteDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BusRouteDescriptor', @level2type=N'COLUMN', @level2name=N'BusRouteDescriptorId'
+GO
+
 -- Extended Properties [edfi].[Calendar] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A set of dates associated with an organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Calendar'
 GO
@@ -1528,6 +1534,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CreditTypeDescriptor', @level2type=N'COLUMN', @level2name=N'CreditTypeDescriptorId'
 GO
 
+-- Extended Properties [edfi].[CrisisEvent] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A natural or man-made event that causes the disruption of school-level activities and the temporary or permanent displacement of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the crisis event that occurred. If there is no generally accepted name for this crisis event, the suggested format: Location + Crisis type + Year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent', @level2type=N'COLUMN', @level2name=N'CrisisEventName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Provides a textual description of the crisis event affecting the student. It may include details such as the nature of the crisis (e.g., natural disaster, conflict, medical emergency), its severity, location, and any other relevant information describing the crisis situation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent', @level2type=N'COLUMN', @level2name=N'CrisisDescription'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date on which the crisis ceased to affect the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent', @level2type=N'COLUMN', @level2name=N'CrisisEndDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year, month and day on which the crisis affected the student. This date may not be the same as the date the crisis occurred if evacuation orders are implemented in anticipation of a crisis.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent', @level2type=N'COLUMN', @level2name=N'CrisisStartDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type or category of crisis.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisEvent', @level2type=N'COLUMN', @level2name=N'CrisisTypeDescriptorId'
+GO
+
+-- Extended Properties [edfi].[CrisisTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type or category of crisis.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CrisisTypeDescriptor', @level2type=N'COLUMN', @level2name=N'CrisisTypeDescriptorId'
+GO
+
 -- Extended Properties [edfi].[CTEProgramServiceDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the services provided by an education organization to populations of students associated with a CTE program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CTEProgramServiceDescriptor'
 GO
@@ -1770,6 +1796,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DisciplineIncidentWeapon', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the type of weapon used during an incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DisciplineIncidentWeapon', @level2type=N'COLUMN', @level2name=N'WeaponDescriptorId'
+GO
+
+-- Extended Properties [edfi].[DisplacedStudentStatusDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether a student has been displaced as a result of a crisis event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DisplacedStudentStatusDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DisplacedStudentStatusDescriptor', @level2type=N'COLUMN', @level2name=N'DisplacedStudentStatusDescriptorId'
 GO
 
 -- Extended Properties [edfi].[EducationalEnvironmentDescriptor] --
@@ -6188,6 +6220,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Whether the disability is IDEA, Section 504, or other disability designation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'DisabilityDesignationDescriptorId'
 GO
 
+-- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about student who was enrolled, or eligible for enrollment, but has temporarily or permanently enrolled in another school or district because of a crisis-related disruption in educational services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the crisis event that occurred. If there is no generally accepted name for this crisis event, the suggested format: Location + Crisis type + Year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'CrisisEventName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Any student considered homeless (defined by the McKinney-Vento Homeless Education Assistance Act as lacking a fixed, regular, and adequate nighttime residence) as a result of the crisis event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'CrisisHomelessnessIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date marking the end of the period during which a student is considered displaced due to a crisis event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'DisplacedStudentEndDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date on which a student is officially identified as displaced due to a crisis event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'DisplacedStudentStartDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether a student has been displaced as a result of a crisis event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationDisplacedStudent', @level2type=N'COLUMN', @level2name=N'DisplacedStudentStatusDescriptorId'
+GO
+
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationElectronicMail] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationElectronicMail'
 GO
@@ -7444,6 +7494,54 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last date the Student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTitleIPartAProgramAssociationTitleIPartAProgramService', @level2type=N'COLUMN', @level2name=N'ServiceEndDate'
 GO
 
+-- Extended Properties [edfi].[StudentTransportation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity captures a student''s specific transportation arrangement.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'TransportationEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Specific requirements needed to accommodate a student''s physical needs which may include special equipment installed in a vehicle or a special arrangement for transportation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'SpecialAccomodationRequirements'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary type of eligibility for transporting a student at public expense.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'TransportationPublicExpenseEligibilityTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The mode or type of transportation utilized by a student to commute to and from school', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'TransportationTypeDescriptorId'
+GO
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetails] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Stores details associated with student-bus assignment within a transportation system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails', @level2type=N'COLUMN', @level2name=N'TransportationEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier assigned to the bus used for transporting the student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails', @level2type=N'COLUMN', @level2name=N'BusNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the specific route taken by a bus for student transportation.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails', @level2type=N'COLUMN', @level2name=N'BusRouteDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The distance, typically measured in miles, that a student was transported along the route of the bus during a single trip.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetails', @level2type=N'COLUMN', @level2name=N'Mileage'
+GO
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Specifies the day(s) of the week on which student transportation occurs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDayofWeek'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDayofWeek', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDayofWeek', @level2type=N'COLUMN', @level2name=N'TransportationEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Specifies the day(s) of the week on which student transportation occurs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDayofWeek', @level2type=N'COLUMN', @level2name=N'TravelDayofWeekDescriptorId'
+GO
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetailsTravelDirection] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the direction of travel for the student transportation route (e.g., to school, from school).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDirection'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDirection', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDirection', @level2type=N'COLUMN', @level2name=N'TransportationEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the direction of travel for the student transportation route (e.g., to school, from school).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentTransportationStudentBusDetailsTravelDirection', @level2type=N'COLUMN', @level2name=N'TravelDirectionDescriptorId'
+GO
+
 -- Extended Properties [edfi].[StudentVisa] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of a non-US citizen''s Visa type.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentVisa'
 GO
@@ -7808,6 +7906,30 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Denotes the Title I Part A designation for the school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TitleIPartASchoolDesignationDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TitleIPartASchoolDesignationDescriptor', @level2type=N'COLUMN', @level2name=N'TitleIPartASchoolDesignationDescriptorId'
+GO
+
+-- Extended Properties [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary type of eligibility for transporting a student at public expense.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TransportationPublicExpenseEligibilityTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TransportationPublicExpenseEligibilityTypeDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationPublicExpenseEligibilityTypeDescriptorId'
+GO
+
+-- Extended Properties [edfi].[TransportationTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The mode or type of transportation utilized by a student to commute to and from school', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TransportationTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TransportationTypeDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationTypeDescriptorId'
+GO
+
+-- Extended Properties [edfi].[TravelDayofWeekDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Specifies the day(s) of the week on which student transportation occurs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TravelDayofWeekDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TravelDayofWeekDescriptor', @level2type=N'COLUMN', @level2name=N'TravelDayofWeekDescriptorId'
+GO
+
+-- Extended Properties [edfi].[TravelDirectionDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the direction of travel for the student transportation route (e.g., to school, from school).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TravelDirectionDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'TravelDirectionDescriptor', @level2type=N'COLUMN', @level2name=N'TravelDirectionDescriptorId'
 GO
 
 -- Extended Properties [edfi].[TribalAffiliationDescriptor] --

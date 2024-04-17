@@ -346,6 +346,19 @@ CREATE TABLE tracked_changes_edfi.credential
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'crisisevent') THEN
+CREATE TABLE tracked_changes_edfi.crisisevent
+(
+       oldcrisiseventname VARCHAR(100) NOT NULL,
+       newcrisiseventname VARCHAR(100) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT crisisevent_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'descriptor') THEN
 CREATE TABLE tracked_changes_edfi.descriptor
 (
@@ -2094,6 +2107,23 @@ CREATE TABLE tracked_changes_edfi.studentspecialeducationprogrameligibilityassoc
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT studentspecialeducationprogrameligibilityassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studenttransportation') THEN
+CREATE TABLE tracked_changes_edfi.studenttransportation
+(
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       oldtransportationeducationorganizationid BIGINT NOT NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       newtransportationeducationorganizationid BIGINT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studenttransportation_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 

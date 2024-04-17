@@ -442,6 +442,11 @@ CREATE NONCLUSTERED INDEX [FK_BellScheduleGradeLevel_GradeLevelDescriptor]
 ON [edfi].[BellScheduleGradeLevel] ([GradeLevelDescriptorId] ASC)
 GO
 
+ALTER TABLE [edfi].[BusRouteDescriptor] WITH CHECK ADD CONSTRAINT [FK_BusRouteDescriptor_Descriptor] FOREIGN KEY ([BusRouteDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[Calendar] WITH CHECK ADD CONSTRAINT [FK_Calendar_CalendarTypeDescriptor] FOREIGN KEY ([CalendarTypeDescriptorId])
 REFERENCES [edfi].[CalendarTypeDescriptor] ([CalendarTypeDescriptorId])
 GO
@@ -1441,6 +1446,19 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [edfi].[CrisisEvent] WITH CHECK ADD CONSTRAINT [FK_CrisisEvent_CrisisTypeDescriptor] FOREIGN KEY ([CrisisTypeDescriptorId])
+REFERENCES [edfi].[CrisisTypeDescriptor] ([CrisisTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_CrisisEvent_CrisisTypeDescriptor]
+ON [edfi].[CrisisEvent] ([CrisisTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[CrisisTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_CrisisTypeDescriptor_Descriptor] FOREIGN KEY ([CrisisTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[CTEProgramServiceDescriptor] WITH CHECK ADD CONSTRAINT [FK_CTEProgramServiceDescriptor_Descriptor] FOREIGN KEY ([CTEProgramServiceDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -1642,6 +1660,11 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_DisciplineIncidentWeapon_WeaponDescriptor]
 ON [edfi].[DisciplineIncidentWeapon] ([WeaponDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[DisplacedStudentStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_DisplacedStudentStatusDescriptor_Descriptor] FOREIGN KEY ([DisplacedStudentStatusDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[EducationalEnvironmentDescriptor] WITH CHECK ADD CONSTRAINT [FK_EducationalEnvironmentDescriptor_Descriptor] FOREIGN KEY ([EducationalEnvironmentDescriptorId])
@@ -6005,6 +6028,27 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociationDisability] ([Educatio
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationDisplacedStudent_CrisisEvent] FOREIGN KEY ([CrisisEventName])
+REFERENCES [edfi].[CrisisEvent] ([CrisisEventName])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationDisplacedStudent_CrisisEvent]
+ON [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] ([CrisisEventName] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationDisplacedStudent_DisplacedStudentStatusDescriptor] FOREIGN KEY ([DisplacedStudentStatusDescriptorId])
+REFERENCES [edfi].[DisplacedStudentStatusDescriptor] ([DisplacedStudentStatusDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationDisplacedStudent_DisplacedStudentStatusDescriptor]
+ON [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] ([DisplacedStudentStatusDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationDisplacedStudent_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
+REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationElectronicMail] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationElectronicMail_ElectronicMailTypeDescriptor] FOREIGN KEY ([ElectronicMailTypeDescriptorId])
 REFERENCES [edfi].[ElectronicMailTypeDescriptor] ([ElectronicMailTypeDescriptorId])
 GO
@@ -7140,6 +7184,77 @@ CREATE NONCLUSTERED INDEX [FK_StudentTitleIPartAProgramAssociationTitleIPartAPro
 ON [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] ([TitleIPartAProgramServiceDescriptorId] ASC)
 GO
 
+ALTER TABLE [edfi].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_EducationOrganization] FOREIGN KEY ([TransportationEducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportation_EducationOrganization]
+ON [edfi].[StudentTransportation] ([TransportationEducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_Student] FOREIGN KEY ([StudentUSI])
+REFERENCES [edfi].[Student] ([StudentUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportation_Student]
+ON [edfi].[StudentTransportation] ([StudentUSI] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_TransportationPublicExpenseEligibilityTypeDescriptor] FOREIGN KEY ([TransportationPublicExpenseEligibilityTypeDescriptorId])
+REFERENCES [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] ([TransportationPublicExpenseEligibilityTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportation_TransportationPublicExpenseEligibilityTypeDescriptor]
+ON [edfi].[StudentTransportation] ([TransportationPublicExpenseEligibilityTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportation] WITH CHECK ADD CONSTRAINT [FK_StudentTransportation_TransportationTypeDescriptor] FOREIGN KEY ([TransportationTypeDescriptorId])
+REFERENCES [edfi].[TransportationTypeDescriptor] ([TransportationTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportation_TransportationTypeDescriptor]
+ON [edfi].[StudentTransportation] ([TransportationTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetails] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetails_BusRouteDescriptor] FOREIGN KEY ([BusRouteDescriptorId])
+REFERENCES [edfi].[BusRouteDescriptor] ([BusRouteDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportationStudentBusDetails_BusRouteDescriptor]
+ON [edfi].[StudentTransportationStudentBusDetails] ([BusRouteDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetails] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetails_StudentTransportation] FOREIGN KEY ([StudentUSI], [TransportationEducationOrganizationId])
+REFERENCES [edfi].[StudentTransportation] ([StudentUSI], [TransportationEducationOrganizationId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetailsTravelDayofWeek_StudentTransportationStudentBusDetails] FOREIGN KEY ([StudentUSI], [TransportationEducationOrganizationId])
+REFERENCES [edfi].[StudentTransportationStudentBusDetails] ([StudentUSI], [TransportationEducationOrganizationId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetailsTravelDayofWeek_TravelDayofWeekDescriptor] FOREIGN KEY ([TravelDayofWeekDescriptorId])
+REFERENCES [edfi].[TravelDayofWeekDescriptor] ([TravelDayofWeekDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportationStudentBusDetailsTravelDayofWeek_TravelDayofWeekDescriptor]
+ON [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] ([TravelDayofWeekDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDirection] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetailsTravelDirection_StudentTransportationStudentBusDetails] FOREIGN KEY ([StudentUSI], [TransportationEducationOrganizationId])
+REFERENCES [edfi].[StudentTransportationStudentBusDetails] ([StudentUSI], [TransportationEducationOrganizationId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDirection] WITH CHECK ADD CONSTRAINT [FK_StudentTransportationStudentBusDetailsTravelDirection_TravelDirectionDescriptor] FOREIGN KEY ([TravelDirectionDescriptorId])
+REFERENCES [edfi].[TravelDirectionDescriptor] ([TravelDirectionDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentTransportationStudentBusDetailsTravelDirection_TravelDirectionDescriptor]
+ON [edfi].[StudentTransportationStudentBusDetailsTravelDirection] ([TravelDirectionDescriptorId] ASC)
+GO
+
 ALTER TABLE [edfi].[StudentVisa] WITH CHECK ADD CONSTRAINT [FK_StudentVisa_Student] FOREIGN KEY ([StudentUSI])
 REFERENCES [edfi].[Student] ([StudentUSI])
 ON DELETE CASCADE
@@ -7472,6 +7587,26 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[TitleIPartASchoolDesignationDescriptor] WITH CHECK ADD CONSTRAINT [FK_TitleIPartASchoolDesignationDescriptor_Descriptor] FOREIGN KEY ([TitleIPartASchoolDesignationDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationPublicExpenseEligibilityTypeDescriptor_Descriptor] FOREIGN KEY ([TransportationPublicExpenseEligibilityTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[TransportationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationTypeDescriptor_Descriptor] FOREIGN KEY ([TransportationTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[TravelDayofWeekDescriptor] WITH CHECK ADD CONSTRAINT [FK_TravelDayofWeekDescriptor_Descriptor] FOREIGN KEY ([TravelDayofWeekDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[TravelDirectionDescriptor] WITH CHECK ADD CONSTRAINT [FK_TravelDirectionDescriptor_Descriptor] FOREIGN KEY ([TravelDirectionDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO

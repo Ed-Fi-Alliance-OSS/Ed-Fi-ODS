@@ -41,6 +41,8 @@ CREATE INDEX IF NOT EXISTS UX_6acf2b_ChangeVersion ON edfi.CourseTranscript(Chan
 
 CREATE INDEX IF NOT EXISTS UX_b1c42b_ChangeVersion ON edfi.Credential(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_f1bbb4_ChangeVersion ON edfi.CrisisEvent(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_219915_ChangeVersion ON edfi.Descriptor(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_ee9047_ChangeVersion ON edfi.DescriptorMapping(ChangeVersion);
@@ -202,6 +204,8 @@ CREATE INDEX IF NOT EXISTS UX_39aa3c_ChangeVersion ON edfi.StudentSectionAssocia
 CREATE INDEX IF NOT EXISTS UX_61b087_ChangeVersion ON edfi.StudentSectionAttendanceEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_fcb699_ChangeVersion ON edfi.StudentSpecialEducationProgramEligibilityAssociation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_68afad_ChangeVersion ON edfi.StudentTransportation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_211bb3_ChangeVersion ON edfi.Survey(ChangeVersion);
 

@@ -489,6 +489,12 @@ CREATE TABLE edfi.BellScheduleGradeLevel (
 );
 ALTER TABLE edfi.BellScheduleGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.BusRouteDescriptor --
+CREATE TABLE edfi.BusRouteDescriptor (
+    BusRouteDescriptorId INT NOT NULL,
+    CONSTRAINT BusRouteDescriptor_PK PRIMARY KEY (BusRouteDescriptorId)
+);
+
 -- Table edfi.Calendar --
 CREATE TABLE edfi.Calendar (
     CalendarCode VARCHAR(60) NOT NULL,
@@ -1364,6 +1370,29 @@ CREATE TABLE edfi.CreditTypeDescriptor (
     CONSTRAINT CreditTypeDescriptor_PK PRIMARY KEY (CreditTypeDescriptorId)
 );
 
+-- Table edfi.CrisisEvent --
+CREATE TABLE edfi.CrisisEvent (
+    CrisisEventName VARCHAR(100) NOT NULL,
+    CrisisDescription VARCHAR(1024) NULL,
+    CrisisEndDate DATE NULL,
+    CrisisStartDate DATE NULL,
+    CrisisTypeDescriptorId INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT CrisisEvent_PK PRIMARY KEY (CrisisEventName)
+);
+ALTER TABLE edfi.CrisisEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.CrisisEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.CrisisEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.CrisisTypeDescriptor --
+CREATE TABLE edfi.CrisisTypeDescriptor (
+    CrisisTypeDescriptorId INT NOT NULL,
+    CONSTRAINT CrisisTypeDescriptor_PK PRIMARY KEY (CrisisTypeDescriptorId)
+);
+
 -- Table edfi.CTEProgramServiceDescriptor --
 CREATE TABLE edfi.CTEProgramServiceDescriptor (
     CTEProgramServiceDescriptorId INT NOT NULL,
@@ -1599,6 +1628,12 @@ CREATE TABLE edfi.DisciplineIncidentWeapon (
     CONSTRAINT DisciplineIncidentWeapon_PK PRIMARY KEY (IncidentIdentifier, SchoolId, WeaponDescriptorId)
 );
 ALTER TABLE edfi.DisciplineIncidentWeapon ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.DisplacedStudentStatusDescriptor --
+CREATE TABLE edfi.DisplacedStudentStatusDescriptor (
+    DisplacedStudentStatusDescriptorId INT NOT NULL,
+    CONSTRAINT DisplacedStudentStatusDescriptor_PK PRIMARY KEY (DisplacedStudentStatusDescriptorId)
+);
 
 -- Table edfi.EducationalEnvironmentDescriptor --
 CREATE TABLE edfi.EducationalEnvironmentDescriptor (
@@ -5575,6 +5610,20 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation (
 );
 ALTER TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StudentEducationOrganizationAssociationDisplacedStudent --
+CREATE TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CrisisEventName VARCHAR(100) NOT NULL,
+    CrisisHomelessnessIndicator BOOLEAN NULL,
+    DisplacedStudentEndDate DATE NULL,
+    DisplacedStudentStartDate DATE NULL,
+    DisplacedStudentStatusDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentEducationOrganizationAssociationDisplacedStudent_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, CrisisEventName)
+);
+ALTER TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StudentEducationOrganizationAssociationElectronicMail --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationElectronicMail (
     EducationOrganizationId BIGINT NOT NULL,
@@ -6513,6 +6562,55 @@ CREATE TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService 
 );
 ALTER TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StudentTransportation --
+CREATE TABLE edfi.StudentTransportation (
+    StudentUSI INT NOT NULL,
+    TransportationEducationOrganizationId BIGINT NOT NULL,
+    SpecialAccomodationRequirements VARCHAR(1024) NULL,
+    TransportationPublicExpenseEligibilityTypeDescriptorId INT NULL,
+    TransportationTypeDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentTransportation_PK PRIMARY KEY (StudentUSI, TransportationEducationOrganizationId)
+);
+ALTER TABLE edfi.StudentTransportation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentTransportation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentTransportation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentTransportationStudentBusDetails --
+CREATE TABLE edfi.StudentTransportationStudentBusDetails (
+    StudentUSI INT NOT NULL,
+    TransportationEducationOrganizationId BIGINT NOT NULL,
+    BusNumber VARCHAR(36) NOT NULL,
+    BusRouteDescriptorId INT NOT NULL,
+    Mileage DECIMAL(5, 2) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentTransportationStudentBusDetails_PK PRIMARY KEY (StudentUSI, TransportationEducationOrganizationId)
+);
+ALTER TABLE edfi.StudentTransportationStudentBusDetails ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentTransportationStudentBusDetailsTravelDayofWeek --
+CREATE TABLE edfi.StudentTransportationStudentBusDetailsTravelDayofWeek (
+    StudentUSI INT NOT NULL,
+    TransportationEducationOrganizationId BIGINT NOT NULL,
+    TravelDayofWeekDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentTransportationStudentBusDetailsTravelDayofWeek_PK PRIMARY KEY (StudentUSI, TransportationEducationOrganizationId, TravelDayofWeekDescriptorId)
+);
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDayofWeek ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentTransportationStudentBusDetailsTravelDirection --
+CREATE TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection (
+    StudentUSI INT NOT NULL,
+    TransportationEducationOrganizationId BIGINT NOT NULL,
+    TravelDirectionDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentTransportationStudentBusDetailsTravelDirection_PK PRIMARY KEY (StudentUSI, TransportationEducationOrganizationId, TravelDirectionDescriptorId)
+);
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StudentVisa --
 CREATE TABLE edfi.StudentVisa (
     StudentUSI INT NOT NULL,
@@ -6890,6 +6988,30 @@ CREATE TABLE edfi.TitleIPartAProgramServiceDescriptor (
 CREATE TABLE edfi.TitleIPartASchoolDesignationDescriptor (
     TitleIPartASchoolDesignationDescriptorId INT NOT NULL,
     CONSTRAINT TitleIPartASchoolDesignationDescriptor_PK PRIMARY KEY (TitleIPartASchoolDesignationDescriptorId)
+);
+
+-- Table edfi.TransportationPublicExpenseEligibilityTypeDescriptor --
+CREATE TABLE edfi.TransportationPublicExpenseEligibilityTypeDescriptor (
+    TransportationPublicExpenseEligibilityTypeDescriptorId INT NOT NULL,
+    CONSTRAINT TransportationPublicExpenseEligibilityTypeDescriptor_PK PRIMARY KEY (TransportationPublicExpenseEligibilityTypeDescriptorId)
+);
+
+-- Table edfi.TransportationTypeDescriptor --
+CREATE TABLE edfi.TransportationTypeDescriptor (
+    TransportationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT TransportationTypeDescriptor_PK PRIMARY KEY (TransportationTypeDescriptorId)
+);
+
+-- Table edfi.TravelDayofWeekDescriptor --
+CREATE TABLE edfi.TravelDayofWeekDescriptor (
+    TravelDayofWeekDescriptorId INT NOT NULL,
+    CONSTRAINT TravelDayofWeekDescriptor_PK PRIMARY KEY (TravelDayofWeekDescriptorId)
+);
+
+-- Table edfi.TravelDirectionDescriptor --
+CREATE TABLE edfi.TravelDirectionDescriptor (
+    TravelDirectionDescriptorId INT NOT NULL,
+    CONSTRAINT TravelDirectionDescriptor_PK PRIMARY KEY (TravelDirectionDescriptorId)
 );
 
 -- Table edfi.TribalAffiliationDescriptor --

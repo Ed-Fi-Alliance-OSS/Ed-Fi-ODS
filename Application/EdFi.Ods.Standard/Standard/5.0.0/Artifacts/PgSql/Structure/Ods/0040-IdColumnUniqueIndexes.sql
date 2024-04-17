@@ -41,6 +41,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_6acf2b_Id ON edfi.CourseTranscript(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_b1c42b_Id ON edfi.Credential(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_f1bbb4_Id ON edfi.CrisisEvent(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_219915_Id ON edfi.Descriptor(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_ee9047_Id ON edfi.DescriptorMapping(Id);
@@ -202,6 +204,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_39aa3c_Id ON edfi.StudentSectionAssociation
 CREATE UNIQUE INDEX IF NOT EXISTS UX_61b087_Id ON edfi.StudentSectionAttendanceEvent(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_fcb699_Id ON edfi.StudentSpecialEducationProgramEligibilityAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_68afad_Id ON edfi.StudentTransportation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_211bb3_Id ON edfi.Survey(Id);
 

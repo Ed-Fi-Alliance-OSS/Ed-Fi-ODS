@@ -290,6 +290,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_CrisisEvent_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_CrisisEvent_TR_UpdateChangeVersion] ON [edfi].[CrisisEvent] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[CrisisEvent]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[CrisisEvent] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_Descriptor_TR_UpdateChangeVersion]
 GO
 
@@ -1575,6 +1588,19 @@ BEGIN
     UPDATE [edfi].[StudentSpecialEducationProgramEligibilityAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentSpecialEducationProgramEligibilityAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentTransportation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentTransportation_TR_UpdateChangeVersion] ON [edfi].[StudentTransportation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentTransportation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentTransportation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

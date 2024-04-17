@@ -41,6 +41,8 @@ ALTER TABLE [edfi].[CourseTranscript] ADD [CreatedByOwnershipTokenId] SMALLINT N
 
 ALTER TABLE [edfi].[Credential] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[CrisisEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[Descriptor] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[DescriptorMapping] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -202,6 +204,8 @@ ALTER TABLE [edfi].[StudentSectionAssociation] ADD [CreatedByOwnershipTokenId] S
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentTransportation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[Survey] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
