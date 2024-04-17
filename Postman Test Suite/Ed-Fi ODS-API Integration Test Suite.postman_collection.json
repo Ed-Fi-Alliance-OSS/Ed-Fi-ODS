@@ -1006,7 +1006,7 @@
 									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.equals({",
 									"    \"$.weekIdentifier\": [",
-									"      \"WeekIdentifier is required.\",",
+									"      \"WeekIdentifier is required and should not be left empty.\",",
 									"      \"WeekIdentifier must be between 5 and 80 characters in length.\"",
 									"    ]",
 									"  });",

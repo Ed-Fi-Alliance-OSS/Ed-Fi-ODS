@@ -3981,7 +3981,7 @@
 															"",
 															"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
 															"    \"$.lastSurname\": [",
-															"      \"LastSurname is required.\",",
+															"      \"LastSurname is required and should not be left empty.\",",
 															"      \"LastSurname must be between 1 and 75 characters in length.\"",
 															"    ]",
 															"  });",
@@ -6212,7 +6212,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return a message indicating that Validation of 'Student' failed.LastSurname is required.\", () => {",
-															"  pm.expect(problemDetails.validationErrors[\"$.lastSurname\"]).to.contain(\"LastSurname is required.\");",
+															"  pm.expect(problemDetails.validationErrors[\"$.lastSurname\"]).to.contain(\"LastSurname is required and should not be left empty.\");",
 															"});",
 															""
 														],

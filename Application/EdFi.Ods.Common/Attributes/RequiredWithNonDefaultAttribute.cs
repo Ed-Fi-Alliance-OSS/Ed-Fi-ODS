@@ -19,10 +19,12 @@ namespace EdFi.Ods.Common.Attributes
         {
             if (value is string s)
             {
-                if (!string.IsNullOrEmpty(s))
+                if (string.IsNullOrEmpty(s))
                 {
-                    return ValidationResult.Success;
+                    return BuildValidationResult($"{validationContext.DisplayName} is required and should not be left empty.");
                 }
+
+                return ValidationResult.Success;
             }
             else if (value is bool)
             {
