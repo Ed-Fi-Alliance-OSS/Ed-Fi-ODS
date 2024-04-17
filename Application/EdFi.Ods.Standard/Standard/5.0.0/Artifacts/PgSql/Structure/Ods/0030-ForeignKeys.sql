@@ -415,6 +415,11 @@ REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
 CREATE INDEX FK_226b3d_GradeLevelDescriptor
 ON edfi.BellScheduleGradeLevel (GradeLevelDescriptorId ASC);
 
+ALTER TABLE edfi.BusRouteDescriptor ADD CONSTRAINT FK_a6f0ea_Descriptor FOREIGN KEY (BusRouteDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.Calendar ADD CONSTRAINT FK_d5d0a3_CalendarTypeDescriptor FOREIGN KEY (CalendarTypeDescriptorId)
 REFERENCES edfi.CalendarTypeDescriptor (CalendarTypeDescriptorId)
 ;
@@ -1332,6 +1337,18 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.CrisisEvent ADD CONSTRAINT FK_f1bbb4_CrisisTypeDescriptor FOREIGN KEY (CrisisTypeDescriptorId)
+REFERENCES edfi.CrisisTypeDescriptor (CrisisTypeDescriptorId)
+;
+
+CREATE INDEX FK_f1bbb4_CrisisTypeDescriptor
+ON edfi.CrisisEvent (CrisisTypeDescriptorId ASC);
+
+ALTER TABLE edfi.CrisisTypeDescriptor ADD CONSTRAINT FK_391527_Descriptor FOREIGN KEY (CrisisTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.CTEProgramServiceDescriptor ADD CONSTRAINT FK_a631b1_Descriptor FOREIGN KEY (CTEProgramServiceDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -1521,6 +1538,11 @@ REFERENCES edfi.WeaponDescriptor (WeaponDescriptorId)
 
 CREATE INDEX FK_a545e5_WeaponDescriptor
 ON edfi.DisciplineIncidentWeapon (WeaponDescriptorId ASC);
+
+ALTER TABLE edfi.DisplacedStudentStatusDescriptor ADD CONSTRAINT FK_fa1717_Descriptor FOREIGN KEY (DisplacedStudentStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.EducationalEnvironmentDescriptor ADD CONSTRAINT FK_0f941f_Descriptor FOREIGN KEY (EducationalEnvironmentDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -5524,6 +5546,25 @@ REFERENCES edfi.StudentEducationOrganizationAssociationDisability (EducationOrga
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent ADD CONSTRAINT FK_7b1764_CrisisEvent FOREIGN KEY (CrisisEventName)
+REFERENCES edfi.CrisisEvent (CrisisEventName)
+;
+
+CREATE INDEX FK_7b1764_CrisisEvent
+ON edfi.StudentEducationOrganizationAssociationDisplacedStudent (CrisisEventName ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent ADD CONSTRAINT FK_7b1764_DisplacedStudentStatusDescriptor FOREIGN KEY (DisplacedStudentStatusDescriptorId)
+REFERENCES edfi.DisplacedStudentStatusDescriptor (DisplacedStudentStatusDescriptorId)
+;
+
+CREATE INDEX FK_7b1764_DisplacedStudentStatusDescriptor
+ON edfi.StudentEducationOrganizationAssociationDisplacedStudent (DisplacedStudentStatusDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent ADD CONSTRAINT FK_7b1764_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
+REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociationElectronicMail ADD CONSTRAINT FK_582e49_ElectronicMailTypeDescriptor FOREIGN KEY (ElectronicMailTypeDescriptorId)
 REFERENCES edfi.ElectronicMailTypeDescriptor (ElectronicMailTypeDescriptorId)
 ;
@@ -6550,6 +6591,70 @@ REFERENCES edfi.TitleIPartAProgramServiceDescriptor (TitleIPartAProgramServiceDe
 CREATE INDEX FK_8adb29_TitleIPartAProgramServiceDescriptor
 ON edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService (TitleIPartAProgramServiceDescriptorId ASC);
 
+ALTER TABLE edfi.StudentTransportation ADD CONSTRAINT FK_68afad_EducationOrganization FOREIGN KEY (TransportationEducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_68afad_EducationOrganization
+ON edfi.StudentTransportation (TransportationEducationOrganizationId ASC);
+
+ALTER TABLE edfi.StudentTransportation ADD CONSTRAINT FK_68afad_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_68afad_Student
+ON edfi.StudentTransportation (StudentUSI ASC);
+
+ALTER TABLE edfi.StudentTransportation ADD CONSTRAINT FK_68afad_TransportationPublicExpenseEligibilityTypeDescriptor FOREIGN KEY (TransportationPublicExpenseEligibilityTypeDescriptorId)
+REFERENCES edfi.TransportationPublicExpenseEligibilityTypeDescriptor (TransportationPublicExpenseEligibilityTypeDescriptorId)
+;
+
+CREATE INDEX FK_68afad_TransportationPublicExpenseEligibilityTypeDescriptor
+ON edfi.StudentTransportation (TransportationPublicExpenseEligibilityTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentTransportation ADD CONSTRAINT FK_68afad_TransportationTypeDescriptor FOREIGN KEY (TransportationTypeDescriptorId)
+REFERENCES edfi.TransportationTypeDescriptor (TransportationTypeDescriptorId)
+;
+
+CREATE INDEX FK_68afad_TransportationTypeDescriptor
+ON edfi.StudentTransportation (TransportationTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetails ADD CONSTRAINT FK_192a22_BusRouteDescriptor FOREIGN KEY (BusRouteDescriptorId)
+REFERENCES edfi.BusRouteDescriptor (BusRouteDescriptorId)
+;
+
+CREATE INDEX FK_192a22_BusRouteDescriptor
+ON edfi.StudentTransportationStudentBusDetails (BusRouteDescriptorId ASC);
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetails ADD CONSTRAINT FK_192a22_StudentTransportation FOREIGN KEY (StudentUSI, TransportationEducationOrganizationId)
+REFERENCES edfi.StudentTransportation (StudentUSI, TransportationEducationOrganizationId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDayofWeek ADD CONSTRAINT FK_c175dc_StudentTransportationStudentBusDetails FOREIGN KEY (StudentUSI, TransportationEducationOrganizationId)
+REFERENCES edfi.StudentTransportationStudentBusDetails (StudentUSI, TransportationEducationOrganizationId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDayofWeek ADD CONSTRAINT FK_c175dc_TravelDayofWeekDescriptor FOREIGN KEY (TravelDayofWeekDescriptorId)
+REFERENCES edfi.TravelDayofWeekDescriptor (TravelDayofWeekDescriptorId)
+;
+
+CREATE INDEX FK_c175dc_TravelDayofWeekDescriptor
+ON edfi.StudentTransportationStudentBusDetailsTravelDayofWeek (TravelDayofWeekDescriptorId ASC);
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection ADD CONSTRAINT FK_e21270_StudentTransportationStudentBusDetails FOREIGN KEY (StudentUSI, TransportationEducationOrganizationId)
+REFERENCES edfi.StudentTransportationStudentBusDetails (StudentUSI, TransportationEducationOrganizationId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection ADD CONSTRAINT FK_e21270_TravelDirectionDescriptor FOREIGN KEY (TravelDirectionDescriptorId)
+REFERENCES edfi.TravelDirectionDescriptor (TravelDirectionDescriptorId)
+;
+
+CREATE INDEX FK_e21270_TravelDirectionDescriptor
+ON edfi.StudentTransportationStudentBusDetailsTravelDirection (TravelDirectionDescriptorId ASC);
+
 ALTER TABLE edfi.StudentVisa ADD CONSTRAINT FK_aa5751_Student FOREIGN KEY (StudentUSI)
 REFERENCES edfi.Student (StudentUSI)
 ON DELETE CASCADE
@@ -6853,6 +6958,26 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.TitleIPartASchoolDesignationDescriptor ADD CONSTRAINT FK_935362_Descriptor FOREIGN KEY (TitleIPartASchoolDesignationDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.TransportationPublicExpenseEligibilityTypeDescriptor ADD CONSTRAINT FK_10b9e1_Descriptor FOREIGN KEY (TransportationPublicExpenseEligibilityTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.TransportationTypeDescriptor ADD CONSTRAINT FK_4a805b_Descriptor FOREIGN KEY (TransportationTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.TravelDayofWeekDescriptor ADD CONSTRAINT FK_e4eb2b_Descriptor FOREIGN KEY (TravelDayofWeekDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.TravelDirectionDescriptor ADD CONSTRAINT FK_6a3bc0_Descriptor FOREIGN KEY (TravelDirectionDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;

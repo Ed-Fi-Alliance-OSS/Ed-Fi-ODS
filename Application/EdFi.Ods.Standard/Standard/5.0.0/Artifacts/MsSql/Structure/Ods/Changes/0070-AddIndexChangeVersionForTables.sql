@@ -118,6 +118,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CrisisEvent') AND name = N'UX_CrisisEvent_ChangeVersion')
+    CREATE INDEX [UX_CrisisEvent_ChangeVersion] ON [edfi].[CrisisEvent] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Descriptor') AND name = N'UX_Descriptor_ChangeVersion')
     CREATE INDEX [UX_Descriptor_ChangeVersion] ON [edfi].[Descriptor] ([ChangeVersion] ASC)
     GO
@@ -600,6 +606,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentSpecialEducationProgramEligibilityAssociation') AND name = N'UX_StudentSpecialEducationProgramEligibilityAssociation_ChangeVersion')
     CREATE INDEX [UX_StudentSpecialEducationProgramEligibilityAssociation_ChangeVersion] ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentTransportation') AND name = N'UX_StudentTransportation_ChangeVersion')
+    CREATE INDEX [UX_StudentTransportation_ChangeVersion] ON [edfi].[StudentTransportation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

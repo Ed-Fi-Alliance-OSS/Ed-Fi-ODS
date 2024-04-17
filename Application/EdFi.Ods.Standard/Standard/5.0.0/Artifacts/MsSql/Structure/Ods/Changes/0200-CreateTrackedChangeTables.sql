@@ -305,6 +305,17 @@ CREATE TABLE [tracked_changes_edfi].[Credential]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_Credential PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[CrisisEvent]'))
+CREATE TABLE [tracked_changes_edfi].[CrisisEvent]
+(
+       OldCrisisEventName [NVARCHAR](100) NOT NULL,
+       NewCrisisEventName [NVARCHAR](100) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_CrisisEvent PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[Descriptor]'))
 CREATE TABLE [tracked_changes_edfi].[Descriptor]
 (
@@ -1893,6 +1904,21 @@ CREATE TABLE [tracked_changes_edfi].[StudentSpecialEducationProgramEligibilityAs
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentSpecialEducationProgramEligibilityAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentTransportation]'))
+CREATE TABLE [tracked_changes_edfi].[StudentTransportation]
+(
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       OldTransportationEducationOrganizationId [BIGINT] NOT NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       NewTransportationEducationOrganizationId [BIGINT] NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentTransportation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[Survey]'))
 CREATE TABLE [tracked_changes_edfi].[Survey]

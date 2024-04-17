@@ -730,6 +730,15 @@ GO
 ALTER TABLE [edfi].[BellScheduleGradeLevel] ADD CONSTRAINT [BellScheduleGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[BusRouteDescriptor] --
+CREATE TABLE [edfi].[BusRouteDescriptor] (
+    [BusRouteDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [BusRouteDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [BusRouteDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[Calendar] --
 CREATE TABLE [edfi].[Calendar] (
     [CalendarCode] [NVARCHAR](60) NOT NULL,
@@ -2042,6 +2051,38 @@ CREATE TABLE [edfi].[CreditTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[CrisisEvent] --
+CREATE TABLE [edfi].[CrisisEvent] (
+    [CrisisEventName] [NVARCHAR](100) NOT NULL,
+    [CrisisDescription] [NVARCHAR](1024) NULL,
+    [CrisisEndDate] [DATE] NULL,
+    [CrisisStartDate] [DATE] NULL,
+    [CrisisTypeDescriptorId] [INT] NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [CrisisEvent_PK] PRIMARY KEY CLUSTERED (
+        [CrisisEventName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CrisisEvent] ADD CONSTRAINT [CrisisEvent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[CrisisEvent] ADD CONSTRAINT [CrisisEvent_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[CrisisEvent] ADD CONSTRAINT [CrisisEvent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[CrisisTypeDescriptor] --
+CREATE TABLE [edfi].[CrisisTypeDescriptor] (
+    [CrisisTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CrisisTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CrisisTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[CTEProgramServiceDescriptor] --
 CREATE TABLE [edfi].[CTEProgramServiceDescriptor] (
     [CTEProgramServiceDescriptorId] [INT] NOT NULL,
@@ -2397,6 +2438,15 @@ CREATE TABLE [edfi].[DisciplineIncidentWeapon] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[DisciplineIncidentWeapon] ADD CONSTRAINT [DisciplineIncidentWeapon_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[DisplacedStudentStatusDescriptor] --
+CREATE TABLE [edfi].[DisplacedStudentStatusDescriptor] (
+    [DisplacedStudentStatusDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DisplacedStudentStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DisplacedStudentStatusDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [edfi].[EducationalEnvironmentDescriptor] --
@@ -8364,6 +8414,26 @@ GO
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisabilityDesignation] ADD CONSTRAINT [StudentEducationOrganizationAssociationDisabilityDesignation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] --
+CREATE TABLE [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CrisisEventName] [NVARCHAR](100) NOT NULL,
+    [CrisisHomelessnessIndicator] [BIT] NULL,
+    [DisplacedStudentEndDate] [DATE] NULL,
+    [DisplacedStudentStartDate] [DATE] NULL,
+    [DisplacedStudentStatusDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentEducationOrganizationAssociationDisplacedStudent_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
+        [CrisisEventName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] ADD CONSTRAINT [StudentEducationOrganizationAssociationDisplacedStudent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[StudentEducationOrganizationAssociationElectronicMail] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociationElectronicMail] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
@@ -9799,6 +9869,79 @@ GO
 ALTER TABLE [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] ADD CONSTRAINT [StudentTitleIPartAProgramAssociationTitleIPartAProgramService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[StudentTransportation] --
+CREATE TABLE [edfi].[StudentTransportation] (
+    [StudentUSI] [INT] NOT NULL,
+    [TransportationEducationOrganizationId] [BIGINT] NOT NULL,
+    [SpecialAccomodationRequirements] [NVARCHAR](1024) NULL,
+    [TransportationPublicExpenseEligibilityTypeDescriptorId] [INT] NULL,
+    [TransportationTypeDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentTransportation_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC,
+        [TransportationEducationOrganizationId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentTransportation] ADD CONSTRAINT [StudentTransportation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[StudentTransportation] ADD CONSTRAINT [StudentTransportation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[StudentTransportation] ADD CONSTRAINT [StudentTransportation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentTransportationStudentBusDetails] --
+CREATE TABLE [edfi].[StudentTransportationStudentBusDetails] (
+    [StudentUSI] [INT] NOT NULL,
+    [TransportationEducationOrganizationId] [BIGINT] NOT NULL,
+    [BusNumber] [NVARCHAR](36) NOT NULL,
+    [BusRouteDescriptorId] [INT] NOT NULL,
+    [Mileage] [DECIMAL](5, 2) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentTransportationStudentBusDetails_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC,
+        [TransportationEducationOrganizationId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetails] ADD CONSTRAINT [StudentTransportationStudentBusDetails_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] --
+CREATE TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] (
+    [StudentUSI] [INT] NOT NULL,
+    [TransportationEducationOrganizationId] [BIGINT] NOT NULL,
+    [TravelDayofWeekDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentTransportationStudentBusDetailsTravelDayofWeek_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC,
+        [TransportationEducationOrganizationId] ASC,
+        [TravelDayofWeekDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] ADD CONSTRAINT [StudentTransportationStudentBusDetailsTravelDayofWeek_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentTransportationStudentBusDetailsTravelDirection] --
+CREATE TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDirection] (
+    [StudentUSI] [INT] NOT NULL,
+    [TransportationEducationOrganizationId] [BIGINT] NOT NULL,
+    [TravelDirectionDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentTransportationStudentBusDetailsTravelDirection_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC,
+        [TransportationEducationOrganizationId] ASC,
+        [TravelDirectionDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentTransportationStudentBusDetailsTravelDirection] ADD CONSTRAINT [StudentTransportationStudentBusDetailsTravelDirection_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[StudentVisa] --
 CREATE TABLE [edfi].[StudentVisa] (
     [StudentUSI] [INT] NOT NULL,
@@ -10370,6 +10513,42 @@ CREATE TABLE [edfi].[TitleIPartASchoolDesignationDescriptor] (
     [TitleIPartASchoolDesignationDescriptorId] [INT] NOT NULL,
     CONSTRAINT [TitleIPartASchoolDesignationDescriptor_PK] PRIMARY KEY CLUSTERED (
         [TitleIPartASchoolDesignationDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] --
+CREATE TABLE [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] (
+    [TransportationPublicExpenseEligibilityTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [TransportationPublicExpenseEligibilityTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [TransportationPublicExpenseEligibilityTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[TransportationTypeDescriptor] --
+CREATE TABLE [edfi].[TransportationTypeDescriptor] (
+    [TransportationTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [TransportationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [TransportationTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[TravelDayofWeekDescriptor] --
+CREATE TABLE [edfi].[TravelDayofWeekDescriptor] (
+    [TravelDayofWeekDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [TravelDayofWeekDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [TravelDayofWeekDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[TravelDirectionDescriptor] --
+CREATE TABLE [edfi].[TravelDirectionDescriptor] (
+    [TravelDirectionDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [TravelDirectionDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [TravelDirectionDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

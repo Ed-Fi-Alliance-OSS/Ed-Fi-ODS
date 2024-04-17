@@ -157,6 +157,14 @@ ALTER TABLE [edfi].[Credential] ADD CONSTRAINT Credential_DF_ChangeVersion DEFAU
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[CrisisEvent]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[CrisisEvent] ADD [ChangeVersion] [BIGINT] CONSTRAINT CrisisEvent_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[CrisisEvent] DROP CONSTRAINT CrisisEvent_DF_ChangeVersion;
+ALTER TABLE [edfi].[CrisisEvent] ADD CONSTRAINT CrisisEvent_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Descriptor]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[Descriptor] ADD [ChangeVersion] [BIGINT] CONSTRAINT Descriptor_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -802,6 +810,14 @@ BEGIN
 ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] DROP CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion;
 ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentTransportation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentTransportation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentTransportation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentTransportation] DROP CONSTRAINT StudentTransportation_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentTransportation] ADD CONSTRAINT StudentTransportation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

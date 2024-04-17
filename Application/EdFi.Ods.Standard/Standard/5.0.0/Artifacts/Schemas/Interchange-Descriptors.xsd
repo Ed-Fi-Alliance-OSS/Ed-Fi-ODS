@@ -33,6 +33,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="AttendanceEventCategoryDescriptor" type="AttendanceEventCategoryDescriptor" />
         <xs:element name="BarrierToInternetAccessInResidenceDescriptor" type="BarrierToInternetAccessInResidenceDescriptor" />
         <xs:element name="BehaviorDescriptor" type="BehaviorDescriptor" />
+        <xs:element name="BusRouteDescriptor" type="BusRouteDescriptor" />
         <xs:element name="CalendarEventDescriptor" type="CalendarEventDescriptor" />
         <xs:element name="CalendarTypeDescriptor" type="CalendarTypeDescriptor" />
         <xs:element name="CareerPathwayDescriptor" type="CareerPathwayDescriptor" />
@@ -59,6 +60,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="CredentialTypeDescriptor" type="CredentialTypeDescriptor" />
         <xs:element name="CreditCategoryDescriptor" type="CreditCategoryDescriptor" />
         <xs:element name="CreditTypeDescriptor" type="CreditTypeDescriptor" />
+        <xs:element name="CrisisTypeDescriptor" type="CrisisTypeDescriptor" />
         <xs:element name="CTEProgramServiceDescriptor" type="CTEProgramServiceDescriptor" />
         <xs:element name="CurriculumUsedDescriptor" type="CurriculumUsedDescriptor" />
         <xs:element name="DeliveryMethodDescriptor" type="DeliveryMethodDescriptor" />
@@ -71,6 +73,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="DisciplineDescriptor" type="DisciplineDescriptor" />
         <xs:element name="DisciplineActionLengthDifferenceReasonDescriptor" type="DisciplineActionLengthDifferenceReasonDescriptor" />
         <xs:element name="DisciplineIncidentParticipationCodeDescriptor" type="DisciplineIncidentParticipationCodeDescriptor" />
+        <xs:element name="DisplacedStudentStatusDescriptor" type="DisplacedStudentStatusDescriptor" />
         <xs:element name="EducationalEnvironmentDescriptor" type="EducationalEnvironmentDescriptor" />
         <xs:element name="EducationOrganizationAssociationTypeDescriptor" type="EducationOrganizationAssociationTypeDescriptor" />
         <xs:element name="EducationOrganizationCategoryDescriptor" type="EducationOrganizationCategoryDescriptor" />
@@ -208,6 +211,10 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="TitleIPartAParticipantDescriptor" type="TitleIPartAParticipantDescriptor" />
         <xs:element name="TitleIPartAProgramServiceDescriptor" type="TitleIPartAProgramServiceDescriptor" />
         <xs:element name="TitleIPartASchoolDesignationDescriptor" type="TitleIPartASchoolDesignationDescriptor" />
+        <xs:element name="TransportationPublicExpenseEligibilityTypeDescriptor" type="TransportationPublicExpenseEligibilityTypeDescriptor" />
+        <xs:element name="TransportationTypeDescriptor" type="TransportationTypeDescriptor" />
+        <xs:element name="TravelDayofWeekDescriptor" type="TravelDayofWeekDescriptor" />
+        <xs:element name="TravelDirectionDescriptor" type="TravelDirectionDescriptor" />
         <xs:element name="TribalAffiliationDescriptor" type="TribalAffiliationDescriptor" />
         <xs:element name="VisaDescriptor" type="VisaDescriptor" />
         <xs:element name="WeaponDescriptor" type="WeaponDescriptor" />

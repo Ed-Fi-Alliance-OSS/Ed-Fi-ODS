@@ -310,6 +310,10 @@ COMMENT ON COLUMN edfi.BellScheduleGradeLevel.BellScheduleName IS 'Name or title
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.GradeLevelDescriptorId IS 'The grade levels the particular bell schedule applies to.';
 
+-- Extended Properties [edfi].[BusRouteDescriptor] --
+COMMENT ON TABLE edfi.BusRouteDescriptor IS 'Identifies the specific route taken by a bus for student transportation.';
+COMMENT ON COLUMN edfi.BusRouteDescriptor.BusRouteDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[Calendar] --
 COMMENT ON TABLE edfi.Calendar IS 'A set of dates associated with an organization.';
 COMMENT ON COLUMN edfi.Calendar.CalendarCode IS 'The identifier for the calendar.';
@@ -889,6 +893,18 @@ COMMENT ON COLUMN edfi.CreditCategoryDescriptor.CreditCategoryDescriptorId IS 'A
 COMMENT ON TABLE edfi.CreditTypeDescriptor IS 'The type of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.CreditTypeDescriptor.CreditTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[CrisisEvent] --
+COMMENT ON TABLE edfi.CrisisEvent IS 'A natural or man-made event that causes the disruption of school-level activities and the temporary or permanent displacement of students.';
+COMMENT ON COLUMN edfi.CrisisEvent.CrisisEventName IS 'The name of the crisis event that occurred. If there is no generally accepted name for this crisis event, the suggested format: Location + Crisis type + Year.';
+COMMENT ON COLUMN edfi.CrisisEvent.CrisisDescription IS 'Provides a textual description of the crisis event affecting the student. It may include details such as the nature of the crisis (e.g., natural disaster, conflict, medical emergency), its severity, location, and any other relevant information describing the crisis situation.';
+COMMENT ON COLUMN edfi.CrisisEvent.CrisisEndDate IS 'The date on which the crisis ceased to affect the student.';
+COMMENT ON COLUMN edfi.CrisisEvent.CrisisStartDate IS 'The year, month and day on which the crisis affected the student. This date may not be the same as the date the crisis occurred if evacuation orders are implemented in anticipation of a crisis.';
+COMMENT ON COLUMN edfi.CrisisEvent.CrisisTypeDescriptorId IS 'The type or category of crisis.';
+
+-- Extended Properties [edfi].[CrisisTypeDescriptor] --
+COMMENT ON TABLE edfi.CrisisTypeDescriptor IS 'The type or category of crisis.';
+COMMENT ON COLUMN edfi.CrisisTypeDescriptor.CrisisTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[CTEProgramServiceDescriptor] --
 COMMENT ON TABLE edfi.CTEProgramServiceDescriptor IS 'This descriptor defines the services provided by an education organization to populations of students associated with a CTE program.';
 COMMENT ON COLUMN edfi.CTEProgramServiceDescriptor.CTEProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1033,6 +1049,10 @@ COMMENT ON TABLE edfi.DisciplineIncidentWeapon IS 'Identifies the type of weapon
 COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.WeaponDescriptorId IS 'Identifies the type of weapon used during an incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.';
+
+-- Extended Properties [edfi].[DisplacedStudentStatusDescriptor] --
+COMMENT ON TABLE edfi.DisplacedStudentStatusDescriptor IS 'Indicates whether a student has been displaced as a result of a crisis event.';
+COMMENT ON COLUMN edfi.DisplacedStudentStatusDescriptor.DisplacedStudentStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[EducationalEnvironmentDescriptor] --
 COMMENT ON TABLE edfi.EducationalEnvironmentDescriptor IS 'The setting in which a child receives education and related services.';
@@ -3584,6 +3604,16 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignat
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
 
+-- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisplacedStudent] --
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisplacedStudent IS 'Information about student who was enrolled, or eligible for enrollment, but has temporarily or permanently enrolled in another school or district because of a crisis-related disruption in educational services.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.CrisisEventName IS 'The name of the crisis event that occurred. If there is no generally accepted name for this crisis event, the suggested format: Location + Crisis type + Year.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.CrisisHomelessnessIndicator IS 'Any student considered homeless (defined by the McKinney-Vento Homeless Education Assistance Act as lacking a fixed, regular, and adequate nighttime residence) as a result of the crisis event.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentEndDate IS 'The date marking the end of the period during which a student is considered displaced due to a crisis event.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentStartDate IS 'The date on which a student is officially identified as displaced due to a crisis event.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisplacedStudent.DisplacedStudentStatusDescriptorId IS 'Indicates whether a student has been displaced as a result of a crisis event.';
+
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationElectronicMail] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationElectronicMail.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -4279,6 +4309,34 @@ COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramSer
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
 
+-- Extended Properties [edfi].[StudentTransportation] --
+COMMENT ON TABLE edfi.StudentTransportation IS 'This entity captures a student''s specific transportation arrangement.';
+COMMENT ON COLUMN edfi.StudentTransportation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentTransportation.TransportationEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentTransportation.SpecialAccomodationRequirements IS 'Specific requirements needed to accommodate a student''s physical needs which may include special equipment installed in a vehicle or a special arrangement for transportation.';
+COMMENT ON COLUMN edfi.StudentTransportation.TransportationPublicExpenseEligibilityTypeDescriptorId IS 'The primary type of eligibility for transporting a student at public expense.';
+COMMENT ON COLUMN edfi.StudentTransportation.TransportationTypeDescriptorId IS 'The mode or type of transportation utilized by a student to commute to and from school';
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetails] --
+COMMENT ON TABLE edfi.StudentTransportationStudentBusDetails IS 'Stores details associated with student-bus assignment within a transportation system.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetails.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetails.TransportationEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetails.BusNumber IS 'The unique identifier assigned to the bus used for transporting the student.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetails.BusRouteDescriptorId IS 'Identifies the specific route taken by a bus for student transportation.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetails.Mileage IS 'The distance, typically measured in miles, that a student was transported along the route of the bus during a single trip.';
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetailsTravelDayofWeek] --
+COMMENT ON TABLE edfi.StudentTransportationStudentBusDetailsTravelDayofWeek IS 'Specifies the day(s) of the week on which student transportation occurs.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDayofWeek.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDayofWeek.TransportationEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDayofWeek.TravelDayofWeekDescriptorId IS 'Specifies the day(s) of the week on which student transportation occurs.';
+
+-- Extended Properties [edfi].[StudentTransportationStudentBusDetailsTravelDirection] --
+COMMENT ON TABLE edfi.StudentTransportationStudentBusDetailsTravelDirection IS 'Indicates the direction of travel for the student transportation route (e.g., to school, from school).';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.TransportationEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentTransportationStudentBusDetailsTravelDirection.TravelDirectionDescriptorId IS 'Indicates the direction of travel for the student transportation route (e.g., to school, from school).';
+
 -- Extended Properties [edfi].[StudentVisa] --
 COMMENT ON TABLE edfi.StudentVisa IS 'An indicator of a non-US citizen''s Visa type.';
 COMMENT ON COLUMN edfi.StudentVisa.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -4492,6 +4550,22 @@ COMMENT ON COLUMN edfi.TitleIPartAProgramServiceDescriptor.TitleIPartAProgramSer
 -- Extended Properties [edfi].[TitleIPartASchoolDesignationDescriptor] --
 COMMENT ON TABLE edfi.TitleIPartASchoolDesignationDescriptor IS 'Denotes the Title I Part A designation for the school.';
 COMMENT ON COLUMN edfi.TitleIPartASchoolDesignationDescriptor.TitleIPartASchoolDesignationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[TransportationPublicExpenseEligibilityTypeDescriptor] --
+COMMENT ON TABLE edfi.TransportationPublicExpenseEligibilityTypeDescriptor IS 'The primary type of eligibility for transporting a student at public expense.';
+COMMENT ON COLUMN edfi.TransportationPublicExpenseEligibilityTypeDescriptor.TransportationPublicExpenseEligibilityTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[TransportationTypeDescriptor] --
+COMMENT ON TABLE edfi.TransportationTypeDescriptor IS 'The mode or type of transportation utilized by a student to commute to and from school';
+COMMENT ON COLUMN edfi.TransportationTypeDescriptor.TransportationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[TravelDayofWeekDescriptor] --
+COMMENT ON TABLE edfi.TravelDayofWeekDescriptor IS 'Specifies the day(s) of the week on which student transportation occurs.';
+COMMENT ON COLUMN edfi.TravelDayofWeekDescriptor.TravelDayofWeekDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[TravelDirectionDescriptor] --
+COMMENT ON TABLE edfi.TravelDirectionDescriptor IS 'Indicates the direction of travel for the student transportation route (e.g., to school, from school).';
+COMMENT ON COLUMN edfi.TravelDirectionDescriptor.TravelDirectionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[TribalAffiliationDescriptor] --
 COMMENT ON TABLE edfi.TribalAffiliationDescriptor IS 'An American Indian tribe with which an individual is affiliated.';

@@ -175,6 +175,11 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.credential
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'crisisevent') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.crisisevent
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'descriptor') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.descriptor
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
@@ -971,6 +976,11 @@ END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentspecialeducationprogrameligibilityassociation') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentspecialeducationprogrameligibilityassociation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenttransportation') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenttransportation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
