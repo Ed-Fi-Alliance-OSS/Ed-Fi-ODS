@@ -33,10 +33,6 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
-        with:
-          dotnet-version: 3.1.x     
       - name: Checkout Ed-Fi-ODS-Implementation
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:

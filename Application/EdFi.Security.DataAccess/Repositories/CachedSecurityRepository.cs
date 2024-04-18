@@ -88,7 +88,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
                 try
                 {
-                    LoadSecurityConfigurationFromDatabase();
+                    Reset();
                     _lastCacheUpdate = SystemClock.Now();
                 }
                 finally

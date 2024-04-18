@@ -4,10 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Security.DataAccess.Contexts;
+using EdFi.Security.DataAccess.Models;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
@@ -18,53 +20,83 @@ namespace EdFi.Security.DataAccess.Repositories
         public SecurityRepository(ISecurityContextFactory securityContextFactory)
         {
             _securityContextFactory = Preconditions.ThrowIfNull(securityContextFactory, nameof(securityContextFactory));
-            LoadSecurityConfigurationFromDatabase();
+
+            Initialize(
+                GetApplication,
+                GetActions,
+                GetClaimSets,
+                GetResourceClaims,
+                GetAuthorizationStrategies,
+                GetClaimSetResourceClaims,
+                GetResourceClaimAuthorizationMetadata);
         }
 
-        protected void LoadSecurityConfigurationFromDatabase()
+        private Application GetApplication()
         {
-            using (var context = _securityContextFactory.CreateContext())
-            {
-                var application =
-                    context.Applications.First(
-                        app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
+            using var context = _securityContextFactory.CreateContext();
 
-                var actions = context.Actions.ToList();
+            return context.Applications.First(
+                app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
+        }
 
-                var claimSets = context.ClaimSets.Include(cs => cs.Application)
-                                       .ToList();
+        private List<Models.Action> GetActions()
+        {
+            using var context = _securityContextFactory.CreateContext();
 
-                var resourceClaims = context.ResourceClaims.Include(rc => rc.Application)
-                                            .Include(rc => rc.ParentResourceClaim)
-                                            .Where(rc => rc.Application.ApplicationId.Equals(application.ApplicationId))
-                                            .ToList();
+            return context.Actions.ToList();
+        }
 
-                var authorizationStrategies = context.AuthorizationStrategies.Include(auth => auth.Application)
-                                                     .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
-                                                     .ToList();
+        private List<ClaimSet> GetClaimSets()
+        {
+            using var context = _securityContextFactory.CreateContext();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
-                                                    .Include(csrc => csrc.ClaimSet)
-                                                    .Include(csrc => csrc.ResourceClaim)
-                                                    .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
-                                                    .ToList();
+            return context.ClaimSets.Include(cs => cs.Application).ToList();
+        }
 
-                var resourceClaimAuthorizationMetadata =
-                    context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
-                           .Include(rcas => rcas.AuthorizationStrategy)
-                           .Include(rcas => rcas.ResourceClaim)
-                           .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
-                           .ToList();
+        private List<ResourceClaim> GetResourceClaims()
+        {
+            using var context = _securityContextFactory.CreateContext();
 
-                Initialize(
-                    application,
-                    actions,
-                    claimSets,
-                    resourceClaims,
-                    authorizationStrategies,
-                    claimSetResourceClaims,
-                    resourceClaimAuthorizationMetadata);
-            }
+            return context.ResourceClaims
+                .Include(rc => rc.Application)
+                .Include(rc => rc.ParentResourceClaim)
+                .Where(rc => rc.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .ToList();
+        }
+
+        private List<AuthorizationStrategy> GetAuthorizationStrategies()
+        {
+            using var context = _securityContextFactory.CreateContext();
+
+            return context.AuthorizationStrategies
+                .Include(auth => auth.Application)
+                .Where(auth => auth.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .ToList();
+        }
+
+        private List<ClaimSetResourceClaim> GetClaimSetResourceClaims()
+        {
+            using var context = _securityContextFactory.CreateContext();
+
+            return context.ClaimSetResourceClaims
+                .Include(csrc => csrc.Action)
+                .Include(csrc => csrc.ClaimSet)
+                .Include(csrc => csrc.ResourceClaim)
+                .Include(csrc => csrc.AuthorizationStrategyOverride)
+                .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .ToList();
+        }
+
+        private List<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadata()
+        {
+            using var context = _securityContextFactory.CreateContext();
+
+            return context.ResourceClaimAuthorizationMetadatas
+                .Include(rcas => rcas.Action)
+                .Include(rcas => rcas.AuthorizationStrategy)
+                .Include(rcas => rcas.ResourceClaim)
+                .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .ToList();
         }
     }
 }

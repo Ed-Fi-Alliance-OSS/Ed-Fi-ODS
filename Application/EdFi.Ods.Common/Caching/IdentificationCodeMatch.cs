@@ -49,16 +49,7 @@ namespace EdFi.Ods.Common.Caching
             return Equals((IdentificationCodeMatch) obj);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((IdentificationCode != null
-                    ? IdentificationCode.GetHashCode()
-                    : 0) * 397) ^ (AssigningOrganizationIdentificationCode != null
-                    ? AssigningOrganizationIdentificationCode.GetHashCode()
-                    : 0);
-            }
-        }
+        public override int GetHashCode() 
+            => HashCode.Combine(IdentificationCode, AssigningOrganizationIdentificationCode);
     }
 }

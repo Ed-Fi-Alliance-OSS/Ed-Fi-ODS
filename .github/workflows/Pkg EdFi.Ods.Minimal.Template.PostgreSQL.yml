@@ -30,10 +30,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
-      with:
-          dotnet-version: 3.1.x   
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS
