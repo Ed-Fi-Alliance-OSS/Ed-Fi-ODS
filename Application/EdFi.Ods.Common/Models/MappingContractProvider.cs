@@ -6,6 +6,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
@@ -16,11 +18,11 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
-using Microsoft.AspNetCore.Http;
+using MediatR;
 
 namespace EdFi.Ods.Common.Models;
 
-public class MappingContractProvider : IMappingContractProvider
+public class MappingContractProvider : IMappingContractProvider, INotificationHandler<ProfileMetadataCacheExpired>
 {
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
@@ -263,6 +265,13 @@ public class MappingContractProvider : IMappingContractProvider
             this);
 
         return mappingContract;
+    }
+
+    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+    {
+        _mappingContractByKey.Clear();
+
+        return Task.CompletedTask;
     }
 }
 

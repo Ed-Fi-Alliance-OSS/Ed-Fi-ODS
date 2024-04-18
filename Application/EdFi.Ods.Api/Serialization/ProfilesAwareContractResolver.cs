@@ -8,6 +8,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
@@ -15,12 +17,13 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using MediatR;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Api.Serialization;
 
-public class ProfilesAwareContractResolver : DefaultContractResolver
+public class ProfilesAwareContractResolver : DefaultContractResolver, INotificationHandler<ProfileMetadataCacheExpired>
 {
     private static readonly string[] _extensionsInArray = { "Extensions" };
     private static readonly string[] _metadataProperties =
@@ -211,5 +214,12 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             .ToList();
 
         return profileConstrainedMembers;
+    }
+
+    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+    {
+        _contractByKey.Clear();
+
+        return Task.CompletedTask;
     }
 }
