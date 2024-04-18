@@ -136,12 +136,12 @@ public class AssemblyLoaderHelperTests
                 .ToArray();
 
             // Assert
-            returnedAssemblies.ShouldBeEquivalentTo(
+            returnedAssemblies.ShouldBe(
                     new[]
                     {
                         "EdFi.Ods.Extensions.Sample.dll",
                         "EdFi.Ods.Profiles.Sample.dll"
-                    });
+                    }, ignoreOrder: true);
         }
 
         [Test]
@@ -172,12 +172,12 @@ public class AssemblyLoaderHelperTests
             // Assert
             File.Exists(Path.Combine(_unitTestPluginWithNonPluginAssemblyFolder, NonPluginAssemblyFileName)).ShouldBeTrue();
 
-            returnedAssemblies.ShouldBeEquivalentTo(
+            returnedAssemblies.ShouldBe(
                     new[]
                     {
                         "EdFi.Ods.Extensions.Sample.dll",
                         "EdFi.Ods.Profiles.Sample.dll"
-                    });
+                    }, ignoreOrder: true);
         }
 
         [Test]

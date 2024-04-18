@@ -1006,7 +1006,7 @@
 									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.equals({",
 									"    \"$.weekIdentifier\": [",
-									"      \"WeekIdentifier is required.\",",
+									"      \"WeekIdentifier is required and should not be left empty.\",",
 									"      \"WeekIdentifier must be between 5 and 80 characters in length.\"",
 									"    ]",
 									"  });",
@@ -1416,18 +1416,18 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be required\", () => {",
+									"pm.test(\"Should return the item with BeginDate must be different than default value\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.beginDate\": [",
-									"      \"BeginDate is required.\"",
+									"      \"BeginDate value must be different than 1/1/0001 12:00:00 AM.\"",
 									"    ]",
 									"  });",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be required\", () => {",
+									"pm.test(\"Should return the item with EndDate must be different than default value\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.endDate\": [",
-									"      \"EndDate is required.\"",
+									"      \"EndDate value must be different than 1/1/0001 12:00:00 AM.\"",
 									"    ]",
 									"  });",
 									"});"
@@ -1982,18 +1982,18 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be required\", () => {",
+									"pm.test(\"Should return the item with BeginDate must be different than default value\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.beginDate\": [",
-									"      \"BeginDate is required.\"",
+									"      \"BeginDate value must be different than 1/1/0001 12:00:00 AM.\"",
 									"    ]",
 									"  });",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be required\", () => {",
+									"pm.test(\"Should return the item with EndDate must be different than default value\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.endDate\": [",
-									"      \"EndDate is required.\"",
+									"      \"EndDate value must be different than 1/1/0001 12:00:00 AM.\"",
 									"    ]",
 									"  });",
 									"});"
@@ -10252,6 +10252,62 @@
 												"v3",
 												"ed-fi",
 												"schools"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "LocalEducationAgencyId",
+							"item": [
+								{
+									"name": "Creating LEA With a Default LocalEducationAgencyId Fails",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"The validationErrors response should indicate that the value must be different than the default value.\", () => {\r",
+													"    pm.expect(pm.response.json().validationErrors['$.localEducationAgencyId'][0]).equal(\"LocalEducationAgencyId value must be different than 0.\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"localEducationAgencyId\": 0,\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n    }\r\n  ],\r\n  \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\",\r\n  \"nameOfInstitution\": \"LEA-100001\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
 											]
 										}
 									},
