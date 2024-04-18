@@ -1,0 +1,33 @@
+<SecurityMetadata>
+  <Claims>
+	  <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/crisisEvent">
+	    <DefaultAuthorization>
+	      <Action name="Create">
+	        <AuthorizationStrategies>
+	          <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+	        </AuthorizationStrategies>
+	      </Action>
+	      <Action name="Read">
+	        <AuthorizationStrategies>
+	          <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+	        </AuthorizationStrategies>
+	      </Action>
+	      <Action name="Update">
+	        <AuthorizationStrategies>
+	          <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+	        </AuthorizationStrategies>
+	      </Action>
+	      <Action name="Delete">
+	        <AuthorizationStrategies>
+	          <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+	        </AuthorizationStrategies>
+	      </Action>
+	      <Action name="ReadChanges">
+	        <AuthorizationStrategies>
+	          <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+	        </AuthorizationStrategies>
+	      </Action>
+	    </DefaultAuthorization>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
