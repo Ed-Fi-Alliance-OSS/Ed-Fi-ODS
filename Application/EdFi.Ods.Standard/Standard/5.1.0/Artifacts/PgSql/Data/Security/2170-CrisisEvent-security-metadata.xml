@@ -28,6 +28,39 @@
 	        </AuthorizationStrategies>
 	      </Action>
 	    </DefaultAuthorization>
+	    <ClaimSets>
+	      <ClaimSet name="SIS Vendor">
+	        <Actions>
+	          <Action name="Create" />
+	          <Action name="Read" />
+	          <Action name="Update" />
+	          <Action name="Delete" />
+	        </Actions>
+	      </ClaimSet>
+	      <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+        <ClaimSet name="Ed-Fi API Publisher - Writer">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+          </Actions>
+        </ClaimSet>
+	    </ClaimSets>
     </Claim>
   </Claims>
 </SecurityMetadata>
