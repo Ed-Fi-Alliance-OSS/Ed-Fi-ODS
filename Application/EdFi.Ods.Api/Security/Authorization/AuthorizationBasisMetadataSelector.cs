@@ -106,7 +106,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         if (!claimCheckResponse.Success)
         {
             throw new SecurityAuthorizationException(
-                $"{SecurityAuthorizationException.DefaultDetail} {claimCheckResponse.SecurityExceptionDetail}",
+                "scenario81.",
                 claimCheckResponse.SecurityExceptionMessage)
             {
                 InstanceTypeParts = claimCheckResponse.SecurityExceptionInstanceTypeParts

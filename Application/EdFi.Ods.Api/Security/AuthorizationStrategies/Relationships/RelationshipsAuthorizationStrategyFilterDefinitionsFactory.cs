@@ -123,7 +123,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     string existingLiteral = authorizationContext.GetPhaseText("existing ");
 
                     throw new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{filterContext.SubjectEndpointName}' value is required for authorization purposes.",
+                        "scenario95.",
                         authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData

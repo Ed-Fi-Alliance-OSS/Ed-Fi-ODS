@@ -57,7 +57,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                             ? NoDetailsUpdateOrDeleteMessage
                             : NoDetailsInsertOrUpdateMessage;
 
-                        problemDetails = new InvalidReferenceConflictException(noDetailsMessage);
+                        problemDetails = new InvalidReferenceConflictException("scenario47.");
 
                         return true;
                     }
@@ -66,7 +66,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
                         : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
-                    problemDetails = new InvalidReferenceConflictException(message);
+                    problemDetails = new InvalidReferenceConflictException("scenario48.");
 
                     return true;
                 }

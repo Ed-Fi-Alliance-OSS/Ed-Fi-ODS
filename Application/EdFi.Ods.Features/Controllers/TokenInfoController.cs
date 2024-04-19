@@ -71,7 +71,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 return BadRequest(
                     new BadRequestException(
-                        "An invalid token was provided",
+                        "scenario13.",
                         new[] { "The token was not present, or was not processable as a GUID value." })
                     {
                         CorrelationId = _logContextAccessor.GetCorrelationId()

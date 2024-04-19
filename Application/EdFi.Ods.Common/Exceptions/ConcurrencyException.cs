@@ -18,8 +18,8 @@ namespace EdFi.Ods.Common.Exceptions
         private const string DetailText = "The resource was modified by another user while attempting to perform the current operation.";
         private const string MessageText = "Resource modification by another consumer was detected (due to inclusion of If-Match request header by API client).";
         
-        public ConcurrencyException()
-            : base(DetailText, MessageText) { }
+        public ConcurrencyException(string detail)
+            : base(detail, MessageText) { }
 
         // ---------------------------
         //  Boilerplate for overrides

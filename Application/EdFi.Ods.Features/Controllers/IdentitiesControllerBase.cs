@@ -84,9 +84,9 @@ namespace EdFi.Ods.Features.Controllers
 
                         return identity.Score == 100
                             ? Ok(identity)
-                            : NotFound(new NotFoundException());
+                            : NotFound(new NotFoundException("scenario70."));
                     case IdentityStatusCode.NotFound:
-                        return NotFound(new NotFoundException());
+                        return NotFound(new NotFoundException("scenario71."));
                     case IdentityStatusCode.Incomplete:
                     case IdentityStatusCode.InvalidProperties:
                     default:
@@ -126,7 +126,7 @@ namespace EdFi.Ods.Features.Controllers
                         var route = Url.Link("IdentitiesGetById", new { id = result.Data });
                         return Created(new Uri(route), result.Data);
                     case IdentityStatusCode.NotFound:
-                        return NotFound(new NotFoundException());
+                        return NotFound(new NotFoundException("scenario72."));
                     case IdentityStatusCode.InvalidProperties:
                         return StatusCode((int)HttpStatusCode.BadRequest, result.Data);
                     case IdentityStatusCode.Incomplete:

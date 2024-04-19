@@ -634,7 +634,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (!int.TryParse(limitAsString, out limit))
                 {
                     throw new BadRequestParameterException(
-                        "The 'limit' parameter must be a number.",
+                        "scenario16.",
                         new[] { $"Limit parameter value '{limitAsString.TrimAt(15, appendEllipses: true)}' is not a number." });
                 }
             }
@@ -646,7 +646,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (!int.TryParse(offsetAsString, out offset))
                 {
                     throw new BadRequestParameterException(
-                        "The 'offset' parameter must be a number.",
+                        "scenario17.",
                         new[] { $"Offset parameter value '{offsetAsString.TrimAt(15, appendEllipses: true)}' is not a number." });
                 }
             }
@@ -945,7 +945,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     }
 
                     throw new BadRequestDataException(
-                        $"Filter value for '{targetProperty.JsonPropertyName}' is not a valid value for an id.",
+                        $"scenario7.",
                         new[]
                         {
                             $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed as a GUID."
@@ -959,7 +959,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             catch (FormatException ex)
             {
                 throw new BadRequestDataException(
-                    $"Filter value for '{targetProperty.JsonPropertyName}' is not a valid value for the type of data expected.",
+                    $"scenario8.",
                     new[]
                     {
                         $"Invalid query string parameter value for '{targetProperty.PropertyName}' could not be processed to target type '{targetType.Name}'.",
@@ -974,7 +974,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             if (Regex.IsMatch(attemptedPropertyName, @"^\w+$"))
             {
                 throw new BadRequestParameterException(
-                    $"Filter value was supplied for an unrecognized data element named '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}'.",
+                    $"scenario18.",
                     new[]
                     {
                         $"The property '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}' does not exist or is not available."
@@ -982,7 +982,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
 
             throw new BadRequestParameterException(
-                "Filter value was supplied for an unrecognized data element.",
+                "scenario19.",
                 new[]
                 {
                     $"Attempted query string filter parameter does not match an available property of the resource: '{attemptedPropertyName.TrimAt(75, appendEllipses: true)}'."
@@ -1005,7 +1005,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (!rangeQueryMatch.Success)
                 {
                     throw new BadRequestParameterException(
-                        "Only numeric and date range filter expressions are supported.",
+                        "scenario20.",
                         new[]
                         {
                             "The query filter expression parameter was invalid (regular expression pattern match for range expressions failed)."

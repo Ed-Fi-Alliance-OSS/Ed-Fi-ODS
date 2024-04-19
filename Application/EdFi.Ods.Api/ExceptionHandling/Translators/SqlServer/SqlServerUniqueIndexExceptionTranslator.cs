@@ -70,7 +70,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                         message = string.Format(MultipleMessageFormat, values, columnNames, tableName);
                     }
 
-                    problemDetails = new NonUniqueConflictException(message);
+                    problemDetails = new NonUniqueConflictException("scenario59.");
                     return true;
                 }
             }

@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                                 match.Groups["property"].Value,
                                 match.Groups["entityPropertyId"].Value));
 
-                        problemDetails = new NonUniqueConflictException("A problem occurred while processing the request.", 
+                        problemDetails = new NonUniqueConflictException("scenario57.", 
                             new[] { $"Two {match.Groups["subject"]} entities with the same identifier were associated with the session. See log for additional details." });
 
                         return true;

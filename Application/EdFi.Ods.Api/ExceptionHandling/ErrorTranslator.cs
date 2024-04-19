@@ -32,7 +32,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
             {
                 string[] errors = modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToArray();
 
-                return new BadRequestException(DetailForErrors, errors).AsSerializableModel();
+                return new BadRequestException("scenario10.", errors).AsSerializableModel();
             }
 
             // Process data validation errors
@@ -43,7 +43,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new BadRequestDataException(DetailForValidationErrors, validationErrors).AsSerializableModel();
+            return new BadRequestDataException("scenario2.", validationErrors).AsSerializableModel();
         }
 
         public IEdFiProblemDetails GetProblemDetails(Resource resource, IEnumerable<ValidationResult> validationResults)
@@ -67,7 +67,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
-            return new BadRequestDataException(DetailForValidationErrors, validationErrors).AsSerializableModel();
+            return new BadRequestDataException("scenario3.", validationErrors).AsSerializableModel();
         }
     }
 }

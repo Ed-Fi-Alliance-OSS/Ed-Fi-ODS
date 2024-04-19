@@ -54,7 +54,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 _logger.Error(message);
 
                 throw new SecurityAuthorizationException(
-                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
+                    detail: "scenario82.",
                     error: TransformationErrorText,
                     message: message);
             }
@@ -93,7 +93,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 var message = "Unable to transform resource load graph as StudentSchoolAssociation was not found in the graph.";
 
                 throw new SecurityAuthorizationException(
-                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
+                    detail: "scenario83.",
                     error: TransformationErrorText,
                     message: message);
             }
@@ -142,7 +142,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 _logger.Error(message);
 
                 throw new SecurityAuthorizationException(
-                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
+                    detail: "scenario84.",
                     error: TransformationErrorText,
                     message: message);
             }
@@ -166,7 +166,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 _logger.Error(message);
 
                 throw new SecurityAuthorizationException(
-                    detail: SecurityAuthorizationException.DefaultTechnicalProblemDetail,
+                    detail: "scenario85.",
                     error: TransformationErrorText,
                     message: message);
             }

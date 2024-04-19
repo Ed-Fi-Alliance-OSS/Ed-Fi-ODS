@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 if (validationResult?.MemberNames.Any() == true)
                 {
                     problemDetails =
-                        new BadRequestDataException("Data validation failed. See 'validationErrors' for details.", validationResult
+                        new BadRequestDataException("scenario4.", validationResult
                             .MemberNames.Select(
                                 n => new
                                 {
@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 else
                 {
                     problemDetails = new BadRequestDataException(
-                        "Data validation failed. See 'errors' for details.",
+                        "scenario5.",
                         new[] { validationException.Message })
                         .AsSerializableModel();
                 }

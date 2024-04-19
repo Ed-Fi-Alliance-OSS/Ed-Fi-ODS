@@ -71,7 +71,7 @@ public class ProfileBasedCreateEntityDecorator<TEntity> : ICreateEntity<TEntity>
         {
             if (!contentTypes.CanCreateResourceClass(resource.FullName))
             {
-                throw new DataPolicyException(profileContentTypeContext.ProfileName);
+                throw new DataPolicyException("scenario30.");
             }
         }
     }

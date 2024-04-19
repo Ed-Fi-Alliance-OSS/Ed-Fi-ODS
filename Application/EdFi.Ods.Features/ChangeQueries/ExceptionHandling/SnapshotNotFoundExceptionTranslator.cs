@@ -48,7 +48,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
 
             if (exception is DatabaseConnectionException or DbException)
             {
-                problemDetails = new NotFoundException("Snapshot not found.");
+                problemDetails = new NotFoundException("scenario67.");
                 return true;
             }
             

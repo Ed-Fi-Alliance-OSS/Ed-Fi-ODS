@@ -121,7 +121,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
+                        "scenario89.",
                         authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
@@ -141,7 +141,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('{claimNamespacePrefixesText}').", null)
+                        "scenario90.", null)
                     {
                         InstanceTypeParts = ["namespace", "access-denied", "namespace-mismatch"]
                     });
@@ -199,7 +199,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         else
         {
             // This should never happen
-            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultTechnicalProblemDetail, "No namespaces found in claims.");
+            throw new SecurityAuthorizationException("scenario91.", "No namespaces found in claims.");
         }
     }
 }

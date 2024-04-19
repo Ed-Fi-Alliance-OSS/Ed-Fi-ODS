@@ -11,5 +11,5 @@ public class KeyChangeNotSupportedException : BadRequestDataException
         "Identifying values for the {0} resource cannot be changed. Delete and recreate the resource item instead.";
 
     public KeyChangeNotSupportedException(string entityName)
-        : base(string.Format(DetailTextFormat, entityName)) { }
+        : base("scenario50.") { }
 }

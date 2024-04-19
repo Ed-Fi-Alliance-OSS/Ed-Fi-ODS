@@ -67,7 +67,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // If attempt to look up by Id failed, don't allow create to proceed if Id was supplied by API client
                     if (persistedEntity == null && entity.IdSource == IdentifierSource.ClientSupplied)
                     {
-                        throw new NotFoundException("Resource to update was not found.");
+                        throw new NotFoundException("scenario66.");
                     }
                 }
                 else
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     {
                         if (!persistedEntity.LastModifiedDate.Equals(entity.LastModifiedDate))
                         {
-                            throw new ConcurrencyException();
+                            throw new ConcurrencyException("scenario24.");
                         }
                     }
 

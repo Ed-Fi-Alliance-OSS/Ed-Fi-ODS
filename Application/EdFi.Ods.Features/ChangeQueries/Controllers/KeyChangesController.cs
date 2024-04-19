@@ -96,7 +96,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             if (parameterMessages.Any())
             {
                 return BadRequest(
-                    new BadRequestException("The parameters provided to the request were invalid.", parameterMessages)
+                    new BadRequestException("scenario11.", parameterMessages)
                     {
                         CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());

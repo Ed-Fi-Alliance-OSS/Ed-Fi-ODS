@@ -17,7 +17,7 @@ public class InternalServerErrorException : EdFiProblemDetailsExceptionBase
     private const int StatusValue = StatusCodes.Status500InternalServerError;
     protected const string DefaultDetail = "An unexpected problem has occurred.";
 
-    public InternalServerErrorException() : base(DefaultDetail, DefaultDetail) { }
+    public InternalServerErrorException(string detail) : base(detail, DefaultDetail) { }
 
     public InternalServerErrorException(string detail, string message)
         : base(detail, message) { }

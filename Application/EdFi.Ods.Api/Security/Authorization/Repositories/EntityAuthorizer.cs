@@ -298,11 +298,11 @@ public class EntityAuthorizer : IEntityAuthorizer
             if (hints.Any())
             {
                 throw new SecurityAuthorizationException(
-                    $"{SecurityAuthorizationException.DefaultDetail} Hint: {string.Join(" ", hints)}",
+                    "scenario86.",
                     GetAuthorizationFailureMessage());
             }
 
-            throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail, GetAuthorizationFailureMessage());
+            throw new SecurityAuthorizationException("scenario88.", GetAuthorizationFailureMessage());
         }
 
         string BuildExistenceCheckSql(AuthorizationStrategyFilterResults[] resultsWithPendingExistenceChecks)

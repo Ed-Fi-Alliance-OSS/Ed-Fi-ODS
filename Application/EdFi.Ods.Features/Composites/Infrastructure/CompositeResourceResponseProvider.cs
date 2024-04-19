@@ -114,7 +114,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle Single item requests
                     if (query.IsSingleItemResult && result == null)
                     {
-                        throw new NotFoundException(NotFoundException.DefaultItemDetail);
+                        throw new NotFoundException("scenario68.");
                     }
                 }
                 else
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Return an appropriate response for an empty result
                     if (IsSingleItemRequest(compositeDefinition, resourceModel, queryStringParameters))
                     {
-                        throw new NotFoundException(NotFoundException.DefaultItemDetail);
+                        throw new NotFoundException("scenario69.");
                     }
 
                     result = new List<IDictionary>();

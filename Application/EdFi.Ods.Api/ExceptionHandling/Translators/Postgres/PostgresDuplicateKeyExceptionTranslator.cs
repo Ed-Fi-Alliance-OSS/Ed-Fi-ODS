@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     string message = GetMessageUsingRequestContext(constraintName)
                         ?? GetMessageUsingPostgresException();
 
-                    problemDetails = new NonUniqueConflictException(message);
+                    problemDetails = new NonUniqueConflictException("scenario58.");
 
                     return true;
                 }

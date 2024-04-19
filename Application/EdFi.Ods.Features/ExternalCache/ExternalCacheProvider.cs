@@ -92,7 +92,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+                throw new DistributedCacheException("scenario33.", ex);
             }
         }
 
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+                throw new DistributedCacheException("scenario34.", ex);
             }
         }
 
@@ -126,7 +126,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+                throw new DistributedCacheException("scenario35.", ex);
             }
         }
 

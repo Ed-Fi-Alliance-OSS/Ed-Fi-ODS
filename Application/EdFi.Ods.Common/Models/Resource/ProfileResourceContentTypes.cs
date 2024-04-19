@@ -84,7 +84,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     if (sourceResourceClass == null)
                     {
                         throw new InternalServerErrorException(
-                            "An unexpected problem was encountered while creating the resource item.",
+                            "scenario41.",
                             $"The resource class '{fn}' was not found in resource '{_sourceResource.FullName}' while attempting to determine if it is creatable with Profile '{_profileName}'.");
                     }
 

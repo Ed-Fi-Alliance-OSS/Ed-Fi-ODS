@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 _logger.Error(ex);
                 
                 problemDetails = new NaturalKeyConflictException(
-                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key.");
+                    "scenario55.");
 
                 return true;
             }

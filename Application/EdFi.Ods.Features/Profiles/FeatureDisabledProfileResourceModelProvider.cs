@@ -13,6 +13,6 @@ public class FeatureDisabledProfileResourceModelProvider : IProfileResourceModel
 {
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
-        throw new FeatureDisabledException(ProfilesConstants.FeatureName);
+        throw new FeatureDisabledException("scenario37.");
     }
 }

@@ -160,7 +160,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     {
                         var profileNames = _profileResourceModels.Select(m => m.ProfileName);
 
-                        throw new ProfileMethodUsageException(_usage, $"There is no {_usage.ToString().ToLower()} content type available to the caller for the '{fullName.Name}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
+                        throw new ProfileMethodUsageException(_usage, "scenario78.");
                     }
 
                     // Return all the profile-filtered versions of the resource

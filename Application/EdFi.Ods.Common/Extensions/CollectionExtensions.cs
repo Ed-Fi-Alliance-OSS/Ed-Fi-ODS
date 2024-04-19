@@ -75,7 +75,7 @@ namespace EdFi.Ods.Common.Extensions
                 {
                     string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
-                    throw new DataPolicyException(profileName, itemsToAdd.First().GetType().Name);
+                    throw new DataPolicyException("scenario28.", itemsToAdd.First().GetType().Name);
                 }
                 
                 foreach (var item in itemsToAdd)
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Common.Extensions
                     if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
                     {
                         string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
-                        GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                        GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException("scenario29.", itemType.Name));
                     }
                 }
 

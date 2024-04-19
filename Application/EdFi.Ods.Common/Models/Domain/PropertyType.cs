@@ -68,22 +68,22 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             if (precision <= 0)
             {
-                throw new InvalidApiModelException($"Precision must be a positive value (was '{precision}').");
+                throw new InvalidApiModelException($"scenario43.");
             }
 
             if (scale < 0)
             {
-                throw new InvalidApiModelException($"Scale must be non-negative value (was '{scale}').");
+                throw new InvalidApiModelException($"scenario44.");
             }
 
             if (scale != 0 && precision == 0)
             {
-                throw new InvalidApiModelException("Precision must be supplied if a Scale is supplied.");
+                throw new InvalidApiModelException("scenario45.");
             }
 
             if (scale > precision)
             {
-                throw new InvalidApiModelException($"Scale ('{scale}') cannot be larger than the Precision ('{precision}').");
+                throw new InvalidApiModelException($"scenario46.");
             }
         }
     }

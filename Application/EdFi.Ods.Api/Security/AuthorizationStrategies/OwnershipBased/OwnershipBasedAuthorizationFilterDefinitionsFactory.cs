@@ -85,7 +85,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             return InstanceAuthorizationResult.Failed(
                 new SecurityConfigurationException(
-                    SecurityConfigurationException.DefaultDetail,
+                    "scenario97.",
                     "No 'OwnershipTokenId' property could be found on the resource's underlying entity in order to perform authorization. Should a different authorization strategy be used?"));
         }
 
@@ -97,7 +97,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             {
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + " The resource item is not owned by the caller.",
+                        "scenario93.",
                         null)
                     {
                         InstanceTypeParts = ["ownership", "access-denied", "ownership-mismatch"]
@@ -108,7 +108,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             return InstanceAuthorizationResult.Failed(
                 new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultDetail + " The resource item is not owned by the caller.",
+                    "scenario94.",
                     $"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the '{authorizationStrategyName}' authorization strategy.")
                 { 
                     InstanceTypeParts = ["ownership", "invalid-data", "ownership-uninitialized"]

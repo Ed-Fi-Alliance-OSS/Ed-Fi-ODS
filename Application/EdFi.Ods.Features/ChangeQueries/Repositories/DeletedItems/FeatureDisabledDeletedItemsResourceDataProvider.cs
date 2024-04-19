@@ -14,5 +14,5 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 public class FeatureDisabledDeletedItemsResourceDataProvider : IDeletedItemsResourceDataProvider
 {
     public Task<ResourceData<DeletedResourceItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
-        => throw new FeatureDisabledException(ChangeQueriesConstants.FeatureName);
+        => throw new FeatureDisabledException("scenario40.");
 }

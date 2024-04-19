@@ -50,7 +50,7 @@ namespace EdFi.Ods.Common.Extensions
                             // While this method has general utility, this specific failure scenario has to do with descriptor values provided
                             // as query string parameters as filter criteria, and thus represent a data validation error.
                             throw new BadRequestDataException(
-                                $"Unable to obtain the value for '{descriptor.Name}'.",
+                                $"scenario6.",
                                 new []{ ex.Message });
                         }
 

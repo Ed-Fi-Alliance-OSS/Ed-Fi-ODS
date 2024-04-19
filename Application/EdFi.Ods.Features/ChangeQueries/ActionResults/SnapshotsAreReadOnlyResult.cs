@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ActionResults
         
         public async Task ExecuteResultAsync(ActionContext context)
         {
-            var problemDetails = new SnapshotsAreReadOnlyException
+            var problemDetails = new SnapshotsAreReadOnlyException("scenario101.")
             {
                 CorrelationId = _correlationId
             }.AsSerializableModel();

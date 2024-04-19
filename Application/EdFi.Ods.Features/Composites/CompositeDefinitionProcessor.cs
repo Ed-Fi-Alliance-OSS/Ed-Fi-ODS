@@ -77,7 +77,7 @@ namespace EdFi.Ods.Features.Composites
             catch (ProfileMethodUsageException ex)
             {
                 // This exception indicates that a resource used by the composite's root resource is not readable due to the Profile(s) assigned to the client
-                throw new CompositeResourceNotReadableException(resourceFullName.Name, ex);
+                throw new CompositeResourceNotReadableException("scenario23.", ex);
             }
         }
 

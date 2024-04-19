@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Security.Claims
             if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
                 throw new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultTechnicalProblemDetail + " No information was available about the caller.",
+                    "scenario96.",
                     "No API client details were available for performing authorization.")
                 {
                     InstanceTypeParts = ["no-client-details"]

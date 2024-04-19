@@ -38,7 +38,7 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
         if (context.Response is { StatusCode: 404, HasStarted: false })
         {
             var problemDetails = new NotFoundException(
-                NotFoundException.DefaultDetail,
+                "scenario64.",
                 $"Path '{context.Request.Path}' does not exist. Check the resource name and try again.");
 
             string correlationId = _logContextAccessor.GetCorrelationId();
@@ -55,7 +55,7 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
         if (context.Response is { StatusCode: 405, HasStarted: false })
         {
             var problemDetails = new MethodNotAllowedException(
-                $"The endpoint of the request does not support the '{context.Request.Method}' method.")
+                $"scenario51.")
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId()
             };

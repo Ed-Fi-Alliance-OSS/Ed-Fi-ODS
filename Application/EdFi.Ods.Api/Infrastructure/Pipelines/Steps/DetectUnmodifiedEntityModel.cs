@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                 // Check the ETag for no modifications
                 if (context.ETag == _etagProvider.GetETag(context.PersistentModel))
                 {
-                    result.Exception = new NotModifiedException();
+                    result.Exception = new NotModifiedException("scenario73.");
                 }
             }
             catch (Exception ex)

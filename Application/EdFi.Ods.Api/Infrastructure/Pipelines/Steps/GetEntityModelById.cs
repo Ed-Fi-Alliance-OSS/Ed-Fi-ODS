@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                     
                     // Capture exception information, but don't throw it for performance reasons
                     result.Exception = new NotFoundException(
-                        NotFoundException.DefaultItemDetail,
+                        "scenario61.",
                         message,
                         typeof(TEntityModel).Name,
                         context.Id.ToString());

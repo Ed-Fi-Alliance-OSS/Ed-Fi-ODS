@@ -38,7 +38,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             {
                 connection.Dispose();
 
-                throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
+                throw new DatabaseConnectionException("scenario26.", ex);
             }
 
             return connection;
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             {
                 connection.Dispose();
 
-                throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
+                throw new DatabaseConnectionException("scenario27.", ex);
             }
 
             return connection;

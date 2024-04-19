@@ -46,7 +46,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             {
                 if (persistedEntity == null)
                 {
-                    throw new NotFoundException("Resource to delete was not found.");
+                    throw new NotFoundException("scenario65.");
                 }
 
                 // only check last modified data
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     if (!persistedEntity.LastModifiedDate.Equals(lastModifiedDate))
                     {
-                        throw new ConcurrencyException();
+                        throw new ConcurrencyException("scenario25.");
                     }
                 }
 

@@ -72,7 +72,7 @@ namespace EdFi.Ods.Features.Controllers
 
                 return BadRequest(
                     new BadRequestException(
-                        "There was a problem preparing the resource dependency information.",
+                        "scenario12.",
                         new[] { message })
                     {
                         CorrelationId = _logContextAccessor.GetCorrelationId()

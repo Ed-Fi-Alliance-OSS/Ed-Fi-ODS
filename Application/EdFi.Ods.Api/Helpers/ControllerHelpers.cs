@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Helpers
         /// <returns></returns>
         public static IActionResult NotFound(string correlationId = null)
         {
-            var problemDetails = new NotFoundException()
+            var problemDetails = new NotFoundException("scenario60.")
             {
                 CorrelationId = correlationId
             };
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Helpers
         public static IActionResult FeatureDisabled(string featureName, string correlationId = null)
         {
             return new ObjectResult(
-                new FeatureDisabledException(featureName, StatusCodes.Status404NotFound)
+                new FeatureDisabledException("scenario39.", StatusCodes.Status404NotFound)
                     {
                         CorrelationId = correlationId
                     }

@@ -64,7 +64,7 @@ public class MappingContractProvider : IMappingContractProvider
         if (!dataManagementResourceContext.Resource.Name.EqualsIgnoreCase(profileContentTypeContext.ResourceName))
         {
             throw new ProfileContentTypeUsageException(
-                ProfileContentTypeUsageException.DefaultDetail,
+                "scenario74.",
                 $"The resource specified by the profile-based content type ('{profileContentTypeContext.ResourceName}') does not match the requested resource ('{dataManagementResourceContext.Resource.Name}').",
                 profileContentTypeContext.ProfileName, profileContentTypeContext.ContentTypeUsage);
         }
@@ -97,7 +97,7 @@ public class MappingContractProvider : IMappingContractProvider
                 if (profileResourceModel == null)
                 {
                     throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + " The profile used by the request does not exist.",
+                        "scenario75.",
                         $"Unable to find a resource model for API Profile named '{key.ProfileName}'.", 
                         key.ProfileName, key.ContentTypeUsage);
                 }
@@ -106,7 +106,7 @@ public class MappingContractProvider : IMappingContractProvider
                 if (!profileResourceModel.ResourceByName.TryGetValue(key.ProfileResourceName, out var contentTypes))
                 {
                     throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + " The resource is not contained by the profile used by (or applied to) the request.",
+                        "scenario76.",
                         $"Resource '{key.ProfileResourceName.Name}' is not accessible through the '{key.ProfileName}' profile specified by the content type.", 
                         key.ProfileName, key.ContentTypeUsage);
                 }
@@ -120,7 +120,7 @@ public class MappingContractProvider : IMappingContractProvider
                 {
                     throw new ProfileMethodUsageException(
                         key.ContentTypeUsage,
-                        $"Resource class '{key.ResourceClassName.Name}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.");
+                        $"scenario77.");
                 }
 
                 var profileResourceClass =

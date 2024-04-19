@@ -90,7 +90,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             if (!authorizationSubjectEndpoints.Any())
             {
                 throw new SecurityConfigurationException(
-                    SecurityConfigurationException.DefaultDetail,
+                    "scenario98.",
                     $"Authorization strategy '{_authorizationStrategyName.Value}' processed the authorization context names '{string.Join("', '", authorizationContextTuples.Select(t => t.name))}' and produced no authorization subjects, meaning no authorization filtering will be performed. Are you using the correct authorization strategy for this resource?");
             }
 

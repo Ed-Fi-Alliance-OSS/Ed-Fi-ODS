@@ -9,7 +9,7 @@ namespace EdFi.Ods.Common.Exceptions
 {
     public class DistributedCacheException : InternalServerErrorException
     {
-        public DistributedCacheException() : base() { }
+        //public DistributedCacheException() : base() { }
 
         public DistributedCacheException(string message)
             : base(DefaultDetail, message) { }
@@ -24,9 +24,9 @@ namespace EdFi.Ods.Common.Exceptions
 
         public SafeDistributedCacheException(string message)
             : base(message) { }
-        public SafeDistributedCacheException() : base()
-        {
-        }
+        //public SafeDistributedCacheException() : base()
+        //{
+        //}
 
         public SafeDistributedCacheException(string message, Exception inner) : base(message, inner)
         {

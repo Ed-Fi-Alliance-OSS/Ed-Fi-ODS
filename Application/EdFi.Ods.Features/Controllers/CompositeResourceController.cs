@@ -128,7 +128,7 @@ namespace EdFi.Ods.Features.Controllers
                         && (limit <= 0 || limit > 100))
                     {
                         problemDetails = new BadRequestParameterException(
-                            "The limit parameter was incorrect.",
+                            "scenario21.",
                             new[] { "Limit must be omitted or set to a value between 1 and 100." })
                         {
                             CorrelationId = _logContextAccessor.GetCorrelationId()
@@ -175,7 +175,7 @@ namespace EdFi.Ods.Features.Controllers
                     if (!Guid.TryParse(idAsObject.ToString(), out Guid id))
                     {
                         throw new BadRequestParameterException(
-                            "The supplied resource identifier is invalid.",
+                            "scenario22.",
                             new []{ "The identifier could not be processed as a GUID."});
                     }
 

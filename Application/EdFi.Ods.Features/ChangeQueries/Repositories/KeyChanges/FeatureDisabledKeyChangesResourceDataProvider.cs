@@ -14,5 +14,5 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
 public class FeatureDisabledKeyChangesResourceDataProvider : IKeyChangesResourceDataProvider
 {
     public Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters) 
-        => throw new FeatureDisabledException(ChangeQueriesConstants.FeatureName);
+        => throw new FeatureDisabledException("scenario38.");
 }

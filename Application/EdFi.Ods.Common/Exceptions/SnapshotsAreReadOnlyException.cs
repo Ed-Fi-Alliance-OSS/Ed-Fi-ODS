@@ -17,8 +17,8 @@ public class SnapshotsAreReadOnlyException : EdFiProblemDetailsExceptionBase
 
     private const string DefaultDetail = "Snapshots are read-only.";
 
-    public SnapshotsAreReadOnlyException()
-        : base(DefaultDetail, DefaultDetail) { }
+    public SnapshotsAreReadOnlyException(string detail)
+        : base(detail, DefaultDetail) { }
 
     // ---------------------------
     //  Boilerplate for overrides

@@ -103,11 +103,11 @@ namespace EdFi.Ods.Api.Middleware
 
                 if (result.None)
                 {
-                    problemDetails = new SecurityAuthenticationException(AuthenticationFailureMessages.MissingAuthorizationHeader);
+                    problemDetails = new SecurityAuthenticationException("scenario79.");
                 }
                 else
                 {
-                    problemDetails = new SecurityAuthenticationException(result.Failure.Message, result.Failure);
+                    problemDetails = new SecurityAuthenticationException("scenario80.", result.Failure);
                 }
 
                 return problemDetails;

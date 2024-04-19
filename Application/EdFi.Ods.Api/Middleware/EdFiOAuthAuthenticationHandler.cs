@@ -75,7 +75,7 @@ namespace EdFi.Ods.Api.Middleware
             }
             catch (DistributedCacheException ex)
             {
-                throw new SafeDistributedCacheException(ex.Message);
+                throw new SafeDistributedCacheException("scenario36.");
             }
             catch (Exception ex)
             {

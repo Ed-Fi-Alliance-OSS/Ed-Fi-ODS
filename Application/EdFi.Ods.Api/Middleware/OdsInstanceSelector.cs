@@ -46,7 +46,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
         if (apiClientContext.OdsInstanceIds.Count == 0)
         {
             throw new SecurityConfigurationException(
-                "The security configuration for the client is incomplete. The request cannot be authorized.",
+                "scenario87.",
                 "The API client has not been associated with an ODS instance.");
         }
 
@@ -66,7 +66,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
         if (firstMatchingOdsInstanceConfiguration == null)
         {
             throw new NotFoundException(
-                NotFoundException.DefaultDetail,
+                "scenario63.",
                 $"No ODS instance matching the available route values was found. Route values were: [{string.Join(", ", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"))}]");
         }
 

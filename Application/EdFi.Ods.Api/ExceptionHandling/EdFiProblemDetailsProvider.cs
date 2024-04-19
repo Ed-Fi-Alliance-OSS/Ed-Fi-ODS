@@ -55,7 +55,7 @@ public class EdFiProblemDetailsProvider : IEdFiProblemDetailsProvider
         _logger.Error(exception);
 
         // Just return all the messages in the exception stack as an Internal Server Error, with correlationId set
-        return new InternalServerErrorException { CorrelationId = correlationId }
+        return new InternalServerErrorException("scenario42.") { CorrelationId = correlationId }
             .AsSerializableModel();
     }
 }
