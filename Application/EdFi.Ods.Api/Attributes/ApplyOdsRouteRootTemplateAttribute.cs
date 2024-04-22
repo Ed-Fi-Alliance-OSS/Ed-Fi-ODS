@@ -10,5 +10,5 @@ namespace EdFi.Ods.Api.Attributes;
 /// <summary>
 /// Applied to a Controller, this introduces the necessary root route template for accessing an ODS instance (including route values for the tenant and ODS, as configured for the API).
 /// </summary>
-[AttributeUsage(AttributeTargets.Class, Inherited = false)]
+[AttributeUsage(AttributeTargets.Class, Inherited = true)]
 public sealed class ApplyOdsRouteRootTemplateAttribute : Attribute { }
