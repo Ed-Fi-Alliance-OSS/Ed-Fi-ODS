@@ -46,6 +46,84 @@ BEGIN
 
     -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptor'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    SELECT @parentResourceClaimId = ResourceClaimId
+    FROM @claimIdStack
+    WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
+
+    IF @claimId IS NULL
+        BEGIN
+            PRINT 'Creating new claim: ' + @claimName
+
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('systemDescriptor', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptor', @parentResourceClaimId)
+
+            SET @claimId = SCOPE_IDENTITY()
+        END
+    ELSE
+        BEGIN
+            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
+            BEGIN
+                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+
+                UPDATE dbo.ResourceClaims
+                SET ParentResourceClaimId = @parentResourceClaimId
+                WHERE ResourceClaimId = @claimId
+            END
+        END
+  
+    -- Push claimId to the stack
+    INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
+
+    -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptor
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    SELECT @parentResourceClaimId = ResourceClaimId
+    FROM @claimIdStack
+    WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
+
+    IF @claimId IS NULL
+        BEGIN
+            PRINT 'Creating new claim: ' + @claimName
+
+            INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
+            VALUES ('crisisTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor', @parentResourceClaimId)
+
+            SET @claimId = SCOPE_IDENTITY()
+        END
+    ELSE
+        BEGIN
+            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
+            BEGIN
+                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+
+                UPDATE dbo.ResourceClaims
+                SET ParentResourceClaimId = @parentResourceClaimId
+                WHERE ResourceClaimId = @claimId
+            END
+        END
+  
+
+    -- Pop the stack
+    DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
+
+    ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/crisisEvent'
     ----------------------------------------------------------------------------------------------------------------------------
     SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/crisisEvent'
@@ -101,15 +179,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -126,15 +204,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -151,15 +229,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -176,15 +254,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeople''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeople'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
@@ -201,15 +279,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
