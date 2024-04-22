@@ -3,6 +3,33 @@
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptor">
 			<Claims>
 				<Claim name="http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor" />
+				<DefaultAuthorization>
+					<Action name="Create">
+						<AuthorizationStrategies>
+							<AuthorizationStrategy name="NamespaceBased" />
+						</AuthorizationStrategies>
+					</Action>
+					<Action name="Read">
+						<AuthorizationStrategies>
+							<AuthorizationStrategy name="NamespaceBased" />
+						</AuthorizationStrategies>
+					</Action>
+					<Action name="Update">
+						<AuthorizationStrategies>
+							<AuthorizationStrategy name="NamespaceBased" />
+						</AuthorizationStrategies>
+					</Action>
+					<Action name="Delete">
+						<AuthorizationStrategies>
+							<AuthorizationStrategy name="NamespaceBased" />
+						</AuthorizationStrategies>
+					</Action>
+					<Action name="ReadChanges">
+						<AuthorizationStrategies>
+							<AuthorizationStrategy name="NamespaceBased" />
+						</AuthorizationStrategies>
+					</Action>
+				</DefaultAuthorization>
 			</Claims>
 		</Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/crisisEvent">
@@ -33,39 +60,39 @@
 					</AuthorizationStrategies>
 				</Action>
 			</DefaultAuthorization>
-			<ClaimSets>
-				<ClaimSet name="SIS Vendor">
-					<Actions>
-						<Action name="Create" />
-						<Action name="Read" />
-						<Action name="Update" />
-						<Action name="Delete" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi Sandbox">
-					<Actions>
-						<Action name="Create" />
-						<Action name="Read" />
-						<Action name="Update" />
-						<Action name="Delete" />
-						<Action name="ReadChanges" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi API Publisher - Reader">
-					<Actions>
-						<Action name="Read" />
-						<Action name="ReadChanges" />
-					</Actions>
-				</ClaimSet>
-				<ClaimSet name="Ed-Fi API Publisher - Writer">
-					<Actions>
-						<Action name="Create" />
-						<Action name="Read" />
-						<Action name="Update" />
-						<Action name="Delete" />
-					</Actions>
-				</ClaimSet>
-			</ClaimSets>
 		</Claim>
+		<ClaimSets>
+			<ClaimSet name="SIS Vendor">
+				<Actions>
+					<Action name="Create" />
+					<Action name="Read" />
+					<Action name="Update" />
+					<Action name="Delete" />
+				</Actions>
+			</ClaimSet>
+			<ClaimSet name="Ed-Fi Sandbox">
+				<Actions>
+					<Action name="Create" />
+					<Action name="Read" />
+					<Action name="Update" />
+					<Action name="Delete" />
+					<Action name="ReadChanges" />
+				</Actions>
+			</ClaimSet>
+			<ClaimSet name="Ed-Fi API Publisher - Reader">
+				<Actions>
+					<Action name="Read" />
+					<Action name="ReadChanges" />
+				</Actions>
+			</ClaimSet>
+			<ClaimSet name="Ed-Fi API Publisher - Writer">
+				<Actions>
+					<Action name="Create" />
+					<Action name="Read" />
+					<Action name="Update" />
+					<Action name="Delete" />
+				</Actions>
+			</ClaimSet>
+		</ClaimSets>
 	</Claims>
 </SecurityMetadata>
