@@ -323,7 +323,7 @@ namespace EdFi.Ods.Api.Controllers
                 return ValidationFailedResult(result.ValidationResults);
             }
 
-            var resourceUri = new Uri(GetResourceUrl());
+            var resourceUri = new Uri(Request.ResourceUri(_reverseProxySettings));
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
@@ -413,7 +413,7 @@ namespace EdFi.Ods.Api.Controllers
                 return ValidationFailedResult(result.ValidationResults);
             }
 
-            var resourceUri = new Uri($"{GetResourceUrl()}/{result.ResourceId.GetValueOrDefault():n}");
+            var resourceUri = new Uri($"{Request.ResourceUri(_reverseProxySettings)}/{result.ResourceId.GetValueOrDefault():n}");
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
@@ -472,24 +472,6 @@ namespace EdFi.Ods.Api.Controllers
         private EntityTagHeaderValue GetEtag(string etagValue)
         {
             return new EntityTagHeaderValue(Quoted(etagValue));
-        }
-
-        protected string GetResourceUrl()
-        {
-            try
-            {
-                var uriBuilder = new UriBuilder(
-                    Request.Scheme(this._reverseProxySettings),
-                    Request.Host(this._reverseProxySettings),
-                    Request.Port(this._reverseProxySettings),
-                    Request.PathBase.Add(Request.Path));
-
-                return uriBuilder.Uri.ToString().TrimEnd('/');
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Unable to parse API base URL from request.", ex);
-            }
         }
 
         private static string Quoted(string text) => "\"" + text + "\"";

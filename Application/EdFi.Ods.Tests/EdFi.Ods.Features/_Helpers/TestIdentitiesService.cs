@@ -49,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
                     new IdentityResponseStatus<string>
                     {
                         StatusCode = IdentityStatusCode.Success,
-                        Data = "ignored"
+                        Data = "some-id"
                     }),
                 ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
                 ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success, Data = "ignored" }),
+                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success, Data = "some-id" }),
                 ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
                 ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
                 ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
                             Status = SearchResponseStatus.Complete,
                             SearchResponses = new TestIdentitySearchResponses[]
                                 {
-                                    new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "ignored"}}}
+                                    new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "some-id" } }}
                                 }
                         },
                         StatusCode = IdentityStatusCode.Success
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             return _responseBehaviour switch
             {
                 ResponseBehaviour.Success => Task.FromResult(
-                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success, Data = "ignored" }),
+                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success, Data = "some-id" }),
                 ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
                 ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
                 ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
@@ -131,7 +131,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
                             Status = SearchResponseStatus.Complete,
                             SearchResponses = new TestIdentitySearchResponses[]
                             {
-                                new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "ignored" } }}
+                                new() {Responses = new[] {new IdentityResponse {Score = 100, UniqueId = "some-id" } }}
                             }
                         },
                         StatusCode = IdentityStatusCode.Success
@@ -191,7 +191,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
             return Task.FromResult(
                 new IdentityResponseStatus<T>
                 {
-                    StatusCode = (IdentityStatusCode)int.MaxValue,
                     Errors = new IdentityError[]
                     {
                         new()
@@ -200,9 +199,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
                         },
                         new()
                         {
-                            Description = "An second unknown error occurred"
+                            Description = "Another unknown error occurred"
                         }
-                    }
+                    },
+                    StatusCode = (IdentityStatusCode)int.MaxValue,
                 });
         }
     }
