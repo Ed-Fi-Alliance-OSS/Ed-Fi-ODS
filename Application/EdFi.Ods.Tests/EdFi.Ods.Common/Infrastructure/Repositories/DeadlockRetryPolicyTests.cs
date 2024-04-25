@@ -103,7 +103,7 @@ public class DeadlockRetryPolicyTests
         Func<Task> action = async () => await repository.CreateAsync(entity, false, CancellationToken.None);
 
         // Assert
-        await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is thrown
+        await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is NOT thrown
         A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
     }
     
@@ -154,7 +154,7 @@ public class DeadlockRetryPolicyTests
         A.CallTo(() => sessionFactory.GetCurrentSession()).Returns(session);
 
         // Simulate a deadlock exception on the first attempt
-        A.CallTo(() => session.SaveAsync(A<TestEntity>._, A<CancellationToken>._))
+        A.CallTo(() => session.UpdateAsync(A<TestEntity>._, A<CancellationToken>._))
             .Throws(() => CreateWrappedSqlException("Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"))
             .NumberOfTimes(3)
             .Then
@@ -162,14 +162,14 @@ public class DeadlockRetryPolicyTests
 
         var dataManagementResourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
         var entity = new TestEntity() { Name = "Bob", Age = 42};
-        var repository = new CreateEntity<TestEntity>(sessionFactory, dataManagementResourceContextProvider);
+        var repository = new UpdateEntity<TestEntity>(sessionFactory);
 
         // Act
-        Func<Task> action = async () => await repository.CreateAsync(entity, false, CancellationToken.None);
+        Func<Task> action = async () => await repository.UpdateAsync(entity, CancellationToken.None);
 
         // Assert
-        await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is thrown
-        A.CallTo(() => session.SaveAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
+        await action.ShouldNotThrowAsync(); // Ensure the deadlock exception is NOT thrown
+        A.CallTo(() => session.UpdateAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
     }
 
     private static GenericADOException CreateWrappedSqlException(string message)
