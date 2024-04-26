@@ -7794,6 +7794,100 @@
 							]
 						},
 						{
+							"name": "Optional Empty String",
+							"item": [
+								{
+									"name": "Create Staff with optional string empty (middle name)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:staff:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"staffUniqueId\": \"TEST-Optional-String-Empty\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"middleName\": \"\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:staff:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:staff:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Create Staff with Pet with name too short",
 							"event": [
 								{
