@@ -73,7 +73,7 @@ public class RedisNotificationTests
         //--------------------------------
         // Publish a message to redis
         _redisConnectionProvider.Get()
-            .Publish(_redisNotificationSettings.Channel, JsonConvert.SerializeObject(new { Type = "expire-cache", Data = new { CacheType = "security" } }));
+            .Publish(new RedisChannel(_redisNotificationSettings.Channel, RedisChannel.PatternMode.Auto), JsonConvert.SerializeObject(new { Type = "expire-cache", Data = new { CacheType = "security" } }));
 
         //--------------------------------
         // Assert
