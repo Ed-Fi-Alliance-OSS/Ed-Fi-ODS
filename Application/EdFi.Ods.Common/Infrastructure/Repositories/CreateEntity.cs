@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using NHibernate;
 using NHibernate.Id;
 using NHibernate.Persister.Entity;
@@ -24,12 +25,21 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class CreateEntity<TEntity> : NHibernateRepositoryOperationBase, ICreateEntity<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(CreateEntity<TEntity>));
+        private readonly Dictionary<string, object> _retryPolicyContextData;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
 
         public CreateEntity(ISessionFactory sessionFactory, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(sessionFactory)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+
+            _retryPolicyContextData = new Dictionary<string, object>()
+            {
+                { "Logger", _logger },
+                { "EntityTypeName", typeof(TEntity).Name },
+            };
         }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
@@ -98,25 +108,29 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Save the incoming entity
-                using (var trans = Session.BeginTransaction())
-                {
-                    try
+                await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
+                    async ctx =>
                     {
-                        await Session.SaveAsync(entity, cancellationToken);
-                    }
-                    catch (Exception)
-                    {
-                        await trans.RollbackAsync(cancellationToken);
-                        throw;
-                    }
-                    finally
-                    {
-                        if (!trans.WasRolledBack)
+                        using var trans = Session.BeginTransaction();
+
+                        try
                         {
-                            await trans.CommitAsync(cancellationToken);
+                            await Session.SaveAsync(entity, cancellationToken);
                         }
-                    }
-                }
+                        catch (Exception)
+                        {
+                            await trans.RollbackAsync(cancellationToken);
+                            throw;
+                        }
+                        finally
+                        {
+                            if (!trans.WasRolledBack)
+                            {
+                                await trans.CommitAsync(cancellationToken);
+                            }
+                        }
+                    },
+                    _retryPolicyContextData);
 
                 bool IdHasValue()
                 {
