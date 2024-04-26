@@ -966,25 +966,10 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"const __ = require('lodash');",
-									"",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
-									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
-									"",
-									"const moment = require('moment');",
-									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
-									"pm.environment.set(\"known:beginDate\",beginDate);",
-									"",
-									"let endDate=new Date();",
-									"endDate = endDate.addMonths(12);",
-									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
-									"pm.environment.set(\"known:endDate\",endDate);",
-									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
-									"",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -1006,14 +991,14 @@
 									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.equals({",
 									"    \"$.weekIdentifier\": [",
-									"      \"WeekIdentifier is required and should not be left empty.\",",
-									"      \"WeekIdentifier must be between 5 and 80 characters in length.\"",
+									"      \"WeekIdentifier is required and should not be left empty.\"",
 									"    ]",
 									"  });",
 									"});",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1029,7 +1014,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"weekIdentifier\":\"\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
+							"raw": "{\r\n  \"weekIdentifier\": \"\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"1234567\"\r\n  },\r\n  \"beginDate\": \"2020-02-20\",\r\n  \"endDate\": \"2020-02-27\",\r\n  \"totalInstructionalDays\": \"45\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",

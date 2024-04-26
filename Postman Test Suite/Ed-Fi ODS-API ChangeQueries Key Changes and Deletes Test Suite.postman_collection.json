@@ -5286,7 +5286,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -5305,10 +5306,10 @@
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
 											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
 											"  pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be between 1 and 60 characters in length.\");\r",
-											"  pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName is required and should not be left empty.\")\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -5317,7 +5318,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"classPeriodName\": \"1........10........20........30........40........50........61\",\r\n  \"meetingTimes\": [\r\n    {\r\n      \"endTime\": \"09:25:00\",\r\n      \"startTime\": \"08:35:00\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

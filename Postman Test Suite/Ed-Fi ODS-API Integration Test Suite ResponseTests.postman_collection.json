@@ -3981,40 +3981,24 @@
 															"",
 															"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
 															"    \"$.lastSurname\": [",
-															"      \"LastSurname is required and should not be left empty.\",",
-															"      \"LastSurname must be between 1 and 75 characters in length.\"",
+															"      \"LastSurname is required and should not be left empty.\"",
 															"    ]",
 															"  });",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
 													"listen": "prerequest",
 													"script": {
 														"exec": [
-															"const uuid = require('uuid');",
-															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
-															"function createScenarioId() { return newGuid().substring(0,5); }",
-															"pm.environment.set('scenarioId', createScenarioId());",
-															"",
-															"const scenarioId = pm.environment.get('scenarioId');",
-															"",
-															"pm.environment.set('supplied:'+scenarioId+':studentUniqueId',  newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':firstName',  \"John\");",
-															"",
-															"",
-															"const moment = require('moment');",
-															"let birthDate=new Date();",
-															"birthDate = birthDate.addYears(-20);",
-															"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
-															"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
-															"",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -4030,7 +4014,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{$randomLoremWord}}\",\r\n  \"birthDate\": \"2005-01-01\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
