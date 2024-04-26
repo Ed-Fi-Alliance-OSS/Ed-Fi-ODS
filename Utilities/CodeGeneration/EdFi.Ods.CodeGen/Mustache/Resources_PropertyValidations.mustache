@@ -3,10 +3,10 @@
 {{/IsRequiredWithNonDefault}}
 {{#IsString}}
     {{#MinLength}}
-        [StringLength({{MaxLength}}, MinimumLength={{MinLength}}, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText{{#NoWhitespace}}, NoWhitespace{{/NoWhitespace}}]
+        [NonDefaultStringLength({{MaxLength}}, MinimumLength={{MinLength}}, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText{{#NoWhitespace}}, NoWhitespace{{/NoWhitespace}}]
     {{/MinLength}}
     {{^MinLength}}
-        [StringLength({{MaxLength}}, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText{{#NoWhitespace}}, NoWhitespace{{/NoWhitespace}}]
+        [NonDefaultStringLength({{MaxLength}}, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText{{#NoWhitespace}}, NoWhitespace{{/NoWhitespace}}]
     {{/MinLength}}
 {{/IsString}}
 {{#RangeAttribute}}
