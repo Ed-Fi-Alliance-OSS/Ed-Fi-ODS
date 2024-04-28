@@ -683,7 +683,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
@@ -1351,7 +1351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
@@ -1360,7 +1360,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
@@ -1710,7 +1710,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="schoolName")]
         public string SchoolName { get; set; }
         // -------------------------------------------------------------
@@ -2098,7 +2098,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
@@ -2342,7 +2342,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="schoolYear")]
         public string SchoolYear { get; set; }
         // -------------------------------------------------------------
@@ -3165,7 +3165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------
@@ -4296,7 +4296,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
         public string City { get; set; }
         // -------------------------------------------------------------

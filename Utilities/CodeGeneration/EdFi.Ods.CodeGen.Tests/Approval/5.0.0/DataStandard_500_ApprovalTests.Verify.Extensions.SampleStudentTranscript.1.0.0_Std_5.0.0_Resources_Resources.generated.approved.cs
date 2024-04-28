@@ -142,7 +142,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -182,7 +182,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -413,7 +413,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -421,7 +421,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -444,7 +444,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -453,7 +453,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -710,7 +710,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="nameOfInstitution")]
         public string NameOfInstitution { get; set; }
         // -------------------------------------------------------------
@@ -794,7 +794,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="institutionControlDescriptor")][DescriptorExists("InstitutionControlDescriptor")]
         public string InstitutionControlDescriptor { get; set; }
 
@@ -803,7 +803,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="institutionLevelDescriptor")][DescriptorExists("InstitutionLevelDescriptor")]
         public string InstitutionLevelDescriptor { get; set; }
         // -------------------------------------------------------------
@@ -1037,7 +1037,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -1045,7 +1045,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -1068,7 +1068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -1077,7 +1077,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
@@ -1310,7 +1310,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="specialEducationGraduationStatusDescriptor")][DescriptorExists("SpecialEducationGraduationStatusDescriptor")]
         public string SpecialEducationGraduationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
@@ -1591,7 +1591,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// The type of submission certification.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [StringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="submissionCertificationDescriptor")][DescriptorExists("SubmissionCertificationDescriptor")]
         public string SubmissionCertificationDescriptor { get; set; }
         // -------------------------------------------------------------
@@ -1829,7 +1829,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
         public string CodeValue { get; set; }
 
@@ -1837,7 +1837,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// The description of the descriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [StringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
         public string Description { get; set; }
 
@@ -1860,7 +1860,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
         public string Namespace { get; set; }
 
@@ -1869,7 +1869,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [StringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
