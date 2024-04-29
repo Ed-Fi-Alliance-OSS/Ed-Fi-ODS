@@ -6,6 +6,6 @@
 CREATE OR REPLACE FUNCTION util.GetEdFiStandardVersion()
 RETURNS VARCHAR(60) AS $$
 BEGIN	
-   RETURN '5.1';
+   RETURN '5.0';
 END;
 $$ LANGUAGE plpgsql;
