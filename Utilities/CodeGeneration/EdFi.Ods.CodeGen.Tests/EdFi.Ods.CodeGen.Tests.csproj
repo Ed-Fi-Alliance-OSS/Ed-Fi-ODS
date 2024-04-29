@@ -51,11 +51,11 @@
     <None Update="Approval\5.1.0\DataStandard_510_ApprovalTests.Generated_File_List.Standard.5.1.0.approved.txt">
       <DependentUpon>DataStandard_510_ApprovalTests.cs</DependentUpon>
     </None>
-    <None Update="Approval\DataStanadard_400_ApprovalTests.Generated_File_List.Standard.4.0.0.approved.txt">
-      <DependentUpon>DataStanadard_400_ApprovalTests.cs</DependentUpon>
+    <None Update="Approval\DataStandard_400_ApprovalTests.Generated_File_List.Standard.4.0.0.approved.txt">
+      <DependentUpon>DataStandard_400_ApprovalTests.cs</DependentUpon>
     </None>
-    <None Update="Approval\DataStanadard_510_ApprovalTests.Generated_File_List.Standard.5.1.0.approved.txt">
-      <DependentUpon>DataStanadard_510_ApprovalTests.cs</DependentUpon>
+    <None Update="Approval\DataStandard_510_ApprovalTests.Generated_File_List.Standard.5.1.0.approved.txt">
+      <DependentUpon>DataStandard_510_ApprovalTests.cs</DependentUpon>
     </None>
   </ItemGroup>
 </Project>
