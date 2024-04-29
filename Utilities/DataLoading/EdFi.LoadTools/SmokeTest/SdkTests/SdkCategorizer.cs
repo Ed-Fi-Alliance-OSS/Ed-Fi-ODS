@@ -22,11 +22,11 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         public SdkCategorizer(ISdkLibraryFactory sdkLibraryFactory)
         {
             _apiTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
-                                              x => x.Namespace != null
-                                                   && !x.IsInterface
-                                                   && x.Namespace.Contains("Apis.All")
-                                                   && !x.Name.Contains("TypesApi"))
-                                         .ToArray();
+                                           x => x.Namespace != null
+                                                && !x.IsInterface
+                                                && x.Namespace.Contains("Apis.All")
+                                                && !x.Name.Contains("TypesApi"))
+                                      .ToArray();
 
             _modelTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
                 x => x.Namespace != null
@@ -103,7 +103,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public MethodInfo PutMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Put") && m.Name.EndsWith("WithHttpInfo"));
 
-        public MethodInfo DeleteMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Delete") && m.Name.EndsWith("WithHttpInfo"));
+        public MethodInfo DeleteMethod => RestMethods.SingleOrDefault(m => m.Name.StartsWith("Delete") && !m.Name.Contains("Deletes") && m.Name.EndsWith("WithHttpInfo"));
 
         public string Name => ModelType?.Name;
     }

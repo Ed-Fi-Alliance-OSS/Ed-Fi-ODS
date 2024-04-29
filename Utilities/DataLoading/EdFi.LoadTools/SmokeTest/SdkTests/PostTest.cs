@@ -118,5 +118,12 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
             return true;
         }
+
+        private object GetResourceFromLocation(List<string> location)
+        {
+            var resourceUri = new Uri(location[0]);
+            _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
+            return GetResourceFromUri(resourceUri);
+        }
     }
 }
