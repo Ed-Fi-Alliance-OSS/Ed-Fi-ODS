@@ -312,7 +312,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                               p.PropertyType.ToCSharp() == "string"
                                                                   ? new[]
                                                                     {
-                                                                        $"StringLength({p.PropertyType.MaxLength}, MinimumLength={p.PropertyType.MinLength})", 
+                                                                        $"NonDefaultStringLength({p.PropertyType.MaxLength}, MinimumLength={p.PropertyType.MinLength})", 
                                                                         "NoDangerousText"
                                                                     }
                                                                   : Array.Empty<string>())
