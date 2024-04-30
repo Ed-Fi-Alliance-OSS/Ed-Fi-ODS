@@ -15,9 +15,7 @@ public class V510 : IStandardVersionMetadata
     public string ApprovalsFileNamePrefix => nameof(DataStandard_510_ApprovalTests);
 }
 
-// Temporarily disabled for new data standard build
-
-// [TestFixture]
+[TestFixture]
 public class DataStandard_510_ApprovalTests : ApprovalTestsBase<V510>
 {
     // =========================================================================================
