@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using EdFi.Ods.Common.Extensions;
 
@@ -19,7 +20,7 @@ namespace EdFi.Ods.Common.Attributes
         {
             if (value is string s)
             {
-                if (string.IsNullOrEmpty(s))
+                if (s.Equals(string.Empty))
                 {
                     return BuildValidationResult($"{validationContext.DisplayName} is required and should not be left empty.");
                 }
@@ -35,6 +36,12 @@ namespace EdFi.Ods.Common.Attributes
             {
                 // In case of decimal types, accept default values
                 return ValidationResult.Success;
+            }
+            else if (value is DateTime dt && dt.Equals(value.GetType().GetDefaultValue()))
+            {
+                // DateTime default value is very specific (1/1/0001 12:00:00 AM), so it can be confusing for users
+                // if they didn't used that value; no need to inform more than "the field is required"
+                return BuildValidationResult($"{validationContext.DisplayName} is required.");
             }
             else if (value != null)
             {

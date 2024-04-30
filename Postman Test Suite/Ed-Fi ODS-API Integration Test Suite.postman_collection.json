@@ -960,7 +960,7 @@
 			"name": "AcademicWeeks",
 			"item": [
 				{
-					"name": "WeekIdentifier is required validation",
+					"name": "WeekIdentifier(empty) is required validation",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1015,6 +1015,77 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"weekIdentifier\": \"\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"1234567\"\r\n  },\r\n  \"beginDate\": \"2020-02-20\",\r\n  \"endDate\": \"2020-02-27\",\r\n  \"totalInstructionalDays\": \"45\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "WeekIdentifier(null) is required validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"  pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"const problemDetails = pm.response.json();",
+									"",
+									"pm.test(\"Should return a problem details result\", () => {",
+									"  pm.expect(pm.response.code).equal(problemDetails.status);",
+									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+									"});",
+									"",
+									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
+									"  pm.expect(problemDetails.validationErrors).to.deep.equals({",
+									"    \"$.weekIdentifier\": [",
+									"      \"WeekIdentifier is required.\"",
+									"    ]",
+									"  });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"1234567\"\r\n  },\r\n  \"beginDate\": \"2020-02-20\",\r\n  \"endDate\": \"2020-02-27\",\r\n  \"totalInstructionalDays\": \"45\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
@@ -1401,18 +1472,18 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be different than default value\", () => {",
+									"pm.test(\"Should return the item with BeginDate is required\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.beginDate\": [",
-									"      \"BeginDate value must be different than 1/1/0001 12:00:00 AM.\"",
+									"      \"BeginDate is required.\"",
 									"    ]",
 									"  });",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be different than default value\", () => {",
+									"pm.test(\"Should return the item with EndDate is required\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.endDate\": [",
-									"      \"EndDate value must be different than 1/1/0001 12:00:00 AM.\"",
+									"      \"EndDate is required.\"",
 									"    ]",
 									"  });",
 									"});"
@@ -1967,18 +2038,18 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be different than default value\", () => {",
+									"pm.test(\"Should return the item with BeginDate is required\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.beginDate\": [",
-									"      \"BeginDate value must be different than 1/1/0001 12:00:00 AM.\"",
+									"      \"BeginDate is required.\"",
 									"    ]",
 									"  });",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be different than default value\", () => {",
+									"pm.test(\"Should return the item with EndDate is required\", () => {",
 									"  pm.expect(problemDetails.validationErrors).to.deep.include({",
 									"    \"$.endDate\": [",
-									"      \"EndDate value must be different than 1/1/0001 12:00:00 AM.\"",
+									"      \"EndDate is required.\"",
 									"    ]",
 									"  });",
 									"});"
