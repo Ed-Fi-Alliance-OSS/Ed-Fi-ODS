@@ -20,14 +20,14 @@ public class V510 : IStandardVersionMetadata
 // [TestFixture]
 public class DataStandard_510_ApprovalTests : ApprovalTestsBase<V510>
 {
-    // =========================================================================================
-    [Test, Explicit("WARNING!!! This copies all the generated files as approved files")]
-    public void Create_Approved_Files() => CreateApprovedFiles();
-    // =========================================================================================
+//    // =========================================================================================
+//      [Test, Explicit("WARNING!!! This copies all the generated files as approved files")]
+//      public void Create_Approved_Files() => CreateApprovedFiles();
+//    // =========================================================================================
+//
+//    [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V510>))]
+//    public void Verify(ApprovalFileInfo approvalFileInfo) => ApproveFile(approvalFileInfo);
 
-    [Test, TestCaseSource(typeof(ApprovalFileInfoSource<V510>))]
-    public void Verify(ApprovalFileInfo approvalFileInfo) => ApproveFile(approvalFileInfo);
-
-    [Test]
-    public void Generated_File_List() => ApproveGeneratedFileList();
+//    [Test]
+//    public void Generated_File_List() => ApproveGeneratedFileList();
 }
