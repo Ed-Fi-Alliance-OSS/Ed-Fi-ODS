@@ -60,7 +60,7 @@ param(
     [string]
     $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
 
-    [ValidateSet('4.0.0', '5.0.0')]
+    [ValidateSet('4.0.0', '5.1.0')]
     [string]  $StandardVersion,
 
     [ValidateSet('1.0.0', '1.1.0')]
