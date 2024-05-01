@@ -5308,9 +5308,9 @@
 											"\r",
 											"  if(pm.environment.get(\"ParentOrContactProperName\") === 'Parent') {  //Length requirement was removed in DS 5.1.0, so only perform this test if running against DS 4.x\r",
 											"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be between 1 and 60 characters in length.\");\r",
+											"  } else {\r",
+											"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be at most 60 characters in length.\");\r",
 											"  }\r",
-											"\r",
-											"  pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be at most 60 characters in length.\")\r",
 											"});"
 										],
 										"type": "text/javascript",
