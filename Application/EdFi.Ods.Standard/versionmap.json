@@ -1,10 +1,10 @@
 {
   "Ed-Fi-Standard": {
     "4.0.0": "v4.0.0",
-    "5.0.0": "v5.0.0"
+    "5.1.0": "v5.1.0"
   },
   "Ed-Fi-TPDM-Artifacts": {
     "4.0.0": "Data-Standard-v4.0.0",
-    "5.0.0": "Data-Standard-v5.0.0"
+    "5.1.0": "Data-Standard-v5.1.0"
   }
 }
