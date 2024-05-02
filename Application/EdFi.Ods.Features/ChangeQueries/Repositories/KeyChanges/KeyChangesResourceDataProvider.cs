@@ -19,25 +19,22 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
-        private readonly IPersonEntitySpecification _personEntitySpecification;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IKeyChangesQueryTemplatePreparer keyChangesQueryTemplatePreparer,
             IDatabaseNamingConvention namingConvention,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
-            IPersonEntitySpecification personEntitySpecification)
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
             : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueryTemplatePreparer, namingConvention)
         {
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
-            _personEntitySpecification = personEntitySpecification;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
             // If key changes aren't supported, return an empty array.
-            if (!resource.Entity.Identifier.IsUpdatable && !_personEntitySpecification.IsPersonEntity(resource.Entity.Name))
+            if (!resource.Entity.Identifier.IsUpdatable && DescriptorEntitySpecification.IsEdFiDescriptorEntity(resource.Entity.Name))
             {
                 return new ResourceData<KeyChange>()
                 {
