@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     if (!persistedEntity.LastModifiedDate.Equals(lastModifiedDate))
                     {
-                        throw new ConcurrencyException();
+                        throw new OptimisticLockException();
                     }
                 }
 

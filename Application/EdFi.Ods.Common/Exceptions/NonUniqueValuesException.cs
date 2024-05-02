@@ -3,27 +3,29 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
-public class InvalidReferenceConflictException : ConflictException
+public class NonUniqueValuesException : ConflictException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "invalid-reference";
-    private const string TitleText = "Resource Not Unique Conflict due to invalid-reference";
-    private const int StatusValue = StatusCodes.Status409Conflict;
+    private const string TypePart = "non-unique-values";
+    private const string TitleText = "Non-Unique Values";
 
-    public InvalidReferenceConflictException(string detail)
+    public const string DefaultDetail =
+        "A value (or values) in the resource item must be unique, but another resource item with these values already exists.";
+    
+    public NonUniqueValuesException(string detail)
         : base(detail) { }
 
-    public InvalidReferenceConflictException(string detail, Exception innerException)
-        : base(detail, innerException) { }
-
-
-    public InvalidReferenceConflictException(string detail, string[] errors)
+    /// <summary>
+    /// Initializes the exception using the supplied detail and errors array (used exclusively for surfacing the NHibernate
+    /// NonUniqueObjectException exception as a Problem Details response).
+    /// </summary>
+    /// <param name="detail"></param>
+    /// <param name="errors"></param>
+    public NonUniqueValuesException(string detail, string[] errors)
     : base(detail)
     {
         this.SetErrors(errors);
@@ -34,8 +36,6 @@ public class InvalidReferenceConflictException : ConflictException
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => StatusValue; }
-    
     protected override IEnumerable<string> GetTypeParts()
     {
         foreach (var part in base.GetTypeParts())

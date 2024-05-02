@@ -50,18 +50,24 @@ namespace EdFi.Ods.Common.Exceptions;
   ├──┤ ConflictException | 409 Conflict
   │  └───────────────────┘
   │    △
-  │    │  ┌─────────────────────────────┐
-  │    ├──┤ NonUniqueConflictException  |
-  │    │  └─────────────────────────────┘
+  │    │  ┌──────────────────────┐
+  │    ├──┤ ConcurrencyException |
+  │    │  └──────────────────────┘
   │    │  ┌──────────────────────────────────────┐
-  │    ├──┤  InvalidReferenceConflictException   |
+  │    ├──┤ DependentResourceItemExistsException |
   │    │  └──────────────────────────────────────┘
-  │    │  ┌──────────────────────────────────────┐
-  │    └──┤   NaturalKeyConflictException        |
-  │       └──────────────────────────────────────┘
-  │  ┌──────────────────────┐
-  ├──┤ ConcurrencyException | 412 Precondition Failed
-  │  └──────────────────────┘
+  │    │  ┌────────────────────────────┐
+  │    ├──┤ NonUniqueIdentityException |
+  │    │  └────────────────────────────┘
+  │    │  ┌──────────────────────────┐
+  │    ├──┤ NonUniqueValuesException |
+  │    │  └──────────────────────────┘
+  │    │  ┌──────────────────────────────┐
+  │    └──┤ UnresolvedReferenceException |
+  │       └──────────────────────────────┘
+  │  ┌─────────────────────────┐
+  ├──┤ OptimisticLockException | 412 Precondition Failed
+  │  └─────────────────────────┘
   │  ┌──────────────────────────────┐
   ├──┤ InternalServerErrorException | 500 Internal Server Error
   │  └──────────────────────────────┘
@@ -117,6 +123,13 @@ public abstract class EdFiProblemDetailsExceptionBase : Exception, IEdFiProblemD
         : base(message)
     {
         Detail = detail;
+    }
+
+    protected EdFiProblemDetailsExceptionBase(string detail, string[] errors)
+        : base(detail)
+    {
+        Detail = detail;
+        this.SetErrors(errors);
     }
 
     protected EdFiProblemDetailsExceptionBase(string detail, string message, Exception innerException)

@@ -18,14 +18,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
     public class PostgresForeignKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        
-        private const string InsertOrUpdateMessageFormat = "The referenced '{0}' resource does not exist.";
-        private const string UpdateOrDeleteMessageFormat = "The operation cannot be performed because the resource is a dependency of the '{0}' resource.";
 
-        private const string NoDetailsInsertOrUpdateMessage = "A referenced resource does not exist.";
-        private const string NoDetailsUpdateOrDeleteMessage = "The operation cannot be performed because the resource is a dependency of another resource.";
-
-        public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        public PostgresForeignKeyExceptionTranslator(
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
@@ -53,20 +48,16 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                     if (association == null)
                     {
-                        string noDetailsMessage = postgresException.MessageText.Contains("update or delete")
-                            ? NoDetailsUpdateOrDeleteMessage
-                            : NoDetailsInsertOrUpdateMessage;
-
-                        problemDetails = new InvalidReferenceConflictException(noDetailsMessage);
+                        problemDetails = postgresException.MessageText.Contains("update or delete")
+                            ? new DependentResourceItemExistsException()
+                            : new UnresolvedReferenceException();
 
                         return true;
                     }
 
-                    string message = postgresException.MessageText.Contains("update or delete")
-                        ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
-                        : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
-
-                    problemDetails = new InvalidReferenceConflictException(message);
+                    problemDetails = postgresException.MessageText.Contains("update or delete")
+                        ? new DependentResourceItemExistsException(association.ThisEntity.Name)
+                        : new UnresolvedReferenceException(association.OtherEntity.Name);
 
                     return true;
                 }

@@ -3,38 +3,29 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
-public class NonUniqueConflictException : ConflictException
+public class NonUniqueIdentityException : ConflictException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "not-unique";
-    private const string TitleText = "Resource Not Unique Conflict Due to Not-Unique";
-    private const int StatusValue = StatusCodes.Status409Conflict;
+    private const string TypePart = "non-unique-identity";
+    private const string TitleText = "Identifying Values Are Not Unique";
 
-    public NonUniqueConflictException(string detail)
-        : base(detail) { }
+    public const string DefaultDetail = "The identifying value(s) of the resource item are the same as another resource item that already exists.";
 
-    public NonUniqueConflictException(string detail, Exception innerException)
-        : base(detail, innerException) { }
-
-
-    public NonUniqueConflictException(string detail, string[] errors)
-    : base(detail)
+    public NonUniqueIdentityException(string detail, string[] errors)
+        : base(detail)
     {
         this.SetErrors(errors);
     }
+
     // ---------------------------
     //  Boilerplate for overrides
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => StatusValue; }
-    
     protected override IEnumerable<string> GetTypeParts()
     {
         foreach (var part in base.GetTypeParts())

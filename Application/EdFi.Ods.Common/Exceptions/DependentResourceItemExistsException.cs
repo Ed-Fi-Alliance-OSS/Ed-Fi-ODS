@@ -3,38 +3,30 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
-public class NaturalKeyConflictException : ConflictException
+public class DependentResourceItemExistsException : ConflictException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "natural-key";
-    private const string TitleText = "Resource Not Unique Conflict due to natural-key";
-    private const int StatusValue = StatusCodes.Status409Conflict;
+    private const string TypePart = "dependent-item-exists";
+    private const string TitleText = "Dependent Resource Item Exists";
+    
+    private const string DefaultDetail = "The requested action cannot be performed because this resource item is referenced by another resource item.";
+    private const string DefaultDetailFormat = "The requested action cannot be performed because this resource item is referenced by an existing '{0}' resource item.";
 
-    public NaturalKeyConflictException(string detail)
-        : base(detail) { }
+    public DependentResourceItemExistsException()
+        : base(DefaultDetail) { }
 
-    public NaturalKeyConflictException(string detail, Exception innerException)
-        : base(detail, innerException) { }
+    public DependentResourceItemExistsException(string resourceName)
+        : base(string.Format(DefaultDetailFormat, resourceName)) { }
 
-
-    public NaturalKeyConflictException(string detail, string[] errors)
-    : base(detail)
-    {
-        this.SetErrors(errors);
-    }
     // ---------------------------
     //  Boilerplate for overrides
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => StatusValue; }
-    
     protected override IEnumerable<string> GetTypeParts()
     {
         foreach (var part in base.GetTypeParts())
