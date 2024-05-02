@@ -7237,15 +7237,17 @@
 															"",
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:multiuser-conflict\");",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:optimistic-lock-failed\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Optimistic Lock Failed\");",
 															"});",
 															"",
-															"pm.test(\"Should return detail indicating that Resource was modified by another consumer.\", () => {",
-															"  pm.expect(problemDetails.detail).to.equal(\"The resource was modified by another user while attempting to perform the current operation.\");",
+															"pm.test(\"Should return detail indicating that Resource item was modified by another user.\", () => {",
+															"  pm.expect(problemDetails.detail).to.equal(\"The resource item has been modified by another user.\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -7254,7 +7256,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -9165,15 +9168,17 @@
 															"",
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:multiuser-conflict\");",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:optimistic-lock-failed\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Optimistic Lock Failed\");",
 															"});",
 															"",
-															"pm.test(\"Should return detail indicating that resource was modified by another user.\", () => {",
-															"  pm.expect(problemDetails.detail).to.equal(\"The resource was modified by another user while attempting to perform the current operation.\");",
+															"pm.test(\"Should return detail indicating that Resource item was modified by another user.\", () => {",
+															"  pm.expect(problemDetails.detail).to.equal(\"The resource item has been modified by another user.\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -9182,7 +9187,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
