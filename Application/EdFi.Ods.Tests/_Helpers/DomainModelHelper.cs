@@ -35,7 +35,7 @@ public static class DomainModelHelper
 
     public static IDomainModelProvider GetDomainModelProvider(this object obj, string modelName)
     {
-        return new DomainModelProvider(LoadDomainModel(obj, modelName));
+        return new SuppliedDomainModelProvider(LoadDomainModel(obj, modelName));
     }
 
     public static IResourceModelProvider GetResourceModelProvider(this object obj, string modelName)
@@ -43,11 +43,11 @@ public static class DomainModelHelper
         return new ResourceModelProvider(GetDomainModelProvider(obj, modelName));
     }
     
-    private class DomainModelProvider : IDomainModelProvider
+    public class SuppliedDomainModelProvider : IDomainModelProvider
     {
         private readonly DomainModel _domainModel;
 
-        public DomainModelProvider(DomainModel domainModel)
+        public SuppliedDomainModelProvider(DomainModel domainModel)
         {
             _domainModel = domainModel;
         }
