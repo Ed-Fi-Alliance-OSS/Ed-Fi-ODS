@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
@@ -17,14 +19,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
     public class PostgresDuplicateKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-
-        private static readonly Regex _expression = new(
-            @"(?<ErrorCode>\d*): duplicate key value violates unique constraint ""(?<ConstraintName>.*?)""",
-            RegexOptions.Compiled);
+        private readonly IDomainModelProvider _domainModelProvider;
 
         private static readonly Regex _detailExpression = new(
             @"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) (?<ConstraintType>already exists).", 
             RegexOptions.Compiled);
+
+        private const string DuplicatePrimaryKeyTableOnlyErrorFormat =
+            "A primary key conflict occurred when attempting to create or update a record in the '{0}' table.";
 
         private const string DuplicatePrimaryKeyErrorFormat =
             "A primary key conflict occurred when attempting to create or update a record in the '{0}' table. The duplicate key is ({1}) = ({2}).";
@@ -35,9 +37,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         private const string PrimaryKeyNameSuffix = "_pk";
 
         public PostgresDuplicateKeyExceptionTranslator(
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IDomainModelProvider domainModelProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _domainModelProvider = domainModelProvider;
         }
 
         public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
@@ -62,28 +66,22 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     // [23505] ERROR: duplicate key value violates unique constraint "educationorganization_pk" Detail: Key (educationorganizationid)=(123) already exists.
                     // ----------------------------------------
 
-                    var match = _expression.Match(postgresException.Message);
+                    problemDetails = 
+                        GetNonUniqueIdentityException()
+                        ?? GetNonUniqueValuesException() 
+                        ?? new NonUniqueValuesException(NonUniqueValuesException.DefaultDetail);
 
-                    if (match.Success)
-                    {
-                        var constraintName = match.Groups["ConstraintName"].ValueSpan;
+                    return true;
 
-                        problemDetails = GetNonUniqueIdentityException(constraintName)
-                            ?? GetMessageUsingPostgresException() 
-                            ?? new NonUniqueValuesException(NonUniqueValuesException.DefaultDetail);
-
-                        return true;
-                    }
-
-                    EdFiProblemDetailsExceptionBase GetNonUniqueIdentityException(ReadOnlySpan<char> constraintName)
+                    EdFiProblemDetailsExceptionBase GetNonUniqueIdentityException()
                     {
                         // Rely on PK suffix naming convention to identify PK constraint violation (which covers almost all scenarios for this violation)
-                        if (constraintName.EndsWith(PrimaryKeyNameSuffix, StringComparison.OrdinalIgnoreCase))
+                        if (postgresException.ConstraintName!.EndsWith(PrimaryKeyNameSuffix, StringComparison.OrdinalIgnoreCase))
                         {
-                            var tableName = constraintName.Slice(0, constraintName.Length - PrimaryKeyNameSuffix.Length).ToString();
+                            var tableName = postgresException.TableName;
 
                             // If detail is available, use it.
-                            if (!string.IsNullOrEmpty(postgresException.Detail))
+                            if (!string.IsNullOrEmpty(postgresException.Detail) && !postgresException.Detail.StartsWith("Detail redacted"))
                             {
                                 var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
 
@@ -114,16 +112,36 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                                 return new NonUniqueIdentityException(NonUniqueIdentityException.DefaultDetail, [errorMessage]);
                             }
+
+                            // Look for matching entity from schema information (to provide normalized name in exception)
+                            if (_domainModelProvider.GetDomainModel()
+                                .EntityByFullName.TryGetValue(
+                                    new FullName(postgresException.SchemaName, postgresException.TableName),
+                                    out var entity))
+                            {
+                                return new NonUniqueIdentityException(
+                                    NonUniqueIdentityException.DefaultDetail,
+                                    [
+                                        string.Format(DuplicatePrimaryKeyTableOnlyErrorFormat, entity.Name)
+                                    ]);
+                            }
+
+                            // Use the literal Postgres table name provided on the exception
+                            return new NonUniqueIdentityException(
+                                NonUniqueIdentityException.DefaultDetail,
+                                [
+                                    string.Format(DuplicatePrimaryKeyTableOnlyErrorFormat, tableName)
+                                ]);
                         }
 
                         return null;
                     }
 
-                    EdFiProblemDetailsExceptionBase GetMessageUsingPostgresException()
+                    EdFiProblemDetailsExceptionBase GetNonUniqueValuesException()
                     {
                         var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
 
-                        // Column names will only be available form Postgres if a special argument is added to the connection string
+                        // Column names will only be available from Postgres if the "Include Error Detail=true" value is added to the connection string
                         if (exceptionInfo.ColumnNames.Length > 0 && exceptionInfo.ColumnNames != PostgresExceptionInfo.UnknownValue)
                         {
                             string detail = string.Format(

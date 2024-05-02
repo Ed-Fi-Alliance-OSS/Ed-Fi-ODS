@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
@@ -139,13 +141,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'StudentProgramAssociation' with a duplicate key. The duplicated columns and values are [BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI] (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1).");
+                    "The identifying value(s) of the resource item are the same as another resource item that already exists.");
+                
+                actualError.Errors.Length.ShouldBe(1);
+                actualError.Errors.Single().ShouldBe(
+                    "A primary key conflict occurred when attempting to create or update a record in the 'StudentProgramAssociation' table. The duplicate key is (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI) = (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1).");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:natural-key"));
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity"));
             }
 
             [Test]
@@ -193,13 +199,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key. The duplicated columns and values are [SchoolId, SchoolYear, SessionName] (900007, 9, 2014).");
+                    "The identifying value(s) of the resource item are the same as another resource item that already exists.");
+                
+                actualError.Errors.Length.ShouldBe(1);
+                actualError.Errors.Single().ShouldBe(
+                    "A primary key conflict occurred when attempting to create or update a record in the 'Session' table. The duplicate key is (SchoolId, SchoolYear, SessionName) = (900007, 9, 2014).");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:natural-key"));
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity"));
             }
 
             [Test]

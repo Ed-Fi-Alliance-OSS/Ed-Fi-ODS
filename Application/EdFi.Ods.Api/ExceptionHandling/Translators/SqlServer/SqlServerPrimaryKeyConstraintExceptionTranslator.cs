@@ -20,7 +20,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             "A primary key conflict occurred when attempting to create or update a record in the '{0}' table. The duplicate key is ({1}) = ({2}).";
 
         private static readonly Regex _matchPattern = new(
-            @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is (?<Values>\(.*\))\.\s+The statement has been terminated\.\s*$");
+            @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is \((?<CsvValues>.*)\)\.\s+The statement has been terminated\.\s*$");
 
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 {
                     var resourceEntity = _dataManagementResourceContextProvider.Get().Resource.Entity;
 
-                    string values = match.Groups["Values"].Value;
+                    string values = match.Groups["CsvValues"].Value;
 
                     string columnNames = resourceEntity.BaseEntity == null ? 
                         string.Join(", ", resourceEntity.Identifier.Properties.Select(x => x.PropertyName))

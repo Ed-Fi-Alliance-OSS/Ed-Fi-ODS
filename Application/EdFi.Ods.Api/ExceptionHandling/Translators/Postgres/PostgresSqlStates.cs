@@ -9,6 +9,6 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 
 public static class PostgresSqlStates
 {
-    public const string ForeignKeyViolation = "23503";
-    public const string UniqueViolation = "23505";
+    public const string ForeignKeyViolation = Npgsql.PostgresErrorCodes.ForeignKeyViolation;
+    public const string UniqueViolation = Npgsql.PostgresErrorCodes.UniqueViolation;
 }
