@@ -33,8 +33,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            // If key changes aren't supported, return an empty array.
-            if (!resource.Entity.Identifier.IsUpdatable && DescriptorEntitySpecification.IsEdFiDescriptorEntity(resource.Entity.Name))
+            // Key changes aren't supported for derived resources, return an empty array.
+            if (resource.Entity.IsDerived)
             {
                 return new ResourceData<KeyChange>()
                 {
