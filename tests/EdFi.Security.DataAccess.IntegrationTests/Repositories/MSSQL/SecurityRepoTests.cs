@@ -3,6 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
+using EdFi.Common.Configuration;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
@@ -12,11 +17,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
-using EdFi.Common.Configuration;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
@@ -106,7 +106,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.MSSQL
         public class When_getting_claimsResources : SecurityRepoTests
         {
             [SetUp]
-            public void Setup()
+            public new void Setup()
             {
                 string resourceName = "ResourceNameTest" + Guid.NewGuid().ToString("N");
 
