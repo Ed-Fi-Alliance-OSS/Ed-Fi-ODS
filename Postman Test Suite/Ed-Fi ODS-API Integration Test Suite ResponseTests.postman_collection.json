@@ -3238,6 +3238,83 @@
 							]
 						},
 						{
+							"name": "when_getting_a_resource_using_an_unconfigured_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_404_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_404_code",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", () => {",
+															"    pm.expect(pm.response.code).to.equal(404);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the snapshot could not be found.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Snapshot not found.\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Not Found\");",
+															"",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Use-Snapshot",
+														"value": "true",
+														"uuid": "272fc061-d817-41f8-b7a6-50409377a517"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Students"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
 							"name": "when_getting_an_unchanged_resource_by_id",
 							"item": [
 								{
@@ -5719,6 +5796,75 @@
 							]
 						},
 						{
+							"name": "when_posting_a_resource_specifying_a_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 405\", () => {",
+													"  pm.expect(pm.response.code).to.equal(405);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a message indicating that the snapshot is read-only.\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:snapshots:read-only\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are read-only.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Method Not Allowed with Snapshots\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "0eac8b7f-cc98-4c71-b47a-010cb1a4d0a0"
+											},
+											{
+												"key": "Use-Snapshot",
+												"value": "true",
+												"uuid": "5b0fbcb3-766b-4f99-98f4-81936bae82f7"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffSchoolAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "when_posting_a_resource_with_unsupplied_required_member_with_meaningful_default",
 							"item": [
 								{
@@ -5987,6 +6133,140 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "api_should_fail_with_400_code_if_the_id_is_included_in_the_body",
+									"item": [
+										{
+											"name": "api_should_fail_with_400_code",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the Id should be removed from the body.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
+															"  pm.expect(problemDetails.title).to.equal(\"Data Validation Failed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request data was constructed incorrectly.\");\r",
+															"  pm.expect(problemDetails.errors).contains(\"Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body.\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"id\": \"092a2f5eaaa5491aa575ffdd5ec662ef\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"programName\": \"21st CCLC\",\r\n  \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Support\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Programs"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_retrieving_token_info_using_an_invalid_token",
+							"item": [
+								{
+									"name": "api_should_fail_with_a_400_bad_request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return a message indicating that the token is invalid.\", () => {",
+													"  const problemDetails = pm.response.json();",
+													"",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"An invalid token was provided\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Bad Request\");",
+													"  pm.expect(problemDetails.errors).contains(\"The token was not present, or was not processable as a GUID value.\")",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/oauth/token_info",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"oauth",
+												"token_info"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}
@@ -8069,6 +8349,75 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "when_putting_a_resource_specifying_a_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 405\", () => {",
+													"  pm.expect(pm.response.code).to.equal(405);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a message indicating that the snapshot is read-only.\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:snapshots:read-only\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are read-only.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Method Not Allowed with Snapshots\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "6266b300-ec98-48b6-8d75-6df6f14d87df"
+											},
+											{
+												"key": "Use-Snapshot",
+												"value": "true",
+												"uuid": "6e50d725-6315-4b13-93ec-cb4e80845091"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffSchoolAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -8954,6 +9303,76 @@
 											"response": []
 										}
 									]
+								}
+							]
+						},
+						{
+							"name": "when_deleting_a_resource_specifying_a_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_405_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 405\", () => {",
+													"  pm.expect(pm.response.code).to.equal(405);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a message indicating that the snapshot is read-only.\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:snapshots:read-only\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are read-only.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Method Not Allowed with Snapshots\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "d75d4f07-9576-4838-8a6e-e91d079d2fc1"
+											},
+											{
+												"key": "Use-Snapshot",
+												"value": "true",
+												"uuid": "2d5e379c-0e2d-4073-904c-5e8dbd148b78"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:{{scenarioId}}:studentGuid}}"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}
