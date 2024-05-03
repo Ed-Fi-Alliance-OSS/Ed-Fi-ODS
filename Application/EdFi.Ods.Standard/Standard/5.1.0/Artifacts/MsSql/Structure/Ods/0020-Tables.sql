@@ -3641,6 +3641,15 @@ CREATE TABLE [edfi].[IdentificationDocumentUseDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[ImmunizationTypeDescriptor] --
+CREATE TABLE [edfi].[ImmunizationTypeDescriptor] (
+    [ImmunizationTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ImmunizationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ImmunizationTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[IncidentLocationDescriptor] --
 CREATE TABLE [edfi].[IncidentLocationDescriptor] (
     [IncidentLocationDescriptorId] [INT] NOT NULL,
@@ -4807,6 +4816,15 @@ CREATE TABLE [edfi].[NetworkPurposeDescriptor] (
     [NetworkPurposeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [NetworkPurposeDescriptor_PK] PRIMARY KEY CLUSTERED (
         [NetworkPurposeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[NonMedicalImmunizationExemptionDescriptor] --
+CREATE TABLE [edfi].[NonMedicalImmunizationExemptionDescriptor] (
+    [NonMedicalImmunizationExemptionDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [NonMedicalImmunizationExemptionDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [NonMedicalImmunizationExemptionDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -8715,6 +8733,100 @@ GO
 ALTER TABLE [edfi].[StudentGradebookEntry] ADD CONSTRAINT [StudentGradebookEntry_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[StudentGradebookEntry] ADD CONSTRAINT [StudentGradebookEntry_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentHealth] --
+CREATE TABLE [edfi].[StudentHealth] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [NonMedicalImmunizationExemptionDate] [DATE] NULL,
+    [NonMedicalImmunizationExemptionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentHealth_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT [StudentHealth_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT [StudentHealth_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT [StudentHealth_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentHealthAdditionalImmunization] --
+CREATE TABLE [edfi].[StudentHealthAdditionalImmunization] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ImmunizationName] [NVARCHAR](100) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentHealthAdditionalImmunization_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
+        [ImmunizationName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentHealthAdditionalImmunization] ADD CONSTRAINT [StudentHealthAdditionalImmunization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentHealthAdditionalImmunizationDate] --
+CREATE TABLE [edfi].[StudentHealthAdditionalImmunizationDate] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ImmunizationName] [NVARCHAR](100) NOT NULL,
+    [ImmunizationDate] [DATE] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentHealthAdditionalImmunizationDate_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
+        [ImmunizationName] ASC,
+        [ImmunizationDate] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentHealthAdditionalImmunizationDate] ADD CONSTRAINT [StudentHealthAdditionalImmunizationDate_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentHealthRequiredImmunization] --
+CREATE TABLE [edfi].[StudentHealthRequiredImmunization] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ImmunizationTypeDescriptorId] [INT] NOT NULL,
+    [MedicalExemption] [NVARCHAR](1024) NULL,
+    [MedicalExemptionDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentHealthRequiredImmunization_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
+        [ImmunizationTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentHealthRequiredImmunization] ADD CONSTRAINT [StudentHealthRequiredImmunization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentHealthRequiredImmunizationDate] --
+CREATE TABLE [edfi].[StudentHealthRequiredImmunizationDate] (
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ImmunizationTypeDescriptorId] [INT] NOT NULL,
+    [ImmunizationDate] [DATE] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentHealthRequiredImmunizationDate_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC,
+        [ImmunizationTypeDescriptorId] ASC,
+        [ImmunizationDate] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentHealthRequiredImmunizationDate] ADD CONSTRAINT [StudentHealthRequiredImmunizationDate_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentHomelessProgramAssociation] --

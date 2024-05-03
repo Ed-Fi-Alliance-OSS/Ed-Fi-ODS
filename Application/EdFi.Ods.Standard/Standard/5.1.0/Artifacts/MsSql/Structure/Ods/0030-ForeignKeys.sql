@@ -2475,6 +2475,11 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [edfi].[ImmunizationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ImmunizationTypeDescriptor_Descriptor] FOREIGN KEY ([ImmunizationTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[IncidentLocationDescriptor] WITH CHECK ADD CONSTRAINT [FK_IncidentLocationDescriptor_Descriptor] FOREIGN KEY ([IncidentLocationDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -3301,6 +3306,11 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[NetworkPurposeDescriptor] WITH CHECK ADD CONSTRAINT [FK_NetworkPurposeDescriptor_Descriptor] FOREIGN KEY ([NetworkPurposeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[NonMedicalImmunizationExemptionDescriptor] WITH CHECK ADD CONSTRAINT [FK_NonMedicalImmunizationExemptionDescriptor_Descriptor] FOREIGN KEY ([NonMedicalImmunizationExemptionDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -6248,6 +6258,54 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentGradebookEntry_SubmissionStatusDescriptor]
 ON [edfi].[StudentGradebookEntry] ([SubmissionStatusDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentHealth] WITH CHECK ADD CONSTRAINT [FK_StudentHealth_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+ALTER TABLE [edfi].[StudentHealth] WITH CHECK ADD CONSTRAINT [FK_StudentHealth_NonMedicalImmunizationExemptionDescriptor] FOREIGN KEY ([NonMedicalImmunizationExemptionDescriptorId])
+REFERENCES [edfi].[NonMedicalImmunizationExemptionDescriptor] ([NonMedicalImmunizationExemptionDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentHealth_NonMedicalImmunizationExemptionDescriptor]
+ON [edfi].[StudentHealth] ([NonMedicalImmunizationExemptionDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentHealth] WITH CHECK ADD CONSTRAINT [FK_StudentHealth_Student] FOREIGN KEY ([StudentUSI])
+REFERENCES [edfi].[Student] ([StudentUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentHealth_Student]
+ON [edfi].[StudentHealth] ([StudentUSI] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentHealthAdditionalImmunization] WITH CHECK ADD CONSTRAINT [FK_StudentHealthAdditionalImmunization_StudentHealth] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
+REFERENCES [edfi].[StudentHealth] ([EducationOrganizationId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentHealthAdditionalImmunizationDate] WITH CHECK ADD CONSTRAINT [FK_StudentHealthAdditionalImmunizationDate_StudentHealthAdditionalImmunization] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [ImmunizationName])
+REFERENCES [edfi].[StudentHealthAdditionalImmunization] ([EducationOrganizationId], [StudentUSI], [ImmunizationName])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentHealthRequiredImmunization] WITH CHECK ADD CONSTRAINT [FK_StudentHealthRequiredImmunization_ImmunizationTypeDescriptor] FOREIGN KEY ([ImmunizationTypeDescriptorId])
+REFERENCES [edfi].[ImmunizationTypeDescriptor] ([ImmunizationTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentHealthRequiredImmunization_ImmunizationTypeDescriptor]
+ON [edfi].[StudentHealthRequiredImmunization] ([ImmunizationTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentHealthRequiredImmunization] WITH CHECK ADD CONSTRAINT [FK_StudentHealthRequiredImmunization_StudentHealth] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
+REFERENCES [edfi].[StudentHealth] ([EducationOrganizationId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentHealthRequiredImmunizationDate] WITH CHECK ADD CONSTRAINT [FK_StudentHealthRequiredImmunizationDate_StudentHealthRequiredImmunization] FOREIGN KEY ([EducationOrganizationId], [StudentUSI], [ImmunizationTypeDescriptorId])
+REFERENCES [edfi].[StudentHealthRequiredImmunization] ([EducationOrganizationId], [StudentUSI], [ImmunizationTypeDescriptorId])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [edfi].[StudentHomelessProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentHomelessProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])

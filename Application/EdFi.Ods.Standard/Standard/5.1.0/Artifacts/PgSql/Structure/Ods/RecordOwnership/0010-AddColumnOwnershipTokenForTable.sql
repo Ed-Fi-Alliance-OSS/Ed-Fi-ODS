@@ -187,6 +187,8 @@ ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ADD Creat
 
 ALTER TABLE edfi.StudentGradebookEntry ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.StudentHealth ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.StudentInterventionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentInterventionAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;

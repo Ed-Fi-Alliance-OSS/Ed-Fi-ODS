@@ -309,6 +309,11 @@ BEGIN
     CREATE INDEX IX_StudentEducationOrganizationResponsibilityAssociation_EducationOrganizationId ON [edfi].[StudentEducationOrganizationResponsibilityAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentHealth_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentHealth')) 
+BEGIN
+    CREATE INDEX IX_StudentHealth_EducationOrganizationId ON [edfi].[StudentHealth](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentInterventionAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentInterventionAssociation')) 
 BEGIN
     CREATE INDEX IX_StudentInterventionAssociation_EducationOrganizationId ON [edfi].[StudentInterventionAssociation](EducationOrganizationId) INCLUDE (Id)

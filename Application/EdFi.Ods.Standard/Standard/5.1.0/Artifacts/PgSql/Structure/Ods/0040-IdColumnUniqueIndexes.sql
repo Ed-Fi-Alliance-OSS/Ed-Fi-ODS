@@ -187,6 +187,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_42aa64_Id ON edfi.StudentEducationOrganizat
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_c2efaa_Id ON edfi.StudentGradebookEntry(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_12f7e6_Id ON edfi.StudentHealth(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_25cb9c_Id ON edfi.StudentInterventionAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_631023_Id ON edfi.StudentInterventionAttendanceEvent(Id);

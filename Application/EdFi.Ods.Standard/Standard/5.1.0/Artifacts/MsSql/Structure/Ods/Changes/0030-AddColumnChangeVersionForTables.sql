@@ -741,6 +741,14 @@ ALTER TABLE [edfi].[StudentGradebookEntry] ADD CONSTRAINT StudentGradebookEntry_
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentHealth]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentHealth] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentHealth_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentHealth] DROP CONSTRAINT StudentHealth_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentHealth] ADD CONSTRAINT StudentHealth_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentInterventionAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[StudentInterventionAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentInterventionAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;

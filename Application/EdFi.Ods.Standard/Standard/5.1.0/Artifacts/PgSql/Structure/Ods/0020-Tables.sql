@@ -2436,6 +2436,12 @@ CREATE TABLE edfi.IdentificationDocumentUseDescriptor (
     CONSTRAINT IdentificationDocumentUseDescriptor_PK PRIMARY KEY (IdentificationDocumentUseDescriptorId)
 );
 
+-- Table edfi.ImmunizationTypeDescriptor --
+CREATE TABLE edfi.ImmunizationTypeDescriptor (
+    ImmunizationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT ImmunizationTypeDescriptor_PK PRIMARY KEY (ImmunizationTypeDescriptorId)
+);
+
 -- Table edfi.IncidentLocationDescriptor --
 CREATE TABLE edfi.IncidentLocationDescriptor (
     IncidentLocationDescriptorId INT NOT NULL,
@@ -3212,6 +3218,12 @@ CREATE TABLE edfi.NeglectedOrDelinquentProgramServiceDescriptor (
 CREATE TABLE edfi.NetworkPurposeDescriptor (
     NetworkPurposeDescriptorId INT NOT NULL,
     CONSTRAINT NetworkPurposeDescriptor_PK PRIMARY KEY (NetworkPurposeDescriptorId)
+);
+
+-- Table edfi.NonMedicalImmunizationExemptionDescriptor --
+CREATE TABLE edfi.NonMedicalImmunizationExemptionDescriptor (
+    NonMedicalImmunizationExemptionDescriptorId INT NOT NULL,
+    CONSTRAINT NonMedicalImmunizationExemptionDescriptor_PK PRIMARY KEY (NonMedicalImmunizationExemptionDescriptorId)
 );
 
 -- Table edfi.ObjectDimension --
@@ -5811,6 +5823,67 @@ CREATE TABLE edfi.StudentGradebookEntry (
 ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentHealth --
+CREATE TABLE edfi.StudentHealth (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    AsOfDate DATE NOT NULL,
+    NonMedicalImmunizationExemptionDate DATE NULL,
+    NonMedicalImmunizationExemptionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentHealth_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
+);
+ALTER TABLE edfi.StudentHealth ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentHealth ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentHealth ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentHealthAdditionalImmunization --
+CREATE TABLE edfi.StudentHealthAdditionalImmunization (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ImmunizationName VARCHAR(100) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentHealthAdditionalImmunization_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, ImmunizationName)
+);
+ALTER TABLE edfi.StudentHealthAdditionalImmunization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentHealthAdditionalImmunizationDate --
+CREATE TABLE edfi.StudentHealthAdditionalImmunizationDate (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ImmunizationName VARCHAR(100) NOT NULL,
+    ImmunizationDate DATE NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentHealthAdditionalImmunizationDate_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, ImmunizationName, ImmunizationDate)
+);
+ALTER TABLE edfi.StudentHealthAdditionalImmunizationDate ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentHealthRequiredImmunization --
+CREATE TABLE edfi.StudentHealthRequiredImmunization (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ImmunizationTypeDescriptorId INT NOT NULL,
+    MedicalExemption VARCHAR(1024) NULL,
+    MedicalExemptionDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentHealthRequiredImmunization_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, ImmunizationTypeDescriptorId)
+);
+ALTER TABLE edfi.StudentHealthRequiredImmunization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentHealthRequiredImmunizationDate --
+CREATE TABLE edfi.StudentHealthRequiredImmunizationDate (
+    EducationOrganizationId BIGINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ImmunizationTypeDescriptorId INT NOT NULL,
+    ImmunizationDate DATE NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentHealthRequiredImmunizationDate_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, ImmunizationTypeDescriptorId, ImmunizationDate)
+);
+ALTER TABLE edfi.StudentHealthRequiredImmunizationDate ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.StudentHomelessProgramAssociation --
 CREATE TABLE edfi.StudentHomelessProgramAssociation (
