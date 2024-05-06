@@ -10629,7 +10629,7 @@
 									"response": []
 								},
 								{
-									"name": "Clean up Environment Variables Copy",
+									"name": "Clean up Environment Variables",
 									"event": [
 										{
 											"listen": "prerequest",
