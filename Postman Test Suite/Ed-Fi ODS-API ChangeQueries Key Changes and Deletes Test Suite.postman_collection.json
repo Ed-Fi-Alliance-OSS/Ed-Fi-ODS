@@ -9933,6 +9933,736 @@
 					]
 				},
 				{
+					"name": "StaffSectionAssociations",
+					"item": [
+						{
+							"name": "Initialization",
+							"item": [
+								{
+									"name": "Get AvailableChangeVersions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.initialChangeVersion + 1);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');\r",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+													"function createScenarioId() { return newGuid().substring(0,5); }\r",
+													"pm.environment.set('scenarioId', createScenarioId());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:localCourseCode', item.localCourseCode);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolId', item.sessionReference.schoolId);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:sessionName', item.sessionReference.sessionName);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901001&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get ClassPeriod",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"})\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':classPeriod:classPeriodName', item.classPeriodName);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901001&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.environment.set('supplied:' + scenarioId + ':section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"})\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':staff:staffUniqueId', item.staffReference.staffUniqueId);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffschoolassociations?schoolId=255901001&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffschoolassociations"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create StaffSectionAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':staffSectionAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n    \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n  },\r\n  \"staffReference\": {\r\n    \"staffUniqueId\": \"{{known:{{scenarioId}}:staff:staffUniqueId}}\"\r\n  },\r\n  \"classroomPositionDescriptor\": \"uri://ed-fi.org/ClassroomPositionDescriptor#Assistant Teacher\",\r\n  \"endDate\": \"2022-05-01\",\r\n  \"highlyQualifiedTeacher\": true,\r\n  \"percentageContribution\": 0,\r\n  \"teacherStudentDataLinkExclusion\": true\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSectionAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffSectionAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Change Section CourseOffering",
+							"item": [
+								{
+									"name": "Get New CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':newCourseOffering:localCourseCode', item.localCourseCode);\r",
+													"  pm.environment.set('known:' + scenarioId + ':newCourseOffering:schoolId', item.sessionReference.schoolId);\r",
+													"  pm.environment.set('known:' + scenarioId + ':newCourseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+													"  pm.environment.set('known:' + scenarioId + ':newCourseOffering:sessionName', item.sessionReference.sessionName);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901001&limit=1&offset=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												},
+												{
+													"key": "offset",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Section CourceOffering Reference",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:newCourseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:newCourseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:newCourseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:newCourseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Single item with the updated key is returned\", () => {\r",
+													"    pm.expect(items.length).equal(1);\r",
+													"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:staffSectionAssociation:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    \r",
+													"    //DS 4.x does not return BeginDate\r",
+													"    if(pm.environment.get(\"ParentOrContactProperName\") === 'Parent') {\r",
+													"        pm.expect(Object.keys(item.oldKeyValues).length).equal(6);\r",
+													"        pm.expect(Object.keys(item.newKeyValues).length).equal(6);\r",
+													"    } else {\r",
+													"        pm.expect(Object.keys(item.oldKeyValues).length).equal(7);\r",
+													"        pm.expect(Object.keys(item.newKeyValues).length).equal(7);\r",
+													"    }\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key value reports the original value\", () => {\r",
+													"\r",
+													"    //DS 4.x does not return BeginDate\r",
+													"    if(pm.environment.get(\"ParentOrContactProperName\") === 'Contact') {\r",
+													"        pm.expect(item.oldKeyValues.beginDate).equal(\"2022-01-01\");\r",
+													"    }\r",
+													"\r",
+													"    pm.expect(item.oldKeyValues.localCourseCode).equal(pm.environment.get(`known:${scenarioId}:courseOffering:localCourseCode`));\r",
+													"    pm.expect(item.oldKeyValues.schoolId).equal(pm.environment.get(`known:${scenarioId}:courseOffering:schoolId`));\r",
+													"    pm.expect(item.oldKeyValues.schoolYear).equal(pm.environment.get(`known:${scenarioId}:courseOffering:schoolYear`));\r",
+													"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
+													"    pm.expect(item.oldKeyValues.sessionName).equal(pm.environment.get(`known:${scenarioId}:courseOffering:sessionName`));\r",
+													"    pm.expect(item.oldKeyValues.staffUniqueId).equal(pm.environment.get(`known:${scenarioId}:staff:staffUniqueId`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key value reports the most recent update\", () => {\r",
+													"    \r",
+													"    //DS 4.x does not return BeginDate\r",
+													"    if(pm.environment.get(\"ParentOrContactProperName\") === 'Contact') {\r",
+													"        pm.expect(item.newKeyValues.beginDate).equal(\"2022-01-01\");\r",
+													"    }\r",
+													"\r",
+													"    pm.expect(item.newKeyValues.localCourseCode).equal(pm.environment.get(`known:${scenarioId}:newCourseOffering:localCourseCode`));\r",
+													"    pm.expect(item.newKeyValues.schoolId).equal(pm.environment.get(`known:${scenarioId}:newCourseOffering:schoolId`));\r",
+													"    pm.expect(item.newKeyValues.schoolYear).equal(pm.environment.get(`known:${scenarioId}:newCourseOffering:schoolYear`));\r",
+													"    pm.expect(item.newKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
+													"    pm.expect(item.newKeyValues.sessionName).equal(pm.environment.get(`known:${scenarioId}:newCourseOffering:sessionName`));\r",
+													"    pm.expect(item.newKeyValues.staffUniqueId).equal(pm.environment.get(`known:${scenarioId}:staff:staffUniqueId`));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSectionassociations/keyChanges?minChangeVersion={{known:{{scenarioId}}:initialChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffSectionassociations",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:initialChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete Staff Section Association",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSectionAssociations/{{known:{{scenarioId}}:staffSectionAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffSectionAssociations",
+												"{{known:{{scenarioId}}:staffSectionAssociation:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const __ = require('lodash');\r",
+													"\r",
+													"const keys = __.keys(pm.environment.toObject());\r",
+													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Students and Contacts",
 					"item": [
 						{

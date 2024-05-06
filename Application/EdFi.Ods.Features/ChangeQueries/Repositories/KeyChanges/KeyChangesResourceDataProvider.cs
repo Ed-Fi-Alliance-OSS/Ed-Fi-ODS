@@ -10,7 +10,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
@@ -19,25 +18,24 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
-        private readonly IPersonEntitySpecification _personEntitySpecification;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IKeyChangesQueryTemplatePreparer keyChangesQueryTemplatePreparer,
             IDatabaseNamingConvention namingConvention,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
-            IPersonEntitySpecification personEntitySpecification)
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
             : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueryTemplatePreparer, namingConvention)
         {
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
-            _personEntitySpecification = personEntitySpecification;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            // If key changes aren't supported, return an empty array.
-            if (!resource.Entity.Identifier.IsUpdatable && !_personEntitySpecification.IsPersonEntity(resource.Entity.Name))
+            // Key changes aren't supported for derived resources, return an empty array.
+            // The proper way to deal with this should be to introduce a semantic model method for determining key volatility.
+            // Since we only have 3 inheritance - based hierarchies in the model, and neither of them support key changes, this is a reasonable way to deal with this scenario.
+            if (resource.Entity.IsDerived)
             {
                 return new ResourceData<KeyChange>()
                 {
@@ -45,17 +43,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                     Count = 0
                 };
             }
-            
-            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
+            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
             return await base.GetResourceDataAsync(
                 resource,
                 queryParameters,
-                itemData => 
+                itemData =>
                     new KeyChange
                     {
                         Id = (Guid)itemData[IdColumnName],
-                        ChangeVersion = (long) itemData[ChangeVersionColumnName],
+                        ChangeVersion = (long)itemData[ChangeVersionColumnName],
                         OldKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.OldValue),
                         NewKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.NewValue),
                     });
