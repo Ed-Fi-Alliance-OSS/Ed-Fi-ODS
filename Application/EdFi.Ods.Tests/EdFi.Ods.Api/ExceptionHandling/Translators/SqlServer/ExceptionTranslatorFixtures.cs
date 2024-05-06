@@ -42,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:unresolved-reference")));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Should_translate_the_message_to_indicate_that_a_related_resource_does_not_have_the_value_specified_in_the_current_request_but_does_not_provide_column_level_details()
         {
             Assert.That(
-                _actualError.Detail, Is.EqualTo("The referenced 'AddressType' resource does not exist."));
+                _actualError.Detail, Is.EqualTo("The referenced 'AddressType' item does not exist."));
         }
     }
 
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:unresolved-reference")));
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             Assert.That(
                 _actualError.Detail,
-                Is.EqualTo("The referenced 'LimitedEnglishProficiencyType' resource does not exist."));
+                Is.EqualTo("The referenced 'LimitedEnglishProficiencyType' item does not exist."));
         }
     }
 
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Assert.That(
                 _actualError.Detail,
                 Is.EqualTo(
-                    "The operation cannot be performed because the resource is a dependency of the 'DisciplineAction' resource."));
+                    "The requested action cannot be performed because this resource item is referenced by an existing 'DisciplineAction' resource item."));
         }
     }
 
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")));
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             Assert.That(
                 _actualError.Detail,
                 Is.EqualTo(
-                    "The operation cannot be performed because the resource is a dependency of the 'CourseTranscript' resource."));
+                    "The requested action cannot be performed because this resource item is referenced by an existing 'CourseTranscript' resource item."));
         }
     }
 
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
         }
 
         [Test]

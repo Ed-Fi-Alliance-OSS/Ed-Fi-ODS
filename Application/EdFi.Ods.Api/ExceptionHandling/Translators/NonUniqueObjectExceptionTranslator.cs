@@ -13,8 +13,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class NonUniqueObjectExceptionTranslator : IProblemDetailsExceptionTranslator
     {
-        private const string ExpectedExceptionPattern =
-            @"^a different object with the same identifier value was already associated with the session: (?<subject>\w*): (?<subjectId>\d*), (?<entitySimple>\w*): (?<property>\w*): (?<entityPropertyId>\d*), of entity: (?<entityFullName>\w*)";
+        private static readonly Regex _expectedExceptionRegex = new(
+            @"^a different object with the same identifier value was already associated with the session: (?<subject>\w*): (?<subjectId>\d*), (?<entitySimple>\w*): (?<property>\w*): (?<entityPropertyId>\d*), of entity: (?<entityFullName>\w*)",
+            RegexOptions.Compiled);
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(NonUniqueObjectExceptionTranslator));
 
@@ -22,7 +23,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         {
             if (ex is NonUniqueObjectException)
             {
-                var match = Regex.Match(ex.Message, ExpectedExceptionPattern);
+                var match = _expectedExceptionRegex.Match(ex.Message);
 
                 if (match.Success)
                 {
@@ -34,9 +35,10 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                                 match.Groups["subject"].Value,
                                 match.Groups["entitySimple"].Value,
                                 match.Groups["property"].Value,
-                                match.Groups["entityPropertyId"].Value));
+                                match.Groups["entityPropertyId"].Value), 
+                            ex);
 
-                        problemDetails = new NonUniqueConflictException("A problem occurred while processing the request.", 
+                        problemDetails = new NonUniqueValuesException("A problem occurred while processing the request.", 
                             new[] { $"Two {match.Groups["subject"]} entities with the same identifier were associated with the session. See log for additional details." });
 
                         return true;

@@ -8,7 +8,6 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
@@ -18,15 +17,15 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
-using EdFi.Ods.Tests.TestExtension;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
+using static EdFi.Ods.Tests._Helpers.DomainModelHelper;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [TestFixture]
@@ -40,16 +39,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
                 exception = new Exception();
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                _domainModelProvider = Stub<IDomainModelProvider>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 result = translator.TryTranslate(exception, out actualError);
             }
 
@@ -73,16 +74,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
                 exception = new GenericADOException(GenericSqlExceptionMessage, null);
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                _domainModelProvider = Stub<IDomainModelProvider>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -99,13 +102,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             }
         }
 
-        public class When_a_generic_ADO_exception_is_thrown_with_an_inner_exception_with_the_wrong_message
+        public class When_a_generic_ADO_exception_is_thrown_with_an_inner_exception_with_the_wrong_sql_state
             : TestFixtureBase
         {
             private Exception exception;
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
@@ -114,17 +118,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
                     GenericSqlExceptionMessage,
                     slightlyWrongMessage,
-                    PostgresSqlStates.UniqueViolation,
-                    null,
-                    null,
+                    Npgsql.PostgresErrorCodes.CheckViolation, // Something we don't translate
+                    "edfi",
+                    "studentschoolassociation",
                     null);
                 
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                _domainModelProvider = Stub<IDomainModelProvider>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -147,6 +152,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
@@ -156,18 +162,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     GenericSqlExceptionMessage,
                     message,
                     PostgresSqlStates.UniqueViolation,
-                    null,
-                    null,
-                    null);
+                    "edfi",
+                    "educationorganization",
+                    "something_pk");
 
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
                 var resource = PrepareTestResource(isCompositePrimaryKey: false);
                 A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(resource));
+                
+                var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
+                _domainModelProvider = new SuppliedDomainModelProvider(domainModel);
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -183,8 +192,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
-                    () => actualError.Detail.ShouldBe("The value supplied for property 'Property1' of entity 'Something' is not unique.") 
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
+                    () => actualError.Detail.ShouldBe("The identifying value(s) of the resource item are the same as another resource item that already exists."), 
+                    () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'EducationOrganization' table.") 
                 );
             }
         }
@@ -195,6 +205,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
@@ -204,18 +215,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     GenericSqlExceptionMessage,
                     message,
                     PostgresSqlStates.UniqueViolation,
-                    null,
-                    null,
-                    null);
+                    "edfi",
+                    "studentschoolassociation",
+                    "something_pk");
 
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
                 var resource = PrepareTestResource(isCompositePrimaryKey: true);
                 A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(resource));
+                
+                var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
+                _domainModelProvider = new SuppliedDomainModelProvider(domainModel);
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -231,8 +245,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
-                    () => actualError.Detail.ShouldBe("The values supplied for properties 'Property1', 'Property2' of entity 'Something' are not unique.") 
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
+                    () => actualError.Detail.ShouldBe("The identifying value(s) of the resource item are the same as another resource item that already exists."), 
+                    () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'StudentSchoolAssociation' table.") 
                 );
             }
         }
@@ -243,6 +258,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
@@ -254,14 +270,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     PostgresSqlStates.UniqueViolation,
                     null,
                     null,
-                    null);
+                    "ux_something_property1");
                 
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                _domainModelProvider = Stub<IDomainModelProvider>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -277,8 +294,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
-                    () => actualError.Detail.ShouldBe("The value(s) supplied for the resource are not unique.")
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")),
+                    () => actualError.Detail.ShouldBe("A value (or values) in the resource item must be unique, but another resource item with these values already exists.")
                 );
             }
         }
@@ -289,6 +306,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
@@ -303,15 +321,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     PostgresSqlStates.UniqueViolation,
                     null,
                     "something",
-                    null,
+                    "ux_something_property1",
                     details);
                 
                 _contextProvider = Stub<IContextProvider<DataManagementResourceContext>>();
+                _domainModelProvider = Stub<IDomainModelProvider>();
             }
 
             protected override void Act()
             {
-                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresDuplicateKeyExceptionTranslator(_contextProvider, _domainModelProvider);
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
 
@@ -327,7 +346,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:not-unique")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")),
                     () => actualError.Detail.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
                 );
             }

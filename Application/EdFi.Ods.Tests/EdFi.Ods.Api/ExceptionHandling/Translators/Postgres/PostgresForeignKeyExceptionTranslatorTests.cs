@@ -9,6 +9,8 @@ using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
@@ -39,8 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator =
-                    new PostgresForeignKeyExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                var translator = new PostgresForeignKeyExceptionTranslator(Stub<IDomainModelProvider>());
                 
                 result = translator.TryTranslate(exception, out actualError);
             }
@@ -72,8 +73,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator =
-                    new PostgresForeignKeyExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
+                var translator = new PostgresForeignKeyExceptionTranslator(Stub<IDomainModelProvider>());
 
                 wasHandled = translator.TryTranslate(exception, out actualError);
             }
@@ -96,8 +96,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             private Exception _exception;
             private bool _wasHandled;
             private IEdFiProblemDetails _actualError;
-            private ContextProvider<DataManagementResourceContext> _contextProvider;
-
+            private IDomainModelProvider _domainModelProvider;
+            // private ContextProvider<DataManagementResourceContext> _contextProvider;
+            
             /*
                 Severity:           ERROR
                 InvariantSeverity:  ERROR
@@ -115,10 +116,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             protected override void Arrange()
             {
                 var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
-                var resourceModel = new ResourceModel(domainModel);
-                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
-                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
-                _contextProvider.Set(new DataManagementResourceContext(resource));
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                // var resourceModel = new ResourceModel(domainModel);
+                // var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
+                // _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                // _contextProvider.Set(new DataManagementResourceContext(resource));
 
                 const string message = "insert or update on table \"studentschoolassociation\" violates foreign key constraint \"fk_857b52_student\"";
 
@@ -133,7 +136,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
                 _wasHandled = translator.TryTranslate(_exception, out _actualError);
             }
 
@@ -149,8 +152,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => _actualError.ShouldNotBeNull(),
                     () => _actualError.Status.ShouldBe(409),
-                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")),
-                    () => _actualError.Detail.ShouldBe("The referenced 'School' resource does not exist.")
+                    () => _actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:unresolved-reference")),
+                    () => _actualError.Detail.ShouldBe("The referenced 'School' item does not exist.")
                 );
             }
         }
@@ -160,7 +163,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             private Exception _exception;
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
-            private ContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
+            // private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             /*
                 Severity:           ERROR
@@ -180,10 +184,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 //Arrange
                 var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
-                var resourceModel = new ResourceModel(domainModel);
-                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
-                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
-                _contextProvider.Set(new DataManagementResourceContext(resource));
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                // var resourceModel = new ResourceModel(domainModel);
+                // var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
+                // _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                // _contextProvider.Set(new DataManagementResourceContext(resource));
 
                 const string message = "update or delete on table \"school\" violates foreign key constraint \"fk_857b52_school\" on table \"studentschoolassociation\"";
 
@@ -198,7 +204,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
                 wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
@@ -214,8 +220,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")),
-                    () => actualError.Detail.ShouldBe("The operation cannot be performed because the resource is a dependency of the 'StudentSchoolAssociation' resource.") 
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")),
+                    () => actualError.Detail.ShouldBe("The requested action cannot be performed because this resource item is referenced by an existing 'StudentSchoolAssociation' resource item.") 
                 );
             }
         }
@@ -225,7 +231,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             private Exception _exception;
             private bool wasHandled;
             private IEdFiProblemDetails actualError;
-            private ContextProvider<DataManagementResourceContext> _contextProvider;
+            private IDomainModelProvider _domainModelProvider;
+            // private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             /*
                 Severity:           ERROR
@@ -245,10 +252,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 //Arrange
                 var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
-                var resourceModel = new ResourceModel(domainModel);
-                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
-                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
-                _contextProvider.Set(new DataManagementResourceContext(resource));
+                _domainModelProvider = new DomainModelHelper.SuppliedDomainModelProvider(domainModel);
+
+                // var resourceModel = new ResourceModel(domainModel);
+                // var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
+                // _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                // _contextProvider.Set(new DataManagementResourceContext(resource));
 
                 const string message = "update or delete on table \"school\" violates foreign key constraint \"fk_857b52_school\" on table \"studentschoolassociation\"";
 
@@ -263,7 +272,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             protected override void Act()
             {
-                var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
+                var translator = new PostgresForeignKeyExceptionTranslator(_domainModelProvider);
                 wasHandled = translator.TryTranslate(_exception, out actualError);
             }
 
@@ -279,9 +288,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 actualError.ShouldSatisfyAllConditions(
                     e => e.ShouldNotBeNull(),
                     e => e.Status.ShouldBe(409),
-                    e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:invalid-reference")),
+                    e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")),
                     e => e.Detail.ShouldBe(
-                        "The operation cannot be performed because the resource is a dependency of another resource."));
+                        "The requested action cannot be performed because this resource item is referenced by an existing 'StudentSchoolAssociation' resource item."));
             }
         }
     }

@@ -128,13 +128,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key.");
+                    "The resource item was modified or deleted by another user while processing the request. Resending this request will either recreate the item, or introduce of copy with a different identifier.");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:natural-key"));
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:multi-user-conflict"));
             }
 
             [Test]

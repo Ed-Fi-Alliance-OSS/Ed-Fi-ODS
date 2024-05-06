@@ -30,7 +30,7 @@ public class NonUniqueObjectExceptionTranslatorTests
         // Assert
         result.ShouldBeTrue();
         problemDetails.ShouldNotBeNull();
-        problemDetails.ShouldBeOfType<NonUniqueConflictException>();
+        problemDetails.ShouldBeOfType<NonUniqueValuesException>();
         problemDetails.Detail.ShouldBe("A problem occurred while processing the request.");
 
         problemDetails.Errors.ShouldContain(

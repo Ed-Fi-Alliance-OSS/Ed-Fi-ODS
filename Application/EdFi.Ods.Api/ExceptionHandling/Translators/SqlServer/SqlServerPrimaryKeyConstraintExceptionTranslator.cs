@@ -16,11 +16,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
     public class SqlServerPrimaryKeyConstraintExceptionTranslator : IProblemDetailsExceptionTranslator
     {
-        private const string MessageFormat =
-            "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key. The duplicated columns and values are [{1}] {2}.";
+        private const string DuplicatePrimaryKeyErrorFormat =
+            "A primary key conflict occurred when attempting to create or update a record in the '{0}' table. The duplicate key is ({1}) = ({2}).";
 
         private static readonly Regex _matchPattern = new(
-            @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is (?<Values>\(.*\))\.\s+The statement has been terminated\.\s*$");
+            @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is \((?<CsvValues>.*)\)\.\s+The statement has been terminated\.\s*$");
 
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
@@ -35,23 +35,26 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 ? ex.InnerException
                 : ex;
 
-            if (exception is SqlException)
+            if (exception is SqlException sqlException)
             {
-                var match = _matchPattern.Match(exception.Message);
+                // TODO: Identify SqlState associated with this error to avoid unnecessary regex evaluation
+                
+                var match = _matchPattern.Match(sqlException.Message);
 
                 if (match.Success)
                 {
                     var resourceEntity = _dataManagementResourceContextProvider.Get().Resource.Entity;
 
-                    string values = match.Groups["Values"].Value;
+                    string values = match.Groups["CsvValues"].Value;
 
                     string columnNames = resourceEntity.BaseEntity == null ? 
                         string.Join(", ", resourceEntity.Identifier.Properties.Select(x => x.PropertyName))
                         : string.Join(", ", resourceEntity.BaseEntity.Identifier.Properties.Select(x => x.PropertyName));
 
-                    var message = string.Format(MessageFormat, resourceEntity.Name, columnNames, values);
+                    var message = string.Format(DuplicatePrimaryKeyErrorFormat, resourceEntity.Name, columnNames, values);
 
-                    problemDetails = new NaturalKeyConflictException(message);
+                    problemDetails = new NonUniqueIdentityException(NonUniqueIdentityException.DefaultDetail, [message]);
+
                     return true;
                 }
             }

@@ -16,8 +16,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
     public class SqlServerUniqueIndexExceptionTranslator : IProblemDetailsExceptionTranslator
     {
-        private static readonly Regex _expression = new Regex(
-            @"^Cannot insert duplicate key row in object '[a-z]+\.(?<TableName>\w+)' with unique index '(?<IndexName>\w+)'(?:\. The duplicate key value is (?<Values>\(.*\))\.)?|^Violation of UNIQUE KEY constraint '(?<IndexName>\w+)'. Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'.");
+        private static readonly Regex _expression = new(
+            @"^Cannot insert duplicate key row in object '[a-z]+\.(?<TableName>\w+)' with unique index '(?<IndexName>\w+)'(?:\. The duplicate key value is (?<Values>\(.*\))\.)?|^Violation of UNIQUE KEY constraint '(?<IndexName>\w+)'. Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'.",
+            RegexOptions.Compiled);
 
         private const string SingleMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
         private const string MultipleMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
@@ -70,7 +71,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                         message = string.Format(MultipleMessageFormat, values, columnNames, tableName);
                     }
 
-                    problemDetails = new NonUniqueConflictException(message);
+                    problemDetails = new NonUniqueValuesException(message);
                     return true;
                 }
             }

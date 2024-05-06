@@ -5,31 +5,31 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Exceptions;
 
-public abstract class ConflictException : EdFiProblemDetailsExceptionBase
+public class UnresolvedReferenceException : ConflictException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "conflict";
-    private const string TitleText = "Resource Data Conflict";
+    private const string TypePart = "unresolved-reference";
+    private const string TitleText = "Unresolved Reference";
 
-    private const int StatusValue = StatusCodes.Status409Conflict;
+    private const string DefaultDetail = "A referenced item does not exist.";
+    private const string DefaultDetailFormat = "The referenced '{0}' item does not exist.";
 
-    protected ConflictException(string detail)
-        : base(detail, detail) { }
+    public UnresolvedReferenceException()
+        : base(DefaultDetail) { }
 
-    protected ConflictException(string detail, Exception inner)
-        : base(detail, detail, inner) { }
+    public UnresolvedReferenceException(string resourceName)
+        : base(string.Format(DefaultDetailFormat, resourceName)) { }
 
     // ---------------------------
     //  Boilerplate for overrides
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => StatusValue; }
-    
     protected override IEnumerable<string> GetTypeParts()
     {
         foreach (var part in base.GetTypeParts())

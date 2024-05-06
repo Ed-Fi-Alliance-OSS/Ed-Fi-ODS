@@ -5259,17 +5259,27 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  409\", () => {",
-													"    pm.expect(pm.response.code).to.equal(409) ",
-													" });",
+													"pm.test(\"Status code is 409\", () => {",
+													"  pm.expect(pm.response.code).to.equal(409);",
+													"});",
+													"",
 													"const problemDetails = pm.response.json();",
 													"",
-													"pm.test(\"Should return a problem details result for invalid-reference conflict\", () => {",
-													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");",
+													"pm.test(\"Should return a problem details result for dependent item exists\", () => {",
+													"  pm.expect(problemDetails).to.deep.include({",
+													"    \"type\": \"urn:ed-fi:api:conflict:dependent-item-exists\",",
+													"    \"title\": \"Dependent Resource Item Exists\",",
+													"    \"status\": 409",
+													"  });",
+													"",
+													"  const parentOrContact = pm.environment.get(\"ParentOrContactProperName\");",
+													"  const expectedDetail = `The requested action cannot be performed because this resource item is referenced by an existing 'Student${parentOrContact}Association' resource item.`;",
+													"",
+													"  pm.expect(problemDetails.detail).to.equal(expectedDetail);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -5278,7 +5288,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],

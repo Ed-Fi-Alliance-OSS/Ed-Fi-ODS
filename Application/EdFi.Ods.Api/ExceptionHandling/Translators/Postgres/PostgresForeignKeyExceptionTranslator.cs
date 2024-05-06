@@ -5,10 +5,13 @@
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
@@ -17,17 +20,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     public class PostgresForeignKeyExceptionTranslator : IProblemDetailsExceptionTranslator
     {
-        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        
-        private const string InsertOrUpdateMessageFormat = "The referenced '{0}' resource does not exist.";
-        private const string UpdateOrDeleteMessageFormat = "The operation cannot be performed because the resource is a dependency of the '{0}' resource.";
+        private readonly IDomainModelProvider _domainModelProvider;
 
-        private const string NoDetailsInsertOrUpdateMessage = "A referenced resource does not exist.";
-        private const string NoDetailsUpdateOrDeleteMessage = "The operation cannot be performed because the resource is a dependency of another resource.";
-
-        public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        public PostgresForeignKeyExceptionTranslator(IDomainModelProvider domainModelProvider)
         {
-            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _domainModelProvider = domainModelProvider;
         }
 
         public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
@@ -40,33 +37,42 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             {
                 if (postgresException.SqlState == PostgresSqlStates.ForeignKeyViolation)
                 {
-                    var entity = _dataManagementResourceContextProvider.Get()
-                        .Resource.Entity.Aggregate.Members.SingleOrDefault(
-                            e => 
-                                e.Schema.EqualsIgnoreCase(postgresException.SchemaName)
-                                && e.TableNameByDatabaseEngine[DatabaseEngine.Postgres].EqualsIgnoreCase(postgresException.TableName));
-
-                    var association = entity?.IncomingAssociations.SingleOrDefault(
-                        a => 
-                            a.Association.ConstraintByDatabaseEngine[DatabaseEngine.Postgres.Value]
-                            .EqualsIgnoreCase(postgresException.ConstraintName));
-
-                    if (association == null)
+                    // Try to get the entity affected
+                    if (_domainModelProvider.GetDomainModel()
+                        .EntityByFullName.TryGetValue(new FullName(postgresException.SchemaName, postgresException.TableName), out var entity))
                     {
-                        string noDetailsMessage = postgresException.MessageText.Contains("update or delete")
-                            ? NoDetailsUpdateOrDeleteMessage
-                            : NoDetailsInsertOrUpdateMessage;
+                        // For "insert or update" violations, extract table name from the constraint name
+                        //     EXAMPLE: insert or update on table "school" violates foreign key constraint "fk_6cd2e3_localeducationagency"
+                        if (postgresException.MessageText.Contains("insert or update"))
+                        {
+                            // Iterate the incoming associations looking for the offending constraint
+                            var association = entity?.IncomingAssociations.SingleOrDefault(
+                                a => 
+                                    a.Association.ConstraintByDatabaseEngine[DatabaseEngine.Postgres.Value]
+                                    .EqualsIgnoreCase(postgresException.ConstraintName));
 
-                        problemDetails = new InvalidReferenceConflictException(noDetailsMessage);
+                            if (association != null)
+                            {
+                                problemDetails = new UnresolvedReferenceException(association.OtherEntity.Name);
 
-                        return true;
+                                return true;
+                            }
+                        }
+                        else if (postgresException.MessageText.Contains("update or delete"))
+                        {
+                            // NOTE: FK violations won't happen in the ODS for "update" because where key updates are allowed, cascade updates are applied.
+                            // So this scenario will only happen with deletes where there are child aggregate/resources that must be removed first.
+                            // In this case, the PostgreSQL exception identifies the dependent table (no translation is necesssary)
+                            problemDetails = new DependentResourceItemExistsException(entity.Name);
+
+                            return true;
+                        }
                     }
 
-                    string message = postgresException.MessageText.Contains("update or delete")
-                        ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
-                        : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
-
-                    problemDetails = new InvalidReferenceConflictException(message);
+                    // Unable to determine details, probably due to long table name munging for Postgres identities
+                    problemDetails = postgresException.MessageText.Contains("update or delete")
+                        ? new DependentResourceItemExistsException()
+                        : new UnresolvedReferenceException();
 
                     return true;
                 }

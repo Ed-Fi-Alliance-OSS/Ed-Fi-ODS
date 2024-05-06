@@ -5861,62 +5861,279 @@
 									"name": "api_should_fail_with_409_code",
 									"item": [
 										{
-											"name": "api_should_fail_with_409_conflict",
-											"event": [
+											"name": "Reference to non-existing Person",
+											"item": [
 												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Status code is 409\", () => {\r",
-															"  pm.expect(pm.response.code).to.equal(409);\r",
-															"});\r",
-															"\r",
-															"const problemDetails = pm.response.json();\r",
-															"\r",
-															"pm.test(\"Should return a problem details result\", () => {\r",
-															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"The referenced 'Student' resource does not exist.\");\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Should return a message indicating that access was denied, student was not found.\", () => {\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"The referenced 'Student' resource does not exist.\");\r",
-															"  // NOTE: This was previously handled by a \"SecurityConflictException\" in C#, and provided an authorization related 409 message.\r",
-															"  // Previous expected message: \"Access to the resource item could not be authorized because the 'Student' was not found.\"\r",
-															"});\r",
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "raw",
-													"raw": "{    \r\n    \"schoolReference\": {\r\n      \"schoolId\": \"255901001\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"999999\"\r\n    },\r\n    \"entryDate\": \"2021-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n  }"
-												},
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
-													"host": [
-														"{{ApiBaseUrl}}"
+													"name": "api_should_fail_with_409_conflict",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 409\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(409);\r",
+																	"});\r",
+																	"\r",
+																	"const problemDetails = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should return a problem details result\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+																	"  pm.expect(problemDetails.detail).to.equal(\"The referenced 'Student' item does not exist.\");\r",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:unresolved-reference\");\r",
+																	"  pm.expect(problemDetails.title).to.equal(\"Unresolved Reference\");\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Should return a message indicating that access was denied, student was not found.\", () => {\r",
+																	"  pm.expect(problemDetails.detail).to.equal(\"The referenced 'Student' item does not exist.\");\r",
+																	"  // NOTE: This was previously handled by a \"SecurityConflictException\" in C#, and provided an authorization related 409 message.\r",
+																	"  // Previous expected message: \"Access to the resource item could not be authorized because the 'Student' was not found.\"\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
 													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"studentSchoolAssociations"
-													]
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"255901001\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"999999\"\r\n  },\r\n  \"entryDate\": \"2021-08-23\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSchoolAssociations"
+															]
+														}
+													},
+													"response": []
 												}
-											},
-											"response": []
+											]
+										},
+										{
+											"name": "Reference to Non-Existing Item on Create/Update",
+											"item": [
+												{
+													"name": "Create School with reference to non-existing LEA",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 409\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(409);\r",
+																	"});\r",
+																	"\r",
+																	"const problemDetails = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Problem Details response indicates referenced LocalEducationAgency item does not exist.\", () => {\r",
+																	"  pm.expect(problemDetails).to.deep.include({\r",
+																	"    \"detail\": \"The referenced 'LocalEducationAgency' item does not exist.\",\r",
+																	"    \"type\": \"urn:ed-fi:api:conflict:unresolved-reference\",\r",
+																	"    \"title\": \"Unresolved Reference\",\r",
+																	"    \"status\": 409,\r",
+																	"  });\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 99999999\r\n    },\r\n    \"schoolId\": 88888888,\r\n    \"nameOfInstitution\": \"UNRESOLVED REFERENCE TEST\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#First grade\"\r\n      }\r\n    ]\r\n  }"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"schools"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Create School with reference to existing LEA",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 88888888,\r\n    \"nameOfInstitution\": \"UNRESOLVED REFERENCE UPDATE TEST\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#First grade\"\r\n      }\r\n    ]\r\n  }"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"schools"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update School with reference to non-existing LEA",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 409\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(409);\r",
+																	"});\r",
+																	"\r",
+																	"const problemDetails = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Problem Details response indicates referenced LocalEducationAgency item does not exist.\", () => {\r",
+																	"  pm.expect(problemDetails).to.deep.include({\r",
+																	"    \"detail\": \"The referenced 'LocalEducationAgency' item does not exist.\",\r",
+																	"    \"type\": \"urn:ed-fi:api:conflict:unresolved-reference\",\r",
+																	"    \"title\": \"Unresolved Reference\",\r",
+																	"    \"status\": 409,\r",
+																	"  });\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 99999999\r\n    },\r\n    \"schoolId\": 88888888,\r\n    \"nameOfInstitution\": \"UNRESOLVED REFERENCE UPDATE TEST\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#First grade\"\r\n      }\r\n    ]\r\n  }"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"schools"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(204);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 88888888,\r\n    \"nameOfInstitution\": \"UNRESOLVED REFERENCE UPDATE TEST\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#First grade\"\r\n      }\r\n    ]\r\n  }"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"schools",
+																"{{known:school:id}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
 										}
 									]
 								}
@@ -7022,15 +7239,17 @@
 															"",
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:multiuser-conflict\");",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:optimistic-lock-failed\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Optimistic Lock Failed\");",
 															"});",
 															"",
-															"pm.test(\"Should return detail indicating that Resource was modified by another consumer.\", () => {",
-															"  pm.expect(problemDetails.detail).to.equal(\"The resource was modified by another user while attempting to perform the current operation.\");",
+															"pm.test(\"Should return detail indicating that Resource item was modified by another user.\", () => {",
+															"  pm.expect(problemDetails.detail).to.equal(\"The resource item has been modified by another user.\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -7039,7 +7258,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8209,54 +8429,34 @@
 							"name": "when_deleting_a_resource_would_break_referential_integrity",
 							"item": [
 								{
-									"name": "api_should_fail_with_409_code",
+									"name": "Setup",
 									"item": [
 										{
-											"name": "Initialize Student Data for Delete Request",
+											"name": "Create Student",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
-															"    pm.expect(pm.response.code).to.equal(201);",
+															"  pm.expect(pm.response.code).to.equal(201);",
 															"});",
 															"",
-															"",
-															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-															"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
-															"",
-															"",
-															"    "
+															"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());",
+															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
 													"listen": "prerequest",
 													"script": {
 														"exec": [
-															"const uuid = require('uuid');",
-															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
-															"function createScenarioId() { return newGuid().substring(0,5); }",
-															"pm.environment.set('scenarioId', createScenarioId());",
-															"",
-															"const scenarioId = pm.environment.get('scenarioId');",
-															"",
-															"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
-															"",
-															"",
-															"const moment = require('moment');",
-															"let birthDate=new Date();",
-															"birthDate = birthDate.addYears(-20);",
-															"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
-															"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8272,7 +8472,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"DELETE-CONFLICT-TEST\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -8290,22 +8490,16 @@
 											"response": []
 										},
 										{
-											"name": "Initialize StudentSchoolAssociations Data for Delete Request",
+											"name": "Create StudentSchoolAssociation",
 											"event": [
 												{
 													"listen": "prerequest",
 													"script": {
 														"exec": [
-															"const moment = require('moment');",
-															"const scenarioId = pm.environment.get('scenarioId');",
-															"let entryDate=new Date();",
-															"entryDate = entryDate.addMonths(-10);",
-															"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
-															"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
-															"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
-															" "
+															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8315,9 +8509,12 @@
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
 															"});",
+															"",
+															"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8333,7 +8530,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+													"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"255901001\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"DELETE-CONFLICT-TEST\"\r\n   },\r\n   \"entryDate\":\"2020-02-02\",\r\n   \"entryGradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -8350,26 +8547,36 @@
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
 											},
 											"response": []
-										},
+										}
+									]
+								},
+								{
+									"name": "Attempt to delete item with dependencies",
+									"item": [
 										{
-											"name": "api_should_fail_with_409_code",
+											"name": "Delete Student fails with 409",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 409\", () => {",
-															"    pm.expect(pm.response.code).to.equal(409);",
+															"  pm.expect(pm.response.code).to.equal(409);",
 															"});",
+															"",
 															"const problemDetails = pm.response.json();",
 															"",
-															"pm.test(\"Should return a problem details result for invalid-reference conflict\", () => {",
-															"  pm.expect(pm.response.code).equal(problemDetails.status);",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:conflict:invalid-reference\");",
-															"",
+															"pm.test(\"Should return a problem details result for dependent item exists\", () => {",
+															"  pm.expect(problemDetails).to.deep.include({",
+															"    \"detail\": \"The requested action cannot be performed because this resource item is referenced by an existing 'StudentSchoolAssociation' resource item.\",",
+															"    \"type\": \"urn:ed-fi:api:conflict:dependent-item-exists\",",
+															"    \"title\": \"Dependent Resource Item Exists\",",
+															"    \"status\": 409",
+															"  });",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8378,7 +8585,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8386,7 +8594,7 @@
 												"method": "DELETE",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -8395,7 +8603,116 @@
 														"v3",
 														"ed-fi",
 														"students",
-														"{{known:{{scenarioId}}:studentGuid}}"
+														"{{known:student:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
+										{
+											"name": "Delete StudentSchoolAssociation",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSchoolAssociations",
+														"{{known:studentSchoolAssociation:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:student:id}}"
 													]
 												}
 											},
@@ -8853,15 +9170,17 @@
 															"",
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
-															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:multiuser-conflict\");",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:optimistic-lock-failed\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Optimistic Lock Failed\");",
 															"});",
 															"",
-															"pm.test(\"Should return detail indicating that resource was modified by another user.\", () => {",
-															"  pm.expect(problemDetails.detail).to.equal(\"The resource was modified by another user while attempting to perform the current operation.\");",
+															"pm.test(\"Should return detail indicating that Resource item was modified by another user.\", () => {",
+															"  pm.expect(problemDetails.detail).to.equal(\"The resource item has been modified by another user.\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8870,7 +9189,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
