@@ -842,7 +842,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// For students born outside of the U.S., the Province or jurisdiction in which an individual is born.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(150, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="birthInternationalProvince")]
         public string BirthInternationalProvince { get; set; }
 
@@ -904,7 +904,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
@@ -920,7 +920,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An appendage, if any, used to denote an individual's generation in his family (e.g., Jr., Sr., III).
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(10, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(10, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="generationCodeSuffix")]
         public string GenerationCodeSuffix { get; set; }
 
@@ -936,7 +936,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
 
@@ -952,7 +952,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The individual's maiden name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="maidenName")]
         public string MaidenName { get; set; }
 
@@ -960,7 +960,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// A secondary name given to an individual at birth, baptism, or during another naming ceremony.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="middleName")]
         public string MiddleName { get; set; }
 
@@ -975,7 +975,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// A prefix used to denote the title, degree, position, or seniority of the individual.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="personalTitlePrefix")]
         public string PersonalTitlePrefix { get; set; }
 
@@ -1010,7 +1010,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The first name the individual prefers, if different from their legal first name
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="preferredFirstName")]
         public string PreferredFirstName { get; set; }
 
@@ -1018,7 +1018,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The last name the individual prefers, if different from their legal last name
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="preferredLastSurname")]
         public string PreferredLastSurname { get; set; }
 
@@ -1792,7 +1792,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(17, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(17, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="postalCode")]
         public string PostalCode { get; set; }
 
@@ -1810,7 +1810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(150, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="streetNumberName")]
         public string StreetNumberName { get; set; }
         // -------------------------------------------------------------
@@ -1917,7 +1917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The apartment, room, or suite number of an address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="apartmentRoomSuiteNumber")]
         public string ApartmentRoomSuiteNumber { get; set; }
 
@@ -1925,7 +1925,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The number of the building on the site, if more than one building shares the same address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="buildingSiteNumber")]
         public string BuildingSiteNumber { get; set; }
 
@@ -1933,7 +1933,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The congressional district in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="congressionalDistrict")]
         public string CongressionalDistrict { get; set; }
 
@@ -1956,7 +1956,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The geographic latitude of the physical address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="latitude")]
         public string Latitude { get; set; }
 
@@ -1972,15 +1972,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The geographic longitude of the physical address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="longitude")]
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="nameOfCounty")]
         public string NameOfCounty { get; set; }
         // -------------------------------------------------------------
@@ -2579,7 +2579,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// A description of the disability diagnosis.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(80, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(80, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="disabilityDiagnosis")]
         public string DisabilityDiagnosis { get; set; }
 
@@ -4001,7 +4001,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
@@ -4009,7 +4009,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An appendage, if any, used to denote an individual's generation in his family (e.g., Jr., Sr., III).
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(10, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(10, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="generationCodeSuffix")]
         public string GenerationCodeSuffix { get; set; }
 
@@ -4018,7 +4018,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
 
@@ -4026,7 +4026,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// A secondary name given to an individual at birth, baptism, or during another naming ceremony.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="middleName")]
         public string MiddleName { get; set; }
 
@@ -4034,7 +4034,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// A prefix used to denote the title, degree, position, or seniority of the individual.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(30, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="personalTitlePrefix")]
         public string PersonalTitlePrefix { get; set; }
         // -------------------------------------------------------------
@@ -4291,7 +4291,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The title of the document given by the issuer.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="documentTitle")]
         public string DocumentTitle { get; set; }
 
@@ -4307,7 +4307,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The unique identifier on the issuer's identification system.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="issuerDocumentIdentificationCode")]
         public string IssuerDocumentIdentificationCode { get; set; }
 
@@ -4315,7 +4315,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// Name of the entity or institution that issued the document.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(150, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="issuerName")]
         public string IssuerName { get; set; }
         // -------------------------------------------------------------
@@ -4700,7 +4700,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(24, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(24, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="telephoneNumber")]
         public string TelephoneNumber { get; set; }
 
@@ -8230,7 +8230,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="programId")]
         public string ProgramId { get; set; }
         // -------------------------------------------------------------
@@ -16955,7 +16955,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         /// <summary>
-        /// The identifier assigned to a school.
+        /// The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         long? Entities.Common.TPDM.IEvaluationRating.SchoolId
@@ -17936,7 +17936,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
@@ -17945,7 +17945,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
@@ -19611,7 +19611,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// The description of the condition (e.g., placement in a high need school) under which the aid was given.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="aidConditionDescription")]
         public string AidConditionDescription { get; set; }
 
@@ -22818,7 +22818,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
         public string FirstName { get; set; }
 
@@ -22827,7 +22827,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
@@ -24510,7 +24510,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="criterionDescription")]
         public string CriterionDescription { get; set; }
 
@@ -25076,7 +25076,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The ID of the post secondary institution.
+        /// The ID of the post secondary institution. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         long? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId

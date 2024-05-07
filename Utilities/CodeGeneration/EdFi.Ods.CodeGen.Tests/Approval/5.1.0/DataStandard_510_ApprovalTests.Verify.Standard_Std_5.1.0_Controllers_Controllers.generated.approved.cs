@@ -4475,6 +4475,39 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ImmunizationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/immunizationTypeDescriptors")]
+    public partial class ImmunizationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ImmunizationTypeDescriptor.EdFi.ImmunizationTypeDescriptor,
+        Entities.Common.EdFi.IImmunizationTypeDescriptor,
+        Entities.NHibernate.ImmunizationTypeDescriptorAggregate.EdFi.ImmunizationTypeDescriptor,
+        Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi.ImmunizationTypeDescriptorPut,
+        Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi.ImmunizationTypeDescriptorPost,
+        Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi.ImmunizationTypeDescriptorDelete,
+        Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi.ImmunizationTypeDescriptorGetByExample>
+    {
+        public ImmunizationTypeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi.ImmunizationTypeDescriptorGetByExample request, Entities.Common.EdFi.IImmunizationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.ImmunizationTypeDescriptorId = request.ImmunizationTypeDescriptorId;
+            specification.Namespace = request.Namespace;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6004,6 +6037,39 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.NetworkPurposeDescriptorId = request.NetworkPurposeDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.NonMedicalImmunizationExemptionDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/nonMedicalImmunizationExemptionDescriptors")]
+    public partial class NonMedicalImmunizationExemptionDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.NonMedicalImmunizationExemptionDescriptor.EdFi.NonMedicalImmunizationExemptionDescriptor,
+        Entities.Common.EdFi.INonMedicalImmunizationExemptionDescriptor,
+        Entities.NHibernate.NonMedicalImmunizationExemptionDescriptorAggregate.EdFi.NonMedicalImmunizationExemptionDescriptor,
+        Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi.NonMedicalImmunizationExemptionDescriptorPut,
+        Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi.NonMedicalImmunizationExemptionDescriptorPost,
+        Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi.NonMedicalImmunizationExemptionDescriptorDelete,
+        Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi.NonMedicalImmunizationExemptionDescriptorGetByExample>
+    {
+        public NonMedicalImmunizationExemptionDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi.NonMedicalImmunizationExemptionDescriptorGetByExample request, Entities.Common.EdFi.INonMedicalImmunizationExemptionDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CodeValue = request.CodeValue;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.NonMedicalImmunizationExemptionDescriptorId = request.NonMedicalImmunizationExemptionDescriptorId;
         }
     }
 }
@@ -9903,6 +9969,41 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.SubmissionStatusDescriptor = request.SubmissionStatusDescriptor;
             specification.TimeFulfilled = request.TimeFulfilled;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentHealths.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentHealths")]
+    public partial class StudentHealthsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentHealth.EdFi.StudentHealth,
+        Entities.Common.EdFi.IStudentHealth,
+        Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealth,
+        Api.Common.Models.Requests.StudentHealths.EdFi.StudentHealthPut,
+        Api.Common.Models.Requests.StudentHealths.EdFi.StudentHealthPost,
+        Api.Common.Models.Requests.StudentHealths.EdFi.StudentHealthDelete,
+        Api.Common.Models.Requests.StudentHealths.EdFi.StudentHealthGetByExample>
+    {
+        public StudentHealthsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
+            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentHealths.EdFi.StudentHealthGetByExample request, Entities.Common.EdFi.IStudentHealth specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.NonMedicalImmunizationExemptionDate = request.NonMedicalImmunizationExemptionDate;
+            specification.NonMedicalImmunizationExemptionDescriptor = request.NonMedicalImmunizationExemptionDescriptor;
+            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }

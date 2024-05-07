@@ -89,6 +89,7 @@ using EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociati
 using EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentHomelessProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentInterventionAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentInterventionAttendanceEventAggregate.EdFi;
@@ -3832,6 +3833,52 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentGradebookEntry) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentHealth table of the StudentHealth aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentHealth, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IStudentHealth resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentHealth' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentHealth;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentHealth) resource);
         }
     }
 

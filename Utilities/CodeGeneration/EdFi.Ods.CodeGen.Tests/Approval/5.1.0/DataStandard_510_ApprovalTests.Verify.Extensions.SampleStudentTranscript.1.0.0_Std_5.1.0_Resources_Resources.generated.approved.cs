@@ -710,7 +710,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
-        [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
+        [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="nameOfInstitution")]
         public string NameOfInstitution { get; set; }
         // -------------------------------------------------------------
