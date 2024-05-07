@@ -14,7 +14,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
     public class NonUniqueObjectExceptionTranslator : IProblemDetailsExceptionTranslator
     {
         private static readonly Regex _expectedExceptionRegex = new(
-            @"^a different object with the same identifier value was already associated with the session: (?<subject>\w*): (?<subjectId>\d*), (?<entitySimple>\w*): (?<property>\w*): (?<entityPropertyId>\d*), of entity: (?<entityFullName>\w*)",
+            @"^a different item with the same identifier value was already associated with the session: (?<subject>\w*): (?<subjectId>\d*), (?<entitySimple>\w*): (?<property>\w*): (?<entityPropertyId>\d*), of entity: (?<entityFullName>\w*)",
             RegexOptions.Compiled);
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(NonUniqueObjectExceptionTranslator));
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                     {
                         _logger.Error(
                             string.Format(
-                                "A duplicate {0} conflict occurred when attempting to create a new {1} resource with {2} of {3}.",
+                                "A duplicate {0} conflict occurred when attempting to create a new {1} items with {2} of {3}.",
                                 match.Groups["subject"].Value,
                                 match.Groups["entitySimple"].Value,
                                 match.Groups["property"].Value,
@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                             ex);
 
                         problemDetails = new NonUniqueValuesException("A problem occurred while processing the request.", 
-                            new[] { $"Two {match.Groups["subject"]} entities with the same identifier were associated with the session. See log for additional details." });
+                            new[] { $"Two {match.Groups["subject"]} items with the same identifier were associated with the session. See log for additional details." });
 
                         return true;
                     }
