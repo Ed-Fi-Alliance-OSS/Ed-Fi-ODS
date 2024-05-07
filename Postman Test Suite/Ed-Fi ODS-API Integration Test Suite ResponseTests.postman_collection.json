@@ -6322,7 +6322,7 @@
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
-															"  pm.expect(problemDetails.errors).contains(\"Resource items can only be updated using PUT. To \\\"upsert\\\" an item in the resource collection using POST, remove the \\\"id\\\" from the route.\")\r",
+															"  pm.expect(problemDetails.errors).contains(\"Data items can only be updated using PUT. To \\\"upsert\\\" an item in the resource collection using POST, remove the \\\"id\\\" from the route.\")\r",
 															"\r",
 															"});"
 														],
@@ -8539,7 +8539,7 @@
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
-															"  pm.expect(problemDetails.errors).contains(\"Resource collections cannot be replaced. To \\\"upsert\\\" an item in the collection, use POST. To update a specific item, use PUT and include the \\\"id\\\" in the route.\")\r",
+															"  pm.expect(problemDetails.errors).contains(\"Data collections cannot be replaced. To \\\"upsert\\\" an item in the collection, use POST. To update a specific item, use PUT and include the \\\"id\\\" in the route.\")\r",
 															"\r",
 															"});"
 														],
@@ -9595,7 +9595,7 @@
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:method-not-allowed\");\r",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
-															"  pm.expect(problemDetails.errors).contains(\"Resource collections cannot be deleted. To delete a specific item, use DELETE and include the \\\"id\\\" in the route.\")\r",
+															"  pm.expect(problemDetails.errors).contains(\"Data collections cannot be deleted. To delete a specific item, use DELETE and include the \\\"id\\\" in the route.\")\r",
 															"\r",
 															"});"
 														],
