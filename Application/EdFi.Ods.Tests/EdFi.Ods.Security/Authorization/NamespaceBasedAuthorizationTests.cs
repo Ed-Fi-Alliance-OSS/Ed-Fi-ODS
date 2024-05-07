@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:namespace:access-denied:namespace-mismatch"));
 
                 string existingLiteral = authorizationPhase == AuthorizationPhase.ExistingData ? "existing " : string.Empty;
-                exception.Detail.ShouldContain($"Access to the resource could not be authorized. The {existingLiteral}'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').");
+                exception.Detail.ShouldContain($"Access to the data could not be authorized. The {existingLiteral}'Namespace' value of the data does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').");
             }
         }
 

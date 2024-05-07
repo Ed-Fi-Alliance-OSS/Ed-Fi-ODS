@@ -13,7 +13,7 @@ public class EducationOrganizationIdToParentUsiAuthorizationViewHintProvider : I
     {
         if (viewName.StartsWith("EducationOrganizationIdToParentUSI", StringComparison.OrdinalIgnoreCase))
         {
-            return "You may need to create corresponding 'StudentSchoolAssociation' and 'StudentParentAssociation' resource items.";
+            return "You may need to create corresponding 'StudentSchoolAssociation' and 'StudentParentAssociation' data items.";
         }
 
         return null;

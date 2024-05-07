@@ -141,7 +141,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes ('{claimNamespacePrefixesText}').", null)
+                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value of the data does not start with any of the caller's associated namespace prefixes ('{claimNamespacePrefixesText}').", null)
                     {
                         InstanceTypeParts = ["namespace", "access-denied", "namespace-mismatch"]
                     });
