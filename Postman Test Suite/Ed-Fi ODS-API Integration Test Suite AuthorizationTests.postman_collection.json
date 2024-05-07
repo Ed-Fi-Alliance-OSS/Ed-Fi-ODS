@@ -10150,7 +10150,8 @@
 																"exec": [
 																	"pm.environment.set('supplied:learningObjectiveId:child', pm.variables.replaceIn(\"{{$guid}}\"));"
 																],
-																"type": "text/javascript"
+																"type": "text/javascript",
+																"packages": {}
 															}
 														},
 														{
@@ -10166,12 +10167,13 @@
 																	"    const problemDetails = pm.response.json();\r",
 																	"\r",
 																	"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-																	"    pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+																	"    pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 																	"    pm.expect(problemDetails.errors).to.be.undefined;\r",
 																	"  })\r",
 																	"}"
 																],
-																"type": "text/javascript"
+																"type": "text/javascript",
+																"packages": {}
 															}
 														}
 													],
