@@ -22,7 +22,7 @@ public class DataPolicyException : BadRequestException
         "The Profile definition for '{0}' excludes (or does not include) one or more required elements needed to create the data item.";
 
     private const string ResourceChildMessageFormat =
-        "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create a child item of type '{1}' in the resource.";
+        "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create a child item of type '{1}' in the data.";
     
     public DataPolicyException(string profileName)
         : base(DefaultDetail)

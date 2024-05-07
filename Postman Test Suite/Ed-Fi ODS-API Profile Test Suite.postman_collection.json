@@ -14099,7 +14099,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14107,10 +14107,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required elements needed to create the data item.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14172,7 +14173,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14180,10 +14181,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14297,7 +14299,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14305,10 +14307,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14365,7 +14368,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14373,10 +14376,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14485,7 +14489,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14493,10 +14497,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14600,7 +14605,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14608,10 +14613,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14663,7 +14669,7 @@
 											"\r",
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
-											"    \"detail\": \"The resource cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
+											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
 											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
@@ -14671,10 +14677,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],

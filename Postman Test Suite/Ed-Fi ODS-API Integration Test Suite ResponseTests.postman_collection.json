@@ -8919,7 +8919,7 @@
 															"  pm.expect(problemDetails).to.deep.include({",
 															"    \"detail\": \"The requested action cannot be performed because this data item is referenced by an existing 'StudentSchoolAssociation' data item.\",",
 															"    \"type\": \"urn:ed-fi:api:conflict:dependent-item-exists\",",
-															"    \"title\": \"Dependent data item Exists\",",
+															"    \"title\": \"Dependent Data Item Exists\",",
 															"    \"status\": 409",
 															"  });",
 															"});"

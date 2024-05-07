@@ -1189,7 +1189,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1205,7 +1206,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -1213,7 +1214,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1273,7 +1275,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -1281,7 +1283,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1290,7 +1293,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1338,7 +1342,8 @@
 													"",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1354,7 +1359,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -1362,7 +1367,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1419,7 +1425,8 @@
 													"",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1435,14 +1442,15 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
 													"  pm.expect(problemDetails.errors).to.be.undefined;",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -3958,7 +3966,8 @@
 													"pm.environment.set(\"known:endDate\",endDate);",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -3974,7 +3983,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -3982,7 +3991,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -4042,7 +4052,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -4050,7 +4060,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4059,7 +4070,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -4111,7 +4123,8 @@
 													"pm.environment.set(\"known:second:endDate\",endDate);",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4127,7 +4140,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -4135,7 +4148,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -4189,7 +4203,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4205,7 +4220,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:access-denied:ownership-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized. The data item is not owned by the caller.\");",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
@@ -4213,7 +4228,8 @@
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
