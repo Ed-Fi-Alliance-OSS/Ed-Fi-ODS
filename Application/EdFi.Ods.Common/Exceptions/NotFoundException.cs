@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Exceptions
         public const string TitleText = "Not Found";
         private const int StatusValue = StatusCodes.Status404NotFound;
 
-        public const string DefaultDetail = "The specified item could not be found.";
+        public const string DefaultDetail = "The specified data could not be found.";
         public const string DefaultItemDetail = "The specified data item could not be found.";
         
         public NotFoundException() : base(DefaultDetail, DefaultDetail) { }
