@@ -84,11 +84,11 @@ jobs:
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
-    - name: Checkout Ed-Fi-ODS-Standard
+    - name: Checkout Ed-Fi-Data-Standard
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
-          path: Ed-Fi-Standard/
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard
+          path: Ed-Fi-Data-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
