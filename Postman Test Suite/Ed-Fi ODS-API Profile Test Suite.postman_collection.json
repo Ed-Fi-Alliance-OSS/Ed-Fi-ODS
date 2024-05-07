@@ -7983,15 +7983,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8000,7 +8001,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8178,15 +8180,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8195,7 +8198,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8369,15 +8373,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8386,7 +8391,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8562,7 +8568,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8578,15 +8585,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when creating or updating this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when creating or updating this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8758,7 +8766,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8774,15 +8783,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8972,15 +8982,16 @@
 															"pm.test(\"Should return a problem details result\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:data-policy:incorrect-usage\");",
-															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this resource for the caller.\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"A data policy failure was encountered. The request was not constructed correctly for the data policy that has been applied to this data for the caller.\");",
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -8989,7 +9000,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
