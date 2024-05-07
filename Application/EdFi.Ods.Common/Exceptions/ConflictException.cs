@@ -13,7 +13,7 @@ public abstract class ConflictException : EdFiProblemDetailsExceptionBase
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "conflict";
-    private const string TitleText = "Resource Data Conflict";
+    private const string TitleText = "Data Conflict";
 
     private const int StatusValue = StatusCodes.Status409Conflict;
 

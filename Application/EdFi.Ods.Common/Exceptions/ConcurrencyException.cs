@@ -14,7 +14,7 @@ namespace EdFi.Ods.Common.Exceptions
         private const string TypePart = "multi-user-conflict";
         private const string TitleText = "Multi-User Conflict";
 
-        private const string DetailText = "The resource item was modified or deleted by another user while processing the request. Resending this request will either recreate the item, or introduce of copy with a different identifier.";
+        private const string DetailText = "The data item was modified or deleted by another user while processing the request. Resending this request will either recreate the item, or introduce of copy with a different identifier.";
 
         public ConcurrencyException(Exception innerException)
             : base(DetailText, innerException) { }

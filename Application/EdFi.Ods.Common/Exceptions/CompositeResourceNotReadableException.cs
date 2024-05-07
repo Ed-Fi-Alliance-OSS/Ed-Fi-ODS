@@ -14,12 +14,12 @@ public class CompositeResourceNotReadableException : SecurityAuthorizationExcept
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "composite:not-readable";
-    private const string TitleText = "Composite Resource Not Readable";
+    private const string TitleText = "Composite Item Not Readable";
 
     private const int StatusValue = StatusCodes.Status405MethodNotAllowed; // TODO: ODS-6143 - Remove this line
 
-    private new const string DefaultDetail = "The resource cannot be read due to a data policy.";
-    private const string ErrorMessageFormat = "The composite's root resource '{0}' is not readable because the API client has been assigned a Profile covering that resource which only supports writes.";
+    private new const string DefaultDetail = "The data cannot be read due to a data policy.";
+    private const string ErrorMessageFormat = "The composite's root data item '{0}' is not readable because the API client has been assigned a Profile covering that data which only supports writes.";
 
     public CompositeResourceNotReadableException(string resourceName, Exception inner)
         : base(DefaultDetail, null, inner)

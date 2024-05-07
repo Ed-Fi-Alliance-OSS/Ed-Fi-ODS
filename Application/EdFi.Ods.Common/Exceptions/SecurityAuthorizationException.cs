@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Exceptions
         private const int StatusValue = StatusCodes.Status403Forbidden;
 
         public const string DefaultTechnicalProblemDetail = "There was a problem authorizing the request.";
-        public const string DefaultDetail = "Access to the resource could not be authorized.";
+        public const string DefaultDetail = "Access to the data could not be authorized.";
 
         /// <summary>
         /// Initializes a new instance of the ProblemDetails-based <see cref="SecurityAuthorizationException"/> class using

@@ -11,10 +11,10 @@ public class DependentResourceItemExistsException : ConflictException
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "dependent-item-exists";
-    private const string TitleText = "Dependent Resource Item Exists";
+    private const string TitleText = "Dependent Data Item Exists";
     
-    private const string DefaultDetail = "The requested action cannot be performed because this resource item is referenced by another resource item.";
-    private const string DefaultDetailFormat = "The requested action cannot be performed because this resource item is referenced by an existing '{0}' resource item.";
+    private const string DefaultDetail = "The requested action cannot be performed because this data item is referenced by another data item.";
+    private const string DefaultDetailFormat = "The requested action cannot be performed because this data item is referenced by an existing '{0}' data item.";
 
     public DependentResourceItemExistsException()
         : base(DefaultDetail) { }
