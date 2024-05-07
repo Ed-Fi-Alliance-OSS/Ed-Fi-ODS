@@ -122,7 +122,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
+                        authorizationContext.GetPhaseText($"The existing data item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data

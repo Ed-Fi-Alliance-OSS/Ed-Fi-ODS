@@ -221,7 +221,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")),
-                    () => actualError.Detail.ShouldBe("The requested action cannot be performed because this resource item is referenced by an existing 'StudentSchoolAssociation' resource item.") 
+                    () => actualError.Detail.ShouldBe("The requested action cannot be performed because this data item is referenced by an existing 'StudentSchoolAssociation' data item.") 
                 );
             }
         }
@@ -290,7 +290,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     e => e.Status.ShouldBe(409),
                     e => e.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")),
                     e => e.Detail.ShouldBe(
-                        "The requested action cannot be performed because this resource item is referenced by an existing 'StudentSchoolAssociation' resource item."));
+                        "The requested action cannot be performed because this data item is referenced by an existing 'StudentSchoolAssociation' data item."));
             }
         }
     }
