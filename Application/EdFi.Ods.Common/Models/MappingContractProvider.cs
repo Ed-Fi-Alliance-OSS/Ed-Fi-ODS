@@ -6,8 +6,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
@@ -18,16 +16,17 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
-using MediatR;
+using log4net;
 
 namespace EdFi.Ods.Common.Models;
 
-public class MappingContractProvider : IMappingContractProvider, INotificationHandler<ProfileMetadataCacheExpired>
+public class MappingContractProvider : IMappingContractProvider
 {
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
 
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
@@ -267,11 +266,14 @@ public class MappingContractProvider : IMappingContractProvider, INotificationHa
         return mappingContract;
     }
 
-    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+    public void Clear()
     {
-        _mappingContractByKey.Clear();
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Clears mapping Contracts due to profile metadata cache expiration...");
+        }
 
-        return Task.CompletedTask;
+        _mappingContractByKey.Clear();
     }
 }
 

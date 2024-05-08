@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models;
@@ -11,7 +12,7 @@ namespace EdFi.Ods.Common.Models;
 /// Defines a method for obtaining a mapping contract appropriate for a resource/entity in the current context that indicates
 /// what should be mapped/synchronized between entities/resources.
 /// </summary>
-public interface IMappingContractProvider
+public interface IMappingContractProvider : IClearable
 {
     /// <summary>
     /// Gets a mapping contract appropriate for a resource/entity in the current context.

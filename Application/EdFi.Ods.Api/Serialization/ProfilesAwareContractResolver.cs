@@ -8,8 +8,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
@@ -17,13 +15,13 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
-using MediatR;
+using log4net;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Api.Serialization;
 
-public class ProfilesAwareContractResolver : DefaultContractResolver, INotificationHandler<ProfileMetadataCacheExpired>
+public class ProfilesAwareContractResolver : DefaultContractResolver
 {
     private static readonly string[] _extensionsInArray = { "Extensions" };
     private static readonly string[] _metadataProperties =
@@ -43,6 +41,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver, INotificat
     private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
     private static readonly char[] _decimalAsCharArray = { '.' };
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ProfilesAwareContractResolver));
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -216,10 +215,13 @@ public class ProfilesAwareContractResolver : DefaultContractResolver, INotificat
         return profileConstrainedMembers;
     }
 
-    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+    public void Clear()
     {
-        _contractByKey.Clear();
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Clears profile contracts due to profile metadata cache expiration...");
+        }
 
-        return Task.CompletedTask;
+        _contractByKey.Clear();
     }
 }
