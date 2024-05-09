@@ -26,6 +26,7 @@ using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
+using EdFi.Ods.Api.Serialization;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -47,16 +48,15 @@ using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
-using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -91,6 +91,15 @@ namespace EdFi.Ods.Api.Container.Modules
             // api model conventions should be singletons
             builder.RegisterType<MvcOptionsConfigurator>()
                 .As<IConfigureOptions<MvcOptions>>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfilesAwareContractResolver>()
+                .WithProperty("NamingStrategy", 
+                    new CamelCaseNamingStrategy
+                    {
+                        ProcessDictionaryKeys = true,
+                        OverrideSpecifiedNames = true
+                    })
                 .SingleInstance();
 
             builder.RegisterType<VersionRouteConvention>()

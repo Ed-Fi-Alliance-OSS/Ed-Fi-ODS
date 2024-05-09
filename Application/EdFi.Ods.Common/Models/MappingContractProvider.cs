@@ -16,7 +16,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
-using Microsoft.AspNetCore.Http;
+using log4net;
 
 namespace EdFi.Ods.Common.Models;
 
@@ -26,6 +26,7 @@ public class MappingContractProvider : IMappingContractProvider
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
 
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
@@ -263,6 +264,16 @@ public class MappingContractProvider : IMappingContractProvider
             this);
 
         return mappingContract;
+    }
+
+    public void Clear()
+    {
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Clears mapping Contracts due to profile metadata cache expiration...");
+        }
+
+        _mappingContractByKey.Clear();
     }
 }
 
