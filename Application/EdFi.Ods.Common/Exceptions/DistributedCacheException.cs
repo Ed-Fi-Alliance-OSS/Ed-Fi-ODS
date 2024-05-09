@@ -9,6 +9,8 @@ namespace EdFi.Ods.Common.Exceptions
 {
     public class DistributedCacheException : InternalServerErrorException
     {
+        private const string TitleText = "Distributed Cache Error";
+        public override string Title { get => TitleText; }
         public DistributedCacheException() : base() { }
 
         public DistributedCacheException(string message)

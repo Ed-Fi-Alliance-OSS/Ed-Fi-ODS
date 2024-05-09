@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Exceptions
     {
         // Fields containing override values for Problem Details
         private const string TypePart = "database-connection";
-        private const string TitleText = "Database Connection Failed";
+        private const string TitleText = "Database Connection Problem";
         private const string DefaultDatabaseConnectionDetail = "There was a problem communicating with the database.";
 
         public DatabaseConnectionException(string message)
