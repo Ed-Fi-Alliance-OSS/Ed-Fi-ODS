@@ -13,7 +13,7 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
 {
     // Fields containing override values for Problem Details
     public const string TypePart = "profile:invalid-content-type";
-    public const string TitleText = "Invalid Profile Usage";
+    public const string TitleText = "Invalid Profile Content-Type";
     private const int StatusValue = StatusCodes.Status400BadRequest;
 
     public const string DefaultDetail = "Usage of the API Profiles feature was incorrect.";

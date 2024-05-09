@@ -8,8 +8,14 @@ namespace EdFi.Ods.Common.Exceptions;
 public class KeyChangeNotSupportedException : BadRequestDataException
 {
     private const string DetailTextFormat =
-        "Identifying values for the {0} data cannot be changed. Delete and recreate the item instead.";
+        "Identifying values for the {0} item cannot be changed. Delete and recreate the item instead.";
+    private const string TitleText = "Key Change Not Supported";
 
     public KeyChangeNotSupportedException(string entityName)
         : base(string.Format(DetailTextFormat, entityName)) { }
+    
+    // ---------------------------
+    //  Boilerplate for overrides
+    // ---------------------------
+    public override string Title { get => TitleText; }
 }
