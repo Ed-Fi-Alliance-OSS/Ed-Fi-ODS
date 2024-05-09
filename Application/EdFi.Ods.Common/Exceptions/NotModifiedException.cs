@@ -12,6 +12,7 @@ namespace EdFi.Ods.Common.Exceptions
     public class NotModifiedException : EdFiProblemDetailsExceptionBase
     {
         // Fields containing override values for Problem Details
+        // NOTE: These values won't get returned since HTTP 304 doesn't allow a response body
         private const string TypePart = "not-modified";
         private const string TitleText = "Not Modified";
 

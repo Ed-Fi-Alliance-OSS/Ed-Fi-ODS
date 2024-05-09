@@ -729,6 +729,74 @@
 										"description": "Scenario: Composites support GetByKey pattern requests\r\n    Given the subject of the request is \"Staff\" where\r\n    | ParameterName | Value  | Type |\r\n    | StaffUniqueId | 207288 | Key  |    \r\n    When a GET (all) request is submitted to the \"StaffFilter\" composite with the query string filter\r\n    Then the response model should only contain the records with exact matches by id"
 									},
 									"response": []
+								},
+								{
+									"name": "GetByKey pattern using a nonexistent key",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", () => {",
+													"  pm.expect(pm.response.code).to.equal(404);",
+													"});",
+													"",
+													"pm.test(\"Should return a message indicating the resource could not be found.\", () => {",
+													"  const responseItem = pm.response.json();",
+													"",
+													"  pm.expect(pm.response.code).equal(responseItem.status);\r",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:not-found\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The specified resource item could not be found.\");",
+													"  pm.expect(responseItem.title).to.equal(\"Not Found\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "bearer {{odsapi:access_token}}",
+												"uuid": "ddbe82a8-f614-48cd-a273-13b174ff0d1d"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithUniqueIds?staffUniqueId=7cc57a79-b108-4535-a15f-ff9c6d368070",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"StaffWithUniqueIds"
+											],
+											"query": [
+												{
+													"key": "staffUniqueId",
+													"value": "7cc57a79-b108-4535-a15f-ff9c6d368070"
+												}
+											]
+										},
+										"description": ""
+									},
+									"response": []
 								}
 							]
 						},
