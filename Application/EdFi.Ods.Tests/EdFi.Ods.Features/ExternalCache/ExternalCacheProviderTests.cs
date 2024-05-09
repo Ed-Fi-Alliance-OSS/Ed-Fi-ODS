@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.ExternalCache;
 using EdFi.TestFixture;
@@ -10,7 +11,6 @@ using FakeItEasy;
 using Microsoft.Extensions.Caching.Distributed;
 using NUnit.Framework;
 using Shouldly;
-using System;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.ExternalCache
