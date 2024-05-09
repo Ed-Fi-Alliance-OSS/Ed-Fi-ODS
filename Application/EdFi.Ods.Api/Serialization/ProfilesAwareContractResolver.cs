@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using log4net;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 
@@ -40,6 +41,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
     private static readonly char[] _decimalAsCharArray = { '.' };
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ProfilesAwareContractResolver));
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -211,5 +213,15 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             .ToList();
 
         return profileConstrainedMembers;
+    }
+
+    public void Clear()
+    {
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Clears profile contracts due to profile metadata cache expiration...");
+        }
+
+        _contractByKey.Clear();
     }
 }

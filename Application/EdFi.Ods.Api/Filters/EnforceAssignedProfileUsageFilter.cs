@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EdFi.Ods.Api.Filters;
 
-public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
+public class EnforceAssignedProfileUsageFilter : IAsyncResourceFilter
 {
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
@@ -49,7 +49,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         _isEnabled = apiSettings.IsFeatureEnabled("Profiles");
     }
 
-    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
     {
         // If Profiles feature is not enabled, don't do any processing.
         if (!_isEnabled)
