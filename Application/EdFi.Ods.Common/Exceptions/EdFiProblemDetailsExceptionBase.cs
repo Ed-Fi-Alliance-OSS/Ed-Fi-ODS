@@ -68,6 +68,9 @@ namespace EdFi.Ods.Common.Exceptions;
   │  ┌─────────────────────────┐
   ├──┤ OptimisticLockException | 412 Precondition Failed
   │  └─────────────────────────┘
+  │  ┌─────────────────────────------┐
+  ├──┤ UnsupportedMediaTypeException | 415 Unsupported Media Type
+  │  └─────────────────────────------┘
   │  ┌──────────────────────────────┐
   ├──┤ InternalServerErrorException | 500 Internal Server Error
   │  └──────────────────────────────┘
@@ -75,9 +78,6 @@ namespace EdFi.Ods.Common.Exceptions;
   │    │  ┌─────────────────────────────┐
   │    ├──┤ DatabaseConnectionException |
   │    │  └─────────────────────────────┘
-  │    │  ┌──────────────────────────────┐
-  │    ├──┤ ClientConfigurationException |
-  │    │  └──────────────────────────────┘
   │    │  ┌──────────────────────────────┐
   │    └──┤ SystemConfigurationException |
   │       └──────────────────────────────┘

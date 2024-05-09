@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
@@ -56,6 +56,23 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
         {
             var problemDetails = new MethodNotAllowedException(
                 $"The endpoint of the request does not support the '{context.Request.Method}' method.")
+            {
+                CorrelationId = _logContextAccessor.GetCorrelationId()
+            };
+
+            await context.Response.WriteProblemDetailsAsync(problemDetails);
+
+            _logger.Error(problemDetails.Message);
+        }
+
+        // If the response hasn't started, this indicates it's not a Problem Details response body yet
+        if (context.Response is { StatusCode: 415, HasStarted: false })
+        {
+            var errorText = context.Request.Headers.ContainsKey(HeaderConstants.ContentType) ?
+                UnsupportedMediaTypeException.InvalidContetTypeErrorText
+                : UnsupportedMediaTypeException.MissingContetTypeErrorText;
+
+            var problemDetails = new UnsupportedMediaTypeException(UnsupportedMediaTypeException.DefaultDetail, errorText)
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId()
             };

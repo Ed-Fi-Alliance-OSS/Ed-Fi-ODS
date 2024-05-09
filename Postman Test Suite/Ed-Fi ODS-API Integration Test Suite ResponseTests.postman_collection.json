@@ -4051,6 +4051,140 @@
 							]
 						},
 						{
+							"name": "when_posting_a_resource_with_an_invalid_content_type",
+							"item": [
+								{
+									"name": "with_an_unsupported_content_type",
+									"item": [
+										{
+											"name": "api_should_fail_with_415_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 415\", () => {",
+															"  pm.expect(pm.response.code).to.equal(415);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the 'Content-Type' header isn't supported.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:unsupported-media-type\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Unsupported Media Type\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"The value specified in the 'Content-Type' header is not supported by this host.\");",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<student>\r\n\t<studentUniqueId>123</studentUniqueId>\r\n\t<birthDate>2005-01-01</birthDate>\r\n\t<firstName>John</firstName>\r\n\t<lastSurname>Doe</lastSurname>\r\n</student>",
+													"options": {
+														"raw": {
+															"language": "xml"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "with_an_empty_content_type",
+									"item": [
+										{
+											"name": "api_should_fail_with_415_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 415\", () => {",
+															"  pm.expect(pm.response.code).to.equal(415);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the 'Content-Type' header is missing.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:unsupported-media-type\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Unsupported Media Type\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"The 'Content-Type' header is missing.\");",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
 							"name": "When_posting_a_resource_with_decimal_overflow",
 							"item": [
 								{
@@ -6461,6 +6595,142 @@
 													"mode": "raw",
 													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\"\r\n}"
 												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_putting_a_resource_with_an_invalid_content_type",
+							"item": [
+								{
+									"name": "with_an_unsupported_content_type",
+									"item": [
+										{
+											"name": "api_should_fail_with_415_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 415\", () => {",
+															"  pm.expect(pm.response.code).to.equal(415);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the 'Content-Type' header isn't supported.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:unsupported-media-type\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Unsupported Media Type\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"The value specified in the 'Content-Type' header is not supported by this host.\");",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<student>\r\n\t<studentUniqueId>123</studentUniqueId>\r\n\t<birthDate>2005-01-01</birthDate>\r\n\t<firstName>John</firstName>\r\n\t<lastSurname>Doe</lastSurname>\r\n</student>",
+													"options": {
+														"raw": {
+															"language": "xml"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "with_an_empty_content_type",
+									"item": [
+										{
+											"name": "api_should_fail_with_415_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 415\", () => {",
+															"  pm.expect(pm.response.code).to.equal(415);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the 'Content-Type' header is missing.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:unsupported-media-type\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Unsupported Media Type\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"The 'Content-Type' header is missing.\");",
+															"});",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
 													"host": [

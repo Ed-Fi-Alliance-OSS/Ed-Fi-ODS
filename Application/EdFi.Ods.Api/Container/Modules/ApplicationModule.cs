@@ -36,6 +36,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
@@ -55,6 +56,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Module = Autofac.Module;
@@ -76,7 +78,11 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ExceptionHandlingFilter>()
                 .As<IFilterMetadata>()
                 .SingleInstance();
-            
+
+            builder.RegisterType<EdFiClientErrorFactory>()
+                .As<IClientErrorFactory>()
+                .SingleInstance();
+
             builder.RegisterType<DataManagementRequestContextFilter>()
                 .As<IFilterMetadata>()
                 .SingleInstance();

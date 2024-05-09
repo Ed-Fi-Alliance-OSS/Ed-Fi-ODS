@@ -5,21 +5,38 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware
 {
     public class OAuthContentTypeValidationMiddleware : IMiddleware
     {
+        private readonly ILogContextAccessor _logContextAccessor;
+        public OAuthContentTypeValidationMiddleware(ILogContextAccessor logContextAccessor)
+        {
+            _logContextAccessor = logContextAccessor;
+        }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             if (context.Request.Path.ToString().Contains("oauth", StringComparison.OrdinalIgnoreCase) &&
                 context.Request.Method == HttpMethods.Post)
             {
-                if (!context.Request.Headers.ContainsKey("Content-Type"))
+                if (!context.Request.Headers.ContainsKey(HeaderConstants.ContentType))
                 {
-                    context.Response.StatusCode = StatusCodes.Status415UnsupportedMediaType;
-                    await context.Response.WriteAsync("Content-Type header is missing.");
+                    var problemDetails = new UnsupportedMediaTypeException(
+                        UnsupportedMediaTypeException.DefaultDetail,
+                        UnsupportedMediaTypeException.MissingContetTypeErrorText)
+                    {
+                        CorrelationId = _logContextAccessor.GetCorrelationId()
+                    };
+
+                    await context.Response.WriteProblemDetailsAsync(problemDetails);
                     return;
                 }
             }

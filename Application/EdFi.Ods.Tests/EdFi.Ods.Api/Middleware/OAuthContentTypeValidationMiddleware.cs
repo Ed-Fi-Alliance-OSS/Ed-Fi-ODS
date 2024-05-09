@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Logging;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
@@ -21,7 +24,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         [SetUp]
         public void Setup()
         {
-            _middleware = new OAuthContentTypeValidationMiddleware();
+            var logContextAccessor = A.Fake<ILogContextAccessor>();
+            A.CallTo(() => logContextAccessor.GetValue(CorrelationConstants.LogContextKey))
+                .Returns(A.Dummy<string>());
+
+            _middleware = new OAuthContentTypeValidationMiddleware(logContextAccessor);
         }
 
         [Test]
@@ -38,10 +45,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             await _middleware.InvokeAsync(context, next);
 
             // Assert
-            context.Response.Body.Seek(0, SeekOrigin.Begin);
-            var reader = new StreamReader(context.Response.Body);
-            var streamText = await reader.ReadToEndAsync();
-            streamText.ShouldBe("Content-Type header is missing.");
             context.Response.StatusCode.ShouldBe(415);
         }
 
