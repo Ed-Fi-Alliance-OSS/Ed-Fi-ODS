@@ -192,7 +192,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-identity")),
                     () => actualError.Detail.ShouldBe("The identifying value(s) of the item are the same as another item that already exists."), 
                     () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'EducationOrganization' table.") 
                 );
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-identity")),
                     () => actualError.Detail.ShouldBe("The identifying value(s) of the item are the same as another item that already exists."), 
                     () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'StudentSchoolAssociation' table.") 
                 );
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")),
                     () => actualError.Detail.ShouldBe("A value (or values) in the item must be unique, but another item with these values already exists.")
                 );
             }
@@ -346,7 +346,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
-                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")),
+                    () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")),
                     () => actualError.Detail.ShouldBe("The values supplied for properties 'property1, property2, property3' of entity 'something' are not unique.")
                 );
             }
