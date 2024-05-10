@@ -909,6 +909,78 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook" table="StudentArtProgramAssociationFavoriteBook" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentArtProgramAssociation">
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="BookTitle" column="BookTitle" type="string" length="200" />
+    <property name="FavoriteBookCategoryDescriptorId" column="FavoriteBookCategoryDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentArtProgramAssociationFavoriteBookArtMedia" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium" table="StudentArtProgramAssociationFavoriteBookArtMedium" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ArtMediumDescriptorId" column="ArtMediumDescriptorId" type="int" />
+      <key-many-to-one name="StudentArtProgramAssociationFavoriteBook">
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ArtPieces" column="ArtPieces" type="int" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears" table="StudentArtProgramAssociationPortfolioYears" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
