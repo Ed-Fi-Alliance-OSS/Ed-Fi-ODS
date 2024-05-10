@@ -11,7 +11,7 @@ public class NonUniqueIdentityException : ConflictException
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "non-unique-identity";
-    private const string TitleText = "Identifying Values Are Not Unique";
+    private const string TitleText = "Identifying Data Item Values Are Not Unique";
 
     public const string DefaultDetail = "The identifying value(s) of the resource item are the same as another resource item that already exists.";
 

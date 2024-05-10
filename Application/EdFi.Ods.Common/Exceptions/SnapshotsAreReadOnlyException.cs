@@ -11,7 +11,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public class SnapshotsAreReadOnlyException : EdFiProblemDetailsExceptionBase
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "snapshots:read-only";
+    private const string TypePart = "snapshots:method-not-allowed";
     private const string TitleText = "Method Not Allowed with Snapshots";
     private const int StatusValue = StatusCodes.Status405MethodNotAllowed;
 

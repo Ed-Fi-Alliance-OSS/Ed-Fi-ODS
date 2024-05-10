@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public class BadRequestDataException : BadRequestException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "data";
+    private const string TypePart = "data-validation-failed";
     private const string TitleText = "Data Validation Failed";
 
     // NOTE: For future consideration
