@@ -2075,10 +2075,12 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isReasonExitedDescriptorSupported,
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentArtProgramAssociationArtMediaSupported,
+            bool isStudentArtProgramAssociationFavoriteBookSupported,
             bool isStudentArtProgramAssociationPortfolioYearsSupported,
             bool isStudentArtProgramAssociationServicesSupported,
             bool isStudentArtProgramAssociationStylesSupported,
             bool isStudentReferenceSupported,
+            bool isStudentArtProgramAssociationFavoriteBookCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentArtProgramAssociationArtMediaItemCreatable,
@@ -2109,10 +2111,12 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentArtProgramAssociationArtMediaSupported = isStudentArtProgramAssociationArtMediaSupported;
+            IsStudentArtProgramAssociationFavoriteBookSupported = isStudentArtProgramAssociationFavoriteBookSupported;
             IsStudentArtProgramAssociationPortfolioYearsSupported = isStudentArtProgramAssociationPortfolioYearsSupported;
             IsStudentArtProgramAssociationServicesSupported = isStudentArtProgramAssociationServicesSupported;
             IsStudentArtProgramAssociationStylesSupported = isStudentArtProgramAssociationStylesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentArtProgramAssociationFavoriteBookCreatable = isStudentArtProgramAssociationFavoriteBookCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentArtProgramAssociationArtMediaItemCreatable = isStudentArtProgramAssociationArtMediaItemCreatable;
@@ -2143,10 +2147,12 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsReasonExitedDescriptorSupported { get; }
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentArtProgramAssociationArtMediaSupported { get; }
+        public bool IsStudentArtProgramAssociationFavoriteBookSupported { get; }
         public bool IsStudentArtProgramAssociationPortfolioYearsSupported { get; }
         public bool IsStudentArtProgramAssociationServicesSupported { get; }
         public bool IsStudentArtProgramAssociationStylesSupported { get; }
         public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentArtProgramAssociationFavoriteBookCreatable { get; }
         public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
         public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
         public bool IsStudentArtProgramAssociationArtMediaItemCreatable { get; }
@@ -2198,6 +2204,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsServedOutsideOfRegularSessionSupported;
                 case "StudentArtProgramAssociationArtMedia":
                     return IsStudentArtProgramAssociationArtMediaSupported;
+                case "StudentArtProgramAssociationFavoriteBook":
+                    return IsStudentArtProgramAssociationFavoriteBookSupported;
                 case "StudentArtProgramAssociationPortfolioYears":
                     return IsStudentArtProgramAssociationPortfolioYearsSupported;
                 case "StudentArtProgramAssociationServices":
@@ -2228,6 +2236,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
+                case "StudentArtProgramAssociationFavoriteBook":
+                    return IsStudentArtProgramAssociationFavoriteBookCreatable;
                 case "GeneralStudentProgramAssociationProgramParticipationStatuses":
                     return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
                 case "StudentArtProgramAssociationArtMedia":

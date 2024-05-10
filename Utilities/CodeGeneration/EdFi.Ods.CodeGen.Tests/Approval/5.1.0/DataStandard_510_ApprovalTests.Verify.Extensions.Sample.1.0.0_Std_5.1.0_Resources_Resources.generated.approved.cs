@@ -11527,6 +11527,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
+                if (StudentArtProgramAssociationFavoriteBook != null && mappingContract?.IsMemberSupported("StudentArtProgramAssociationFavoriteBook") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentArtProgramAssociationFavoriteBook");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentArtProgramAssociationFavoriteBook, validationContext, validationContext.Items.ForEmbeddedObject("StudentArtProgramAssociationFavoriteBook"))))
+                    {
+                        yield return result;
+                    }
+                }
+
             
                 // Execute the resource's fluent validator
                 var fluentValidationResult = _validator.Validate(this);
@@ -11855,6 +11867,590 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     public class StudentArtProgramAssociationArtMediumPutPostRequestValidator : FluentValidation.AbstractValidator<StudentArtProgramAssociationArtMedium>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentArtProgramAssociationArtMedium> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the sample.StudentArtProgramAssociationFavoriteBook table of the StudentArtProgramAssociation aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBook : Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook, IValidatableObject
+    {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationFavoriteBook");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationFavoriteBookPutPostRequestValidator _validator = new StudentArtProgramAssociationFavoriteBookPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public StudentArtProgramAssociationFavoriteBook()
+        {
+            StudentArtProgramAssociationFavoriteBookArtMedia = new List<StudentArtProgramAssociationFavoriteBookArtMedium>();
+        }
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.Sample.IStudentArtProgramAssociation _studentArtProgramAssociation;
+
+        [IgnoreDataMember]
+        Entities.Common.Sample.IStudentArtProgramAssociation Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook.StudentArtProgramAssociation
+        {
+            get { return _studentArtProgramAssociation; }
+            set { SetStudentArtProgramAssociation(value); }
+        }
+
+        public Entities.Common.Sample.IStudentArtProgramAssociation StudentArtProgramAssociation
+        {
+            set { SetStudentArtProgramAssociation(value); }
+        }
+
+        private void SetStudentArtProgramAssociation(Entities.Common.Sample.IStudentArtProgramAssociation value)
+        {
+            _studentArtProgramAssociation = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentArtProgramAssociation == null || !_studentArtProgramAssociation.Equals(compareTo.StudentArtProgramAssociation))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociation != null)
+                hash.Add(_studentArtProgramAssociation);
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// This is documentation.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(200, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [DataMember(Name="bookTitle")]
+        public string BookTitle { get; set; }
+
+        /// <summary>
+        /// This is documentation.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="favoriteBookCategoryDescriptor")][DescriptorExists("FavoriteBookCategoryDescriptor")]
+        public string FavoriteBookCategoryDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<StudentArtProgramAssociationFavoriteBookArtMedium> _studentArtProgramAssociationFavoriteBookArtMedia;
+        private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium> _studentArtProgramAssociationFavoriteBookArtMediaCovariant;
+
+        [NoDuplicateMembers]
+        [DataMember(Name="artMedia")]
+        public ICollection<StudentArtProgramAssociationFavoriteBookArtMedium> StudentArtProgramAssociationFavoriteBookArtMedia
+        {
+            get { return _studentArtProgramAssociationFavoriteBookArtMedia; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<StudentArtProgramAssociationFavoriteBookArtMedium>(value,
+                    (s, e) => ((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium)e.Item).StudentArtProgramAssociationFavoriteBook = this);
+                _studentArtProgramAssociationFavoriteBookArtMedia = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium, StudentArtProgramAssociationFavoriteBookArtMedium>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium)e.Item).StudentArtProgramAssociationFavoriteBook = this;
+                _studentArtProgramAssociationFavoriteBookArtMediaCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium> Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook.StudentArtProgramAssociationFavoriteBookArtMedia
+        {
+            get { return _studentArtProgramAssociationFavoriteBookArtMediaCovariant; }
+            set { StudentArtProgramAssociationFavoriteBookArtMedia = new List<StudentArtProgramAssociationFavoriteBookArtMedium>(value.Cast<StudentArtProgramAssociationFavoriteBookArtMedium>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect collection item parent references on deserialization
+            if (_studentArtProgramAssociationFavoriteBookArtMedia != null) foreach (var item in _studentArtProgramAssociationFavoriteBookArtMedia)
+            {
+                item.StudentArtProgramAssociationFavoriteBook = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentArtProgramAssociationFavoriteBookMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentArtProgramAssociationFavoriteBookMapper.MapTo(this, (Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+        // ==================================
+        //            Validation
+        // ----------------------------------
+        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            var mappingContractProvider = GeneratedArtifactStaticDependencies.MappingContractProvider;
+            var mappingContract = mappingContractProvider.GetMappingContract(_fullName);
+            
+            var pathBuilder = ValidationHelpers.GetPathBuilder(validationContext);
+            
+            int originalLength = pathBuilder.Length;
+
+            try
+            {
+                // Prepare builders for validating members
+                pathBuilder.Append(ValidationHelpers.JsonPathSeparator);
+                int dotLength = pathBuilder.Length;
+
+                // ----------------------
+                //  Validate collections
+                // ----------------------
+                if (StudentArtProgramAssociationFavoriteBookArtMedia.Any() && mappingContract?.IsMemberSupported("StudentArtProgramAssociationFavoriteBookArtMedia") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentArtProgramAssociationFavoriteBookArtMedia");
+    
+                    foreach (var result in ValidationHelpers.ValidateCollection(new ValidationContext(StudentArtProgramAssociationFavoriteBookArtMedia, validationContext, validationContext.Items.ForCollection("StudentArtProgramAssociationFavoriteBookArtMedia"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+
+                // ---------------------------
+                //  Validate embedded objects
+                // ---------------------------
+            
+                // Execute the resource's fluent validator
+                var fluentValidationResult = _validator.Validate(this);
+
+                if (!fluentValidationResult.IsValid)
+                {
+                    foreach (var error in fluentValidationResult.Errors)
+                    {
+                        yield return new System.ComponentModel.DataAnnotations.ValidationResult(error.ErrorMessage, new[] { error.PropertyName });
+                    }
+                }
+            }
+            finally
+            {
+                // Restore original length
+                pathBuilder.Length = originalLength;
+            }
+            // ----------------------------------
+        }
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBookPutPostRequestValidator : FluentValidation.AbstractValidator<StudentArtProgramAssociationFavoriteBook>
+    {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationFavoriteBook = new FullName("sample", "StudentArtProgramAssociationFavoriteBook");
+
+        // Declare collection item validators
+        private StudentArtProgramAssociationFavoriteBookArtMediumPutPostRequestValidator _studentArtProgramAssociationFavoriteBookArtMediaValidator = new ();
+
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentArtProgramAssociationFavoriteBook> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = (global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationFavoriteBookMappingContract) GeneratedArtifactStaticDependencies.MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationFavoriteBook);
+
+            if (mappingContract != null)
+            {
+                if (mappingContract.IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded != null)
+                {
+                    var hasInvalidStudentArtProgramAssociationFavoriteBookArtMediaItems = instance.StudentArtProgramAssociationFavoriteBookArtMedia.Any(x => !mappingContract.IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded(x));
+        
+                    if (hasInvalidStudentArtProgramAssociationFavoriteBookArtMediaItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationFavoriteBookArtMedia", $"A supplied 'StudentArtProgramAssociationFavoriteBookArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the sample.StudentArtProgramAssociationFavoriteBookArtMedium table of the StudentArtProgramAssociation aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBookArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium
+    {
+        private static FullName _fullName = new FullName("sample", "StudentArtProgramAssociationFavoriteBookArtMedium");
+
+        // Fluent validator instance (threadsafe)
+        private static StudentArtProgramAssociationFavoriteBookArtMediumPutPostRequestValidator _validator = new StudentArtProgramAssociationFavoriteBookArtMediumPutPostRequestValidator();
+        
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook _studentArtProgramAssociationFavoriteBook;
+
+        [IgnoreDataMember]
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return _studentArtProgramAssociationFavoriteBook; }
+            set { SetStudentArtProgramAssociationFavoriteBook(value); }
+        }
+
+        public Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook
+        {
+            set { SetStudentArtProgramAssociationFavoriteBook(value); }
+        }
+
+        private void SetStudentArtProgramAssociationFavoriteBook(Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook value)
+        {
+            _studentArtProgramAssociationFavoriteBook = value;
+        }
+
+        /// <summary>
+        /// This is documentation.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
+        [DataMember(Name="artMediumDescriptor")][DescriptorExists("ArtMediumDescriptor")]
+        public string ArtMediumDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_studentArtProgramAssociationFavoriteBook == null || !_studentArtProgramAssociationFavoriteBook.Equals(compareTo.StudentArtProgramAssociationFavoriteBook))
+                return false;
+
+
+            // Standard Property
+            if (!StringComparer.OrdinalIgnoreCase.Equals((this as Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium).ArtMediumDescriptor, compareTo.ArtMediumDescriptor))
+                return false;
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociationFavoriteBook != null)
+                hash.Add(_studentArtProgramAssociationFavoriteBook);
+
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium).ArtMediumDescriptor);
+
+            return hash.ToHashCode();
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// This is documentation.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [Range(0, 100, ErrorMessage=ValidationHelpers.RangeMessageFormat)]
+        [DataMember(Name="artPieces")]
+        public int? ArtPieces { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.Sample.StudentArtProgramAssociationFavoriteBookArtMediumMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.Sample.StudentArtProgramAssociationFavoriteBookArtMediumMapper.MapTo(this, (Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBookArtMediumPutPostRequestValidator : FluentValidation.AbstractValidator<StudentArtProgramAssociationFavoriteBookArtMedium>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentArtProgramAssociationFavoriteBookArtMedium> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
