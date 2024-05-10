@@ -6382,7 +6382,7 @@
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
 															"  pm.expect(problemDetails.title).to.equal(\"Data Validation Failed\");\r",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request data was constructed incorrectly.\");\r",
-															"  pm.expect(problemDetails.errors).contains(\"Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body.\")\r",
+															"  pm.expect(problemDetails.errors).contains(\"Data identifiers cannot be assigned by the client. The 'id' property should not be included in the request body.\")\r",
 															"});"
 														],
 														"type": "text/javascript",
