@@ -5267,7 +5267,7 @@
 													"",
 													"pm.test(\"Should return a problem details result for dependent item exists\", () => {",
 													"  pm.expect(problemDetails).to.deep.include({",
-													"    \"type\": \"urn:ed-fi:api:conflict:dependent-item-exists\",",
+													"    \"type\": \"urn:ed-fi:api:data-conflict:dependent-item-exists\",",
 													"    \"title\": \"Dependent Resource Item Exists\",",
 													"    \"status\": 409",
 													"  });",
