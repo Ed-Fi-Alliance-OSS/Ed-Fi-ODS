@@ -42,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:unresolved-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:unresolved-reference")));
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:unresolved-reference")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:unresolved-reference")));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")));
         }
 
         [Test]
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:dependent-item-exists")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:dependent-item-exists")));
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")));
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")));
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public virtual void Should_respond_with_a_409_Conflict()
         {
             Assert.That(_actualError.Status, Is.EqualTo((int) HttpStatusCode.Conflict));
-            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")));
+            Assert.That(_actualError.Type, Is.EqualTo(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")));
         }
 
         [Test]

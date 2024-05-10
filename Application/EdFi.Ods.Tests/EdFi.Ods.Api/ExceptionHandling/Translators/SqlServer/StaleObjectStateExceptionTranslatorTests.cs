@@ -134,7 +134,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:multi-user-conflict"));
+                actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:multi-user-conflict"));
             }
 
             [Test]

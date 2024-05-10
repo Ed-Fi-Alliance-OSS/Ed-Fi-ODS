@@ -49,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 AssertHelper.All(
                     () => problemDetails.Status.ShouldBe(500),
-                    () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "system:configuration:invalid")),
+                    () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "system:configuration:invalid:api-model")),
                     () => problemDetails.Detail.ShouldBe("The system configuration is invalid. Details are available in the server logs using the supplied correlation id.")
                 );
             }

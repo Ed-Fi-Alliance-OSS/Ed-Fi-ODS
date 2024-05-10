@@ -10,7 +10,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public class InvalidApiModelException : InvalidSystemConfigurationException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "invalid-api-model";
+    private const string TypePart = "api-model";
     private const string TitleText = "Invalid API Model";
     
     public InvalidApiModelException(string message)
