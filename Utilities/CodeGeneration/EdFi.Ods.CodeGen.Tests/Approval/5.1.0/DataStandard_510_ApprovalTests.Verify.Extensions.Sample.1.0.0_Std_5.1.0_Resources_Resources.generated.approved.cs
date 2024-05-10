@@ -11153,6 +11153,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        /// <summary>
+        /// favoriteBook
+        /// </summary>
+        
+        [DataMember(Name = "favoriteBook")]
+        public StudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook Entities.Common.Sample.IStudentArtProgramAssociation.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return StudentArtProgramAssociationFavoriteBook; }
+            set { StudentArtProgramAssociationFavoriteBook = (StudentArtProgramAssociationFavoriteBook) value; }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================

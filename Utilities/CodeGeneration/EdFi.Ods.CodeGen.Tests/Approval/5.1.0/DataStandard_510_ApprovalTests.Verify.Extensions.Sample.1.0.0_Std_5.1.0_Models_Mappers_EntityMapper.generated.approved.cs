@@ -3910,6 +3910,42 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 isModified = true;
             }
 
+            // ----------------------------------
+            //   Synch One-to-one relationships
+            // ----------------------------------
+            // StudentArtProgramAssociationFavoriteBook (StudentArtProgramAssociationFavoriteBook)
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookSupported != false)
+            {
+                if (source.StudentArtProgramAssociationFavoriteBook == null)
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook != null)
+                    {
+                        target.StudentArtProgramAssociationFavoriteBook = null;
+                        isModified = true;
+                    }
+                }
+                else
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook == null)
+                    {
+                        var itemType = target.GetType().GetProperty("StudentArtProgramAssociationFavoriteBook").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentArtProgramAssociationFavoriteBookCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
+                        var newItem = Activator.CreateInstance(itemType);
+                        target.StudentArtProgramAssociationFavoriteBook = (IStudentArtProgramAssociationFavoriteBook) newItem;
+                    }
+
+                    isModified |= source.StudentArtProgramAssociationFavoriteBook.Synchronize(target.StudentArtProgramAssociationFavoriteBook);
+                }
+            }
+
+            // -------------------------------------------------------------
 
             // Synch inherited lists
             if (mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported ?? true)

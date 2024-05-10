@@ -6876,6 +6876,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     {
         public StudentArtProgramAssociation()
         {
+           StudentArtProgramAssociationFavoriteBookPersistentList = new HashSet<StudentArtProgramAssociationFavoriteBook>();
             StudentArtProgramAssociationArtMedia = new HashSet<StudentArtProgramAssociationArtMedium>();
             StudentArtProgramAssociationPortfolioYears = new HashSet<StudentArtProgramAssociationPortfolioYears>();
             StudentArtProgramAssociationServices = new HashSet<StudentArtProgramAssociationService>();
@@ -7038,6 +7039,64 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        public virtual Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook
+        {
+            get
+            {
+                // Return the item in the list, if one exists
+                if (StudentArtProgramAssociationFavoriteBookPersistentList.Any())
+                    return StudentArtProgramAssociationFavoriteBookPersistentList.First();
+
+                // No reference is present
+                return null;
+            }
+            set
+            {
+                // Delete the existing object
+                if (StudentArtProgramAssociationFavoriteBookPersistentList.Any())
+                    StudentArtProgramAssociationFavoriteBookPersistentList.Clear();
+
+                // If we're setting a value, add it to the list now
+                if (value != null)
+                {
+                    // Set the back-reference to the parent
+                    value.StudentArtProgramAssociation = this;
+
+                    StudentArtProgramAssociationFavoriteBookPersistentList.Add(value);
+                }
+            }
+        }
+
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook Entities.Common.Sample.IStudentArtProgramAssociation.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return StudentArtProgramAssociationFavoriteBook; }
+            set { StudentArtProgramAssociationFavoriteBook = (Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook) value; }
+        }
+
+        private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> _studentArtProgramAssociationFavoriteBookPersistentList;
+
+        public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> StudentArtProgramAssociationFavoriteBookPersistentList
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentArtProgramAssociationFavoriteBookPersistentList)
+                    if (item.StudentArtProgramAssociation == null)
+                        item.StudentArtProgramAssociation = this;
+                // -------------------------------------------------------------
+
+                return _studentArtProgramAssociationFavoriteBookPersistentList;
+            }
+            set
+            {
+                _studentArtProgramAssociationFavoriteBookPersistentList = value;
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================

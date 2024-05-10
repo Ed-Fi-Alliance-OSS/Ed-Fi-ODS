@@ -2039,6 +2039,8 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // One-to-one relationships
 
+        IStudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+
         // Lists
         ICollection<IStudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia { get; set; }
         ICollection<IStudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears { get; set; }

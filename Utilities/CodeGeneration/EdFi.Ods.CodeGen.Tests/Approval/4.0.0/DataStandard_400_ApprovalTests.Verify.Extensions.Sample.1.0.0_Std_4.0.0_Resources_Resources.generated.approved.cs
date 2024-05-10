@@ -11153,6 +11153,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        /// <summary>
+        /// favoriteBook
+        /// </summary>
+        
+        [DataMember(Name = "favoriteBook")]
+        public StudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook Entities.Common.Sample.IStudentArtProgramAssociation.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return StudentArtProgramAssociationFavoriteBook; }
+            set { StudentArtProgramAssociationFavoriteBook = (StudentArtProgramAssociationFavoriteBook) value; }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11534,6 +11547,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     pathBuilder.Append("GeneralStudentProgramAssociationParticipationStatus");
 
                     foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(GeneralStudentProgramAssociationParticipationStatus, validationContext, validationContext.Items.ForEmbeddedObject("GeneralStudentProgramAssociationParticipationStatus"))))
+                    {
+                        yield return result;
+                    }
+                }
+
+                if (StudentArtProgramAssociationFavoriteBook != null && mappingContract?.IsMemberSupported("StudentArtProgramAssociationFavoriteBook") != false)
+                {
+                    // Reset path builder
+                    pathBuilder.Length = dotLength;
+                    pathBuilder.Append("StudentArtProgramAssociationFavoriteBook");
+
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentArtProgramAssociationFavoriteBook, validationContext, validationContext.Items.ForEmbeddedObject("StudentArtProgramAssociationFavoriteBook"))))
                     {
                         yield return result;
                     }

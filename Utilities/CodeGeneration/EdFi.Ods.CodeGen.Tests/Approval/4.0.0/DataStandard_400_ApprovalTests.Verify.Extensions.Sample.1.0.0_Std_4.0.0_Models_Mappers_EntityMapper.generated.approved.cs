@@ -3913,6 +3913,37 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
+            // StudentArtProgramAssociationFavoriteBook (StudentArtProgramAssociationFavoriteBook)
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookSupported != false)
+            {
+                if (source.StudentArtProgramAssociationFavoriteBook == null)
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook != null)
+                    {
+                        target.StudentArtProgramAssociationFavoriteBook = null;
+                        isModified = true;
+                    }
+                }
+                else
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook == null)
+                    {
+                        var itemType = target.GetType().GetProperty("StudentArtProgramAssociationFavoriteBook").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentArtProgramAssociationFavoriteBookCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
+                        var newItem = Activator.CreateInstance(itemType);
+                        target.StudentArtProgramAssociationFavoriteBook = (IStudentArtProgramAssociationFavoriteBook) newItem;
+                    }
+
+                    isModified |= source.StudentArtProgramAssociationFavoriteBook.Synchronize(target.StudentArtProgramAssociationFavoriteBook);
+                }
+            }
             // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus)
             if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {
@@ -4097,6 +4128,41 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
+            // StudentArtProgramAssociationFavoriteBook (StudentArtProgramAssociationFavoriteBook) (Source)
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookSupported != false)
+            {
+                var itemProperty = target.GetType().GetProperty("StudentArtProgramAssociationFavoriteBook");
+
+                if (itemProperty != null)
+                {
+                    if (source.StudentArtProgramAssociationFavoriteBook == null)
+                    {
+                        target.StudentArtProgramAssociationFavoriteBook = null;
+                    }
+                    else
+                    {
+                        var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentArtProgramAssociationFavoriteBookCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
+                        object targetStudentArtProgramAssociationFavoriteBook = Activator.CreateInstance(itemType);
+                        (targetStudentArtProgramAssociationFavoriteBook as IChildEntity)?.SetParent(target);
+                        source.StudentArtProgramAssociationFavoriteBook.Map(targetStudentArtProgramAssociationFavoriteBook);
+
+                        // Update the target reference appropriately
+                        target.StudentArtProgramAssociationFavoriteBook = (IStudentArtProgramAssociationFavoriteBook) targetStudentArtProgramAssociationFavoriteBook;
+                    }
+                }
+            }
             // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus) (Source)
             if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {

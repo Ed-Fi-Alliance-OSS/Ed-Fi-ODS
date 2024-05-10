@@ -2039,6 +2039,8 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // One-to-one relationships
 
+        IStudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+
         // Lists
         ICollection<IStudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia { get; set; }
         ICollection<IStudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears { get; set; }
@@ -2074,11 +2076,13 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isReasonExitedDescriptorSupported,
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentArtProgramAssociationArtMediaSupported,
+            bool isStudentArtProgramAssociationFavoriteBookSupported,
             bool isStudentArtProgramAssociationPortfolioYearsSupported,
             bool isStudentArtProgramAssociationServicesSupported,
             bool isStudentArtProgramAssociationStylesSupported,
             bool isStudentReferenceSupported,
             bool isGeneralStudentProgramAssociationParticipationStatusCreatable,
+            bool isStudentArtProgramAssociationFavoriteBookCreatable,
             bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
             Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
             bool isStudentArtProgramAssociationArtMediaItemCreatable,
@@ -2110,11 +2114,13 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentArtProgramAssociationArtMediaSupported = isStudentArtProgramAssociationArtMediaSupported;
+            IsStudentArtProgramAssociationFavoriteBookSupported = isStudentArtProgramAssociationFavoriteBookSupported;
             IsStudentArtProgramAssociationPortfolioYearsSupported = isStudentArtProgramAssociationPortfolioYearsSupported;
             IsStudentArtProgramAssociationServicesSupported = isStudentArtProgramAssociationServicesSupported;
             IsStudentArtProgramAssociationStylesSupported = isStudentArtProgramAssociationStylesSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsGeneralStudentProgramAssociationParticipationStatusCreatable = isGeneralStudentProgramAssociationParticipationStatusCreatable;
+            IsStudentArtProgramAssociationFavoriteBookCreatable = isStudentArtProgramAssociationFavoriteBookCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
             IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
             IsStudentArtProgramAssociationArtMediaItemCreatable = isStudentArtProgramAssociationArtMediaItemCreatable;
