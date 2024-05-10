@@ -351,7 +351,7 @@ namespace EdFi.Ods.Api.Controllers
             if (request.Id != default)
             {
                 var problemDetails = new BadRequestDataException(
-                    "The item data was constructed incorrectly.",
+                    "The request data was constructed incorrectly.",
                     new[] { "Data identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
                 {
                     CorrelationId = _logContextAccessor.GetCorrelationId()
