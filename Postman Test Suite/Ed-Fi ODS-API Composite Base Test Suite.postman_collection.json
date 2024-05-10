@@ -178,7 +178,7 @@
 													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
@@ -234,7 +234,7 @@
 													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
@@ -296,7 +296,7 @@
 													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validati-failed\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
@@ -352,7 +352,7 @@
 													"pm.test(\"Should return a message indicating The supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
@@ -1612,13 +1612,14 @@
 													"pm.test(\"Should return a message indicating the property does not exist or is not available string\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 													"  pm.expect(responseItem.detail).to.equal(\"Filter value was supplied for an unrecognized data element named 'NonExistingDate'.\");",
 													"  pm.expect(responseItem.errors[0]).to.include(\"The property \\'NonExistingDate\\' does not exist or is not available.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -2391,13 +2392,14 @@
 													"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
 													"    const responseItem = pm.response.json();",
 													"",
-													"    pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"    pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 													"    pm.expect(responseItem.detail).to.equal(\"The limit parameter was incorrect.\");",
 													"    pm.expect(responseItem.errors[0]).to.equal(\"Limit must be omitted or set to a value between 1 and 100.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -2441,13 +2443,14 @@
 													"pm.test(\"Should return a message indicating the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The limit parameter was incorrect.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"Limit must be omitted or set to a value between 1 and 100.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -2496,13 +2499,14 @@
 													"pm.test(\"Should return a message indicating an invalid limit specified\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The 'limit' parameter must be a number.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"Limit parameter value 'abc' is not a number.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -2546,13 +2550,14 @@
 													"pm.test(\"Should a message indicating an invalid offset specified\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
-													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 													"  pm.expect(responseItem.detail).to.equal(\"The 'offset' parameter must be a number.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"Offset parameter value 'abc' is not a number.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -3330,13 +3335,14 @@
 															"pm.test(\"Should return a message indicating that the property does not exist or is not available.\", () => {",
 															"  const responseItem = pm.response.json();",
 															"",
-															"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
+															"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation\");",
 															"  pm.expect(responseItem.detail).to.equal(\"Filter value was supplied for an unrecognized data element named 'Nonexistent'.\");",
 															"  pm.expect(responseItem.errors).to.deep.equal([\"The property \\'Nonexistent\\' does not exist or is not available.\"]);",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -3389,7 +3395,7 @@
 															"pm.test(\"Should return a message indicating that an invalid query string parameter value was provided.\", () => {",
 															"  const responseItem = pm.response.json();",
 															"",
-															"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+															"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 															"  pm.expect(responseItem.detail).to.equal(\"Filter value for 'beginDate' is not a valid value for the type of data expected.\");",
 															"",
 															"  // Use regular expression to perform a \"startsWith\" expectation",
