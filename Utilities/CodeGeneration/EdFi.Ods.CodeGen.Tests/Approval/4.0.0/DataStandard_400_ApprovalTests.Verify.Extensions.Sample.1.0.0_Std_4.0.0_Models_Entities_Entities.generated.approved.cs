@@ -6876,7 +6876,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     {
         public StudentArtProgramAssociation()
         {
-            StudentArtProgramAssociationFavoriteBookPersistentList = new HashSet<StudentArtProgramAssociationFavoriteBook>();
+           StudentArtProgramAssociationFavoriteBookPersistentList = new HashSet<StudentArtProgramAssociationFavoriteBook>();
             StudentArtProgramAssociationArtMedia = new HashSet<StudentArtProgramAssociationArtMedium>();
             StudentArtProgramAssociationPortfolioYears = new HashSet<StudentArtProgramAssociationPortfolioYears>();
             StudentArtProgramAssociationServices = new HashSet<StudentArtProgramAssociationService>();
