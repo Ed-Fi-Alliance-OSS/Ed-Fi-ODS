@@ -359,6 +359,36 @@ CREATE TABLE sample.StudentArtProgramAssociationArtMedium (
 );
 ALTER TABLE sample.StudentArtProgramAssociationArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table sample.StudentArtProgramAssociationFavoriteBook --
+CREATE TABLE sample.StudentArtProgramAssociationFavoriteBook (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    BookTitle VARCHAR(200) NULL,
+    FavoriteBookCategoryDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentArtProgramAssociationFavoriteBook_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+);
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBook ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table sample.StudentArtProgramAssociationFavoriteBookArtMedium --
+CREATE TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ArtMediumDescriptorId INT NOT NULL,
+    ArtPieces INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentArtProgramAssociationFavoriteBookArtMedium_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, ArtMediumDescriptorId)
+);
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table sample.StudentArtProgramAssociationPortfolioYears --
 CREATE TABLE sample.StudentArtProgramAssociationPortfolioYears (
     BeginDate DATE NOT NULL,

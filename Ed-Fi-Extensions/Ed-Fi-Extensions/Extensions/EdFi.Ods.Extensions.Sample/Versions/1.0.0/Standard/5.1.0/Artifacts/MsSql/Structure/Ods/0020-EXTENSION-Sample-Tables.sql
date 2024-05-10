@@ -535,6 +535,55 @@ GO
 ALTER TABLE [sample].[StudentArtProgramAssociationArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationArtMedium_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [sample].[StudentArtProgramAssociationFavoriteBook] --
+CREATE TABLE [sample].[StudentArtProgramAssociationFavoriteBook] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [BookTitle] [NVARCHAR](200) NULL,
+    [FavoriteBookCategoryDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentArtProgramAssociationFavoriteBook_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBook] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBook_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] --
+CREATE TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramEducationOrganizationId] [BIGINT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ArtMediumDescriptorId] [INT] NOT NULL,
+    [ArtPieces] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentArtProgramAssociationFavoriteBookArtMedium_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [StudentUSI] ASC,
+        [ArtMediumDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBookArtMedium_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [sample].[StudentArtProgramAssociationPortfolioYears] --
 CREATE TABLE [sample].[StudentArtProgramAssociationPortfolioYears] (
     [BeginDate] [DATE] NOT NULL,

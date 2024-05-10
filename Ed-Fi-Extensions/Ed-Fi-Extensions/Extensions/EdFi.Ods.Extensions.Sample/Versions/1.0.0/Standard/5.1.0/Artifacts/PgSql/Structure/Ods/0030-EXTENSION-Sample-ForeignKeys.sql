@@ -227,6 +227,30 @@ REFERENCES sample.StudentArtProgramAssociation (BeginDate, EducationOrganization
 ON DELETE CASCADE
 ;
 
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBook ADD CONSTRAINT FK_ca4dba_FavoriteBookCategoryDescriptor FOREIGN KEY (FavoriteBookCategoryDescriptorId)
+REFERENCES sample.FavoriteBookCategoryDescriptor (FavoriteBookCategoryDescriptorId)
+;
+
+CREATE INDEX FK_ca4dba_FavoriteBookCategoryDescriptor
+ON sample.StudentArtProgramAssociationFavoriteBook (FavoriteBookCategoryDescriptorId ASC);
+
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBook ADD CONSTRAINT FK_ca4dba_StudentArtProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES sample.StudentArtProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium ADD CONSTRAINT FK_22e49a_ArtMediumDescriptor FOREIGN KEY (ArtMediumDescriptorId)
+REFERENCES sample.ArtMediumDescriptor (ArtMediumDescriptorId)
+;
+
+CREATE INDEX FK_22e49a_ArtMediumDescriptor
+ON sample.StudentArtProgramAssociationFavoriteBookArtMedium (ArtMediumDescriptorId ASC);
+
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium ADD CONSTRAINT FK_22e49a_StudentArtProgramAssociationFavoriteBook FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES sample.StudentArtProgramAssociationFavoriteBook (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
 ALTER TABLE sample.StudentArtProgramAssociationPortfolioYears ADD CONSTRAINT FK_cb082b_StudentArtProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES sample.StudentArtProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE

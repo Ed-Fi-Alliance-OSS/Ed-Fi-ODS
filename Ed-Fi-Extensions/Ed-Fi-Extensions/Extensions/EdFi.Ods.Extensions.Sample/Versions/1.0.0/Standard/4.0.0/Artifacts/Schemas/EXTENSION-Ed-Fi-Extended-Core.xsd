@@ -491,6 +491,11 @@
               <xs:documentation>Indicates the Service(s) being provided to the Student by the Program.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="FavoriteBook" type="EXTENSION-FavoriteBook" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The student's favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="NumberOfDaysInAttendance" type="NumberOfDaysInAttendance" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Number of days the student is in attendance at the program.</xs:documentation>

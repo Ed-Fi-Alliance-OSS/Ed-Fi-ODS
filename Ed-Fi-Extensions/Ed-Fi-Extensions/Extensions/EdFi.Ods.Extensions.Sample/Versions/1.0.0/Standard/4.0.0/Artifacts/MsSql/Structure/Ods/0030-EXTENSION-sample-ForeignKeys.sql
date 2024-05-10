@@ -239,6 +239,32 @@ REFERENCES [sample].[StudentArtProgramAssociation] ([BeginDate], [EducationOrgan
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBook] WITH CHECK ADD CONSTRAINT [FK_StudentArtProgramAssociationFavoriteBook_FavoriteBookCategoryDescriptor] FOREIGN KEY ([FavoriteBookCategoryDescriptorId])
+REFERENCES [sample].[FavoriteBookCategoryDescriptor] ([FavoriteBookCategoryDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentArtProgramAssociationFavoriteBook_FavoriteBookCategoryDescriptor]
+ON [sample].[StudentArtProgramAssociationFavoriteBook] ([FavoriteBookCategoryDescriptorId] ASC)
+GO
+
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBook] WITH CHECK ADD CONSTRAINT [FK_StudentArtProgramAssociationFavoriteBook_StudentArtProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [sample].[StudentArtProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] WITH CHECK ADD CONSTRAINT [FK_StudentArtProgramAssociationFavoriteBookArtMedium_ArtMediumDescriptor] FOREIGN KEY ([ArtMediumDescriptorId])
+REFERENCES [sample].[ArtMediumDescriptor] ([ArtMediumDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentArtProgramAssociationFavoriteBookArtMedium_ArtMediumDescriptor]
+ON [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] ([ArtMediumDescriptorId] ASC)
+GO
+
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] WITH CHECK ADD CONSTRAINT [FK_StudentArtProgramAssociationFavoriteBookArtMedium_StudentArtProgramAssociationFavoriteBook] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [sample].[StudentArtProgramAssociationFavoriteBook] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [sample].[StudentArtProgramAssociationPortfolioYears] WITH CHECK ADD CONSTRAINT [FK_StudentArtProgramAssociationPortfolioYears_StudentArtProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [sample].[StudentArtProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE

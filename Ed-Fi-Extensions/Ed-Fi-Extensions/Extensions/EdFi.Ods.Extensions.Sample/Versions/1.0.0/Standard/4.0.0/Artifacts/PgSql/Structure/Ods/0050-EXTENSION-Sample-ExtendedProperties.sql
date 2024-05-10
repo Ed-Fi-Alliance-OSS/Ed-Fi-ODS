@@ -237,6 +237,28 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramTypeDescri
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ArtMediumDescriptorId IS 'The art mediums used in the program (i.e., paint, pencils, clay, etc.).';
 
+-- Extended Properties [sample].[StudentArtProgramAssociationFavoriteBook] --
+COMMENT ON TABLE sample.StudentArtProgramAssociationFavoriteBook IS 'The student''s favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.BookTitle IS 'This is documentation.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.FavoriteBookCategoryDescriptorId IS 'This is documentation.';
+
+-- Extended Properties [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] --
+COMMENT ON TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium IS 'This is documentation.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ArtMediumDescriptorId IS 'This is documentation.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ArtPieces IS 'This is documentation.';
+
 -- Extended Properties [sample].[StudentArtProgramAssociationPortfolioYears] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationPortfolioYears IS 'The of year(s) of work included in the student''s portfolio.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
