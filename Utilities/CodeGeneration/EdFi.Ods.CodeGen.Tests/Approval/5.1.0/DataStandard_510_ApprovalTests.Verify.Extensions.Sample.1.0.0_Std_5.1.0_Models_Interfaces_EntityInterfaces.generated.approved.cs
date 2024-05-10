@@ -2303,6 +2303,135 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentArtProgramAssociationFavoriteBook model.
+    /// </summary>
+    public interface IStudentArtProgramAssociationFavoriteBook : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        IStudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
+
+        // Non-PK properties
+        string BookTitle { get; set; }
+        string FavoriteBookCategoryDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentArtProgramAssociationFavoriteBookArtMedium> StudentArtProgramAssociationFavoriteBookArtMedia { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentArtProgramAssociationFavoriteBookMappingContract : IMappingContract
+    {
+        public StudentArtProgramAssociationFavoriteBookMappingContract(
+            bool isBookTitleSupported,
+            bool isFavoriteBookCategoryDescriptorSupported,
+            bool isStudentArtProgramAssociationFavoriteBookArtMediaSupported,
+            bool isStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable,
+            Func<IStudentArtProgramAssociationFavoriteBookArtMedium, bool> isStudentArtProgramAssociationFavoriteBookArtMediumIncluded
+            )
+        {
+            IsBookTitleSupported = isBookTitleSupported;
+            IsFavoriteBookCategoryDescriptorSupported = isFavoriteBookCategoryDescriptorSupported;
+            IsStudentArtProgramAssociationFavoriteBookArtMediaSupported = isStudentArtProgramAssociationFavoriteBookArtMediaSupported;
+            IsStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable = isStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable;
+            IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded = isStudentArtProgramAssociationFavoriteBookArtMediumIncluded;
+        }
+
+        public bool IsBookTitleSupported { get; }
+        public bool IsFavoriteBookCategoryDescriptorSupported { get; }
+        public bool IsStudentArtProgramAssociationFavoriteBookArtMediaSupported { get; }
+        public bool IsStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable { get; }
+        public Func<IStudentArtProgramAssociationFavoriteBookArtMedium, bool> IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "BookTitle":
+                    return IsBookTitleSupported;
+                case "FavoriteBookCategoryDescriptor":
+                    return IsFavoriteBookCategoryDescriptorSupported;
+                case "StudentArtProgramAssociationFavoriteBookArtMedia":
+                    return IsStudentArtProgramAssociationFavoriteBookArtMediaSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentArtProgramAssociationFavoriteBookArtMedia":
+                    return IsStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentArtProgramAssociationFavoriteBookArtMedium model.
+    /// </summary>
+    public interface IStudentArtProgramAssociationFavoriteBookArtMedium : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        IStudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+        
+        string ArtMediumDescriptor { get; set; }
+
+        // Non-PK properties
+        int? ArtPieces { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentArtProgramAssociationFavoriteBookArtMediumMappingContract : IMappingContract
+    {
+        public StudentArtProgramAssociationFavoriteBookArtMediumMappingContract(
+            bool isArtPiecesSupported
+            )
+        {
+            IsArtPiecesSupported = isArtPiecesSupported;
+        }
+
+        public bool IsArtPiecesSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ArtPieces":
+                    return IsArtPiecesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ArtMediumDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentArtProgramAssociationPortfolioYears model.
     /// </summary>
     public interface IStudentArtProgramAssociationPortfolioYears : ISynchronizable, IMappable, IGetByExample
