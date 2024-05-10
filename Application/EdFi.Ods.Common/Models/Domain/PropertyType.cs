@@ -43,8 +43,56 @@ namespace EdFi.Ods.Common.Models.Domain
 
             DbType = dbType;
             IsNullable = isNullable;
-            MinValue = minValue;
-            MaxValue = maxValue;
+            MinValue = ImplicitMinValue();
+            MaxValue = ImplicitMaxValue();
+
+            decimal? ImplicitMinValue()
+            {
+                switch (DbType)
+                {
+                    case DbType.Decimal:
+                        var minPrecisionScaleValue = Convert.ToDecimal(string.Format(
+                            "-{0}.{1}",
+                            new string(
+                                '9',
+                                Precision - Scale),
+                            new string('9', Scale)));
+
+                        return Math.Max(minPrecisionScaleValue, minValue ?? minPrecisionScaleValue);
+
+                    case DbType.Currency:
+                        var minCurrencyValue = -922337203685477.5808M;
+
+                        return Math.Max(minCurrencyValue, minValue ?? minCurrencyValue);
+
+                    default:
+                        return minValue;
+                }
+            }
+
+            decimal? ImplicitMaxValue()
+            {
+                switch (DbType)
+                {
+                    case DbType.Decimal:
+                        var maxPrecisionScaleValue = Convert.ToDecimal(string.Format(
+                            "{0}.{1}",
+                            new string(
+                                '9',
+                                Precision - Scale),
+                            new string('9', Scale)));
+
+                        return Math.Min(maxPrecisionScaleValue, maxValue ?? maxPrecisionScaleValue);
+
+                    case DbType.Currency:
+                        var maxCurrencyValue = 922337203685477.5807M;
+
+                        return Math.Min(maxCurrencyValue, maxValue ?? maxCurrencyValue);
+
+                    default:
+                        return maxValue;
+                }
+            }
         }
 
         public bool IsNullable { get; }

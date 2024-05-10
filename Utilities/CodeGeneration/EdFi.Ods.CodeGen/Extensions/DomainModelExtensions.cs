@@ -104,23 +104,9 @@ namespace EdFi.Ods.CodeGen.Extensions
             switch (property.PropertyType.DbType)
             {
                 case DbType.Decimal:
-                    var minPrecisionScaleValue = Convert.ToDecimal(string.Format(
-                        "-{0}.{1}",
-                        new string(
-                            '9',
-                            property.PropertyType.Precision - property.PropertyType.Scale),
-                        new string('9', property.PropertyType.Scale)));
-
-                    var rangeMinValue = Math.Max(minPrecisionScaleValue, property.PropertyType.MinValue ?? minPrecisionScaleValue);
-
-                    var maxPrecisionScaleValue = Convert.ToDecimal(string.Format(
-                        "{0}.{1}",
-                        new string(
-                            '9',
-                            property.PropertyType.Precision - property.PropertyType.Scale),
-                        new string('9', property.PropertyType.Scale)));
-
-                    var rangeMaxValue = Math.Min(maxPrecisionScaleValue, property.PropertyType.MaxValue ?? maxPrecisionScaleValue);
+                case DbType.Currency:
+                    var rangeMinValue = property.PropertyType.MinValue;
+                    var rangeMaxValue = property.PropertyType.MaxValue;
 
                     if (rangeMinValue > rangeMaxValue)
                     {
@@ -128,7 +114,11 @@ namespace EdFi.Ods.CodeGen.Extensions
                             "A domain range was defined that does not fall within the range of values valid for storage by the API");
                     }
 
-                    return $"[Range(typeof(decimal), \"{rangeMinValue}\", \"{rangeMaxValue}\", ErrorMessage=ValidationHelpers.RangeMessageFormat)]";
+                    return string.Format(
+                        "[Range(typeof(decimal), \"{0}\", \"{1}\", ErrorMessage=ValidationHelpers.{2})]",
+                        rangeMinValue,
+                        rangeMaxValue,
+                        GetMessageFormat());
 
                 case DbType.Int32:
 
@@ -143,37 +133,25 @@ namespace EdFi.Ods.CodeGen.Extensions
                         property.PropertyType.MaxValue ?? int.MaxValue,
                         GetMessageFormat());
 
-                case DbType.Currency:
-                    var minCurrencyValue = -922337203685477.5808M;
-                    var maxCurrencyValue = 922337203685477.5807M;
-
-                    var rangeCurrencyMinValue = Math.Max(minCurrencyValue, property.PropertyType.MinValue ?? minCurrencyValue);
-                    var rangeCurrencyMaxValue = Math.Min(maxCurrencyValue, property.PropertyType.MaxValue ?? maxCurrencyValue);
-
-                    if (rangeCurrencyMinValue > rangeCurrencyMaxValue)
-                    {
-                        throw new ArgumentException(
-                            "A domain range was defined that does not fall within the range of values valid for storage by the API");
-                    }
-
-                    return $"[Range(typeof(decimal), \"{rangeCurrencyMinValue}\", \"{rangeCurrencyMaxValue}\", ErrorMessage=ValidationHelpers.{GetMessageFormat()})]";
-
                 default:
                     return null;
             }
 
             string GetMessageFormat()
             {
-                // Min value only?
-                if (property.PropertyType.MinValue.HasValue && !property.PropertyType.MaxValue.HasValue)
+                if (property.PropertyType.DbType != DbType.Decimal)
                 {
-                    return "RangeMinOnlyMessageFormat";
-                }
+                    // Min value only?
+                    if (property.PropertyType.MinValue.HasValue && !property.PropertyType.MaxValue.HasValue)
+                    {
+                        return "RangeMinOnlyMessageFormat";
+                    }
 
-                // Max value only?
-                if (!property.PropertyType.MinValue.HasValue && property.PropertyType.MaxValue.HasValue)
-                {
-                    return "RangeMaxOnlyMessageFormat";
+                    // Max value only?
+                    if (!property.PropertyType.MinValue.HasValue && property.PropertyType.MaxValue.HasValue)
+                    {
+                        return "RangeMaxOnlyMessageFormat";
+                    }
                 }
 
                 return "RangeMessageFormat";
