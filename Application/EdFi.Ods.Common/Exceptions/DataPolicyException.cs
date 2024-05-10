@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public class DataPolicyException : BadRequestException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "data-policy";
+    private const string TypePart = "data-policy-enforced";
     private const string TitleText = "Data Policy Enforced";
     private const string DefaultDetail =
         "The data cannot be saved because a data policy has been applied to the request that prevents it.";

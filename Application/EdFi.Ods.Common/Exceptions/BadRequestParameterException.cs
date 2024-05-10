@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public class BadRequestParameterException : BadRequestException
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "parameter";
+    private const string TypePart = "parameter-validation";
     private const string TitleText = "Parameter Validation Failed";
 
     public BadRequestParameterException(string detail, string[] errors)
