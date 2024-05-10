@@ -5145,6 +5145,67 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Invalid limit and offset",
+					"item": [
+						{
+							"name": "Get Deletes passing an invalid limit and offset",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400)\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that the limit and offset parameters are invalid.\", () => {\r",
+											"  const problemDetails = pm.response.json();\r",
+											"\r",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Parameters supplied to the request were invalid.\");\r",
+											"  pm.expect(problemDetails.title).to.equal(\"Parameter Validation Failed\");\r",
+											"  pm.expect(problemDetails.errors).contains(\"Limit must be omitted or set to a value between 1 and 500.\")\r",
+											"  pm.expect(problemDetails.errors).contains(\"Offset must be greater than or equal to 0.\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/deletes?limit=-1&offset=-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "-1"
+										},
+										{
+											"key": "offset",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -11676,6 +11737,67 @@
 										"ed-fi",
 										"nonExisting",
 										"deletes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invalid limit and offset",
+					"item": [
+						{
+							"name": "Get Key Changes passing an invalid limit and offset",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400)\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that the limit and offset parameters are invalid.\", () => {\r",
+											"  const problemDetails = pm.response.json();\r",
+											"\r",
+											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"Parameters supplied to the request were invalid.\");\r",
+											"  pm.expect(problemDetails.title).to.equal(\"Parameter Validation Failed\");\r",
+											"  pm.expect(problemDetails.errors).contains(\"Limit must be omitted or set to a value between 1 and 500.\")\r",
+											"  pm.expect(problemDetails.errors).contains(\"Offset must be greater than or equal to 0.\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/keyChanges?limit=-1&offset=-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "-1"
+										},
+										{
+											"key": "offset",
+											"value": "-1"
+										}
 									]
 								}
 							},

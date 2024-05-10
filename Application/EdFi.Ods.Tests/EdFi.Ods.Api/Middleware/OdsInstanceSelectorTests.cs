@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Security;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Test.Common;
 
 namespace EdFi.Ods.Api.Middleware.Tests
 {
@@ -56,7 +57,13 @@ namespace EdFi.Ods.Api.Middleware.Tests
             A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
 
             // Act + Assert
-            Assert.ThrowsAsync<SecurityConfigurationException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+            var problemDetails = Assert.ThrowsAsync<SecurityConfigurationException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+
+            AssertHelper.All(
+                () => problemDetails.Status.ShouldBe(500),
+                () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "system:configuration:security")),
+                () => problemDetails.Detail.ShouldBe("The security configuration for the client is incomplete. The request cannot be authorized.")
+            );
         }
 
         [Test]

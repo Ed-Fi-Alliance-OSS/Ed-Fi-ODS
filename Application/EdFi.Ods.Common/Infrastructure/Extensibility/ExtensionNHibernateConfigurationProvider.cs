@@ -228,6 +228,10 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                             .Where(c => !c.IsSelfReferencing)
                             .Select(CreateHbmSet));
 
+                var embeddedObjects = Enumerable.ToArray<object>(
+                    entity.NavigableOneToOnes
+                        .Select(CreateHbmSet));
+
                 var aggregateReferences = entity.GetAssociationsToReferenceableAggregateRoots()
                     .OrderBy(a => a.Name)
                     .Select(CreateHbmManyToOne)
@@ -242,6 +246,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                             .OrderBy(p => p.PropertyName)),
                     Items = collections
                         .Concat(aggregateReferences)
+                        .Concat(embeddedObjects)
                         .Concat(properties)
                         .ToArray()
                 };
@@ -272,6 +277,9 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                                 .OrderBy(pm => pm.ThisProperty.PropertyName)
                                 .Select(pm => pm.OtherProperty)),
                         name = association.Name,
+                        access = association.AssociationType == AssociationViewType.OneToOneOutgoing
+                            ? "EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common"
+                            : null,
                         cascade = "all-delete-orphan",
                         inverse = true,
                         lazy = HbmCollectionLazy.False,

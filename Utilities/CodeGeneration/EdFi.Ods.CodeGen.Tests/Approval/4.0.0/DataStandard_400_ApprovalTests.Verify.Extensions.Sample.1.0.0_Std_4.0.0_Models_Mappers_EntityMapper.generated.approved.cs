@@ -3913,6 +3913,37 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
+            // StudentArtProgramAssociationFavoriteBook (StudentArtProgramAssociationFavoriteBook)
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookSupported != false)
+            {
+                if (source.StudentArtProgramAssociationFavoriteBook == null)
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook != null)
+                    {
+                        target.StudentArtProgramAssociationFavoriteBook = null;
+                        isModified = true;
+                    }
+                }
+                else
+                {
+                    if (target.StudentArtProgramAssociationFavoriteBook == null)
+                    {
+                        var itemType = target.GetType().GetProperty("StudentArtProgramAssociationFavoriteBook").PropertyType;
+            
+                        if (!(mappingContract?.IsStudentArtProgramAssociationFavoriteBookCreatable ?? true))
+                        {
+                            string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+
+                            throw new DataPolicyException(profileName, itemType.Name);
+                        }
+
+                        var newItem = Activator.CreateInstance(itemType);
+                        target.StudentArtProgramAssociationFavoriteBook = (IStudentArtProgramAssociationFavoriteBook) newItem;
+                    }
+
+                    isModified |= source.StudentArtProgramAssociationFavoriteBook.Synchronize(target.StudentArtProgramAssociationFavoriteBook);
+                }
+            }
             // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus)
             if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {
@@ -4097,6 +4128,41 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
+            // StudentArtProgramAssociationFavoriteBook (StudentArtProgramAssociationFavoriteBook) (Source)
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookSupported != false)
+            {
+                var itemProperty = target.GetType().GetProperty("StudentArtProgramAssociationFavoriteBook");
+
+                if (itemProperty != null)
+                {
+                    if (source.StudentArtProgramAssociationFavoriteBook == null)
+                    {
+                        target.StudentArtProgramAssociationFavoriteBook = null;
+                    }
+                    else
+                    {
+                        var itemType = itemProperty.PropertyType;
+
+                        if (!(mappingContract?.IsStudentArtProgramAssociationFavoriteBookCreatable ?? true))
+                        {
+                            // If no potential data policy violation has been detected yet
+                            if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                            {
+                                // Make note of this potential data policy violation using context
+                                string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                                GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                            }
+                        }
+
+                        object targetStudentArtProgramAssociationFavoriteBook = Activator.CreateInstance(itemType);
+                        (targetStudentArtProgramAssociationFavoriteBook as IChildEntity)?.SetParent(target);
+                        source.StudentArtProgramAssociationFavoriteBook.Map(targetStudentArtProgramAssociationFavoriteBook);
+
+                        // Update the target reference appropriately
+                        target.StudentArtProgramAssociationFavoriteBook = (IStudentArtProgramAssociationFavoriteBook) targetStudentArtProgramAssociationFavoriteBook;
+                    }
+                }
+            }
             // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus) (Source)
             if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {
@@ -4219,6 +4285,185 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             target.ArtMediumDescriptor = source.ArtMediumDescriptor;
 
             // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentArtProgramAssociationFavoriteBookMapper
+    {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationFavoriteBook = new FullName("sample", "StudentArtProgramAssociationFavoriteBook");
+    
+        public static bool SynchronizeTo(this IStudentArtProgramAssociationFavoriteBook source, IStudentArtProgramAssociationFavoriteBook target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationFavoriteBook);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsBookTitleSupported != false)
+                && target.BookTitle != source.BookTitle)
+            {
+                target.BookTitle = source.BookTitle;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsFavoriteBookCategoryDescriptorSupported != false)
+                && target.FavoriteBookCategoryDescriptor != source.FavoriteBookCategoryDescriptor)
+            {
+                target.FavoriteBookCategoryDescriptor = source.FavoriteBookCategoryDescriptor;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediaSupported ?? true)
+            {
+                isModified |=
+                    source.StudentArtProgramAssociationFavoriteBookArtMedia.SynchronizeCollectionTo(
+                        target.StudentArtProgramAssociationFavoriteBookArtMedia,
+                        onChildAdded: child =>
+                            {
+                                child.StudentArtProgramAssociationFavoriteBook = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded?.Invoke(item) ?? true);
+            }
+
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentArtProgramAssociationFavoriteBook source, IStudentArtProgramAssociationFavoriteBook target, Action<IStudentArtProgramAssociationFavoriteBook, IStudentArtProgramAssociationFavoriteBook> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationFavoriteBook);
+    
+            // Copy contextual primary key values
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsBookTitleSupported != false)
+                target.BookTitle = source.BookTitle;
+
+            if (mappingContract?.IsFavoriteBookCategoryDescriptorSupported != false)
+                target.FavoriteBookCategoryDescriptor = source.FavoriteBookCategoryDescriptor;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediaSupported != false)
+            {
+                source.StudentArtProgramAssociationFavoriteBookArtMedia.MapCollectionTo(target.StudentArtProgramAssociationFavoriteBookArtMedia, mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediaItemCreatable ?? true, target, mappingContract?.IsStudentArtProgramAssociationFavoriteBookArtMediumIncluded);
+            }
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentArtProgramAssociationFavoriteBookArtMediumMapper
+    {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationFavoriteBookArtMedium = new FullName("sample", "StudentArtProgramAssociationFavoriteBookArtMedium");
+    
+        public static bool SynchronizeTo(this IStudentArtProgramAssociationFavoriteBookArtMedium source, IStudentArtProgramAssociationFavoriteBookArtMedium target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationFavoriteBookArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationFavoriteBookArtMedium);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsArtPiecesSupported != false)
+                && target.ArtPieces != source.ArtPieces)
+            {
+                target.ArtPieces = source.ArtPieces;
+                isModified = true;
+            }
+
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentArtProgramAssociationFavoriteBookArtMedium source, IStudentArtProgramAssociationFavoriteBookArtMedium target, Action<IStudentArtProgramAssociationFavoriteBookArtMedium, IStudentArtProgramAssociationFavoriteBookArtMedium> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationFavoriteBookArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationFavoriteBookArtMedium);
+    
+            // Copy contextual primary key values
+            target.ArtMediumDescriptor = source.ArtMediumDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsArtPiecesSupported != false)
+                target.ArtPieces = source.ArtPieces;
 
             // Copy Aggregate Reference Data
 

@@ -6876,6 +6876,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     {
         public StudentArtProgramAssociation()
         {
+           StudentArtProgramAssociationFavoriteBookPersistentList = new HashSet<StudentArtProgramAssociationFavoriteBook>();
             StudentArtProgramAssociationArtMedia = new HashSet<StudentArtProgramAssociationArtMedium>();
             StudentArtProgramAssociationPortfolioYears = new HashSet<StudentArtProgramAssociationPortfolioYears>();
             StudentArtProgramAssociationServices = new HashSet<StudentArtProgramAssociationService>();
@@ -7038,6 +7039,64 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        public virtual Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook
+        {
+            get
+            {
+                // Return the item in the list, if one exists
+                if (StudentArtProgramAssociationFavoriteBookPersistentList.Any())
+                    return StudentArtProgramAssociationFavoriteBookPersistentList.First();
+
+                // No reference is present
+                return null;
+            }
+            set
+            {
+                // Delete the existing object
+                if (StudentArtProgramAssociationFavoriteBookPersistentList.Any())
+                    StudentArtProgramAssociationFavoriteBookPersistentList.Clear();
+
+                // If we're setting a value, add it to the list now
+                if (value != null)
+                {
+                    // Set the back-reference to the parent
+                    value.StudentArtProgramAssociation = this;
+
+                    StudentArtProgramAssociationFavoriteBookPersistentList.Add(value);
+                }
+            }
+        }
+
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook Entities.Common.Sample.IStudentArtProgramAssociation.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return StudentArtProgramAssociationFavoriteBook; }
+            set { StudentArtProgramAssociationFavoriteBook = (Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook) value; }
+        }
+
+        private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> _studentArtProgramAssociationFavoriteBookPersistentList;
+
+        public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> StudentArtProgramAssociationFavoriteBookPersistentList
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentArtProgramAssociationFavoriteBookPersistentList)
+                    if (item.StudentArtProgramAssociation == null)
+                        item.StudentArtProgramAssociation = this;
+                // -------------------------------------------------------------
+
+                return _studentArtProgramAssociationFavoriteBookPersistentList;
+            }
+            set
+            {
+                _studentArtProgramAssociationFavoriteBookPersistentList = value;
+            }
+        }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7531,6 +7590,442 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         void IChildEntity.SetParent(object value)
         {
             StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentArtProgramAssociationFavoriteBook table of the StudentArtProgramAssociation aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBook : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentArtProgramAssociationFavoriteBook()
+        {
+            StudentArtProgramAssociationFavoriteBookArtMedia = new HashSet<StudentArtProgramAssociationFavoriteBookArtMedium>();
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore]
+        public virtual StudentArtProgramAssociation StudentArtProgramAssociation { get; set; }
+
+        Entities.Common.Sample.IStudentArtProgramAssociation IStudentArtProgramAssociationFavoriteBook.StudentArtProgramAssociation
+        {
+            get { return StudentArtProgramAssociation; }
+            set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string BookTitle  { get; set; }
+        public virtual int FavoriteBookCategoryDescriptorId 
+        {
+            get
+            {
+                if (_favoriteBookCategoryDescriptorId == default(int))
+                    _favoriteBookCategoryDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptor);
+
+                return _favoriteBookCategoryDescriptorId;
+            } 
+            set
+            {
+                _favoriteBookCategoryDescriptorId = value;
+                _favoriteBookCategoryDescriptor = null;
+            }
+        }
+
+        private int _favoriteBookCategoryDescriptorId;
+        private string _favoriteBookCategoryDescriptor;
+
+        public virtual string FavoriteBookCategoryDescriptor
+        {
+            get
+            {
+                if (_favoriteBookCategoryDescriptor == null)
+                    _favoriteBookCategoryDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptorId);
+                    
+                return _favoriteBookCategoryDescriptor;
+            }
+            set
+            {
+                _favoriteBookCategoryDescriptor = value;
+                _favoriteBookCategoryDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium> _studentArtProgramAssociationFavoriteBookArtMedia;
+        private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium> _studentArtProgramAssociationFavoriteBookArtMediaCovariant;
+        public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium> StudentArtProgramAssociationFavoriteBookArtMedia
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentArtProgramAssociationFavoriteBookArtMedia)
+                    if (item.StudentArtProgramAssociationFavoriteBook == null)
+                        item.StudentArtProgramAssociationFavoriteBook = this;
+                // -------------------------------------------------------------
+
+                return _studentArtProgramAssociationFavoriteBookArtMedia;
+            }
+            set
+            {
+                _studentArtProgramAssociationFavoriteBookArtMedia = value;
+                _studentArtProgramAssociationFavoriteBookArtMediaCovariant = new CovariantCollectionAdapter<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium, Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium> Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook.StudentArtProgramAssociationFavoriteBookArtMedia
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _studentArtProgramAssociationFavoriteBookArtMedia)
+                    if (item.StudentArtProgramAssociationFavoriteBook == null)
+                        item.StudentArtProgramAssociationFavoriteBook = this;
+                // -------------------------------------------------------------
+
+                return _studentArtProgramAssociationFavoriteBookArtMediaCovariant;
+            }
+            set
+            {
+                StudentArtProgramAssociationFavoriteBookArtMedia = new HashSet<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium>(value.Cast<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBookArtMedium>());
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "FavoriteBookCategoryDescriptor", new LookupColumnDetails { PropertyName = "FavoriteBookCategoryDescriptorId", LookupTypeName = "FavoriteBookCategoryDescriptor"} },
+                { "ProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "ProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentArtProgramAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
+        }
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentArtProgramAssociationFavoriteBookArtMedium table of the StudentArtProgramAssociation aggregate in the ODS database.
+    /// </summary>
+    [Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    public class StudentArtProgramAssociationFavoriteBookArtMedium : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentArtProgramAssociationFavoriteBookArtMedium()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore]
+        public virtual StudentArtProgramAssociationFavoriteBook StudentArtProgramAssociationFavoriteBook { get; set; }
+
+        Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBook IStudentArtProgramAssociationFavoriteBookArtMedium.StudentArtProgramAssociationFavoriteBook
+        {
+            get { return StudentArtProgramAssociationFavoriteBook; }
+            set { StudentArtProgramAssociationFavoriteBook = (StudentArtProgramAssociationFavoriteBook) value; }
+        }
+
+        [DomainSignature]
+        public virtual int ArtMediumDescriptorId 
+        {
+            get
+            {
+                if (_artMediumDescriptorId == default(int))
+                    _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
+
+                return _artMediumDescriptorId;
+            } 
+            set
+            {
+                _artMediumDescriptorId = value;
+                _artMediumDescriptor = null;
+            }
+        }
+
+        private int _artMediumDescriptorId;
+        private string _artMediumDescriptor;
+
+        public virtual string ArtMediumDescriptor
+        {
+            get
+            {
+                if (_artMediumDescriptor == null)
+                    _artMediumDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ArtMediumDescriptor", _artMediumDescriptorId);
+                    
+                return _artMediumDescriptor;
+            }
+            set
+            {
+                _artMediumDescriptor = value;
+                _artMediumDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int? ArtPieces  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "ArtMediumDescriptor", new LookupColumnDetails { PropertyName = "ArtMediumDescriptorId", LookupTypeName = "ArtMediumDescriptor"} },
+                { "ProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "ProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentArtProgramAssociationFavoriteBook as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("ArtMediumDescriptorId", ArtMediumDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((string) entry.Value, (string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
+            {
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
+            }
+
+            return hashCode.ToHashCode();
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentArtProgramAssociationFavoriteBookArtMedium) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentArtProgramAssociationFavoriteBook = (StudentArtProgramAssociationFavoriteBook) value;
         }
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only

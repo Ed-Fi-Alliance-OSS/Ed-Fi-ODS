@@ -58,6 +58,62 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Initialize Student that has no CreatedByOwnershipTokenId value assigned",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const __ = require('lodash');\r",
+											"let student = __.first(responseItems);\r",
+											"pm.environment.set('known:student.id',student.id);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -4205,6 +4261,229 @@
 							]
 						},
 						{
+							"name": "Client 1  not  RUD- Student that has no CreatedByOwnershipTokenId value assigned",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:invalid-data:ownership-uninitialized\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Authorization Denied\");",
+													"  pm.expect(problemDetails.errors).contain(\"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the 'OwnershipBased' authorization strategy.\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student.id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student.id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:invalid-data:ownership-uninitialized\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Authorization Denied\");",
+													"  pm.expect(problemDetails.errors).contain(\"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the 'OwnershipBased' authorization strategy.\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "9b9d80b1-7591-4a12-aeda-95b372cab33f"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentUniqueId\": \"123456789\",\r\n  \"birthDate\": \"2008-09-13\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student.id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student.id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const problemDetails = pm.response.json();",
+													"",
+													"pm.test(\"Should return a problem details result\", () => {",
+													"  pm.expect(pm.response.code).equal(problemDetails.status);",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:ownership:invalid-data:ownership-uninitialized\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized. The resource item is not owned by the caller.\");",
+													"  pm.expect(problemDetails.title).to.equal(\"Authorization Denied\");",
+													"  pm.expect(problemDetails.errors).contain(\"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the 'OwnershipBased' authorization strategy.\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"uuid": "851bd95b-8624-40d4-aa88-b34b58343a65"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student.id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student.id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Clean Up Test Data",
 							"item": [
 								{
@@ -5219,6 +5498,11 @@
 					"                  \"AccessToken_255901-B\",",
 					"                  \"ApiKey_255901-B\", ",
 					"                  \"ApiSecret_255901-B\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901\",",
+					"                  \"AccessToken_255901\",",
+					"                  \"ApiKey_255901\", ",
+					"                  \"ApiSecret_255901\")",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
