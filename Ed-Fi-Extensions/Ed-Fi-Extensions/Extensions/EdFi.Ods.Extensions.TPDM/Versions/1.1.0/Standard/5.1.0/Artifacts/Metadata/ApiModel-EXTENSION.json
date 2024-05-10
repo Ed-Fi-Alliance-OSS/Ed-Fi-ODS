@@ -621,7 +621,7 @@
           "propertyName": "BirthInternationalProvince",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -746,7 +746,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -764,7 +764,7 @@
           "propertyName": "GenerationCodeSuffix",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 10,
             "precision": 0,
             "scale": 0,
@@ -834,7 +834,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -852,7 +852,7 @@
           "propertyName": "MaidenName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -870,7 +870,7 @@
           "propertyName": "MiddleName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -906,7 +906,7 @@
           "propertyName": "PersonalTitlePrefix",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -924,7 +924,7 @@
           "propertyName": "PreferredFirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -942,7 +942,7 @@
           "propertyName": "PreferredLastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -998,7 +998,7 @@
           "propertyName": "ApartmentRoomSuiteNumber",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 50,
             "precision": 0,
             "scale": 0,
@@ -1016,7 +1016,7 @@
           "propertyName": "BuildingSiteNumber",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -1052,7 +1052,7 @@
           "propertyName": "CongressionalDistrict",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -1123,7 +1123,7 @@
           "propertyName": "Latitude",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -1141,7 +1141,7 @@
           "propertyName": "Longitude",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -1159,13 +1159,13 @@
           "propertyName": "NameOfCounty",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1177,7 +1177,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -1195,7 +1195,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -1346,7 +1346,7 @@
           "propertyName": "DisabilityDiagnosis",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 80,
             "precision": 0,
             "scale": 0,
@@ -1938,7 +1938,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1956,7 +1956,7 @@
           "propertyName": "GenerationCodeSuffix",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 10,
             "precision": 0,
             "scale": 0,
@@ -1974,7 +1974,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -1992,7 +1992,7 @@
           "propertyName": "MiddleName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -2010,7 +2010,7 @@
           "propertyName": "PersonalTitlePrefix",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 30,
             "precision": 0,
             "scale": 0,
@@ -2090,7 +2090,7 @@
           "propertyName": "DocumentTitle",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -2108,7 +2108,7 @@
           "propertyName": "IssuerDocumentIdentificationCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -2126,7 +2126,7 @@
           "propertyName": "IssuerName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -2269,7 +2269,7 @@
           "propertyName": "TelephoneNumber",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 24,
             "precision": 0,
             "scale": 0,
@@ -2605,7 +2605,7 @@
           "propertyName": "ProgramId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -4355,7 +4355,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -4373,7 +4373,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -4584,7 +4584,7 @@
           "propertyName": "AidConditionDescription",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -5392,7 +5392,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -5410,7 +5410,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -5592,7 +5592,7 @@
           "propertyName": "CriterionDescription",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 1024,
             "precision": 0,
             "scale": 0,
@@ -6394,7 +6394,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6435,7 +6435,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -6965,7 +6965,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -7000,7 +7000,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -7077,7 +7077,7 @@
           "propertyName": "PostalCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 17,
             "precision": 0,
             "scale": 0,
@@ -7112,7 +7112,7 @@
           "propertyName": "StreetNumberName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 150,
             "precision": 0,
             "scale": 0,
@@ -9572,7 +9572,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9613,7 +9613,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9787,7 +9787,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9828,7 +9828,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -9943,7 +9943,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9984,7 +9984,7 @@
           "propertyName": "CredentialIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -11930,7 +11930,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -12128,7 +12128,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -12818,7 +12818,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -13034,7 +13034,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -13920,7 +13920,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14100,7 +14100,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14736,7 +14736,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -14934,7 +14934,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -15600,7 +15600,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -15744,7 +15744,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -15833,7 +15833,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15856,7 +15856,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -15885,7 +15885,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -15903,7 +15903,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15927,7 +15927,7 @@
           "propertyName": "LocalCourseCode",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -15950,7 +15950,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -15979,7 +15979,7 @@
           "propertyName": "SectionIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -15997,7 +15997,7 @@
           "propertyName": "SessionName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -16528,7 +16528,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16708,7 +16708,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -16962,7 +16962,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17142,7 +17142,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17231,7 +17231,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17272,7 +17272,7 @@
           "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17432,7 +17432,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17501,7 +17501,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -17519,7 +17519,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -17648,7 +17648,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -17717,7 +17717,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -17735,7 +17735,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -19137,7 +19137,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19178,7 +19178,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19654,7 +19654,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -19798,7 +19798,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20016,7 +20016,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20160,7 +20160,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20249,7 +20249,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20290,7 +20290,7 @@
           "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20414,7 +20414,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20483,7 +20483,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -20501,7 +20501,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -20594,7 +20594,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -20663,7 +20663,7 @@
           "propertyName": "FirstName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -20681,7 +20681,7 @@
           "propertyName": "LastSurname",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -21244,7 +21244,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The ID of the post secondary institution.",
+          "description": "The ID of the post secondary institution. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -21267,7 +21267,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The ID of the post secondary institution.",
+          "description": "The ID of the post secondary institution. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -21304,7 +21304,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21327,7 +21327,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21358,7 +21358,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21399,7 +21399,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21472,7 +21472,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21490,7 +21490,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21532,7 +21532,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21550,7 +21550,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21587,7 +21587,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21628,7 +21628,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21701,7 +21701,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21719,7 +21719,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21761,7 +21761,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21779,7 +21779,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21817,7 +21817,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21858,7 +21858,7 @@
           "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
@@ -21931,7 +21931,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21949,7 +21949,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -21967,7 +21967,7 @@
           "propertyName": "SurveySectionTitle",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,
@@ -22009,7 +22009,7 @@
           "propertyName": "SurveyIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -22027,7 +22027,7 @@
           "propertyName": "SurveyResponseIdentifier",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -22045,7 +22045,7 @@
           "propertyName": "SurveySectionTitle",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 255,
             "precision": 0,
             "scale": 0,

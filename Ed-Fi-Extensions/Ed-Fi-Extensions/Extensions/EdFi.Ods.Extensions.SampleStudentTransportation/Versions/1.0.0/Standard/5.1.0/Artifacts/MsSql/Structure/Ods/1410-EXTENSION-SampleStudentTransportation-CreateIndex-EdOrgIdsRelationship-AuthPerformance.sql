@@ -6,5 +6,5 @@
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentTransportation_SchoolId' AND object_id = OBJECT_ID('samplestudenttransportation.StudentTransportation')) 
 BEGIN
-    CREATE INDEX IX_StudentTransportation_SchoolId ON samplestudenttransportation.StudentTransportation(SchoolId) INCLUDE (Id)
+    CREATE INDEX IX_StudentTransportation_SchoolId ON [samplestudenttransportation].[StudentTransportation](SchoolId) INCLUDE (Id)
 END;

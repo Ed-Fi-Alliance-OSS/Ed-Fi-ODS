@@ -10,7 +10,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The bus that d
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Te bus that delivers the student home in the afternoon.', @level0type=N'SCHEMA', @level0name=N'samplestudenttransportation', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'PMBusNumber'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'samplestudenttransportation', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'SchoolId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.', @level0type=N'SCHEMA', @level0name=N'samplestudenttransportation', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'samplestudenttransportation', @level1type=N'TABLE', @level1name=N'StudentTransportation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO

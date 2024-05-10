@@ -189,7 +189,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -212,7 +212,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier assigned to a school.",
+          "description": "The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

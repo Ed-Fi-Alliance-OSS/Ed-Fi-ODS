@@ -197,7 +197,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -926,7 +926,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -950,7 +950,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,

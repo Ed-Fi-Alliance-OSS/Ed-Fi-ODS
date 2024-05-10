@@ -57,8 +57,7 @@ COMMENT ON COLUMN tpdm.CandidateAddress.DoNotPublishIndicator IS 'An indication 
 COMMENT ON COLUMN tpdm.CandidateAddress.Latitude IS 'The geographic latitude of the physical address.';
 COMMENT ON COLUMN tpdm.CandidateAddress.LocaleDescriptorId IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
 COMMENT ON COLUMN tpdm.CandidateAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN tpdm.CandidateAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in
-                      ''which an address is located.';
+COMMENT ON COLUMN tpdm.CandidateAddress.NameOfCounty IS 'The name of the county, parish, borough, or comparable unit (within a state) in which an address is located.';
 
 -- Extended Properties [tpdm].[CandidateAddressPeriod] --
 COMMENT ON TABLE tpdm.CandidateAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
@@ -403,7 +402,7 @@ COMMENT ON COLUMN tpdm.EvaluationRating.TermDescriptorId IS 'The term for the se
 COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
 COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingStatusDescriptorId IS 'The Status of the poerformance evaluation.';
 COMMENT ON COLUMN tpdm.EvaluationRating.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.EvaluationRating.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN tpdm.EvaluationRating.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN tpdm.EvaluationRating.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN tpdm.EvaluationRating.SessionName IS 'The identifier for the calendar for the academic session.';
 
@@ -626,8 +625,8 @@ COMMENT ON COLUMN tpdm.RubricRatingLevelDescriptor.RubricRatingLevelDescriptorId
 
 -- Extended Properties [tpdm].[SchoolExtension] --
 COMMENT ON TABLE tpdm.SchoolExtension IS '';
-COMMENT ON COLUMN tpdm.SchoolExtension.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SchoolExtension.PostSecondaryInstitutionId IS 'The ID of the post secondary institution.';
+COMMENT ON COLUMN tpdm.SchoolExtension.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
+COMMENT ON COLUMN tpdm.SchoolExtension.PostSecondaryInstitutionId IS 'The ID of the post secondary institution. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 
 -- Extended Properties [tpdm].[SurveyResponseExtension] --
 COMMENT ON TABLE tpdm.SurveyResponseExtension IS '';

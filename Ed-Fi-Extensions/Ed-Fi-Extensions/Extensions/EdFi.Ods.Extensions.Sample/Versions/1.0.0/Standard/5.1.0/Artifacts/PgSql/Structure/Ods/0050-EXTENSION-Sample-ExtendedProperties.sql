@@ -167,7 +167,7 @@ COMMENT ON COLUMN sample.MembershipTypeDescriptor.MembershipTypeDescriptorId IS 
 
 -- Extended Properties [sample].[SchoolCTEProgram] --
 COMMENT ON TABLE sample.SchoolCTEProgram IS 'A CTE program the school is known for.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.SchoolCTEProgram.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.SchoolCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
 COMMENT ON COLUMN sample.SchoolCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
 COMMENT ON COLUMN sample.SchoolCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
@@ -175,12 +175,12 @@ COMMENT ON COLUMN sample.SchoolCTEProgram.PrimaryCTEProgramIndicator IS 'A boole
 
 -- Extended Properties [sample].[SchoolDirectlyOwnedBus] --
 COMMENT ON TABLE sample.SchoolDirectlyOwnedBus IS 'Buses owned by the School directly.';
-COMMENT ON COLUMN sample.SchoolDirectlyOwnedBus.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.SchoolDirectlyOwnedBus.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.SchoolDirectlyOwnedBus.DirectlyOwnedBusId IS 'The unique identifier for the bus.';
 
 -- Extended Properties [sample].[SchoolExtension] --
 COMMENT ON TABLE sample.SchoolExtension IS '';
-COMMENT ON COLUMN sample.SchoolExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.SchoolExtension.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.SchoolExtension.IsExemplary IS 'An indication as to whether the school is exemplary.';
 
 -- Extended Properties [sample].[StaffExtension] --
@@ -525,7 +525,7 @@ COMMENT ON COLUMN sample.StudentPetPreference.MinimumWeight IS 'The preferred mi
 -- Extended Properties [sample].[StudentSchoolAssociationExtension] --
 COMMENT ON TABLE sample.StudentSchoolAssociationExtension IS '';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school.';
-COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.MembershipTypeDescriptorId IS 'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.';
 
@@ -533,7 +533,7 @@ COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.MembershipTypeDescrip
 COMMENT ON TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 IS 'Programs which this student is participating in that is supported by this coursework.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SessionName IS 'The identifier for the calendar for the academic session.';
