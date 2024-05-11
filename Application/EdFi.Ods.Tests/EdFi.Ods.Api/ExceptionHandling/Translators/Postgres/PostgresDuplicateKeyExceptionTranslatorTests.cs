@@ -193,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
-                    () => actualError.Detail.ShouldBe("The identifying value(s) of the resource item are the same as another resource item that already exists."), 
+                    () => actualError.Detail.ShouldBe("The identifying value(s) of the data item are the same as another data item that already exists."), 
                     () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'EducationOrganization' table.") 
                 );
             }
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-identity")),
-                    () => actualError.Detail.ShouldBe("The identifying value(s) of the resource item are the same as another resource item that already exists."), 
+                    () => actualError.Detail.ShouldBe("The identifying value(s) of the data item are the same as another data item that already exists."), 
                     () => actualError.Errors.Single().ShouldBe("A primary key conflict occurred when attempting to create or update a record in the 'StudentSchoolAssociation' table.") 
                 );
             }
@@ -295,7 +295,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "conflict:non-unique-values")),
-                    () => actualError.Detail.ShouldBe("A value (or values) in the resource item must be unique, but another resource item with these values already exists.")
+                    () => actualError.Detail.ShouldBe("A value (or values) in the data item must be unique, but another data item with these values already exists.")
                 );
             }
         }

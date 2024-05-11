@@ -1757,12 +1757,13 @@
 													"  const problemDetails = pm.response.json();",
 													"",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'EducationOrganizationId' value./);",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'EducationOrganizationId' value./);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1783,7 +1784,8 @@
 													"",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1836,12 +1838,13 @@
 													"  const problemDetails = pm.response.json();",
 													"",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'EducationOrganizationId' value./);",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'EducationOrganizationId' value./);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1862,7 +1865,8 @@
 													"",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -3208,12 +3212,13 @@
 															"    const problemDetails = pm.response.json();\r",
 															"\r",
 															"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-															"    pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ProgramEducationOrganizationId' value./);\r",
+															"    pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ProgramEducationOrganizationId' value./);\r",
 															"  });\r",
 															"}"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -3442,12 +3447,13 @@
 															"    const problemDetails = pm.response.json();\r",
 															"\r",
 															"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-															"    pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ProgramEducationOrganizationId' value./);\r",
+															"    pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ProgramEducationOrganizationId' value./);\r",
 															"  });\r",
 															"}"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -3562,12 +3568,13 @@
 															"    const problemDetails = pm.response.json();\r",
 															"\r",
 															"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-															"    pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ProgramEducationOrganizationId' value./);\r",
+															"    pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+															"    pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ProgramEducationOrganizationId' value./);\r",
 															"  });\r",
 															"}"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -5268,12 +5275,12 @@
 													"pm.test(\"Should return a problem details result for dependent item exists\", () => {",
 													"  pm.expect(problemDetails).to.deep.include({",
 													"    \"type\": \"urn:ed-fi:api:conflict:dependent-item-exists\",",
-													"    \"title\": \"Dependent Resource Item Exists\",",
+													"    \"title\": \"Dependent Data Item Exists\",",
 													"    \"status\": 409",
 													"  });",
 													"",
 													"  const parentOrContact = pm.environment.get(\"ParentOrContactProperName\");",
-													"  const expectedDetail = `The requested action cannot be performed because this resource item is referenced by an existing 'Student${parentOrContact}Association' resource item.`;",
+													"  const expectedDetail = `The requested action cannot be performed because this data item is referenced by an existing 'Student${parentOrContact}Association' data item.`;",
 													"",
 													"  pm.expect(problemDetails.detail).to.equal(expectedDetail);",
 													"});"
@@ -5601,15 +5608,16 @@
 													"",
 													"pm.test(\"Should return appropriate problem details for authorization failure.\", () => {",
 													"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-													"    pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");",
-													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's '(Parent|Contact)UniqueId' value./);",
+													"    pm.expect(problemDetails.detail).to.contain(\"Access to the data could not be authorized.\");",
+													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's '(Parent|Contact)UniqueId' value./);",
 													"});",
 													"",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association'`, () => {",
-													"    pm.expect(problemDetails.detail).to.contain(`You may need to create corresponding 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association' resource items.`);",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create corresponding 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association' data items.`);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -5620,7 +5628,8 @@
 													"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"gotmarried\");",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -5752,12 +5761,12 @@
 													"",
 													"pm.test(\"Should return appropriate problem details for authorization failure.\", () => {",
 													"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-													"    pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");",
-													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'StudentUniqueId' value./);",
+													"    pm.expect(problemDetails.detail).to.contain(\"Access to the data could not be authorized.\");",
+													"    pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'StudentUniqueId' value./);",
 													"});",
 													"",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {",
-													"    pm.expect(problemDetails.detail).to.contain(`You may need to create a corresponding 'StudentSchoolAssociation' resource item.`);",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create a corresponding 'StudentSchoolAssociation' data item.`);",
 													"});",
 													"",
 													"const scenarioId = pm.environment.get('scenarioId');",
@@ -5765,7 +5774,8 @@
 													"pm.environment.set('known:'+scenarioId+':unexistingResponseErrors',problemDetails.errors);",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -5775,7 +5785,8 @@
 													"const scenarioId = pm.environment.get('scenarioId');\r",
 													"pm.environment.set('known:'+scenarioId+':unexitingStudentUniqueId',\"98987676\");"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6127,12 +6138,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6193,12 +6205,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6254,12 +6267,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6315,12 +6329,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6424,12 +6439,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6486,12 +6502,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6548,12 +6565,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6660,15 +6678,16 @@
 													"pm.test(\"Should return a problem details result\", () => {\r",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Error should indicate that client doesn't have access to the ParentEducationOrganizationId\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'ParentEducationOrganizationId' value./);\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'ParentEducationOrganizationId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6765,11 +6784,12 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors[0]).to.equal(\"No relationships have been established between the caller's education organization id claims (none) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors[0]).to.equal(\"No relationships have been established between the caller's education organization id claims (none) and the data item's 'ParentEducationOrganizationId' value.\");\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6822,12 +6842,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors[0]).to.equal(\"No relationships have been established between the caller's education organization id claims (none) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors[0]).to.equal(\"No relationships have been established between the caller's education organization id claims (none) and the data item's 'ParentEducationOrganizationId' value.\");\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -8218,15 +8239,16 @@
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and one or more of the following properties of the data item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
 													"\r",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {\r",
-													"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' resource item.\");\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' data item.\");\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -8290,12 +8312,13 @@
 													"\r",
 													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.contain(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and one or more of the following properties of the data item: 'ResponsibilitySchoolId', 'StudentUniqueId'./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -9256,12 +9279,13 @@
 															"  const problemDetails = pm.response.json();\r",
 															"\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-															"  pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+															"  pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 															"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -9318,13 +9342,14 @@
 															"\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-															"  pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The existing 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+															"  pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The existing 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 															"\r",
 															"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -9381,13 +9406,14 @@
 															"\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-															"  pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The existing 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+															"  pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The existing 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 															"\r",
 															"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -9744,11 +9770,12 @@
 																	"  const problemDetails = pm.response.json();\r",
 																	"\r",
 																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-																	"  pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+																	"  pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 																	"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 																	"});"
 																],
-																"type": "text/javascript"
+																"type": "text/javascript",
+																"packages": {}
 															}
 														}
 													],
@@ -10123,7 +10150,8 @@
 																"exec": [
 																	"pm.environment.set('supplied:learningObjectiveId:child', pm.variables.replaceIn(\"{{$guid}}\"));"
 																],
-																"type": "text/javascript"
+																"type": "text/javascript",
+																"packages": {}
 															}
 														},
 														{
@@ -10139,12 +10167,13 @@
 																	"    const problemDetails = pm.response.json();\r",
 																	"\r",
 																	"    pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-																	"    pm.expect(problemDetails.detail).to.match(/^Access to the resource could not be authorized. The 'Namespace' value of the resource does not start with any of the caller's associated namespace prefixes/);\r",
+																	"    pm.expect(problemDetails.detail).to.match(/^Access to the data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 																	"    pm.expect(problemDetails.errors).to.be.undefined;\r",
 																	"  })\r",
 																	"}"
 																],
-																"type": "text/javascript"
+																"type": "text/javascript",
+																"packages": {}
 															}
 														}
 													],
@@ -13043,7 +13072,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -13060,12 +13090,13 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Access to the resource could not be authorized.\");\r",
-													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'SchoolId' value./);\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");\r",
+													"  pm.expect(problemDetails.errors).to.match(/No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'SchoolId' value./);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],

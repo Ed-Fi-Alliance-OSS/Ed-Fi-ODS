@@ -1760,19 +1760,20 @@
 													"  pm.expect(pm.response.code).to.equal(405); // TODO: ODS-6143 - Change to 403",
 													"});",
 													"",
-													"pm.test(\"Should return a message indicating there is no Readable content type available to the caller for the requested resource\", () => {",
+													"pm.test(\"Should return a message indicating there is no Readable content type available to the caller for the requested data\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:security:authorization:composite:not-readable\");",
-													"  pm.expect(responseItem.title).to.equal(\"Composite Resource Not Readable\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The resource cannot be read due to a data policy.\");",
+													"  pm.expect(responseItem.title).to.equal(\"Composite Data Not Readable\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The data cannot be read due to a data policy.\");",
 													"",
-													"  pm.expect(responseItem.errors).to.contain(\"The composite's root resource 'School' is not readable because the API client has been assigned a Profile covering that resource which only supports writes.\");",
+													"  pm.expect(responseItem.errors).to.contain(\"The composite's root data 'School' is not readable because the API client has been assigned a Profile covering that data which only supports writes.\");",
 													"",
-													"  pm.expect(responseItem.errors).to.contain(\"There is no readable content type available to the caller for the 'School' resource in the following profiles: 'Test-Profile-Resource-WriteOnly'.\");",
+													"  pm.expect(responseItem.errors).to.contain(\"There is no readable content type available to the caller for the 'School' data in the following profiles: 'Test-Profile-Resource-WriteOnly'.\");",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1781,7 +1782,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],

@@ -39,7 +39,7 @@ public class ProblemDetailsErrorEnrichmentMiddleware : IMiddleware
         {
             var problemDetails = new NotFoundException(
                 NotFoundException.DefaultDetail,
-                $"Path '{context.Request.Path}' does not exist. Check the resource name and try again.");
+                $"Path '{context.Request.Path}' does not exist. Check the data name and try again.");
 
             string correlationId = _logContextAccessor.GetCorrelationId();
             problemDetails.CorrelationId = correlationId;

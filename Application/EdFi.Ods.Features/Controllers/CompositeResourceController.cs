@@ -175,7 +175,7 @@ namespace EdFi.Ods.Features.Controllers
                     if (!Guid.TryParse(idAsObject.ToString(), out Guid id))
                     {
                         throw new BadRequestParameterException(
-                            "The supplied resource identifier is invalid.",
+                            "The supplied data identifier is invalid.",
                             new []{ "The identifier could not be processed as a GUID."});
                     }
 

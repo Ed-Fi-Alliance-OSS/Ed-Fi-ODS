@@ -11077,7 +11077,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -11092,10 +11093,11 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the Student resource cannot be changed. Delete and recreate the resource item instead.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the Student data cannot be changed. Delete and recreate the data item instead.\");\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11141,7 +11143,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -11160,12 +11163,13 @@
 													"\r",
 													"    let parentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");\r",
 													"  \r",
-													"    pm.expect(problemDetails.detail).to.equal(`Identifying values for the ${parentOrContactProperName} resource cannot be changed. Delete and recreate the resource item instead.`);\r",
+													"    pm.expect(problemDetails.detail).to.equal(`Identifying values for the ${parentOrContactProperName} data cannot be changed. Delete and recreate the data item instead.`);\r",
 													"  });\r",
 													"}\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11667,16 +11671,17 @@
 											"  pm.expect(pm.response.code).to.equal(404)\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return a message indicating that the resource could not be found.\", () => {\r",
+											"pm.test(\"Should return a message indicating that the data could not be found.\", () => {\r",
 											"  const problemDetails = pm.response.json();\r",
 											"\r",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-											"  pm.expect(problemDetails.detail).to.equal(\"The specified resource could not be found.\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The specified data could not be found.\");\r",
 											"\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -11710,16 +11715,17 @@
 											"  pm.expect(pm.response.code).to.equal(404)\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return a message indicating that the resource could not be found.\", () => {\r",
+											"pm.test(\"Should return a message indicating that the data could not be found.\", () => {\r",
 											"  const problemDetails = pm.response.json();\r",
 											"\r",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-											"  pm.expect(problemDetails.detail).to.equal(\"The specified resource could not be found.\");\r",
+											"  pm.expect(problemDetails.detail).to.equal(\"The specified data could not be found.\");\r",
 											"\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],

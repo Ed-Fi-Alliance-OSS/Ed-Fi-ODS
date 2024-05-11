@@ -14,7 +14,7 @@ public class NonUniqueValuesException : ConflictException
     private const string TitleText = "Non-Unique Values";
 
     public const string DefaultDetail =
-        "A value (or values) in the resource item must be unique, but another resource item with these values already exists.";
+        "A value (or values) in the data item must be unique, but another data item with these values already exists.";
     
     public NonUniqueValuesException(string detail)
         : base(detail) { }

@@ -147,10 +147,10 @@ public class EnforceAssignedProfileUsageFilter : IAsyncResourceFilter
             bool hasSingleProfile = assignedProfilesForRequest.Length == 1;
 
             string errorMessage =
-                $"Based on profile assignments, {(hasSingleProfile ? null : "one of ")}the following profile-specific content type{(hasSingleProfile ? null : "s")} is required when {(relevantContentTypeUsage == ContentTypeUsage.Readable ? "requesting" : "creating or updating")} this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
+                $"Based on profile assignments, {(hasSingleProfile ? null : "one of ")}the following profile-specific content type{(hasSingleProfile ? null : "s")} is required when {(relevantContentTypeUsage == ContentTypeUsage.Readable ? "requesting" : "creating or updating")} this item: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
             var problemDetails = new SecurityDataPolicyException(
-                SecurityDataPolicyException.DefaultDetail + " The request was not constructed correctly for the data policy that has been applied to this resource for the caller.",
+                SecurityDataPolicyException.DefaultDetail + " The request was not constructed correctly for the data policy that has been applied to this data for the caller.",
                 errorMessage)
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId(),

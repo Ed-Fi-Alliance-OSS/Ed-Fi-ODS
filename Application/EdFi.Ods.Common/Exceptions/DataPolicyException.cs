@@ -16,13 +16,13 @@ public class DataPolicyException : BadRequestException
     private const string TypePart = "data-policy";
     private const string TitleText = "Data Policy Enforced";
     private const string DefaultDetail =
-        "The resource cannot be saved because a data policy has been applied to the request that prevents it.";
+        "The data cannot be saved because a data policy has been applied to the request that prevents it.";
 
     private const string ResourceMessageFormat =
-        "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create the resource.";
+        "The Profile definition for '{0}' excludes (or does not include) one or more required elements needed to create the data item.";
 
     private const string ResourceChildMessageFormat =
-        "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create a child item of type '{1}' in the resource.";
+        "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create a child item of type '{1}' in the data.";
     
     public DataPolicyException(string profileName)
         : base(DefaultDetail)

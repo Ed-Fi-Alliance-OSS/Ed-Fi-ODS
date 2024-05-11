@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Exceptions
 
         private const int StatusValue = StatusCodes.Status304NotModified;
 
-        private const string DefaultDetail = "The specified resource has not changed since it was last retrieved.";
+        private const string DefaultDetail = "The specified data has not changed since it was last retrieved.";
 
         public NotModifiedException()
             : base(DefaultDetail, DefaultDetail) { }

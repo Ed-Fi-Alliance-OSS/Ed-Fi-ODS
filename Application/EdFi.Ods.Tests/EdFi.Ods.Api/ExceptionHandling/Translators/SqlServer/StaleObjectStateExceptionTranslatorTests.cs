@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "The resource item was modified or deleted by another user while processing the request. Resending this request will either recreate the item, or introduce of copy with a different identifier.");
+                    "The data item was modified or deleted by another user while processing the request. Resending this request will either recreate the item, or introduce of copy with a different identifier.");
             }
 
             [Test]

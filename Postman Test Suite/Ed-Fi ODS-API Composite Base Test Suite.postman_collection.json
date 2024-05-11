@@ -175,16 +175,17 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
+													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -193,7 +194,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -229,16 +231,17 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
+													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -247,7 +250,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -289,16 +293,17 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
+													"pm.test(\"Should return a message indicating the supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -307,7 +312,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -343,16 +349,17 @@
 													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
-													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
+													"pm.test(\"Should return a message indicating The supplied data identifier is invalid.\", () => {",
 													"  const responseItem = pm.response.json();",
 													"",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:bad-request:parameter\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The supplied data identifier is invalid.\");",
 													"  pm.expect(responseItem.errors[0]).to.equal(\"The identifier could not be processed as a GUID.\");",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -361,7 +368,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -746,7 +754,7 @@
 													"",
 													"  pm.expect(pm.response.code).equal(responseItem.status);\r",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:not-found\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The specified resource item could not be found.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The specified data item could not be found.\");",
 													"  pm.expect(responseItem.title).to.equal(\"Not Found\");",
 													"});",
 													""
