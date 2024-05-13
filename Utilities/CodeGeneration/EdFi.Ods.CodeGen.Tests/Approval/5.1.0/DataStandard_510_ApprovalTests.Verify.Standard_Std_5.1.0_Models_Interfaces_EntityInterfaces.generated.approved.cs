@@ -18647,6 +18647,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ImmunizationTypeDescriptor model.
+    /// </summary>
+    public interface IImmunizationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int ImmunizationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class ImmunizationTypeDescriptorMappingContract : IMappingContract
+    {
+        public ImmunizationTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ImmunizationTypeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the IncidentLocationDescriptor model.
     /// </summary>
     public interface IIncidentLocationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -24918,6 +24994,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortDescriptionSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "NetworkPurposeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the NonMedicalImmunizationExemptionDescriptor model.
+    /// </summary>
+    public interface INonMedicalImmunizationExemptionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int NonMedicalImmunizationExemptionDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class NonMedicalImmunizationExemptionDescriptorMappingContract : IMappingContract
+    {
+        public NonMedicalImmunizationExemptionDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "NonMedicalImmunizationExemptionDescriptorId":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -43483,6 +43635,405 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "Namespace":
                     return true;
                 case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentHealth model.
+    /// </summary>
+    public interface IStudentHealth : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime AsOfDate { get; set; }
+        DateTime? NonMedicalImmunizationExemptionDate { get; set; }
+        string NonMedicalImmunizationExemptionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentHealthAdditionalImmunization> StudentHealthAdditionalImmunizations { get; set; }
+        ICollection<IStudentHealthRequiredImmunization> StudentHealthRequiredImmunizations { get; set; }
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentHealthMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentHealthMappingContract(
+            bool isAsOfDateSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isNonMedicalImmunizationExemptionDateSupported,
+            bool isNonMedicalImmunizationExemptionDescriptorSupported,
+            bool isStudentHealthAdditionalImmunizationsSupported,
+            bool isStudentHealthRequiredImmunizationsSupported,
+            bool isStudentReferenceSupported,
+            bool isStudentHealthAdditionalImmunizationsItemCreatable,
+            Func<IStudentHealthAdditionalImmunization, bool> isStudentHealthAdditionalImmunizationIncluded,
+            bool isStudentHealthRequiredImmunizationsItemCreatable,
+            Func<IStudentHealthRequiredImmunization, bool> isStudentHealthRequiredImmunizationIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAsOfDateSupported = isAsOfDateSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsNonMedicalImmunizationExemptionDateSupported = isNonMedicalImmunizationExemptionDateSupported;
+            IsNonMedicalImmunizationExemptionDescriptorSupported = isNonMedicalImmunizationExemptionDescriptorSupported;
+            IsStudentHealthAdditionalImmunizationsSupported = isStudentHealthAdditionalImmunizationsSupported;
+            IsStudentHealthRequiredImmunizationsSupported = isStudentHealthRequiredImmunizationsSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentHealthAdditionalImmunizationsItemCreatable = isStudentHealthAdditionalImmunizationsItemCreatable;
+            IsStudentHealthAdditionalImmunizationIncluded = isStudentHealthAdditionalImmunizationIncluded;
+            IsStudentHealthRequiredImmunizationsItemCreatable = isStudentHealthRequiredImmunizationsItemCreatable;
+            IsStudentHealthRequiredImmunizationIncluded = isStudentHealthRequiredImmunizationIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAsOfDateSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsNonMedicalImmunizationExemptionDateSupported { get; }
+        public bool IsNonMedicalImmunizationExemptionDescriptorSupported { get; }
+        public bool IsStudentHealthAdditionalImmunizationsSupported { get; }
+        public bool IsStudentHealthRequiredImmunizationsSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentHealthAdditionalImmunizationsItemCreatable { get; }
+        public Func<IStudentHealthAdditionalImmunization, bool> IsStudentHealthAdditionalImmunizationIncluded { get; }
+        public bool IsStudentHealthRequiredImmunizationsItemCreatable { get; }
+        public Func<IStudentHealthRequiredImmunization, bool> IsStudentHealthRequiredImmunizationIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AsOfDate":
+                    return IsAsOfDateSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "NonMedicalImmunizationExemptionDate":
+                    return IsNonMedicalImmunizationExemptionDateSupported;
+                case "NonMedicalImmunizationExemptionDescriptor":
+                    return IsNonMedicalImmunizationExemptionDescriptorSupported;
+                case "StudentHealthAdditionalImmunizations":
+                    return IsStudentHealthAdditionalImmunizationsSupported;
+                case "StudentHealthRequiredImmunizations":
+                    return IsStudentHealthRequiredImmunizationsSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentHealthAdditionalImmunizations":
+                    return IsStudentHealthAdditionalImmunizationsItemCreatable;
+                case "StudentHealthRequiredImmunizations":
+                    return IsStudentHealthRequiredImmunizationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentHealthAdditionalImmunization model.
+    /// </summary>
+    public interface IStudentHealthAdditionalImmunization : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentHealth StudentHealth { get; set; }
+        
+        string ImmunizationName { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentHealthAdditionalImmunizationDate> StudentHealthAdditionalImmunizationDates { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentHealthAdditionalImmunizationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentHealthAdditionalImmunizationMappingContract(
+            bool isStudentHealthAdditionalImmunizationDatesSupported,
+            bool isStudentHealthAdditionalImmunizationDatesItemCreatable,
+            Func<IStudentHealthAdditionalImmunizationDate, bool> isStudentHealthAdditionalImmunizationDateIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsStudentHealthAdditionalImmunizationDatesSupported = isStudentHealthAdditionalImmunizationDatesSupported;
+            IsStudentHealthAdditionalImmunizationDatesItemCreatable = isStudentHealthAdditionalImmunizationDatesItemCreatable;
+            IsStudentHealthAdditionalImmunizationDateIncluded = isStudentHealthAdditionalImmunizationDateIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsStudentHealthAdditionalImmunizationDatesSupported { get; }
+        public bool IsStudentHealthAdditionalImmunizationDatesItemCreatable { get; }
+        public Func<IStudentHealthAdditionalImmunizationDate, bool> IsStudentHealthAdditionalImmunizationDateIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentHealthAdditionalImmunizationDates":
+                    return IsStudentHealthAdditionalImmunizationDatesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ImmunizationName":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentHealthAdditionalImmunizationDates":
+                    return IsStudentHealthAdditionalImmunizationDatesItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentHealthAdditionalImmunizationDate model.
+    /// </summary>
+    public interface IStudentHealthAdditionalImmunizationDate : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentHealthAdditionalImmunization StudentHealthAdditionalImmunization { get; set; }
+        
+        DateTime ImmunizationDate { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentHealthAdditionalImmunizationDateMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentHealthAdditionalImmunizationDateMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ImmunizationDate":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentHealthRequiredImmunization model.
+    /// </summary>
+    public interface IStudentHealthRequiredImmunization : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentHealth StudentHealth { get; set; }
+        
+        string ImmunizationTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        string MedicalExemption { get; set; }
+        DateTime? MedicalExemptionDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentHealthRequiredImmunizationDate> StudentHealthRequiredImmunizationDates { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentHealthRequiredImmunizationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentHealthRequiredImmunizationMappingContract(
+            bool isMedicalExemptionSupported,
+            bool isMedicalExemptionDateSupported,
+            bool isStudentHealthRequiredImmunizationDatesSupported,
+            bool isStudentHealthRequiredImmunizationDatesItemCreatable,
+            Func<IStudentHealthRequiredImmunizationDate, bool> isStudentHealthRequiredImmunizationDateIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsMedicalExemptionSupported = isMedicalExemptionSupported;
+            IsMedicalExemptionDateSupported = isMedicalExemptionDateSupported;
+            IsStudentHealthRequiredImmunizationDatesSupported = isStudentHealthRequiredImmunizationDatesSupported;
+            IsStudentHealthRequiredImmunizationDatesItemCreatable = isStudentHealthRequiredImmunizationDatesItemCreatable;
+            IsStudentHealthRequiredImmunizationDateIncluded = isStudentHealthRequiredImmunizationDateIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsMedicalExemptionSupported { get; }
+        public bool IsMedicalExemptionDateSupported { get; }
+        public bool IsStudentHealthRequiredImmunizationDatesSupported { get; }
+        public bool IsStudentHealthRequiredImmunizationDatesItemCreatable { get; }
+        public Func<IStudentHealthRequiredImmunizationDate, bool> IsStudentHealthRequiredImmunizationDateIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "MedicalExemption":
+                    return IsMedicalExemptionSupported;
+                case "MedicalExemptionDate":
+                    return IsMedicalExemptionDateSupported;
+                case "StudentHealthRequiredImmunizationDates":
+                    return IsStudentHealthRequiredImmunizationDatesSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ImmunizationTypeDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentHealthRequiredImmunizationDates":
+                    return IsStudentHealthRequiredImmunizationDatesItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentHealthRequiredImmunizationDate model.
+    /// </summary>
+    public interface IStudentHealthRequiredImmunizationDate : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentHealthRequiredImmunization StudentHealthRequiredImmunization { get; set; }
+        
+        DateTime ImmunizationDate { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentHealthRequiredImmunizationDateMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentHealthRequiredImmunizationDateMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "ImmunizationDate":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

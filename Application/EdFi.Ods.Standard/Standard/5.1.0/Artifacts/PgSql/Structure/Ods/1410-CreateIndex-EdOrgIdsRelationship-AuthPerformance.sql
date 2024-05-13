@@ -126,6 +126,8 @@ CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationAssociation_EducationO
 
 CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationResponsibilityAssociation_EducationOrganizationId ON edfi.StudentEducationOrganizationResponsibilityAssociation(EducationOrganizationId) INCLUDE (Id);
 
+CREATE INDEX IF NOT EXISTS IX_StudentHealth_EducationOrganizationId ON edfi.StudentHealth(EducationOrganizationId) INCLUDE (Id);
+
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAssociation_EducationOrganizationId ON edfi.StudentInterventionAssociation(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentInterventionAttendanceEvent_EducationOrganizationId ON edfi.StudentInterventionAttendanceEvent(EducationOrganizationId) INCLUDE (Id);

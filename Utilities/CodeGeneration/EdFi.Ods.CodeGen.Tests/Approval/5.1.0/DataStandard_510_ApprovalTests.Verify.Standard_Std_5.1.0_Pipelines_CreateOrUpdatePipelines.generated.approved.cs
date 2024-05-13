@@ -779,6 +779,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ImmunizationTypeDescriptor.EdFi.ImmunizationTypeDescriptor, Entities.NHibernate.ImmunizationTypeDescriptorAggregate.EdFi.ImmunizationTypeDescriptor>
+    {
+        public ImmunizationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class IncidentLocationDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IncidentLocationDescriptor.EdFi.IncidentLocationDescriptor, Entities.NHibernate.IncidentLocationDescriptorAggregate.EdFi.IncidentLocationDescriptor>
     {
         public IncidentLocationDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1046,6 +1052,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class NetworkPurposeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.NetworkPurposeDescriptor.EdFi.NetworkPurposeDescriptor, Entities.NHibernate.NetworkPurposeDescriptorAggregate.EdFi.NetworkPurposeDescriptor>
     {
         public NetworkPurposeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.NonMedicalImmunizationExemptionDescriptor.EdFi.NonMedicalImmunizationExemptionDescriptor, Entities.NHibernate.NonMedicalImmunizationExemptionDescriptorAggregate.EdFi.NonMedicalImmunizationExemptionDescriptor>
+    {
+        public NonMedicalImmunizationExemptionDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1712,6 +1724,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentGradebookEntryCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentGradebookEntry.EdFi.StudentGradebookEntry, Entities.NHibernate.StudentGradebookEntryAggregate.EdFi.StudentGradebookEntry>
     {
         public StudentGradebookEntryCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentHealth.EdFi.StudentHealth, Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealth>
+    {
+        public StudentHealthCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

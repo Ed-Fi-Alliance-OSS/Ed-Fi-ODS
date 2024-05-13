@@ -4381,6 +4381,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ImmunizationTypeDescriptorAggregate.EdFi.ImmunizationTypeDescriptor" table="ImmunizationTypeDescriptor" lazy="false">
+          <key>
+            <column name="ImmunizationTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ImmunizationTypeDescriptorId" column="ImmunizationTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.IncidentLocationDescriptorAggregate.EdFi.IncidentLocationDescriptor" table="IncidentLocationDescriptor" lazy="false">
           <key>
             <column name="IncidentLocationDescriptorId" />
@@ -4822,6 +4836,20 @@
 
           <!-- PK properties -->
           <property name="NetworkPurposeDescriptorId" column="NetworkPurposeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.NonMedicalImmunizationExemptionDescriptorAggregate.EdFi.NonMedicalImmunizationExemptionDescriptor" table="NonMedicalImmunizationExemptionDescriptor" lazy="false">
+          <key>
+            <column name="NonMedicalImmunizationExemptionDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="NonMedicalImmunizationExemptionDescriptorId" column="NonMedicalImmunizationExemptionDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -16972,6 +17000,197 @@
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
     </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthReferenceData" table="StudentHealth" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealth" table="StudentHealth" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AsOfDate" column="AsOfDate" type="date" not-null="true" />
+    <property name="NonMedicalImmunizationExemptionDate" column="NonMedicalImmunizationExemptionDate" type="date" />
+    <property name="NonMedicalImmunizationExemptionDescriptorId" column="NonMedicalImmunizationExemptionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentHealthAdditionalImmunizations" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthAdditionalImmunization" />
+    </set>
+
+    <set name="StudentHealthRequiredImmunizations" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunization" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthAdditionalImmunization" table="StudentHealthAdditionalImmunization" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ImmunizationName" column="ImmunizationName" type="string" length="100" />
+      <key-many-to-one name="StudentHealth">
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentHealthAdditionalImmunizationDates" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="ImmunizationName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthAdditionalImmunizationDate" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthAdditionalImmunizationDate" table="StudentHealthAdditionalImmunizationDate" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ImmunizationDate" column="ImmunizationDate" type="date" />
+      <key-many-to-one name="StudentHealthAdditionalImmunization">
+        <column name="ImmunizationName" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunization" table="StudentHealthRequiredImmunization" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ImmunizationTypeDescriptorId" column="ImmunizationTypeDescriptorId" type="int" />
+      <key-many-to-one name="StudentHealth">
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MedicalExemption" column="MedicalExemption" type="string" length="1024" />
+    <property name="MedicalExemptionDate" column="MedicalExemptionDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentHealthRequiredImmunizationDates" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="ImmunizationTypeDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunizationDate" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunizationDate" table="StudentHealthRequiredImmunizationDate" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ImmunizationDate" column="ImmunizationDate" type="date" />
+      <key-many-to-one name="StudentHealthRequiredImmunization">
+        <column name="ImmunizationTypeDescriptorId" />
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
 
     <!-- Back references -->
 

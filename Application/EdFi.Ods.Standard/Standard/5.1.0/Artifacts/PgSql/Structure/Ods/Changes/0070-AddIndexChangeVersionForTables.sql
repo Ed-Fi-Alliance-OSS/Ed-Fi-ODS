@@ -187,6 +187,8 @@ CREATE INDEX IF NOT EXISTS UX_42aa64_ChangeVersion ON edfi.StudentEducationOrgan
 
 CREATE INDEX IF NOT EXISTS UX_c2efaa_ChangeVersion ON edfi.StudentGradebookEntry(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_12f7e6_ChangeVersion ON edfi.StudentHealth(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_25cb9c_ChangeVersion ON edfi.StudentInterventionAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_631023_ChangeVersion ON edfi.StudentInterventionAttendanceEvent(ChangeVersion);

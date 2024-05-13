@@ -2665,6 +2665,27 @@ ALTER TABLE [edfi].[IdentificationDocumentUseDescriptor] ENABLE TRIGGER [edfi_Id
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_ImmunizationTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ImmunizationTypeDescriptor_TR_DeleteTracking] ON [edfi].[ImmunizationTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.ImmunizationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.ImmunizationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ImmunizationTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[ImmunizationTypeDescriptor] ENABLE TRIGGER [edfi_ImmunizationTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_IncidentLocationDescriptor_TR_DeleteTracking]
 GO
 
@@ -3578,6 +3599,27 @@ END
 GO
 
 ALTER TABLE [edfi].[NetworkPurposeDescriptor] ENABLE TRIGGER [edfi_NetworkPurposeDescriptor_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_NonMedicalImmunizationExemptionDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_NonMedicalImmunizationExemptionDescriptor_TR_DeleteTracking] ON [edfi].[NonMedicalImmunizationExemptionDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.NonMedicalImmunizationExemptionDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.NonMedicalImmunizationExemptionDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.NonMedicalImmunizationExemptionDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[NonMedicalImmunizationExemptionDescriptor] ENABLE TRIGGER [edfi_NonMedicalImmunizationExemptionDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -5862,6 +5904,28 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentGradebookEntry] ENABLE TRIGGER [edfi_StudentGradebookEntry_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentHealth_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentHealth_TR_DeleteTracking] ON [edfi].[StudentHealth] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentHealth](OldEducationOrganizationId, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.EducationOrganizationId, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Student j0
+            ON d.StudentUSI = j0.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentHealth] ENABLE TRIGGER [edfi_StudentHealth_TR_DeleteTracking]
 GO
 
 

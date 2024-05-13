@@ -2332,6 +2332,23 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.identificationdocumentusedescri
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.identificationdocumentusedescriptor_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.immunizationtypedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.ImmunizationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.ImmunizationTypeDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.ImmunizationTypeDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'immunizationtypedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.immunizationtypedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.immunizationtypedescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.incidentlocationdescriptor_deleted()
     RETURNS trigger AS
 $BODY$
@@ -3122,6 +3139,23 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'networkpurposedescriptor') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.networkpurposedescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.networkpurposedescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.nonmedicalimmunizationexemptiondescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.NonMedicalImmunizationExemptionDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.NonMedicalImmunizationExemptionDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.NonMedicalImmunizationExemptionDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'nonmedicalimmunizationexemptiondescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.nonmedicalimmunizationexemptiondescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.nonmedicalimmunizationexemptiondescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.objectdimension_deleted()
@@ -5229,6 +5263,30 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studentgradebookentry') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studentgradebookentry 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentgradebookentry_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.studenthealth_deleted()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    dj0 edfi.student%ROWTYPE;
+BEGIN
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
+
+    INSERT INTO tracked_changes_edfi.studenthealth(
+        oldeducationorganizationid, oldstudentusi, oldstudentuniqueid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.educationorganizationid, OLD.studentusi, dj0.studentuniqueid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studenthealth') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studenthealth 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studenthealth_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.studentidentificationsystemdescriptor_deleted()

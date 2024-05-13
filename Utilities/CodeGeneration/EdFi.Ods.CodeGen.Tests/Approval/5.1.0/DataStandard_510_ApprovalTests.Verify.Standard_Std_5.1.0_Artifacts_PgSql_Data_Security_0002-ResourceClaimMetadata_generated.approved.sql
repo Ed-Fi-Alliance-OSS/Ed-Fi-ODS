@@ -679,6 +679,11 @@ begin
     values ('identificationDocumentUseDescriptor', 'http://ed-fi.org/ods/identity/claims/identificationDocumentUseDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='immunizationTypeDescriptor') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('immunizationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/immunizationTypeDescriptor', systemDescriptorsResourceClaimId);
+    END IF;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='incidentLocationDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('incidentLocationDescriptor', 'http://ed-fi.org/ods/identity/claims/incidentLocationDescriptor', systemDescriptorsResourceClaimId);
@@ -902,6 +907,11 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='networkPurposeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('networkPurposeDescriptor', 'http://ed-fi.org/ods/identity/claims/networkPurposeDescriptor', systemDescriptorsResourceClaimId);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='nonMedicalImmunizationExemptionDescriptor') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('nonMedicalImmunizationExemptionDescriptor', 'http://ed-fi.org/ods/identity/claims/nonMedicalImmunizationExemptionDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='objectDimension') THEN
@@ -1457,6 +1467,11 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentGradebookEntry') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('studentGradebookEntry', 'http://ed-fi.org/ods/identity/claims/studentGradebookEntry', relationshipBasedDataResourceClaimId);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentHealth') THEN
+    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
+    values ('studentHealth', 'http://ed-fi.org/ods/identity/claims/studentHealth', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentHomelessProgramAssociation') THEN

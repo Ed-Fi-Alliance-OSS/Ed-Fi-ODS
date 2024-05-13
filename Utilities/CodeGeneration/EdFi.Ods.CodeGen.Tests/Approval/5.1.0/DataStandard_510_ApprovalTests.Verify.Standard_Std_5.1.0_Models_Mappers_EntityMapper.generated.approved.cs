@@ -29335,6 +29335,158 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IdentificationDocumentUseDescriptorAg
     }
 
 }
+// Aggregate: ImmunizationTypeDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.ImmunizationTypeDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class ImmunizationTypeDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_ImmunizationTypeDescriptor = new FullName("edfi", "ImmunizationTypeDescriptor");
+    
+        public static bool SynchronizeTo(this IImmunizationTypeDescriptor source, IImmunizationTypeDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ImmunizationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ImmunizationTypeDescriptor);
+
+            // Detect primary key changes
+            if (
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
+            {
+                // Disallow PK column updates on ImmunizationTypeDescriptor
+                throw new KeyChangeNotSupportedException("ImmunizationTypeDescriptor");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this IImmunizationTypeDescriptor source, IImmunizationTypeDescriptor target, Action<IImmunizationTypeDescriptor, IImmunizationTypeDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ImmunizationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_ImmunizationTypeDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.ImmunizationTypeDescriptorId = source.ImmunizationTypeDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
 // Aggregate: IncidentLocationDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.IncidentLocationDescriptorAggregate
@@ -39314,6 +39466,158 @@ namespace EdFi.Ods.Entities.Common.EdFi //.NetworkPurposeDescriptorAggregate
 
             // Copy contextual primary key values
             target.NetworkPurposeDescriptorId = source.NetworkPurposeDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (mappingContract?.IsCodeValueSupported != false)
+                target.CodeValue = source.CodeValue;
+
+            if (mappingContract?.IsDescriptionSupported != false)
+                target.Description = source.Description;
+
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+
+            if (mappingContract?.IsNamespaceSupported != false)
+                target.Namespace = source.Namespace;
+
+            if (mappingContract?.IsShortDescriptionSupported != false)
+                target.ShortDescription = source.ShortDescription;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: NonMedicalImmunizationExemptionDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.NonMedicalImmunizationExemptionDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class NonMedicalImmunizationExemptionDescriptorMapper
+    {
+        private static readonly FullName _fullName_edfi_NonMedicalImmunizationExemptionDescriptor = new FullName("edfi", "NonMedicalImmunizationExemptionDescriptor");
+    
+        public static bool SynchronizeTo(this INonMedicalImmunizationExemptionDescriptor source, INonMedicalImmunizationExemptionDescriptor target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (NonMedicalImmunizationExemptionDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_NonMedicalImmunizationExemptionDescriptor);
+
+            // Detect primary key changes
+            if (
+                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
+                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
+            {
+                // Disallow PK column updates on NonMedicalImmunizationExemptionDescriptor
+                throw new KeyChangeNotSupportedException("NonMedicalImmunizationExemptionDescriptor");
+            }
+
+
+            // Copy inherited non-PK properties
+
+
+            if ((mappingContract?.IsCodeValueSupported != false)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsDescriptionSupported != false)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNamespaceSupported != false)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsShortDescriptionSupported != false)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+        public static void MapTo(this INonMedicalImmunizationExemptionDescriptor source, INonMedicalImmunizationExemptionDescriptor target, Action<INonMedicalImmunizationExemptionDescriptor, INonMedicalImmunizationExemptionDescriptor> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (NonMedicalImmunizationExemptionDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_NonMedicalImmunizationExemptionDescriptor);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.NonMedicalImmunizationExemptionDescriptorId = source.NonMedicalImmunizationExemptionDescriptorId;
 
             // Copy inherited non-PK properties
 
@@ -67806,6 +68110,505 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentGradebookEntryAggregate
                 target.StudentDiscriminator = source.StudentDiscriminator;
             }
 
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+}
+// Aggregate: StudentHealth
+
+namespace EdFi.Ods.Entities.Common.EdFi //.StudentHealthAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class StudentHealthMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentHealth = new FullName("edfi", "StudentHealth");
+    
+        public static bool SynchronizeTo(this IStudentHealth source, IStudentHealth target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentHealthMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealth);
+
+            // Detect primary key changes
+            if (
+                 (target.EducationOrganizationId != source.EducationOrganizationId)
+                || (target.StudentUniqueId != source.StudentUniqueId))
+            {
+                // Disallow PK column updates on StudentHealth
+                throw new KeyChangeNotSupportedException("StudentHealth");
+            }
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsAsOfDateSupported != false)
+                && target.AsOfDate != source.AsOfDate)
+            {
+                target.AsOfDate = source.AsOfDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNonMedicalImmunizationExemptionDateSupported != false)
+                && target.NonMedicalImmunizationExemptionDate != source.NonMedicalImmunizationExemptionDate)
+            {
+                target.NonMedicalImmunizationExemptionDate = source.NonMedicalImmunizationExemptionDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsNonMedicalImmunizationExemptionDescriptorSupported != false)
+                && target.NonMedicalImmunizationExemptionDescriptor != source.NonMedicalImmunizationExemptionDescriptor)
+            {
+                target.NonMedicalImmunizationExemptionDescriptor = source.NonMedicalImmunizationExemptionDescriptor;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsStudentHealthAdditionalImmunizationsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentHealthAdditionalImmunizations.SynchronizeCollectionTo(
+                        target.StudentHealthAdditionalImmunizations,
+                        onChildAdded: child =>
+                            {
+                                child.StudentHealth = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentHealthAdditionalImmunizationsItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentHealthAdditionalImmunizationIncluded?.Invoke(item) ?? true);
+            }
+
+            if (mappingContract?.IsStudentHealthRequiredImmunizationsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentHealthRequiredImmunizations.SynchronizeCollectionTo(
+                        target.StudentHealthRequiredImmunizations,
+                        onChildAdded: child =>
+                            {
+                                child.StudentHealth = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentHealthRequiredImmunizationsItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentHealthRequiredImmunizationIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentHealth source, IStudentHealth target, Action<IStudentHealth, IStudentHealth> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentHealthMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealth);
+    
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EducationOrganizationId = source.EducationOrganizationId;
+            target.StudentUniqueId = source.StudentUniqueId;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsAsOfDateSupported != false)
+                target.AsOfDate = source.AsOfDate;
+
+            if (mappingContract?.IsNonMedicalImmunizationExemptionDateSupported != false)
+                target.NonMedicalImmunizationExemptionDate = source.NonMedicalImmunizationExemptionDate;
+
+            if (mappingContract?.IsNonMedicalImmunizationExemptionDescriptorSupported != false)
+                target.NonMedicalImmunizationExemptionDescriptor = source.NonMedicalImmunizationExemptionDescriptor;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
+                target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
+                target.StudentResourceId = source.StudentResourceId;
+                target.StudentDiscriminator = source.StudentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentHealthAdditionalImmunizationsSupported != false)
+            {
+                source.StudentHealthAdditionalImmunizations.MapCollectionTo(target.StudentHealthAdditionalImmunizations, mappingContract?.IsStudentHealthAdditionalImmunizationsItemCreatable ?? true, target, mappingContract?.IsStudentHealthAdditionalImmunizationIncluded);
+            }
+
+            if (mappingContract?.IsStudentHealthRequiredImmunizationsSupported != false)
+            {
+                source.StudentHealthRequiredImmunizations.MapCollectionTo(target.StudentHealthRequiredImmunizations, mappingContract?.IsStudentHealthRequiredImmunizationsItemCreatable ?? true, target, mappingContract?.IsStudentHealthRequiredImmunizationIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentHealthAdditionalImmunizationMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentHealthAdditionalImmunization = new FullName("edfi", "StudentHealthAdditionalImmunization");
+    
+        public static bool SynchronizeTo(this IStudentHealthAdditionalImmunization source, IStudentHealthAdditionalImmunization target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentHealthAdditionalImmunizationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthAdditionalImmunization);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            if (mappingContract?.IsStudentHealthAdditionalImmunizationDatesSupported ?? true)
+            {
+                isModified |=
+                    source.StudentHealthAdditionalImmunizationDates.SynchronizeCollectionTo(
+                        target.StudentHealthAdditionalImmunizationDates,
+                        onChildAdded: child =>
+                            {
+                                child.StudentHealthAdditionalImmunization = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentHealthAdditionalImmunizationDatesItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentHealthAdditionalImmunizationDateIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentHealthAdditionalImmunization source, IStudentHealthAdditionalImmunization target, Action<IStudentHealthAdditionalImmunization, IStudentHealthAdditionalImmunization> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentHealthAdditionalImmunizationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthAdditionalImmunization);
+    
+            // Copy contextual primary key values
+            target.ImmunizationName = source.ImmunizationName;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentHealthAdditionalImmunizationDatesSupported != false)
+            {
+                source.StudentHealthAdditionalImmunizationDates.MapCollectionTo(target.StudentHealthAdditionalImmunizationDates, mappingContract?.IsStudentHealthAdditionalImmunizationDatesItemCreatable ?? true, target, mappingContract?.IsStudentHealthAdditionalImmunizationDateIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentHealthAdditionalImmunizationDateMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentHealthAdditionalImmunizationDate = new FullName("edfi", "StudentHealthAdditionalImmunizationDate");
+    
+        public static bool SynchronizeTo(this IStudentHealthAdditionalImmunizationDate source, IStudentHealthAdditionalImmunizationDate target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentHealthAdditionalImmunizationDateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthAdditionalImmunizationDate);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentHealthAdditionalImmunizationDate source, IStudentHealthAdditionalImmunizationDate target, Action<IStudentHealthAdditionalImmunizationDate, IStudentHealthAdditionalImmunizationDate> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentHealthAdditionalImmunizationDateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthAdditionalImmunizationDate);
+    
+            // Copy contextual primary key values
+            target.ImmunizationDate = source.ImmunizationDate;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentHealthRequiredImmunizationMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentHealthRequiredImmunization = new FullName("edfi", "StudentHealthRequiredImmunization");
+    
+        public static bool SynchronizeTo(this IStudentHealthRequiredImmunization source, IStudentHealthRequiredImmunization target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentHealthRequiredImmunizationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthRequiredImmunization);
+
+
+            // Copy non-PK properties
+
+            if ((mappingContract?.IsMedicalExemptionSupported != false)
+                && target.MedicalExemption != source.MedicalExemption)
+            {
+                target.MedicalExemption = source.MedicalExemption;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsMedicalExemptionDateSupported != false)
+                && target.MedicalExemptionDate != source.MedicalExemptionDate)
+            {
+                target.MedicalExemptionDate = source.MedicalExemptionDate;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (mappingContract?.IsStudentHealthRequiredImmunizationDatesSupported ?? true)
+            {
+                isModified |=
+                    source.StudentHealthRequiredImmunizationDates.SynchronizeCollectionTo(
+                        target.StudentHealthRequiredImmunizationDates,
+                        onChildAdded: child =>
+                            {
+                                child.StudentHealthRequiredImmunization = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentHealthRequiredImmunizationDatesItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentHealthRequiredImmunizationDateIncluded?.Invoke(item) ?? true);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentHealthRequiredImmunization source, IStudentHealthRequiredImmunization target, Action<IStudentHealthRequiredImmunization, IStudentHealthRequiredImmunization> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentHealthRequiredImmunizationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthRequiredImmunization);
+    
+            // Copy contextual primary key values
+            target.ImmunizationTypeDescriptor = source.ImmunizationTypeDescriptor;
+
+            // Copy non-PK properties
+
+            if (mappingContract?.IsMedicalExemptionSupported != false)
+                target.MedicalExemption = source.MedicalExemption;
+
+            if (mappingContract?.IsMedicalExemptionDateSupported != false)
+                target.MedicalExemptionDate = source.MedicalExemptionDate;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (mappingContract?.IsStudentHealthRequiredImmunizationDatesSupported != false)
+            {
+                source.StudentHealthRequiredImmunizationDates.MapCollectionTo(target.StudentHealthRequiredImmunizationDates, mappingContract?.IsStudentHealthRequiredImmunizationDatesItemCreatable ?? true, target, mappingContract?.IsStudentHealthRequiredImmunizationDateIncluded);
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentHealthRequiredImmunizationDateMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentHealthRequiredImmunizationDate = new FullName("edfi", "StudentHealthRequiredImmunizationDate");
+    
+        public static bool SynchronizeTo(this IStudentHealthRequiredImmunizationDate source, IStudentHealthRequiredImmunizationDate target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentHealthRequiredImmunizationDateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthRequiredImmunizationDate);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentHealthRequiredImmunizationDate source, IStudentHealthRequiredImmunizationDate target, Action<IStudentHealthRequiredImmunizationDate, IStudentHealthRequiredImmunizationDate> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentHealthRequiredImmunizationDateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentHealthRequiredImmunizationDate);
+    
+            // Copy contextual primary key values
+            target.ImmunizationDate = source.ImmunizationDate;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
 
 
             // ----------------------------------

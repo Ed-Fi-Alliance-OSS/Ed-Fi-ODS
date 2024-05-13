@@ -7767,6 +7767,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi.StudentEducationOrganizationResponsibilityAssociationQ> StudentEducationOrganizationResponsibilityAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ> StudentHealths  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ> StudentProgramAttendanceEvents  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -10747,6 +10750,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDesc
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ImmunizationTypeDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ImmunizationTypeDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ImmunizationTypeDescriptor table of the ImmunizationTypeDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ImmunizationTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunizationQ> StudentHealthRequiredImmunizations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -14388,6 +14433,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.NetworkPurposeDescriptorAggre
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ> EducationOrganizationNetworks  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: NonMedicalImmunizationExemptionDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.NonMedicalImmunizationExemptionDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.NonMedicalImmunizationExemptionDescriptor table of the NonMedicalImmunizationExemptionDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int NonMedicalImmunizationExemptionDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ> StudentHealths  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -22165,6 +22252,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentGradebookEntryAggregate.EdFi.StudentGradebookEntryQ> StudentGradebookEntries  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ> StudentHealths  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationQ> StudentInterventionAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -25074,6 +25164,228 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregat
         protected virtual NHibernate.QueryModels.GradebookEntryAggregate.EdFi.GradebookEntryQ GradebookEntry { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptorQ SubmissionStatusDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StudentHealth
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHealthAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentHealth table of the StudentHealth aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual DateTime AsOfDate  { get; set; }
+        public virtual DateTime? NonMedicalImmunizationExemptionDate  { get; set; }
+        public virtual int? NonMedicalImmunizationExemptionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentHealthAdditionalImmunizationQ> StudentHealthAdditionalImmunizations { get; set; }
+        public virtual ICollection<StudentHealthRequiredImmunizationQ> StudentHealthRequiredImmunizations { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.NonMedicalImmunizationExemptionDescriptorAggregate.EdFi.NonMedicalImmunizationExemptionDescriptorQ NonMedicalImmunizationExemptionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentHealthAdditionalImmunization table of the StudentHealth aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthAdditionalImmunizationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ StudentHealth { get; set; }
+        [DomainSignature]
+        public virtual string ImmunizationName { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentHealthAdditionalImmunizationDateQ> StudentHealthAdditionalImmunizationDates { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentHealthAdditionalImmunizationDate table of the StudentHealth aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthAdditionalImmunizationDateQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthAdditionalImmunizationQ StudentHealthAdditionalImmunization { get; set; }
+        [DomainSignature]
+        public virtual DateTime ImmunizationDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentHealthRequiredImmunization table of the StudentHealth aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthRequiredImmunizationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthQ StudentHealth { get; set; }
+        [DomainSignature]
+        public virtual int ImmunizationTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string MedicalExemption  { get; set; }
+        public virtual DateTime? MedicalExemptionDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentHealthRequiredImmunizationDateQ> StudentHealthRequiredImmunizationDates { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ImmunizationTypeDescriptorAggregate.EdFi.ImmunizationTypeDescriptorQ ImmunizationTypeDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentHealthRequiredImmunizationDate table of the StudentHealth aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthRequiredImmunizationDateQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentHealthAggregate.EdFi.StudentHealthRequiredImmunizationQ StudentHealthRequiredImmunization { get; set; }
+        [DomainSignature]
+        public virtual DateTime ImmunizationDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
         // -------------------------------------------------------------
     }
 }

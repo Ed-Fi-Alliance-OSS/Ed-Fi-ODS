@@ -1213,6 +1213,15 @@ BEGIN
 
 END
 
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/immunizationTypeDescriptor')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'immunizationTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/immunizationTypeDescriptor',
+@systemDescriptorsResourceClaimId);
+
+END
+
 IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/incidentLocationDescriptor')
 BEGIN
 
@@ -1614,6 +1623,15 @@ BEGIN
 
     INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
     VALUES (N'networkPurposeDescriptor', N'http://ed-fi.org/ods/identity/claims/networkPurposeDescriptor',
+@systemDescriptorsResourceClaimId);
+
+END
+
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/nonMedicalImmunizationExemptionDescriptor')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'nonMedicalImmunizationExemptionDescriptor', N'http://ed-fi.org/ods/identity/claims/nonMedicalImmunizationExemptionDescriptor',
 @systemDescriptorsResourceClaimId);
 
 END
@@ -2613,6 +2631,15 @@ BEGIN
 
     INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
     VALUES (N'studentGradebookEntry', N'http://ed-fi.org/ods/identity/claims/studentGradebookEntry',
+@relationshipBasedDataResourceClaimId);
+
+END
+
+IF NOT EXISTS(SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/studentHealth')
+BEGIN
+
+    INSERT [dbo].[ResourceClaims] ([ResourceName], [ClaimName], [ParentResourceClaimId])
+    VALUES (N'studentHealth', N'http://ed-fi.org/ods/identity/claims/studentHealth',
 @relationshipBasedDataResourceClaimId);
 
 END

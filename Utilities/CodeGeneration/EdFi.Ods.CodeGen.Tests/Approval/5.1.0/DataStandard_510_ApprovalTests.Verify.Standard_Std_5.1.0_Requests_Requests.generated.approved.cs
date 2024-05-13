@@ -6523,6 +6523,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IdentificationDocumentUseDescripto
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorGetByExample
+    {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
+        public int ImmunizationTypeDescriptorId { get; set; }
+        public string Namespace { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ImmunizationTypeDescriptorGetByIds() { }
+
+        public ImmunizationTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorPost : Resources.ImmunizationTypeDescriptor.EdFi.ImmunizationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorPut : Resources.ImmunizationTypeDescriptor.EdFi.ImmunizationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ImmunizationTypeDescriptorDelete : IHasIdentifier
+    {
+        public ImmunizationTypeDescriptorDelete() { }
+
+        public ImmunizationTypeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.IncidentLocationDescriptors.EdFi
 {
 
@@ -8768,6 +8817,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi
         public NetworkPurposeDescriptorDelete() { }
 
         public NetworkPurposeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.NonMedicalImmunizationExemptionDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorGetByExample
+    {
+        public string CodeValue { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public int NonMedicalImmunizationExemptionDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public NonMedicalImmunizationExemptionDescriptorGetByIds() { }
+
+        public NonMedicalImmunizationExemptionDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorPost : Resources.NonMedicalImmunizationExemptionDescriptor.EdFi.NonMedicalImmunizationExemptionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorPut : Resources.NonMedicalImmunizationExemptionDescriptor.EdFi.NonMedicalImmunizationExemptionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class NonMedicalImmunizationExemptionDescriptorDelete : IHasIdentifier
+    {
+        public NonMedicalImmunizationExemptionDescriptorDelete() { }
+
+        public NonMedicalImmunizationExemptionDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -14443,6 +14541,57 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentGradebookEntries.EdFi
         public StudentGradebookEntryDelete() { }
 
         public StudentGradebookEntryDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentHealths.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthGetByExample
+    {
+        public DateTime AsOfDate { get; set; }
+        public long EducationOrganizationId { get; set; }
+        public Guid Id { get; set; }
+        public DateTime NonMedicalImmunizationExemptionDate { get; set; }
+        public string NonMedicalImmunizationExemptionDescriptor { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentHealthGetByIds() { }
+
+        public StudentHealthGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthPost : Resources.StudentHealth.EdFi.StudentHealth
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthPut : Resources.StudentHealth.EdFi.StudentHealth
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentHealthDelete : IHasIdentifier
+    {
+        public StudentHealthDelete() { }
+
+        public StudentHealthDelete(Guid id)
         {
             Id = id;
         }

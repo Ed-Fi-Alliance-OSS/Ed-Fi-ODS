@@ -2290,6 +2290,11 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.ImmunizationTypeDescriptor ADD CONSTRAINT FK_5a441e_Descriptor FOREIGN KEY (ImmunizationTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.IncidentLocationDescriptor ADD CONSTRAINT FK_d24f76_Descriptor FOREIGN KEY (IncidentLocationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -3056,6 +3061,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.NetworkPurposeDescriptor ADD CONSTRAINT FK_cf38e3_Descriptor FOREIGN KEY (NetworkPurposeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.NonMedicalImmunizationExemptionDescriptor ADD CONSTRAINT FK_690b5f_Descriptor FOREIGN KEY (NonMedicalImmunizationExemptionDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -5748,6 +5758,51 @@ REFERENCES edfi.SubmissionStatusDescriptor (SubmissionStatusDescriptorId)
 
 CREATE INDEX FK_c2efaa_SubmissionStatusDescriptor
 ON edfi.StudentGradebookEntry (SubmissionStatusDescriptorId ASC);
+
+ALTER TABLE edfi.StudentHealth ADD CONSTRAINT FK_12f7e6_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+ALTER TABLE edfi.StudentHealth ADD CONSTRAINT FK_12f7e6_NonMedicalImmunizationExemptionDescriptor FOREIGN KEY (NonMedicalImmunizationExemptionDescriptorId)
+REFERENCES edfi.NonMedicalImmunizationExemptionDescriptor (NonMedicalImmunizationExemptionDescriptorId)
+;
+
+CREATE INDEX FK_12f7e6_NonMedicalImmunizationExemptionDescriptor
+ON edfi.StudentHealth (NonMedicalImmunizationExemptionDescriptorId ASC);
+
+ALTER TABLE edfi.StudentHealth ADD CONSTRAINT FK_12f7e6_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_12f7e6_Student
+ON edfi.StudentHealth (StudentUSI ASC);
+
+ALTER TABLE edfi.StudentHealthAdditionalImmunization ADD CONSTRAINT FK_e7bdaa_StudentHealth FOREIGN KEY (EducationOrganizationId, StudentUSI)
+REFERENCES edfi.StudentHealth (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentHealthAdditionalImmunizationDate ADD CONSTRAINT FK_8355b1_StudentHealthAdditionalImmunization FOREIGN KEY (EducationOrganizationId, StudentUSI, ImmunizationName)
+REFERENCES edfi.StudentHealthAdditionalImmunization (EducationOrganizationId, StudentUSI, ImmunizationName)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentHealthRequiredImmunization ADD CONSTRAINT FK_a6b792_ImmunizationTypeDescriptor FOREIGN KEY (ImmunizationTypeDescriptorId)
+REFERENCES edfi.ImmunizationTypeDescriptor (ImmunizationTypeDescriptorId)
+;
+
+CREATE INDEX FK_a6b792_ImmunizationTypeDescriptor
+ON edfi.StudentHealthRequiredImmunization (ImmunizationTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentHealthRequiredImmunization ADD CONSTRAINT FK_a6b792_StudentHealth FOREIGN KEY (EducationOrganizationId, StudentUSI)
+REFERENCES edfi.StudentHealth (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentHealthRequiredImmunizationDate ADD CONSTRAINT FK_1fb50c_StudentHealthRequiredImmunization FOREIGN KEY (EducationOrganizationId, StudentUSI, ImmunizationTypeDescriptorId)
+REFERENCES edfi.StudentHealthRequiredImmunization (EducationOrganizationId, StudentUSI, ImmunizationTypeDescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.StudentHomelessProgramAssociation ADD CONSTRAINT FK_a50f80_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)

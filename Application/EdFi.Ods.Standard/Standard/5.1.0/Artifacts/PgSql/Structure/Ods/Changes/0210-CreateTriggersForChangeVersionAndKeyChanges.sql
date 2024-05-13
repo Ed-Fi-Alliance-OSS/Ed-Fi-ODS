@@ -810,6 +810,11 @@ IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'ha
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentgradebookentry_keychg();
 END IF;
 
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studenthealth') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studenthealth
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentinterventionassociation') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentinterventionassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
