@@ -16,7 +16,7 @@
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.81" />
     <PackageReference Include="EdFi.Suite3.Common" Version="6.2.78" />
     <PackageReference Include="Dapper" Version="2.1.28" />
-    <PackageReference Include="Npgsql" Version="8.0.1" />
+    <PackageReference Include="Npgsql" Version="8.0.3" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
