@@ -124,7 +124,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                     throw new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{filterContext.SubjectEndpointName}' value is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing data item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
+                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data

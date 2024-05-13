@@ -68,14 +68,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 if (authorizationPhase == AuthorizationPhase.ProposedData)
                 {
-                    exception.Detail.ShouldContain("Access to the data could not be authorized. The 'Namespace' value has not been assigned but is required for authorization purposes.");
+                    exception.Detail.ShouldContain("Access to the requested data could not be authorized. The 'Namespace' value has not been assigned but is required for authorization purposes.");
                     exception.Type.ShouldBe($"{EdFiProblemDetailsExceptionBase.BaseTypePrefix}:security:authorization:namespace:access-denied:namespace-required");
                 }
                 else if (authorizationPhase == AuthorizationPhase.ExistingData)
                 {
-                    exception.Detail.ShouldContain("Access to the data could not be authorized. The existing 'Namespace' value has not been assigned but is required for authorization purposes.");
+                    exception.Detail.ShouldContain("Access to the requested data could not be authorized. The existing 'Namespace' value has not been assigned but is required for authorization purposes.");
                     exception.Type.ShouldBe($"{EdFiProblemDetailsExceptionBase.BaseTypePrefix}:security:authorization:namespace:invalid-data:namespace-uninitialized");
-                    exception.Message.ShouldContain($"The existing data item is inaccessible to clients using the 'NamespaceBased' authorization strategy because the 'Namespace' value has not been assigned.");
+                    exception.Message.ShouldContain($"The existing resource item is inaccessible to clients using the 'NamespaceBased' authorization strategy because the 'Namespace' value has not been assigned.");
                 }
             }
 
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 exception.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "security:authorization:namespace:access-denied:namespace-mismatch"));
 
                 string existingLiteral = authorizationPhase == AuthorizationPhase.ExistingData ? "existing " : string.Empty;
-                exception.Detail.ShouldContain($"Access to the data could not be authorized. The {existingLiteral}'Namespace' value of the data does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').");
+                exception.Detail.ShouldContain($"Access to the requested data could not be authorized. The {existingLiteral}'Namespace' value of the data does not start with any of the caller's associated namespace prefixes ('uri://ed-fi.org/', 'uri://ed-fi-2.org/').");
             }
         }
 

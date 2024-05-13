@@ -235,14 +235,14 @@ namespace EdFi.Ods.Api.Controllers
 
             if (Request.Method == HttpMethods.Put)
             {
-                problemDetails = new MethodNotAllowedException("Data collections cannot be replaced. To \"upsert\" an item in the collection, use POST. To update a specific item, use PUT and include the \"id\" in the route.")
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be replaced. To \"upsert\" an item in the collection, use POST. To update a specific item, use PUT and include the \"id\" in the route.")
                 {
                     CorrelationId = _logContextAccessor.GetCorrelationId()
                 };
             }
             else
             {
-                problemDetails = new MethodNotAllowedException("Data collections cannot be deleted. To delete a specific item, use DELETE and include the \"id\" in the route.")
+                problemDetails = new MethodNotAllowedException("Resource collections cannot be deleted. To delete a specific item, use DELETE and include the \"id\" in the route.")
                 {
                     CorrelationId = _logContextAccessor.GetCorrelationId()
                 };
@@ -322,7 +322,7 @@ namespace EdFi.Ods.Api.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public virtual Task<IActionResult> Post(Guid id)
         {
-            var problemDetails = new MethodNotAllowedException("Data items can only be updated using PUT. To \"upsert\" an item in the resource collection using POST, remove the \"id\" from the route.")
+            var problemDetails = new MethodNotAllowedException("Resource items can only be updated using PUT. To \"upsert\" an item in the resource collection using POST, remove the \"id\" from the route.")
             {
                 CorrelationId = _logContextAccessor.GetCorrelationId()
             };
@@ -352,7 +352,7 @@ namespace EdFi.Ods.Api.Controllers
             {
                 var problemDetails = new BadRequestDataException(
                     "The request data was constructed incorrectly.",
-                    new[] { "Data identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
+                    new[] { "Resource identifiers cannot be assigned by the client. The 'id' property should not be included in the request body." })
                 {
                     CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();

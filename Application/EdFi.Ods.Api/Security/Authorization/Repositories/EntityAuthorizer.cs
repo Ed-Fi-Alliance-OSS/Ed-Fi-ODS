@@ -385,10 +385,10 @@ public class EntityAuthorizer : IEntityAuthorizer
 
             if (subjectEndpointNames.Length == 1)
             {
-                return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and the data item's {subjectEndpointNamesText} value.";
+                return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and the resource item's {subjectEndpointNamesText} value.";
             }
 
-            return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the data item: {subjectEndpointNamesText}.";
+            return $"No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the resource item: {subjectEndpointNamesText}.";
         }
 
         string GetClaimEndpointValuesText(string[] claimEndpointValuesAsStrings, int maximumEdOrgClaimValuesToDisplay)
