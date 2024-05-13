@@ -96,16 +96,20 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             
             if (parameter.Schema.Minimum.HasValue && parameter.Schema.Maximum.HasValue)
             {
-                return Random.Next((int)parameter.Schema.Minimum.Value, (int)parameter.Schema.Maximum.Value);
+                var minValue = decimal.Max(parameter.Schema.Minimum.Value, int.MinValue);
+                var maxValue = decimal.Min(parameter.Schema.Maximum.Value, int.MaxValue);
+
+                return Random.Next((int)minValue, (int)maxValue);
             }
             else if (parameter.Schema.Minimum.HasValue)
             {
-                var minVal = (int)parameter.Schema.Minimum.Value == 0 ? _counter++ : (int)parameter.Schema.Minimum.Value;
-                return minVal;
+                var minValue = decimal.Max(parameter.Schema.Minimum.Value, _counter++);
+
+                return (int)minValue;
             }
             else if(parameter.Schema.Maximum.HasValue)
             {
-                return (int)parameter.Schema.Maximum.Value;
+                return (int)decimal.Min(parameter.Schema.Maximum.Value, int.MaxValue);
             }
             else
             {

@@ -358,6 +358,62 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.AreEqual(default(int?), obj.nullableProperty1);
         }
 
-#endregion
+        [Test]
+        public void SimplePropertyBuilder_should_handle_min_max_implicit_values()
+        {
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("nullableProperty1");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Maximum = 9999999999.99999m, Minimum = -9999999999.99999m  }
+                });
+
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreNotEqual(default(int), obj.nullableProperty1);
+        }
+
+        [Test]
+        public void SimplePropertyBuilder_should_handle_min_implicit_values()
+        {
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("nullableProperty1");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Minimum = -9999999999.99999m }
+                });
+
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreNotEqual(default(int), obj.nullableProperty1);
+        }
+
+        [Test]
+        public void SimplePropertyBuilder_should_handle_max_implicit_values()
+        {
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("nullableProperty1");
+
+            var lookup = A.Fake<IPropertyInfoMetadataLookup>();
+            A.CallTo(() => lookup.GetMetadata(propInfo))
+                .Returns(new OpenApiParameter
+                {
+                    Required = true,
+                    Schema = new OpenApiSchema { Maximum = 9999999999.99999m }
+                });
+
+            var builder = new SimplePropertyBuilder(lookup, A.Fake<IDestructiveTestConfiguration>());
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.AreNotEqual(default(int), obj.nullableProperty1);
+        }
+        #endregion
     }
 }
