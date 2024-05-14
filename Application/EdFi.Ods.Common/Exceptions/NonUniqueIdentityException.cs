@@ -13,7 +13,7 @@ public class NonUniqueIdentityException : ConflictException
     private const string TypePart = "non-unique-identity";
     private const string TitleText = "Identifying Values Are Not Unique";
 
-    public const string DefaultDetail = "The identifying value(s) of the data item are the same as another data item that already exists.";
+    public const string DefaultDetail = "The identifying value(s) of the item are the same as another item that already exists.";
 
     public NonUniqueIdentityException(string detail, string[] errors)
         : base(detail)

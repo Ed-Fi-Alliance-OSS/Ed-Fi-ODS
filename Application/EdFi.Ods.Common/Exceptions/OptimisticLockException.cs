@@ -16,7 +16,7 @@ public class OptimisticLockException : EdFiProblemDetailsExceptionBase
 
     private const int StatusValue = StatusCodes.Status412PreconditionFailed;
 
-    private const string DetailText = "The data item has been modified by another user.";
+    private const string DetailText = "The item has been modified by another user.";
     private const string ErrorText = "The resource item's etag value does not match what was specified in the 'If-Match' request header indicating that it has been modified by another client since it was last retrieved.";
 
     /// <summary>

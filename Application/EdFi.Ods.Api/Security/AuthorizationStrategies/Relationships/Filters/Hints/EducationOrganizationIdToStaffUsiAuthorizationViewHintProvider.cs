@@ -13,7 +13,7 @@ public class EducationOrganizationIdToStaffUsiAuthorizationViewHintProvider : IA
     {
         if (viewName.StartsWith("EducationOrganizationIdToStaffUSI", StringComparison.OrdinalIgnoreCase))
         {
-            return "You may need to create corresponding 'StaffEducationOrganizationEmploymentAssociation' or 'StaffEducationOrganizationAssignmentAssociation' data items.";
+            return "You may need to create corresponding 'StaffEducationOrganizationEmploymentAssociation' or 'StaffEducationOrganizationAssignmentAssociation' items.";
         }
 
         return null;

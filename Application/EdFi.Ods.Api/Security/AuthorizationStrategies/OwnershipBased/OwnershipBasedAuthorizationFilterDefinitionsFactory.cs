@@ -97,7 +97,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             {
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + " The data item is not owned by the caller.",
+                        SecurityAuthorizationException.DefaultDetail + " The item is not owned by the caller.",
                         null)
                     {
                         InstanceTypeParts = ["ownership", "access-denied", "ownership-mismatch"]
@@ -108,7 +108,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             return InstanceAuthorizationResult.Failed(
                 new SecurityAuthorizationException(
-                    SecurityAuthorizationException.DefaultDetail + " The data item is not owned by the caller.",
+                    SecurityAuthorizationException.DefaultDetail + " The item is not owned by the caller.",
                     $"The existing resource item has no 'CreatedByOwnershipTokenId' value assigned and thus will never be accessible to clients using the '{authorizationStrategyName}' authorization strategy.")
                 { 
                     InstanceTypeParts = ["ownership", "invalid-data", "ownership-uninitialized"]

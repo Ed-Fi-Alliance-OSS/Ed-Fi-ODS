@@ -5280,7 +5280,7 @@
 													"  });",
 													"",
 													"  const parentOrContact = pm.environment.get(\"ParentOrContactProperName\");",
-													"  const expectedDetail = `The requested action cannot be performed because this data item is referenced by an existing 'Student${parentOrContact}Association' data item.`;",
+													"  const expectedDetail = `The requested action cannot be performed because this item is referenced by an existing 'Student${parentOrContact}Association' item.`;",
 													"",
 													"  pm.expect(problemDetails.detail).to.equal(expectedDetail);",
 													"});"
@@ -5613,7 +5613,7 @@
 													"});",
 													"",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association'`, () => {",
-													"    pm.expect(problemDetails.detail).to.contain(`You may need to create corresponding 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association' data items.`);",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create corresponding 'StudentSchoolAssociation' and 'Student` + parentOrContactProperName + `Association' items.`);",
 													"});"
 												],
 												"type": "text/javascript",
@@ -5766,7 +5766,7 @@
 													"});",
 													"",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {",
-													"    pm.expect(problemDetails.detail).to.contain(`You may need to create a corresponding 'StudentSchoolAssociation' data item.`);",
+													"    pm.expect(problemDetails.detail).to.contain(`You may need to create a corresponding 'StudentSchoolAssociation' item.`);",
 													"});",
 													"",
 													"const scenarioId = pm.environment.get('scenarioId');",
@@ -8244,7 +8244,7 @@
 													"});\r",
 													"\r",
 													"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {\r",
-													"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' data item.\");\r",
+													"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");\r",
 													"});"
 												],
 												"type": "text/javascript",

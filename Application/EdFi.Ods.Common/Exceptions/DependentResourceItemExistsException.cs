@@ -13,8 +13,8 @@ public class DependentResourceItemExistsException : ConflictException
     private const string TypePart = "dependent-item-exists";
     private const string TitleText = "Dependent Data Item Exists";
     
-    private const string DefaultDetail = "The requested action cannot be performed because this data item is referenced by another data item.";
-    private const string DefaultDetailFormat = "The requested action cannot be performed because this data item is referenced by an existing '{0}' data item.";
+    private const string DefaultDetail = "The requested action cannot be performed because this item is referenced by another item.";
+    private const string DefaultDetailFormat = "The requested action cannot be performed because this item is referenced by an existing '{0}' item.";
 
     public DependentResourceItemExistsException()
         : base(DefaultDetail) { }

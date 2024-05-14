@@ -888,7 +888,7 @@
 											"});",
 											"",
 											"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {",
-											"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' data item.\");",
+											"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");",
 											"});",
 											""
 										],
@@ -1789,7 +1789,7 @@
 											"});",
 											"",
 											"pm.test(`Should hint to create 'StudentSchoolAssociation'`, () => {",
-											"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' data item.\");",
+											"  pm.expect(problemDetails.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");",
 											"});",
 											""
 										],

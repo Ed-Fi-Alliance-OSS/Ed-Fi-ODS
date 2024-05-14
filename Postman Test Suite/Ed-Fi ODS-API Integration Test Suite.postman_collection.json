@@ -2120,7 +2120,7 @@
 									"",
 									"pm.test(\"Should return message indicating key value cannot be changed\", () => {",
 									"  const responseItem = pm.response.json();",
-									"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the AcademicWeek data cannot be changed. Delete and recreate the data item instead.\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the AcademicWeek data cannot be changed. Delete and recreate the item instead.\");",
 									"});",
 									""
 								],

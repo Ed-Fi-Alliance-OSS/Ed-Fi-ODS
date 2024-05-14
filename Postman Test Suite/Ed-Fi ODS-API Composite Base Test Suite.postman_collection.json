@@ -754,7 +754,7 @@
 													"",
 													"  pm.expect(pm.response.code).equal(responseItem.status);\r",
 													"  pm.expect(responseItem.type).to.equal(\"urn:ed-fi:api:not-found\");",
-													"  pm.expect(responseItem.detail).to.equal(\"The specified data item could not be found.\");",
+													"  pm.expect(responseItem.detail).to.equal(\"The specified item could not be found.\");",
 													"  pm.expect(responseItem.title).to.equal(\"Not Found\");",
 													"});",
 													""
