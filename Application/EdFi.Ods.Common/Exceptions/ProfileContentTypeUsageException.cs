@@ -12,13 +12,12 @@ namespace EdFi.Ods.Common.Exceptions;
 public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
 {
     // Fields containing override values for Problem Details
-    public const string TypePart = "profile:invalid-content-type";
-    public const string TitleText = "Invalid Profile Content-Type";
+    public const string TypePart = "profile:invalid-profile-usage";
+    public const string TitleText = "Invalid Profile Usage";
+
     private const int StatusValue = StatusCodes.Status400BadRequest;
 
-    public const string DefaultDetail = "Usage of the API Profiles feature was incorrect.";
-
-    private int? _statusOverride;
+    public const string DefaultDetail = "The request construction was invalid with respect to usage of a data policy.";
 
     public ProfileContentTypeUsageException(string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
         : base(detail, error)
@@ -32,12 +31,6 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
         }
     }
 
-    public ProfileContentTypeUsageException(int status, string detail, string error, string profileName, ContentTypeUsage contentTypeUsage)
-        : this(detail,  error, profileName,  contentTypeUsage)
-    {
-        _statusOverride = status;
-    }
-
     public string ProfileName { get; }
 
     public ContentTypeUsage ContentTypeUsage { get; }
@@ -47,8 +40,8 @@ public class ProfileContentTypeUsageException : EdFiProblemDetailsExceptionBase
     // ---------------------------
     public override string Title { get => TitleText; }
 
-    public override int Status { get => _statusOverride ?? StatusValue; }
-    
+    public override int Status { get => StatusValue; }
+
     protected override IEnumerable<string> GetTypeParts()
     {
         foreach (var part in base.GetTypeParts())

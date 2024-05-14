@@ -302,7 +302,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Should return message indicating that snapshots are read-only\", () => {\r",
-							"    pm.expect(pm.response.json().message).to.be.equal(\"Snapshots are read-only.\");\r",
+							"    pm.expect(pm.response.json().message).to.be.equal(\"An attempt was made to modify data in a Snapshot, but this data is read-only.\");\r",
 							"});\r",
 							""
 						],
@@ -372,7 +372,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Should return message indicating that snapshots are read-only\", () => {\r",
-							"    pm.expect(pm.response.json().message).to.be.equal(\"Snapshots are read-only.\");\r",
+							"    pm.expect(pm.response.json().message).to.be.equal(\"An attempt was made to modify data in a Snapshot, but this data is read-only.\");\r",
 							"});\r",
 							""
 						],
@@ -444,7 +444,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Should return message indicating that snapshots are read-only\", () => {\r",
-							"    pm.expect(pm.response.json().message).to.be.equal(\"Snapshots are read-only.\");\r",
+							"    pm.expect(pm.response.json().message).to.be.equal(\"An attempt was made to modify data in a Snapshot, but this data is read-only.\");\r",
 							"});\r",
 							""
 						],

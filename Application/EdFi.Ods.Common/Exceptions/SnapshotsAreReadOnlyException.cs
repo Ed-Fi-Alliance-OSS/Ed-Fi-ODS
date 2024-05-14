@@ -13,9 +13,10 @@ public class SnapshotsAreReadOnlyException : EdFiProblemDetailsExceptionBase
     // Fields containing override values for Problem Details
     private const string TypePart = "snapshots:method-not-allowed";
     private const string TitleText = "Method Not Allowed with Snapshots";
+
     private const int StatusValue = StatusCodes.Status405MethodNotAllowed;
 
-    private const string DefaultDetail = "Snapshots are read-only.";
+    private const string DefaultDetail = "An attempt was made to modify data in a Snapshot, but this data is read-only.";
 
     public SnapshotsAreReadOnlyException()
         : base(DefaultDetail, DefaultDetail) { }
