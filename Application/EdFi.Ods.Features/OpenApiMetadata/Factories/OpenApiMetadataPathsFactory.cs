@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 using IEnumerableExtensions = EdFi.Common.Utils.Extensions.IEnumerableExtensions;
 using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
@@ -26,16 +27,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
         private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
+        private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
             IOpenApiMetadataPathsFactoryContentTypeStrategy contentTypeStrategy,
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
+            IOpenApiIdentityProvider openApiIdentityProvider,
             ApiSettings apiSettings)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
+            _openApiIdentityProvider = openApiIdentityProvider;
             _apiSettings = apiSettings;
         }
 
@@ -285,7 +289,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             type = OpenApiMetadataDocumentHelper.PropertyType(x),
                             format = x.PropertyType.ToOpenApiFormat(),
                             required = openApiMetadataResource.IsPathParameter(x),
-                            isIdentity = OpenApiMetadataDocumentHelper.GetIsIdentity(x),
+                            isIdentity = OpenApiMetadataDocumentHelper.GetIsIdentity(x, _openApiIdentityProvider),
                             maxLength = OpenApiMetadataDocumentHelper.GetMaxLength(x),
                             isDeprecated = OpenApiMetadataDocumentHelper.GetIsDeprecated(x),
                             deprecatedReasons = OpenApiMetadataDocumentHelper.GetDeprecatedReasons(x)

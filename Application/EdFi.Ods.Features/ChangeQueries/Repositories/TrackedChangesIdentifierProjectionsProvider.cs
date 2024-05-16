@@ -26,13 +26,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         private readonly ConcurrentDictionary<FullName, QueryProjection[]> _queryProjectionsByResourceFullName =
             new ConcurrentDictionary<FullName, QueryProjection[]>();
 
-        public QueryProjection[] GetIdentifierProjections(Resource resource)
+        public QueryProjection[] GetIdentifierProjections(ResourceClassBase resource)
         {
             return _queryProjectionsByResourceFullName.GetOrAdd(resource.FullName, 
                 _ => CreateIdentifierProjections(resource));
         }
         
-        private QueryProjection[] CreateIdentifierProjections(Resource resource)
+        private QueryProjection[] CreateIdentifierProjections(ResourceClassBase resource)
         {
             var entity = resource.Entity;
             
