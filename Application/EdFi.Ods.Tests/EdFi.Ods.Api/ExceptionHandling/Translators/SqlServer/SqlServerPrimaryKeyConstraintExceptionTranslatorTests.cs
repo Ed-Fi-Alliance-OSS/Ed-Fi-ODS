@@ -141,7 +141,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "The identifying value(s) of the data item are the same as another data item that already exists.");
+                    "The identifying value(s) of the item are the same as another item that already exists.");
                 
                 actualError.Errors.Length.ShouldBe(1);
                 actualError.Errors.Single().ShouldBe(
@@ -199,7 +199,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             public void Should_set_a_reasonable_message()
             {
                 actualError.Detail.ShouldBe(
-                    "The identifying value(s) of the data item are the same as another data item that already exists.");
+                    "The identifying value(s) of the item are the same as another item that already exists.");
                 
                 actualError.Errors.Length.ShouldBe(1);
                 actualError.Errors.Single().ShouldBe(

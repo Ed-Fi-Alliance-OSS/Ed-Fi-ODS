@@ -7987,7 +7987,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
@@ -8184,7 +8184,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
@@ -8377,7 +8377,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when requesting this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
@@ -8589,7 +8589,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when creating or updating this item: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, the following profile-specific content type is required when creating or updating this resource: 'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
@@ -8787,7 +8787,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
@@ -8986,7 +8986,7 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this item: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when creating or updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"});",
 															""
 														],
@@ -14107,7 +14107,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required elements needed to create the data item.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14181,7 +14181,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14307,7 +14307,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14376,7 +14376,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14497,7 +14497,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14613,7 +14613,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14677,7 +14677,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the data.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript",

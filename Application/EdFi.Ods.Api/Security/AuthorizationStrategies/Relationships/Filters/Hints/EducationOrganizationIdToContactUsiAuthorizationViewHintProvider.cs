@@ -11,7 +11,7 @@ public class EducationOrganizationIdToContactUsiAuthorizationViewHintProvider : 
     {
         if (viewName.StartsWith("EducationOrganizationIdToContactUSI"))
         {
-            return "You may need to create corresponding 'StudentSchoolAssociation' and 'StudentContactAssociation' data items.";
+            return "You may need to create corresponding 'StudentSchoolAssociation' and 'StudentContactAssociation' items.";
         }
 
         return null;

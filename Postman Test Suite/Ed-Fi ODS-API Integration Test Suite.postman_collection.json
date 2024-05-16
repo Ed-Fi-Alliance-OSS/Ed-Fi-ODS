@@ -1397,11 +1397,11 @@
 									"pm.test(\"Should return a problem details result\", () => {",
 									"  pm.expect(problemDetails.status).to.equal(pm.response.code);",
 									"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization\");",
-									"  pm.expect(problemDetails.detail).to.equal(\"Access to the data could not be authorized.\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Access to the requested data could not be authorized.\");",
 									"});",
 									"",
 									"pm.test(\"Should indicate authorization failure related to the SchoolId value\", () => {",
-									"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the data item's 'SchoolId' value./);",
+									"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'SchoolId' value./);",
 									"});",
 									""
 								],
@@ -2120,7 +2120,7 @@
 									"",
 									"pm.test(\"Should return message indicating key value cannot be changed\", () => {",
 									"  const responseItem = pm.response.json();",
-									"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the AcademicWeek data cannot be changed. Delete and recreate the data item instead.\");",
+									"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the AcademicWeek data cannot be changed. Delete and recreate the item instead.\");",
 									"});",
 									""
 								],

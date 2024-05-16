@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                     {
                         _logger.Error(
                             string.Format(
-                                "A duplicate {0} conflict occurred when attempting to create a new {1} items with {2} of {3}.",
+                                "A duplicate {0} conflict occurred when attempting to create a new {1} resource with {2} of {3}.",
                                 match.Groups["subject"].Value,
                                 match.Groups["entitySimple"].Value,
                                 match.Groups["property"].Value,

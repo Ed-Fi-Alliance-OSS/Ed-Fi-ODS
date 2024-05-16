@@ -260,7 +260,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 response.Success = false;
 
                 response.SecurityExceptionDetail = "You do not have permissions to access this data.";
-                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following data claims to provide access to this data: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must include one of the following resource claims to provide access to this resource: '{string.Join("', '", authorizingClaimNames)}'.";
                 response.SecurityExceptionInstanceTypeParts = ["access-denied", "resource"];
 
                 return response;
@@ -276,7 +276,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 response.Success = false;
 
                 response.SecurityExceptionDetail = "You do not have permissions to perform the requested operation on the data.";
-                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following data claims: '{string.Join("', '", authorizingClaimNames)}'.";
+                response.SecurityExceptionMessage = $"The API client's assigned claim set (currently '{claimSetName}') must grant permission of the '{requestAction}' action on one of the following resource claims: '{string.Join("', '", authorizingClaimNames)}'.";
                 response.SecurityExceptionInstanceTypeParts = ["access-denied", "action"];
 
                 return response;
