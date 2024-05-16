@@ -90,7 +90,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
                     serverVariable.Enum.AddRange(
                         GenerateContextValuePathCombinations(
-                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString).Select(x => x.TrimEnd('/')));
+                            new List<string>() { $"{tenantMapEntry.Key}" }, odsRouteContextKeys.ToList(), connectionString));
                 }
             }
             else
@@ -98,7 +98,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
                 serverVariable.Enum.AddRange(
                     GenerateContextValuePathCombinations(
                         new List<string>() { $"" }, odsRouteContextKeys,
-                        _adminDatabaseConnectionStringProvider.GetConnectionString()).Select(x => x.TrimEnd('/')));
+                        _adminDatabaseConnectionStringProvider.GetConnectionString()));
             }
 
             var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
@@ -112,17 +112,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             }
             else
             {
-                var singleValidContextValueForEachKey = new List<string>();
-
-                if (routeContextKeys.Count > 0)
-                {
-                    singleValidContextValueForEachKey.AddRange(
-                        routeContextKeys.Select(
-                            routeContextKey => _IEdFiAdminRawOdsInstanceConfigurationDataProvider
-                                .GetDistinctOdsInstanceContextValuesAsync(routeContextKey).Result.First()));
-                }
-
-                AddSecurityScheme(singleValidContextValueForEachKey);
+                AddSecurityScheme(routeContextKeys);
             }
 
             serverVariable.Default = serverVariable.Enum.FirstOrDefault() ?? "";
@@ -185,19 +175,19 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
             return routeContextKeys.Count > 0
                 ? GenerateContextValuePathCombinations(newEnumValues, routeContextKeys, adminConnectionString)
-                : newEnumValues;
+                : newEnumValues.Select(x => x.Trim('/')).ToList();
         }
 
-        void AddSecurityScheme(List<string> validRouteContextKeyValues,
+        void AddSecurityScheme(List<string> validRouteContextKeys,
             TenantConfiguration tenant = null)
         {
             var routeContextValueSegment = "";
 
-            if (validRouteContextKeyValues.Count > 0)
+            if (validRouteContextKeys.Count > 0)
             {
                 routeContextValueSegment = string.Join(
                     '/',
-                    validRouteContextKeyValues.Select(
+                    validRouteContextKeys.Select(
                         routeContextKey => _IEdFiAdminRawOdsInstanceConfigurationDataProvider
                             .GetDistinctOdsInstanceContextValuesAsync(routeContextKey, tenant?.AdminConnectionString).Result
                             .FirstOrDefault() ?? "")).EnsureSuffixApplied("/");
