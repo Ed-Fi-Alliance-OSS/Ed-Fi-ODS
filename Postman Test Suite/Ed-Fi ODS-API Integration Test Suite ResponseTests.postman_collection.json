@@ -978,6 +978,73 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "When_filtering_by_an_invalid_descriptor_Should_return_400",
+									"item": [
+										{
+											"name": "When_filtering_by_an_invalid_descriptor_Should_return_400",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"",
+															"pm.test(\"Status code is 400\", () => {",
+															"    pm.expect(pm.response.code).to.equal(400);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the descriptor value is invalid\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Unable to obtain the value for 'CourseDefinedByDescriptorId'.\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Data Validation Failed\");",
+															"",
+															"  pm.expect(problemDetails.errors).contain(\"CourseDefinedByDescriptor value 'invalid' is not a valid value for use as a descriptor (a '#' is expected to delineate the namespace and code value portions).\");",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?courseDefinedByDescriptor=invalid",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"courses"
+													],
+													"query": [
+														{
+															"key": "courseDefinedByDescriptor",
+															"value": "invalid"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
