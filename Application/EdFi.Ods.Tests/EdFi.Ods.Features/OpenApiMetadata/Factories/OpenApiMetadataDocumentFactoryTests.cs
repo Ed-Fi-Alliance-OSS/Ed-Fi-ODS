@@ -5,11 +5,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -110,7 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
             }
 
             protected override void Act()
@@ -223,7 +221,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
             }
 
             protected override void Act()

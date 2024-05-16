@@ -9,8 +9,6 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
-using EdFi.Ods.Api.Database.NamingConventions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata.Composites;
@@ -19,7 +17,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -82,7 +79,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
-                        }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        }, new FakeOpenApiIdentityProvider(),
                         CreateApiSettings()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
 
                 // link definitions are excluded here and tested in a separate assertion.
@@ -253,7 +250,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
-                        }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        }, new FakeOpenApiIdentityProvider(),
                         appSettings).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
             }
 
@@ -290,11 +287,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 d => new
                 {
                     DefinitionName = namingStrategy.GetResourceName(d, new OpenApiMetadataResource(d)),
-                    Properties = d.NonReferencedProperties().Select(p => p.JsonPropertyName).Concat(
+                    Properties = d.NonReferencedProperties()
+                        .Where(p => !p.JsonIgnore)
+                        .Select(p => p.JsonPropertyName)
+                        .Concat(
                             d.Collections.Select(
                                 c => c.IsDerivedEntityATypeEntity() && c.IsInherited
                                     ? c.Association.OtherEntity.PluralName.ToCamelCase()
-                                    : c.JsonPropertyName)).Concat(d.EmbeddedObjects.Select(e => e.JsonPropertyName))
+                                    : c.JsonPropertyName))
+                        .Concat(d.EmbeddedObjects.Select(e => e.JsonPropertyName))
                         .Concat(d.References.Select(r => r.PropertyName.ToCamelCase()))
                 }).Concat(
                 resources.SelectMany(r => r.AllContainedItemTypes).Select(
@@ -373,7 +374,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
-                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        new FakeOpenApiIdentityProvider(),
                         CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
@@ -490,7 +491,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
-                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        new FakeOpenApiIdentityProvider(),
                         CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
