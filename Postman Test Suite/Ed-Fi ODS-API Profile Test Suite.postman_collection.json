@@ -14095,7 +14095,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required elements needed to create the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
 											"});"
 										],
 										"type": "text/javascript"
