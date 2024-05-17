@@ -13,7 +13,7 @@ public class KeyChangeNotSupportedException : BadRequestDataException
     private const string TitleText = "Key Change Not Supported";
 
     private const string DetailTextFormat =
-        "Identifying values for the {0} resource cannot be changed. Delete and recreate the resource item instead.";
+        "Identifying values for the {0} data cannot be changed. Delete and recreate the item instead.";
 
     public KeyChangeNotSupportedException(string entityName)
         : base(string.Format(DetailTextFormat, entityName)) { }

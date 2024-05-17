@@ -11093,7 +11093,7 @@
 													"  const problemDetails = pm.response.json();\r",
 													"\r",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed:key-change-not-supported\");\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the Student item cannot be changed. Delete and recreate the item instead.\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Identifying values for the Student data cannot be changed. Delete and recreate the item instead.\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -11163,7 +11163,7 @@
 													"\r",
 													"    let parentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");\r",
 													"  \r",
-													"    pm.expect(problemDetails.detail).to.equal(`Identifying values for the ${parentOrContactProperName} data cannot be changed. Delete and recreate the data item instead.`);\r",
+													"    pm.expect(problemDetails.detail).to.equal(`Identifying values for the ${parentOrContactProperName} data cannot be changed. Delete and recreate the item instead.`);\r",
 													"  });\r",
 													"}\r",
 													""

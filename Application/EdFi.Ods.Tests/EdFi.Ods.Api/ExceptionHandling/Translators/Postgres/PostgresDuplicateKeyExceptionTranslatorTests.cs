@@ -295,7 +295,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.ShouldNotBeNull(),
                     () => actualError.Status.ShouldBe(409),
                     () => actualError.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "data-conflict:non-unique-values")),
-                    () => actualError.Detail.ShouldBe("A value (or values) in the item must be unique, but another item with these values already exists.")
+                    () => actualError.Detail.ShouldBe("A value (or a specific set of values) in the item must be unique, but another item with these values already exists.")
                 );
             }
         }
