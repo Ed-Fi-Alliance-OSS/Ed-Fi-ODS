@@ -64,10 +64,13 @@
 			<ClaimSets>
 				<ClaimSet name="SIS Vendor">
 					<Actions>
-						<Action name="Create" />
 						<Action name="Read" />
-						<Action name="Update" />
-						<Action name="Delete" />
+						<Action name="ReadChanges" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create" />
 					</Actions>
 				</ClaimSet>
 				<ClaimSet name="Ed-Fi Sandbox">
