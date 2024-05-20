@@ -39,6 +39,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             builder.RegisterType<FeatureDisabledKeyChangesResourceDataProvider>()
                 .As<IKeyChangesResourceDataProvider>()
                 .SingleInstance();
+
+            // Should be registered even if the feature is disabled since the OpenApiMetadata feature depends on it
+            builder.RegisterType<TrackedChangesIdentifierProjectionsProvider>()
+                .As<ITrackedChangesIdentifierProjectionsProvider>()
+                .SingleInstance();
         }
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)

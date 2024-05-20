@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -65,14 +66,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 : resourceProperty.Description
                                   .ScrubForOpenApi();
 
-        public static Schema CreatePropertySchema(ResourceProperty resourceProperty)
+        public static Schema CreatePropertySchema(ResourceProperty resourceProperty, IOpenApiIdentityProvider openApiIdentityProvider)
         {
             var schema =  new Schema
             {
                 type = PropertyType(resourceProperty),
                 format = resourceProperty.PropertyType.ToOpenApiFormat(),
                 description = PropertyDescription(resourceProperty),
-                isIdentity = GetIsIdentity(resourceProperty),
+                isIdentity = GetIsIdentity(resourceProperty, openApiIdentityProvider),
                 maxLength = GetMaxLength(resourceProperty),
                 minLength = GetMinLength(resourceProperty),
                 minimum = GetMinimum(resourceProperty),
@@ -89,9 +90,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return schema;
         }
 
-        public static bool? GetIsIdentity(ResourceProperty resourceProperty)
+        public static bool? GetIsIdentity(ResourceProperty resourceProperty, IOpenApiIdentityProvider openApiIdentityProvider)
         {
-            return resourceProperty.IsIdentifying
+            return openApiIdentityProvider.IsIdentity(resourceProperty)
                 ? true
                 : (bool?)null;
         }
@@ -172,16 +173,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return CamelCaseSegments(name);
         }
 
-        public static Schema CreateReferenceSchema(Reference reference)
+        public static Schema CreateReferenceSchema(Reference reference, IOpenApiIdentityProvider openApiIdentityProvider)
         {
             var properties = reference.ReferenceTypeProperties
-                                      .Where(x => x.IsIdentifying)
+                                      .Where(openApiIdentityProvider.IsIdentity)
                                       .Select(
                                            x => new
                                            {
-                                               IsRequired = x.IsIdentifying || reference.IsRequired,
+                                               IsRequired = openApiIdentityProvider.IsIdentity(x) || reference.IsRequired,
                                                PropertyName = x.JsonPropertyName,
-                                               Schema = CreatePropertySchema(x)
+                                               Schema = CreatePropertySchema(x, openApiIdentityProvider)
                                            })
                                       .OrderBy(x => x.PropertyName)
                                       .ToList();

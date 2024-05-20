@@ -70,6 +70,9 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<IOpenApiUpconversionProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<OpenApiIdentityProvider>()
+                .As<IOpenApiIdentityProvider>()
+                .SingleInstance();
         }
     }
 }

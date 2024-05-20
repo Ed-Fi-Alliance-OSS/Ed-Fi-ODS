@@ -12,9 +12,9 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -26,21 +26,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy _definitionsFactoryEntityExtensionStrategy;
         private readonly IOpenApiMetadataDefinitionsFactoryNamingStrategy _openApiMetadataDefinitionsFactoryNamingStrategy;
         private readonly IOpenApiMetadataFactoryResourceFilterStrategy _openApiMetadataFactoryResourceFilterStrategy;
-        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly ApiSettings _apiSettings;
 
         public OpenApiMetadataDefinitionsFactory(IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy entityExtensionStrategy,
             IOpenApiMetadataDefinitionsFactoryEdFiExtensionBridgeStrategy edFiExtensionBridgeStrategy,
             IOpenApiMetadataDefinitionsFactoryNamingStrategy openApiMetadataDefinitionsFactoryNamingStrategy,
             IOpenApiMetadataFactoryResourceFilterStrategy openApiMetadataFactoryResourceFilterStrategy,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
+            IOpenApiIdentityProvider openApiIdentityProvider,
             ApiSettings apiSettings)
         {
             _definitionsFactoryEntityExtensionStrategy = entityExtensionStrategy;
             _definitionsFactoryEdFiExtensionBridgeStrategy = edFiExtensionBridgeStrategy;
             _openApiMetadataDefinitionsFactoryNamingStrategy = openApiMetadataDefinitionsFactoryNamingStrategy;
             _openApiMetadataFactoryResourceFilterStrategy = openApiMetadataFactoryResourceFilterStrategy;
-            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _openApiIdentityProvider = openApiIdentityProvider;
             _apiSettings = apiSettings;
         }
 
@@ -108,7 +108,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             reference => new
                             {
                                 key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetReferenceName(r.Resource, reference),
-                                schema = OpenApiMetadataDocumentHelper.CreateReferenceSchema(reference)
+                                schema = OpenApiMetadataDocumentHelper.CreateReferenceSchema(reference, _openApiIdentityProvider)
                             }))).GroupBy(d => d?.key).Select(g => g.First()).ForEach(
                 d =>
                 {
@@ -139,9 +139,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .Select(
                     p => new
                     {
-                        IsRequired = p.IsIdentifying || !p.PropertyType.IsNullable,
+                        IsRequired = _openApiIdentityProvider.IsIdentity(p) || !p.PropertyType.IsNullable,
                         Key = UniqueIdConventions.GetUniqueIdPropertyName(p.JsonPropertyName).ToCamelCase(),
-                        Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(p)
+                        Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(p, _openApiIdentityProvider)
                     }).Concat(
                     resourceChildItem.References.Select(
                         r => new
@@ -222,14 +222,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var resource = openApiMetadataResource.Resource;
 
-            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
-
-            var identifierProperties = identifierProjections
-                .SelectMany(
-                    p => p.IsDescriptorUsage
-                        ? new[] { p.JsonPropertyName }
-                        : p.SelectColumns.Select(i => i.JsonPropertyName))
-                .Distinct()
+            var identifierProperties = _openApiIdentityProvider.GetIdentifyingProperties(resource)
                 .Select(
                     p => new PropertySchemaInfo
                     {
@@ -237,8 +230,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(
                             resource.AllProperties.FirstOrDefault(rp => p == rp.JsonPropertyName) ??
                             throw new Exception(
-                                $"The natural key '{p}' of the resource '{resource.FullName}' wasn't found in its model.")
-                        )
+                                $"The natural key '{p}' of the resource '{resource.FullName}' wasn't found in its model."),
+                        _openApiIdentityProvider)
                     });
 
             return new Schema
@@ -312,13 +305,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             var resource = openApiMetadataResource.Resource;
 
             var properties = resource.NonReferencedProperties()
+                .Where(x => !x.JsonIgnore)
                 .Select(
                     x => new PropertySchemaInfo
                     {
                         PropertyName = x.JsonPropertyName,
                         IsRequired = !x.PropertyType.IsNullable && !x.IsServerAssigned,
-                        Sort = SortOrder(x.PropertyName, x.IsIdentifying),
-                        Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(x)
+                        Sort = SortOrder(x.PropertyName, _openApiIdentityProvider.IsIdentity(x)),
+                        Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(x, _openApiIdentityProvider)
                     }).Concat(
                     resource.Collections.Select(
                         x => new PropertySchemaInfo

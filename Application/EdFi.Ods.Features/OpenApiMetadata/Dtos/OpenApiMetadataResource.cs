@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
@@ -46,7 +47,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Dtos
 
         public IEnumerable<ResourceProperty> RequestProperties
         {
-            get { return _properties ?? Resource.AllRequestProperties(); }
+            get { return _properties ?? Resource.AllRequestProperties().Where(p => !p.JsonIgnore); }
             set { _properties = value; }
         }
 

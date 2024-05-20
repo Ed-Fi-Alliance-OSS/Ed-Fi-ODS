@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -20,7 +20,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public static OpenApiMetadataDefinitionsFactory CreateOpenApiMetadataDefinitionsFactory(
             OpenApiMetadataDocumentContext openApiMetadataDocumentContext,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
+            IOpenApiIdentityProvider openApiIdentityProvider,
             ApiSettings apiSettings)
         {
             switch (openApiMetadataDocumentContext.RenderType)
@@ -35,7 +35,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         genericStrategy,
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
                         new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext),
-                        trackedChangesIdentifierProjectionsProvider,
+                        openApiIdentityProvider,
                         apiSettings);
 
                 case RenderType.ExtensionArtifactsOnly:
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         genericBridgeStrategy,
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
                         new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext),
-                        trackedChangesIdentifierProjectionsProvider,
+                        openApiIdentityProvider,
                         apiSettings);
                 default:
                     var bridgeStrategy =
@@ -71,13 +71,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         bridgeStrategy,
                         namingStrategy,
                         filterStrategy,
-                        trackedChangesIdentifierProjectionsProvider,
+                        openApiIdentityProvider,
                         apiSettings);
             }
         }
 
         public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(
-            OpenApiMetadataDocumentContext openApiMetadataDocumentContext, ApiSettings apiSettings)
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext, IOpenApiIdentityProvider openApiIdentityProvider, ApiSettings apiSettings)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 //Profile strategy implements each of the interfaces in the signature of the paths factory constructor
                 //Hence the odd parameter repetition.
-                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, apiSettings);
+                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, apiSettings);
             }
 
             IOpenApiMetadataPathsFactorySelectorStrategy selectorStrategy = null;
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             selectorStrategy ??= defaultStrategy;
             resourceNamingStrategy ??= defaultResourceDefinitionNamingStrategy;
 
-            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, apiSettings);
+            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, apiSettings);
         }
 
         public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
@@ -24,15 +23,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataDocumentFactory));
         private readonly ApiSettings _apiSettings;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
-        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider = null)
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IOpenApiIdentityProvider openApiIdentityProvider)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
-            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _openApiIdentityProvider = openApiIdentityProvider;
             _openApiUpconversionProvider = openApiUpconversionProvider;
         }
 
@@ -44,13 +42,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var definitionsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext,
-                        _trackedChangesIdentifierProjectionsProvider, _apiSettings);
+                        _openApiIdentityProvider, _apiSettings);
 
                 var responsesFactory = new OpenApiMetadataResponsesFactory();
 
                 var pathsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        documentContext, _apiSettings);
+                        documentContext, _openApiIdentityProvider, _apiSettings);
 
                 var tagsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);

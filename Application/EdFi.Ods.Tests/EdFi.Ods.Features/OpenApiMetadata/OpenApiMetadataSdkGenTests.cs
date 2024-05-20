@@ -7,12 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -104,7 +102,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     upconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
@@ -220,7 +218,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     upconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
@@ -334,7 +332,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
-                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        new FakeOpenApiIdentityProvider(),
                         CreateApiSettings());
             }
 
@@ -420,7 +418,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
-                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        new FakeOpenApiIdentityProvider(),
                         CreateApiSettings());
 
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;

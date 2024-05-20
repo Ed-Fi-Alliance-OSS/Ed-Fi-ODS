@@ -9,6 +9,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public interface ITrackedChangesIdentifierProjectionsProvider
     {
-        QueryProjection[] GetIdentifierProjections(Resource resource);
+        QueryProjection[] GetIdentifierProjections(ResourceClassBase resource);
     }
 }

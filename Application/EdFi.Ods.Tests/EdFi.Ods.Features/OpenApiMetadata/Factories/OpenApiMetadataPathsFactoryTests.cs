@@ -82,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .ToList();
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, CreateApiSettings())
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), CreateApiSettings())
                     .Create(openApiMetadataResources, false);
             }
 
@@ -220,7 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, appSettings)
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), appSettings)
                     .Create(openApiMetadataResources, false);
             }
 
@@ -316,7 +316,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, CreateApiSettings())
+                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), CreateApiSettings())
                     .Create(_openApiMetadataResources, false);
             }
 

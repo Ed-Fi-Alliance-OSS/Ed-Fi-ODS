@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
@@ -22,7 +21,6 @@ using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Composites.Test;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
@@ -149,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositesMetadataProvider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -249,7 +247,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -324,7 +322,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
@@ -432,7 +430,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -532,7 +530,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -653,7 +651,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -738,7 +736,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
-                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
+                    new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
