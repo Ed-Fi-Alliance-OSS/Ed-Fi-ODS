@@ -26,7 +26,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IOpenApiIdentityProvider openApiIdentityProvider = null)
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IOpenApiIdentityProvider openApiIdentityProvider)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
