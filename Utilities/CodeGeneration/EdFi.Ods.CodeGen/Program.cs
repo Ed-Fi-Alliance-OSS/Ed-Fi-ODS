@@ -88,7 +88,9 @@ namespace EdFi.Ods.CodeGen
             }
             catch (Exception e)
             {
-                _logger.Info(e.ToString());
+                var baseException = e.GetBaseException() ?? e;
+
+                _logger.Error(baseException.Message);
 
                 return ReturnCodesConventions.Error;
             }

@@ -16,7 +16,7 @@ namespace EdFi.Ods.CodeGen.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Options>();
+            builder.RegisterInstance<Options>(Options);
 
             builder.RegisterType<CodeRepositoryProvider>()
                 .WithParameter(new NamedParameter("codeRepositoryPath", Options.CodeRepositoryPath))

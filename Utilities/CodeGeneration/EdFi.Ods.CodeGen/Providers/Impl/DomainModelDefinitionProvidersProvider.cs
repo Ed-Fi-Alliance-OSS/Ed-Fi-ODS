@@ -23,15 +23,18 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
         private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
         private readonly string _extensionsPath;
-        
+        private readonly string _standardVersionParam;
+        private readonly string _extensionVersionParam;
+
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
 
         public DomainModelDefinitionProvidersProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IExtensionPluginsProvider extensionPluginsProviderProvider,
-            IExtensionVersionsPathProvider extensionVersionsPathProvider, 
-            IStandardVersionPathProvider standardVersionPathProvider)
+            IExtensionVersionsPathProvider extensionVersionsPathProvider,
+            IStandardVersionPathProvider standardVersionPathProvider,
+            Options options)
         {
             _solutionPath = Path.Combine(
                 codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation),
@@ -45,10 +48,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
 
             _extensionPluginsProviderProvider = extensionPluginsProviderProvider;
-            
+
             _extensionVersionsPathProvider = extensionVersionsPathProvider;
 
             _standardVersionPathProvider = standardVersionPathProvider;
+
+            _standardVersionParam = options.StandardVersion;
+            _extensionVersionParam = options.ExtensionVersion;
         }
 
         /// <summary>
@@ -105,15 +111,11 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             foreach (var modelProject in modelProjects)
             {
-                var metadataFile = GetMetadataFileInfo(modelProject);
+                var metadataFile = modelProject.Name.IsStandardAssembly() ?
+                                    GetStandardMetadataFileInfo(modelProject) :
+                                    GetExtensionMetadataFileInfo(modelProject);
 
                 Logger.Debug($"Loading ApiModels for {metadataFile}.");
-
-                if (!metadataFile.Exists)
-                {
-                    throw new Exception(
-                        $"Unable to find model definitions file for extensions project {modelProject.Name} at location {metadataFile.FullName}.");
-                }
 
                 if (domainModelDefinitionsByPath.ContainsKey(modelProject.Name))
                 {
@@ -139,18 +141,36 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 return Array.Empty<DirectoryInfo>();
             }
 
-            FileInfo GetMetadataFileInfo(DirectoryInfo modelProject)
+            FileInfo GetStandardMetadataFileInfo(DirectoryInfo modelProject)
             {
-                if(modelProject.Name.IsStandardAssembly())
-                {
-                    return new FileInfo(Path.Combine(modelProject.FullName, 
-                        _standardVersionPathProvider.StandardVersionPath(), 
+                var fileInfo = new FileInfo(Path.Combine(modelProject.FullName,
+                        _standardVersionPathProvider.StandardVersionPath(),
                         _standardModelsPath));
+
+                if (!fileInfo.Exists)
+                {
+                    throw new Exception(
+                        $"Unable to find version {_standardVersionParam} model definitions file for standard project {modelProject.Name}.{Environment.NewLine}");
                 }
 
-                return new FileInfo(Path.Combine(_extensionVersionsPathProvider.ExtensionVersionsPath(modelProject.FullName),
-                    _standardVersionPathProvider.StandardVersionPath(), 
-                    _extensionModelsPath));
+                return fileInfo;
+            }
+
+            FileInfo GetExtensionMetadataFileInfo(DirectoryInfo modelProject)
+            {
+                var fileInfo = new FileInfo(Path.Combine(_extensionVersionsPathProvider.ExtensionVersionsPath(modelProject.FullName),
+                        _standardVersionPathProvider.StandardVersionPath(),
+                        _extensionModelsPath));
+
+                if (!fileInfo.Exists)
+                {
+                    throw new Exception(
+                        $"Unable to find model definitions file for extension project {modelProject.Name}.{Environment.NewLine}" +
+                        $"\tVerify that the extension version is {_extensionVersionParam}.{Environment.NewLine}" +
+                        $"\tVerify that the standard version is {_standardVersionParam}.");
+                }
+
+                return fileInfo;
             }
         }
     }

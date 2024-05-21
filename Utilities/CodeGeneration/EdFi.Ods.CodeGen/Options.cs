@@ -20,13 +20,13 @@ namespace EdFi.Ods.CodeGen
         [Option('v', "viewsFromDatabase", Required = false, HelpText = "Request view metadata from an existing empty database.", Default = false)]
         public bool ViewsFromDatabase { get; set; }
 
-        [Option("extensionPaths", Required = false, HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included",Separator =',' )]
+        [Option("extensionPaths", Required = false, HelpText = "Array of paths for the extension location, required only if extensions are located outside the CodeRepositoryPath.", Separator =',' )]
         public IEnumerable<string> ExtensionPaths { get; set; }
 
         [Option("standardVersion", Required = true, HelpText = "Standard Version")]
         public string StandardVersion { get; set; }
 
-        [Option("extensionVersion", Required = false, HelpText = "Extension Version")]
+        [Option("extensionVersion", Required = false, HelpText = "Extension Version. Required only if the extension version is different than 1.0.0 .")]
         public string ExtensionVersion { get; set; }
     }
 }

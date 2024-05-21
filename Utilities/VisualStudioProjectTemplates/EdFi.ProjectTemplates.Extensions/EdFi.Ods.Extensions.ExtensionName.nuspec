@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>$safeprojectname$</id>
+    <id>$safeprojectname$.$extensionversion$.Standard.$standardversion$</id>
     <version>1.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
-	  <copyright>$copyright$</copyright>	  
+    <copyright>$copyright$</copyright>
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$safeprojectname$</description>
+    <description>$safeprojectname$.$extensionversion$.Standard.$standardversion$</description>
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
