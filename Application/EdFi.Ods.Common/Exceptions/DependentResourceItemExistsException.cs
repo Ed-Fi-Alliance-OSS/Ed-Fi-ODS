@@ -11,7 +11,7 @@ public class DependentResourceItemExistsException : ConflictException
 {
     // Fields containing override values for Problem Details
     private const string TypePart = "dependent-item-exists";
-    private const string TitleText = "Dependent Data Item Exists";
+    private const string TitleText = "Dependent Item Exists";
     
     private const string DefaultDetail = "The requested action cannot be performed because this item is referenced by another item.";
     private const string DefaultDetailFormat = "The requested action cannot be performed because this item is referenced by an existing '{0}' item.";

@@ -127,7 +127,7 @@
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not readable using the profile.\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy. An attempt was made to access a resource that is not readable using the profile.\");",
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the profile isn't readable using the profile\", () => {",
@@ -513,7 +513,7 @@
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not writable using the profile.\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy. An attempt was made to access a resource that is not writable using the profile.\");",
 											"});",
 											"",
 											"pm.test(`Should return the error indicating the resource isn't writable using the profile`, () => {",
@@ -611,7 +611,7 @@
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
 											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:method-usage\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not writable using the profile.\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy. An attempt was made to access a resource that is not writable using the profile.\");",
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the reasource isn't writable using the profile\", () => {",
@@ -950,8 +950,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. The resource is not contained by the profile used by (or applied to) the request.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy. The resource is not contained by the profile used by (or applied to) the request.\");",
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource isn't accessible using the profile\", () => {",
@@ -1040,8 +1040,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource requested doesn't match the one specified by the profile\", () => {",
@@ -1130,8 +1130,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message that a profile-based content type that is writable cannot be used with GET requests.\", () => {",
@@ -1219,8 +1219,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return an error message that the profile usage segment in the profile-based 'Accept' header was not recognized.\", () => {",
@@ -1287,8 +1287,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
@@ -1439,8 +1439,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect. The resource is not contained by the profile used by (or applied to) the request.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy. The resource is not contained by the profile used by (or applied to) the request.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the resource is not accessible through the profile specified by the content type.\", () => {",
@@ -1532,8 +1532,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the profile-based content type does not match the resource targeted by the request.\", () => {",
@@ -1625,8 +1625,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\", () => {",
@@ -1692,8 +1692,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\", () => {",
@@ -1786,8 +1786,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message about an unrecognized profile usage segment in the content type\", () => {",
@@ -1859,8 +1859,8 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-													"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the format of the Accept header was invalid.\", () => {",
@@ -1996,8 +1996,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host.\", () => {",
@@ -2086,8 +2086,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host.\", () => {",
@@ -2347,8 +2347,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
@@ -2411,8 +2411,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
@@ -2480,8 +2480,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
@@ -2552,8 +2552,8 @@
 											"",
 											"pm.test(\"Should return a problem details result\", () => {",
 											"  pm.expect(pm.response.code).equal(problemDetails.status);",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-content-type\");",
-											"  pm.expect(problemDetails.detail).to.equal(\"Usage of the API Profiles feature was incorrect.\");",
+											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:profile:invalid-profile-usage\");",
+											"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid with respect to usage of a data policy.\");",
 											"});",
 											"",
 											"pm.test(\"Should return error message the profile specified by the content type is configured but invalid.\", () => {",
@@ -3391,7 +3391,7 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 													"});",
 													"",
@@ -3478,7 +3478,7 @@
 													"",
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
-													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 													"});",
 													"",
@@ -4120,7 +4120,7 @@
 																	"",
 																	"pm.test(\"Should return a problem details result\", () => {",
 																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
-																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 																	"});",
 																	"",
@@ -4347,7 +4347,7 @@
 																	"",
 																	"pm.test(\"Should return a problem details result\", () => {",
 																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
-																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 																	"});",
 																	"",
@@ -5129,7 +5129,7 @@
 																	"",
 																	"pm.test(\"Should return a problem details result\", () => {",
 																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
-																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 																	"});",
 																	"",
@@ -5358,7 +5358,7 @@
 																	"",
 																	"pm.test(\"Should return a problem details result\", () => {",
 																	"  pm.expect(pm.response.code).equal(problemDetails.status);",
-																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data\");",
+																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
 																	"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
 																	"});",
 																	"",
@@ -7991,8 +7991,7 @@
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -8001,8 +8000,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -8184,12 +8182,11 @@
 															"});",
 															"",
 															"pm.test(\"Should return error message indicating which profiles can be used with the request.\", () => {",
-															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json', 'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
+															"  pm.expect(problemDetails.errors).to.contain(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -8198,8 +8195,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -8381,8 +8377,7 @@
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -8391,8 +8386,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -8568,8 +8562,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -8593,8 +8586,7 @@
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -8766,8 +8758,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -8791,8 +8782,7 @@
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -8990,8 +8980,7 @@
 															"});",
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												},
 												{
@@ -9000,8 +8989,7 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript",
-														"packages": {}
+														"type": "text/javascript"
 													}
 												}
 											],
@@ -14100,7 +14088,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14110,8 +14098,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14174,7 +14161,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14184,8 +14171,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14300,7 +14286,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14310,8 +14296,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14369,7 +14354,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14379,8 +14364,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14490,7 +14474,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14500,8 +14484,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14606,7 +14589,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14616,8 +14599,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14670,7 +14652,7 @@
 											"pm.test(\"Should include detail that indicates there's a data policy problem.\", () => {\r",
 											"  pm.expect(problemDetails).to.deep.include({\r",
 											"    \"detail\": \"The data cannot be saved because a data policy has been applied to the request that prevents it.\",\r",
-											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy\",\r",
+											"    \"type\": \"urn:ed-fi:api:bad-request:data-policy-enforced\",\r",
 											"    \"title\": \"Data Policy Enforced\",\r",
 											"    \"status\": 400\r",
 											"  });\r",
@@ -14680,8 +14662,7 @@
 											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
 											"});"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],

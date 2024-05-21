@@ -12,7 +12,7 @@ namespace EdFi.Ods.Common.Exceptions;
 public abstract class ConflictException : EdFiProblemDetailsExceptionBase
 {
     // Fields containing override values for Problem Details
-    private const string TypePart = "conflict";
+    private const string TypePart = "data-conflict";
     private const string TitleText = "Data Conflict";
 
     private const int StatusValue = StatusCodes.Status409Conflict;

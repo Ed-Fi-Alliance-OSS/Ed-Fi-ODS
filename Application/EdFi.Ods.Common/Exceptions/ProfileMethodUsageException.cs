@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Exceptions
         private const string TitleText = "Method Not Allowed with Profile";
         private const int StatusValue = StatusCodes.Status405MethodNotAllowed;
 
-        private const string DefaultDetailFormat = "Usage of the API Profiles feature was incorrect. An attempt was made to access a resource that is not {0} using the profile.";
+        private const string DefaultDetailFormat = "The request construction was invalid with respect to usage of a data policy. An attempt was made to access a resource that is not {0} using the profile.";
 
         public ProfileMethodUsageException(ContentTypeUsage usage, string error)
             : base(string.Format(DefaultDetailFormat, usage.ToString().ToLower()), error)

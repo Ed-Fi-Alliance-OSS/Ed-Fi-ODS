@@ -66,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.ExternalCache
 
                 AssertHelper.All(
                     () => problemDetails.Status.ShouldBe(500),
-                    () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "system")),
+                    () => problemDetails.Type.ShouldBe(string.Join(':', EdFiProblemDetailsExceptionBase.BaseTypePrefix, "system:distributed-cache-error")),
                     () => problemDetails.Detail.ShouldBe("An unexpected problem has occurred.")
                 );
             }
