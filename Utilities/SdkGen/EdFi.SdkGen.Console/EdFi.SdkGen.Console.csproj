@@ -6,6 +6,11 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>		
   </PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="csharp\**" />
+	  <EmbeddedResource Remove="csharp\**" />
+	  <None Remove="csharp\**" />
+	</ItemGroup>
+	<ItemGroup>
     <None Remove="readme.txt" />
   </ItemGroup>
 	<ItemGroup>
