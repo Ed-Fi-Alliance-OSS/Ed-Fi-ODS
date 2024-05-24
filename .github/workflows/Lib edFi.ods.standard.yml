@@ -37,7 +37,8 @@ jobs:
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
-    name: build (Standard ${{ matrix.StandardVersion }})        
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
     steps:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
@@ -85,7 +86,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }}
+          Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
     - name: build
       working-directory: ./Ed-Fi-ODS/
       run: |
