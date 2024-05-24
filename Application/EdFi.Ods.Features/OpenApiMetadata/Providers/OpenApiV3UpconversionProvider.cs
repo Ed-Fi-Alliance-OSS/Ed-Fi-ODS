@@ -60,7 +60,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
-            serverUrl = $"{baseServerUrl}/{{ODS Selection}}";
+            serverUrl = $"{baseServerUrl}/{{{GetTenantContextTitle()}}}";
         }
         else
         {
@@ -75,7 +75,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         IDictionary<string, TenantConfiguration> tenantMap = _tenantConfigurationMapProvider?.GetMap() ?? new Dictionary<string, TenantConfiguration>();
         
-        OpenApiServerVariable serverVariable = new OpenApiServerVariable { Description = "ODS Selection" };
+        OpenApiServerVariable serverVariable = new OpenApiServerVariable { Description = GetTenantContextTitle() };
         openApiDocument.Servers.Add(odsServer);
 
         var odsRouteContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
@@ -120,7 +120,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
                 !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
             {
-                server.Variables.Add("ODS Selection", serverVariable);
+                server.Variables.Add(GetTenantContextTitle(), serverVariable);
             }
         }
         
@@ -211,6 +211,22 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
             var tenantOauthSegment = tenant is null ? "" : $"{tenant.TenantIdentifier}_";
             securityScheme.Name = $"{tenantOauthSegment}oauth2_client_credentials";
             openApiDocument.Components.SecuritySchemes.Add($"{tenantOauthSegment}oauth2_client_credentials", securityScheme);
+        }
+
+        string GetTenantContextTitle()
+        {
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) &&
+                !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+            {
+                return "Tenant/Context Selection";
+            }
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            {
+                return "Tenant Selection";
+            }
+
+            return "Context Selection";
         }
     }
 }
