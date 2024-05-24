@@ -2,6 +2,8 @@
 	<PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>		
   </PropertyGroup>
 	<ItemGroup>
     <None Remove="readme.txt" />
