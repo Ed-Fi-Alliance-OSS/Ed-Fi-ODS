@@ -10012,7 +10012,7 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.initialChangeVersion + 1);"
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 												],
 												"type": "text/javascript"
 											}
@@ -10571,7 +10571,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSectionassociations/keyChanges?minChangeVersion={{known:{{scenarioId}}:initialChangeVersion}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffSectionassociations/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -10585,7 +10585,7 @@
 											"query": [
 												{
 													"key": "minChangeVersion",
-													"value": "{{known:{{scenarioId}}:initialChangeVersion}}"
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
 												}
 											]
 										}

@@ -2653,6 +2653,141 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "When_Given_an_invalid_id_filter_Should_return_400",
+									"item": [
+										{
+											"name": "When_Given_an_invalid_id_filter_Should_return_400",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {",
+															"    pm.expect(pm.response.code).to.equal(400);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the id is invalid.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Data Validation Failed\");",
+															"  pm.expect(problemDetails.validationErrors[\"$.id\"]).to.contain(\"The value 'invalid' is not valid for Id.\");",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?id=invalid",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													],
+													"query": [
+														{
+															"key": "id",
+															"value": "invalid"
+														}
+													]
+												},
+												"description": ""
+											},
+											"response": []
+										},
+										{
+											"name": "When_Given_an_invalid_id_filter_alongside_valid_filters_Should_return_400",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {",
+															"    pm.expect(pm.response.code).to.equal(400);",
+															"});",
+															"",
+															"pm.test(\"Should return a message indicating that the id is invalid.\", () => {",
+															"  const problemDetails = pm.response.json();",
+															"",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");",
+															"  pm.expect(problemDetails.title).to.equal(\"Data Validation Failed\");",
+															"  pm.expect(problemDetails.validationErrors[\"$.id\"]).to.contain(\"The value 'invalid' is not valid for Id.\");",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset=0&limit=25&id=invalid",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													],
+													"query": [
+														{
+															"key": "offset",
+															"value": "0"
+														},
+														{
+															"key": "limit",
+															"value": "25"
+														},
+														{
+															"key": "id",
+															"value": "invalid"
+														}
+													]
+												},
+												"description": ""
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
