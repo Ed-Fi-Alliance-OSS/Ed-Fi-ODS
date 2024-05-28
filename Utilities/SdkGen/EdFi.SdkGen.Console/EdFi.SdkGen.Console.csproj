@@ -2,7 +2,14 @@
 	<PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>		
   </PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="csharp\**" />
+	  <EmbeddedResource Remove="csharp\**" />
+	  <None Remove="csharp\**" />
+	</ItemGroup>
 	<ItemGroup>
     <None Remove="readme.txt" />
   </ItemGroup>
