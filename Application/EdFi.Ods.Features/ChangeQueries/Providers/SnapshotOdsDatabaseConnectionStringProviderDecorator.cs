@@ -6,6 +6,7 @@
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using log4net;
 
@@ -60,7 +61,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
                 _logger.Debug($"Getting Snapshot connection string for ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') from context...");
             }
 
-            return _odsInstanceContextProvider.Get().ConnectionStringByDerivativeType[DerivativeType.Snapshot];
+            var odsInstanceContext = _odsInstanceContextProvider.Get();
+
+            if (!odsInstanceContext.ConnectionStringByDerivativeType.TryGetValue(
+                    DerivativeType.Snapshot, out string snapshotConnectionString))
+            {
+                throw new NotFoundException("Snapshots are not configured.");
+            }
+            
+            return snapshotConnectionString;
         }
     }
 }
