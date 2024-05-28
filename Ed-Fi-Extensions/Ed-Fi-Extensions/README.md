@@ -1,4 +1,4 @@
-# Ed-Fi-ODS-Implementation
+# Ed-Fi-ODS-Extensions
 
 This repository hosts the end-user applications and extensions for the Ed-Fi Operational Data Store (ODS) and Ed-Fi ODS API.
 
