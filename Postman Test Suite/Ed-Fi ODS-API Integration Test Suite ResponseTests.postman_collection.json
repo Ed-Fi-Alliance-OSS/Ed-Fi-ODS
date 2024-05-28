@@ -3773,6 +3773,124 @@
 							]
 						},
 						{
+							"name": "when_getting_keychanges_from_an_unconfigured_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_404_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_404_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the specified data could not be found.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are not configured.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Use-Snapshot",
+														"value": "true"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Assessments/keyChanges",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Assessments",
+														"keyChanges"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_getting_deletes_from_an_unconfigured_snapshot",
+							"item": [
+								{
+									"name": "api_should_fail_with_404_code",
+									"item": [
+										{
+											"name": "api_should_fail_with_404_code",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(404);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return a message indicating that the specified data could not be found.\", () => {\r",
+															"  const problemDetails = pm.response.json();\r",
+															"\r",
+															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are not configured.\");\r",
+															"\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Use-Snapshot",
+														"value": "true"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Assessments/deletes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Assessments",
+														"deletes"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
 							"name": "ReferenceLinkTests",
 							"item": [
 								{
