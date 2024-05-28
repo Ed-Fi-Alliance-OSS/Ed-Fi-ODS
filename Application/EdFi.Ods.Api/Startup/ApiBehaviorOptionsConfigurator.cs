@@ -4,13 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Startup;
@@ -34,7 +32,7 @@ public class ApiBehaviorOptionsConfigurator : IConfigureOptions<ApiBehaviorOptio
     {
         options.InvalidModelStateResponseFactory = actionContext =>
         {
-            if (actionContext.ModelState.ValidationState == ModelValidationState.Invalid)
+            if (actionContext.ModelState.ErrorCount > 0)
             {
                 var problemDetails = _errorTranslator.GetProblemDetails(
                     _dataManagementResourceContextProvider.Get()?.Resource,
