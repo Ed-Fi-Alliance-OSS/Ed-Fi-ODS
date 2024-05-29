@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterchangeDescriptors xmlns="http://ed-fi.org/5.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/5.1.0 EXTENSION-Interchange-Descriptors-Extension.xsd">
+	<AlternativeEducationEligibilityReasonDescriptor>
+		<CodeValue>Student intends to withdraw or has withdrawn before graduation</CodeValue>
+		<ShortDescription>Student intends to withdraw or has withdrawn before graduation</ShortDescription>
+		<Namespace>uri://ed-fi.org/AlternativeEducationEligibilityReasonDescriptor</Namespace>
+	</AlternativeEducationEligibilityReasonDescriptor>
+	<AlternativeEducationEligibilityReasonDescriptor>
+		<CodeValue>Student has failed to comply academically</CodeValue>
+		<ShortDescription>Student has failed to comply academically</ShortDescription>
+		<Namespace>uri://ed-fi.org/AlternativeEducationEligibilityReasonDescriptor</Namespace>
+	</AlternativeEducationEligibilityReasonDescriptor>
+	<AlternativeEducationEligibilityReasonDescriptor>
+		<CodeValue>Student is a parent or an expectant parent</CodeValue>
+		<ShortDescription>Student is a parent or an expectant parent</ShortDescription>
+		<Namespace>uri://ed-fi.org/AlternativeEducationEligibilityReasonDescriptor</Namespace>
+	</AlternativeEducationEligibilityReasonDescriptor>
+	<AlternativeEducationEligibilityReasonDescriptor>
+		<CodeValue>Student is employed and employment is necessary</CodeValue>
+		<ShortDescription>Student is employed and employment is necessary</ShortDescription>
+		<Namespace>uri://ed-fi.org/AlternativeEducationEligibilityReasonDescriptor</Namespace>
+	</AlternativeEducationEligibilityReasonDescriptor>
+	<AlternativeEducationEligibilityReasonDescriptor>
+		<CodeValue>Student is a disruptive student</CodeValue>
+		<ShortDescription>Student is a disruptive student</ShortDescription>
+		<Namespace>uri://ed-fi.org/AlternativeEducationEligibilityReasonDescriptor</Namespace>
+	</AlternativeEducationEligibilityReasonDescriptor>
+</InterchangeDescriptors>
+
+

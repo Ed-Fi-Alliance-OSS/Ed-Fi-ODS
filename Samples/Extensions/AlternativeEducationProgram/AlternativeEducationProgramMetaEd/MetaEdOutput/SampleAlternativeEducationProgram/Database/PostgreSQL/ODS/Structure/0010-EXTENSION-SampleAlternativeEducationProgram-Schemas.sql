@@ -1,0 +1,1 @@
+CREATE SCHEMA samplealternativeeducationprogram AUTHORIZATION postgres;

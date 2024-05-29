@@ -1,0 +1,8 @@
+Association StudentAlternativeEducationProgramAssociation based on EdFi.GeneralStudentProgramAssociation
+    documentation "This association represents Students in an Alternative Education Program."
+    descriptor AlternativeEducationEligibilityReason
+        documentation "The reason the student is eligible for the program."
+        is required
+    common EdFi.MeetingTime
+        documentation "The times at which this Alternative Education Program is scheduled to meet."
+        is optional collection

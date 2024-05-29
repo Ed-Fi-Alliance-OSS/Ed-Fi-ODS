@@ -81,6 +81,7 @@ logistics/Services/
 #Sample MetaEd
 Samples/Extensions/**/MetaEdOutput/EdFi/
 Samples/Extensions/**/MetaEdOutput/Documentation/
+Samples/Extensions/**/MetaEdOutput/ApiSchema/
 
 #Database project working files
 Import Schema Logs
