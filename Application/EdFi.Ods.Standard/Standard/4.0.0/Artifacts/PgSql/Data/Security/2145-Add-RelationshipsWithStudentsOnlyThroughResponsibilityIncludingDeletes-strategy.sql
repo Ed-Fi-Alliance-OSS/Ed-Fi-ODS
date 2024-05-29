@@ -4,5 +4,14 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 -- Define a new authorization strategy for reading changes when authorizing access to student data through the responsiblity association
-insert into dbo.AuthorizationStrategies(DisplayName, AuthorizationStrategyName)
-values ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation, including deletes)', 	'RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes');
+DO language plpgsql $$
+
+BEGIN
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName ='RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes') THEN
+
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+        VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation, including deletes)', 'RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes');
+    END IF;
+
+END $$;
