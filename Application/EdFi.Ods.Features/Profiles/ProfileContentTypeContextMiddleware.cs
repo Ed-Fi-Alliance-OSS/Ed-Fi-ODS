@@ -217,7 +217,9 @@ public class ProfileContentTypeContextMiddleware
         {
             string correlationId = _logContextAccessor.GetCorrelationId();
             string errorMessage = string.Format(_logMessageFormatSpecifiers[(int)logMessageFormatType], headerName);
-
+            
+            _logger.Error(errorMessage);
+            
             return response.WriteProblemDetailsAsync(
                 statusCode,
                 ProfileContentTypeUsageException.TitleText,
@@ -230,7 +232,9 @@ public class ProfileContentTypeContextMiddleware
         Task WriteResponseMessage(HttpResponse response, int statusCode, string errorMessage)
         {
             string correlationId = _logContextAccessor.GetCorrelationId();
-
+            
+            _logger.Error(errorMessage);
+            
             return response.WriteProblemDetailsAsync(
                 statusCode,
                 ProfileContentTypeUsageException.TitleText,
