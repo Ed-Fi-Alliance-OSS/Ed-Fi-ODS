@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
 -- Extended Properties [samplealternativeeducationprogram].[AlternativeEducationEligibilityReasonDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the reason a student is eligible for an Alternative Education Program', @level0type=N'SCHEMA', @level0name=N'samplealternativeeducationprogram', @level1type=N'TABLE', @level1name=N'AlternativeEducationEligibilityReasonDescriptor'
 GO
@@ -41,4 +46,3 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of the time of day the meeting time begins.', @level0type=N'SCHEMA', @level0name=N'samplealternativeeducationprogram', @level1type=N'TABLE', @level1name=N'StudentAlternativeEducationProgramAssociationMeetingTime', @level2type=N'COLUMN', @level2name=N'StartTime'
 GO
-
