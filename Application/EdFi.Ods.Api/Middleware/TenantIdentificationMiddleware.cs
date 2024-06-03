@@ -4,7 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Logging;
 using log4net;
 using Microsoft.AspNetCore.Http;
 
@@ -17,13 +21,14 @@ public class TenantIdentificationMiddleware : IMiddleware
 {
     private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
     private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
-
+    private readonly ILogContextAccessor _logContextAccessor;
     private readonly ILog _logger = LogManager.GetLogger(typeof(TenantIdentificationMiddleware));
 
-    public TenantIdentificationMiddleware(
+    public TenantIdentificationMiddleware(ILogContextAccessor logContextAccessor,
         ITenantConfigurationMapProvider tenantConfigurationMapProvider,
         IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
     {
+        _logContextAccessor = logContextAccessor;
         _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
         _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
     }
@@ -43,7 +48,23 @@ public class TenantIdentificationMiddleware : IMiddleware
             }
             else
             {
-                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                var tenantIdentifierPart = "";
+                
+                if (tenantIdentifierAsObject is string tenantIdentifierString)
+                {
+                    tenantIdentifierPart = $"'{tenantIdentifierString}' ";
+                }
+                
+                var problemDetails = new NotFoundException(
+                    NotFoundException.DefaultDetail,
+                    $"The selected tenant {tenantIdentifierPart}does not exist. Check the tenant name and try again.");
+
+                string correlationId = _logContextAccessor.GetCorrelationId();
+                problemDetails.CorrelationId = correlationId;
+
+                await context.Response.WriteProblemDetailsAsync(problemDetails);
+
+                _logger.Error(problemDetails.Message);
 
                 return;
             }
