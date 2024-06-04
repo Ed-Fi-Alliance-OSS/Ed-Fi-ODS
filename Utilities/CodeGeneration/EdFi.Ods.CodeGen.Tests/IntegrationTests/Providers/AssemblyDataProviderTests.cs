@@ -86,8 +86,8 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
                     "ODS Database Specific",
+                    "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
-                    "EdFi.Ods.Extensions.SampleStudentTransportation"
                 };
 
                 _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
@@ -160,8 +160,8 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.Sample",
                     "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
+                    "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
-                    "EdFi.Ods.Extensions.SampleStudentTransportation"
                 };
 
                 _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
