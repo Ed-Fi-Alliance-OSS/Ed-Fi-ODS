@@ -86,6 +86,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
                     "ODS Database Specific",
+                    "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
                 };
 
@@ -159,6 +160,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.Sample",
                     "EdFi.Ods.Extensions.TPDM",
                     "EdFi.Ods.Standard",
+                    "EdFi.Ods.Extensions.SampleAlternativeEducationProgram",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
                 };
 

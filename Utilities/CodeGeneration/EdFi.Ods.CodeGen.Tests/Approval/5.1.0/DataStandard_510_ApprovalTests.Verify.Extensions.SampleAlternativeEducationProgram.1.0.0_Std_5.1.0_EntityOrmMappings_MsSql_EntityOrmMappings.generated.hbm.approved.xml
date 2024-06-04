@@ -1,0 +1,34 @@
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.SampleAlternativeEducationProgram" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime" table="StudentAlternativeEducationProgramAssociationMeetingTime" lazy="false" schema="samplealternativeeducationprogram">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EndTime" column="EndTime" type="TimeAsTimeSpan" />
+      <key-property name="StartTime" column="StartTime" type="TimeAsTimeSpan" />
+      <key-many-to-one name="StudentAlternativeEducationProgramAssociation">
+        <column name="BeginDate" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramEducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+</hibernate-mapping>
+
