@@ -81,7 +81,7 @@ jobs:
              dotnet restore
              cd ../EdFi.Ods.Extensions.SampleStudentTranscript/
              dotnet restore
-             cd ../EdFi.Ods.Extensions.SampleStudentTransportation/
+             cd ../EdFi.Ods.Extensions.SampleAlternativeEducationProgram/
              dotnet restore
              cd ../EdFi.Ods.Extensions.TPDM/
              dotnet restore
@@ -103,7 +103,7 @@ jobs:
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Homograph/EdFi.Ods.Extensions.Homograph.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/EdFi.Ods.Extensions.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleStudentTranscript/EdFi.Ods.Extensions.SampleStudentTranscript.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleStudentTransportation/EdFi.Ods.Extensions.SampleStudentTransportation.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleAlternativeEducationProgram/EdFi.Ods.Extensions.SampleAlternativeEducationProgram.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: Perform CodeQL Analysis

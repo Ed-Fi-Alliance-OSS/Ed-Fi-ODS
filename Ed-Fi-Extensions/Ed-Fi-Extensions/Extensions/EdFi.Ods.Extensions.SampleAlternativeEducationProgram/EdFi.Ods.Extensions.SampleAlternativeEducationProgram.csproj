@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">5.1.0</StandardVersion>
+		<ExtensionVersion Condition="'$(ExtensionVersion)' == '' ">1.0.0</ExtensionVersion>
+  </PropertyGroup>	
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>EdFi.Ods.Extensions.SampleAlternativeEducationProgram</RootNamespace>
+    <AssemblyName>EdFi.Ods.Extensions.SampleAlternativeEducationProgram</AssemblyName>
+    <RestorePackages>true</RestorePackages>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Versions\*\Standard\**" />
+    <EmbeddedResource Remove="Versions\*\Standard\**" />
+    <None Remove="Versions\*\Standard\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\**\Metadata\*.xml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\**\*.sql">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Schemas\*.xsd">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <LogicalName>$(RootNamespace).Artifacts.Schemas.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EdFi.Ods.Extensions.ExtensionName.nuspec">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Marker_EdFi_Ods_Extensions_ExtensionName.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <EmbeddedResource Include="assemblyMetadata.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\**\*.cs" />
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel-EXTENSION.json">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).Artifacts.Metadata.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\**\*.generated.hbm.xml">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).$([System.String]::Copy('%(RecursiveDir)').Replace('/', '.').Replace('\', '.'))%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
+  </ItemGroup>
+</Project>

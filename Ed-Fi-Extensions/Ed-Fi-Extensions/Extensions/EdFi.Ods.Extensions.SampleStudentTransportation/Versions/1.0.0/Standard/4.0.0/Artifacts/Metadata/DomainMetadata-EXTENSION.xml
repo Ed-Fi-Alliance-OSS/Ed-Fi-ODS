@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<AggregateExtensions logicalSchema="SampleStudentTransportation" schema="samplestudenttransportation">
-  <Aggregate root="StudentTransportation">
-    <Entity table="StudentTransportation" schema="samplestudenttransportation"/>
-  </Aggregate>
-</AggregateExtensions>
