@@ -5,6 +5,7 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
@@ -16,32 +17,25 @@ namespace EdFi.Ods.Api.Middleware;
 /// Implements middleware that inspects the request and captures a correlation identifier supplied in an HTTP header or query
 /// string parameter (in that order of precedence).
 /// </summary>
-public class RequestCorrelationMiddleware : IMiddleware
+public class RequestCorrelationMiddleware(ILogContextAccessor logContextAccessor, ApiSettings apiSettings) : IMiddleware
 {
-    private readonly ILogContextAccessor _logContextAccessor;
-
-    public RequestCorrelationMiddleware(ILogContextAccessor logContextAccessor)
-    {
-        _logContextAccessor = logContextAccessor;
-    }
-    
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         // Capture correlation from the header, if present
-        if (context.Request.Headers.TryGetValue(CorrelationConstants.HttpHeader, out var headerValues))
+        if (context.Request.Headers.TryGetValue(string.IsNullOrEmpty(apiSettings.OdsCorrelationIdHttpHeaderName) ? CorrelationConstants.HttpHeader : apiSettings.OdsCorrelationIdHttpHeaderName, out var headerValues))
         {
-            _logContextAccessor.SetCorrelationId(headerValues[0]);
+            logContextAccessor.SetCorrelationId(headerValues[0]);
         }
         else
         {
             // Capture correlation from the query string, if present
             if (context.Request.Query.TryGetValue(CorrelationConstants.QueryString, out var queryStringValues))
             {
-                _logContextAccessor.SetCorrelationId(queryStringValues[0]);
+                logContextAccessor.SetCorrelationId(queryStringValues[0]);
             }
             else
             {
-                _logContextAccessor.SetCorrelationId(Guid.NewGuid().ToString());
+                logContextAccessor.SetCorrelationId(Guid.NewGuid().ToString());
             }
         }
 
