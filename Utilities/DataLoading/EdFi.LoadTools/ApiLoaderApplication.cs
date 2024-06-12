@@ -313,18 +313,5 @@ namespace EdFi.LoadTools
 
             return new DataFlowPipeline<ApiLoaderWorkItem>(retryBufferBlock, completionCheckBlock.Completion);
         }
-
-        private class DataFlowPipeline<T>
-        {
-            public DataFlowPipeline(ITargetBlock<T> startBlock, Task completionTask)
-            {
-                StartBlock = startBlock;
-                Completion = completionTask;
-            }
-
-            public ITargetBlock<T> StartBlock { get; }
-
-            public Task Completion { get; }
-        }
     }
 }
