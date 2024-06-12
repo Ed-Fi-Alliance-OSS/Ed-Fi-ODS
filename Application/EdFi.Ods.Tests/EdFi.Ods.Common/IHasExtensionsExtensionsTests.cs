@@ -772,25 +772,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             }
 
             [Assert]
-            public void Should_indicate_on_the_target_object_that_the_extensions_are_available()
-            {
-                Assert.That(_suppliedTargetObject.IsExtensionAvailable("Extension1"), Is.True);
-                Assert.That(_suppliedTargetObject.IsExtensionAvailable("Extension2"), Is.True);
-            }
-
-            [Assert]
-            public void Should_indicate_that_the_unsupported_but_present_extension_on_the_resource_is_NOT_available_on_the_target()
-            {
-                Assert.That(_suppliedTargetObject.IsExtensionAvailable("UnsupportedExtension"), Is.False);
-            }
-
-            [Assert]
-            public void Should_NOT_indicate_on_the_target_object_that_non_existent_extensions_are_available()
-            {
-                Assert.That(_suppliedTargetObject.IsExtensionAvailable("NonExistentExtension"), Is.False);
-            }
-
-            [Assert]
             public void Should_set_the_target_extension_entity_back_references_to_the_supplied_target_entity()
             {
                 foreach (IMappableExtensionEntity targetExtensionObject in _suppliedTargetExtensionObjectByExtensionName.Values)
@@ -969,9 +950,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         private readonly IDictionary<string, bool> _supportedByExtensionName
             = new Dictionary<string, bool>();
 
-        private readonly IDictionary<string, bool> _availableByExtensionName
-            = new Dictionary<string, bool>();
-
         public FakeEntityWithExtensions()
         {
             Extensions = new Dictionary<string, object>();
@@ -998,24 +976,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         public void SetExtensionSupported(string name, bool isSupported)
         {
             _supportedByExtensionName[name] = isSupported;
-        }
-
-        public bool IsExtensionAvailable(string name)
-        {
-            bool available;
-
-            // By default, indicate extension is NOT available.
-            if (!_availableByExtensionName.TryGetValue(name, out available))
-            {
-                return false;
-            }
-
-            return available;
-        }
-
-        public void SetExtensionAvailable(string name, bool isAvailable)
-        {
-            _availableByExtensionName[name] = isAvailable;
         }
 
         public IDictionary Extensions { get; set; }

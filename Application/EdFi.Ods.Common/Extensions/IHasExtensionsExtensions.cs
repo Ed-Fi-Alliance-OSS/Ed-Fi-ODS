@@ -209,9 +209,6 @@ namespace EdFi.Ods.Common.Extensions
                     continue;
                 }
 
-                // Mark the extension as available on the target
-                targetSynchSupport.SetExtensionAvailable(extensionName, true);
-
                 // Identify the source extension instance
                 var sourceExtensionObject = GetMappableSourceExtensionObject(source, extensionName);
 

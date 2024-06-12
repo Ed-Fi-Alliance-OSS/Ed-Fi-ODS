@@ -695,8 +695,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
 
             var sourceExtensionSupport = source.StudentAcademicRecordClassRanking as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("SampleStudentTranscript"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -783,8 +781,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
 
             var sourceExtensionSupport = source.StudentAcademicRecord as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("SampleStudentTranscript"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
