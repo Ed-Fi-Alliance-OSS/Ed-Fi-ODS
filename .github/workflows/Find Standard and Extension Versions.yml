@@ -23,6 +23,8 @@ on:
         description: "Extension Versions"
         value: ${{ jobs.FindStandardAndExtensionVersions.outputs.ExtensionVersions }}
 
+permissions: read-all
+
 env:
   REF_NAME: ${{ inputs.calling_branch }}
   EXTENSION_PATH: ${{ inputs.extension_path }}

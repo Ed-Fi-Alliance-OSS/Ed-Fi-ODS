@@ -11,6 +11,9 @@ on:
   push:
     branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
+
+permissions: read-all
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true

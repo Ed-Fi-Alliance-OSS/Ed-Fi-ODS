@@ -9,6 +9,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   BUILD_INCREMENTER: "-1486"
