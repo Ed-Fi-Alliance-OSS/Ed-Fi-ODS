@@ -290,8 +290,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -529,8 +527,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -844,8 +840,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -1093,8 +1087,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -1332,8 +1324,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -1635,8 +1625,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -2294,8 +2282,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -2600,8 +2586,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -4231,8 +4215,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -4480,8 +4462,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -4711,8 +4691,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -4950,8 +4928,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -5265,8 +5241,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -5514,8 +5488,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -5753,8 +5725,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -6464,8 +6434,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -6769,8 +6737,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -8400,8 +8366,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -8649,8 +8613,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -9244,8 +9206,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -9510,8 +9470,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -9904,8 +9862,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -10446,8 +10402,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -10713,8 +10667,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return false; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -11223,8 +11175,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -11472,8 +11422,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -11703,8 +11651,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -11942,8 +11888,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -12257,8 +12201,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -12506,8 +12448,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -12745,8 +12685,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -13048,8 +12986,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -13803,8 +13739,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -14128,8 +14062,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -14359,8 +14291,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -15990,8 +15920,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -16239,8 +16167,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -16470,8 +16396,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -16709,8 +16633,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -17024,8 +16946,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -17273,8 +17193,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -17512,8 +17430,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -17815,8 +17731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Sample
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -18570,8 +18484,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -18895,8 +18807,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
@@ -19126,8 +19036,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resour
 
         bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
 
 
         // =================================================================
