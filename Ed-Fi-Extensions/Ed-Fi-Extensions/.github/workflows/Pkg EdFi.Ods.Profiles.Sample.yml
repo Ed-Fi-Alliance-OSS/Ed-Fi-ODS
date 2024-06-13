@@ -10,6 +10,8 @@ on:
     branches:  [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   BUILD_INCREMENTER: "-117"

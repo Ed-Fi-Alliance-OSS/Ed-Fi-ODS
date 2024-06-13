@@ -8,6 +8,8 @@ on:
   pull_request:
     branches: [main, 'ODS-*']
     types: [ closed ]
+
+permissions: read-all
   
 env:
   GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}

@@ -15,7 +15,8 @@ on:
         description: 'distinct ID for Rebuild Database Templates workflow'
         required: false
         default: 'distinct_id'
-          
+
+permissions: read-all
         
 env:
   INFORMATIONAL_VERSION: "7.3"

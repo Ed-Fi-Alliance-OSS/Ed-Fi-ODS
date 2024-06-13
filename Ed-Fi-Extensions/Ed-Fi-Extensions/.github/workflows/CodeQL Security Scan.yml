@@ -8,6 +8,9 @@ name: CodeQL Security Scan Schedule
 on:
   schedule:
     - cron: '0 0 * * *'
+
+permissions: read-all
+
 env:
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
