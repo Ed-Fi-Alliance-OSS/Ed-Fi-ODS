@@ -12,6 +12,8 @@ on:
       - '**.sql'
   workflow_dispatch:
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   BUILD_INCREMENTER: "-537"
