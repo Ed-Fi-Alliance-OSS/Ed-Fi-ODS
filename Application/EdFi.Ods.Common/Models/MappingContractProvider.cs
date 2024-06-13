@@ -64,10 +64,8 @@ public class MappingContractProvider : IMappingContractProvider
         // Need to verify that the resource in the profile content type matches the current request resource
         if (!dataManagementResourceContext.Resource.Name.EqualsIgnoreCase(profileContentTypeContext.ResourceName))
         {
-            throw new ProfileContentTypeUsageException(
-                ProfileContentTypeUsageException.DefaultDetail,
-                $"The resource specified by the profile-based content type ('{profileContentTypeContext.ResourceName}') does not match the requested resource ('{dataManagementResourceContext.Resource.Name}').",
-                profileContentTypeContext.ProfileName, profileContentTypeContext.ContentTypeUsage);
+            throw new BadRequestException(
+                "The resource in the profile-based content type does not match the resource targeted by the request.");
         }
 
         var mappingContractKey = new MappingContractKey(
@@ -97,19 +95,14 @@ public class MappingContractProvider : IMappingContractProvider
                 // If we couldn't find it, throw an error
                 if (profileResourceModel == null)
                 {
-                    throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + " The profile used by the request does not exist.",
-                        $"Unable to find a resource model for API Profile named '{key.ProfileName}'.", 
-                        key.ProfileName, key.ContentTypeUsage);
+                    throw new BadRequestException($"Unable to find resource model for API Profile '{key.ProfileName}'.");
                 }
 
                 // If we can't find the resource in the profile, throw an error
                 if (!profileResourceModel.ResourceByName.TryGetValue(key.ProfileResourceName, out var contentTypes))
                 {
-                    throw new ProfileContentTypeUsageException(
-                        ProfileContentTypeUsageException.DefaultDetail + " The resource is not contained by the profile used by (or applied to) the request.",
-                        $"Resource '{key.ProfileResourceName.Name}' is not accessible through the '{key.ProfileName}' profile specified by the content type.", 
-                        key.ProfileName, key.ContentTypeUsage);
+                    throw new BadRequestException(
+                        $"The '{key.ProfileResourceName.Name}' resource is not accessible through the '{key.ProfileName}' profile specified by the content type.");
                 }
 
                 // Use the appropriate variant of the resource (readable or writable)
@@ -119,9 +112,9 @@ public class MappingContractProvider : IMappingContractProvider
 
                 if (profileResource == null)
                 {
-                    throw new ProfileMethodUsageException(
-                        key.ContentTypeUsage,
-                        $"Resource class '{key.ResourceClassName.Name}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.");
+                    throw new ProfileContentTypeUsageException(
+                        $"Resource class '{key.ResourceClassName}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.",
+                        key.ProfileName, key.ContentTypeUsage);
                 }
 
                 var profileResourceClass =
@@ -207,50 +200,6 @@ public class MappingContractProvider : IMappingContractProvider
 
                                 // No predicate necessary because the collection itself is not included by this profile
                                 return null;
-                            }
-
-                            // Handle collections
-                            if (parameterInfo.Name.EndsWith("ItemCreatable"))
-                            {
-                                string memberName = parameterInfo.Name.Substring(
-                                    2,
-                                    parameterInfo.Name.Length - "ItemCreatable".Length - 2);
-
-                                if (key.ContentTypeUsage == ContentTypeUsage.Readable)
-                                {
-                                    // Use of the readable content type implies outbound mapping is in play, which should always be supported
-                                    return true;
-                                }
-
-                                string collectionName = CompositeTermInflector.MakePlural(memberName);
-
-                                if (profileResourceClass.CollectionByName.TryGetValue(collectionName, out var collection))
-                                {
-                                    return contentTypes.CanCreateResourceClass(collection.ItemType.FullName);
-                                }
-
-                                return false;
-                            }
-
-                            // Handle embedded objects
-                            if (parameterInfo.Name.EndsWith("Creatable"))
-                            {
-                                string memberName = parameterInfo.Name.Substring(
-                                    2,
-                                    parameterInfo.Name.Length - "Creatable".Length - 2);
-
-                                if (key.ContentTypeUsage == ContentTypeUsage.Readable)
-                                {
-                                    // Use of the readable content type implies outbound mapping is in play, which should always be supported
-                                    return true;
-                                }
-
-                                if (profileResourceClass.EmbeddedObjectByName.TryGetValue(memberName, out var embeddedObject))
-                                {
-                                    return contentTypes.CanCreateResourceClass(embeddedObject.ObjectType.FullName);
-                                }
-
-                                return false;
                             }
 
                             throw new Exception(

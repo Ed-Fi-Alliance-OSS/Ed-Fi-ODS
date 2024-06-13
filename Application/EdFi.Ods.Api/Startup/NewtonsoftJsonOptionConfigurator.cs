@@ -38,7 +38,6 @@ public class NewtonsoftJsonOptionConfigurator : IConfigureOptions<MvcNewtonsoftJ
         options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
         options.SerializerSettings.DateParseHandling = DateParseHandling.None;
         options.SerializerSettings.Formatting = Formatting.Indented;
-        options.SerializerSettings.Converters = new JsonConverter[] { new Int64Converter() };
 
         var contactResolver = _serviceProvider.GetService<ProfilesAwareContractResolver>();
 
