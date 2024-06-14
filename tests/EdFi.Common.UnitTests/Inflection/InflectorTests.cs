@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Common.Inflection;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Common.UnitTests.Inflection
 {

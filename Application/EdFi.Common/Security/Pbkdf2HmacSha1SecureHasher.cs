@@ -34,7 +34,7 @@ namespace EdFi.Common.Security
         {
             byte[] bytes;
 
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, salt, iterations))
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, salt, iterations, HashAlgorithmName.SHA1))
             {
                 bytes = rfc2898DeriveBytes.GetBytes(32);
             }
@@ -54,7 +54,7 @@ namespace EdFi.Common.Security
             byte[] bytes;
             byte[] salt;
 
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, saltSizeInBytes, iterations))
+            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(secret, saltSizeInBytes, iterations, HashAlgorithmName.SHA1))
             {
                 salt = rfc2898DeriveBytes.Salt;
                 bytes = rfc2898DeriveBytes.GetBytes(32);
