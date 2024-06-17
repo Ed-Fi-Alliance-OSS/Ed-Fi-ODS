@@ -52,6 +52,8 @@ namespace EdFi.Ods.Common.Configuration
         public string PathBase { get; set; }
 
         public string OdsContextRouteTemplate { get; set; }
+        
+        public string OdsCorrelationIdHttpHeaderName { get; set; }
 
         public NotificationSettings Notifications { get; set; } = new();
 

@@ -6,6 +6,7 @@
 using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Logging;
 using FakeItEasy;
@@ -24,9 +25,31 @@ public class RequestCorrelationMiddlewareTests
         var context = new DefaultHttpContext();
         var nextMiddleware = A.Fake<RequestDelegate>();
         var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
 
-        var middleware = new RequestCorrelationMiddleware(logContextWriter);
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
         context.Request.Headers[CorrelationConstants.HttpHeader] = "123456";
+
+        // Act
+        await middleware.InvokeAsync(context, nextMiddleware);
+
+        // Assert
+        A.CallTo(() => nextMiddleware(context)).MustHaveHappenedOnceExactly();
+        A.CallTo(() => logContextWriter.SetValue(CorrelationConstants.LogContextKey, "123456")).MustHaveHappenedOnceExactly();
+    }
+    
+    [Test]
+    public async Task InvokeAsync_WithCustonHeader_CapturesCorrelationId()
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        var nextMiddleware = A.Fake<RequestDelegate>();
+        var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
+        var customCorrelationIdHeaderName = "a-custom-header";
+        apiSettings.OdsCorrelationIdHttpHeaderName = customCorrelationIdHeaderName;
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
+        context.Request.Headers[customCorrelationIdHeaderName] = "123456";
 
         // Act
         await middleware.InvokeAsync(context, nextMiddleware);
@@ -43,8 +66,9 @@ public class RequestCorrelationMiddlewareTests
         var context = new DefaultHttpContext();
         var nextMiddleware = A.Fake<RequestDelegate>();
         var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
 
-        var middleware = new RequestCorrelationMiddleware(logContextWriter);
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
         context.Request.QueryString = new QueryString("?correlationId=7890");
 
         // Act
@@ -62,8 +86,9 @@ public class RequestCorrelationMiddlewareTests
         var context = new DefaultHttpContext();
         var nextMiddleware = A.Fake<RequestDelegate>();
         var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
 
-        var middleware = new RequestCorrelationMiddleware(logContextWriter);
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
         context.Request.Headers[CorrelationConstants.HttpHeader] = "123456";
         context.Request.QueryString = new QueryString("?correlationId=7890");
 
@@ -82,8 +107,9 @@ public class RequestCorrelationMiddlewareTests
         var context = new DefaultHttpContext();
         var nextMiddleware = A.Fake<RequestDelegate>();
         var logContextWriter = A.Fake<ILogContextAccessor>();
+        var apiSettings = A.Fake<ApiSettings>();
 
-        var middleware = new RequestCorrelationMiddleware(logContextWriter);
+        var middleware = new RequestCorrelationMiddleware(logContextWriter, apiSettings);
 
         // Act
         await middleware.InvokeAsync(context, nextMiddleware);
