@@ -244,7 +244,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var user = context.Users
                     .Include(u => u.Vendor)
-                    .Include(v => v.Vendor.Applications)
+                    .ThenInclude(v => v.Applications)
                     .SingleOrDefault(u => u.UserId == userId);
 
                 if (user == null)
@@ -313,7 +313,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(a => a.ApplicationEducationOrganizations)
                     .Single(a => a.ApplicationId == applicationId);
 
-                var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+                var user = context.Users.Include(u => u.ApiClients).FirstOrDefault(u => u.UserId == userId);
 
                 var client = user?.ApiClients.FirstOrDefault(c => c.ApiClientId == apiClientId);
 
@@ -345,6 +345,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             foreach (var applicationEducationOrganization in defaultApplication.ApplicationEducationOrganizations)
             {
                 client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                context.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
             }
         }
 
