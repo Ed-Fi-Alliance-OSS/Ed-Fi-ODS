@@ -30,8 +30,6 @@ namespace EdFi.Admin.DataAccess.Models
         /// </summary>
         [StringLength(50)]
         public string Description { get; set; }
-        public virtual ICollection<ApiClient> ApiClients { get; set; }
-
-        public ICollection<ApiClient> Clients { get; set; }
+        public virtual ICollection<ApiClient> Clients { get; set; }
     }
 }

@@ -5,12 +5,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Repositories
@@ -79,7 +80,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 };
 
                 client.ClientAccessTokens.Add(token);
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(CancellationToken.None);
                 return token;
             }
         }

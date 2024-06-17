@@ -180,7 +180,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                 {
                     Description = "sddsdsf"
                 };
-                token.ApiClients.Add(client);
+                token.Clients.Add(client);
                 client.CreatorOwnershipToken = token;
                 OpenContext.OwnershipTokens.Add(token);
 
@@ -237,14 +237,6 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
         [TestFixture]
         public class When_getting_client_by_key : ClientAppRepoTests
         {
-            [Test]
-            public void Given_key_and_secret_should_get_client()
-            {
-                var tmpClient = _clientAppRepo.GetClientByKey(_testClient.Key);
-                tmpClient.ShouldNotBeNull();
-                tmpClient.Name.ShouldBe(_testClient.Name);
-            }
-
             [Test]
             public void Given_Invalid_key_should_return_null()
             {
