@@ -23,7 +23,7 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
-
+                        
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext()
                 .ShouldBeOfType<SqlServerUsersContext>()
@@ -35,7 +35,7 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin_Test; Application Name=EdFi.Ods.WebApi;");
-
+                        
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.Postgres)
                 .CreateContext()
                 .ShouldBeOfType<PostgresUsersContext>()

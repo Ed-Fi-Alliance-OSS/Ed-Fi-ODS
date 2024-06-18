@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Admin.DataAccess.Models
@@ -22,6 +23,7 @@ namespace EdFi.Admin.DataAccess.Models
             Duration = lifespan;
         }
 
+        [Key]
         public Guid Id
         {
             get
@@ -36,9 +38,9 @@ namespace EdFi.Admin.DataAccess.Models
             set { _id = value; }
         }
 
-        public ApiClient ApiClient { get; set; }
+        public virtual ApiClient ApiClient { get; set; }
 
-        public DateTime Expiration { get; set; }
+        public virtual DateTime Expiration { get; set; }
 
         [NotMapped]
         public TimeSpan Duration { get; }
