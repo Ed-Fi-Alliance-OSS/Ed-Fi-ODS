@@ -677,21 +677,6 @@ namespace {{AggregateNamespace}}
             else
                 _excludedExtensions.Add(name);
         }
-
-        private readonly HashSet<string> _availableExtensions = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-        public bool IsExtensionAvailable(string name)
-        {
-            return _availableExtensions.Contains(name);
-        }
-
-        public void SetExtensionAvailable(string name, bool isAvailable)
-        {
-            if (isAvailable)
-                _availableExtensions.Add(name);
-            else
-                _availableExtensions.Remove(name);
-        }
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
     }

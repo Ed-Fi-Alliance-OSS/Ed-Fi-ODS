@@ -29,8 +29,6 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             var sourceExtensionSupport = source.{{ModelParentName}} as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("{{ExtensionName}}"))
-                return false;
             {{/IsEntityExtension}}
             {{#AllowPrimaryKeyUpdates}}
 

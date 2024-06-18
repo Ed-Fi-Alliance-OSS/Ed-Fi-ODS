@@ -2995,8 +2995,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
             var sourceExtensionSupport = source.Credential as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -9459,8 +9457,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
 
             var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -9554,8 +9550,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
 
             var sourceExtensionSupport = source.SurveyResponse as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
