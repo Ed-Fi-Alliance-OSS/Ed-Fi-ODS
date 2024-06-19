@@ -19,9 +19,6 @@ namespace EdFi.Security.DataAccess.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Model.GetEntityTypes().ForEach(entityType =>
-                entityType.SetSchema("dbo"));
-
             //Fixes mapping error when using EFC
             modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSet))
                 .GetProperty("ApplicationId")
@@ -62,6 +59,10 @@ namespace EdFi.Security.DataAccess.Contexts
             modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ResourceClaimAuthorizationMetadata))
                 .GetProperty("AuthorizationStrategyId")
                 .SetColumnName("authorizationstrategy_authorizationstrategyid");
+
+
+            modelBuilder.Model.GetEntityTypes().ForEach(entityType =>
+                entityType.SetSchema("dbo"));
         }
     }
 }

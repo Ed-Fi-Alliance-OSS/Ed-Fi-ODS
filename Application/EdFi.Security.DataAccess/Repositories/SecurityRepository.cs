@@ -35,7 +35,7 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.Applications.AsEnumerable().First(
+            return context.Applications.AsEnumerable().FirstOrDefault(
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
 
@@ -67,6 +67,8 @@ namespace EdFi.Security.DataAccess.Repositories
         private List<AuthorizationStrategy> GetAuthorizationStrategies()
         {
             using var context = _securityContextFactory.CreateContext();
+
+            System.Diagnostics.Debug.WriteLine("test");
 
             return context.AuthorizationStrategies
                 .Include(auth => auth.Application)
