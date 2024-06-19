@@ -14,10 +14,19 @@ namespace EdFi.Security.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ResourceClaimAuthorizationStrategyId { get; set; }
 
+        [Column("Action_ActionId")]
+        public int ActionId { get; set; }
+
         [Required]
         public Action Action { get; set; }
 
+        [Column("AuthorizationStrategy_AuthorizationStrategyId")]
+        public int? AuthorizationStrategyId { get; set; }
+
         public AuthorizationStrategy AuthorizationStrategy { get; set; }
+
+        [Column("ResourceClaim_ResourceClaimId")]
+        public int ResourceClaimId { get; set; }
 
         [Required]
         public ResourceClaim ResourceClaim { get; set; }

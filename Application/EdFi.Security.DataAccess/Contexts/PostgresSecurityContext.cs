@@ -3,58 +3,65 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using EdFi.Common;
+using System.Linq;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Security.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
     public class PostgresSecurityContext : SecurityContext
     {
-        public PostgresSecurityContext(string connectionString)
-            : base(connectionString) { }
+        public PostgresSecurityContext(DbContextOptions options)
+            : base(options) { }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Conventions.Add<ForeignKeyLowerCaseNamingConvention>();
-            modelBuilder.Conventions.Add<TableLowerCaseNamingConvention>();
+            modelBuilder.Model.GetEntityTypes().ForEach(entityType =>
+                entityType.SetSchema("dbo"));
 
-            modelBuilder.Properties().Configure(c => c.HasColumnName(c.ClrPropertyInfo.Name.ToLowerInvariant()));
-        }
+            //Fixes mapping error when using EFC
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSet))
+                .GetProperty("ApplicationId")
+                .SetColumnName("application_applicationid");
 
-        private class TableLowerCaseNamingConvention : IStoreModelConvention<EntitySet>
-        {
-            public void Apply(EntitySet entitySet, DbModel model)
-            {
-                Preconditions.ThrowIfNull(entitySet, nameof(entitySet));
-                Preconditions.ThrowIfNull(model, nameof(model));
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSetResourceClaim))
+                .GetProperty("ResourceClaimId")
+                .SetColumnName("resourceclaim_resourceclaimid");
 
-                entitySet.Table = entitySet.Table.ToLowerInvariant();
-            }
-        }
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSetResourceClaim))
+                .GetProperty("ActionId")
+                .SetColumnName("action_actionid");
 
-        private class ForeignKeyLowerCaseNamingConvention : IStoreModelConvention<AssociationType>
-        {
-            public void Apply(AssociationType association, DbModel model)
-            {
-                Preconditions.ThrowIfNull(association, nameof(association));
-                Preconditions.ThrowIfNull(model, nameof(model));
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSetResourceClaim))
+                .GetProperty("ClaimSetId")
+                .SetColumnName("claimset_claimsetid");
 
-                if (!association.IsForeignKey)
-                {
-                    return;
-                }
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ClaimSetResourceClaim))
+                .GetProperty("AuthorizationStrategyId")
+                .SetColumnName("authorizationstrategyoverride_authorizationstrategyid");
 
-                association.Constraint.FromProperties.ForEach(PropertyNamesToLowerInvariant);
-                association.Constraint.ToProperties.ForEach(PropertyNamesToLowerInvariant);
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ResourceClaim))
+                .GetProperty("ApplicationId")
+                .SetColumnName("application_applicationid");
 
-                void PropertyNamesToLowerInvariant(EdmProperty property) => property.Name = property.Name.ToLowerInvariant();
-            }
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(AuthorizationStrategy))
+                .GetProperty("ApplicationId")
+                .SetColumnName("application_applicationid");
+
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ResourceClaimAuthorizationMetadata))
+                .GetProperty("ResourceClaimId")
+                .SetColumnName("resourceclaim_resourceclaimid");
+
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ResourceClaimAuthorizationMetadata))
+                .GetProperty("ActionId")
+                .SetColumnName("action_actionid");
+
+            modelBuilder.Model.GetEntityTypes().Single(e => e.ClrType.Name == nameof(ResourceClaimAuthorizationMetadata))
+                .GetProperty("AuthorizationStrategyId")
+                .SetColumnName("authorizationstrategy_authorizationstrategyid");
         }
     }
 }

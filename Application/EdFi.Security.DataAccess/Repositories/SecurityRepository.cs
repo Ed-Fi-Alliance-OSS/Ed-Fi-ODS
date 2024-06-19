@@ -5,11 +5,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
@@ -35,7 +35,7 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.Applications.First(
+            return context.Applications.AsEnumerable().First(
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
 
