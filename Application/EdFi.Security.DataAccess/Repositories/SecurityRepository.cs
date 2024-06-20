@@ -68,8 +68,6 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            System.Diagnostics.Debug.WriteLine("test");
-
             return context.AuthorizationStrategies
                 .Include(auth => auth.Application)
                 .Where(auth => auth.Application.ApplicationId.Equals(Application.Value.ApplicationId))
