@@ -85,7 +85,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual Action GetActionByName(string actionName)
         {
-            return Actions.Value.First(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
+            return Actions.Value.FirstOrDefault(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)

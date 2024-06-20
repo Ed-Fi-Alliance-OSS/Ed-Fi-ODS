@@ -4,10 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Threading;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
@@ -29,6 +30,6 @@ namespace EdFi.Security.DataAccess.Contexts
 
         int SaveChanges();
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }

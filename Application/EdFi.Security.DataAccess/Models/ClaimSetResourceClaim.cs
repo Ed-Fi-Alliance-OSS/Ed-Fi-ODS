@@ -14,14 +14,29 @@ namespace EdFi.Security.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClaimSetResourceClaimId { get; set; }
 
+        [Column("Action_ActionId")]
+        public int ActionId { get; set; }
+
         [Required]
+        [ForeignKey("ActionId")]
         public Action Action { get; set; }
 
-        [Required]
-        public ClaimSet ClaimSet { get; set; }
+        [Column("ClaimSet_ClaimSetId")]
+        public int ClaimSetId { get; set; }
 
         [Required]
+        [ForeignKey("ClaimSetId")]
+        public ClaimSet ClaimSet { get; set; }
+
+        [Column("ResourceClaim_ResourceClaimId")]
+        public int ResourceClaimId { get; set; }
+
+        [Required]
+        [ForeignKey("ResourceClaimId")]
         public ResourceClaim ResourceClaim { get; set; }
+
+        [Column("AuthorizationStrategyOverride_AuthorizationStrategyId")]
+        public int? AuthorizationStrategyId { get; set; }
 
         public AuthorizationStrategy AuthorizationStrategyOverride { get; set; }
 
