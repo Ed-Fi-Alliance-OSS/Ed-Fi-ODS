@@ -8,26 +8,22 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
-using MediatR;
 using Microsoft.OpenApi;
 using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {
-    public class OpenApiMetadataCacheProvider : IOpenApiMetadataCacheProvider, INotificationHandler<ProfileMetadataCacheExpired>
+    public class OpenApiMetadataCacheProvider : IOpenApiMetadataCacheProvider
     {
         private const string Descriptors = "descriptors";
         private const string Resources = "resources";
@@ -110,6 +106,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         public void ResetCacheInitialization()
         {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug("Resetting OpenApiMetadata initialization due to profile metadata cache expiration...");
+            }
+
             // Reset the underlying cache
             _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
         }
@@ -223,18 +224,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             : existing);
                 }
             }
-        }
-
-        public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
-        {
-            if (_logger.IsDebugEnabled)
-            {
-                _logger.Debug("Resetting OpenApiMetadata initialization due to profile metadata cache expiration...");
-            }
-
-            ResetCacheInitialization();
-
-            return Task.CompletedTask;
         }
     }
 }

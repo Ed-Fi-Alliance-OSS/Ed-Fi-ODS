@@ -73,7 +73,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileMetadataCacheExpiredNotificationHandler>()
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance();                
 
             builder.RegisterType<AdminProfileNamesPublisherTask>()
                 .As<IExternalTask>()

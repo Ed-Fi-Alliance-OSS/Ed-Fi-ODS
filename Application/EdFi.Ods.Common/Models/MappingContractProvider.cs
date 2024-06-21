@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using log4net;
 
 namespace EdFi.Ods.Common.Models;
 
@@ -25,6 +26,7 @@ public class MappingContractProvider : IMappingContractProvider
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
 
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
@@ -65,7 +67,7 @@ public class MappingContractProvider : IMappingContractProvider
             throw new BadRequestException(
                 "The resource in the profile-based content type does not match the resource targeted by the request.");
         }
-        
+
         var mappingContractKey = new MappingContractKey(
             resourceClassFullName,
             profileContentTypeContext.ProfileName,
@@ -177,7 +179,8 @@ public class MappingContractProvider : IMappingContractProvider
 
                                 return profileResourceClass.AllPropertyByName.ContainsKey(memberName) ||
                                        profileResourceClass.EmbeddedObjectByName.ContainsKey(memberName) ||
-                                       profileResourceClass.CollectionByName.ContainsKey(memberName);
+                                       profileResourceClass.CollectionByName.ContainsKey(memberName) ||
+                                       profileResourceClass.ReferenceByName.ContainsKey(memberName);
                             }
 
                             if (parameterInfo.Name.EndsWith("Included"))
@@ -210,6 +213,16 @@ public class MappingContractProvider : IMappingContractProvider
             this);
 
         return mappingContract;
+    }
+
+    public void Clear()
+    {
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Clears mapping Contracts due to profile metadata cache expiration...");
+        }
+
+        _mappingContractByKey.Clear();
     }
 }
 

@@ -220,6 +220,14 @@ namespace EdFi.Ods.Api.Startup
             services.AddHealthCheck(Configuration, _apiSettings);
             services.AddScheduledJobs();
 
+            // Identify all EdFi.Ods.* assemblies
+            var mediatorAssemblies = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.GetName().Name.StartsWith("EdFi.Ods."))
+                .ToArray();
+
+            // Add all the MediatR services from the Ed-Fi assemblies
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(mediatorAssemblies));
+                            
             ConfigurePluginsServices();
             
             void ConfigurePluginsServices()
