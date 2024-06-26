@@ -8661,12 +8661,12 @@
 															"});\r",
 															"\r",
 															"/*\r",
-															"    common EdFi.CTEProgram\r",
+															"    common EdFi.CTEProgramService\r",
 															"        documentation \"A CTE program the contact has completed.\"\r",
 															"        is optional\r",
 															"*/\r",
 															"pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
-															"  pm.expect(Object.keys(problemDetails.validationErrors)).to.not.contain(\"$._ext.sample.cteProgram\");\r",
+															"  pm.expect(Object.keys(problemDetails.validationErrors)).to.not.contain(\"$._ext.sample.cteProgramService\");\r",
 															"});\r",
 															""
 														],
@@ -9366,7 +9366,7 @@
 							"name": "Existing core entity and  extension added some fields and one  is a required field",
 							"item": [
 								{
-									"name": "CareerPathwayDescriptor Required Validation",
+									"name": "CTEProgramServiceDescriptor Required Validation",
 									"event": [
 										{
 											"listen": "test",
@@ -9377,7 +9377,7 @@
 													"});\r",
 													"const problemDetails = pm.response.json();\r",
 													"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.cteProgram.careerPathwayDescriptor\"]).to.match(/CareerPathwayDescriptor is required./);\r",
+													"  pm.expect(problemDetails.validationErrors[\"$._ext.sample.cteProgramService.cteProgramServiceDescriptor\"]).to.match(/CTEProgramServiceDescriptor is required./);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -9398,7 +9398,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgram\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9433,7 +9433,7 @@
 													"\r",
 													"pm.environment.set('known:schools:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 													"var requestJson = JSON.parse(request.data);\r",
-													"pm.environment.set('known:careerPathwayDescriptor', requestJson._ext.Sample.cteProgram.careerPathwayDescriptor);\r",
+													"pm.environment.set('known:cteProgramServiceDescriptor', requestJson._ext.Sample.cteProgramService.cteProgramServiceDescriptor);\r",
 													""
 												],
 												"type": "text/javascript"
@@ -9454,7 +9454,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgram\": {\r\n          \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9490,7 +9490,7 @@
 													"\r",
 													"pm.test(\"Should return some items for verification\", () => {\r",
 													"  const responseItems = pm.response.json();\r",
-													"  pm.expect(responseItems._ext.sample.cteProgram.careerPathwayDescriptor).to.equal(pm.environment.get('known:careerPathwayDescriptor'));\r",
+													"  pm.expect(responseItems._ext.sample.cteProgramService.cteProgramServiceDescriptor).to.equal(pm.environment.get('known:cteProgramServiceDescriptor'));\r",
 													"});\r",
 													""
 												],
