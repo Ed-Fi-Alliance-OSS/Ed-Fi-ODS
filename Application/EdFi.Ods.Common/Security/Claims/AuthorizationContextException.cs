@@ -26,9 +26,5 @@ namespace EdFi.Ods.Common.Security.Claims
         public AuthorizationContextException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected AuthorizationContextException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

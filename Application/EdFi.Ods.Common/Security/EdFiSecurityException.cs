@@ -42,11 +42,6 @@ namespace EdFi.Ods.Common.Security
         public EdFiSecurityException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected EdFiSecurityException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
-
         public string ApiKey { get; }
 
         public string Resource { get; }

@@ -26,9 +26,5 @@ namespace EdFi.Ods.Common.Exceptions
         public DatabaseConnectionException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected DatabaseConnectionException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }
