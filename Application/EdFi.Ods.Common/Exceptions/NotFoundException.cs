@@ -36,11 +36,6 @@ namespace EdFi.Ods.Common.Exceptions
         public NotFoundException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected NotFoundException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
-
         public string TypeName { get; set; }
 
         public string Identifier { get; set; }

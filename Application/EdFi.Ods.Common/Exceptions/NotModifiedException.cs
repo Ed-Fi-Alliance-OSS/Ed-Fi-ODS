@@ -26,9 +26,5 @@ namespace EdFi.Ods.Common.Exceptions
         public NotModifiedException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected NotModifiedException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

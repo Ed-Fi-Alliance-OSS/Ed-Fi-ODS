@@ -33,10 +33,5 @@ namespace EdFi.Ods.Common.Exceptions
         {
         }
 
-        protected ApiSecurityConfigurationException(
-            SerializationInfo info,
-            StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

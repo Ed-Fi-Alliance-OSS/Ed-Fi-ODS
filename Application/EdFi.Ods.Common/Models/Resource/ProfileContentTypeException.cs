@@ -19,9 +19,5 @@ namespace EdFi.Ods.Common.Models.Resource
         public ProfileContentTypeException(string message, Exception inner)
             : base(message, inner) { }
 
-        protected ProfileContentTypeException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }
