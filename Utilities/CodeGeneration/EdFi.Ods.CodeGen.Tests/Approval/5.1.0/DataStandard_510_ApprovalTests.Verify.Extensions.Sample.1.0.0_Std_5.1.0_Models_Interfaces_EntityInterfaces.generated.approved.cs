@@ -904,18 +904,19 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ContactCTEProgram model.
+    /// Defines available properties and methods for the abstraction of the ContactCTEProgramService model.
     /// </summary>
-    public interface IContactCTEProgram : ISynchronizable, IMappable, IGetByExample
+    public interface IContactCTEProgramService : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         IContactExtension ContactExtension { get; set; }
 
         // Non-PK properties
-        string CareerPathwayDescriptor { get; set; }
         string CIPCode { get; set; }
-        bool? CTEProgramCompletionIndicator { get; set; }
-        bool? PrimaryCTEProgramIndicator { get; set; }
+        string CTEProgramServiceDescriptor { get; set; }
+        bool? PrimaryIndicator { get; set; }
+        DateTime? ServiceBeginDate { get; set; }
+        DateTime? ServiceEndDate { get; set; }
 
         // One-to-one relationships
 
@@ -928,38 +929,43 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class ContactCTEProgramMappingContract : IMappingContract
+    public class ContactCTEProgramServiceMappingContract : IMappingContract
     {
-        public ContactCTEProgramMappingContract(
-            bool isCareerPathwayDescriptorSupported,
+        public ContactCTEProgramServiceMappingContract(
             bool isCIPCodeSupported,
-            bool isCTEProgramCompletionIndicatorSupported,
-            bool isPrimaryCTEProgramIndicatorSupported
+            bool isCTEProgramServiceDescriptorSupported,
+            bool isPrimaryIndicatorSupported,
+            bool isServiceBeginDateSupported,
+            bool isServiceEndDateSupported
             )
         {
-            IsCareerPathwayDescriptorSupported = isCareerPathwayDescriptorSupported;
             IsCIPCodeSupported = isCIPCodeSupported;
-            IsCTEProgramCompletionIndicatorSupported = isCTEProgramCompletionIndicatorSupported;
-            IsPrimaryCTEProgramIndicatorSupported = isPrimaryCTEProgramIndicatorSupported;
+            IsCTEProgramServiceDescriptorSupported = isCTEProgramServiceDescriptorSupported;
+            IsPrimaryIndicatorSupported = isPrimaryIndicatorSupported;
+            IsServiceBeginDateSupported = isServiceBeginDateSupported;
+            IsServiceEndDateSupported = isServiceEndDateSupported;
         }
 
-        public bool IsCareerPathwayDescriptorSupported { get; }
         public bool IsCIPCodeSupported { get; }
-        public bool IsCTEProgramCompletionIndicatorSupported { get; }
-        public bool IsPrimaryCTEProgramIndicatorSupported { get; }
+        public bool IsCTEProgramServiceDescriptorSupported { get; }
+        public bool IsPrimaryIndicatorSupported { get; }
+        public bool IsServiceBeginDateSupported { get; }
+        public bool IsServiceEndDateSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
-                case "CareerPathwayDescriptor":
-                    return IsCareerPathwayDescriptorSupported;
                 case "CIPCode":
                     return IsCIPCodeSupported;
-                case "CTEProgramCompletionIndicator":
-                    return IsCTEProgramCompletionIndicatorSupported;
-                case "PrimaryCTEProgramIndicator":
-                    return IsPrimaryCTEProgramIndicatorSupported;
+                case "CTEProgramServiceDescriptor":
+                    return IsCTEProgramServiceDescriptorSupported;
+                case "PrimaryIndicator":
+                    return IsPrimaryIndicatorSupported;
+                case "ServiceBeginDate":
+                    return IsServiceBeginDateSupported;
+                case "ServiceEndDate":
+                    return IsServiceEndDateSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1047,7 +1053,7 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // One-to-one relationships
 
-        IContactCTEProgram ContactCTEProgram { get; set; }
+        IContactCTEProgramService ContactCTEProgramService { get; set; }
 
         IContactTeacherConference ContactTeacherConference { get; set; }
 
@@ -1073,7 +1079,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isCoffeeSpendSupported,
             bool isContactAuthorsSupported,
             bool isContactCeilingHeightsSupported,
-            bool isContactCTEProgramSupported,
+            bool isContactCTEProgramServiceSupported,
             bool isContactEducationContentsSupported,
             bool isContactFavoriteBookTitlesSupported,
             bool isContactStudentProgramAssociationsSupported,
@@ -1086,7 +1092,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isLuckyNumberSupported,
             bool isPreferredWakeUpTimeSupported,
             bool isRainCertaintySupported,
-            bool isContactCTEProgramCreatable,
+            bool isContactCTEProgramServiceCreatable,
             bool isContactTeacherConferenceCreatable,
             bool isContactAuthorsItemCreatable,
             Func<IContactAuthor, bool> isContactAuthorIncluded,
@@ -1105,7 +1111,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsCoffeeSpendSupported = isCoffeeSpendSupported;
             IsContactAuthorsSupported = isContactAuthorsSupported;
             IsContactCeilingHeightsSupported = isContactCeilingHeightsSupported;
-            IsContactCTEProgramSupported = isContactCTEProgramSupported;
+            IsContactCTEProgramServiceSupported = isContactCTEProgramServiceSupported;
             IsContactEducationContentsSupported = isContactEducationContentsSupported;
             IsContactFavoriteBookTitlesSupported = isContactFavoriteBookTitlesSupported;
             IsContactStudentProgramAssociationsSupported = isContactStudentProgramAssociationsSupported;
@@ -1118,7 +1124,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsLuckyNumberSupported = isLuckyNumberSupported;
             IsPreferredWakeUpTimeSupported = isPreferredWakeUpTimeSupported;
             IsRainCertaintySupported = isRainCertaintySupported;
-            IsContactCTEProgramCreatable = isContactCTEProgramCreatable;
+            IsContactCTEProgramServiceCreatable = isContactCTEProgramServiceCreatable;
             IsContactTeacherConferenceCreatable = isContactTeacherConferenceCreatable;
             IsContactAuthorsItemCreatable = isContactAuthorsItemCreatable;
             IsContactAuthorIncluded = isContactAuthorIncluded;
@@ -1137,7 +1143,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsCoffeeSpendSupported { get; }
         public bool IsContactAuthorsSupported { get; }
         public bool IsContactCeilingHeightsSupported { get; }
-        public bool IsContactCTEProgramSupported { get; }
+        public bool IsContactCTEProgramServiceSupported { get; }
         public bool IsContactEducationContentsSupported { get; }
         public bool IsContactFavoriteBookTitlesSupported { get; }
         public bool IsContactStudentProgramAssociationsSupported { get; }
@@ -1150,7 +1156,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsLuckyNumberSupported { get; }
         public bool IsPreferredWakeUpTimeSupported { get; }
         public bool IsRainCertaintySupported { get; }
-        public bool IsContactCTEProgramCreatable { get; }
+        public bool IsContactCTEProgramServiceCreatable { get; }
         public bool IsContactTeacherConferenceCreatable { get; }
         public bool IsContactAuthorsItemCreatable { get; }
         public Func<IContactAuthor, bool> IsContactAuthorIncluded { get; }
@@ -1177,8 +1183,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsContactAuthorsSupported;
                 case "ContactCeilingHeights":
                     return IsContactCeilingHeightsSupported;
-                case "ContactCTEProgram":
-                    return IsContactCTEProgramSupported;
+                case "ContactCTEProgramService":
+                    return IsContactCTEProgramServiceSupported;
                 case "ContactEducationContents":
                     return IsContactEducationContentsSupported;
                 case "ContactFavoriteBookTitles":
@@ -1213,8 +1219,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
-                case "ContactCTEProgram":
-                    return IsContactCTEProgramCreatable;
+                case "ContactCTEProgramService":
+                    return IsContactCTEProgramServiceCreatable;
                 case "ContactTeacherConference":
                     return IsContactTeacherConferenceCreatable;
                 case "ContactAuthors":
@@ -1568,18 +1574,19 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the SchoolCTEProgram model.
+    /// Defines available properties and methods for the abstraction of the SchoolCTEProgramService model.
     /// </summary>
-    public interface ISchoolCTEProgram : ISynchronizable, IMappable, IGetByExample
+    public interface ISchoolCTEProgramService : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         ISchoolExtension SchoolExtension { get; set; }
 
         // Non-PK properties
-        string CareerPathwayDescriptor { get; set; }
         string CIPCode { get; set; }
-        bool? CTEProgramCompletionIndicator { get; set; }
-        bool? PrimaryCTEProgramIndicator { get; set; }
+        string CTEProgramServiceDescriptor { get; set; }
+        bool? PrimaryIndicator { get; set; }
+        DateTime? ServiceBeginDate { get; set; }
+        DateTime? ServiceEndDate { get; set; }
 
         // One-to-one relationships
 
@@ -1592,38 +1599,43 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class SchoolCTEProgramMappingContract : IMappingContract
+    public class SchoolCTEProgramServiceMappingContract : IMappingContract
     {
-        public SchoolCTEProgramMappingContract(
-            bool isCareerPathwayDescriptorSupported,
+        public SchoolCTEProgramServiceMappingContract(
             bool isCIPCodeSupported,
-            bool isCTEProgramCompletionIndicatorSupported,
-            bool isPrimaryCTEProgramIndicatorSupported
+            bool isCTEProgramServiceDescriptorSupported,
+            bool isPrimaryIndicatorSupported,
+            bool isServiceBeginDateSupported,
+            bool isServiceEndDateSupported
             )
         {
-            IsCareerPathwayDescriptorSupported = isCareerPathwayDescriptorSupported;
             IsCIPCodeSupported = isCIPCodeSupported;
-            IsCTEProgramCompletionIndicatorSupported = isCTEProgramCompletionIndicatorSupported;
-            IsPrimaryCTEProgramIndicatorSupported = isPrimaryCTEProgramIndicatorSupported;
+            IsCTEProgramServiceDescriptorSupported = isCTEProgramServiceDescriptorSupported;
+            IsPrimaryIndicatorSupported = isPrimaryIndicatorSupported;
+            IsServiceBeginDateSupported = isServiceBeginDateSupported;
+            IsServiceEndDateSupported = isServiceEndDateSupported;
         }
 
-        public bool IsCareerPathwayDescriptorSupported { get; }
         public bool IsCIPCodeSupported { get; }
-        public bool IsCTEProgramCompletionIndicatorSupported { get; }
-        public bool IsPrimaryCTEProgramIndicatorSupported { get; }
+        public bool IsCTEProgramServiceDescriptorSupported { get; }
+        public bool IsPrimaryIndicatorSupported { get; }
+        public bool IsServiceBeginDateSupported { get; }
+        public bool IsServiceEndDateSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
-                case "CareerPathwayDescriptor":
-                    return IsCareerPathwayDescriptorSupported;
                 case "CIPCode":
                     return IsCIPCodeSupported;
-                case "CTEProgramCompletionIndicator":
-                    return IsCTEProgramCompletionIndicatorSupported;
-                case "PrimaryCTEProgramIndicator":
-                    return IsPrimaryCTEProgramIndicatorSupported;
+                case "CTEProgramServiceDescriptor":
+                    return IsCTEProgramServiceDescriptorSupported;
+                case "PrimaryIndicator":
+                    return IsPrimaryIndicatorSupported;
+                case "ServiceBeginDate":
+                    return IsServiceBeginDateSupported;
+                case "ServiceEndDate":
+                    return IsServiceEndDateSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -1701,7 +1713,7 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // One-to-one relationships
 
-        ISchoolCTEProgram SchoolCTEProgram { get; set; }
+        ISchoolCTEProgramService SchoolCTEProgramService { get; set; }
 
         // Lists
         ICollection<ISchoolDirectlyOwnedBus> SchoolDirectlyOwnedBuses { get; set; }
@@ -1717,25 +1729,25 @@ namespace EdFi.Ods.Entities.Common.Sample
     {
         public SchoolExtensionMappingContract(
             bool isIsExemplarySupported,
-            bool isSchoolCTEProgramSupported,
+            bool isSchoolCTEProgramServiceSupported,
             bool isSchoolDirectlyOwnedBusesSupported,
-            bool isSchoolCTEProgramCreatable,
+            bool isSchoolCTEProgramServiceCreatable,
             bool isSchoolDirectlyOwnedBusesItemCreatable,
             Func<ISchoolDirectlyOwnedBus, bool> isSchoolDirectlyOwnedBusIncluded
             )
         {
             IsIsExemplarySupported = isIsExemplarySupported;
-            IsSchoolCTEProgramSupported = isSchoolCTEProgramSupported;
+            IsSchoolCTEProgramServiceSupported = isSchoolCTEProgramServiceSupported;
             IsSchoolDirectlyOwnedBusesSupported = isSchoolDirectlyOwnedBusesSupported;
-            IsSchoolCTEProgramCreatable = isSchoolCTEProgramCreatable;
+            IsSchoolCTEProgramServiceCreatable = isSchoolCTEProgramServiceCreatable;
             IsSchoolDirectlyOwnedBusesItemCreatable = isSchoolDirectlyOwnedBusesItemCreatable;
             IsSchoolDirectlyOwnedBusIncluded = isSchoolDirectlyOwnedBusIncluded;
         }
 
         public bool IsIsExemplarySupported { get; }
-        public bool IsSchoolCTEProgramSupported { get; }
+        public bool IsSchoolCTEProgramServiceSupported { get; }
         public bool IsSchoolDirectlyOwnedBusesSupported { get; }
-        public bool IsSchoolCTEProgramCreatable { get; }
+        public bool IsSchoolCTEProgramServiceCreatable { get; }
         public bool IsSchoolDirectlyOwnedBusesItemCreatable { get; }
         public Func<ISchoolDirectlyOwnedBus, bool> IsSchoolDirectlyOwnedBusIncluded { get; }
 
@@ -1745,8 +1757,8 @@ namespace EdFi.Ods.Entities.Common.Sample
             {
                 case "IsExemplary":
                     return IsIsExemplarySupported;
-                case "SchoolCTEProgram":
-                    return IsSchoolCTEProgramSupported;
+                case "SchoolCTEProgramService":
+                    return IsSchoolCTEProgramServiceSupported;
                 case "SchoolDirectlyOwnedBuses":
                     return IsSchoolDirectlyOwnedBusesSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -1759,8 +1771,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
-                case "SchoolCTEProgram":
-                    return IsSchoolCTEProgramCreatable;
+                case "SchoolCTEProgramService":
+                    return IsSchoolCTEProgramServiceCreatable;
                 case "SchoolDirectlyOwnedBuses":
                     return IsSchoolDirectlyOwnedBusesItemCreatable;
                 default:
@@ -3817,7 +3829,7 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // One-to-one relationships
 
-        IStudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram { get; set; }
+        IStudentGraduationPlanAssociationCTEProgramService StudentGraduationPlanAssociationCTEProgramService { get; set; }
 
         // Lists
         ICollection<IStudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects { get; set; }
@@ -3856,7 +3868,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStaffUniqueIdSupported,
             bool isStudentGraduationPlanAssociationAcademicSubjectsSupported,
             bool isStudentGraduationPlanAssociationCareerPathwayCodesSupported,
-            bool isStudentGraduationPlanAssociationCTEProgramSupported,
+            bool isStudentGraduationPlanAssociationCTEProgramServiceSupported,
             bool isStudentGraduationPlanAssociationDescriptionsSupported,
             bool isStudentGraduationPlanAssociationDesignatedBiesSupported,
             bool isStudentGraduationPlanAssociationIndustryCredentialsSupported,
@@ -3864,7 +3876,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             bool isStudentGraduationPlanAssociationYearsAttendedsSupported,
             bool isStudentReferenceSupported,
             bool isTargetGPASupported,
-            bool isStudentGraduationPlanAssociationCTEProgramCreatable,
+            bool isStudentGraduationPlanAssociationCTEProgramServiceCreatable,
             bool isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable,
             Func<IStudentGraduationPlanAssociationAcademicSubject, bool> isStudentGraduationPlanAssociationAcademicSubjectIncluded,
             bool isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable,
@@ -3893,7 +3905,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
             IsStudentGraduationPlanAssociationAcademicSubjectsSupported = isStudentGraduationPlanAssociationAcademicSubjectsSupported;
             IsStudentGraduationPlanAssociationCareerPathwayCodesSupported = isStudentGraduationPlanAssociationCareerPathwayCodesSupported;
-            IsStudentGraduationPlanAssociationCTEProgramSupported = isStudentGraduationPlanAssociationCTEProgramSupported;
+            IsStudentGraduationPlanAssociationCTEProgramServiceSupported = isStudentGraduationPlanAssociationCTEProgramServiceSupported;
             IsStudentGraduationPlanAssociationDescriptionsSupported = isStudentGraduationPlanAssociationDescriptionsSupported;
             IsStudentGraduationPlanAssociationDesignatedBiesSupported = isStudentGraduationPlanAssociationDesignatedBiesSupported;
             IsStudentGraduationPlanAssociationIndustryCredentialsSupported = isStudentGraduationPlanAssociationIndustryCredentialsSupported;
@@ -3901,7 +3913,7 @@ namespace EdFi.Ods.Entities.Common.Sample
             IsStudentGraduationPlanAssociationYearsAttendedsSupported = isStudentGraduationPlanAssociationYearsAttendedsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsTargetGPASupported = isTargetGPASupported;
-            IsStudentGraduationPlanAssociationCTEProgramCreatable = isStudentGraduationPlanAssociationCTEProgramCreatable;
+            IsStudentGraduationPlanAssociationCTEProgramServiceCreatable = isStudentGraduationPlanAssociationCTEProgramServiceCreatable;
             IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable = isStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
             IsStudentGraduationPlanAssociationAcademicSubjectIncluded = isStudentGraduationPlanAssociationAcademicSubjectIncluded;
             IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable = isStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable;
@@ -3930,7 +3942,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStaffUniqueIdSupported { get; }
         public bool IsStudentGraduationPlanAssociationAcademicSubjectsSupported { get; }
         public bool IsStudentGraduationPlanAssociationCareerPathwayCodesSupported { get; }
-        public bool IsStudentGraduationPlanAssociationCTEProgramSupported { get; }
+        public bool IsStudentGraduationPlanAssociationCTEProgramServiceSupported { get; }
         public bool IsStudentGraduationPlanAssociationDescriptionsSupported { get; }
         public bool IsStudentGraduationPlanAssociationDesignatedBiesSupported { get; }
         public bool IsStudentGraduationPlanAssociationIndustryCredentialsSupported { get; }
@@ -3938,7 +3950,7 @@ namespace EdFi.Ods.Entities.Common.Sample
         public bool IsStudentGraduationPlanAssociationYearsAttendedsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsTargetGPASupported { get; }
-        public bool IsStudentGraduationPlanAssociationCTEProgramCreatable { get; }
+        public bool IsStudentGraduationPlanAssociationCTEProgramServiceCreatable { get; }
         public bool IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable { get; }
         public Func<IStudentGraduationPlanAssociationAcademicSubject, bool> IsStudentGraduationPlanAssociationAcademicSubjectIncluded { get; }
         public bool IsStudentGraduationPlanAssociationCareerPathwayCodesItemCreatable { get; }
@@ -3982,8 +3994,8 @@ namespace EdFi.Ods.Entities.Common.Sample
                     return IsStudentGraduationPlanAssociationAcademicSubjectsSupported;
                 case "StudentGraduationPlanAssociationCareerPathwayCodes":
                     return IsStudentGraduationPlanAssociationCareerPathwayCodesSupported;
-                case "StudentGraduationPlanAssociationCTEProgram":
-                    return IsStudentGraduationPlanAssociationCTEProgramSupported;
+                case "StudentGraduationPlanAssociationCTEProgramService":
+                    return IsStudentGraduationPlanAssociationCTEProgramServiceSupported;
                 case "StudentGraduationPlanAssociationDescriptions":
                     return IsStudentGraduationPlanAssociationDescriptionsSupported;
                 case "StudentGraduationPlanAssociationDesignatedBies":
@@ -4016,8 +4028,8 @@ namespace EdFi.Ods.Entities.Common.Sample
         {
             switch (memberName)
             {
-                case "StudentGraduationPlanAssociationCTEProgram":
-                    return IsStudentGraduationPlanAssociationCTEProgramCreatable;
+                case "StudentGraduationPlanAssociationCTEProgramService":
+                    return IsStudentGraduationPlanAssociationCTEProgramServiceCreatable;
                 case "StudentGraduationPlanAssociationAcademicSubjects":
                     return IsStudentGraduationPlanAssociationAcademicSubjectsItemCreatable;
                 case "StudentGraduationPlanAssociationCareerPathwayCodes":
@@ -4134,18 +4146,19 @@ namespace EdFi.Ods.Entities.Common.Sample
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentGraduationPlanAssociationCTEProgram model.
+    /// Defines available properties and methods for the abstraction of the StudentGraduationPlanAssociationCTEProgramService model.
     /// </summary>
-    public interface IStudentGraduationPlanAssociationCTEProgram : ISynchronizable, IMappable, IGetByExample
+    public interface IStudentGraduationPlanAssociationCTEProgramService : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         IStudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
         // Non-PK properties
-        string CareerPathwayDescriptor { get; set; }
         string CIPCode { get; set; }
-        bool? CTEProgramCompletionIndicator { get; set; }
-        bool? PrimaryCTEProgramIndicator { get; set; }
+        string CTEProgramServiceDescriptor { get; set; }
+        bool? PrimaryIndicator { get; set; }
+        DateTime? ServiceBeginDate { get; set; }
+        DateTime? ServiceEndDate { get; set; }
 
         // One-to-one relationships
 
@@ -4158,38 +4171,43 @@ namespace EdFi.Ods.Entities.Common.Sample
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class StudentGraduationPlanAssociationCTEProgramMappingContract : IMappingContract
+    public class StudentGraduationPlanAssociationCTEProgramServiceMappingContract : IMappingContract
     {
-        public StudentGraduationPlanAssociationCTEProgramMappingContract(
-            bool isCareerPathwayDescriptorSupported,
+        public StudentGraduationPlanAssociationCTEProgramServiceMappingContract(
             bool isCIPCodeSupported,
-            bool isCTEProgramCompletionIndicatorSupported,
-            bool isPrimaryCTEProgramIndicatorSupported
+            bool isCTEProgramServiceDescriptorSupported,
+            bool isPrimaryIndicatorSupported,
+            bool isServiceBeginDateSupported,
+            bool isServiceEndDateSupported
             )
         {
-            IsCareerPathwayDescriptorSupported = isCareerPathwayDescriptorSupported;
             IsCIPCodeSupported = isCIPCodeSupported;
-            IsCTEProgramCompletionIndicatorSupported = isCTEProgramCompletionIndicatorSupported;
-            IsPrimaryCTEProgramIndicatorSupported = isPrimaryCTEProgramIndicatorSupported;
+            IsCTEProgramServiceDescriptorSupported = isCTEProgramServiceDescriptorSupported;
+            IsPrimaryIndicatorSupported = isPrimaryIndicatorSupported;
+            IsServiceBeginDateSupported = isServiceBeginDateSupported;
+            IsServiceEndDateSupported = isServiceEndDateSupported;
         }
 
-        public bool IsCareerPathwayDescriptorSupported { get; }
         public bool IsCIPCodeSupported { get; }
-        public bool IsCTEProgramCompletionIndicatorSupported { get; }
-        public bool IsPrimaryCTEProgramIndicatorSupported { get; }
+        public bool IsCTEProgramServiceDescriptorSupported { get; }
+        public bool IsPrimaryIndicatorSupported { get; }
+        public bool IsServiceBeginDateSupported { get; }
+        public bool IsServiceEndDateSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
-                case "CareerPathwayDescriptor":
-                    return IsCareerPathwayDescriptorSupported;
                 case "CIPCode":
                     return IsCIPCodeSupported;
-                case "CTEProgramCompletionIndicator":
-                    return IsCTEProgramCompletionIndicatorSupported;
-                case "PrimaryCTEProgramIndicator":
-                    return IsPrimaryCTEProgramIndicatorSupported;
+                case "CTEProgramServiceDescriptor":
+                    return IsCTEProgramServiceDescriptorSupported;
+                case "PrimaryIndicator":
+                    return IsPrimaryIndicatorSupported;
+                case "ServiceBeginDate":
+                    return IsServiceBeginDateSupported;
+                case "ServiceEndDate":
+                    return IsServiceEndDateSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

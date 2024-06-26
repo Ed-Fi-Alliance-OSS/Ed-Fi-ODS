@@ -388,7 +388,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample.ParentCTEProgram" table="ParentCTEProgram" lazy="false" schema="sample">
+  <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample.ParentCTEProgramService" table="ParentCTEProgramService" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="Parent">
@@ -400,10 +400,11 @@
 
 
     <!-- Properties -->
-    <property name="CareerPathwayDescriptorId" column="CareerPathwayDescriptorId" type="int" not-null="true" />
     <property name="CIPCode" column="CIPCode" type="string" length="120" />
-    <property name="CTEProgramCompletionIndicator" column="CTEProgramCompletionIndicator" type="bool" />
-    <property name="PrimaryCTEProgramIndicator" column="PrimaryCTEProgramIndicator" type="bool" />
+    <property name="CTEProgramServiceDescriptorId" column="CTEProgramServiceDescriptorId" type="int" not-null="true" />
+    <property name="PrimaryIndicator" column="PrimaryIndicator" type="bool" />
+    <property name="ServiceBeginDate" column="ServiceBeginDate" type="date" />
+    <property name="ServiceEndDate" column="ServiceEndDate" type="date" />
 
     <!-- Aggregate references -->
 
@@ -593,7 +594,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgram" table="SchoolCTEProgram" lazy="false" schema="sample">
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgramService" table="SchoolCTEProgramService" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="School">
@@ -605,10 +606,11 @@
 
 
     <!-- Properties -->
-    <property name="CareerPathwayDescriptorId" column="CareerPathwayDescriptorId" type="int" not-null="true" />
     <property name="CIPCode" column="CIPCode" type="string" length="120" />
-    <property name="CTEProgramCompletionIndicator" column="CTEProgramCompletionIndicator" type="bool" />
-    <property name="PrimaryCTEProgramIndicator" column="PrimaryCTEProgramIndicator" type="bool" />
+    <property name="CTEProgramServiceDescriptorId" column="CTEProgramServiceDescriptorId" type="int" not-null="true" />
+    <property name="PrimaryIndicator" column="PrimaryIndicator" type="bool" />
+    <property name="ServiceBeginDate" column="ServiceBeginDate" type="date" />
+    <property name="ServiceEndDate" column="ServiceEndDate" type="date" />
 
     <!-- Aggregate references -->
 
@@ -1299,14 +1301,14 @@
     <property name="TargetGPA" column="TargetGPA" type="decimal" not-null="true" />
 
     <!-- One-to-one child mappings -->
-    <set name="StudentGraduationPlanAssociationCTEProgram" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
+    <set name="StudentGraduationPlanAssociationCTEProgramService" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
         <column name="GraduationSchoolYear" />
         <column name="StudentUSI" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService" />
     </set>
 
     <!-- Aggregate references -->
@@ -1454,7 +1456,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram" table="StudentGraduationPlanAssociationCTEProgram" lazy="false" schema="sample">
+  <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService" table="StudentGraduationPlanAssociationCTEProgramService" lazy="false" schema="sample">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="StudentGraduationPlanAssociation">
@@ -1469,10 +1471,11 @@
 
 
     <!-- Properties -->
-    <property name="CareerPathwayDescriptorId" column="CareerPathwayDescriptorId" type="int" not-null="true" />
     <property name="CIPCode" column="CIPCode" type="string" length="120" />
-    <property name="CTEProgramCompletionIndicator" column="CTEProgramCompletionIndicator" type="bool" />
-    <property name="PrimaryCTEProgramIndicator" column="PrimaryCTEProgramIndicator" type="bool" />
+    <property name="CTEProgramServiceDescriptorId" column="CTEProgramServiceDescriptorId" type="int" not-null="true" />
+    <property name="PrimaryIndicator" column="PrimaryIndicator" type="bool" />
+    <property name="ServiceBeginDate" column="ServiceBeginDate" type="date" />
+    <property name="ServiceEndDate" column="ServiceEndDate" type="date" />
 
     <!-- Aggregate references -->
 

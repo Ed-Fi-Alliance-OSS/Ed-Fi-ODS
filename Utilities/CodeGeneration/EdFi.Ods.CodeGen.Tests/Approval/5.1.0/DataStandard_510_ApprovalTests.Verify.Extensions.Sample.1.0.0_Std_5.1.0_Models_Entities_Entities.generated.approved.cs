@@ -2664,16 +2664,16 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the sample.ContactCTEProgram table of the Contact aggregate in the ODS database.
+    /// A class which represents the sample.ContactCTEProgramService table of the Contact aggregate in the ODS database.
     /// </summary>
     [Schema("sample")]
     [ExcludeFromCodeCoverage]
-    public class ContactCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IContactCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    public class ContactCTEProgramService : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IContactCTEProgramService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
-        public ContactCTEProgram()
+        public ContactCTEProgramService()
         {
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -2685,7 +2685,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         [DomainSignature, JsonIgnore]
         public virtual EdFi.Contact Contact { get; set; }
 
-        Entities.Common.Sample.IContactExtension IContactCTEProgram.ContactExtension
+        Entities.Common.Sample.IContactExtension IContactCTEProgramService.ContactExtension
         {
             get { return (IContactExtension) Contact.Extensions["Sample"]; }
             set { Contact.Extensions["Sample"] = value; }
@@ -2701,43 +2701,80 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int CareerPathwayDescriptorId 
+        public virtual string CIPCode  { get; set; }
+        public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
-                if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                if (_cteProgramServiceDescriptorId == default(int))
+                    _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
 
-                return _careerPathwayDescriptorId;
+                return _cteProgramServiceDescriptorId;
             } 
             set
             {
-                _careerPathwayDescriptorId = value;
-                _careerPathwayDescriptor = null;
+                _cteProgramServiceDescriptorId = value;
+                _cteProgramServiceDescriptor = null;
             }
         }
 
-        private int _careerPathwayDescriptorId;
-        private string _careerPathwayDescriptor;
+        private int _cteProgramServiceDescriptorId;
+        private string _cteProgramServiceDescriptor;
 
-        public virtual string CareerPathwayDescriptor
+        public virtual string CTEProgramServiceDescriptor
         {
             get
             {
-                if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                if (_cteProgramServiceDescriptor == null)
+                    _cteProgramServiceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CTEProgramServiceDescriptor", _cteProgramServiceDescriptorId);
                     
-                return _careerPathwayDescriptor;
+                return _cteProgramServiceDescriptor;
             }
             set
             {
-                _careerPathwayDescriptor = value;
-                _careerPathwayDescriptorId = default(int);
+                _cteProgramServiceDescriptor = value;
+                _cteProgramServiceDescriptorId = default(int);
             }
         }
-        public virtual string CIPCode  { get; set; }
-        public virtual bool? CTEProgramCompletionIndicator  { get; set; }
-        public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual DateTime? ServiceBeginDate 
+        {
+            get { return _serviceBeginDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceBeginDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceBeginDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceBeginDate;
+        
+        public virtual DateTime? ServiceEndDate 
+        {
+            get { return _serviceEndDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceEndDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceEndDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceEndDate;
+        
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2763,7 +2800,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "CareerPathwayDescriptor", new LookupColumnDetails { PropertyName = "CareerPathwayDescriptorId", LookupTypeName = "CareerPathwayDescriptor"} },
+                { "CTEProgramServiceDescriptor", new LookupColumnDetails { PropertyName = "CTEProgramServiceDescriptorId", LookupTypeName = "CTEProgramServiceDescriptor"} },
             };
 
         Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
@@ -2841,12 +2878,12 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.Sample.IContactCTEProgram)target);
+            return this.SynchronizeTo((Entities.Common.Sample.IContactCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.Sample.IContactCTEProgram) target, null);
+            this.MapTo((Entities.Common.Sample.IContactCTEProgramService) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -3734,28 +3771,28 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
-        public Entities.NHibernate.ContactAggregate.Sample.ContactCTEProgram ContactCTEProgram
+        public Entities.NHibernate.ContactAggregate.Sample.ContactCTEProgramService ContactCTEProgramService
         {
-            get { return (Entities.NHibernate.ContactAggregate.Sample.ContactCTEProgram) (this as Entities.Common.Sample.IContactExtension).ContactCTEProgram;  }
-            set { (this as Entities.Common.Sample.IContactExtension).ContactCTEProgram = value;  }
+            get { return (Entities.NHibernate.ContactAggregate.Sample.ContactCTEProgramService) (this as Entities.Common.Sample.IContactExtension).ContactCTEProgramService;  }
+            set { (this as Entities.Common.Sample.IContactExtension).ContactCTEProgramService = value;  }
         }
 
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
-        Entities.Common.Sample.IContactCTEProgram Entities.Common.Sample.IContactExtension.ContactCTEProgram
+        Entities.Common.Sample.IContactCTEProgramService Entities.Common.Sample.IContactExtension.ContactCTEProgramService
         {
             get
             {
-                var list = (IList) Contact.AggregateExtensions["Sample_ContactCTEProgram"];
+                var list = (IList) Contact.AggregateExtensions["Sample_ContactCTEProgramService"];
 
                 if (list != null && list.Count > 0)
-                    return (Entities.Common.Sample.IContactCTEProgram) list[0];
+                    return (Entities.Common.Sample.IContactCTEProgramService) list[0];
 
                 return null;
             }
             set
             {
                 // Delete the existing object
-                var list = (IList) Contact.AggregateExtensions["Sample_ContactCTEProgram"] ?? new List<object>();
+                var list = (IList) Contact.AggregateExtensions["Sample_ContactCTEProgramService"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -4621,16 +4658,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS database.
+    /// A class which represents the sample.SchoolCTEProgramService table of the School aggregate in the ODS database.
     /// </summary>
     [Schema("sample")]
     [ExcludeFromCodeCoverage]
-    public class SchoolCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    public class SchoolCTEProgramService : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.ISchoolCTEProgramService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
-        public SchoolCTEProgram()
+        public SchoolCTEProgramService()
         {
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -4642,7 +4679,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         [DomainSignature, JsonIgnore]
         public virtual EdFi.School School { get; set; }
 
-        Entities.Common.Sample.ISchoolExtension ISchoolCTEProgram.SchoolExtension
+        Entities.Common.Sample.ISchoolExtension ISchoolCTEProgramService.SchoolExtension
         {
             get { return (ISchoolExtension) School.Extensions["Sample"]; }
             set { School.Extensions["Sample"] = value; }
@@ -4658,43 +4695,80 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int CareerPathwayDescriptorId 
+        public virtual string CIPCode  { get; set; }
+        public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
-                if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                if (_cteProgramServiceDescriptorId == default(int))
+                    _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
 
-                return _careerPathwayDescriptorId;
+                return _cteProgramServiceDescriptorId;
             } 
             set
             {
-                _careerPathwayDescriptorId = value;
-                _careerPathwayDescriptor = null;
+                _cteProgramServiceDescriptorId = value;
+                _cteProgramServiceDescriptor = null;
             }
         }
 
-        private int _careerPathwayDescriptorId;
-        private string _careerPathwayDescriptor;
+        private int _cteProgramServiceDescriptorId;
+        private string _cteProgramServiceDescriptor;
 
-        public virtual string CareerPathwayDescriptor
+        public virtual string CTEProgramServiceDescriptor
         {
             get
             {
-                if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                if (_cteProgramServiceDescriptor == null)
+                    _cteProgramServiceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CTEProgramServiceDescriptor", _cteProgramServiceDescriptorId);
                     
-                return _careerPathwayDescriptor;
+                return _cteProgramServiceDescriptor;
             }
             set
             {
-                _careerPathwayDescriptor = value;
-                _careerPathwayDescriptorId = default(int);
+                _cteProgramServiceDescriptor = value;
+                _cteProgramServiceDescriptorId = default(int);
             }
         }
-        public virtual string CIPCode  { get; set; }
-        public virtual bool? CTEProgramCompletionIndicator  { get; set; }
-        public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual DateTime? ServiceBeginDate 
+        {
+            get { return _serviceBeginDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceBeginDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceBeginDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceBeginDate;
+        
+        public virtual DateTime? ServiceEndDate 
+        {
+            get { return _serviceEndDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceEndDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceEndDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceEndDate;
+        
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4720,7 +4794,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "CareerPathwayDescriptor", new LookupColumnDetails { PropertyName = "CareerPathwayDescriptorId", LookupTypeName = "CareerPathwayDescriptor"} },
+                { "CTEProgramServiceDescriptor", new LookupColumnDetails { PropertyName = "CTEProgramServiceDescriptorId", LookupTypeName = "CTEProgramServiceDescriptor"} },
             };
 
         Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
@@ -4798,12 +4872,12 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.Sample.ISchoolCTEProgram)target);
+            return this.SynchronizeTo((Entities.Common.Sample.ISchoolCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.Sample.ISchoolCTEProgram) target, null);
+            this.MapTo((Entities.Common.Sample.ISchoolCTEProgramService) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -5038,28 +5112,28 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
-        public Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgram SchoolCTEProgram
+        public Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgramService SchoolCTEProgramService
         {
-            get { return (Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgram) (this as Entities.Common.Sample.ISchoolExtension).SchoolCTEProgram;  }
-            set { (this as Entities.Common.Sample.ISchoolExtension).SchoolCTEProgram = value;  }
+            get { return (Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgramService) (this as Entities.Common.Sample.ISchoolExtension).SchoolCTEProgramService;  }
+            set { (this as Entities.Common.Sample.ISchoolExtension).SchoolCTEProgramService = value;  }
         }
 
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
-        Entities.Common.Sample.ISchoolCTEProgram Entities.Common.Sample.ISchoolExtension.SchoolCTEProgram
+        Entities.Common.Sample.ISchoolCTEProgramService Entities.Common.Sample.ISchoolExtension.SchoolCTEProgramService
         {
             get
             {
-                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgram"];
+                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgramService"];
 
                 if (list != null && list.Count > 0)
-                    return (Entities.Common.Sample.ISchoolCTEProgram) list[0];
+                    return (Entities.Common.Sample.ISchoolCTEProgramService) list[0];
 
                 return null;
             }
             set
             {
                 // Delete the existing object
-                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgram"] ?? new List<object>();
+                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgramService"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -11438,7 +11512,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         public StudentGraduationPlanAssociation()
         {
-           StudentGraduationPlanAssociationCTEProgramPersistentList = new HashSet<StudentGraduationPlanAssociationCTEProgram>();
+           StudentGraduationPlanAssociationCTEProgramServicePersistentList = new HashSet<StudentGraduationPlanAssociationCTEProgramService>();
             StudentGraduationPlanAssociationAcademicSubjects = new HashSet<StudentGraduationPlanAssociationAcademicSubject>();
             StudentGraduationPlanAssociationCareerPathwayCodes = new HashSet<StudentGraduationPlanAssociationCareerPathwayCode>();
             StudentGraduationPlanAssociationDescriptions = new HashSet<StudentGraduationPlanAssociationDescription>();
@@ -11624,13 +11698,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        public virtual Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram
+        public virtual Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService StudentGraduationPlanAssociationCTEProgramService
         {
             get
             {
                 // Return the item in the list, if one exists
-                if (StudentGraduationPlanAssociationCTEProgramPersistentList.Any())
-                    return StudentGraduationPlanAssociationCTEProgramPersistentList.First();
+                if (StudentGraduationPlanAssociationCTEProgramServicePersistentList.Any())
+                    return StudentGraduationPlanAssociationCTEProgramServicePersistentList.First();
 
                 // No reference is present
                 return null;
@@ -11638,8 +11712,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set
             {
                 // Delete the existing object
-                if (StudentGraduationPlanAssociationCTEProgramPersistentList.Any())
-                    StudentGraduationPlanAssociationCTEProgramPersistentList.Clear();
+                if (StudentGraduationPlanAssociationCTEProgramServicePersistentList.Any())
+                    StudentGraduationPlanAssociationCTEProgramServicePersistentList.Clear();
 
                 // If we're setting a value, add it to the list now
                 if (value != null)
@@ -11647,20 +11721,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     // Set the back-reference to the parent
                     value.StudentGraduationPlanAssociation = this;
 
-                    StudentGraduationPlanAssociationCTEProgramPersistentList.Add(value);
+                    StudentGraduationPlanAssociationCTEProgramServicePersistentList.Add(value);
                 }
             }
         }
 
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentGraduationPlanAssociationCTEProgram
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentGraduationPlanAssociationCTEProgramService
         {
-            get { return StudentGraduationPlanAssociationCTEProgram; }
-            set { StudentGraduationPlanAssociationCTEProgram = (Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram) value; }
+            get { return StudentGraduationPlanAssociationCTEProgramService; }
+            set { StudentGraduationPlanAssociationCTEProgramService = (Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService) value; }
         }
 
-        private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram> _studentGraduationPlanAssociationCTEProgramPersistentList;
+        private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> _studentGraduationPlanAssociationCTEProgramServicePersistentList;
 
-        public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram> StudentGraduationPlanAssociationCTEProgramPersistentList
+        public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> StudentGraduationPlanAssociationCTEProgramServicePersistentList
         {
             get
             {
@@ -11669,16 +11743,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
-                foreach (var item in _studentGraduationPlanAssociationCTEProgramPersistentList)
+                foreach (var item in _studentGraduationPlanAssociationCTEProgramServicePersistentList)
                     if (item.StudentGraduationPlanAssociation == null)
                         item.StudentGraduationPlanAssociation = this;
                 // -------------------------------------------------------------
 
-                return _studentGraduationPlanAssociationCTEProgramPersistentList;
+                return _studentGraduationPlanAssociationCTEProgramServicePersistentList;
             }
             set
             {
-                _studentGraduationPlanAssociationCTEProgramPersistentList = value;
+                _studentGraduationPlanAssociationCTEProgramServicePersistentList = value;
             }
         }
 
@@ -12540,16 +12614,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the sample.StudentGraduationPlanAssociationCTEProgram table of the StudentGraduationPlanAssociation aggregate in the ODS database.
+    /// A class which represents the sample.StudentGraduationPlanAssociationCTEProgramService table of the StudentGraduationPlanAssociation aggregate in the ODS database.
     /// </summary>
     [Schema("sample")]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
+    public class StudentGraduationPlanAssociationCTEProgramService : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
-        public StudentGraduationPlanAssociationCTEProgram()
+        public StudentGraduationPlanAssociationCTEProgramService()
         {
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -12561,7 +12635,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature, JsonIgnore]
         public virtual StudentGraduationPlanAssociation StudentGraduationPlanAssociation { get; set; }
 
-        Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationCTEProgram.StudentGraduationPlanAssociation
+        Entities.Common.Sample.IStudentGraduationPlanAssociation IStudentGraduationPlanAssociationCTEProgramService.StudentGraduationPlanAssociation
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
@@ -12577,43 +12651,80 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int CareerPathwayDescriptorId 
+        public virtual string CIPCode  { get; set; }
+        public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
-                if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                if (_cteProgramServiceDescriptorId == default(int))
+                    _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
 
-                return _careerPathwayDescriptorId;
+                return _cteProgramServiceDescriptorId;
             } 
             set
             {
-                _careerPathwayDescriptorId = value;
-                _careerPathwayDescriptor = null;
+                _cteProgramServiceDescriptorId = value;
+                _cteProgramServiceDescriptor = null;
             }
         }
 
-        private int _careerPathwayDescriptorId;
-        private string _careerPathwayDescriptor;
+        private int _cteProgramServiceDescriptorId;
+        private string _cteProgramServiceDescriptor;
 
-        public virtual string CareerPathwayDescriptor
+        public virtual string CTEProgramServiceDescriptor
         {
             get
             {
-                if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                if (_cteProgramServiceDescriptor == null)
+                    _cteProgramServiceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CTEProgramServiceDescriptor", _cteProgramServiceDescriptorId);
                     
-                return _careerPathwayDescriptor;
+                return _cteProgramServiceDescriptor;
             }
             set
             {
-                _careerPathwayDescriptor = value;
-                _careerPathwayDescriptorId = default(int);
+                _cteProgramServiceDescriptor = value;
+                _cteProgramServiceDescriptorId = default(int);
             }
         }
-        public virtual string CIPCode  { get; set; }
-        public virtual bool? CTEProgramCompletionIndicator  { get; set; }
-        public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
+        public virtual bool? PrimaryIndicator  { get; set; }
+        public virtual DateTime? ServiceBeginDate 
+        {
+            get { return _serviceBeginDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceBeginDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceBeginDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceBeginDate;
+        
+        public virtual DateTime? ServiceEndDate 
+        {
+            get { return _serviceEndDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _serviceEndDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _serviceEndDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _serviceEndDate;
+        
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12639,7 +12750,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
-                { "CareerPathwayDescriptor", new LookupColumnDetails { PropertyName = "CareerPathwayDescriptorId", LookupTypeName = "CareerPathwayDescriptor"} },
+                { "CTEProgramServiceDescriptor", new LookupColumnDetails { PropertyName = "CTEProgramServiceDescriptorId", LookupTypeName = "CTEProgramServiceDescriptor"} },
                 { "GraduationPlanTypeDescriptor", new LookupColumnDetails { PropertyName = "GraduationPlanTypeDescriptorId", LookupTypeName = "GraduationPlanTypeDescriptor"} },
             };
 
@@ -12718,12 +12829,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram)target);
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram) target, null);
+            this.MapTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService) target, null);
         }
 
         void IChildEntity.SetParent(object value)
