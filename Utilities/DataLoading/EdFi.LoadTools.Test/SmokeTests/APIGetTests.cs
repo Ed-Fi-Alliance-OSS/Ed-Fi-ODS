@@ -19,7 +19,7 @@ using Newtonsoft.Json.Linq;
 using Swashbuckle.Swagger;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {

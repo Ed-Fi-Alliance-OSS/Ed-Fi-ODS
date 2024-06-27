@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Mapping;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {

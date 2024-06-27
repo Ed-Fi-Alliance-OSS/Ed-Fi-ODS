@@ -8,6 +8,7 @@ using System.Dynamic;
 using EdFi.LoadTools.ApiClient;
 using NUnit.Framework;
 using Newtonsoft.Json.Linq;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test
 {
