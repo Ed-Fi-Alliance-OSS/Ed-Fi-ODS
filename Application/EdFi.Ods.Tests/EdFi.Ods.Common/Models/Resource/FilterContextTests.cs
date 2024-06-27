@@ -19,7 +19,9 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
+
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {

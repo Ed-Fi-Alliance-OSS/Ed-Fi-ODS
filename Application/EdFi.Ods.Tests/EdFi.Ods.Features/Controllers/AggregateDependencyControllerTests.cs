@@ -3,20 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
-using Antlr.Runtime.Misc;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.Controllers;
@@ -24,10 +17,10 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using QuickGraph;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
+
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {

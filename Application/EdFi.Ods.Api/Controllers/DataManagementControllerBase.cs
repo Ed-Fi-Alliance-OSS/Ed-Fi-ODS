@@ -207,7 +207,7 @@ namespace EdFi.Ods.Api.Controllers
             // Return multiple results
             if (queryParameters.TotalCount)
             {
-                Response.Headers.Add(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
+                Response.Headers.Append(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
             }
 
             Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());

@@ -25,9 +25,8 @@ namespace EdFi.Ods.Api.Middleware
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock,
             IAuthenticationProvider authenticationProvider)
-            : base(options, logger, encoder, clock)
+            : base(options, logger, encoder)
         {
             _authenticationProvider = authenticationProvider;
         }

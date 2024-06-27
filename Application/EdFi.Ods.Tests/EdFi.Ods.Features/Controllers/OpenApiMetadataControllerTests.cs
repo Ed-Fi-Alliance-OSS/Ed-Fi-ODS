@@ -4,13 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using System.Net;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
@@ -18,12 +15,11 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
-using NHibernate.Criterion;
 using NUnit.Framework;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
+
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {

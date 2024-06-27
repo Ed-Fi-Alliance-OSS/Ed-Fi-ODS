@@ -10,15 +10,15 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Utils;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Shouldly;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
+
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
 {
