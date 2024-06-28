@@ -115,13 +115,14 @@ COMMENT ON TABLE sample.ParentCeilingHeight IS 'The height of the ceiling in the
 COMMENT ON COLUMN sample.ParentCeilingHeight.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN sample.ParentCeilingHeight.CeilingHeight IS 'The height of the ceiling in the rooms of the parent''s home.';
 
--- Extended Properties [sample].[ParentCTEProgram] --
-COMMENT ON TABLE sample.ParentCTEProgram IS 'A CTE program the parent has completed.';
-COMMENT ON COLUMN sample.ParentCTEProgram.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
-COMMENT ON COLUMN sample.ParentCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+-- Extended Properties [sample].[ParentCTEProgramService] --
+COMMENT ON TABLE sample.ParentCTEProgramService IS 'A CTE program the parent has completed.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.ParentCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [sample].[ParentEducationContent] --
 COMMENT ON TABLE sample.ParentEducationContent IS 'Education content to which the parent has been referred.';
@@ -165,13 +166,14 @@ COMMENT ON COLUMN sample.ParentTeacherConference.DayOfWeek IS 'The day of the we
 COMMENT ON COLUMN sample.ParentTeacherConference.EndTime IS 'The end time the parent prefers to meet for parent-teacher conferences.';
 COMMENT ON COLUMN sample.ParentTeacherConference.StartTime IS 'The start time the parent prefers to meet for parent-teacher conferences.';
 
--- Extended Properties [sample].[SchoolCTEProgram] --
-COMMENT ON TABLE sample.SchoolCTEProgram IS 'A CTE program the school is known for.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+-- Extended Properties [sample].[SchoolCTEProgramService] --
+COMMENT ON TABLE sample.SchoolCTEProgramService IS 'A CTE program the school is known for.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [sample].[SchoolDirectlyOwnedBus] --
 COMMENT ON TABLE sample.SchoolDirectlyOwnedBus IS 'Buses owned by the School directly.';
@@ -398,16 +400,17 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.Gradu
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.CareerPathwayCode IS 'The code representing the student''s intended career pathway after graduation.';
 
--- Extended Properties [sample].[StudentGraduationPlanAssociationCTEProgram] --
-COMMENT ON TABLE sample.StudentGraduationPlanAssociationCTEProgram IS 'The career and technical program in which the student participates.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+-- Extended Properties [sample].[StudentGraduationPlanAssociationCTEProgramService] --
+COMMENT ON TABLE sample.StudentGraduationPlanAssociationCTEProgramService IS 'The career and technical program in which the student participates.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationDescription] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationDescription IS 'A description of the graduation plan.';

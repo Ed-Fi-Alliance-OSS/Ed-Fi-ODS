@@ -197,18 +197,20 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The height of the ceiling in the rooms of the parent''s home.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCeilingHeight', @level2type=N'COLUMN', @level2name=N'CeilingHeight'
 GO
 
--- Extended Properties [sample].[ParentCTEProgram] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the parent has completed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram'
+-- Extended Properties [sample].[ParentCTEProgramService] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the parent has completed.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'ParentUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'ParentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CareerPathwayDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'CIPCode'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CIPCode'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the service being provided to the student by the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'CTEProgramServiceDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether the student has completed the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'CTEProgramCompletionIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'True if service is a primary service.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'PrimaryIndicator'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether this CTE program is the student''s primary CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgram', @level2type=N'COLUMN', @level2name=N'PrimaryCTEProgramIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'First date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceEndDate'
 GO
 
 -- Extended Properties [sample].[ParentEducationContent] --
@@ -285,18 +287,20 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The start time the parent prefers to meet for parent-teacher conferences.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'ParentTeacherConference', @level2type=N'COLUMN', @level2name=N'StartTime'
 GO
 
--- Extended Properties [sample].[SchoolCTEProgram] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the school is known for.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram'
+-- Extended Properties [sample].[SchoolCTEProgramService] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A CTE program the school is known for.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram', @level2type=N'COLUMN', @level2name=N'SchoolId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram', @level2type=N'COLUMN', @level2name=N'CareerPathwayDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'CIPCode'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram', @level2type=N'COLUMN', @level2name=N'CIPCode'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the service being provided to the student by the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'CTEProgramServiceDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether the student has completed the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram', @level2type=N'COLUMN', @level2name=N'CTEProgramCompletionIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'True if service is a primary service.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'PrimaryIndicator'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether this CTE program is the student''s primary CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgram', @level2type=N'COLUMN', @level2name=N'PrimaryCTEProgramIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'First date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'SchoolCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceEndDate'
 GO
 
 -- Extended Properties [sample].[SchoolDirectlyOwnedBus] --
@@ -701,24 +705,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representing the student''s intended career pathway after graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCareerPathwayCode', @level2type=N'COLUMN', @level2name=N'CareerPathwayCode'
 GO
 
--- Extended Properties [sample].[StudentGraduationPlanAssociationCTEProgram] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The career and technical program in which the student participates.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram'
+-- Extended Properties [sample].[StudentGraduationPlanAssociationCTEProgramService] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The career and technical program in which the student participates.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of academic plan the student is following for graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'GraduationPlanTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of academic plan the student is following for graduation.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'GraduationPlanTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student is expected to graduate.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'GraduationSchoolYear'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student is expected to graduate.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'GraduationSchoolYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'CareerPathwayDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'CIPCode'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number and description of the CIP code associated with the student''s CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'CIPCode'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the service being provided to the student by the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'CTEProgramServiceDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether the student has completed the CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'CTEProgramCompletionIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'True if service is a primary service.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'PrimaryIndicator'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A boolean indicator of whether this CTE program is the student''s primary CTE program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgram', @level2type=N'COLUMN', @level2name=N'PrimaryCTEProgramIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'First date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last date the student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentGraduationPlanAssociationCTEProgramService', @level2type=N'COLUMN', @level2name=N'ServiceEndDate'
 GO
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationDescription] --

@@ -134,11 +134,11 @@ SELECT @addressTypeDescriptorId = DescriptorId
     INNER JOIN edfi.AddressTypeDescriptor atd
     ON d.DescriptorId = atd.AddressTypeDescriptorId
 
-DECLARE @careerPathwayDescriptorId INT;
-SELECT @careerPathwayDescriptorId = DescriptorId
+DECLARE @cteProgramServiceDescriptorId INT;
+SELECT @cteProgramServiceDescriptorId = DescriptorId
     FROM edfi.Descriptor d
-    INNER JOIN edfi.CareerPathwayDescriptor cpd
-    ON d.DescriptorId = cpd.CareerPathwayDescriptorId
+    INNER JOIN edfi.CTEProgramServiceDescriptor cpsd
+    ON d.DescriptorId = cpsd.CTEProgramServiceDescriptorId
 
 DECLARE @credentialFieldDescriptorId INT;
 SELECT @credentialFieldDescriptorId = DescriptorId
@@ -537,13 +537,14 @@ UPDATE sample.SchoolExtension
 SET IsExemplary = 1
 WHERE SchoolId = @grandBendElementarySchoolId
 
-INSERT INTO sample.SchoolCTEProgram
+INSERT INTO sample.SchoolCTEProgramService
     (SchoolId
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (@grandBendElementarySchoolId, @careerPathwayDescriptorId, '13.0301', 0, 1)
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (@grandBendElementarySchoolId, @cteProgramServiceDescriptorId, '13.0301', 0, '2018-08-20', '2018-09-20')
 
 INSERT INTO sample.SchoolDirectlyOwnedBus
     (SchoolId
@@ -588,13 +589,14 @@ INSERT INTO sample.ParentCeilingHeight
     , ParentUSI)
 VALUES (10.2, @parent777777Usi)
 
-INSERT INTO sample.ParentCTEProgram
+INSERT INTO sample.ParentCTEProgramService
     (ParentUSI
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (@parent777777Usi, @careerPathwayDescriptorId, '13.0301', 0, 1)
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (@parent777777Usi, @cteProgramServiceDescriptorId, '13.0301', 0, '2018-08-20', '2018-09-20')
 
 INSERT INTO sample.ParentEducationContent
     (ContentIdentifier
@@ -783,16 +785,17 @@ INSERT INTO sample.StudentGraduationPlanAssociationCareerPathwayCode
     , CareerPathwayCode)
 VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, 15)
 
-INSERT INTO sample.StudentGraduationPlanAssociationCTEProgram
+INSERT INTO sample.StudentGraduationPlanAssociationCTEProgramService
     (EducationOrganizationId
     , GraduationPlanTypeDescriptorId
     , GraduationSchoolYear
     , StudentUSI
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, @careerPathwayDescriptorId, '13.0301', 1, 1)
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (@graduationPlanEducationOrganizationId, @graduationPlanTypeDescriptorId, @graduationPlanGraduationSchoolYear, @student604854Usi, @cteProgramServiceDescriptorId, '13.0301', 1, '2018-08-20', '2018-09-20')
 
 INSERT INTO sample.StudentGraduationPlanAssociationDescription
     (EducationOrganizationId

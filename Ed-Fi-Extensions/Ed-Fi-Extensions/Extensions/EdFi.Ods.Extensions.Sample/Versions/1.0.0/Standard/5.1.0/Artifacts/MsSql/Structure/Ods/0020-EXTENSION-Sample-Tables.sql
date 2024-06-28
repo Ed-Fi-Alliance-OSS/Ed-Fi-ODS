@@ -24,11 +24,11 @@ CREATE TABLE [sample].[Bus] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[Bus] ADD CONSTRAINT [Bus_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[Bus] ADD CONSTRAINT [Bus_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 ALTER TABLE [sample].[Bus] ADD CONSTRAINT [Bus_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [sample].[Bus] ADD CONSTRAINT [Bus_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [sample].[Bus] ADD CONSTRAINT [Bus_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [sample].[BusRoute] --
@@ -59,11 +59,11 @@ CREATE TABLE [sample].[BusRoute] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRoute] ADD CONSTRAINT [BusRoute_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRoute] ADD CONSTRAINT [BusRoute_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 ALTER TABLE [sample].[BusRoute] ADD CONSTRAINT [BusRoute_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [sample].[BusRoute] ADD CONSTRAINT [BusRoute_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [sample].[BusRoute] ADD CONSTRAINT [BusRoute_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [sample].[BusRouteBusYear] --
@@ -79,7 +79,7 @@ CREATE TABLE [sample].[BusRouteBusYear] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRouteBusYear] ADD CONSTRAINT [BusRouteBusYear_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRouteBusYear] ADD CONSTRAINT [BusRouteBusYear_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[BusRouteProgram] --
@@ -99,7 +99,7 @@ CREATE TABLE [sample].[BusRouteProgram] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRouteProgram] ADD CONSTRAINT [BusRouteProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRouteProgram] ADD CONSTRAINT [BusRouteProgram_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[BusRouteServiceAreaPostalCode] --
@@ -115,7 +115,7 @@ CREATE TABLE [sample].[BusRouteServiceAreaPostalCode] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRouteServiceAreaPostalCode] ADD CONSTRAINT [BusRouteServiceAreaPostalCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRouteServiceAreaPostalCode] ADD CONSTRAINT [BusRouteServiceAreaPostalCode_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[BusRouteStartTime] --
@@ -131,7 +131,7 @@ CREATE TABLE [sample].[BusRouteStartTime] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRouteStartTime] ADD CONSTRAINT [BusRouteStartTime_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRouteStartTime] ADD CONSTRAINT [BusRouteStartTime_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[BusRouteTelephone] --
@@ -152,7 +152,7 @@ CREATE TABLE [sample].[BusRouteTelephone] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[BusRouteTelephone] ADD CONSTRAINT [BusRouteTelephone_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[BusRouteTelephone] ADD CONSTRAINT [BusRouteTelephone_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactAddressExtension] --
@@ -176,7 +176,7 @@ CREATE TABLE [sample].[ContactAddressExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactAddressExtension] ADD CONSTRAINT [ContactAddressExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactAddressExtension] ADD CONSTRAINT [ContactAddressExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactAddressSchoolDistrict] --
@@ -200,7 +200,7 @@ CREATE TABLE [sample].[ContactAddressSchoolDistrict] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactAddressSchoolDistrict] ADD CONSTRAINT [ContactAddressSchoolDistrict_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactAddressSchoolDistrict] ADD CONSTRAINT [ContactAddressSchoolDistrict_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactAddressTerm] --
@@ -224,7 +224,7 @@ CREATE TABLE [sample].[ContactAddressTerm] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactAddressTerm] ADD CONSTRAINT [ContactAddressTerm_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactAddressTerm] ADD CONSTRAINT [ContactAddressTerm_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactAuthor] --
@@ -238,7 +238,7 @@ CREATE TABLE [sample].[ContactAuthor] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactAuthor] ADD CONSTRAINT [ContactAuthor_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactAuthor] ADD CONSTRAINT [ContactAuthor_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactCeilingHeight] --
@@ -252,23 +252,24 @@ CREATE TABLE [sample].[ContactCeilingHeight] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactCeilingHeight] ADD CONSTRAINT [ContactCeilingHeight_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactCeilingHeight] ADD CONSTRAINT [ContactCeilingHeight_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
--- Table [sample].[ContactCTEProgram] --
-CREATE TABLE [sample].[ContactCTEProgram] (
+-- Table [sample].[ContactCTEProgramService] --
+CREATE TABLE [sample].[ContactCTEProgramService] (
     [ContactUSI] [INT] NOT NULL,
-    [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [CTEProgramCompletionIndicator] [BIT] NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
+    [CTEProgramServiceDescriptorId] [INT] NOT NULL,
+    [PrimaryIndicator] [BIT] NULL,
+    [ServiceBeginDate] [DATE] NULL,
+    [ServiceEndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ContactCTEProgram_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [ContactCTEProgramService_PK] PRIMARY KEY CLUSTERED (
         [ContactUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactCTEProgram] ADD CONSTRAINT [ContactCTEProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactCTEProgramService] ADD CONSTRAINT [ContactCTEProgramService_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactEducationContent] --
@@ -282,7 +283,7 @@ CREATE TABLE [sample].[ContactEducationContent] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactEducationContent] ADD CONSTRAINT [ContactEducationContent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactEducationContent] ADD CONSTRAINT [ContactEducationContent_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactExtension] --
@@ -305,7 +306,7 @@ CREATE TABLE [sample].[ContactExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactExtension] ADD CONSTRAINT [ContactExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactExtension] ADD CONSTRAINT [ContactExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactFavoriteBookTitle] --
@@ -319,7 +320,7 @@ CREATE TABLE [sample].[ContactFavoriteBookTitle] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactFavoriteBookTitle] ADD CONSTRAINT [ContactFavoriteBookTitle_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactFavoriteBookTitle] ADD CONSTRAINT [ContactFavoriteBookTitle_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactStudentProgramAssociation] --
@@ -343,7 +344,7 @@ CREATE TABLE [sample].[ContactStudentProgramAssociation] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactStudentProgramAssociation] ADD CONSTRAINT [ContactStudentProgramAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactStudentProgramAssociation] ADD CONSTRAINT [ContactStudentProgramAssociation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[ContactTeacherConference] --
@@ -358,7 +359,7 @@ CREATE TABLE [sample].[ContactTeacherConference] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[ContactTeacherConference] ADD CONSTRAINT [ContactTeacherConference_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[ContactTeacherConference] ADD CONSTRAINT [ContactTeacherConference_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[FavoriteBookCategoryDescriptor] --
@@ -379,20 +380,21 @@ CREATE TABLE [sample].[MembershipTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [sample].[SchoolCTEProgram] --
-CREATE TABLE [sample].[SchoolCTEProgram] (
+-- Table [sample].[SchoolCTEProgramService] --
+CREATE TABLE [sample].[SchoolCTEProgramService] (
     [SchoolId] [BIGINT] NOT NULL,
-    [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [CTEProgramCompletionIndicator] [BIT] NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
+    [CTEProgramServiceDescriptorId] [INT] NOT NULL,
+    [PrimaryIndicator] [BIT] NULL,
+    [ServiceBeginDate] [DATE] NULL,
+    [ServiceEndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SchoolCTEProgram_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [SchoolCTEProgramService_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[SchoolCTEProgram] ADD CONSTRAINT [SchoolCTEProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[SchoolCTEProgramService] ADD CONSTRAINT [SchoolCTEProgramService_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[SchoolDirectlyOwnedBus] --
@@ -406,7 +408,7 @@ CREATE TABLE [sample].[SchoolDirectlyOwnedBus] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[SchoolDirectlyOwnedBus] ADD CONSTRAINT [SchoolDirectlyOwnedBus_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[SchoolDirectlyOwnedBus] ADD CONSTRAINT [SchoolDirectlyOwnedBus_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[SchoolExtension] --
@@ -419,7 +421,7 @@ CREATE TABLE [sample].[SchoolExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[SchoolExtension] ADD CONSTRAINT [SchoolExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[SchoolExtension] ADD CONSTRAINT [SchoolExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StaffExtension] --
@@ -432,7 +434,7 @@ CREATE TABLE [sample].[StaffExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StaffExtension] ADD CONSTRAINT [StaffExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StaffExtension] ADD CONSTRAINT [StaffExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StaffPet] --
@@ -447,7 +449,7 @@ CREATE TABLE [sample].[StaffPet] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StaffPet] ADD CONSTRAINT [StaffPet_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StaffPet] ADD CONSTRAINT [StaffPet_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StaffPetPreference] --
@@ -461,7 +463,7 @@ CREATE TABLE [sample].[StaffPetPreference] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StaffPetPreference] ADD CONSTRAINT [StaffPetPreference_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StaffPetPreference] ADD CONSTRAINT [StaffPetPreference_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentAquaticPet] --
@@ -478,7 +480,7 @@ CREATE TABLE [sample].[StudentAquaticPet] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentAquaticPet] ADD CONSTRAINT [StudentAquaticPet_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentAquaticPet] ADD CONSTRAINT [StudentAquaticPet_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociation] --
@@ -532,7 +534,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationArtMedium] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationArtMedium_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationArtMedium_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociationFavoriteBook] --
@@ -556,7 +558,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationFavoriteBook] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBook] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBook_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBook] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBook_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] --
@@ -581,7 +583,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBookArtMedium_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] ADD CONSTRAINT [StudentArtProgramAssociationFavoriteBookArtMedium_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociationPortfolioYears] --
@@ -605,7 +607,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationPortfolioYears] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationPortfolioYears] ADD CONSTRAINT [StudentArtProgramAssociationPortfolioYears_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationPortfolioYears] ADD CONSTRAINT [StudentArtProgramAssociationPortfolioYears_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociationService] --
@@ -632,7 +634,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationService] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationService] ADD CONSTRAINT [StudentArtProgramAssociationService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationService] ADD CONSTRAINT [StudentArtProgramAssociationService_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentArtProgramAssociationStyle] --
@@ -656,7 +658,7 @@ CREATE TABLE [sample].[StudentArtProgramAssociationStyle] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentArtProgramAssociationStyle] ADD CONSTRAINT [StudentArtProgramAssociationStyle_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentArtProgramAssociationStyle] ADD CONSTRAINT [StudentArtProgramAssociationStyle_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationDiscipline] --
@@ -672,7 +674,7 @@ CREATE TABLE [sample].[StudentContactAssociationDiscipline] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationDiscipline] ADD CONSTRAINT [StudentContactAssociationDiscipline_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationDiscipline] ADD CONSTRAINT [StudentContactAssociationDiscipline_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationExtension] --
@@ -699,7 +701,7 @@ CREATE TABLE [sample].[StudentContactAssociationExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationExtension] ADD CONSTRAINT [StudentContactAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationExtension] ADD CONSTRAINT [StudentContactAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationFavoriteBookTitle] --
@@ -715,7 +717,7 @@ CREATE TABLE [sample].[StudentContactAssociationFavoriteBookTitle] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationFavoriteBookTitle] ADD CONSTRAINT [StudentContactAssociationFavoriteBookTitle_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationFavoriteBookTitle] ADD CONSTRAINT [StudentContactAssociationFavoriteBookTitle_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationHoursPerWeek] --
@@ -731,7 +733,7 @@ CREATE TABLE [sample].[StudentContactAssociationHoursPerWeek] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationHoursPerWeek] ADD CONSTRAINT [StudentContactAssociationHoursPerWeek_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationHoursPerWeek] ADD CONSTRAINT [StudentContactAssociationHoursPerWeek_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationPagesRead] --
@@ -747,7 +749,7 @@ CREATE TABLE [sample].[StudentContactAssociationPagesRead] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationPagesRead] ADD CONSTRAINT [StudentContactAssociationPagesRead_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationPagesRead] ADD CONSTRAINT [StudentContactAssociationPagesRead_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] --
@@ -769,7 +771,7 @@ CREATE TABLE [sample].[StudentContactAssociationStaffEducationOrganizationEmploy
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] ADD CONSTRAINT [StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationStaffEducationOrganizationEmploymentAssociation] ADD CONSTRAINT [StudentContactAssociationStaffEducationOrganizationEmploymentAssociation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentContactAssociationTelephone] --
@@ -788,7 +790,7 @@ CREATE TABLE [sample].[StudentContactAssociationTelephone] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentContactAssociationTelephone] ADD CONSTRAINT [StudentContactAssociationTelephone_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentContactAssociationTelephone] ADD CONSTRAINT [StudentContactAssociationTelephone_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentCTEProgramAssociationExtension] --
@@ -812,7 +814,7 @@ CREATE TABLE [sample].[StudentCTEProgramAssociationExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentCTEProgramAssociationExtension] ADD CONSTRAINT [StudentCTEProgramAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentCTEProgramAssociationExtension] ADD CONSTRAINT [StudentCTEProgramAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressExtension] --
@@ -838,7 +840,7 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] 
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] --
@@ -864,7 +866,7 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistr
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressSchoolDistrict_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressSchoolDistrict] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressSchoolDistrict_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationAddressTerm] --
@@ -890,7 +892,7 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressTerm_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentEducationOrganizationAssociationAddressTerm] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressTerm_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationExtension] --
@@ -906,7 +908,7 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentEducationOrganizationAssociationExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] --
@@ -926,7 +928,7 @@ CREATE TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteris
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] ADD CONSTRAINT [StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed] ADD CONSTRAINT [StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentFavoriteBook] --
@@ -941,7 +943,7 @@ CREATE TABLE [sample].[StudentFavoriteBook] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentFavoriteBook] ADD CONSTRAINT [StudentFavoriteBook_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentFavoriteBook] ADD CONSTRAINT [StudentFavoriteBook_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentFavoriteBookArtMedium] --
@@ -958,7 +960,7 @@ CREATE TABLE [sample].[StudentFavoriteBookArtMedium] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentFavoriteBookArtMedium] ADD CONSTRAINT [StudentFavoriteBookArtMedium_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentFavoriteBookArtMedium] ADD CONSTRAINT [StudentFavoriteBookArtMedium_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociation] --
@@ -988,11 +990,11 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociation] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 ALTER TABLE [sample].[StudentGraduationPlanAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociation_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationAcademicSubject] --
@@ -1012,7 +1014,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationAcademicSubject] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationAcademicSubject] ADD CONSTRAINT [StudentGraduationPlanAssociationAcademicSubject_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationAcademicSubject] ADD CONSTRAINT [StudentGraduationPlanAssociationAcademicSubject_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationCareerPathwayCode] --
@@ -1032,21 +1034,22 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationCareerPathwayCode] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationCareerPathwayCode] ADD CONSTRAINT [StudentGraduationPlanAssociationCareerPathwayCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationCareerPathwayCode] ADD CONSTRAINT [StudentGraduationPlanAssociationCareerPathwayCode_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
--- Table [sample].[StudentGraduationPlanAssociationCTEProgram] --
-CREATE TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] (
+-- Table [sample].[StudentGraduationPlanAssociationCTEProgramService] --
+CREATE TABLE [sample].[StudentGraduationPlanAssociationCTEProgramService] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
     [GraduationSchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [CareerPathwayDescriptorId] [INT] NOT NULL,
     [CIPCode] [NVARCHAR](120) NULL,
-    [CTEProgramCompletionIndicator] [BIT] NULL,
-    [PrimaryCTEProgramIndicator] [BIT] NULL,
+    [CTEProgramServiceDescriptorId] [INT] NOT NULL,
+    [PrimaryIndicator] [BIT] NULL,
+    [ServiceBeginDate] [DATE] NULL,
+    [ServiceEndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentGraduationPlanAssociationCTEProgram_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [StudentGraduationPlanAssociationCTEProgramService_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [GraduationPlanTypeDescriptorId] ASC,
         [GraduationSchoolYear] ASC,
@@ -1054,7 +1057,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] ADD CONSTRAINT [StudentGraduationPlanAssociationCTEProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgramService] ADD CONSTRAINT [StudentGraduationPlanAssociationCTEProgramService_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationDescription] --
@@ -1074,7 +1077,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationDescription] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationDescription] ADD CONSTRAINT [StudentGraduationPlanAssociationDescription_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationDescription] ADD CONSTRAINT [StudentGraduationPlanAssociationDescription_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationDesignatedBy] --
@@ -1094,7 +1097,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationDesignatedBy] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationDesignatedBy] ADD CONSTRAINT [StudentGraduationPlanAssociationDesignatedBy_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationDesignatedBy] ADD CONSTRAINT [StudentGraduationPlanAssociationDesignatedBy_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationIndustryCredential] --
@@ -1114,7 +1117,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationIndustryCredential] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationIndustryCredential] ADD CONSTRAINT [StudentGraduationPlanAssociationIndustryCredential_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationIndustryCredential] ADD CONSTRAINT [StudentGraduationPlanAssociationIndustryCredential_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationStudentContactAssociation] --
@@ -1134,7 +1137,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationStudentContactAssociation
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationStudentContactAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociationStudentContactAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationStudentContactAssociation] ADD CONSTRAINT [StudentGraduationPlanAssociationStudentContactAssociation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentGraduationPlanAssociationYearsAttended] --
@@ -1154,7 +1157,7 @@ CREATE TABLE [sample].[StudentGraduationPlanAssociationYearsAttended] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentGraduationPlanAssociationYearsAttended] ADD CONSTRAINT [StudentGraduationPlanAssociationYearsAttended_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentGraduationPlanAssociationYearsAttended] ADD CONSTRAINT [StudentGraduationPlanAssociationYearsAttended_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentPet] --
@@ -1169,7 +1172,7 @@ CREATE TABLE [sample].[StudentPet] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentPet] ADD CONSTRAINT [StudentPet_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentPet] ADD CONSTRAINT [StudentPet_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentPetPreference] --
@@ -1183,7 +1186,7 @@ CREATE TABLE [sample].[StudentPetPreference] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentPetPreference] ADD CONSTRAINT [StudentPetPreference_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentPetPreference] ADD CONSTRAINT [StudentPetPreference_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentSchoolAssociationExtension] --
@@ -1200,7 +1203,7 @@ CREATE TABLE [sample].[StudentSchoolAssociationExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentSchoolAssociationExtension] ADD CONSTRAINT [StudentSchoolAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentSchoolAssociationExtension] ADD CONSTRAINT [StudentSchoolAssociationExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] --
@@ -1234,6 +1237,6 @@ CREATE TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAsso
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] ADD CONSTRAINT [StudentSectionAssociationRelatedGeneralStudentProgramAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] ADD CONSTRAINT [StudentSectionAssociationRelatedGeneralStudentProgramAssociation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 

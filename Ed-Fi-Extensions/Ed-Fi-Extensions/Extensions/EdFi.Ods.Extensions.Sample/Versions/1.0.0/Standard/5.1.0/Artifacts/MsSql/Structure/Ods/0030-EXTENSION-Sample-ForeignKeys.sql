@@ -98,17 +98,17 @@ REFERENCES [edfi].[Contact] ([ContactUSI])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [sample].[ContactCTEProgram] WITH CHECK ADD CONSTRAINT [FK_ContactCTEProgram_CareerPathwayDescriptor] FOREIGN KEY ([CareerPathwayDescriptorId])
-REFERENCES [edfi].[CareerPathwayDescriptor] ([CareerPathwayDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ContactCTEProgram_CareerPathwayDescriptor]
-ON [sample].[ContactCTEProgram] ([CareerPathwayDescriptorId] ASC)
-GO
-
-ALTER TABLE [sample].[ContactCTEProgram] WITH CHECK ADD CONSTRAINT [FK_ContactCTEProgram_Contact] FOREIGN KEY ([ContactUSI])
+ALTER TABLE [sample].[ContactCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_ContactCTEProgramService_Contact] FOREIGN KEY ([ContactUSI])
 REFERENCES [edfi].[Contact] ([ContactUSI])
 ON DELETE CASCADE
+GO
+
+ALTER TABLE [sample].[ContactCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_ContactCTEProgramService_CTEProgramServiceDescriptor] FOREIGN KEY ([CTEProgramServiceDescriptorId])
+REFERENCES [edfi].[CTEProgramServiceDescriptor] ([CTEProgramServiceDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_ContactCTEProgramService_CTEProgramServiceDescriptor]
+ON [sample].[ContactCTEProgramService] ([CTEProgramServiceDescriptorId] ASC)
 GO
 
 ALTER TABLE [sample].[ContactEducationContent] WITH CHECK ADD CONSTRAINT [FK_ContactEducationContent_Contact] FOREIGN KEY ([ContactUSI])
@@ -170,15 +170,15 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [sample].[SchoolCTEProgram] WITH CHECK ADD CONSTRAINT [FK_SchoolCTEProgram_CareerPathwayDescriptor] FOREIGN KEY ([CareerPathwayDescriptorId])
-REFERENCES [edfi].[CareerPathwayDescriptor] ([CareerPathwayDescriptorId])
+ALTER TABLE [sample].[SchoolCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_SchoolCTEProgramService_CTEProgramServiceDescriptor] FOREIGN KEY ([CTEProgramServiceDescriptorId])
+REFERENCES [edfi].[CTEProgramServiceDescriptor] ([CTEProgramServiceDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_SchoolCTEProgram_CareerPathwayDescriptor]
-ON [sample].[SchoolCTEProgram] ([CareerPathwayDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_SchoolCTEProgramService_CTEProgramServiceDescriptor]
+ON [sample].[SchoolCTEProgramService] ([CTEProgramServiceDescriptorId] ASC)
 GO
 
-ALTER TABLE [sample].[SchoolCTEProgram] WITH CHECK ADD CONSTRAINT [FK_SchoolCTEProgram_School] FOREIGN KEY ([SchoolId])
+ALTER TABLE [sample].[SchoolCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_SchoolCTEProgramService_School] FOREIGN KEY ([SchoolId])
 REFERENCES [edfi].[School] ([SchoolId])
 ON DELETE CASCADE
 GO
@@ -469,15 +469,15 @@ REFERENCES [sample].[StudentGraduationPlanAssociation] ([EducationOrganizationId
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] WITH CHECK ADD CONSTRAINT [FK_StudentGraduationPlanAssociationCTEProgram_CareerPathwayDescriptor] FOREIGN KEY ([CareerPathwayDescriptorId])
-REFERENCES [edfi].[CareerPathwayDescriptor] ([CareerPathwayDescriptorId])
+ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentGraduationPlanAssociationCTEProgramService_CTEProgramServiceDescriptor] FOREIGN KEY ([CTEProgramServiceDescriptorId])
+REFERENCES [edfi].[CTEProgramServiceDescriptor] ([CTEProgramServiceDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentGraduationPlanAssociationCTEProgram_CareerPathwayDescriptor]
-ON [sample].[StudentGraduationPlanAssociationCTEProgram] ([CareerPathwayDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_StudentGraduationPlanAssociationCTEProgramService_CTEProgramServiceDescriptor]
+ON [sample].[StudentGraduationPlanAssociationCTEProgramService] ([CTEProgramServiceDescriptorId] ASC)
 GO
 
-ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgram] WITH CHECK ADD CONSTRAINT [FK_StudentGraduationPlanAssociationCTEProgram_StudentGraduationPlanAssociation] FOREIGN KEY ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear], [StudentUSI])
+ALTER TABLE [sample].[StudentGraduationPlanAssociationCTEProgramService] WITH CHECK ADD CONSTRAINT [FK_StudentGraduationPlanAssociationCTEProgramService_StudentGraduationPlanAssociation] FOREIGN KEY ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear], [StudentUSI])
 REFERENCES [sample].[StudentGraduationPlanAssociation] ([EducationOrganizationId], [GraduationPlanTypeDescriptorId], [GraduationSchoolYear], [StudentUSI])
 ON DELETE CASCADE
 GO

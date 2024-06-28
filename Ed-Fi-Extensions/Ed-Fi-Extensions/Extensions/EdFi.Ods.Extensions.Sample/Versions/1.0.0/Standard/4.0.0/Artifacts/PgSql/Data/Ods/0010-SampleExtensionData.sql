@@ -36,7 +36,7 @@ declare staff207230AssignmentStaffUsi int;
 declare academicSubjectDescriptorId int;
 declare achievementCategoryDescriptorId int;
 declare addrTypeDescriptorId int;
-declare careerPathwayDescriptorId int;
+declare cteProgramServiceDescriptorId int;
 declare credentialFieldDescriptorId int;
 declare disciplineDescriptorId int;
 declare disabilityDescriptorId int;
@@ -115,10 +115,10 @@ from edfi.Descriptor d
 inner join edfi.AddressTypeDescriptor atd
 on d.DescriptorId = atd.AddressTypeDescriptorId;
 
-select DescriptorId into careerPathwayDescriptorId
+select DescriptorId into cteProgramServiceDescriptorId
 from edfi.Descriptor d
-inner join edfi.CareerPathwayDescriptor cpd
-on d.DescriptorId = cpd.CareerPathwayDescriptorId;
+inner join edfi.CTEProgramServiceDescriptor cpsd
+on d.DescriptorId = cpsd.CTEProgramServiceDescriptorId;
 
 select DescriptorId into credentialFieldDescriptorId
 from edfi.Descriptor d
@@ -511,13 +511,14 @@ UPDATE sample.SchoolExtension
 SET IsExemplary = '1'
 WHERE SchoolId = grandBendElementarySchoolId;
 
-INSERT INTO sample.SchoolCTEProgram
+INSERT INTO sample.SchoolCTEProgramService
     (SchoolId
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (grandBendElementarySchoolId, careerPathwayDescriptorId, '13.0301', '0', '1');
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (grandBendElementarySchoolId, cteProgramServiceDescriptorId, '13.0301', '0', '2018-08-20', '2018-09-20');
 
 INSERT INTO sample.SchoolDirectlyOwnedBus
     (SchoolId
@@ -562,13 +563,14 @@ INSERT INTO sample.ParentCeilingHeight
     , ParentUSI)
 VALUES (10.2, parent777777Usi);
 
-INSERT INTO sample.ParentCTEProgram
+INSERT INTO sample.ParentCTEProgramService
     (ParentUSI
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (parent777777Usi, careerPathwayDescriptorId, '13.0301', '0', '1');
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (parent777777Usi, cteProgramServiceDescriptorId, '13.0301', '0', '2018-08-20', '2018-09-20');
 
 INSERT INTO sample.ParentEducationContent
     (ContentIdentifier
@@ -752,16 +754,17 @@ INSERT INTO sample.StudentGraduationPlanAssociationCareerPathwayCode
     , CareerPathwayCode)
 VALUES (graduationPlanEducationOrganizationId, graduationPlanGraduationTypeDescriptorId, graduationPlanGraduationSchoolYear, student604854Usi, 15);
 
-INSERT INTO sample.StudentGraduationPlanAssociationCTEProgram
+INSERT INTO sample.StudentGraduationPlanAssociationCTEProgramService
     (EducationOrganizationId
     , GraduationPlanTypeDescriptorId
     , GraduationSchoolYear
     , StudentUSI
-    , CareerPathwayDescriptorId
+    , CTEProgramServiceDescriptorId
     , CIPCode
-    , PrimaryCTEProgramIndicator
-    , CTEProgramCompletionIndicator)
-VALUES (graduationPlanEducationOrganizationId, graduationPlanGraduationTypeDescriptorId, graduationPlanGraduationSchoolYear, student604854Usi, careerPathwayDescriptorId, '13.0301', '1', '1');
+    , PrimaryIndicator
+    , ServiceBeginDate
+    , ServiceEndDate)
+VALUES (graduationPlanEducationOrganizationId, graduationPlanGraduationTypeDescriptorId, graduationPlanGraduationSchoolYear, student604854Usi, cteProgramServiceDescriptorId, '13.0301', '1', '2018-08-20', '2018-09-20');
 
 INSERT INTO sample.StudentGraduationPlanAssociationDescription
     (EducationOrganizationId

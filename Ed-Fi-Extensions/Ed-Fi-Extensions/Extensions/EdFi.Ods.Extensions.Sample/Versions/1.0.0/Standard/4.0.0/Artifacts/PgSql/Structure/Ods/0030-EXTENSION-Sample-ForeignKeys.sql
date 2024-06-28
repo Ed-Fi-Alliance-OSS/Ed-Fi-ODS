@@ -103,14 +103,14 @@ REFERENCES edfi.Parent (ParentUSI)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE sample.ParentCTEProgram ADD CONSTRAINT FK_98fa6d_CareerPathwayDescriptor FOREIGN KEY (CareerPathwayDescriptorId)
-REFERENCES edfi.CareerPathwayDescriptor (CareerPathwayDescriptorId)
+ALTER TABLE sample.ParentCTEProgramService ADD CONSTRAINT FK_584b3d_CTEProgramServiceDescriptor FOREIGN KEY (CTEProgramServiceDescriptorId)
+REFERENCES edfi.CTEProgramServiceDescriptor (CTEProgramServiceDescriptorId)
 ;
 
-CREATE INDEX FK_98fa6d_CareerPathwayDescriptor
-ON sample.ParentCTEProgram (CareerPathwayDescriptorId ASC);
+CREATE INDEX FK_584b3d_CTEProgramServiceDescriptor
+ON sample.ParentCTEProgramService (CTEProgramServiceDescriptorId ASC);
 
-ALTER TABLE sample.ParentCTEProgram ADD CONSTRAINT FK_98fa6d_Parent FOREIGN KEY (ParentUSI)
+ALTER TABLE sample.ParentCTEProgramService ADD CONSTRAINT FK_584b3d_Parent FOREIGN KEY (ParentUSI)
 REFERENCES edfi.Parent (ParentUSI)
 ON DELETE CASCADE
 ;
@@ -161,14 +161,14 @@ REFERENCES edfi.Parent (ParentUSI)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE sample.SchoolCTEProgram ADD CONSTRAINT FK_7ba98a_CareerPathwayDescriptor FOREIGN KEY (CareerPathwayDescriptorId)
-REFERENCES edfi.CareerPathwayDescriptor (CareerPathwayDescriptorId)
+ALTER TABLE sample.SchoolCTEProgramService ADD CONSTRAINT FK_c45761_CTEProgramServiceDescriptor FOREIGN KEY (CTEProgramServiceDescriptorId)
+REFERENCES edfi.CTEProgramServiceDescriptor (CTEProgramServiceDescriptorId)
 ;
 
-CREATE INDEX FK_7ba98a_CareerPathwayDescriptor
-ON sample.SchoolCTEProgram (CareerPathwayDescriptorId ASC);
+CREATE INDEX FK_c45761_CTEProgramServiceDescriptor
+ON sample.SchoolCTEProgramService (CTEProgramServiceDescriptorId ASC);
 
-ALTER TABLE sample.SchoolCTEProgram ADD CONSTRAINT FK_7ba98a_School FOREIGN KEY (SchoolId)
+ALTER TABLE sample.SchoolCTEProgramService ADD CONSTRAINT FK_c45761_School FOREIGN KEY (SchoolId)
 REFERENCES edfi.School (SchoolId)
 ON DELETE CASCADE
 ;
@@ -379,14 +379,14 @@ REFERENCES sample.StudentGraduationPlanAssociation (EducationOrganizationId, Gra
 ON DELETE CASCADE
 ;
 
-ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgram ADD CONSTRAINT FK_4d6493_CareerPathwayDescriptor FOREIGN KEY (CareerPathwayDescriptorId)
-REFERENCES edfi.CareerPathwayDescriptor (CareerPathwayDescriptorId)
+ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgramService ADD CONSTRAINT FK_e5fafb_CTEProgramServiceDescriptor FOREIGN KEY (CTEProgramServiceDescriptorId)
+REFERENCES edfi.CTEProgramServiceDescriptor (CTEProgramServiceDescriptorId)
 ;
 
-CREATE INDEX FK_4d6493_CareerPathwayDescriptor
-ON sample.StudentGraduationPlanAssociationCTEProgram (CareerPathwayDescriptorId ASC);
+CREATE INDEX FK_e5fafb_CTEProgramServiceDescriptor
+ON sample.StudentGraduationPlanAssociationCTEProgramService (CTEProgramServiceDescriptorId ASC);
 
-ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgram ADD CONSTRAINT FK_4d6493_StudentGraduationPlanAssociation FOREIGN KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
+ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgramService ADD CONSTRAINT FK_e5fafb_StudentGraduationPlanAssociation FOREIGN KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
 REFERENCES sample.StudentGraduationPlanAssociation (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
 ON DELETE CASCADE
 ;

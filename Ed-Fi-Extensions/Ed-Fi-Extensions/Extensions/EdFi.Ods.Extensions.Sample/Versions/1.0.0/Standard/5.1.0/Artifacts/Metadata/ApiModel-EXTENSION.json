@@ -143,7 +143,7 @@
         },
         {
           "schema": "sample",
-          "name": "StudentGraduationPlanAssociationCTEProgram"
+          "name": "StudentGraduationPlanAssociationCTEProgramService"
         },
         {
           "schema": "sample",
@@ -193,7 +193,7 @@
         },
         {
           "schema": "sample",
-          "name": "ContactCTEProgram"
+          "name": "ContactCTEProgramService"
         },
         {
           "schema": "sample",
@@ -221,7 +221,7 @@
       "extensionEntityNames": [
         {
           "schema": "sample",
-          "name": "SchoolCTEProgram"
+          "name": "SchoolCTEProgramService"
         },
         {
           "schema": "sample",
@@ -1463,7 +1463,7 @@
     },
     {
       "schema": "sample",
-      "name": "ContactCTEProgram",
+      "name": "ContactCTEProgramService",
       "locallyDefinedProperties": [
         {
           "propertyName": "CIPCode",
@@ -1501,7 +1501,7 @@
           }
         },
         {
-          "propertyName": "CTEProgramCompletionIndicator",
+          "propertyName": "PrimaryIndicator",
           "propertyType": {
             "dbType": "Boolean",
             "minLength": 0,
@@ -1510,52 +1510,70 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the student has completed the CTE program.",
+          "description": "True if service is a primary service.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CTEProgramCompletionIndicator",
-            "postgreSql": "CTEProgramCompletionIndicator"
+            "sqlServer": "PrimaryIndicator",
+            "postgreSql": "PrimaryIndicator"
           }
         },
         {
-          "propertyName": "PrimaryCTEProgramIndicator",
+          "propertyName": "ServiceBeginDate",
           "propertyType": {
-            "dbType": "Boolean",
+            "dbType": "Date",
             "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
+          "description": "First date the student was in this option for the current school year.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PrimaryCTEProgramIndicator",
-            "postgreSql": "PrimaryCTEProgramIndicator"
+            "sqlServer": "ServiceBeginDate",
+            "postgreSql": "ServiceBeginDate"
+          }
+        },
+        {
+          "propertyName": "ServiceEndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Last date the student was in this option for the current school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceEndDate",
+            "postgreSql": "ServiceEndDate"
           }
         }
       ],
       "identifiers": [
         {
-          "identifierName": "ContactCTEProgram_PK",
+          "identifierName": "ContactCTEProgramService_PK",
           "identifyingPropertyNames": [
             "ContactUSI"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "ContactCTEProgram_PK",
-            "postgreSql": "ContactCTEProgram_PK"
+            "sqlServer": "ContactCTEProgramService_PK",
+            "postgreSql": "ContactCTEProgramService_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "A CTE program the contact has completed.",
       "tableNames": {
-        "sqlServer": "ContactCTEProgram",
-        "postgreSql": "ContactCTEProgram"
+        "sqlServer": "ContactCTEProgramService",
+        "postgreSql": "ContactCTEProgramService"
       }
     },
     {
@@ -2084,7 +2102,7 @@
     },
     {
       "schema": "sample",
-      "name": "SchoolCTEProgram",
+      "name": "SchoolCTEProgramService",
       "locallyDefinedProperties": [
         {
           "propertyName": "CIPCode",
@@ -2122,7 +2140,7 @@
           }
         },
         {
-          "propertyName": "CTEProgramCompletionIndicator",
+          "propertyName": "PrimaryIndicator",
           "propertyType": {
             "dbType": "Boolean",
             "minLength": 0,
@@ -2131,52 +2149,70 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the student has completed the CTE program.",
+          "description": "True if service is a primary service.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CTEProgramCompletionIndicator",
-            "postgreSql": "CTEProgramCompletionIndicator"
+            "sqlServer": "PrimaryIndicator",
+            "postgreSql": "PrimaryIndicator"
           }
         },
         {
-          "propertyName": "PrimaryCTEProgramIndicator",
+          "propertyName": "ServiceBeginDate",
           "propertyType": {
-            "dbType": "Boolean",
+            "dbType": "Date",
             "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
+          "description": "First date the student was in this option for the current school year.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PrimaryCTEProgramIndicator",
-            "postgreSql": "PrimaryCTEProgramIndicator"
+            "sqlServer": "ServiceBeginDate",
+            "postgreSql": "ServiceBeginDate"
+          }
+        },
+        {
+          "propertyName": "ServiceEndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Last date the student was in this option for the current school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceEndDate",
+            "postgreSql": "ServiceEndDate"
           }
         }
       ],
       "identifiers": [
         {
-          "identifierName": "SchoolCTEProgram_PK",
+          "identifierName": "SchoolCTEProgramService_PK",
           "identifyingPropertyNames": [
             "SchoolId"
           ],
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "SchoolCTEProgram_PK",
-            "postgreSql": "SchoolCTEProgram_PK"
+            "sqlServer": "SchoolCTEProgramService_PK",
+            "postgreSql": "SchoolCTEProgramService_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "A CTE program the school is known for.",
       "tableNames": {
-        "sqlServer": "SchoolCTEProgram",
-        "postgreSql": "SchoolCTEProgram"
+        "sqlServer": "SchoolCTEProgramService",
+        "postgreSql": "SchoolCTEProgramService"
       }
     },
     {
@@ -4790,7 +4826,7 @@
     },
     {
       "schema": "sample",
-      "name": "StudentGraduationPlanAssociationCTEProgram",
+      "name": "StudentGraduationPlanAssociationCTEProgramService",
       "locallyDefinedProperties": [
         {
           "propertyName": "CIPCode",
@@ -4828,7 +4864,7 @@
           }
         },
         {
-          "propertyName": "CTEProgramCompletionIndicator",
+          "propertyName": "PrimaryIndicator",
           "propertyType": {
             "dbType": "Boolean",
             "minLength": 0,
@@ -4837,36 +4873,54 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the student has completed the CTE program.",
+          "description": "True if service is a primary service.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CTEProgramCompletionIndicator",
-            "postgreSql": "CTEProgramCompletionIndicator"
+            "sqlServer": "PrimaryIndicator",
+            "postgreSql": "PrimaryIndicator"
           }
         },
         {
-          "propertyName": "PrimaryCTEProgramIndicator",
+          "propertyName": "ServiceBeginDate",
           "propertyType": {
-            "dbType": "Boolean",
+            "dbType": "Date",
             "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
+          "description": "First date the student was in this option for the current school year.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PrimaryCTEProgramIndicator",
-            "postgreSql": "PrimaryCTEProgramIndicator"
+            "sqlServer": "ServiceBeginDate",
+            "postgreSql": "ServiceBeginDate"
+          }
+        },
+        {
+          "propertyName": "ServiceEndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Last date the student was in this option for the current school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceEndDate",
+            "postgreSql": "ServiceEndDate"
           }
         }
       ],
       "identifiers": [
         {
-          "identifierName": "StudentGraduationPlanAssociationCTEProgram_PK",
+          "identifierName": "StudentGraduationPlanAssociationCTEProgramService_PK",
           "identifyingPropertyNames": [
             "EducationOrganizationId",
             "GraduationPlanTypeDescriptorId",
@@ -4876,16 +4930,16 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "StudentGraduationPlanAssociationCTEProgram_PK",
-            "postgreSql": "StudentGraduationPlanAssociationCTEProgram_PK"
+            "sqlServer": "StudentGraduationPlanAssociationCTEProgramService_PK",
+            "postgreSql": "StudentGraduationPlanAssociationCTEProgramService_PK"
           }
         }
       ],
       "isAbstract": false,
       "description": "The career and technical program in which the student participates.",
       "tableNames": {
-        "sqlServer": "StudentGraduationPlanAssociationCTEProgram",
-        "postgreSql": "StudentGraduationPlanAssociationCTEProgram"
+        "sqlServer": "StudentGraduationPlanAssociationCTEProgramService",
+        "postgreSql": "StudentGraduationPlanAssociationCTEProgramService"
       }
     },
     {
@@ -7338,67 +7392,7 @@
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_ContactCTEProgram_CareerPathwayDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "CareerPathwayDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "CareerPathwayDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "sample",
-        "name": "ContactCTEProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "CareerPathwayDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A sequence of courses within an area of interest that is a student's educational road map to a chosen career.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ContactCTEProgram_CareerPathwayDescriptor",
-        "postgreSql": "FK_17ab0b_CareerPathwayDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "sample",
-        "name": "FK_ContactCTEProgram_Contact"
+        "name": "FK_ContactCTEProgramService_Contact"
       },
       "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
@@ -7426,7 +7420,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "ContactCTEProgram"
+        "name": "ContactCTEProgramService"
       },
       "secondaryEntityProperties": [
         {
@@ -7450,8 +7444,68 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_ContactCTEProgram_Contact",
-        "postgreSql": "FK_17ab0b_Contact"
+        "sqlServer": "FK_ContactCTEProgramService_Contact",
+        "postgreSql": "FK_5c11e6_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_ContactCTEProgramService_CTEProgramServiceDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "CTEProgramServiceDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "CTEProgramServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "ContactCTEProgramService"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "CTEProgramServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the service being provided to the student by the CTE program.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactCTEProgramService_CTEProgramServiceDescriptor",
+        "postgreSql": "FK_5c11e6_CTEProgramServiceDescriptor"
       },
       "potentiallyLogical": false
     },
@@ -8233,16 +8287,16 @@
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_SchoolCTEProgram_CareerPathwayDescriptor"
+        "name": "FK_SchoolCTEProgramService_CTEProgramServiceDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "CareerPathwayDescriptor"
+        "name": "CTEProgramServiceDescriptor"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "CareerPathwayDescriptorId",
+          "propertyName": "CTEProgramServiceDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -8254,18 +8308,18 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "SchoolCTEProgram"
+        "name": "SchoolCTEProgramService"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "CareerPathwayDescriptorId",
+          "propertyName": "CTEProgramServiceDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -8273,27 +8327,27 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A sequence of courses within an area of interest that is a student's educational road map to a chosen career.",
+          "description": "Indicates the service being provided to the student by the CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
           }
         }
       ],
       "isIdentifying": false,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_SchoolCTEProgram_CareerPathwayDescriptor",
-        "postgreSql": "FK_7ba98a_CareerPathwayDescriptor"
+        "sqlServer": "FK_SchoolCTEProgramService_CTEProgramServiceDescriptor",
+        "postgreSql": "FK_c45761_CTEProgramServiceDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_SchoolCTEProgram_School"
+        "name": "FK_SchoolCTEProgramService_School"
       },
       "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
@@ -8321,7 +8375,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "SchoolCTEProgram"
+        "name": "SchoolCTEProgramService"
       },
       "secondaryEntityProperties": [
         {
@@ -8345,8 +8399,8 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_SchoolCTEProgram_School",
-        "postgreSql": "FK_7ba98a_School"
+        "sqlServer": "FK_SchoolCTEProgramService_School",
+        "postgreSql": "FK_c45761_School"
       },
       "potentiallyLogical": false
     },
@@ -9424,7 +9478,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9534,7 +9588,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9718,7 +9772,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -9828,7 +9882,7 @@
           "propertyName": "ProgramName",
           "propertyType": {
             "dbType": "String",
-            "minLength": 1,
+            "minLength": 0,
             "maxLength": 60,
             "precision": 0,
             "scale": 0,
@@ -14047,16 +14101,16 @@
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_StudentGraduationPlanAssociationCTEProgram_CareerPathwayDescriptor"
+        "name": "FK_StudentGraduationPlanAssociationCTEProgramService_CTEProgramServiceDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
-        "name": "CareerPathwayDescriptor"
+        "name": "CTEProgramServiceDescriptor"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "CareerPathwayDescriptorId",
+          "propertyName": "CTEProgramServiceDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -14068,18 +14122,18 @@
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "StudentGraduationPlanAssociationCTEProgram"
+        "name": "StudentGraduationPlanAssociationCTEProgramService"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "CareerPathwayDescriptorId",
+          "propertyName": "CTEProgramServiceDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -14087,27 +14141,27 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A sequence of courses within an area of interest that is a student's educational road map to a chosen career.",
+          "description": "Indicates the service being provided to the student by the CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "CareerPathwayDescriptorId",
-            "postgreSql": "CareerPathwayDescriptorId"
+            "sqlServer": "CTEProgramServiceDescriptorId",
+            "postgreSql": "CTEProgramServiceDescriptorId"
           }
         }
       ],
       "isIdentifying": false,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgram_CareerPathwayDescriptor",
-        "postgreSql": "FK_4d6493_CareerPathwayDescriptor"
+        "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgramService_CTEProgramServiceDescriptor",
+        "postgreSql": "FK_e5fafb_CTEProgramServiceDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "sample",
-        "name": "FK_StudentGraduationPlanAssociationCTEProgram_StudentGraduationPlanAssociation"
+        "name": "FK_StudentGraduationPlanAssociationCTEProgramService_StudentGraduationPlanAssociation"
       },
       "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
@@ -14186,7 +14240,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "sample",
-        "name": "StudentGraduationPlanAssociationCTEProgram"
+        "name": "StudentGraduationPlanAssociationCTEProgramService"
       },
       "secondaryEntityProperties": [
         {
@@ -14261,8 +14315,8 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgram_StudentGraduationPlanAssociation",
-        "postgreSql": "FK_4d6493_StudentGraduationPlanAssociation"
+        "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgramService_StudentGraduationPlanAssociation",
+        "postgreSql": "FK_e5fafb_StudentGraduationPlanAssociation"
       },
       "potentiallyLogical": false
     },

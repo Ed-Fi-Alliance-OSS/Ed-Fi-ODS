@@ -213,7 +213,7 @@
               <xs:documentation>The contact's favorite authors.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CTEProgram" type="CTEProgram" minOccurs="0">
+          <xs:element name="CTEProgramService" type="CTEProgramService" minOccurs="0">
             <xs:annotation>
               <xs:documentation>A CTE program the contact has completed.</xs:documentation>
             </xs:annotation>
@@ -342,7 +342,7 @@
               <xs:documentation>An indication as to whether the school is exemplary.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CTEProgram" type="CTEProgram" minOccurs="0">
+          <xs:element name="CTEProgramService" type="CTEProgramService" minOccurs="0">
             <xs:annotation>
               <xs:documentation>A CTE program the school is known for.</xs:documentation>
             </xs:annotation>
@@ -988,7 +988,7 @@
               <xs:documentation>The entity governing this graduation plan.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CTEProgram" type="CTEProgram" minOccurs="0">
+          <xs:element name="CTEProgramService" type="CTEProgramService" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The career and technical program in which the student participates.</xs:documentation>
             </xs:annotation>

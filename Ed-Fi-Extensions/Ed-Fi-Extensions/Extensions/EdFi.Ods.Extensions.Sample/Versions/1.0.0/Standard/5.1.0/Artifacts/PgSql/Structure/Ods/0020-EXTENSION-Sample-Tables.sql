@@ -18,9 +18,9 @@ CREATE TABLE sample.Bus (
     Id UUID NOT NULL,
     CONSTRAINT Bus_PK PRIMARY KEY (BusId)
 );
-ALTER TABLE sample.Bus ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.Bus ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE sample.Bus ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE sample.Bus ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.Bus ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRoute --
 CREATE TABLE sample.BusRoute (
@@ -46,9 +46,9 @@ CREATE TABLE sample.BusRoute (
     Id UUID NOT NULL,
     CONSTRAINT BusRoute_PK PRIMARY KEY (BusId, BusRouteNumber)
 );
-ALTER TABLE sample.BusRoute ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRoute ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE sample.BusRoute ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE sample.BusRoute ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRoute ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRouteBusYear --
 CREATE TABLE sample.BusRouteBusYear (
@@ -58,7 +58,7 @@ CREATE TABLE sample.BusRouteBusYear (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BusRouteBusYear_PK PRIMARY KEY (BusId, BusRouteNumber, BusYear)
 );
-ALTER TABLE sample.BusRouteBusYear ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRouteBusYear ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRouteProgram --
 CREATE TABLE sample.BusRouteProgram (
@@ -70,7 +70,7 @@ CREATE TABLE sample.BusRouteProgram (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BusRouteProgram_PK PRIMARY KEY (BusId, BusRouteNumber, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
 );
-ALTER TABLE sample.BusRouteProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRouteProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRouteServiceAreaPostalCode --
 CREATE TABLE sample.BusRouteServiceAreaPostalCode (
@@ -80,7 +80,7 @@ CREATE TABLE sample.BusRouteServiceAreaPostalCode (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BusRouteServiceAreaPostalCode_PK PRIMARY KEY (BusId, BusRouteNumber, ServiceAreaPostalCode)
 );
-ALTER TABLE sample.BusRouteServiceAreaPostalCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRouteServiceAreaPostalCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRouteStartTime --
 CREATE TABLE sample.BusRouteStartTime (
@@ -90,7 +90,7 @@ CREATE TABLE sample.BusRouteStartTime (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BusRouteStartTime_PK PRIMARY KEY (BusId, BusRouteNumber, StartTime)
 );
-ALTER TABLE sample.BusRouteStartTime ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRouteStartTime ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.BusRouteTelephone --
 CREATE TABLE sample.BusRouteTelephone (
@@ -104,7 +104,7 @@ CREATE TABLE sample.BusRouteTelephone (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT BusRouteTelephone_PK PRIMARY KEY (BusId, BusRouteNumber, TelephoneNumber, TelephoneNumberTypeDescriptorId)
 );
-ALTER TABLE sample.BusRouteTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.BusRouteTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactAddressExtension --
 CREATE TABLE sample.ContactAddressExtension (
@@ -119,7 +119,7 @@ CREATE TABLE sample.ContactAddressExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactAddressExtension_PK PRIMARY KEY (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 );
-ALTER TABLE sample.ContactAddressExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactAddressExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactAddressSchoolDistrict --
 CREATE TABLE sample.ContactAddressSchoolDistrict (
@@ -133,7 +133,7 @@ CREATE TABLE sample.ContactAddressSchoolDistrict (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactAddressSchoolDistrict_PK PRIMARY KEY (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, SchoolDistrict)
 );
-ALTER TABLE sample.ContactAddressSchoolDistrict ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactAddressSchoolDistrict ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactAddressTerm --
 CREATE TABLE sample.ContactAddressTerm (
@@ -147,7 +147,7 @@ CREATE TABLE sample.ContactAddressTerm (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactAddressTerm_PK PRIMARY KEY (ContactUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, TermDescriptorId)
 );
-ALTER TABLE sample.ContactAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactAuthor --
 CREATE TABLE sample.ContactAuthor (
@@ -156,7 +156,7 @@ CREATE TABLE sample.ContactAuthor (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactAuthor_PK PRIMARY KEY (ContactUSI, Author)
 );
-ALTER TABLE sample.ContactAuthor ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactAuthor ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactCeilingHeight --
 CREATE TABLE sample.ContactCeilingHeight (
@@ -165,19 +165,20 @@ CREATE TABLE sample.ContactCeilingHeight (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactCeilingHeight_PK PRIMARY KEY (ContactUSI, CeilingHeight)
 );
-ALTER TABLE sample.ContactCeilingHeight ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactCeilingHeight ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
--- Table sample.ContactCTEProgram --
-CREATE TABLE sample.ContactCTEProgram (
+-- Table sample.ContactCTEProgramService --
+CREATE TABLE sample.ContactCTEProgramService (
     ContactUSI INT NOT NULL,
-    CareerPathwayDescriptorId INT NOT NULL,
     CIPCode VARCHAR(120) NULL,
-    CTEProgramCompletionIndicator BOOLEAN NULL,
-    PrimaryCTEProgramIndicator BOOLEAN NULL,
+    CTEProgramServiceDescriptorId INT NOT NULL,
+    PrimaryIndicator BOOLEAN NULL,
+    ServiceBeginDate DATE NULL,
+    ServiceEndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ContactCTEProgram_PK PRIMARY KEY (ContactUSI)
+    CONSTRAINT ContactCTEProgramService_PK PRIMARY KEY (ContactUSI)
 );
-ALTER TABLE sample.ContactCTEProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactCTEProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactEducationContent --
 CREATE TABLE sample.ContactEducationContent (
@@ -186,7 +187,7 @@ CREATE TABLE sample.ContactEducationContent (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactEducationContent_PK PRIMARY KEY (ContactUSI, ContentIdentifier)
 );
-ALTER TABLE sample.ContactEducationContent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactEducationContent ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactExtension --
 CREATE TABLE sample.ContactExtension (
@@ -205,7 +206,7 @@ CREATE TABLE sample.ContactExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactExtension_PK PRIMARY KEY (ContactUSI)
 );
-ALTER TABLE sample.ContactExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactFavoriteBookTitle --
 CREATE TABLE sample.ContactFavoriteBookTitle (
@@ -214,7 +215,7 @@ CREATE TABLE sample.ContactFavoriteBookTitle (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactFavoriteBookTitle_PK PRIMARY KEY (ContactUSI, FavoriteBookTitle)
 );
-ALTER TABLE sample.ContactFavoriteBookTitle ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactFavoriteBookTitle ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactStudentProgramAssociation --
 CREATE TABLE sample.ContactStudentProgramAssociation (
@@ -228,7 +229,7 @@ CREATE TABLE sample.ContactStudentProgramAssociation (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactStudentProgramAssociation_PK PRIMARY KEY (ContactUSI, BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 );
-ALTER TABLE sample.ContactStudentProgramAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactStudentProgramAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.ContactTeacherConference --
 CREATE TABLE sample.ContactTeacherConference (
@@ -239,7 +240,7 @@ CREATE TABLE sample.ContactTeacherConference (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT ContactTeacherConference_PK PRIMARY KEY (ContactUSI)
 );
-ALTER TABLE sample.ContactTeacherConference ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.ContactTeacherConference ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.FavoriteBookCategoryDescriptor --
 CREATE TABLE sample.FavoriteBookCategoryDescriptor (
@@ -253,17 +254,18 @@ CREATE TABLE sample.MembershipTypeDescriptor (
     CONSTRAINT MembershipTypeDescriptor_PK PRIMARY KEY (MembershipTypeDescriptorId)
 );
 
--- Table sample.SchoolCTEProgram --
-CREATE TABLE sample.SchoolCTEProgram (
+-- Table sample.SchoolCTEProgramService --
+CREATE TABLE sample.SchoolCTEProgramService (
     SchoolId BIGINT NOT NULL,
-    CareerPathwayDescriptorId INT NOT NULL,
     CIPCode VARCHAR(120) NULL,
-    CTEProgramCompletionIndicator BOOLEAN NULL,
-    PrimaryCTEProgramIndicator BOOLEAN NULL,
+    CTEProgramServiceDescriptorId INT NOT NULL,
+    PrimaryIndicator BOOLEAN NULL,
+    ServiceBeginDate DATE NULL,
+    ServiceEndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SchoolCTEProgram_PK PRIMARY KEY (SchoolId)
+    CONSTRAINT SchoolCTEProgramService_PK PRIMARY KEY (SchoolId)
 );
-ALTER TABLE sample.SchoolCTEProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.SchoolCTEProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.SchoolDirectlyOwnedBus --
 CREATE TABLE sample.SchoolDirectlyOwnedBus (
@@ -272,7 +274,7 @@ CREATE TABLE sample.SchoolDirectlyOwnedBus (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolDirectlyOwnedBus_PK PRIMARY KEY (SchoolId, DirectlyOwnedBusId)
 );
-ALTER TABLE sample.SchoolDirectlyOwnedBus ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.SchoolDirectlyOwnedBus ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.SchoolExtension --
 CREATE TABLE sample.SchoolExtension (
@@ -281,7 +283,7 @@ CREATE TABLE sample.SchoolExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolExtension_PK PRIMARY KEY (SchoolId)
 );
-ALTER TABLE sample.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StaffExtension --
 CREATE TABLE sample.StaffExtension (
@@ -290,7 +292,7 @@ CREATE TABLE sample.StaffExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 );
-ALTER TABLE sample.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StaffPet --
 CREATE TABLE sample.StaffPet (
@@ -300,7 +302,7 @@ CREATE TABLE sample.StaffPet (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffPet_PK PRIMARY KEY (StaffUSI, PetName)
 );
-ALTER TABLE sample.StaffPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StaffPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StaffPetPreference --
 CREATE TABLE sample.StaffPetPreference (
@@ -310,7 +312,7 @@ CREATE TABLE sample.StaffPetPreference (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffPetPreference_PK PRIMARY KEY (StaffUSI)
 );
-ALTER TABLE sample.StaffPetPreference ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StaffPetPreference ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentAquaticPet --
 CREATE TABLE sample.StudentAquaticPet (
@@ -321,7 +323,7 @@ CREATE TABLE sample.StudentAquaticPet (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAquaticPet_PK PRIMARY KEY (StudentUSI, MimimumTankVolume, PetName)
 );
-ALTER TABLE sample.StudentAquaticPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentAquaticPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociation --
 CREATE TABLE sample.StudentArtProgramAssociation (
@@ -357,7 +359,7 @@ CREATE TABLE sample.StudentArtProgramAssociationArtMedium (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationArtMedium_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, ArtMediumDescriptorId)
 );
-ALTER TABLE sample.StudentArtProgramAssociationArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociationFavoriteBook --
 CREATE TABLE sample.StudentArtProgramAssociationFavoriteBook (
@@ -372,7 +374,7 @@ CREATE TABLE sample.StudentArtProgramAssociationFavoriteBook (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationFavoriteBook_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 );
-ALTER TABLE sample.StudentArtProgramAssociationFavoriteBook ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBook ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociationFavoriteBookArtMedium --
 CREATE TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium (
@@ -387,7 +389,7 @@ CREATE TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationFavoriteBookArtMedium_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, ArtMediumDescriptorId)
 );
-ALTER TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociationPortfolioYears --
 CREATE TABLE sample.StudentArtProgramAssociationPortfolioYears (
@@ -401,7 +403,7 @@ CREATE TABLE sample.StudentArtProgramAssociationPortfolioYears (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationPortfolioYears_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, PortfolioYears)
 );
-ALTER TABLE sample.StudentArtProgramAssociationPortfolioYears ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationPortfolioYears ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociationService --
 CREATE TABLE sample.StudentArtProgramAssociationService (
@@ -418,7 +420,7 @@ CREATE TABLE sample.StudentArtProgramAssociationService (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationService_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, ServiceDescriptorId)
 );
-ALTER TABLE sample.StudentArtProgramAssociationService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationService ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentArtProgramAssociationStyle --
 CREATE TABLE sample.StudentArtProgramAssociationStyle (
@@ -432,7 +434,7 @@ CREATE TABLE sample.StudentArtProgramAssociationStyle (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentArtProgramAssociationStyle_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Style)
 );
-ALTER TABLE sample.StudentArtProgramAssociationStyle ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentArtProgramAssociationStyle ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationDiscipline --
 CREATE TABLE sample.StudentContactAssociationDiscipline (
@@ -442,7 +444,7 @@ CREATE TABLE sample.StudentContactAssociationDiscipline (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationDiscipline_PK PRIMARY KEY (ContactUSI, StudentUSI, DisciplineDescriptorId)
 );
-ALTER TABLE sample.StudentContactAssociationDiscipline ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationDiscipline ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationExtension --
 CREATE TABLE sample.StudentContactAssociationExtension (
@@ -464,7 +466,7 @@ CREATE TABLE sample.StudentContactAssociationExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationExtension_PK PRIMARY KEY (ContactUSI, StudentUSI)
 );
-ALTER TABLE sample.StudentContactAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationFavoriteBookTitle --
 CREATE TABLE sample.StudentContactAssociationFavoriteBookTitle (
@@ -474,7 +476,7 @@ CREATE TABLE sample.StudentContactAssociationFavoriteBookTitle (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationFavoriteBookTitle_PK PRIMARY KEY (ContactUSI, StudentUSI, FavoriteBookTitle)
 );
-ALTER TABLE sample.StudentContactAssociationFavoriteBookTitle ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationFavoriteBookTitle ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationHoursPerWeek --
 CREATE TABLE sample.StudentContactAssociationHoursPerWeek (
@@ -484,7 +486,7 @@ CREATE TABLE sample.StudentContactAssociationHoursPerWeek (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationHoursPerWeek_PK PRIMARY KEY (ContactUSI, StudentUSI, HoursPerWeek)
 );
-ALTER TABLE sample.StudentContactAssociationHoursPerWeek ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationHoursPerWeek ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationPagesRead --
 CREATE TABLE sample.StudentContactAssociationPagesRead (
@@ -494,7 +496,7 @@ CREATE TABLE sample.StudentContactAssociationPagesRead (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationPagesRead_PK PRIMARY KEY (ContactUSI, StudentUSI, PagesRead)
 );
-ALTER TABLE sample.StudentContactAssociationPagesRead ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationPagesRead ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d --
 CREATE TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d (
@@ -507,7 +509,7 @@ CREATE TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationStaffEducationOrganizatio_a92b1d_PK PRIMARY KEY (ContactUSI, StudentUSI, EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
 );
-ALTER TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentContactAssociationTelephone --
 CREATE TABLE sample.StudentContactAssociationTelephone (
@@ -521,7 +523,7 @@ CREATE TABLE sample.StudentContactAssociationTelephone (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentContactAssociationTelephone_PK PRIMARY KEY (ContactUSI, StudentUSI)
 );
-ALTER TABLE sample.StudentContactAssociationTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentContactAssociationTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentCTEProgramAssociationExtension --
 CREATE TABLE sample.StudentCTEProgramAssociationExtension (
@@ -536,7 +538,7 @@ CREATE TABLE sample.StudentCTEProgramAssociationExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentCTEProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 );
-ALTER TABLE sample.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentEducationOrganizationAssociationAddressExtension --
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressExtension (
@@ -552,7 +554,7 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationAddressExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationAddressExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 );
-ALTER TABLE sample.StudentEducationOrganizationAssociationAddressExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentEducationOrganizationAssociationAddressExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentEducationOrganizationAssociationAddressSchoolDistrict --
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict (
@@ -567,7 +569,7 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationAddressSchoolDistrict_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, SchoolDistrict)
 );
-ALTER TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentEducationOrganizationAssociationAddressSchoolDistrict ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentEducationOrganizationAssociationAddressTerm --
 CREATE TABLE sample.StudentEducationOrganizationAssociationAddressTerm (
@@ -582,7 +584,7 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationAddressTerm (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationAddressTerm_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, TermDescriptorId)
 );
-ALTER TABLE sample.StudentEducationOrganizationAssociationAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentEducationOrganizationAssociationAddressTerm ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentEducationOrganizationAssociationExtension --
 CREATE TABLE sample.StudentEducationOrganizationAssociationExtension (
@@ -593,7 +595,7 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 );
-ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 --
 CREATE TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 (
@@ -606,7 +608,7 @@ CREATE TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationStudentChar_17d152_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, StudentCharacteristicDescriptorId, BeginDate)
 );
-ALTER TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentFavoriteBook --
 CREATE TABLE sample.StudentFavoriteBook (
@@ -616,7 +618,7 @@ CREATE TABLE sample.StudentFavoriteBook (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentFavoriteBook_PK PRIMARY KEY (StudentUSI, FavoriteBookCategoryDescriptorId)
 );
-ALTER TABLE sample.StudentFavoriteBook ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentFavoriteBook ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentFavoriteBookArtMedium --
 CREATE TABLE sample.StudentFavoriteBookArtMedium (
@@ -627,7 +629,7 @@ CREATE TABLE sample.StudentFavoriteBookArtMedium (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentFavoriteBookArtMedium_PK PRIMARY KEY (StudentUSI, FavoriteBookCategoryDescriptorId, ArtMediumDescriptorId)
 );
-ALTER TABLE sample.StudentFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentFavoriteBookArtMedium ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociation --
 CREATE TABLE sample.StudentGraduationPlanAssociation (
@@ -650,9 +652,9 @@ CREATE TABLE sample.StudentGraduationPlanAssociation (
     Id UUID NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociation_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationAcademicSubject --
 CREATE TABLE sample.StudentGraduationPlanAssociationAcademicSubject (
@@ -664,7 +666,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationAcademicSubject (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationAcademicSubject_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, AcademicSubjectDescriptorId)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationAcademicSubject ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationAcademicSubject ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationCareerPathwayCode --
 CREATE TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode (
@@ -676,22 +678,23 @@ CREATE TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationCareerPathwayCode_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, CareerPathwayCode)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
--- Table sample.StudentGraduationPlanAssociationCTEProgram --
-CREATE TABLE sample.StudentGraduationPlanAssociationCTEProgram (
+-- Table sample.StudentGraduationPlanAssociationCTEProgramService --
+CREATE TABLE sample.StudentGraduationPlanAssociationCTEProgramService (
     EducationOrganizationId BIGINT NOT NULL,
     GraduationPlanTypeDescriptorId INT NOT NULL,
     GraduationSchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
-    CareerPathwayDescriptorId INT NOT NULL,
     CIPCode VARCHAR(120) NULL,
-    CTEProgramCompletionIndicator BOOLEAN NULL,
-    PrimaryCTEProgramIndicator BOOLEAN NULL,
+    CTEProgramServiceDescriptorId INT NOT NULL,
+    PrimaryIndicator BOOLEAN NULL,
+    ServiceBeginDate DATE NULL,
+    ServiceEndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentGraduationPlanAssociationCTEProgram_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
+    CONSTRAINT StudentGraduationPlanAssociationCTEProgramService_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationCTEProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationDescription --
 CREATE TABLE sample.StudentGraduationPlanAssociationDescription (
@@ -703,7 +706,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationDescription (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationDescription_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, Description)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationDescription ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationDescription ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationDesignatedBy --
 CREATE TABLE sample.StudentGraduationPlanAssociationDesignatedBy (
@@ -715,7 +718,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationDesignatedBy (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationDesignatedBy_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, DesignatedBy)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationDesignatedBy ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationDesignatedBy ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationIndustryCredential --
 CREATE TABLE sample.StudentGraduationPlanAssociationIndustryCredential (
@@ -727,7 +730,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationIndustryCredential (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationIndustryCredential_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, IndustryCredential)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationIndustryCredential ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationIndustryCredential ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationStudentContactAssociation --
 CREATE TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation (
@@ -739,7 +742,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationStudentContactAssociation_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, ContactUSI)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationStudentContactAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentGraduationPlanAssociationYearsAttended --
 CREATE TABLE sample.StudentGraduationPlanAssociationYearsAttended (
@@ -751,7 +754,7 @@ CREATE TABLE sample.StudentGraduationPlanAssociationYearsAttended (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentGraduationPlanAssociationYearsAttended_PK PRIMARY KEY (EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear, StudentUSI, YearsAttended)
 );
-ALTER TABLE sample.StudentGraduationPlanAssociationYearsAttended ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentGraduationPlanAssociationYearsAttended ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentPet --
 CREATE TABLE sample.StudentPet (
@@ -761,7 +764,7 @@ CREATE TABLE sample.StudentPet (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentPet_PK PRIMARY KEY (StudentUSI, PetName)
 );
-ALTER TABLE sample.StudentPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentPet ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentPetPreference --
 CREATE TABLE sample.StudentPetPreference (
@@ -771,7 +774,7 @@ CREATE TABLE sample.StudentPetPreference (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentPetPreference_PK PRIMARY KEY (StudentUSI)
 );
-ALTER TABLE sample.StudentPetPreference ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentPetPreference ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentSchoolAssociationExtension --
 CREATE TABLE sample.StudentSchoolAssociationExtension (
@@ -782,7 +785,7 @@ CREATE TABLE sample.StudentSchoolAssociationExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSchoolAssociationExtension_PK PRIMARY KEY (EntryDate, SchoolId, StudentUSI)
 );
-ALTER TABLE sample.StudentSchoolAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentSchoolAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 --
 CREATE TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 (
@@ -801,5 +804,5 @@ CREATE TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSectionAssociationRelatedGeneralStudentProg_c72e02_PK PRIMARY KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI, RelatedBeginDate, RelatedEducationOrganizationId, RelatedProgramEducationOrganizationId, RelatedProgramName, RelatedProgramTypeDescriptorId)
 );
-ALTER TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
