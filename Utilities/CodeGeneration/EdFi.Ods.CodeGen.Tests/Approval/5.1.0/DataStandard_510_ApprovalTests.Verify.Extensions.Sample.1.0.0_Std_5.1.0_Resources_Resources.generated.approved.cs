@@ -4215,16 +4215,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
     // -----------------------------------------------------------------
 
     /// <summary>
-    /// A class which represents the sample.ContactCTEProgram table of the Contact aggregate in the ODS Database.
+    /// A class which represents the sample.ContactCTEProgramService table of the Contact aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ContactCTEProgram : Entities.Common.Sample.IContactCTEProgram
+    public class ContactCTEProgramService : Entities.Common.Sample.IContactCTEProgramService
     {
-        private static FullName _fullName = new FullName("sample", "ContactCTEProgram");
+        private static FullName _fullName = new FullName("sample", "ContactCTEProgramService");
 
         // Fluent validator instance (threadsafe)
-        private static ContactCTEProgramPutPostRequestValidator _validator = new ContactCTEProgramPutPostRequestValidator();
+        private static ContactCTEProgramServicePutPostRequestValidator _validator = new ContactCTEProgramServicePutPostRequestValidator();
         
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4254,7 +4254,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         private Entities.Common.Sample.IContactExtension _contactExtension;
 
         [IgnoreDataMember]
-        Entities.Common.Sample.IContactExtension Entities.Common.Sample.IContactCTEProgram.ContactExtension
+        Entities.Common.Sample.IContactExtension Entities.Common.Sample.IContactCTEProgramService.ContactExtension
         {
             get { return _contactExtension; }
             set { SetContactExtension(value); }
@@ -4283,7 +4283,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Sample.IContactCTEProgram;
+            var compareTo = obj as Entities.Common.Sample.IContactCTEProgramService;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -4325,15 +4325,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
-        /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [RequiredWithNonDefault]
-        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
-        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
-        public string CareerPathwayDescriptor { get; set; }
-
-        /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -4342,18 +4333,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the student has completed the CTE program.
+        /// Indicates the service being provided to the student by the CTE program.
         /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
-        public bool? CTEProgramCompletionIndicator { get; set; }
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="cteProgramServiceDescriptor")][DescriptorExists("CTEProgramServiceDescriptor")]
+        public string CTEProgramServiceDescriptor { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
+        /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
-        public bool? PrimaryCTEProgramIndicator { get; set; }
+        [DataMember(Name="primaryIndicator")]
+        public bool? PrimaryIndicator { get; set; }
+
+        /// <summary>
+        /// First date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceBeginDate { get; set; }
+
+        /// <summary>
+        /// Last date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceEndDate { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4401,12 +4408,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Sample.ContactCTEProgramMapper.SynchronizeTo(this, (Entities.Common.Sample.IContactCTEProgram)target);
+            return Entities.Common.Sample.ContactCTEProgramServiceMapper.SynchronizeTo(this, (Entities.Common.Sample.IContactCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Sample.ContactCTEProgramMapper.MapTo(this, (Entities.Common.Sample.IContactCTEProgram)target, null);
+            Entities.Common.Sample.ContactCTEProgramServiceMapper.MapTo(this, (Entities.Common.Sample.IContactCTEProgramService)target, null);
         }
         // -------------------------------------------------------------
 
@@ -4421,9 +4428,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
     // -----------------------------------------------------------------
 
     [ExcludeFromCodeCoverage]
-    public class ContactCTEProgramPutPostRequestValidator : FluentValidation.AbstractValidator<ContactCTEProgram>
+    public class ContactCTEProgramServicePutPostRequestValidator : FluentValidation.AbstractValidator<ContactCTEProgramService>
     {
-        protected override bool PreValidate(FluentValidation.ValidationContext<ContactCTEProgram> context, FluentValidation.Results.ValidationResult result)
+        protected override bool PreValidate(FluentValidation.ValidationContext<ContactCTEProgramService> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
@@ -4966,16 +4973,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         /// <summary>
-        /// cteProgram
+        /// cteProgramService
         /// </summary>
         
-        [DataMember(Name = "cteProgram")]
-        public ContactCTEProgram ContactCTEProgram { get; set; }
+        [DataMember(Name = "cteProgramService")]
+        public ContactCTEProgramService ContactCTEProgramService { get; set; }
 
-        Entities.Common.Sample.IContactCTEProgram Entities.Common.Sample.IContactExtension.ContactCTEProgram
+        Entities.Common.Sample.IContactCTEProgramService Entities.Common.Sample.IContactExtension.ContactCTEProgramService
         {
-            get { return ContactCTEProgram; }
-            set { ContactCTEProgram = (ContactCTEProgram) value; }
+            get { return ContactCTEProgramService; }
+            set { ContactCTEProgramService = (ContactCTEProgramService) value; }
         }
 
         /// <summary>
@@ -5318,13 +5325,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (ContactCTEProgram != null && mappingContract?.IsMemberSupported("ContactCTEProgram") != false)
+                if (ContactCTEProgramService != null && mappingContract?.IsMemberSupported("ContactCTEProgramService") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append("ContactCTEProgram");
+                    pathBuilder.Append("ContactCTEProgramService");
 
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ContactCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("ContactCTEProgram"))))
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(ContactCTEProgramService, validationContext, validationContext.Items.ForEmbeddedObject("ContactCTEProgramService"))))
                     {
                         yield return result;
                     }
@@ -6919,16 +6926,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
 namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
 {
     /// <summary>
-    /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
+    /// A class which represents the sample.SchoolCTEProgramService table of the School aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram
+    public class SchoolCTEProgramService : Entities.Common.Sample.ISchoolCTEProgramService
     {
-        private static FullName _fullName = new FullName("sample", "SchoolCTEProgram");
+        private static FullName _fullName = new FullName("sample", "SchoolCTEProgramService");
 
         // Fluent validator instance (threadsafe)
-        private static SchoolCTEProgramPutPostRequestValidator _validator = new SchoolCTEProgramPutPostRequestValidator();
+        private static SchoolCTEProgramServicePutPostRequestValidator _validator = new SchoolCTEProgramServicePutPostRequestValidator();
         
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6958,7 +6965,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         private Entities.Common.Sample.ISchoolExtension _schoolExtension;
 
         [IgnoreDataMember]
-        Entities.Common.Sample.ISchoolExtension Entities.Common.Sample.ISchoolCTEProgram.SchoolExtension
+        Entities.Common.Sample.ISchoolExtension Entities.Common.Sample.ISchoolCTEProgramService.SchoolExtension
         {
             get { return _schoolExtension; }
             set { SetSchoolExtension(value); }
@@ -6987,7 +6994,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Sample.ISchoolCTEProgram;
+            var compareTo = obj as Entities.Common.Sample.ISchoolCTEProgramService;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -7029,15 +7036,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
-        /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [RequiredWithNonDefault]
-        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
-        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
-        public string CareerPathwayDescriptor { get; set; }
-
-        /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -7046,18 +7044,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the student has completed the CTE program.
+        /// Indicates the service being provided to the student by the CTE program.
         /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
-        public bool? CTEProgramCompletionIndicator { get; set; }
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="cteProgramServiceDescriptor")][DescriptorExists("CTEProgramServiceDescriptor")]
+        public string CTEProgramServiceDescriptor { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
+        /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
-        public bool? PrimaryCTEProgramIndicator { get; set; }
+        [DataMember(Name="primaryIndicator")]
+        public bool? PrimaryIndicator { get; set; }
+
+        /// <summary>
+        /// First date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceBeginDate { get; set; }
+
+        /// <summary>
+        /// Last date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceEndDate { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7105,12 +7119,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Sample.SchoolCTEProgramMapper.SynchronizeTo(this, (Entities.Common.Sample.ISchoolCTEProgram)target);
+            return Entities.Common.Sample.SchoolCTEProgramServiceMapper.SynchronizeTo(this, (Entities.Common.Sample.ISchoolCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Sample.SchoolCTEProgramMapper.MapTo(this, (Entities.Common.Sample.ISchoolCTEProgram)target, null);
+            Entities.Common.Sample.SchoolCTEProgramServiceMapper.MapTo(this, (Entities.Common.Sample.ISchoolCTEProgramService)target, null);
         }
         // -------------------------------------------------------------
 
@@ -7125,9 +7139,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     // -----------------------------------------------------------------
 
     [ExcludeFromCodeCoverage]
-    public class SchoolCTEProgramPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolCTEProgram>
+    public class SchoolCTEProgramServicePutPostRequestValidator : FluentValidation.AbstractValidator<SchoolCTEProgramService>
     {
-        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolCTEProgram> context, FluentValidation.Results.ValidationResult result)
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolCTEProgramService> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
@@ -7569,16 +7583,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         /// <summary>
-        /// cteProgram
+        /// cteProgramService
         /// </summary>
         
-        [DataMember(Name = "cteProgram")]
-        public SchoolCTEProgram SchoolCTEProgram { get; set; }
+        [DataMember(Name = "cteProgramService")]
+        public SchoolCTEProgramService SchoolCTEProgramService { get; set; }
 
-        Entities.Common.Sample.ISchoolCTEProgram Entities.Common.Sample.ISchoolExtension.SchoolCTEProgram
+        Entities.Common.Sample.ISchoolCTEProgramService Entities.Common.Sample.ISchoolExtension.SchoolCTEProgramService
         {
-            get { return SchoolCTEProgram; }
-            set { SchoolCTEProgram = (SchoolCTEProgram) value; }
+            get { return SchoolCTEProgramService; }
+            set { SchoolCTEProgramService = (SchoolCTEProgramService) value; }
         }
 
         // -------------------------------------------------------------
@@ -7720,13 +7734,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (SchoolCTEProgram != null && mappingContract?.IsMemberSupported("SchoolCTEProgram") != false)
+                if (SchoolCTEProgramService != null && mappingContract?.IsMemberSupported("SchoolCTEProgramService") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append("SchoolCTEProgram");
+                    pathBuilder.Append("SchoolCTEProgramService");
 
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("SchoolCTEProgram"))))
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(SchoolCTEProgramService, validationContext, validationContext.Items.ForEmbeddedObject("SchoolCTEProgramService"))))
                     {
                         yield return result;
                     }
@@ -18185,16 +18199,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         /// <summary>
-        /// cteProgram
+        /// cteProgramService
         /// </summary>
         
-        [DataMember(Name = "cteProgram")]
-        public StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram { get; set; }
+        [DataMember(Name = "cteProgramService")]
+        public StudentGraduationPlanAssociationCTEProgramService StudentGraduationPlanAssociationCTEProgramService { get; set; }
 
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentGraduationPlanAssociationCTEProgram
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentGraduationPlanAssociationCTEProgramService
         {
-            get { return StudentGraduationPlanAssociationCTEProgram; }
-            set { StudentGraduationPlanAssociationCTEProgram = (StudentGraduationPlanAssociationCTEProgram) value; }
+            get { return StudentGraduationPlanAssociationCTEProgramService; }
+            set { StudentGraduationPlanAssociationCTEProgramService = (StudentGraduationPlanAssociationCTEProgramService) value; }
         }
 
         // -------------------------------------------------------------
@@ -18661,13 +18675,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 // ---------------------------
                 //  Validate embedded objects
                 // ---------------------------
-                if (StudentGraduationPlanAssociationCTEProgram != null && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationCTEProgram") != false)
+                if (StudentGraduationPlanAssociationCTEProgramService != null && mappingContract?.IsMemberSupported("StudentGraduationPlanAssociationCTEProgramService") != false)
                 {
                     // Reset path builder
                     pathBuilder.Length = dotLength;
-                    pathBuilder.Append("StudentGraduationPlanAssociationCTEProgram");
+                    pathBuilder.Append("StudentGraduationPlanAssociationCTEProgramService");
 
-                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentGraduationPlanAssociationCTEProgram, validationContext, validationContext.Items.ForEmbeddedObject("StudentGraduationPlanAssociationCTEProgram"))))
+                    foreach (var result in ValidationHelpers.ValidateEmbeddedObject(new ValidationContext(StudentGraduationPlanAssociationCTEProgramService, validationContext, validationContext.Items.ForEmbeddedObject("StudentGraduationPlanAssociationCTEProgramService"))))
                     {
                         yield return result;
                     }
@@ -19296,16 +19310,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     // -----------------------------------------------------------------
 
     /// <summary>
-    /// A class which represents the sample.StudentGraduationPlanAssociationCTEProgram table of the StudentGraduationPlanAssociation aggregate in the ODS Database.
+    /// A class which represents the sample.StudentGraduationPlanAssociationCTEProgramService table of the StudentGraduationPlanAssociation aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram
+    public class StudentGraduationPlanAssociationCTEProgramService : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService
     {
-        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationCTEProgram");
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociationCTEProgramService");
 
         // Fluent validator instance (threadsafe)
-        private static StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator _validator = new StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator();
+        private static StudentGraduationPlanAssociationCTEProgramServicePutPostRequestValidator _validator = new StudentGraduationPlanAssociationCTEProgramServicePutPostRequestValidator();
         
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19335,7 +19349,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         private Entities.Common.Sample.IStudentGraduationPlanAssociation _studentGraduationPlanAssociation;
 
         [IgnoreDataMember]
-        Entities.Common.Sample.IStudentGraduationPlanAssociation Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram.StudentGraduationPlanAssociation
+        Entities.Common.Sample.IStudentGraduationPlanAssociation Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService.StudentGraduationPlanAssociation
         {
             get { return _studentGraduationPlanAssociation; }
             set { SetStudentGraduationPlanAssociation(value); }
@@ -19364,7 +19378,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram;
+            var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -19406,15 +19420,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A sequence of courses within an area of interest that is a student's educational road map to a chosen career.
-        /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [RequiredWithNonDefault]
-        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
-        [DataMember(Name="careerPathwayDescriptor")][DescriptorExists("CareerPathwayDescriptor")]
-        public string CareerPathwayDescriptor { get; set; }
-
-        /// <summary>
         /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
@@ -19423,18 +19428,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the student has completed the CTE program.
+        /// Indicates the service being provided to the student by the CTE program.
         /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="cteProgramCompletionIndicator")]
-        public bool? CTEProgramCompletionIndicator { get; set; }
+        // NOT in a reference, IS a lookup column 
+        [RequiredWithNonDefault]
+        [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
+        [DataMember(Name="cteProgramServiceDescriptor")][DescriptorExists("CTEProgramServiceDescriptor")]
+        public string CTEProgramServiceDescriptor { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
+        /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryCTEProgramIndicator")]
-        public bool? PrimaryCTEProgramIndicator { get; set; }
+        [DataMember(Name="primaryIndicator")]
+        public bool? PrimaryIndicator { get; set; }
+
+        /// <summary>
+        /// First date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceBeginDate { get; set; }
+
+        /// <summary>
+        /// Last date the student was in this option for the current school year.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? ServiceEndDate { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -19482,12 +19503,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Sample.StudentGraduationPlanAssociationCTEProgramMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram)target);
+            return Entities.Common.Sample.StudentGraduationPlanAssociationCTEProgramServiceMapper.SynchronizeTo(this, (Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Sample.StudentGraduationPlanAssociationCTEProgramMapper.MapTo(this, (Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram)target, null);
+            Entities.Common.Sample.StudentGraduationPlanAssociationCTEProgramServiceMapper.MapTo(this, (Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramService)target, null);
         }
         // -------------------------------------------------------------
 
@@ -19502,9 +19523,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     // -----------------------------------------------------------------
 
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCTEProgramPutPostRequestValidator : FluentValidation.AbstractValidator<StudentGraduationPlanAssociationCTEProgram>
+    public class StudentGraduationPlanAssociationCTEProgramServicePutPostRequestValidator : FluentValidation.AbstractValidator<StudentGraduationPlanAssociationCTEProgramService>
     {
-        protected override bool PreValidate(FluentValidation.ValidationContext<StudentGraduationPlanAssociationCTEProgram> context, FluentValidation.Results.ValidationResult result)
+        protected override bool PreValidate(FluentValidation.ValidationContext<StudentGraduationPlanAssociationCTEProgramService> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {

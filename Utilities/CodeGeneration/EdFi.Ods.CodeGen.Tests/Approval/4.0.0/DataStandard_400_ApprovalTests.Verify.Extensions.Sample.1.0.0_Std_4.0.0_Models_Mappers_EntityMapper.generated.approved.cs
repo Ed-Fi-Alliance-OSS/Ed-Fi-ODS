@@ -1641,28 +1641,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     [ExcludeFromCodeCoverage]
-    public static class ParentCTEProgramMapper
+    public static class ParentCTEProgramServiceMapper
     {
-        private static readonly FullName _fullName_sample_ParentCTEProgram = new FullName("sample", "ParentCTEProgram");
+        private static readonly FullName _fullName_sample_ParentCTEProgramService = new FullName("sample", "ParentCTEProgramService");
     
-        public static bool SynchronizeTo(this IParentCTEProgram source, IParentCTEProgram target)
+        public static bool SynchronizeTo(this IParentCTEProgramService source, IParentCTEProgramService target)
         {
             bool isModified = false;
 
             // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (ParentCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (ParentCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_ParentCTEProgram);
+                .GetMappingContract(_fullName_sample_ParentCTEProgramService);
 
 
             // Copy non-PK properties
-
-            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
-            {
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-                isModified = true;
-            }
 
             if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
@@ -1671,17 +1664,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 isModified = true;
             }
 
-            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
+            if ((mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                && target.CTEProgramServiceDescriptor != source.CTEProgramServiceDescriptor)
             {
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
+            if ((mappingContract?.IsPrimaryIndicatorSupported != false)
+                && target.PrimaryIndicator != source.PrimaryIndicator)
             {
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+                target.PrimaryIndicator = source.PrimaryIndicator;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceBeginDateSupported != false)
+                && target.ServiceBeginDate != source.ServiceBeginDate)
+            {
+                target.ServiceBeginDate = source.ServiceBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceEndDateSupported != false)
+                && target.ServiceEndDate != source.ServiceEndDate)
+            {
+                target.ServiceEndDate = source.ServiceEndDate;
                 isModified = true;
             }
 
@@ -1691,28 +1698,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             return isModified;
         }
 
-        public static void MapTo(this IParentCTEProgram source, IParentCTEProgram target, Action<IParentCTEProgram, IParentCTEProgram> onMapped)
+        public static void MapTo(this IParentCTEProgramService source, IParentCTEProgramService target, Action<IParentCTEProgramService, IParentCTEProgramService> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (ParentCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (ParentCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_ParentCTEProgram);
+                .GetMappingContract(_fullName_sample_ParentCTEProgramService);
     
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-
             if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
 
-            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+            if (mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
 
-            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+            if (mappingContract?.IsPrimaryIndicatorSupported != false)
+                target.PrimaryIndicator = source.PrimaryIndicator;
+
+            if (mappingContract?.IsServiceBeginDateSupported != false)
+                target.ServiceBeginDate = source.ServiceBeginDate;
+
+            if (mappingContract?.IsServiceEndDateSupported != false)
+                target.ServiceEndDate = source.ServiceEndDate;
 
             // Copy Aggregate Reference Data
 
@@ -1915,24 +1925,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // ParentCTEProgram (ParentCTEProgram)
-            if (mappingContract?.IsParentCTEProgramSupported != false)
+            // ParentCTEProgramService (ParentCTEProgramService)
+            if (mappingContract?.IsParentCTEProgramServiceSupported != false)
             {
-                if (source.ParentCTEProgram == null)
+                if (source.ParentCTEProgramService == null)
                 {
-                    if (target.ParentCTEProgram != null)
+                    if (target.ParentCTEProgramService != null)
                     {
-                        target.ParentCTEProgram = null;
+                        target.ParentCTEProgramService = null;
                         isModified = true;
                     }
                 }
                 else
                 {
-                    if (target.ParentCTEProgram == null)
+                    if (target.ParentCTEProgramService == null)
                     {
-                        var itemType = target.GetType().GetProperty("ParentCTEProgram").PropertyType;
+                        var itemType = target.GetType().GetProperty("ParentCTEProgramService").PropertyType;
             
-                        if (!(mappingContract?.IsParentCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsParentCTEProgramServiceCreatable ?? true))
                         {
                             string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
@@ -1940,10 +1950,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                         }
 
                         var newItem = Activator.CreateInstance(itemType);
-                        target.ParentCTEProgram = (IParentCTEProgram) newItem;
+                        target.ParentCTEProgramService = (IParentCTEProgramService) newItem;
                     }
 
-                    isModified |= source.ParentCTEProgram.Synchronize(target.ParentCTEProgram);
+                    isModified |= source.ParentCTEProgramService.Synchronize(target.ParentCTEProgramService);
                 }
             }
             // ParentTeacherConference (ParentTeacherConference)
@@ -2115,22 +2125,22 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // ParentCTEProgram (ParentCTEProgram) (Source)
-            if (mappingContract?.IsParentCTEProgramSupported != false)
+            // ParentCTEProgramService (ParentCTEProgramService) (Source)
+            if (mappingContract?.IsParentCTEProgramServiceSupported != false)
             {
-                var itemProperty = target.GetType().GetProperty("ParentCTEProgram");
+                var itemProperty = target.GetType().GetProperty("ParentCTEProgramService");
 
                 if (itemProperty != null)
                 {
-                    if (source.ParentCTEProgram == null)
+                    if (source.ParentCTEProgramService == null)
                     {
-                        target.ParentCTEProgram = null;
+                        target.ParentCTEProgramService = null;
                     }
                     else
                     {
                         var itemType = itemProperty.PropertyType;
 
-                        if (!(mappingContract?.IsParentCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsParentCTEProgramServiceCreatable ?? true))
                         {
                             // If no potential data policy violation has been detected yet
                             if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
@@ -2141,12 +2151,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                             }
                         }
 
-                        object targetParentCTEProgram = Activator.CreateInstance(itemType);
-                        (targetParentCTEProgram as IChildEntity)?.SetParent(target.Parent);
-                        source.ParentCTEProgram.Map(targetParentCTEProgram);
+                        object targetParentCTEProgramService = Activator.CreateInstance(itemType);
+                        (targetParentCTEProgramService as IChildEntity)?.SetParent(target.Parent);
+                        source.ParentCTEProgramService.Map(targetParentCTEProgramService);
 
                         // Update the target reference appropriately
-                        target.ParentCTEProgram = (IParentCTEProgram) targetParentCTEProgram;
+                        target.ParentCTEProgramService = (IParentCTEProgramService) targetParentCTEProgramService;
                     }
                 }
             }
@@ -2480,28 +2490,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 {
     [ExcludeFromCodeCoverage]
-    public static class SchoolCTEProgramMapper
+    public static class SchoolCTEProgramServiceMapper
     {
-        private static readonly FullName _fullName_sample_SchoolCTEProgram = new FullName("sample", "SchoolCTEProgram");
+        private static readonly FullName _fullName_sample_SchoolCTEProgramService = new FullName("sample", "SchoolCTEProgramService");
     
-        public static bool SynchronizeTo(this ISchoolCTEProgram source, ISchoolCTEProgram target)
+        public static bool SynchronizeTo(this ISchoolCTEProgramService source, ISchoolCTEProgramService target)
         {
             bool isModified = false;
 
             // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (SchoolCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (SchoolCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_SchoolCTEProgram);
+                .GetMappingContract(_fullName_sample_SchoolCTEProgramService);
 
 
             // Copy non-PK properties
-
-            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
-            {
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-                isModified = true;
-            }
 
             if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
@@ -2510,17 +2513,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 isModified = true;
             }
 
-            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
+            if ((mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                && target.CTEProgramServiceDescriptor != source.CTEProgramServiceDescriptor)
             {
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
+            if ((mappingContract?.IsPrimaryIndicatorSupported != false)
+                && target.PrimaryIndicator != source.PrimaryIndicator)
             {
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+                target.PrimaryIndicator = source.PrimaryIndicator;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceBeginDateSupported != false)
+                && target.ServiceBeginDate != source.ServiceBeginDate)
+            {
+                target.ServiceBeginDate = source.ServiceBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceEndDateSupported != false)
+                && target.ServiceEndDate != source.ServiceEndDate)
+            {
+                target.ServiceEndDate = source.ServiceEndDate;
                 isModified = true;
             }
 
@@ -2530,28 +2547,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             return isModified;
         }
 
-        public static void MapTo(this ISchoolCTEProgram source, ISchoolCTEProgram target, Action<ISchoolCTEProgram, ISchoolCTEProgram> onMapped)
+        public static void MapTo(this ISchoolCTEProgramService source, ISchoolCTEProgramService target, Action<ISchoolCTEProgramService, ISchoolCTEProgramService> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (SchoolCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (SchoolCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_SchoolCTEProgram);
+                .GetMappingContract(_fullName_sample_SchoolCTEProgramService);
     
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-
             if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
 
-            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+            if (mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
 
-            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+            if (mappingContract?.IsPrimaryIndicatorSupported != false)
+                target.PrimaryIndicator = source.PrimaryIndicator;
+
+            if (mappingContract?.IsServiceBeginDateSupported != false)
+                target.ServiceBeginDate = source.ServiceBeginDate;
+
+            if (mappingContract?.IsServiceEndDateSupported != false)
+                target.ServiceEndDate = source.ServiceEndDate;
 
             // Copy Aggregate Reference Data
 
@@ -2684,24 +2704,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // SchoolCTEProgram (SchoolCTEProgram)
-            if (mappingContract?.IsSchoolCTEProgramSupported != false)
+            // SchoolCTEProgramService (SchoolCTEProgramService)
+            if (mappingContract?.IsSchoolCTEProgramServiceSupported != false)
             {
-                if (source.SchoolCTEProgram == null)
+                if (source.SchoolCTEProgramService == null)
                 {
-                    if (target.SchoolCTEProgram != null)
+                    if (target.SchoolCTEProgramService != null)
                     {
-                        target.SchoolCTEProgram = null;
+                        target.SchoolCTEProgramService = null;
                         isModified = true;
                     }
                 }
                 else
                 {
-                    if (target.SchoolCTEProgram == null)
+                    if (target.SchoolCTEProgramService == null)
                     {
-                        var itemType = target.GetType().GetProperty("SchoolCTEProgram").PropertyType;
+                        var itemType = target.GetType().GetProperty("SchoolCTEProgramService").PropertyType;
             
-                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsSchoolCTEProgramServiceCreatable ?? true))
                         {
                             string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
@@ -2709,10 +2729,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                         }
 
                         var newItem = Activator.CreateInstance(itemType);
-                        target.SchoolCTEProgram = (ISchoolCTEProgram) newItem;
+                        target.SchoolCTEProgramService = (ISchoolCTEProgramService) newItem;
                     }
 
-                    isModified |= source.SchoolCTEProgram.Synchronize(target.SchoolCTEProgram);
+                    isModified |= source.SchoolCTEProgramService.Synchronize(target.SchoolCTEProgramService);
                 }
             }
 
@@ -2759,22 +2779,22 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // SchoolCTEProgram (SchoolCTEProgram) (Source)
-            if (mappingContract?.IsSchoolCTEProgramSupported != false)
+            // SchoolCTEProgramService (SchoolCTEProgramService) (Source)
+            if (mappingContract?.IsSchoolCTEProgramServiceSupported != false)
             {
-                var itemProperty = target.GetType().GetProperty("SchoolCTEProgram");
+                var itemProperty = target.GetType().GetProperty("SchoolCTEProgramService");
 
                 if (itemProperty != null)
                 {
-                    if (source.SchoolCTEProgram == null)
+                    if (source.SchoolCTEProgramService == null)
                     {
-                        target.SchoolCTEProgram = null;
+                        target.SchoolCTEProgramService = null;
                     }
                     else
                     {
                         var itemType = itemProperty.PropertyType;
 
-                        if (!(mappingContract?.IsSchoolCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsSchoolCTEProgramServiceCreatable ?? true))
                         {
                             // If no potential data policy violation has been detected yet
                             if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
@@ -2785,12 +2805,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                             }
                         }
 
-                        object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
-                        (targetSchoolCTEProgram as IChildEntity)?.SetParent(target.School);
-                        source.SchoolCTEProgram.Map(targetSchoolCTEProgram);
+                        object targetSchoolCTEProgramService = Activator.CreateInstance(itemType);
+                        (targetSchoolCTEProgramService as IChildEntity)?.SetParent(target.School);
+                        source.SchoolCTEProgramService.Map(targetSchoolCTEProgramService);
 
                         // Update the target reference appropriately
-                        target.SchoolCTEProgram = (ISchoolCTEProgram) targetSchoolCTEProgram;
+                        target.SchoolCTEProgramService = (ISchoolCTEProgramService) targetSchoolCTEProgramService;
                     }
                 }
             }
@@ -5441,24 +5461,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // StudentGraduationPlanAssociationCTEProgram (StudentGraduationPlanAssociationCTEProgram)
-            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramSupported != false)
+            // StudentGraduationPlanAssociationCTEProgramService (StudentGraduationPlanAssociationCTEProgramService)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramServiceSupported != false)
             {
-                if (source.StudentGraduationPlanAssociationCTEProgram == null)
+                if (source.StudentGraduationPlanAssociationCTEProgramService == null)
                 {
-                    if (target.StudentGraduationPlanAssociationCTEProgram != null)
+                    if (target.StudentGraduationPlanAssociationCTEProgramService != null)
                     {
-                        target.StudentGraduationPlanAssociationCTEProgram = null;
+                        target.StudentGraduationPlanAssociationCTEProgramService = null;
                         isModified = true;
                     }
                 }
                 else
                 {
-                    if (target.StudentGraduationPlanAssociationCTEProgram == null)
+                    if (target.StudentGraduationPlanAssociationCTEProgramService == null)
                     {
-                        var itemType = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram").PropertyType;
+                        var itemType = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgramService").PropertyType;
             
-                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramServiceCreatable ?? true))
                         {
                             string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
 
@@ -5466,10 +5486,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                         }
 
                         var newItem = Activator.CreateInstance(itemType);
-                        target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) newItem;
+                        target.StudentGraduationPlanAssociationCTEProgramService = (IStudentGraduationPlanAssociationCTEProgramService) newItem;
                     }
 
-                    isModified |= source.StudentGraduationPlanAssociationCTEProgram.Synchronize(target.StudentGraduationPlanAssociationCTEProgram);
+                    isModified |= source.StudentGraduationPlanAssociationCTEProgramService.Synchronize(target.StudentGraduationPlanAssociationCTEProgramService);
                 }
             }
 
@@ -5633,22 +5653,22 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // StudentGraduationPlanAssociationCTEProgram (StudentGraduationPlanAssociationCTEProgram) (Source)
-            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramSupported != false)
+            // StudentGraduationPlanAssociationCTEProgramService (StudentGraduationPlanAssociationCTEProgramService) (Source)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramServiceSupported != false)
             {
-                var itemProperty = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram");
+                var itemProperty = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgramService");
 
                 if (itemProperty != null)
                 {
-                    if (source.StudentGraduationPlanAssociationCTEProgram == null)
+                    if (source.StudentGraduationPlanAssociationCTEProgramService == null)
                     {
-                        target.StudentGraduationPlanAssociationCTEProgram = null;
+                        target.StudentGraduationPlanAssociationCTEProgramService = null;
                     }
                     else
                     {
                         var itemType = itemProperty.PropertyType;
 
-                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramCreatable ?? true))
+                        if (!(mappingContract?.IsStudentGraduationPlanAssociationCTEProgramServiceCreatable ?? true))
                         {
                             // If no potential data policy violation has been detected yet
                             if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
@@ -5659,12 +5679,12 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             }
                         }
 
-                        object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
-                        (targetStudentGraduationPlanAssociationCTEProgram as IChildEntity)?.SetParent(target);
-                        source.StudentGraduationPlanAssociationCTEProgram.Map(targetStudentGraduationPlanAssociationCTEProgram);
+                        object targetStudentGraduationPlanAssociationCTEProgramService = Activator.CreateInstance(itemType);
+                        (targetStudentGraduationPlanAssociationCTEProgramService as IChildEntity)?.SetParent(target);
+                        source.StudentGraduationPlanAssociationCTEProgramService.Map(targetStudentGraduationPlanAssociationCTEProgramService);
 
                         // Update the target reference appropriately
-                        target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) targetStudentGraduationPlanAssociationCTEProgram;
+                        target.StudentGraduationPlanAssociationCTEProgramService = (IStudentGraduationPlanAssociationCTEProgramService) targetStudentGraduationPlanAssociationCTEProgramService;
                     }
                 }
             }
@@ -5862,28 +5882,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationCTEProgramMapper
+    public static class StudentGraduationPlanAssociationCTEProgramServiceMapper
     {
-        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationCTEProgram = new FullName("sample", "StudentGraduationPlanAssociationCTEProgram");
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationCTEProgramService = new FullName("sample", "StudentGraduationPlanAssociationCTEProgramService");
     
-        public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target)
+        public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCTEProgramService source, IStudentGraduationPlanAssociationCTEProgramService target)
         {
             bool isModified = false;
 
             // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (StudentGraduationPlanAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (StudentGraduationPlanAssociationCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgramService);
 
 
             // Copy non-PK properties
-
-            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
-            {
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-                isModified = true;
-            }
 
             if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
@@ -5892,17 +5905,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 isModified = true;
             }
 
-            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
+            if ((mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                && target.CTEProgramServiceDescriptor != source.CTEProgramServiceDescriptor)
             {
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
                 isModified = true;
             }
 
-            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
+            if ((mappingContract?.IsPrimaryIndicatorSupported != false)
+                && target.PrimaryIndicator != source.PrimaryIndicator)
             {
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+                target.PrimaryIndicator = source.PrimaryIndicator;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceBeginDateSupported != false)
+                && target.ServiceBeginDate != source.ServiceBeginDate)
+            {
+                target.ServiceBeginDate = source.ServiceBeginDate;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsServiceEndDateSupported != false)
+                && target.ServiceEndDate != source.ServiceEndDate)
+            {
+                target.ServiceEndDate = source.ServiceEndDate;
                 isModified = true;
             }
 
@@ -5912,28 +5939,31 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             return isModified;
         }
 
-        public static void MapTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target, Action<IStudentGraduationPlanAssociationCTEProgram, IStudentGraduationPlanAssociationCTEProgram> onMapped)
+        public static void MapTo(this IStudentGraduationPlanAssociationCTEProgramService source, IStudentGraduationPlanAssociationCTEProgramService target, Action<IStudentGraduationPlanAssociationCTEProgramService, IStudentGraduationPlanAssociationCTEProgramService> onMapped)
         {
             // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (StudentGraduationPlanAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = (StudentGraduationPlanAssociationCTEProgramServiceMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgramService);
     
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
-                target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-
             if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
 
-            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
-                target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
+            if (mappingContract?.IsCTEProgramServiceDescriptorSupported != false)
+                target.CTEProgramServiceDescriptor = source.CTEProgramServiceDescriptor;
 
-            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
-                target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
+            if (mappingContract?.IsPrimaryIndicatorSupported != false)
+                target.PrimaryIndicator = source.PrimaryIndicator;
+
+            if (mappingContract?.IsServiceBeginDateSupported != false)
+                target.ServiceBeginDate = source.ServiceBeginDate;
+
+            if (mappingContract?.IsServiceEndDateSupported != false)
+                target.ServiceEndDate = source.ServiceEndDate;
 
             // Copy Aggregate Reference Data
 
