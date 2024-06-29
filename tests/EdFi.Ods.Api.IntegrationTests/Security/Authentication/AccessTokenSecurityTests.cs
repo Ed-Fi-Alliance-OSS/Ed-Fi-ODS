@@ -338,5 +338,57 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 }
             }
         }
+
+        [TestFixture]
+        public class And_client_has_only_minimal_data : Given_an_unexpired_token
+        {
+            protected IReadOnlyList<OAuthTokenClient> Result;
+
+            protected override void Arrange()
+            {
+                base.Arrange();
+
+                var application = LoadAnApplication(null, "Sandbox");
+                Client = LoadAnApiClient(application);
+                AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
+            }
+
+            protected override void Act()
+            {
+                Result = SystemUnderTest.GetClientForTokenAsync(AccessToken.Id)
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult(); ;
+            }
+
+            [TestFixture]
+            public class When_getting_client_information : And_client_has_only_minimal_data
+            {
+                [Test]
+                public void Should_return_one_record()
+                {
+                    Result.ShouldNotBeNull();
+                    Result.Count.ShouldBe(1);
+                }
+
+                [Test]
+                public void Should_have_null_EducationOrganizationId()
+                {
+                    Result.ShouldAllBe(x => !x.EducationOrganizationId.HasValue);
+                }
+
+                [Test]
+                public void Should_have_null_ProfileName()
+                {
+                    Result.ShouldAllBe(x => x.NamespacePrefix == null);
+                }
+
+                [Test]
+                public void Should_have_null_NamespacePrefix()
+                {
+                    Result.ShouldAllBe(x => x.ProfileName == null);
+                }
+            }
+        }
     }
 }
