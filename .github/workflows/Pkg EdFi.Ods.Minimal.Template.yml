@@ -42,28 +42,18 @@ jobs:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
-    services:
-      sqlserver:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        env:
-          SA_PASSWORD: "yourStrong(!)Password"
-          ACCEPT_EULA: "Y"
-        ports:
-          - 1433:1433
-        options: >-
-          --health-cmd "sqlcmd -S localhost -U sa -P 'yourStrong(!)Password' -Q 'SELECT 1'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-          --health-start-period 60s
+
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     name: build (Standard Version ${{ matrix.StandardVersion }})
     steps:
+    # Start up sqlserver
+    - name: Start up sqlserver
+      run:  docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=1StrongPwd!!" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
-      run:  echo "${{ github.event.inputs.distinct_id }}"
+      run:  echo "${{ github.event.inputs.distinct_id }}"      
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
