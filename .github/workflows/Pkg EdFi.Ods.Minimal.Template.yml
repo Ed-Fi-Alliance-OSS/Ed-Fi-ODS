@@ -88,6 +88,12 @@ jobs:
       run: docker pull mcr.microsoft.com/mssql/server:2019-latest
     - name: Start up sqlserver
       run:  docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=1StrongPwd!!" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+    - name: Wait for SQL Server to start
+      run: sleep 20 # Wait for 20 seconds to ensure SQL Server is up
+    - name: Check SQL Server status
+      run: |
+          docker ps -a # List all Docker containers (including SQL Server)
+          docker exec sqlserver sqlcmd -S localhost -U sa -P 1StrongPwd!! -Q "SELECT 'SQL Server is running'"      
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
