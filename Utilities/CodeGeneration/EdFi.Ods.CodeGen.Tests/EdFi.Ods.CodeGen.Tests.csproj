@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
     <RestorePackages>true</RestorePackages>
@@ -27,7 +27,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit" Version="3.13.2" />
