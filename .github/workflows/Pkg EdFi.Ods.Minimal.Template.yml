@@ -6,8 +6,10 @@
 name: Pkg EdFi.Ods.Minimal.Template
 
 on:
-  push:
+  pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
+  push:
+    branches: ['b-v*-patch*','feature-*']
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -40,6 +42,19 @@ jobs:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: "YourStrong!Passw0rd"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "cmd /S /C \"sqlcmd -Q 'SELECT 1'\""
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 5
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
@@ -91,11 +106,6 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
-      run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
     - name: Cache Nuget packages
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
