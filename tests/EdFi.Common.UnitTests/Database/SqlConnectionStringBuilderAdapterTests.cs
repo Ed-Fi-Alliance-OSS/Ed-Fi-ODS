@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using EdFi.Common.Database;
 using EdFi.TestFixture;
 using NUnit.Framework;

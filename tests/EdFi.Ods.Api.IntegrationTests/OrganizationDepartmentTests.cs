@@ -135,9 +135,9 @@ namespace EdFi.Ods.Api.IntegrationTests
             EducationOrganizationHelper.ShouldContainTuples(Connection, (900, 900), (9001, 9001));
             EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
         }
-        
+
         // ---------- Advanced Scenarios -------------
-        
+
         // This test creates multi-levels of Org Departments under both the LEA and a School.
         // It then moves the org dept from the LEA to the 2nd-level org department under the school
         // Finally, it moves it back up to under the LEA.
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var baselineTuples = EducationOrganizationHelper.GetExistingTuples(Connection);
             var baselineTupleCount = baselineTuples.Count;
-            
+
             Builder
                 .AddLocalEducationAgency(901)
                 .AddOrganizationDepartment(8901, parentEducationOrganizationId: 901)
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddOrganizationDepartment(88901002, parentEducationOrganizationId: 8901002)
                 .Execute();
 
-            var expectedTuplesAfterCreation = new []
+            var expectedTuplesAfterCreation = new[]
             {
                 (901, 901),
                 (8901, 8901),
@@ -182,8 +182,8 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (901001, 7901001),
                 (901001, 8901001),
                 (901, 901002),
-                (901, 7901002), 
-                (901, 8901002), 
+                (901, 7901002),
+                (901, 8901002),
                 (901, 88901002), // LEA to 2nd level org department under school
                 (901002, 7901002),
                 (901002, 8901002),
@@ -192,12 +192,12 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterCreation);
-            
+
             var afterCreationCount = EducationOrganizationHelper.GetExistingTuples(Connection).Count;
-            
+
             // Make sure all the tuples above were added (and only those tuples)
             (baselineTupleCount + expectedTuplesAfterCreation.Length).ShouldBe(afterCreationCount);
-            
+
             // Move the LEA org department to the bottom of the hierarchy (under 2nd-level school org dept)
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 88901002).Execute();
 
@@ -240,20 +240,18 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (88901002, 8901), // Second-level org dept
                 (88901002, 88901),
             };
-            
+
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterMovedDown);
-            
+
             afterMovedDownCount.ShouldBe(afterCreationCount + 6,
-                () =>
-                {
-                    return $"The following additional tuples were found: {Environment.NewLine}"
-                    + string.Join(Environment.NewLine, 
+                    $"The following additional tuples were found: {Environment.NewLine}"
+                    + string.Join(Environment.NewLine,
                         EducationOrganizationHelper.GetExistingTuples(Connection)
                             .Except(baselineTuples)
                             .Except(expectedTuplesAfterMovedDown)
-                            .Select(t => $"({t.Item1},{t.Item2})"));
-                });
-            
+                            .Select(t => $"({t.Item1},{t.Item2})"))
+                );
+
             // Move the original LEA org department back to the LEA
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 901).Execute();
 
@@ -268,7 +266,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (8901002, 88901),
                 (88901002, 8901), // Second-level org dept
                 (88901002, 88901));
-            
+
             afterMoveBackUpCount.ShouldBe(afterCreationCount);
         }
     }

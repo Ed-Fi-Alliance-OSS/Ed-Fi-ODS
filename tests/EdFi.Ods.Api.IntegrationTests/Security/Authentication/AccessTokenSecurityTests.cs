@@ -3,22 +3,22 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Transactions;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Ods.Api.Configuration;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
-using System.Data.Entity;
 
 // ReSharper disable InconsistentNaming
 
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 });
 
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected ClientAccessToken LoadAnAccessToken(ApiClient client, DateTime expiration)
@@ -99,14 +99,14 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected Vendor LoadAVendor()
         {
             var a = TestFixtureContext.Vendors.Add(new Vendor());
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAVendorNamespacePrefix(Vendor vendor, string namespacePrefix)
@@ -133,7 +133,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
             TestFixtureContext.SaveChanges();
 
-            return a;
+            return a.Entity;
         }
 
         protected ApplicationEducationOrganization LoadAnApplicationEducationOrganization(Application application,
@@ -148,7 +148,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 });
 
             TestFixtureContext.SaveChanges();
-            return a;
+            return a.Entity;
         }
 
         protected void LoadAProfile(Application application, string profileName)
@@ -182,7 +182,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
-                    var apiClient = LoadAnApiClient(application, 1);
+                    var apiClient = LoadAnApiClient(application);
                     _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
@@ -209,7 +209,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                 {
                     base.Arrange();
 
-                    Client = LoadAnApiClient(null, 0);
+                    Client = LoadAnApiClient(null);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -337,56 +337,56 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
                     }
                 }
             }
+        }
+
+        [TestFixture]
+        public class And_client_has_only_minimal_data : Given_an_unexpired_token
+        {
+            protected IReadOnlyList<OAuthTokenClient> Result;
+
+            protected override void Arrange()
+            {
+                base.Arrange();
+
+                var application = LoadAnApplication(null, "Sandbox");
+                Client = LoadAnApiClient(application);
+                AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
+            }
+
+            protected override void Act()
+            {
+                Result = SystemUnderTest.GetClientForTokenAsync(AccessToken.Id)
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult(); ;
+            }
 
             [TestFixture]
-            public class And_client_has_only_minimal_data : Given_an_unexpired_token
+            public class When_getting_client_information : And_client_has_only_minimal_data
             {
-                protected IReadOnlyList<OAuthTokenClient> Result;
-
-                protected override void Arrange()
+                [Test]
+                public void Should_return_one_record()
                 {
-                    base.Arrange();
-
-                    var application = LoadAnApplication(null, "Sandbox");
-                    Client = LoadAnApiClient(application, 5);
-                    AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
+                    Result.ShouldNotBeNull();
+                    Result.Count.ShouldBe(1);
                 }
 
-                protected override void Act()
+                [Test]
+                public void Should_have_null_EducationOrganizationId()
                 {
-                    Result = RawApiClientDetailsProvider.GetRawClientDetailsDataAsync(AccessToken.Id)
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult(); ;
+                    Result.ShouldAllBe(x => !x.EducationOrganizationId.HasValue);
                 }
 
-                [TestFixture]
-                public class When_getting_client_information : And_client_has_only_minimal_data
+                [Test]
+                public void Should_have_null_ProfileName()
                 {
-                    [Test]
-                    public void Should_return_one_record()
-                    {
-                        Result.ShouldNotBeNull();
-                        Result.Count.ShouldBe(1);
-                    }
+                    Result.ShouldAllBe(x => x.NamespacePrefix == null);
+                }
 
-                    [Test]
-                    public void Should_have_null_EducationOrganizationId()
-                    {
-                        Result.ShouldAllBe(x => !x.EducationOrganizationId.HasValue);
-                    }
-
-                    [Test]
-                    public void Should_have_null_ProfileName()
-                    {
-                        Result.ShouldAllBe(x => x.NamespacePrefix == null);
-                    }
-
-                    [Test]
-                    public void Should_have_null_NamespacePrefix()
-                    {
-                        Result.ShouldAllBe(x => x.ProfileName == null);
-                    }
+                [Test]
+                public void Should_have_null_NamespacePrefix()
+                {
+                    Result.ShouldAllBe(x => x.ProfileName == null);
                 }
             }
         }

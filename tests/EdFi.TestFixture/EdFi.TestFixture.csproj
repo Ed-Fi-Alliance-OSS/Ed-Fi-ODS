@@ -12,7 +12,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FakeItEasy" Version="8.2.0" />
+    <PackageReference Include="FakeItEasy" Version="8.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="NUnit" Version="4.1.0" />
   </ItemGroup>

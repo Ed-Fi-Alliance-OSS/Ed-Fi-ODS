@@ -16,6 +16,8 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
+
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 {

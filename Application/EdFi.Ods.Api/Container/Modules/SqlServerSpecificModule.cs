@@ -5,12 +5,12 @@
 
 using Autofac;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
-using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
