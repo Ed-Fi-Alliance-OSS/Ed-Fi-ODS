@@ -93,7 +93,7 @@ jobs:
     - name: Check SQL Server status
       run: |
           docker ps -a # List all Docker containers (including SQL Server)
-          docker exec sqlserver sqlcmd -S localhost -U sa -P 1StrongPwd!! -Q "SELECT 'SQL Server is running'"      
+          docker exec distracted_swartz sqlcmd -S localhost -U sa -P 1StrongPwd!! -Q "SELECT 'SQL Server is running'"      
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
