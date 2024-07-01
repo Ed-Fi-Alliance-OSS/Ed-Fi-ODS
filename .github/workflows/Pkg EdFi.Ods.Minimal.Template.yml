@@ -46,15 +46,15 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          SA_PASSWORD: "YourStrong!Passw0rd"
-          ACCEPT_EULA: "Y"
+          SA_PASSWORD: yourStrong(!)Password
+          ACCEPT_EULA: Y
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "sqlcmd -U sa -P YourStrong!Passw0rd -Q 'SELECT 1'"
+          --health-cmd "sqlcmd -S localhost -U sa -P yourStrong(!)Password -Q 'SELECT 1'"
           --health-interval 10s
-          --health-timeout 10s
-          --health-retries 5
+          --health-timeout 5s
+          --health-retries 3
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
