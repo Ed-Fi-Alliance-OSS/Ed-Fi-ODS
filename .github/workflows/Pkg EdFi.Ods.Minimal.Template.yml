@@ -46,12 +46,12 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          SA_PASSWORD: yourStrong(!)Password
-          ACCEPT_EULA: Y
+          SA_PASSWORD: "yourStrong(!)Password"
+          ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
         options: >-
-          --health-cmd "sqlcmd -S localhost -U sa -P yourStrong(!)Password -Q 'SELECT 1'"
+          --health-cmd "sqlcmd -S localhost -U sa -P 'yourStrong(!)Password' -Q 'SELECT 1'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 3
@@ -124,7 +124,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-pwshForDevelopment.ps1
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment  -NoDeploy -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       shell: pwsh
     - name: Remove Plug-Ins
