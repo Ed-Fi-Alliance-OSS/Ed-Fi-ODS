@@ -93,7 +93,18 @@ jobs:
         echo "::add-mask::$sa_pw"
 
         echo "Starting SQL Server in a Docker container..."
-        docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$sa_pw" -e "MSSQL_PID=Developer" -e "MSSQL_COLLATION=SQL_Latin1_General_CP1_CS_AS" -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2019-latest
+        docker run -e "ACCEPT_EULA=Y" \
+                  -e "SA_PASSWORD=$sa_pw" \
+                  -e "MSSQL_PID=Developer" \
+                  -e "MSSQL_COLLATION=SQL_Latin1_General_CP1_CS_AS" \
+                  -e "INSTANCEID=MSSQLSERVER" \
+                  -e "INSTANCENAME=MSSQLSERVER" \
+                  -e "TCPENABLED=1" \
+                  -e "UPDATEENABLED=FALSE" \
+                  -e "FEATURES=SQL,Tools" \                  
+                  -p 1433:1433 \
+                  --name sqlserver \
+                  -d mcr.microsoft.com/mssql/server:2019-latest
         
         # Set environment variables for sqlcmd
         echo "Setting environment variables for sqlcmd..."
