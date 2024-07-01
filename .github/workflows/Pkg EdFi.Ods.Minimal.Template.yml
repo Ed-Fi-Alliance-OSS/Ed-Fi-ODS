@@ -122,8 +122,8 @@ jobs:
           }
         }
 
-        Write-Output "Creating initial catalog '${{ inputs.catalog }}'"
-        sqlcmd -Q "CREATE DATABASE [${{ inputs.catalog }}]"
+        Write-Output "Creating initial catalog 'nservicebus'"
+        sqlcmd -Q "CREATE DATABASE [nservicebus]"
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
