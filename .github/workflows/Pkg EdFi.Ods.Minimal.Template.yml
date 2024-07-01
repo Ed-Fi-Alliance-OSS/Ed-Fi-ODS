@@ -84,17 +84,15 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Install SQL Server 2019
+    - name: Check SQL Server
       uses: Particular/install-sql-server-action@v1.0.0
       with:
-        version: '2019'
-        accept-eula: true
-        instance-name: 'MSSQLSERVER'
-        instance-id: 'MSSQLSERVER'
-        tcp-enabled: true
-        features: 'SQL,Tools'
-        install-params: "/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools"
-        execution-timeout: 600       
+        server: localhost
+        port: 1433
+        username: sa
+        password: ${{ secrets.MSSQL_SA_PASSWORD }}
+        database: master
+        query: 'SELECT 1'      
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
