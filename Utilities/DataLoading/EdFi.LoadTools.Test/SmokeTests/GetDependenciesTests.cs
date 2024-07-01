@@ -7,13 +7,13 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.CommonTests;
 using NUnit.Framework;
 using Moq;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {

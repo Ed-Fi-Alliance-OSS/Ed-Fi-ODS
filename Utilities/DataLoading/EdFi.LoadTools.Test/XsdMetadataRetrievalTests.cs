@@ -9,6 +9,7 @@ using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Factories;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 // ReSharper disable InconsistentNaming
 

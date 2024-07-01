@@ -9,6 +9,7 @@ using EdFi.LoadTools.Mapping;
 using EdFi.OdsApi.Sdk.Models.All;
 using NUnit.Framework;
 using Newtonsoft.Json;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.LoadTools.Test.Mapping
 {

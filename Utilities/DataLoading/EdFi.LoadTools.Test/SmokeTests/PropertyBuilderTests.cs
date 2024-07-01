@@ -11,6 +11,7 @@ using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using NUnit.Framework;
 using Moq;
 using Swashbuckle.Swagger;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedAutoPropertyAccessor.Local
