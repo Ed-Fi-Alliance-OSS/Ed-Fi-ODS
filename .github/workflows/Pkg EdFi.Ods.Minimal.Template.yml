@@ -84,18 +84,17 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Install SQL Server
+    - name: Install SQL Server 2019
       uses: Particular/install-sql-server-action@v1.0.0
       with:
-        connection-string-env-var: SQL_SERVER_CONNECTION_STRING
-        catalog: nservicebus
-    - name: Create schemas
-      shell: pwsh
-      run: |
-          echo "Create additional schemas"
-          sqlcmd -Q "CREATE SCHEMA receiver AUTHORIZATION db_owner" -d "nservicebus"
-          sqlcmd -Q "CREATE SCHEMA sender AUTHORIZATION db_owner" -d "nservicebus"
-          sqlcmd -Q "CREATE SCHEMA db@ AUTHORIZATION db_owner" -d "nservicebus"        
+        version: '2019'
+        accept-eula: true
+        instance-name: 'MSSQLSERVER'
+        instance-id: 'MSSQLSERVER'
+        tcp-enabled: true
+        features: 'SQL,Tools'
+        install-params: "/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools"
+        execution-timeout: 600       
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
