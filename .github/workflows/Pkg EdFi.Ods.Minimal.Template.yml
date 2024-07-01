@@ -84,16 +84,18 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Pull SQL Server Docker image
-      run: docker pull mcr.microsoft.com/mssql/server:2019-latest
-    - name: Start up sqlserver
-      run:  docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=1StrongPwd!!" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
-    - name: Wait for SQL Server to start
-      run: sleep 20 # Wait for 20 seconds to ensure SQL Server is up
-    - name: Check SQL Server status
+    - name: Install SQL Server
+      uses: Particular/install-sql-server-action@v1.0.0
+      with:
+        connection-string-env-var: SQL_SERVER_CONNECTION_STRING
+        catalog: nservicebus
+    - name: Create schemas
+      shell: pwsh
       run: |
-          docker ps -a # List all Docker containers (including SQL Server)
-          docker exec distracted_swartz sqlcmd -S localhost -U sa -P 1StrongPwd!! -Q "SELECT 'SQL Server is running'"      
+          echo "Create additional schemas"
+          sqlcmd -Q "CREATE SCHEMA receiver AUTHORIZATION db_owner" -d "nservicebus"
+          sqlcmd -Q "CREATE SCHEMA sender AUTHORIZATION db_owner" -d "nservicebus"
+          sqlcmd -Q "CREATE SCHEMA db@ AUTHORIZATION db_owner" -d "nservicebus"        
     - name: update BUILD_INCREMENTER 
       run: |      
             $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
