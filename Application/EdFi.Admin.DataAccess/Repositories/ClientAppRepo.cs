@@ -353,7 +353,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             foreach (var applicationEducationOrganization in defaultApplication.ApplicationEducationOrganizations)
             {
                 client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
-                context.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                context.ApplicationEducationOrganizations.Update(applicationEducationOrganization);
             }
         }
 
