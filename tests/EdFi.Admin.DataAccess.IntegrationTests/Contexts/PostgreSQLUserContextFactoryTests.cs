@@ -14,6 +14,7 @@ using System.Linq;
 using System.Transactions;
 using EdFi.TestFixture;
 using Microsoft.EntityFrameworkCore;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {
@@ -34,6 +35,14 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
                .AddJsonFile($"appSettings.development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("PostgresSQL SecurityRepo integration tests are not being run because the engine is not set to Postgres.");
+            }
+
+            // Setup PostgreSQL
             var connectionString = config.GetConnectionString("PostgreSQL");
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -46,7 +55,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]

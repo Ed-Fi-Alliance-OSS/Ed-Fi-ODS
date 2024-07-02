@@ -5,6 +5,7 @@
 
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,14 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
                .AddJsonFile($"appSettings.development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("SQL Server SecurityRepo integration tests are not being run because the engine is not set to SQL Server.");
+            }
+
+            // Setup SQL Server
             var connectionString = config.GetConnectionString("MSSQL");
 
             var optionsBuilder = new DbContextOptionsBuilder();
@@ -42,7 +51,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         [TearDown]
         public void Teardown()
         {
-            _transaction.Dispose();
+            _transaction?.Dispose();
         }
 
         [Test]
