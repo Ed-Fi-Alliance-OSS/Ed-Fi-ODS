@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
 using EdFi.Admin.DataAccess;
@@ -14,7 +13,6 @@ using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -41,7 +39,7 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
 
         protected override void Arrange()
         {
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
 
             _transaction = new TransactionScope();
 
@@ -56,7 +54,6 @@ namespace EdFi.Ods.Api.IntegrationTests.Security.Authentication
             _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
             var userContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
             SystemUnderTest = new AccessTokenClientRepo(userContextFactory, config);
