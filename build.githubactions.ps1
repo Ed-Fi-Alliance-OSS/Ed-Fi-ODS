@@ -165,7 +165,7 @@ function Publish {
 
 function Test {    
     if(-not $TestFilter) {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter 'FullyQualifiedName!~DataAccess.IntegrationTests'}
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
     } else {
         Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
     }
