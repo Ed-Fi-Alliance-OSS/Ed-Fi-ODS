@@ -53,19 +53,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\LICENSE.txt">
-		  <Link>LICENSE.txt</Link>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <IncludeInVSIX>true</IncludeInVSIX>
-	  </Content>
+      <Link>LICENSE.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Release Notes.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  <TargetPath>extension.vsixmanifest</TargetPath>
-	  <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>extension.vsixmanifest</TargetPath>
     </None>
   </ItemGroup>
   <ItemGroup>
