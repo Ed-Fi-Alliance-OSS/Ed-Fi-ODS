@@ -4,14 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Extensions;
+using Microsoft.Data.SqlClient;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer

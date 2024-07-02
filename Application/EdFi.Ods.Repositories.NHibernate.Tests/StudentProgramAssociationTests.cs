@@ -5,7 +5,6 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
@@ -13,6 +12,7 @@ using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
@@ -29,14 +29,12 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using log4net;
 using log4net.Config;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using NUnit.Framework;
 using Shouldly;
-using EdFi.Ods.Api.Container.Modules;
-using Npgsql;
 using Test.Common.DataConstants;
-using EdFi.Ods.Common.Database;
-
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {

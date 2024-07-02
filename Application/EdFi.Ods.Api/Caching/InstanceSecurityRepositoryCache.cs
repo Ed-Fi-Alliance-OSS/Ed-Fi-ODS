@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading;
 using EdFi.Common;
@@ -8,6 +7,7 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Security.DataAccess.Caching;
 using EdFi.Security.DataAccess.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Ods.Api.Caching
 {

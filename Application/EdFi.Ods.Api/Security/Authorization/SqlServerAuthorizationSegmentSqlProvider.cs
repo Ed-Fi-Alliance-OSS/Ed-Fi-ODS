@@ -6,9 +6,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Api.Security.Utilities;
+using EdFi.Ods.Common.Security.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
