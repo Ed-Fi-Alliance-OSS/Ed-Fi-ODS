@@ -194,7 +194,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(c => c.Application)
                         .ThenInclude(c => c.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefaultAsync(c => c.Key == key);
             }
         }
