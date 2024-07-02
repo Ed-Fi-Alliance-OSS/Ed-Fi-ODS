@@ -273,6 +273,7 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        InstallCredentialHandler { Invoke-InstallCredentialHandler }
         default { throw "Command '$Command' is not recognized" }
     }
 }
