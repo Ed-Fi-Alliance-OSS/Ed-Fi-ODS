@@ -7,9 +7,9 @@ name: Pkg EdFi.ProjectTemplates.Installer
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   push:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
