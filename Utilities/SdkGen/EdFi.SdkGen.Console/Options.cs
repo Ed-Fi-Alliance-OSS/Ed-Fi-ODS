@@ -75,6 +75,13 @@ namespace EdFi.SdkGen.Console
         public bool IncludeIdentity { get; set; }
 
         [Option(
+            'j',
+            "java-path",
+            Default = "java",
+            HelpText = "the path to the java executable")]
+        public string JavaPath { get; set; }
+
+        [Option(
             'k',
             "core-only",
             Default = false,
