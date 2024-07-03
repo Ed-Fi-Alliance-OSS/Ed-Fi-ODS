@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch")]
+    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -207,6 +207,51 @@ function CheckoutBranch {
     }
 }
 
+function Get-IsWindows {
+    <#
+    .SYNOPSIS
+        Checks to see if the current machine is a Windows machine.
+    .EXAMPLE
+        Get-IsWindows returns $True
+    #>
+    if ($null -eq $IsWindows) {
+        # This section will only trigger when the automatic $IsWindows variable is not detected.
+        # Every version of PS released on Linux contains this variable so it will always exist.
+        # $IsWindows does not exist pre PS 6.
+        return $true
+    }
+    return $IsWindows
+}
+
+function InstallCredentialHandler {
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         Write-Host "Installed 7Zip4Powershell."
+    }
+     # using WebClient is faster then Invoke-WebRequest but shows no progress
+     $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+     $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+     $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
+     Write-Host "Downloading file from $sourceUrl..."
+     $webClient = New-Object System.Net.WebClient
+     $webClient.DownloadFile($sourceUrl, $zipFilePath)
+     Write-Host "Download complete." 
+     if (-not (Test-Path $zipFilePath)) {
+         Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+         exit 0
+     }
+     $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
+     if ($fileName.EndsWith('.zip')) {
+         Write-Host "Extracting $fileName..."
+         
+         if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+         Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
+         Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+     }
+
+}
+
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -232,6 +277,9 @@ function Invoke-Pack {
 function Invoke-CheckoutBranch {
     Invoke-Step { CheckoutBranch }
 }
+function Invoke-InstallCredentialHandler {
+    Invoke-Step { InstallCredentialHandler }
+}
 
 Invoke-Main {
     switch ($Command) {
@@ -241,6 +289,7 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        InstallCredentialHandler { Invoke-InstallCredentialHandler }
         default { throw "Command '$Command' is not recognized" }
     }
 }
