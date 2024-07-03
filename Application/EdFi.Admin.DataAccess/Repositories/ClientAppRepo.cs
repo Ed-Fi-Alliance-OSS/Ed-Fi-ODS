@@ -194,7 +194,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(c => c.Application)
                         .ThenInclude(c => c.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.CreatorOwnershipToken)
                     .FirstOrDefaultAsync(c => c.Key == key);
             }
         }
@@ -204,6 +204,14 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return context.Clients.FirstOrDefault(c => c.Key == key && c.Secret == secret);
+            }
+        }
+
+        public ApiClient GetClientByKey(string key)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Clients.FirstOrDefault(c => c.Key == key);
             }
         }
 
@@ -345,7 +353,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             foreach (var applicationEducationOrganization in defaultApplication.ApplicationEducationOrganizations)
             {
                 client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
-                context.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                context.ApplicationEducationOrganizations.Update(applicationEducationOrganization);
             }
         }
 

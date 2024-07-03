@@ -1,8 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Engine Condition="'$(Engine)' == '' ">SqlServer</Engine>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Admin.DataAccess.IntegrationTests</Product>
@@ -18,27 +15,6 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="NewFolder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
-    <None Remove="NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Repositories\**" />
-    <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Repositories\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Contexts\**" />
-    <EmbeddedResource Remove="Contexts\**" />
-    <None Remove="Contexts\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Repositories\$(Engine)\**" />
-    <Compile Include="Contexts\$(Engine)UserContextFactoryTests.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="8.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
@@ -56,6 +32,10 @@
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>appsettings.json</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ using Shouldly;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using EdFi.Common.Configuration;
 
 // ReSharper disable once InconsistentNaming
 namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
@@ -40,7 +41,13 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
                .AddJsonFile($"appSettings.development.json", true, true);
 
             var config = builder.Build();
-            
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.SqlServer.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("SQL Server SecurityRepo integration tests are not being run because the engine is not set to SQL Server.");
+            }
+
             // Setup SQL Server
             var connectionString = config.GetConnectionString("MSSQL");
 
@@ -90,7 +97,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.MSSQL
         [TearDown]
         public void Teardown()
         {
-            Transaction.Dispose();
+            Transaction?.Dispose();
         }
 
         private ClientAppRepo _clientAppRepo;

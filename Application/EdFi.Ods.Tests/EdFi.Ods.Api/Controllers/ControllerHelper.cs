@@ -19,11 +19,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
     public static class ControllerHelper
     {
         public static TokenController CreateTokenController(
-            IClientAppRepo clientAppRepo,
             IApiClientAuthenticator apiClientAuthenticator,
             IAccessTokenClientRepo accessTokenClientRepo)
         {
-            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo, apiClientAuthenticator, accessTokenClientRepo);
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenClientRepo);
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";

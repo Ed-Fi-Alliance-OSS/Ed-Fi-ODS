@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common
 
         public Assembly[] GetAssembliesContaining<T>()
             => GetAssemblies()
-                .Where(x => x.GetTypes().Any(y => y.GetInterfaces().Contains(typeof(T))))
+                .Where(x => x.GetExportedTypes().Any(y => y.GetInterfaces().Contains(typeof(T))))
                 .ToArray();
 
         /// <summary>

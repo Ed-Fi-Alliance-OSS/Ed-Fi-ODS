@@ -16,6 +16,7 @@ using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
+using EdFi.Common.Configuration;
 
 // ReSharper disable once InconsistentNaming
 namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.PostgreSQL
@@ -43,6 +44,12 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.PostgreSQL
                .AddJsonFile($"appSettings.development.json", true, true);
 
             var config = builder.Build();
+            var engine = config.GetSection("ApiSettings")["Engine"] ?? "";
+
+            if (!engine.Equals(DatabaseEngine.Postgres.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                Assert.Inconclusive("PostgresSQL SecurityRepo integration tests are not being run because the engine is not set to Postgres.");
+            }
 
             // Setup PostgreSQL
             var connectionString = config.GetConnectionString("PostgreSQL");
@@ -93,7 +100,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Repositories.PostgreSQL
         [TearDown]
         public void Teardown()
         {
-            Transaction.Dispose();
+            Transaction?.Dispose();
         }
 
         private ClientAppRepo _clientAppRepo;

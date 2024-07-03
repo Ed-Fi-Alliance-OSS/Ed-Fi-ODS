@@ -5,15 +5,14 @@
 
 using System;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using log4net;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
