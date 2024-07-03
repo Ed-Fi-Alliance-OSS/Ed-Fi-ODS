@@ -10,9 +10,10 @@ using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
 using Dapper;
@@ -102,7 +103,7 @@ namespace GenerateSecurityGraphs
         private static string renderingClaimSetName;
         private static Dictionary<string, string> claimNamesToDisplayNames;
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             // Parse the command line arguments
             var options = new Options();
@@ -183,7 +184,7 @@ namespace GenerateSecurityGraphs
 
                     try
                     {
-                        DownloadGraphviz(graphvizPath);
+                        await DownloadGraphviz(graphvizPath);
                     }
                     catch (Exception)
                     {
@@ -942,18 +943,22 @@ order by
             }
         }
 
-        private static void DownloadGraphviz(string destinationDirectoryName)
+        private static async Task DownloadGraphviz(string destinationDirectoryName)
         {
             var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
             var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
 
             // Some antiviruses have false positives and detect Graphviz as a trojan, more info: https://gitlab.com/graphviz/graphviz/-/issues/1773
-            using var webClient = new WebClient();
-            webClient.DownloadFile(
-                new Uri(
-                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip"),
-                tempZipPath
+            using var httpClient = new HttpClient();
+
+            using var httpResponse = await httpClient.GetAsync(
+                new Uri("https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip")
             );
+
+            using (var fileStream = new FileStream(tempZipPath, FileMode.Create))
+            {
+                await httpResponse.Content.CopyToAsync(fileStream);
+            }
 
             ZipFile.ExtractToDirectory(tempZipPath, tempDirPath);
             Directory.Move(Path.Combine(tempDirPath, @"Graphviz"), destinationDirectoryName);
