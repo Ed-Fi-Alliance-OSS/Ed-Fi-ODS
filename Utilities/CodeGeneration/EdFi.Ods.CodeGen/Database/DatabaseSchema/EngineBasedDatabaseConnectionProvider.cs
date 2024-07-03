@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Data.Common;
-using System.Data.SqlClient;
 using EdFi.Common;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
+using Microsoft.Data.SqlClient;
 using Npgsql;
 
 namespace EdFi.Ods.CodeGen.Database.DatabaseSchema
