@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Models.Graphs
             var resourceGraph = new BidirectionalGraph<Resource.Resource, AssociationViewEdge>();
 
             var resources = resourceModel.GetAllResources()
-                .Where(r => !r.IsAbstract() && !r.FullName.IsEdFiSchoolYearType()) 
+                .Where(r => !r.IsAbstract() && !r.FullName.IsEdFiSchoolYearType()) // TODO Extract to method?
                 .ToArray();
             
             resourceGraph.AddVertexRange(resources);

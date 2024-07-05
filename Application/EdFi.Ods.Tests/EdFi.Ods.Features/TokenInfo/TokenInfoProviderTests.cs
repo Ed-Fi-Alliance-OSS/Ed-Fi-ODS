@@ -112,7 +112,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 .Returns(CreateEducationOrganizationIdentifiers());
 
             // Act
-            var tokenInfoProvider = new TokenInfoProvider(sessionFactory);
+            var tokenInfoProvider = new TokenInfoProvider(sessionFactory); // TODO Fix tests
 
             var results = await tokenInfoProvider.GetTokenInfoAsync(CreateApiContext());
 

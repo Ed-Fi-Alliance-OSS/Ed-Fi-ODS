@@ -134,8 +134,8 @@ namespace EdFi.Ods.Features.Controllers
             }
         }
 
-        private static string GetNodeId(Resource resource)
-            => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
+        public static string GetNodeId(Resource resource)
+            => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";// TODO move to an appropriate location
 
         private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
         {

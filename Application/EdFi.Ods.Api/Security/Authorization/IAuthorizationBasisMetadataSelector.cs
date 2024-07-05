@@ -8,6 +8,7 @@ using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using static EdFi.Ods.Api.Security.Authorization.AuthorizationBasisMetadataSelector;
 
 namespace EdFi.Ods.Api.Security.Authorization;
 
@@ -20,6 +21,11 @@ public interface IAuthorizationBasisMetadataSelector
     AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(
         string claimSetName,
         IList<string> requestResourceClaimUris,
+        string requestAction);
+
+    ClaimCheckResponse PerformClaimCheck(
+        string claimSetName, 
+        IList<string> resourceClaimUris, 
         string requestAction);
 }
 

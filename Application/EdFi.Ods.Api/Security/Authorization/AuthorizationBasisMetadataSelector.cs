@@ -183,7 +183,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         }
     }
         
-    private ClaimCheckResponse PerformClaimCheck(string claimSetName, IList<string> resourceClaimUris, string requestAction)
+    public ClaimCheckResponse PerformClaimCheck(string claimSetName, IList<string> resourceClaimUris, string requestAction)
     {
         var claimSetClaims = _claimSetClaimsProvider.GetClaims(claimSetName);
         
@@ -308,7 +308,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         }
     }
 
-    private class ClaimCheckResponse
+    public class ClaimCheckResponse
     {
         public bool Success { get; set; }
 
