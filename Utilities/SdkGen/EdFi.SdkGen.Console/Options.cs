@@ -28,7 +28,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'v',
             "cliVersion",
-            Default = "6.6.0",
+            Default = "7.2.0",
             HelpText = "the version of openapi-codegen-cli to download")]
         public string CliVersion { get; set; }
 
@@ -73,6 +73,13 @@ namespace EdFi.SdkGen.Console
             Default = false,
             HelpText = "include identity in the generation of the assembly")]
         public bool IncludeIdentity { get; set; }
+
+        [Option(
+            'j',
+            "java-path",
+            Default = "java",
+            HelpText = "the path to the java executable")]
+        public string JavaPath { get; set; }
 
         [Option(
             'k',
