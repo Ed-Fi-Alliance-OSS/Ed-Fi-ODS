@@ -6,18 +6,19 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
 using Dapper;
 using GenerateSecurityGraphs.Models.AuthorizationMetadata;
 using GenerateSecurityGraphs.Models.Query;
+using Microsoft.Data.SqlClient;
 using QuikGraph;
 using QuikGraph.Graphviz;
 using QuikGraph.Graphviz.Dot;
@@ -44,27 +45,16 @@ namespace GenerateSecurityGraphs
         [Option('f', "force", Default = false, HelpText = "Create a folder at that path if one doesn't already exist.")]
         public bool Force { get; set; }
 
-        [Option('d', "database", Default = "EdFi_Security", HelpText = "The name of the database containing the authorization metadata.")]
-        public string Database { get; set; }
-
-        [Option(
-            's', "server", Default = "(local)", HelpText = "The name of the SQL Server where the authorization metadata database is located.")]
-        public string Server { get; set; }
-
-        [Option(
-            'u', "user", HelpText =
-                "The SQL Server username to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
-        public string User { get; set; }
-
-        [Option(
-            'p', "password", HelpText =
-                "The password to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
-        public string Password { get; set; }
-
         [Option(
             'g', "graphviz", Default = @"C:\Program Files\Graphviz\", HelpText =
                 "Graphviz installation path.")]
         public string GraphvizPath { get; set; }
+
+        [Option(
+            'c', "connectionString",
+            Default = "Server=(local);Database=EdFi_Security;Trusted_Connection=True;Encrypt=False",
+            HelpText = "The connection string for connecting to the authorization metadata database. Leave blank to connect to the local 'EdFi_Security' database using integrated security.")]
+        public string ConnectionString { get; set; }
 
         //[HelpOption]
         public string GetUsage(string[] args)
@@ -102,7 +92,7 @@ namespace GenerateSecurityGraphs
         private static string renderingClaimSetName;
         private static Dictionary<string, string> claimNamesToDisplayNames;
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             // Parse the command line arguments
             var options = new Options();
@@ -117,25 +107,6 @@ namespace GenerateSecurityGraphs
                 });
 
             if (failedToParse) return;
-
-            string connectionString;
-
-            if (options.User == null || options.Password == null)
-            {
-                connectionString = string.Format(
-                    "Server={0};Database={1};Trusted_Connection=True",
-                    options.Server,
-                    options.Database);
-            }
-            else
-            {
-                connectionString = string.Format(
-                    "Server={0};Database={1};User ID={2};Password={3}",
-                    options.Server,
-                    options.Database,
-                    options.User,
-                    options.Password);
-            }
 
             string baseFolderPath;
 
@@ -183,7 +154,7 @@ namespace GenerateSecurityGraphs
 
                     try
                     {
-                        DownloadGraphviz(graphvizPath);
+                        await DownloadGraphviz(graphvizPath);
                     }
                     catch (Exception)
                     {
@@ -203,7 +174,7 @@ namespace GenerateSecurityGraphs
             var authorizationMetadata = new Dictionary<AuthorizationKey, EffectiveActionAndStrategy>();
 
             List<string> claimSetNames;
-            var resourceGraph = LoadAuthorizationMetadataGraph(connectionString, out claimSetNames);
+            var resourceGraph = LoadAuthorizationMetadataGraph(options.ConnectionString, out claimSetNames);
 
             foreach (string claimSetName in claimSetNames)
             {
@@ -942,18 +913,22 @@ order by
             }
         }
 
-        private static void DownloadGraphviz(string destinationDirectoryName)
+        private static async Task DownloadGraphviz(string destinationDirectoryName)
         {
             var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
             var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
 
             // Some antiviruses have false positives and detect Graphviz as a trojan, more info: https://gitlab.com/graphviz/graphviz/-/issues/1773
-            using var webClient = new WebClient();
-            webClient.DownloadFile(
-                new Uri(
-                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip"),
-                tempZipPath
+            using var httpClient = new HttpClient();
+
+            using var httpResponse = await httpClient.GetAsync(
+                new Uri("https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip")
             );
+
+            using (var fileStream = new FileStream(tempZipPath, FileMode.Create))
+            {
+                await httpResponse.Content.CopyToAsync(fileStream);
+            }
 
             ZipFile.ExtractToDirectory(tempZipPath, tempDirPath);
             Directory.Move(Path.Combine(tempDirPath, @"Graphviz"), destinationDirectoryName);
