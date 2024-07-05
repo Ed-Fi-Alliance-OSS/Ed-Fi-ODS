@@ -51,8 +51,9 @@ namespace GenerateSecurityGraphs
         public string GraphvizPath { get; set; }
 
         [Option(
-            'c', "connectionString", Required = true,
-            HelpText = "Provide the connection string for the database, including database name, server name, user and password (if necessary)")]
+            'c', "connectionString",
+            Default = "Server=(local);Database=EdFi_Security;Trusted_Connection=True;Encrypt=False",
+            HelpText = "The connection string for connecting to the authorization metadata database. Leave blank to connect to the local 'EdFi_Security' database using integrated security.")]
         public string ConnectionString { get; set; }
 
         //[HelpOption]
