@@ -29,7 +29,7 @@
     <PackageReference Include="ApprovalTests" Version="6.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Dapper" Version="2.1.35" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.452" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.453" />
     <PackageReference Include="FakeItEasy" Version="8.3.0" />
     <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="Gherkin" Version="28.0.0" />

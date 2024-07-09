@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.464" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.452" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.453" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
