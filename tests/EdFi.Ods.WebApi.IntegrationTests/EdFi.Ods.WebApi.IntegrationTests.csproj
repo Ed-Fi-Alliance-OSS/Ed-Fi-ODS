@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.464" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.454" />
-    <PackageReference Include="NHibernate" Version="5.5.1" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="ApprovalTests" Version="6.0.0" />
     <PackageReference Include="ApprovalUtilities" Version="6.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
