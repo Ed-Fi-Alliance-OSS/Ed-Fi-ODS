@@ -41,7 +41,7 @@ jobs:
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
     - name: Cache Nuget packages       
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 #v4.0.1
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -93,7 +93,7 @@ jobs:
       shell: pwsh      
     - name: Upload EdFi.LoadTools Artifacts
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/NugetPackages/*.nupkg      
