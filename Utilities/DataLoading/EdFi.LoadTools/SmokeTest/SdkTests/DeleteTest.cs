@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
@@ -34,10 +35,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var uri = _createdDictionary[ResourceApi.ModelType.Name];
             var id = Path.GetFileName(uri.ToString());
 
-            return new object[]
-                   {
-                       id, null
-                   };
+            return new object[] {id}
+                .Concat(methodInfo.BuildOptionalParameters())
+                .ToArray();
         }
 
         protected override MethodInfo GetMethodInfo()

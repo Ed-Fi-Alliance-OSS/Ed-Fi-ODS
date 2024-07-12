@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.Test.Mapping
     ""credentials"": [],
     ""electronicMails"": [
       {
-        ""electronicMailType"": ""Work"",
+        ""electronicMailTypeDescriptor"": ""Work"",
         ""electronicMailAddress"": ""BarryTanner@edfi.org""
       }
     ],
@@ -47,8 +47,8 @@ namespace EdFi.LoadTools.Test.Mapping
     ],
     ""identificationDocuments"": [
       {
-        ""personalInformationVerificationType"": ""State-issued ID"",
-        ""identificationDocumentUseType"": ""Personal Information Verification""
+        ""personalInformationVerificationDescriptor"": ""State-issued ID"",
+        ""identificationDocumentUseDescriptor"": ""Personal Information Verification""
       }
     ],
     ""internationalAddresses"": [],
@@ -56,7 +56,7 @@ namespace EdFi.LoadTools.Test.Mapping
     ""otherNames"": [],
     ""races"": [
       {
-        ""raceType"": ""American Indian - Alaskan Native""
+        ""raceDescriptor"": ""American Indian - Alaskan Native""
       }
     ],
     ""telephones"": [],

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
@@ -36,9 +37,11 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             dynamic model = GetResourceFromUri(uri);
 
             return new object[]
-                   {
-                       id, model, null
-                   };
+                {
+                    id,
+                    model
+                }.Concat(methodInfo.BuildOptionalParameters())
+                .ToArray();
         }
 
         protected override MethodInfo GetMethodInfo()
