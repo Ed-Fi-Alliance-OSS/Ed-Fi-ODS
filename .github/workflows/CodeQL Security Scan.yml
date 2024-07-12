@@ -58,7 +58,7 @@ jobs:
             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/init@df32e399139a3050671466d7d9b3cbacc1cfd034 # codeql-bundle-v2.15.2
         with:
           languages: 'csharp'
 
@@ -78,4 +78,4 @@ jobs:
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/analyze@df32e399139a3050671466d7d9b3cbacc1cfd034 # codeql-bundle-v2.15.2
