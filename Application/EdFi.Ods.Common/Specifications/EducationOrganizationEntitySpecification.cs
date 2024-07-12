@@ -47,7 +47,8 @@ namespace EdFi.Ods.Common.Specifications
             // TODO: Embedded convention (EdOrg identifiers ends with "Id")
             if (propertyName.TryTrimSuffix("Id", out entityName))
             {
-                return IsEducationOrganizationEntity(entityName);
+                return IsEducationOrganizationEntity(entityName)
+                    || ValidEducationOrganizationTypes.Any(t => entityName.EndsWith(t));
             }
 
             return false;

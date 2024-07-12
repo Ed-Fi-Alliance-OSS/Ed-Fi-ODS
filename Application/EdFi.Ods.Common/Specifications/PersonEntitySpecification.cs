@@ -66,8 +66,8 @@ namespace EdFi.Ods.Common.Specifications
             if (propertyName.TryTrimSuffix("UniqueId", out entityName)
                 || propertyName.TryTrimSuffix("USI", out entityName))
             {
-                return IsPersonEntity(entityName)
-                       && (personType == null || entityName.EqualsIgnoreCase(personType));
+                return (IsPersonEntity(entityName) && (personType == null || entityName.EqualsIgnoreCase(personType)))
+                    || ValidPersonTypes.Any(vpt => entityName.EndsWith(vpt) && (personType == null || entityName.EndsWith(personType)));
             }
 
             return false;

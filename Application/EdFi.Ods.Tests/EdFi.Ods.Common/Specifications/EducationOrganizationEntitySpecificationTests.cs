@@ -284,6 +284,16 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                             nameof(EducationOrganization.EducationOrganizationId)), Is.True)
                 );
             }
+
+            [Assert]
+            public void Should_return_true_for_custom_Identifier_property()
+            {
+                AssertHelper.All(
+                    () => Assert.That(
+                        EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(
+                            "ResponsibilitySchoolId"), Is.True)
+                );
+            }
         }
     }
 }
