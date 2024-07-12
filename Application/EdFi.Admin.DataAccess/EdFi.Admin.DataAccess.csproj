@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.453" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.459" />
     <PackageReference Include="log4net" Version="2.0.17" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.6" />
