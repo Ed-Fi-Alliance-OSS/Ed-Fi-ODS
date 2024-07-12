@@ -22,7 +22,7 @@
     <ItemGroup>
       <PackageReference Include="aqua-graphcompare" Version="1.3.0" />
       <PackageReference Include="EdFi.Suite3.Common" Version="5.4.459" />
-      <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.4.2210" />
+      <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.4.2217" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
       <PackageReference Include="log4net" Version="2.0.17" />
