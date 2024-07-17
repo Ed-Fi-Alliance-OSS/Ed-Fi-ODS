@@ -122,7 +122,7 @@ namespace EdFi.Ods.Api.Caching
             {
                 var application =
                     context.Applications.First(
-                        app => app.ApplicationName.Equals(EdFiOdsApi, StringComparison.InvariantCultureIgnoreCase));
+                        app => app.ApplicationName.Equals(EdFiOdsApi));
 
                 var actions = context.Actions.ToList();
 
