@@ -30,7 +30,7 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStra
             personTypesProvider,
             multiValueRestrictions) { }
 
-    public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+    public override IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
     {
         return CreateAllEducationOrganizationToPersonFilters(
                 shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,

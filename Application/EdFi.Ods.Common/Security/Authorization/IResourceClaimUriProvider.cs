@@ -4,9 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 
-namespace EdFi.Ods.Api.Security.Authorization
+namespace EdFi.Ods.Common.Security.Authorization
 {
     /// <summary>
     /// Defines methods for obtaining resource claim URIs used for authorization.
@@ -26,5 +27,12 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <param name="resource">The <see cref="EdFi.Ods.Common.Models.Resource.Resource" /> for which to build the resource claim URIs.</param>
         /// <returns>The resource URIs.</returns>
         string[] GetResourceClaimUris(Resource resource);
+
+        /// <summary>
+        /// Gets the full name of the resource associated with the specified resource claim URIs.
+        /// </summary>
+        /// <param name="resourceClaimUris">The resource claim URIs for which the associated resource name is to be obtained.</param>
+        /// <returns>The <see cref="FullName" /> of the resource associated with the supplied resource claim URIs.</returns>
+        FullName GetResourceFullName(string[] resourceClaimUris);
     }
 }

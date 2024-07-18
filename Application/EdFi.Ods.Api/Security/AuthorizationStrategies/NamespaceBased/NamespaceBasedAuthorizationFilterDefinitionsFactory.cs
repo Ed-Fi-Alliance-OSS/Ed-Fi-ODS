@@ -39,11 +39,18 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         _oldNamespaceQueryColumnExpression = $"{TrackedChangesAlias}.{databaseNamingConvention.ColumnName($"OldNamespace")}";
     }
 
+    /// <inheritdoc cref="IAuthorizationFilterDefinitionsFactory.CreateAuthorizationFilterDefinition" />
+    public AuthorizationFilterDefinition CreateAuthorizationFilterDefinition(string filterName)
+    {
+        // Only pre-defined filter definitions are created by this factory
+        return null;
+    }
+
     /// <summary>
     /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
     /// </summary>
     /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
-    public IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+    public IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
     {
         var filters = new List<AuthorizationFilterDefinition>
         {
@@ -61,10 +68,18 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         ICriteria criteria,
         Junction @where,
-        string subjectEndpointName,
+        string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
-        JoinType joinType)
+        JoinType joinType,
+        IAuthorizationStrategy authorizationStrategy)
     {
+        if (subjectEndpointNames.Length != 1)
+        {
+            throw new ArgumentException("Exactly one subject endpoint name was expected for namespace-based authorization.");
+        }
+
+        string subjectEndpointName = subjectEndpointNames[0];
+        
         // Defensive check to ensure required parameter is present
         if (!parameters.TryGetValue(FilterPropertyName, out var parameterValue))
         {

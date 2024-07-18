@@ -231,7 +231,7 @@ public class EntityAuthorizer : IEntityAuthorizer
                             .Select(
                                 f => new
                                 {
-                                    FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
+                                    FilterDefinition = _authorizationFilterDefinitionProvider.GetAuthorizationFilterDefinition(f.FilterName),
                                     FilterContext = f
                                 })
                             .Select(

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,38 +13,52 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
     /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider" />
     public class AuthorizationFilterDefinitionProvider : IAuthorizationFilterDefinitionProvider
     {
-        private readonly Lazy<IDictionary<string, AuthorizationFilterDefinition>> _filterDefinitionByName;
+        private readonly IAuthorizationFilterDefinitionsFactory[] _authorizationFilterDefinitionsFactories;
+        private readonly Lazy<IDictionary<string, AuthorizationFilterDefinition>> _predefinedFilterDefinitionByName;
+        private readonly ConcurrentDictionary<string, AuthorizationFilterDefinition> _runtimeFilterDefinitionByName = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationFilterDefinitionProvider"/> class using the supplied filter configurators.
         /// </summary>
-        /// <param name="authorizationFilterDefinitionsProviders"></param>
-        public AuthorizationFilterDefinitionProvider(IAuthorizationFilterDefinitionsFactory[] authorizationFilterDefinitionsProviders)
+        /// <param name="authorizationFilterDefinitionsFactories"></param>
+        public AuthorizationFilterDefinitionProvider(IAuthorizationFilterDefinitionsFactory[] authorizationFilterDefinitionsFactories)
         {
-            _filterDefinitionByName = new Lazy<IDictionary<string, AuthorizationFilterDefinition>>(
-                () => authorizationFilterDefinitionsProviders
+            _authorizationFilterDefinitionsFactories = authorizationFilterDefinitionsFactories;
+
+            _predefinedFilterDefinitionByName = new Lazy<IDictionary<string, AuthorizationFilterDefinition>>(
+                () => authorizationFilterDefinitionsFactories
                     // Sort the definitions providers to ensure a determinate alias generation during filter definition
                     .OrderBy(p => p.GetType().FullName)
-                    .SelectMany(c => c.CreateAuthorizationFilterDefinitions())
+                    .SelectMany(c => c.CreatePredefinedAuthorizationFilterDefinitions())
                     .Distinct()
                     .ToDictionary(f => f.FilterName, f => f));
         }
 
-        /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider.GetFilterDefinition" />
-        public AuthorizationFilterDefinition GetFilterDefinition(string filterName)
+        /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider.GetAuthorizationFilterDefinition" />
+        public AuthorizationFilterDefinition GetAuthorizationFilterDefinition(string filterName)
         {
-            if (!_filterDefinitionByName.Value.TryGetValue(filterName, out var filterApplicationDetails))
+            if (TryGetAuthorizationFilterDefinition(filterName, out var filterDefinition))
             {
-                throw new Exception($"Unable to find filter application details for filter '{filterName}'.");
+                return filterDefinition;
             }
-
-            return filterApplicationDetails;
+            
+            throw new Exception($"Unable to find filter application details for filter '{filterName}'.");
         }
 
         /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition" />
         public bool TryGetAuthorizationFilterDefinition(string filterName, out AuthorizationFilterDefinition authorizationFilterDefinition)
         {
-            return _filterDefinitionByName.Value.TryGetValue(filterName, out authorizationFilterDefinition);
+            if (!_predefinedFilterDefinitionByName.Value.TryGetValue(filterName, out authorizationFilterDefinition))
+            {
+                authorizationFilterDefinition = _runtimeFilterDefinitionByName.GetOrAdd(
+                    filterName,
+                    static (fn, factories) => factories
+                        .Select(f => f.CreateAuthorizationFilterDefinition(fn))
+                        .FirstOrDefault(fad => fad != null),
+                    _authorizationFilterDefinitionsFactories);
+            }
+
+            return authorizationFilterDefinition != null;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// </summary>
         public string AuthorizationStrategyName { get; init; }
 
+        public IAuthorizationStrategy AuthorizationStrategy { get; init; }
+
         /// <summary>
         /// Gets or sets the filters to be applied.
         /// </summary>

@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : IRelationshipsAuthorizationContextDataProviderFactory
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly ConcurrentDictionary<Type, Type> ProvidersByModelType = new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> ProvidersByModelType = new();
         private readonly IServiceLocator _serviceLocator;
 
         public RelationshipsAuthorizationContextDataProviderFactory(IServiceLocator serviceLocator)

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 
@@ -16,15 +17,68 @@ namespace EdFi.Ods.Common.Security.Authorization
     /// </summary>
     public class AuthorizationFilterContext
     {
+        private string _subjectEndpointName;
+        private string[] _subjectEndpointNames;
+        private object _subjectEndpointValue;
+        private IList<object> _subjectEndpointValues;
+        
         /// <summary>
         /// Get or sets the name of the filter definition as defined by an <see cref="IAuthorizationFilterDefinitionsFactory" /> implementation. 
         /// </summary>
         public string FilterName { get; set; }
-        
+
         /// <summary>
         /// The name of the property that is the subject of the authorization filter (may contain a role name).
         /// </summary>
-        public string SubjectEndpointName { get; set; }
+        /// <remarks>This property is retained for backwards compatibility with authorization scenarios that already exist
+        /// that were designed to support a single authorization subject endpoint. Use the <see cref="SubjectEndpointNames" /> property
+        /// which uses and array for future implementations.</remarks>
+        public string SubjectEndpointName
+        {
+            get
+            {
+                if (_subjectEndpointNames != null)
+                {
+                    throw new InvalidOperationException("Cannot use SubjectEndpointName when SubjectEndpointNames is already set.");
+                }
+
+                return _subjectEndpointName;
+            }
+            set
+            {
+                if (_subjectEndpointNames != null)
+                {
+                    throw new InvalidOperationException("Cannot set SubjectEndpointName when SubjectEndpointNames is already set.");
+                }
+
+                _subjectEndpointName = value;
+            }
+        }
+
+        /// <summary>
+        /// The names of the properties that are the subject of the authorization filter (may contain a role names).
+        /// </summary>
+        public string[] SubjectEndpointNames
+        {
+            get
+            {
+                if (_subjectEndpointName != null)
+                {
+                    throw new InvalidOperationException("Cannot use SubjectEndpointNames when SubjectEndpointName is already set.");
+                }
+
+                return _subjectEndpointNames;
+            }
+            set
+            {
+                if (_subjectEndpointName != null)
+                {
+                    throw new InvalidOperationException("Cannot set SubjectEndpointNames when SubjectEndpointName is already set.");
+                }
+
+                _subjectEndpointNames = value;
+            }
+        }
 
         /// <summary>
         /// The name of the parameter representing a claim value held by the API client to be used in the query against the authorization view.
@@ -41,7 +95,8 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// The database parameter values associated with the API client's claim(s).
         /// </summary>
-        public object[] ClaimParameterValues {
+        public object[] ClaimParameterValues
+        {
             get
             {
                 if (_claimParameterValues == null)
@@ -68,6 +123,54 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// For single item authorization scenarios, gets or sets the value associated with the subject endpoint for authorization.
         /// </summary>
-        public object SubjectEndpointValue { get; set; }
+        /// <remarks>This property is retained for backwards compatibility with authorization scenarios that already exist
+        /// that were designed to support a single authorization subject endpoint. Use the <see cref="SubjectEndpointValues" /> property
+        /// which uses and array for future implementations.</remarks>
+        public object SubjectEndpointValue
+        {
+            get
+            {
+                if (_subjectEndpointValues != null)
+                {
+                    throw new InvalidOperationException("Cannot use SubjectEndpointValue when SubjectEndpointValues is already set.");
+                }
+
+                return _subjectEndpointValue;
+            }
+            set
+            {
+                if (_subjectEndpointValues != null)
+                {
+                    throw new InvalidOperationException("Cannot set SubjectEndpointValue when SubjectEndpointValues is already set.");
+                }
+
+                _subjectEndpointValue = value;
+            }
+        }
+
+        /// <summary>
+        /// For single item authorization scenarios, gets or sets the values associated with the subject endpoints for authorization.
+        /// </summary>
+        public IList<object> SubjectEndpointValues
+        {
+            get
+            {
+                if (_subjectEndpointValue != null)
+                {
+                    throw new InvalidOperationException("Cannot use SubjectEndpointValues when SubjectEndpointValue is already set.");
+                }
+
+                return _subjectEndpointValues;
+            }
+            set
+            {
+                if (_subjectEndpointValue != null)
+                {
+                    throw new InvalidOperationException("Cannot set SubjectEndpointValues when SubjectEndpointValue is already set.");
+                }
+
+                _subjectEndpointValues = value;
+            }
+        }
     }
 }

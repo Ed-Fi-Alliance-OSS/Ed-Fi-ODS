@@ -25,11 +25,17 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
     private const string FilterPropertyName = "CreatedByOwnershipTokenId";
 
+    public AuthorizationFilterDefinition CreateAuthorizationFilterDefinition(string filterName)
+    {
+        // Only pre-defined filter definitions are created by this factory
+        return null;
+    }
+
     /// <summary>
     /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them. 
     /// </summary>
     /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
-    public IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+    public IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
     {
         var filters = new[]
         {
@@ -47,9 +53,10 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         ICriteria criteria,
         Junction @where,
-        string subjectEndpointName,
+        string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
-        JoinType joinType)
+        JoinType joinType,
+        IAuthorizationStrategy authorizationStrategy)
     {
         // Defensive check to ensure required parameter is present
         if (!parameters.ContainsKey(FilterPropertyName))

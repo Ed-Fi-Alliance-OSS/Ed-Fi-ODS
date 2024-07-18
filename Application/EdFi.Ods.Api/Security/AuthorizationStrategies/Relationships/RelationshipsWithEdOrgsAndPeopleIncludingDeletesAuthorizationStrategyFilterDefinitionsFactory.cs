@@ -30,7 +30,7 @@ public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrate
             personTypesProvider,
             multiValueRestrictions) { }
 
-    public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+    public override IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
     {
         return CreateAllEducationOrganizationToPersonFilters(authorizationPathModifier: "IncludingDeletes").ToArray();
     }
