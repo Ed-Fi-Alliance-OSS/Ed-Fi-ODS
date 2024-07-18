@@ -11,6 +11,7 @@ using System.Threading;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
@@ -119,15 +120,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public static AuthorizationBasisMetadataSelector CreateAuthorizationBasisMetadataSelector(
             IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider = null,
             ISecurityRepository securityRepository = null,
-            IAuthorizationStrategy[] authorizationStrategies = null,
+            IAuthorizationStrategyProvider[] authorizationStrategyProviders = null,
             IClaimSetClaimsProvider claimSetClaimsProvider = null
             )
         {
             return new AuthorizationBasisMetadataSelector(
                 resourceAuthorizationMetadataProvider ?? A.Fake<IResourceAuthorizationMetadataProvider>(),
                 securityRepository ?? A.Fake<ISecurityRepository>(),
-                authorizationStrategies ?? A.CollectionOfFake<IAuthorizationStrategy>(0).ToArray(),
-                claimSetClaimsProvider ?? A.Fake<IClaimSetClaimsProvider>());
+                claimSetClaimsProvider ?? A.Fake<IClaimSetClaimsProvider>(),
+                authorizationStrategyProviders ?? A.CollectionOfFake<IAuthorizationStrategyProvider>(0).ToArray());
         }
 
         public static EdFiResourceClaim CreateResourceClaim(string resourceClaimUri,
@@ -296,7 +297,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 var selector = Helper.CreateAuthorizationBasisMetadataSelector(
-                   authorizationStrategies: AuthorizationStrategies);
+                   authorizationStrategyProviders: AuthorizationStrategies);
             }
 
             protected void Given_a_collection_of_authorizationStrategies(IAuthorizationStrategy[] authorizationStrategies)
@@ -2037,12 +2038,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 return new IAuthorizationStrategy[]
                 {
-                        new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
+                        new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy(
                             Stub<IDomainModelProvider>()
                             )
                         {
                             RelationshipsAuthorizationContextDataProviderFactory =
-                                Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
+                                Stub<IRelationshipsAuthorizationContextDataProviderFactory>()
                         },
                         new NoFurtherAuthorizationRequiredAuthorizationStrategy()
                 };

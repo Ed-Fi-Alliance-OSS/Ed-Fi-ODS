@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 };
 
                 //Act
-                var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
+                var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
                     new EdFiAuthorizationContext(
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 };
 
                 //Act
-                var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
+                var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
                     new EdFiAuthorizationContext(
