@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
@@ -24,27 +22,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     {
         private List<ValidationResult> _dependencyValidationResults;
 
-        private readonly Lazy<string> _authorizationStrategyName;
-
         private readonly DomainModel _domainModel;
 
         protected RelationshipsAuthorizationStrategyBase(IDomainModelProvider domainModelProvider)
         {
             _domainModel = domainModelProvider.GetDomainModel();
-
-            _authorizationStrategyName = new Lazy<string>(
-                () =>
-                {
-                    // Ensure name of class follows conventions
-                    if (!this.GetType().Name.TrimAt("`1").TryTrimSuffix("AuthorizationStrategy", out string authorizationStrategyName))
-                    {
-                        throw new Exception(
-                            $"Naming of authorization strategy implementation class '{this.GetType().Name}' did not follow expected convention of using a suffix of 'AuthorizationStrategy'.");
-                    }
-
-                    return authorizationStrategyName;
-                });
         }
+
+        protected abstract string AuthorizationStrategyName { get; }
 
         // Define all required dependencies, injected through property injection for brevity in custom implementations
         [Required]
@@ -90,7 +75,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 throw new SecurityConfigurationException(
                     SecurityConfigurationException.DefaultDetail,
-                    $"Authorization strategy '{_authorizationStrategyName.Value}' processed the authorization context names '{string.Join("', '", authorizationContextTuples.Select(t => t.name))}' and produced no authorization subjects, meaning no authorization filtering will be performed. Are you using the correct authorization strategy for this resource?");
+                    $"Authorization strategy '{AuthorizationStrategyName}' processed the authorization context names '{string.Join("', '", authorizationContextTuples.Select(t => t.name))}' and produced no authorization subjects, meaning no authorization filtering will be performed. Are you using the correct authorization strategy for this resource?");
             }
 
             var filters = authorizationSubjectEndpoints
@@ -112,7 +97,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             return new AuthorizationStrategyFiltering
             {
-                AuthorizationStrategyName = _authorizationStrategyName.Value,
+                AuthorizationStrategyName = AuthorizationStrategyName,
                 Filters = filters,
                 Operator = FilterOperator.Or
             };

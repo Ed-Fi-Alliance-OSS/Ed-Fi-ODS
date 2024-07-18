@@ -9,11 +9,19 @@ using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
+    [AuthorizationStrategyName(RelationshipAuthorizationStrategyName)]
     public class RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy
         : RelationshipsAuthorizationStrategyBase
     {
+        private const string RelationshipAuthorizationStrategyName = "RelationshipsWithEdOrgsAndPeople";
+
         public RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy(IDomainModelProvider domainModelProvider)
             : base(domainModelProvider) { }
+
+        protected override string AuthorizationStrategyName
+        {
+            get => RelationshipAuthorizationStrategyName;
+        }
 
         protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples)

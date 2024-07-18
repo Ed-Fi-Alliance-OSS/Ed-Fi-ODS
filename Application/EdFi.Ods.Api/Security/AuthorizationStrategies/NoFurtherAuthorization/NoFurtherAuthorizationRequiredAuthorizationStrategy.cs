@@ -16,6 +16,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
     /// <summary>
     /// Implements an authorization strategy that performs no additional authorization.
     /// </summary>
+    [AuthorizationStrategyName(AuthorizationStrategyName)]
     public class NoFurtherAuthorizationRequiredAuthorizationStrategy : IAuthorizationStrategy
     {
         private const string AuthorizationStrategyName = "NoFurtherAuthorizationRequired";

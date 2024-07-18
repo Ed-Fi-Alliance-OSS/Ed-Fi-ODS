@@ -10,9 +10,12 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
+[AuthorizationStrategyName(RelationshipAuthorizationStrategyName)]
 public class RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy
     : RelationshipsAuthorizationStrategyBase
 {
+    private const string RelationshipAuthorizationStrategyName = "RelationshipsWithEdOrgsAndPeopleInverted";
+
     private readonly IPersonEntitySpecification _personEntitySpecification;
 
     public RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy(
@@ -21,6 +24,11 @@ public class RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy
         : base(domainModelProvider)
     {
         _personEntitySpecification = personEntitySpecification;
+    }
+
+    protected override string AuthorizationStrategyName
+    {
+        get => RelationshipAuthorizationStrategyName;
     }
 
     protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(

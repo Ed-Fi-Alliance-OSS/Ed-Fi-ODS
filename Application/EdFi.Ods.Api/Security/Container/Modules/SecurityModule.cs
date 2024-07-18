@@ -75,6 +75,9 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                         .SingleInstance();
                 }
             }
+            var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
+
+            RegisterNamedAuthorizationStrategies();
 
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
                 .Where(t => typeof(IAuthorizationFilterDefinitionsFactory).IsAssignableFrom(t))
@@ -136,6 +139,28 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<EducationOrganizationIdNamesProvider>()
                 .As<IEducationOrganizationIdNamesProvider>()
                 .SingleInstance();
+
+            void RegisterNamedAuthorizationStrategies()
+            {
+                var namedStrategyTypes = assembly.GetTypes()
+                    .Where(t => typeof(IAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract)
+                    .Select(
+                        t => new
+                        {
+                            Type = t,
+                            AuthorizationStrategyName = t.GetCustomAttribute<AuthorizationStrategyNameAttribute>()?.Name
+                        })
+                    .Where(x => x.AuthorizationStrategyName != null)
+                    .ToList();
+
+                foreach (var namedStrategyInfo in namedStrategyTypes)
+                {
+                    builder.RegisterType(namedStrategyInfo.Type)
+                        .PropertiesAutowired()
+                        .Keyed<IAuthorizationStrategy>(namedStrategyInfo.AuthorizationStrategyName)
+                        .SingleInstance();
+                }
+            }
         }
     }
 }

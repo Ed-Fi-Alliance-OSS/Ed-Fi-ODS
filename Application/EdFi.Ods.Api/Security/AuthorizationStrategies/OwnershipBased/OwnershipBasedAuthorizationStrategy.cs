@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 {
+    [AuthorizationStrategyName(AuthorizationStrategyName)]
     public class OwnershipBasedAuthorizationStrategy : IAuthorizationStrategy
     {
         private const string AuthorizationStrategyName = "OwnershipBased";
