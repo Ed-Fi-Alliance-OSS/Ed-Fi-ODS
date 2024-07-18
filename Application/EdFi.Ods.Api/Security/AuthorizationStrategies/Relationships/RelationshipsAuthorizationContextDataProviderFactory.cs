@@ -14,13 +14,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// for the specified <i>concrete</i> model type.
     /// </summary>
     /// <remarks>This interface is intended to be used as a non-generic invocation mechanism from within the
-    /// <see cref="RelationshipsAuthorizationContextDataProviderFactory{TContextData}"/> for invoking the non-generic implementation
+    /// <see cref="RelationshipsAuthorizationContextDataProviderFactory"/> for invoking the non-generic implementation
     /// after obtaining it from the <see cref="IServiceLocator"/>.  The crux of the issue is that the context
     /// data providers are implemented and registered based on the model abstraction (e.g. IStudent) rather than
     /// either of the concrete models (e.g. Student (resource) or Student (entity)).</remarks>
-    public class RelationshipsAuthorizationContextDataProviderFactory<TContextData>
-        : IRelationshipsAuthorizationContextDataProviderFactory<TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class RelationshipsAuthorizationContextDataProviderFactory
+        : IRelationshipsAuthorizationContextDataProviderFactory
     {
         // ReSharper disable once StaticMemberInGenericType
         private static readonly ConcurrentDictionary<Type, Type> ProvidersByModelType = new ConcurrentDictionary<Type, Type>();
@@ -32,19 +31,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         /// <summary>
-        /// Get the <see cref="IRelationshipsAuthorizationContextDataProvider{TContextData}"/> implementation appropriate for the
+        /// Get the <see cref="IRelationshipsAuthorizationContextDataProvider"/> implementation appropriate for the
         /// concrete model type specified (resolving to the IoC registration for the model's interface
         /// abstraction [e.g. IStudent]).
         /// </summary>
-        ///// <typeparam name="TConcreteModel">The concrete model class type.</typeparam>
         /// <returns>The non-generic context data provider for the requested concrete model type.</returns>
-        public IRelationshipsAuthorizationContextDataProvider<TContextData> GetProvider(Type entityType)
+        public IRelationshipsAuthorizationContextDataProvider GetProvider(Type entityType)
         {
             Type lookupType = GetProviderLookupType(entityType);
 
             try
             {
-                var provider = (IRelationshipsAuthorizationContextDataProvider<TContextData>)
+                var provider = (IRelationshipsAuthorizationContextDataProvider)
                     _serviceLocator.Resolve(lookupType);
 
                 return provider;
@@ -72,8 +70,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         : mt.GetInterface("I" + mt.Name);
 
                     // Create the type to be used to find the model's abstraction-based container registration
-                    var lookupType = typeof(IRelationshipsAuthorizationContextDataProvider<,>)
-                       .MakeGenericType(modelInterface, typeof(TContextData));
+                    var lookupType = typeof(IRelationshipsAuthorizationContextDataProvider<>)
+                       .MakeGenericType(modelInterface);
 
                     return lookupType;
                 });

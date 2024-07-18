@@ -10,9 +10,8 @@ using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
-public class RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy<TContextData>
-    : RelationshipsAuthorizationStrategyBase<TContextData>
-    where TContextData : RelationshipsAuthorizationContextData, new()
+public class RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy
+    : RelationshipsAuthorizationStrategyBase
 {
     private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
 

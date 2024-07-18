@@ -20,8 +20,7 @@ using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IAuthorizationStrategy
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public abstract class RelationshipsAuthorizationStrategyBase : IAuthorizationStrategy
     {
         private List<ValidationResult> _dependencyValidationResults;
 
@@ -49,7 +48,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         // Define all required dependencies, injected through property injection for brevity in custom implementations
         [Required]
-        public IRelationshipsAuthorizationContextDataProviderFactory<TContextData> RelationshipsAuthorizationContextDataProviderFactory { get; set; }
+        public IRelationshipsAuthorizationContextDataProviderFactory RelationshipsAuthorizationContextDataProviderFactory { get; set; }
 
         /// <summary>
         /// Applies filtering to a multiple-item request.

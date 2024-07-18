@@ -17,8 +17,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// after obtaining it from the <see cref="IServiceLocator"/>.  The crux of the issue is that the context
     /// data providers are implemented and registered based on the model abstraction (e.g. IStudent) rather than
     /// either of the concrete models (e.g. Student (resource) or Student (entity)).</remarks>
-    public interface IRelationshipsAuthorizationContextDataProviderFactory<out TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public interface IRelationshipsAuthorizationContextDataProviderFactory
     {
         /// <summary>
         /// Get the <see cref="IRelationshipsAuthorizationContextDataProvider{TContextData}"/> implementation appropriate for the
@@ -26,6 +25,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// abstraction [e.g. IStudent]).
         /// </summary>
         /// <returns>The non-generic context data provider for the requested entity type.</returns>
-        IRelationshipsAuthorizationContextDataProvider<TContextData> GetProvider(Type entityType);
+        IRelationshipsAuthorizationContextDataProvider GetProvider(Type entityType);
     }
 }

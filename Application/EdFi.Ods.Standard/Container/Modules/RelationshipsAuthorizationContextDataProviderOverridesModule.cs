@@ -16,20 +16,20 @@ namespace EdFi.Ods.Standard.Container.Modules
         {
             // Establish authorization context for OrganizationDepartments using the ParentEducationOrganization
             // rather than default behavior (EducationOrganizationId)
-            builder.RegisterType<OrganizationDepartmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<OrganizationDepartmentRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment>>()
                 .SingleInstance();
 
             // Establish authorization context for DisciplineActions using the ResponsibilitySchoolId and StudentUSI 
             // rather than default behavior (StudentUSI)
-            builder.RegisterType<DisciplineActionRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IDisciplineAction, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<DisciplineActionRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IDisciplineAction>>()
                 .SingleInstance();
             
             // Establish authorization context for StudentAssessment using the ReportedSchoolId and StudentUSI rather than
             // using the default convention (only StudentUSI)
-            builder.RegisterType<StudentAssessmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IStudentAssessment, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<StudentAssessmentRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IStudentAssessment>>()
                 .SingleInstance();
         }
     }

@@ -10,9 +10,8 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithPeopleOnlyAuthorizationStrategy<TContextData>
-        : RelationshipsAuthorizationStrategyBase<TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class RelationshipsWithPeopleOnlyAuthorizationStrategy
+        : RelationshipsAuthorizationStrategyBase
     {
         private readonly IPersonEntitySpecification _personEntitySpecification;
 

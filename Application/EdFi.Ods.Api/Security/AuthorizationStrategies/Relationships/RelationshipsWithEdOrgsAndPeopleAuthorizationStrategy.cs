@@ -9,9 +9,8 @@ using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<TContextData>
-        : RelationshipsAuthorizationStrategyBase<TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy
+        : RelationshipsAuthorizationStrategyBase
     {
         public RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy(IDomainModelProvider domainModelProvider)
             : base(domainModelProvider) { }

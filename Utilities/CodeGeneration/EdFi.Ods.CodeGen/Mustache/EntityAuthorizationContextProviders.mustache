@@ -20,13 +20,12 @@ namespace {{ContextDataProviderNamespace}}
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the {{Schema}}.{{ResourceName}} table of the {{ResourceName}} aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class {{ResourceName}}RelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<I{{ResourceName}}, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class {{ResourceName}}RelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<I{{ResourceName}}>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(I{{ResourceName}} resource)
+        public RelationshipsAuthorizationContextData GetContextData(I{{ResourceName}} resource)
         {
             if (resource == null)
                 throw new ArgumentNullException("resource", "The '{{ResourceNameCamelCase}}' resource for obtaining authorization context data cannot be null.");
@@ -34,10 +33,10 @@ namespace {{ContextDataProviderNamespace}}
             var entity = resource as {{ResourceName}};
 
             {{#SchemaIsEdFi}}
-            var contextData = new TContextData();
+            var contextData = new RelationshipsAuthorizationContextData();
             {{/SchemaIsEdFi}}
             {{^SchemaIsEdFi}}
-            dynamic contextData = new TContextData();
+            dynamic contextData = new RelationshipsAuthorizationContextData();
             {{/SchemaIsEdFi}}
             {{#AuthorizationResourceProperties}}
               {{#ContextPropertyIsIncludedAndNumeric}}
@@ -51,7 +50,7 @@ namespace {{ContextDataProviderNamespace}}
             return contextData;
             {{/SchemaIsEdFi}}
             {{^SchemaIsEdFi}}
-            return (TContextData) contextData;
+            return (RelationshipsAuthorizationContextData) contextData;
             {{/SchemaIsEdFi}}
         }
 
@@ -78,7 +77,7 @@ namespace {{ContextDataProviderNamespace}}
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData(({{ResourceName}}) resource);
         }

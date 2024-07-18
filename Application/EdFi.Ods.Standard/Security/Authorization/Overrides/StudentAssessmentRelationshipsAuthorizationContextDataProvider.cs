@@ -15,13 +15,12 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentAssessment table of the StudentAssessment aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class StudentAssessmentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentAssessment, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class StudentAssessmentRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentAssessment>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(IStudentAssessment resource)
+        public RelationshipsAuthorizationContextData GetContextData(IStudentAssessment resource)
         {
             if (resource == null)
             {
@@ -30,7 +29,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
 
             var entity = resource as StudentAssessment;
 
-            var contextData = new TContextData 
+            var contextData = new RelationshipsAuthorizationContextData 
             { 
                 SchoolId = entity.ReportedSchoolId, // Role name applied and not part of primary key
                 StudentUSI = entity.StudentUSI == default ? null : entity.StudentUSI // Primary key property, USI
@@ -56,7 +55,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((StudentAssessment)resource);
         }

@@ -15,20 +15,19 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ProgramEvaluationElement table of the ProgramEvaluationElement aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class ProgramEvaluationElementRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationElement, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class ProgramEvaluationElementRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationElement>
     {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(IProgramEvaluationElement resource)
+        public RelationshipsAuthorizationContextData GetContextData(IProgramEvaluationElement resource)
         {
             if (resource == null)
                 throw new ArgumentNullException("resource", "The 'programEvaluationElement' resource for obtaining authorization context data cannot be null.");
 
             var entity = resource as ProgramEvaluationElement;
 
-            var contextData = new TContextData();
+            var contextData = new RelationshipsAuthorizationContextData();
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.EducationOrganizationId = entity.ProgramEducationOrganizationId;
             return contextData;
@@ -50,7 +49,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((ProgramEvaluationElement)resource);
         }
