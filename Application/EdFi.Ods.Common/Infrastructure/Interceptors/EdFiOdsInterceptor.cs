@@ -12,12 +12,12 @@ using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Infrastructure.Interceptors
 {
-    public class CreateDateBasedTransientInterceptor : EmptyInterceptor
+    public class EdFiOdsInterceptor : EmptyInterceptor
     {
         private const string SpaceLiteral = " ";
 
         private static readonly Regex regex = new(
-            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on\s+\(\s+this_\d+_)",
+            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on\s+)",
             RegexOptions.Compiled);
 
         public override bool? IsTransient(object entity)

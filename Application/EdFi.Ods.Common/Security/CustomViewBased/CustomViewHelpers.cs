@@ -15,7 +15,7 @@ public static class CustomViewHelpers
     
     /// <summary>
     /// Gets a unique alias prefix to be used with the supplied view name to help identify it in the database engine-specific
-    /// SQL produced by NHibernate for subsequent manipulation by the <see cref="CreateDateBasedTransientInterceptor"/>.
+    /// SQL produced by NHibernate for subsequent manipulation by the <see cref="EdFiOdsInterceptor"/>.
     /// </summary>
     /// <param name="viewName">The name of the view to be aliased.</param>
     /// <returns>The view-specific alias prefix for use in SQL generation.</returns>
