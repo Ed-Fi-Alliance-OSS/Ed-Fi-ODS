@@ -199,6 +199,16 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public ApiClient GetClientIncludingApplication(string key)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Clients
+                    .Include(c => c.Application)
+                    .FirstOrDefault(c => c.Key == key);
+            }
+        }
+
         public ApiClient GetClient(string key, string secret)
         {
             using (var context = _contextFactory.CreateContext())

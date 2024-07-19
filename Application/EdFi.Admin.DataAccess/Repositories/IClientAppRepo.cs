@@ -28,6 +28,8 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         Task<ApiClient> GetClientAsync(string key);
 
+        ApiClient GetClientIncludingApplication(string key);
+
         ApiClient GetClient(string key, string secret);
 
         ApiClient UpdateClient(ApiClient client);
