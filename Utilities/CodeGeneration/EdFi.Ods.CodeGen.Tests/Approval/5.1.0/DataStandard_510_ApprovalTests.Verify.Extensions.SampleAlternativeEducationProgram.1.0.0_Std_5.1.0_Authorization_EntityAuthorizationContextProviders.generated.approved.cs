@@ -17,24 +17,23 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.SampleAlterna
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the samplealternativeeducationprogram.StudentAlternativeEducationProgramAssociation table of the StudentAlternativeEducationProgramAssociation aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class StudentAlternativeEducationProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentAlternativeEducationProgramAssociation, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class StudentAlternativeEducationProgramAssociationRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IStudentAlternativeEducationProgramAssociation>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(IStudentAlternativeEducationProgramAssociation resource)
+        public RelationshipsAuthorizationContextData GetContextData(IStudentAlternativeEducationProgramAssociation resource)
         {
             if (resource == null)
                 throw new ArgumentNullException("resource", "The 'studentAlternativeEducationProgramAssociation' resource for obtaining authorization context data cannot be null.");
 
             var entity = resource as StudentAlternativeEducationProgramAssociation;
 
-            dynamic contextData = new TContextData();
+            dynamic contextData = new RelationshipsAuthorizationContextData();
             contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ProgramEducationOrganizationId = entity.ProgramEducationOrganizationId, // Primary key property, Role name applied
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
-            return (TContextData) contextData;
+            return (RelationshipsAuthorizationContextData) contextData;
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.SampleAlterna
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((StudentAlternativeEducationProgramAssociation) resource);
         }
