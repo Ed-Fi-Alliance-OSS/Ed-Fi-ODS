@@ -114,8 +114,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IRelationshipsAuthorizationContextDataProviderFactory>()
                 .SingleInstance();
 
-            Type GetRelationshipBasedAuthorizationStrategyContextDataType() => typeof(RelationshipsAuthorizationContextData);
-
             builder.RegisterGeneric(typeof(SetAuthorizationContextForGet<,,,>))
                 .AsSelf()
                 .SingleInstance();
@@ -152,7 +150,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 foreach (var namedStrategyInfo in namedStrategyTypes)
                 {
                     builder.RegisterType(namedStrategyInfo.Type)
-                        .PropertiesAutowired()
+                        .PropertiesAutowired() // Convenience for DI for derived relationship-based authorization strategies
                         .Keyed<IAuthorizationStrategy>(namedStrategyInfo.AuthorizationStrategyName)
                         .SingleInstance();
                 }

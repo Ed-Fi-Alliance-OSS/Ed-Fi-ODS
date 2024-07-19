@@ -10,7 +10,7 @@ using EdFi.Common.InversionOfControl;
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     /// <summary>
-    /// Defines a method for obtaining an <see cref="IRelationshipsAuthorizationContextDataProvider{TContextData}"/>
+    /// Defines a method for obtaining an <see cref="IRelationshipsAuthorizationContextDataProvider"/>
     /// for the specified <i>concrete</i> model type.
     /// </summary>
     /// <remarks>This interface is intended to be used as a non-generic invocation mechanism from within the

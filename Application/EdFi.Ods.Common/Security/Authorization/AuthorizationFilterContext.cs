@@ -37,12 +37,8 @@ namespace EdFi.Ods.Common.Security.Authorization
         {
             get
             {
-                if (_subjectEndpointNames != null)
-                {
-                    throw new InvalidOperationException("Cannot use SubjectEndpointName when SubjectEndpointNames is already set.");
-                }
-
-                return _subjectEndpointName;
+                // Ensure an error occurs if the single-endpoint property is requested and a multi-item array has been set
+                return _subjectEndpointName ?? _subjectEndpointNames?.SingleOrDefault();
             }
             set
             {
@@ -62,12 +58,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         {
             get
             {
-                if (_subjectEndpointName != null)
-                {
-                    throw new InvalidOperationException("Cannot use SubjectEndpointNames when SubjectEndpointName is already set.");
-                }
-
-                return _subjectEndpointNames;
+                return _subjectEndpointNames ?? new[] { _subjectEndpointName };
             }
             set
             {

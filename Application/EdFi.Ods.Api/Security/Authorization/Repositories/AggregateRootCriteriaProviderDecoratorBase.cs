@@ -176,7 +176,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         filterContext.FilterName,
                         out var filterDefinition);
 
-                    var parameterValues =filterContext.ClaimParameterName == null
+                    var parameterValues = filterContext.ClaimParameterName == null
                         ? new Dictionary<string, object>()
                         : new Dictionary<string, object>
                             {
