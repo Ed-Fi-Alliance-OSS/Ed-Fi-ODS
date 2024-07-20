@@ -180,6 +180,6 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: Create Database Template Logs
+        name: Create Database Template Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*
