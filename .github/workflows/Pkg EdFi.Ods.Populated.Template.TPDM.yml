@@ -187,7 +187,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
+        name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts-${{ matrix.StandardVersion }}
         path: |
          ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core*.nupkg
     - name: Move Log Files
@@ -209,6 +209,6 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: Create Database Template Logs
+        name: Create Database Template Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/CreateDatabaseTemplateLogs/*.*          

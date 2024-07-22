@@ -162,7 +162,7 @@ jobs:
         workflow_timeout_seconds: 4800                   
     - name: Await to complete the execution for InitDev , MultiTenancy RunID ${{ steps.return_dispatch_InitDevMultitenancy.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
@@ -172,7 +172,7 @@ jobs:
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev, Smoke Tests RunID ${{ steps.return_dispatch_InitDevSmokeTests.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
@@ -182,7 +182,7 @@ jobs:
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev, Unit tests, Integration tests, Package RunID ${{ steps.return_dispatch_InitDevUnittestsIntegrationtestsPackage.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
@@ -192,7 +192,7 @@ jobs:
         poll_interval_ms: 5000     
     - name: Await to complete the execution for InitDev Postgres, MultiTenancy RunID ${{ steps.return_dispatch_InitDevPostgresMultitenancy.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
@@ -202,7 +202,7 @@ jobs:
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev Postgres, Smoke Tests RunID ${{ steps.return_dispatch_InitDevPostgresSmokeTests.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
@@ -212,7 +212,7 @@ jobs:
         poll_interval_ms: 5000
     - name: Await to complete the execution for InitDev Postgres, Unit tests, Integration tests RunID ${{ steps.return_dispatch_InitDevPostgresUnittestsIntegrationtests.outputs.run_id }}
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repo: Ed-Fi-ODS-Implementation
