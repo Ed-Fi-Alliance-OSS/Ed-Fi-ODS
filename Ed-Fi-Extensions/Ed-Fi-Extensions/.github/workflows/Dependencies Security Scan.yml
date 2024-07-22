@@ -60,4 +60,4 @@ jobs:
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
       - name: Dependency Review ("Dependabot on PR")
-        uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
+        uses: actions/dependency-review-action@9129d7d40b8c12c1ed0f60400d00c92d437adcce  # v4.1.3

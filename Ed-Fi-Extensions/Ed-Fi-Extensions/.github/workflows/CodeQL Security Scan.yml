@@ -42,7 +42,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/init@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-Extensions
@@ -110,4 +110,4 @@ jobs:
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/analyze@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2

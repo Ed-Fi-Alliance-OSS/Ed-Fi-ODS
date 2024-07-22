@@ -88,7 +88,7 @@ jobs:
             }
       shell: pwsh        
     - name: Cache Nuget packages       
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 #v4.0.1
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*') }}
@@ -134,7 +134,7 @@ jobs:
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/EdFi.Ods.Extensions.Sample.csproj" -PackageName "EdFi.Suite3.Ods.Extensions.Sample.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
     - name: Upload EdFi.Ods.Extensions.Sample Artifact
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: EdFi.Ods.Extensions.Sample.Artifacts
+        name: EdFi.Ods.Extensions.Sample.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-Extensions/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*.*
