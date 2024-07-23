@@ -22,7 +22,7 @@ namespace EdFi.Ods.CodeGen.Generators
         private const string EducationOrganizationKey = "EducationOrganizationId";
         private Dictionary<Resource, IEnumerable<AuthorizationContextProperty>> _authorizationPropertiesByResource;
         private IEnumerable<ResourceProperty> _primaryKeysInheritedFromEducationOrganization;
-        private ResourceModel _resourceModel;
+        private IResourceModel _resourceModel;
         private IEnumerable<Resource> _resourcesToRender;
 
         private IEnumerable<ResourceProperty> EducationOrganizationColumns
