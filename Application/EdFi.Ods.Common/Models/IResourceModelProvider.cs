@@ -12,6 +12,6 @@ namespace EdFi.Ods.Common.Models
     /// </summary>
     public interface IResourceModelProvider
     {
-        ResourceModel GetResourceModel();
+        IResourceModel GetResourceModel();
     }
 }
