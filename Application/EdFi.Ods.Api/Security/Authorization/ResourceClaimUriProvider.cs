@@ -32,9 +32,11 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// Initializes a new instance of the <see cref="ResourceClaimUriProvider" /> class using the supplied schema name map provider.
         /// </summary>
         /// <param name="schemaNameMapProvider">The provider for mapping between schema names.</param>
+        /// <param name="resourceModelProvider"></param>
         public ResourceClaimUriProvider(ISchemaNameMapProvider schemaNameMapProvider, IResourceModelProvider resourceModelProvider)
         {
-            _schemaNameMapProvider = Preconditions.ThrowIfNull(schemaNameMapProvider, nameof(schemaNameMapProvider));
+            ArgumentNullException.ThrowIfNull(schemaNameMapProvider, nameof(schemaNameMapProvider));
+            _schemaNameMapProvider = schemaNameMapProvider;
 
             _resourceFullNameByResourceUri = new Lazy<ConcurrentDictionary<string, FullName>>(
                 () =>
@@ -65,7 +67,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The resource claim URIs.</returns>
         public string[] GetResourceClaimUris(Type resourceType)
         {
-            Preconditions.ThrowIfNull(resourceType, nameof(resourceType));
+            ArgumentNullException.ThrowIfNull(resourceType, nameof(resourceType));
 
             return _resourceUrisByResourceType.GetOrAdd(
                 resourceType,

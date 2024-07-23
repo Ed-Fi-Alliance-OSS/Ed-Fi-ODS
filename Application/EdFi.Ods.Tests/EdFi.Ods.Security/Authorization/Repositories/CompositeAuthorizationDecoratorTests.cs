@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             SuppliedFilterName,
                             // This is how the HQL filter text is now obtained (with elimination of the INHibernateFilterTextProvider) 
                             suppliedFilterText,
-                            (criteria, junction, arg3, arg4, arg5) => { },
+                            (criteria, junction, arg3, arg4, arg5, arg6) => { },
                             (filterDefinition, filterContext, resource, filterIndex, qb, useOuterJoins) => { },
                             (ctx1, ctx2, ctx3) => null));
 

@@ -62,11 +62,24 @@ namespace EdFi.Ods.Common.Models.Resource
         IResourceSelector SetContextualResourceSelector(IResourceSelector contextualResourceSelector);
     }
 
-    public class ResourceModel : IResourceModel, IHasContextualResourceSelector
+    /// <summary>
+    /// Defines a property for obtaining the default resource model.
+    /// </summary>
+    public interface IHasDefaultResourceSelector
+    {
+        /// <summary>
+        /// Gets the default <see cref="IResourceSelector"/>, providing access to the underlying model.
+        /// </summary>
+        /// <returns>The default <see cref="IResourceSelector"/>, providing access to the underlying model.</returns>
+        IResourceSelector DefaultResourceSelector { get; }
+    }
+
+    public class ResourceModel : IResourceModel, IHasContextualResourceSelector, IHasDefaultResourceSelector
     {
         private const string ResourceSelectorKey = "ResourceModel.ResourcesSelector";
         private readonly DomainModel _domainModel;
         private readonly IDictionary<FullName, Resource> _resourceByName;
+        private readonly IResourceSelector _defaultResourceSelector;
 
         public ResourceModel(DomainModel domainModel)
         {
@@ -78,20 +91,18 @@ namespace EdFi.Ods.Common.Models.Resource
                 .Entities
                 .Where(a => a.IsAggregateRoot)
                 .ForEach(AddResource);
-            
-            DefaultResourceSelector = new ResourceSelector(_resourceByName);
+
+            _defaultResourceSelector = new ResourceSelector(_resourceByName);
         }
 
-        internal IResourceSelector DefaultResourceSelector { get; }
+        IResourceSelector IHasDefaultResourceSelector.DefaultResourceSelector
+        {
+            get => _defaultResourceSelector;
+        }
 
         private IResourceSelector ResourceSelector
         {
-            get
-            {
-                return
-                    (IResourceSelector) CallContext.GetData(ResourceSelectorKey)
-                    ?? DefaultResourceSelector;
-            }
+            get => (IResourceSelector) CallContext.GetData(ResourceSelectorKey) ?? _defaultResourceSelector;
         }
 
         /// <summary>
@@ -102,7 +113,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             CallContext.SetData(ResourceSelectorKey, resourceSelector);
 
-            return DefaultResourceSelector;
+            return _defaultResourceSelector;
         }
 
         /// <inheritdoc cref="IResourceModel.GetResourceByFullName"/>

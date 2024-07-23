@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies;
 /// (replacing the previously used class naming convention). 
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-sealed class AuthorizationStrategyNameAttribute : Attribute
+public sealed class AuthorizationStrategyNameAttribute : Attribute
 {
     public AuthorizationStrategyNameAttribute(string name)
     {
