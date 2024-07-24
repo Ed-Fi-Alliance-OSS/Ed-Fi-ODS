@@ -7,15 +7,9 @@ name: Pkg EdFi.Database.Admin
 
 on:
   pull_request:
-    branches:
-      - main-6x
-    paths:
-      - '**.sql'
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   push:
-    branches:
-      - main
-    paths:
-      - '**.sql'
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 env:
