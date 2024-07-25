@@ -332,31 +332,31 @@ function TriggerImplementationRepositoryWorkflows {
     | ConvertFrom-Json `
     | Select-Object -First 1
 
-    if ($pr.number) {
-        Write-Host "Triggering workflows in the matching PR: https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/pull/$($pr.number)"
-
-        $label = "Trigger from ODS repo"
-        Invoke-WebRequest `
-            -Method Post `
-            -ContentType 'application/json' `
-            -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels" `
-            -Body @(@{labels = @($label) } | ConvertTo-Json) `
-            -Headers $headers `
-        | Out-Null
-        
-        Start-Sleep -Seconds 1
-        
-        Invoke-WebRequest `
-            -Method Delete `
-            -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels/$([uri]::EscapeDataString($label))" `
-            -Headers $headers `
-        | Out-Null
-
-        Write-Output "EXIT_STEP=true">> $Env:GITHUB_ENV
-    }
-    else {
+    if (-not $pr.number) {
         Write-Host "There's no matching PR."
+        return
     }
+
+    Write-Host "Triggering workflows in the matching PR: https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/pull/$($pr.number)"
+
+    $label = "Trigger from ODS repo"
+    Invoke-WebRequest `
+        -Method Post `
+        -ContentType 'application/json' `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels" `
+        -Body @(@{labels = @($label) } | ConvertTo-Json) `
+        -Headers $headers `
+    | Out-Null
+    
+    Start-Sleep -Seconds 1
+    
+    Invoke-WebRequest `
+        -Method Delete `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels/$([uri]::EscapeDataString($label))" `
+        -Headers $headers `
+    | Out-Null
+
+    Write-Output "EXIT_STEP=true">> $Env:GITHUB_ENV
 }
 
 function Assert-EnvironmentVariablesInitialized {
