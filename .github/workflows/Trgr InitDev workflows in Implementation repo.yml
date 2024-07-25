@@ -3,7 +3,6 @@ name: Trgr InitDev workflows in Implementation repo
 on:
   pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
-  workflow_dispatch:
 
 permissions: read-all
 
@@ -14,6 +13,7 @@ concurrency:
 env:
   EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  BASE_REF:  ${{ GITHUB.BASE_REF }}
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
@@ -58,42 +58,11 @@ jobs:
         }
         Write-Host "Current Branch: $current_branch"   
         echo "current_branch=$current_branch" >> $Env:GITHUB_ENV
-    - name: Check Ed-Fi-ODS-Implementation Repo PR exists or not
+    - name: Trigger workflows in the matching PR in the Implementation repository
+      working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-        $accessToken = "${{ env.EDFI_ODS_IMP_TOKEN }}"
-        $repositoryName = "Ed-Fi-ODS-Implementation"
-        $apiUrl = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/$repositoryName/pulls?state=open&head=${{ env.REPOSITORY_OWNER }}:${{ env.current_branch }}"
-        $headers = @{
-            Authorization = "Bearer $accessToken"
-            Accept = "application/vnd.github.v3+json"
-        }
-        $response = Invoke-WebRequest -Uri $apiUrl -Headers $headers
-
-        # Access x-ratelimit-limit and x-ratelimit-remaining from response headers
-        $rateLimitLimit = $response.Headers['X-RateLimit-Limit']
-        $rateLimitRemaining = $response.Headers['X-RateLimit-Remaining']
-
-
-        Write-Host "x-ratelimit-limit: $rateLimitLimit"
-        Write-Host "x-ratelimit-remaining: $rateLimitRemaining"
-
-        $jsonResponse = $response | ConvertFrom-Json
-
-        foreach ($pr in $jsonResponse) {
-            Write-Host "current branch: ${{ env.current_branch }}"
-            Write-Host "ref: $($pr.head.ref)"
-            if ($pr.head.ref -eq "${{ env.current_branch }}") 
-            {
-                Write-Host "PR #$($pr.number): $($pr.head.label)"
-                echo "EXIT_STEP=true">> $env:GITHUB_ENV
-            }
-        }
-    - name: Check for EXIT_STEP Status
-      if: env.EXIT_STEP == 'true'
-      run: | 
-           echo "::notice::Ed-Fi-ODS-Implementation already have same branch ${{ env.current_branch }} running all Initdev builds ,so Skipping this build"
-           echo "EXIT_STEP value is ${{ env.EXIT_STEP }}"
+           .\build.githubactions.ps1 -Command TriggerImplementationRepositoryWorkflows
     - name: Dispatch InitDev , Multitenancy workflow
       if: env.EXIT_STEP != 'true'
       uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
