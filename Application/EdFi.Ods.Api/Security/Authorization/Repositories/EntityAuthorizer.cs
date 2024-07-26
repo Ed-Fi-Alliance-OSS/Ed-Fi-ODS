@@ -16,6 +16,7 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
+using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
@@ -122,7 +123,7 @@ public class EntityAuthorizer : IEntityAuthorizer
             _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
 
         var andResults = PerformInstanceBasedAuthorization(authorizationFiltering, authorizationContext, FilterOperator.And);
-        
+
         // If any failures occurred with the AND strategies, throw the first exception now
         ThrowInstanceBasedFailureFromResults(andResults);
 
@@ -183,7 +184,7 @@ public class EntityAuthorizer : IEntityAuthorizer
         {
             ThrowInstanceBasedFailureFromResults(orResults);
         }
-        
+
         await PerformViewBasedAuthorizationAsync(allPendingExistenceChecks, authorizationContext, cancellationToken);
 
         bool IsCreateUpdateOrDelete(string requestAction)
@@ -263,7 +264,9 @@ public class EntityAuthorizer : IEntityAuthorizer
     {
         // Before building and executing authorization SQL, check for null values on subject endpoints
         var parameterDetails = resultsWithPendingExistenceChecks.SelectMany(
-                x => x.FilterResults.Select(f => (ParameterName: f.FilterContext.SubjectEndpointName, ParameterValue: f.FilterContext.SubjectEndpointValue)))
+                x => x.FilterResults.SelectMany(f => 
+                    f.FilterContext.SubjectEndpointNames.Select((n, i) => 
+                        (ParameterName: n, ParameterValue: f.FilterContext.SubjectEndpointValues[i]))))
             .GroupBy(x => x.ParameterName)
             .Select(x => x.First())
             .ToArray();
@@ -311,20 +314,64 @@ public class EntityAuthorizer : IEntityAuthorizer
             StringBuilder sql = new();
 
             sql.Append("SELECT CASE WHEN ");
+            int initialSqlBuilderLength = sql.Length;
+            bool conjunctionRequired = false;
+            bool conjunctionStarted = false;
 
-            resultsWithPendingExistenceChecks.ForEach(
-                (x, i, s) =>
+            // Build the AND conditions
+            resultsWithPendingExistenceChecks.Where(x => x.Operator == FilterOperator.And)
+                .ForEach((x, i, s) =>
                 {
                     if (i > 0)
                     {
-                        if (x.Operator == FilterOperator.And)
+                        s.Append(" AND ");
+                    }
+
+                    s.Append('(');
+
+                    x.FilterResults.ForEach(
+                        (y, j, s) =>
                         {
-                            s.Append(" AND ");
-                        }
-                        else
+                            var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
+                                ?? throw new InvalidOperationException(
+                                    "Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks.");
+
+                            var viewSqlSupport = viewBasedFilterDefinition.ViewBasedSingleItemAuthorizationQuerySupport;
+
+                            if (j > 0)
+                            {
+                                // NOTE: Individual filters (segments) are always combined with AND
+                                s.Append(" AND ");
+                            }
+
+                            s.Append("EXISTS (");
+                            s.Append(viewSqlSupport.GetItemExistenceCheckSql(viewBasedFilterDefinition, y.FilterContext));
+                            s.Append(')');
+                        }, s);
+
+                    s.Append(')');
+                }, sql);
+
+            if (sql.Length > initialSqlBuilderLength)
+            {
+                conjunctionRequired = true;
+            }
+
+            // Build the OR conditions
+            resultsWithPendingExistenceChecks.Where(x => x.Operator == FilterOperator.Or)
+                .ForEach((x, i, s) =>
+                {
+                    if (i == 0)
+                    {
+                        if (conjunctionRequired)
                         {
-                            s.Append(" OR ");
+                            sql.Append(" AND (");
+                            conjunctionStarted = true;
                         }
+                    }
+                    else
+                    {
+                        s.Append(" OR ");
                     }
 
                     s.Append('(');
@@ -352,6 +399,12 @@ public class EntityAuthorizer : IEntityAuthorizer
                    s.Append(')');
                 }, sql);
 
+            if (conjunctionStarted)
+            {
+                // Add a final closing parenthesis containing the OR conditions for the wrapping AND condition
+                sql.Append(")");
+            }
+
             sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
 
             return sql.ToString();
@@ -362,17 +415,33 @@ public class EntityAuthorizer : IEntityAuthorizer
             // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
             string[] subjectEndpointNames = resultsWithPendingExistenceChecks
                 .SelectMany(asf => asf.FilterResults
-                    .Select(f => f.FilterContext.SubjectEndpointName.ReplaceSuffix("USI", "UniqueId")))
+                    .SelectMany(f => 
+                        f.FilterContext.SubjectEndpointNames.Select(n => n.ReplaceSuffix("USI", "UniqueId"))))
                 .Distinct()
                 .OrderBy(n => n)
                 .ToArray();
 
             string subjectEndpointNamesText = $"'{string.Join("', '", subjectEndpointNames)}'";
 
-            object[] claimEndpointValues = resultsWithPendingExistenceChecks.SelectMany(x => x.FilterResults.Select(f => f.FilterContext))
+            object[] claimEndpointValues = resultsWithPendingExistenceChecks
+                .SelectMany(x => x.FilterResults.Select(f => f.FilterContext))
                 .FirstOrDefault()
-                ?.ClaimEndpointValues.OrderBy(Convert.ToInt64).ToArray();
+                ?.ClaimEndpointValues
+                ?.OrderBy(Convert.ToInt64)
+                .ToArray();
 
+            if (claimEndpointValues == null)
+            {
+                // Custom view support introduced usage scenario here where no claims are relevant
+                if (subjectEndpointNames.Length == 1)
+                {
+                    return $"The caller is not authorized to perform the requested operation on the item based on the {authorizationContext.GetPhaseText("existing", "proposed")} value of the {subjectEndpointNamesText} property of the item.";
+                }
+
+                return $"The caller is not authorized to perform the requested operation on the item based on the {authorizationContext.GetPhaseText("existing", "proposed")} values of one or more of the following properties of the item: {subjectEndpointNamesText}.";
+            }
+
+            // Assumption: Claims are always EdOrgIds, if present.
             string claimOrClaims = Inflector.Inflect("claim", claimEndpointValues?.Length ?? 0);
 
             const int MaximumEdOrgClaimValuesToDisplay = 5;
@@ -381,7 +450,9 @@ public class EntityAuthorizer : IEntityAuthorizer
                 claimEndpointValues?.Select(v => v.ToString()).Take(MaximumEdOrgClaimValuesToDisplay + 1).ToArray()
                 ?? Array.Empty<string>();
 
-            string claimEndpointValuesText = GetClaimEndpointValuesText(claimEndpointValuesAsStrings, MaximumEdOrgClaimValuesToDisplay);
+            string claimEndpointValuesText = GetClaimEndpointValuesText(
+                claimEndpointValuesAsStrings,
+                MaximumEdOrgClaimValuesToDisplay);
 
             if (subjectEndpointNames.Length == 1)
             {
@@ -443,7 +514,11 @@ public class EntityAuthorizer : IEntityAuthorizer
                 return null;
             }
 
-            _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
+            if (resultsWithPendingExistenceChecks.Any(
+                    res => res.FilterResults.Any(far => far.FilterContext.ClaimParameterName != null)))
+            {
+                _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
+            }
 
             // Process the pending AND SQL checks to get a result (0 for failure, 1 for success)
             validationResult = (int?) await cmd.ExecuteScalarAsync(cancellationToken) ?? 0;
