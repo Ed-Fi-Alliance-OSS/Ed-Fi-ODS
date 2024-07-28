@@ -316,7 +316,7 @@ function TriggerImplementationRepositoryWorkflows {
         Note that the workflows must be configured to be triggered by the `unlabeled` pull_request event type.
     #>
     
-    Assert-EnvironmentVariablesInitialized(@("HEAD_REF", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
+    Assert-EnvironmentVariablesInitialized(@("current_branch", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
 
     $headers = @{
         Authorization = "Bearer $Env:EDFI_ODS_IMP_TOKEN"
@@ -324,7 +324,7 @@ function TriggerImplementationRepositoryWorkflows {
     }
     $body = @{
         state = "open"
-        head  = "${Env:REPOSITORY_OWNER}:${Env:HEAD_REF}"
+        head  = "${Env:REPOSITORY_OWNER}:${Env:current_branch}"
     }
     if ($Env:BASE_REF) {
         $body.Add('base', $Env:BASE_REF)
