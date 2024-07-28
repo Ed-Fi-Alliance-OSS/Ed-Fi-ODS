@@ -316,18 +316,25 @@ function TriggerImplementationRepositoryWorkflows {
         Note that the workflows must be configured to be triggered by the `unlabeled` pull_request event type.
     #>
     
-    Assert-EnvironmentVariablesInitialized(@("BASE_REF", "HEAD_REF", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
-
-    $base = $Env:BASE_REF
-    $head = "${Env:REPOSITORY_OWNER}:${Env:HEAD_REF}"
-    Write-Host "Looking for an open PR in the Implementation repository with base='$base' and head='$head'."
+    Assert-EnvironmentVariablesInitialized(@("HEAD_REF", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
 
     $headers = @{
         Authorization = "Bearer $Env:EDFI_ODS_IMP_TOKEN"
         Accept        = "application/vnd.github.v3+json"
     }
+    $body = @{
+        state = "open"
+        head  = "${Env:REPOSITORY_OWNER}:${Env:HEAD_REF}"
+    }
+    if ($Env:BASE_REF) {
+        $body.Add('base', $Env:BASE_REF)
+    }
+
+    Write-Host "Looking for a PR in the Implementation repository with the next parameters=$($body | ConvertTo-Json)."
+
     $pr = Invoke-WebRequest `
-        -Uri "https://api.github.com/repos/$Env:REPOSITORY_OWNER/Ed-Fi-ODS-Implementation/pulls?state=open&base=$base&head=$head" `
+        -Uri "https://api.github.com/repos/$Env:REPOSITORY_OWNER/Ed-Fi-ODS-Implementation/pulls" `
+        -Body $body `
         -Headers $headers `
     | ConvertFrom-Json `
     | Select-Object -First 1
