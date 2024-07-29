@@ -7,7 +7,19 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions", "StandardTag", "TpdmTag")]
+    [ValidateSet(
+        "DotnetClean", 
+        "Restore", 
+        "Build", 
+        "Test", 
+        "Pack", 
+        "Publish", 
+        "CheckoutBranch", 
+        "InstallCredentialHandler", 
+        "StandardVersions", 
+        "StandardTag", 
+        "TpdmTag", 
+        "TriggerImplementationRepositoryWorkflows")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -296,6 +308,77 @@ function RepositoryTag {
     return $versionTag
 }
 
+function TriggerImplementationRepositoryWorkflows {
+    <#
+    .SYNOPSIS
+        Searches for the corresponding PR in the Implementation repository; if found, 
+        adds and removes a label to the PR, restarting all the PR workflows.
+        Note that the workflows must be configured to be triggered by the `unlabeled` pull_request event type.
+    #>
+    
+    Assert-EnvironmentVariablesInitialized(@("current_branch", "REPOSITORY_OWNER", "EDFI_ODS_IMP_TOKEN"))
+
+    $headers = @{
+        Authorization = "Bearer $Env:EDFI_ODS_IMP_TOKEN"
+        Accept        = "application/vnd.github.v3+json"
+    }
+    $body = @{
+        state = "open"
+        head  = "${Env:REPOSITORY_OWNER}:${Env:current_branch}"
+    }
+    if ($Env:BASE_REF) {
+        $body.Add('base', $Env:BASE_REF)
+    }
+
+    Write-Host "Looking for a PR in the Implementation repository with the next parameters=$($body | ConvertTo-Json)."
+
+    $pr = Invoke-WebRequest `
+        -Uri "https://api.github.com/repos/$Env:REPOSITORY_OWNER/Ed-Fi-ODS-Implementation/pulls" `
+        -Body $body `
+        -Headers $headers `
+    | ConvertFrom-Json `
+    | Select-Object -First 1
+
+    if (-not $pr.number) {
+        Write-Host "There's no matching PR."
+        return
+    }
+
+    Write-Host "Triggering workflows in the matching PR: https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/pull/$($pr.number)"
+
+    $label = "Trigger from ODS repo"
+    Invoke-WebRequest `
+        -Method Post `
+        -ContentType 'application/json' `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels" `
+        -Body @(@{labels = @($label) } | ConvertTo-Json) `
+        -Headers $headers `
+    | Out-Null
+    
+    Start-Sleep -Seconds 1
+    
+    Invoke-WebRequest `
+        -Method Delete `
+        -Uri "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/issues/$($pr.number)/labels/$([uri]::EscapeDataString($label))" `
+        -Headers $headers `
+    | Out-Null
+
+    Write-Output "EXIT_STEP=true">> $Env:GITHUB_ENV
+}
+
+function Assert-EnvironmentVariablesInitialized {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string[]]$Names
+    )
+
+    foreach ($name in $Names) {
+        if (-not (Test-Path "Env:$name")) { 
+            throw "The environment variable '$name' must be initialized."
+        }
+    }
+}
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -355,6 +438,7 @@ Invoke-Main {
         StandardVersions { Invoke-StandardVersions }
         StandardTag { Invoke-StandardTag }
         TpdmTag { Invoke-TpdmTag }
+        TriggerImplementationRepositoryWorkflows { TriggerImplementationRepositoryWorkflows }
         default { throw "Command '$Command' is not recognized" }
     }
 }
