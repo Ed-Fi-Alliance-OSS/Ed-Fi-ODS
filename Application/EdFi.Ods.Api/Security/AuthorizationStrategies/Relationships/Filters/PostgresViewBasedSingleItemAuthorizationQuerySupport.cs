@@ -5,6 +5,7 @@
 
 using System.Data.Common;
 using System.Linq;
+using System.Text;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -14,6 +15,31 @@ public class PostgresViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSi
 {
     public string GetItemExistenceCheckSql(ViewBasedAuthorizationFilterDefinition filterDefinition, AuthorizationFilterContext filterContext)
     {
+        // If we are processing a view-based authorization with no claim values to be applied
+        if (filterContext.ClaimParameterName == null)
+        {
+            var sb = new StringBuilder();
+
+            sb.Append($"SELECT 1 FROM auth.");
+            sb.Append(filterDefinition.ViewName);
+            sb.Append(" AS authvw WHERE ");
+
+            for (int i = 0; i < filterDefinition.ViewTargetEndpointNames.Length; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append(" AND ");
+                }
+
+                sb.Append("authvw.");
+                sb.Append(filterDefinition.ViewTargetEndpointNames[i]);
+                sb.Append(" = @");
+                sb.Append(filterContext.SubjectEndpointNames[i]);
+            }
+
+            return sb.ToString();
+        }
+
         // Use literal IN clause approach
         var edOrgIdsList = filterContext.ClaimEndpointValues.Any()
             ? string.Join(',', filterContext.ClaimEndpointValues)

@@ -28,6 +28,7 @@ using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using EdFi.Security.DataAccess.Repositories;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories;
@@ -47,6 +48,8 @@ public class EntityAuthorizer : IEntityAuthorizer
     private readonly ISessionFactory _sessionFactory;
 
     private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(EntityAuthorizer));
 
     [Flags]
     private enum Actions
@@ -518,6 +521,11 @@ public class EntityAuthorizer : IEntityAuthorizer
                     res => res.FilterResults.Any(far => far.FilterContext.ClaimParameterName != null)))
             {
                 _viewBasedSingleItemAuthorizationQuerySupport.ApplyClaimsParametersToCommand(cmd, authorizationContext);
+            }
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Single Item SQL: {sql}");
             }
 
             // Process the pending AND SQL checks to get a result (0 for failure, 1 for success)
