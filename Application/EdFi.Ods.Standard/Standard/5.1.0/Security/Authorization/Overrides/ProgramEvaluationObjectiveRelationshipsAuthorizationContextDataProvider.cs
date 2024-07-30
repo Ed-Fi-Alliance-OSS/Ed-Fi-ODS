@@ -18,7 +18,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
     public class ProgramEvaluationObjectiveRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationObjective>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
         public RelationshipsAuthorizationContextData GetContextData(IProgramEvaluationObjective resource)
         {

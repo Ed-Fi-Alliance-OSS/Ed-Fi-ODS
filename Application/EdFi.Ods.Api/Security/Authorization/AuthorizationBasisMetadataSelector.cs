@@ -95,7 +95,8 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         // No authorization strategies were defined for this request
         if (authorizationStrategyNames == null || !authorizationStrategyNames.Any())
         {
-            throw new Exception(
+            throw new SecurityConfigurationException(
+                SecurityConfigurationException.DefaultDetail,
                 string.Format(
                     "No authorization strategies were defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
                     claimCheckResponse.RequestedAction,
@@ -141,7 +142,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                             }
                         }
 
-                        throw new Exception($"Could not find an authorization implementation for authorization strategy name '{strategyName}'.");
+                        throw new SecurityConfigurationException(
+                            SecurityConfigurationException.DefaultDetail,
+                            $"Could not find an authorization strategy implementation for strategy name '{strategyName}'.");
                     })
                 .ToArray();
         }
