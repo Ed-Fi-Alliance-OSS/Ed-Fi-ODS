@@ -1794,8 +1794,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_the_authorization_strategy_could_not_be_found()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
-                    .Message.ShouldBe("Could not find an authorization implementation for authorization strategy name 'Missing'.");
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
+                    .Message.ShouldBe("Could not find an authorization strategy implementation for strategy name 'Missing'.");
             }
         }
 
@@ -1824,7 +1824,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
                     .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
             }
         }
@@ -1854,7 +1854,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
                     .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
             }
         }
