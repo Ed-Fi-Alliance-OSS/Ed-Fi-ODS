@@ -7,10 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
@@ -119,15 +121,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public static AuthorizationBasisMetadataSelector CreateAuthorizationBasisMetadataSelector(
             IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider = null,
             ISecurityRepository securityRepository = null,
-            IAuthorizationStrategy[] authorizationStrategies = null,
+            IAuthorizationStrategyProvider[] authorizationStrategyProviders = null,
             IClaimSetClaimsProvider claimSetClaimsProvider = null
             )
         {
             return new AuthorizationBasisMetadataSelector(
                 resourceAuthorizationMetadataProvider ?? A.Fake<IResourceAuthorizationMetadataProvider>(),
                 securityRepository ?? A.Fake<ISecurityRepository>(),
-                authorizationStrategies ?? A.CollectionOfFake<IAuthorizationStrategy>(0).ToArray(),
-                claimSetClaimsProvider ?? A.Fake<IClaimSetClaimsProvider>());
+                claimSetClaimsProvider ?? A.Fake<IClaimSetClaimsProvider>(),
+                authorizationStrategyProviders ?? A.CollectionOfFake<IAuthorizationStrategyProvider>(0).ToArray());
         }
 
         public static EdFiResourceClaim CreateResourceClaim(string resourceClaimUri,
@@ -269,6 +271,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     [TestFixture]
     public class Feature_Validating_authorization_strategy_naming_conventions
     {
+        // No authorization strategy name metadata here
         private class AuthorizationStrategyNotFollowingConventions : IAuthorizationStrategy
         {
             public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
@@ -277,6 +280,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
         }
 
+        [AuthorizationStrategyName("ConventionFollowing")]
         private class ConventionFollowingAuthorizationStrategy : IAuthorizationStrategy
         {
             public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
@@ -285,6 +289,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
         }
 
+        [AuthorizationStrategyName("Convention2Following")]
         private class Convention2FollowingAuthorizationStrategy
             : ConventionFollowingAuthorizationStrategy
         { }
@@ -295,8 +300,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             protected override void Act()
             {
-                var selector = Helper.CreateAuthorizationBasisMetadataSelector(
-                   authorizationStrategies: AuthorizationStrategies);
+                var authorizationStrategyProvider = A.Fake<IAuthorizationStrategyProvider>();
+
+                foreach (var authorizationStrategy in AuthorizationStrategies)
+                {
+                    var nameAttribute = authorizationStrategy.GetType().GetCustomAttribute<AuthorizationStrategyNameAttribute>();
+                    A.CallTo(() => authorizationStrategyProvider.GetByName(nameAttribute.Name)).Returns(authorizationStrategy);
+                }
+
+                var ignored = Helper.CreateAuthorizationBasisMetadataSelector(
+                    authorizationStrategyProviders: new[] { authorizationStrategyProvider });
             }
 
             protected void Given_a_collection_of_authorizationStrategies(IAuthorizationStrategy[] authorizationStrategies)
@@ -321,26 +334,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             public void Should_not_throw_an_exception()
             {
                 ActualException.ShouldBeNull();
-            }
-        }
-
-        public class When_creating_the_authorization_provider_with_an_authorization_strategy_type_whose_name_does_not_end_with_AuthorizationStrategy
-            : When_creating_the_authorization_provider
-        {
-            protected override void Arrange()
-            {
-                Given_a_collection_of_authorizationStrategies(new IAuthorizationStrategy[]
-                {
-                    new ConventionFollowingAuthorizationStrategy(),
-                    new AuthorizationStrategyNotFollowingConventions()
-                });
-            }
-
-            [Assert]
-            public void Should_throw_an_ArgumentException_indicating_that_the_authorization_strategy_doesnt_follow_proper_naming_conventions()
-            {
-                ActualException.ShouldBeExceptionType<ArgumentException>();
-                ActualException.Message.ShouldContain(nameof(AuthorizationStrategyNotFollowingConventions));
             }
         }
     }
@@ -368,16 +361,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
         }
 
+        [AuthorizationStrategyName("Second")]
         public class SecondAuthorizationStrategy : AuthorizationStrategyBase { }
 
+        [AuthorizationStrategyName("AnotherSecond")]
         public class AnotherSecondAuthorizationStrategy : AuthorizationStrategyBase { }
 
+        [AuthorizationStrategyName("Fourth")]
         public class FourthAuthorizationStrategy : AuthorizationStrategyBase { }
 
+        [AuthorizationStrategyName("AnotherFourth")]
         public class AnotherFourthAuthorizationStrategy : AuthorizationStrategyBase { }
 
+        [AuthorizationStrategyName("Override")]
         public class OverrideAuthorizationStrategy : AuthorizationStrategyBase { }
 
+        [AuthorizationStrategyName("AnotherOverride")]
         public class AnotherOverrideAuthorizationStrategy : AuthorizationStrategyBase { }
 
         #endregion
@@ -563,11 +562,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             protected virtual void Given_an_AuthorizationBasisMetadataSelector()
             {
+                var authorizationStrategyProvider = A.Fake<IAuthorizationStrategyProvider>();
+                
+                foreach (var authorizationStrategy in AuthorizationStrategies)
+                {
+                    var nameAttribute = authorizationStrategy.GetType().GetCustomAttribute<AuthorizationStrategyNameAttribute>();
+                    A.CallTo(() => authorizationStrategyProvider.GetByName(nameAttribute.Name)).Returns(authorizationStrategy);
+                }
+                
                 AuthorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
                     ResourceAuthorizationMetadataProvider,
                     SecurityRepository,
-                    AuthorizationStrategies,
-                    ClaimSetClaimsProvider);
+                    ClaimSetClaimsProvider,
+                    new[] { authorizationStrategyProvider }
+                    );
             }
 
             protected virtual void Given_a_RepositoryOperationAuthorizationDecorator()
@@ -1722,6 +1730,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         }
 
         // ================ Begin Detecting Missing or Undefined Authorization Strategy Scenarios ===============
+        [AuthorizationStrategyName("Unused")]
         public class UnusedAuthorizationStrategy : AuthorizationStrategyBase { }
 
         public abstract class When_authorizing_a_request_with_missing_or_undefined_authorization_strategies
@@ -1749,14 +1758,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             protected override void Given_an_AuthorizationBasisMetadataSelector()
             {
+                var authorizationStrategyProvider = A.Fake<IAuthorizationStrategyProvider>();
+                A.CallTo(() => authorizationStrategyProvider.GetByName("Unused")).Returns(new UnusedAuthorizationStrategy());
+                A.CallTo(() => authorizationStrategyProvider.GetByName(A<string>.Ignored)).Returns(null);
+
                 AuthorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
                     ResourceAuthorizationMetadataProvider,
                     SecurityRepository,
-                    new IAuthorizationStrategy[]
-                    {
-                        new UnusedAuthorizationStrategy()
-                    },
-                    ClaimSetClaimsProvider);
+                    ClaimSetClaimsProvider, 
+                    new[] { authorizationStrategyProvider });
             }
         }
 
@@ -1784,8 +1794,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_the_authorization_strategy_could_not_be_found()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
-                    .Message.ShouldBe("Could not find authorization implementation for strategy 'Missing' based on naming convention of '{strategyName}AuthorizationStrategy'.");
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
+                    .Message.ShouldBe("Could not find an authorization strategy implementation for strategy name 'Missing'.");
             }
         }
 
@@ -1814,7 +1824,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
                     .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
             }
         }
@@ -1844,7 +1854,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
             {
-                ActualException.ShouldBeExceptionType<Exception>()
+                ActualException.ShouldBeExceptionType<SecurityConfigurationException>()
                     .Message.ShouldBe($"No authorization strategies were defined for the requested action '{ReadActionUri}' against resource URIs ['{Resource2ClaimUri}'] matched by the caller's claim '{Resource2ClaimUri}'.");
             }
         }
@@ -1948,10 +1958,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             protected override void Act()
             {
+                var authorizationStrategyProvider = A.Fake<IAuthorizationStrategyProvider>();
+                
+                foreach (var authorizationStrategy in GetAuthorizationStrategies())
+                {
+                    var nameAttribute = authorizationStrategy.GetType().GetCustomAttribute<AuthorizationStrategyNameAttribute>();
+                    A.CallTo(() => authorizationStrategyProvider.GetByName(nameAttribute.Name)).Returns(authorizationStrategy);
+                }
+
                 var authorizationBasisMetadataSelector = Helper.CreateAuthorizationBasisMetadataSelector(
                     _resourceAuthorizationMetadataProvider,
                     _securityRepository,
-                    GetAuthorizationStrategies(),
+                    new []{ authorizationStrategyProvider },
                     _claimSetClaimsProvider);
 
                 var entityAuthorizer = Helper.CreateEntityAuthorizer(
@@ -2037,12 +2055,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 return new IAuthorizationStrategy[]
                 {
-                        new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
+                        new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy(
                             Stub<IDomainModelProvider>()
                             )
                         {
                             RelationshipsAuthorizationContextDataProviderFactory =
-                                Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
+                                Stub<IRelationshipsAuthorizationContextDataProviderFactory>()
                         },
                         new NoFurtherAuthorizationRequiredAuthorizationStrategy()
                 };

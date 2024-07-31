@@ -82,11 +82,11 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="properCaseName">Proper case name associated with entity</param>
         /// <param name="classNameSuffix">And specialized suffix that should be added to the class name based on the caller's context.</param>
         /// <returns>Namespace qualified full name of the NHibernate Entity</returns>
-        public static string EntityTypeFullName(this Entity entity, string properCaseName, string classNameSuffix = "")
+        public static string EntityTypeFullName(this Entity entity, string properCaseName = null, string classNameSuffix = "")
         {
             return String.Format(
                 "{0}.{1}{2}",
-                AggregateNamespace(entity, properCaseName),
+                AggregateNamespace(entity, properCaseName ?? entity.SchemaProperCaseName()),
                 entity.IsEntityExtension
                     ? entity.Name
                     : entity.ResolvedEdFiEntityName(),

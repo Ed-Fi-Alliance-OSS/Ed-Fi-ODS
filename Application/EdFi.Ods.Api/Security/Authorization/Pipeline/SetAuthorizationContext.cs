@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
 

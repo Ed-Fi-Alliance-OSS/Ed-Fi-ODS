@@ -31,7 +31,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <param name="criteriaApplicator">A function to apply the filter to the query using NHibernate's <see cref="NHibernate.ICriteria"/> API.</param>
         /// <param name="trackedChangesCriteriaApplicator">A function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.</param>
         /// <param name="authorizeInstance">A function that authorizes the instance contained in the authorization context data, or indicates that authorization cannot be performed without a trip to the database.</param>
-        /// <param name="shouldApply">A predicate function using a mapped entity's <see cref="System.Type"/> and properties used to determine whether the filter should be applied to a particular entity.</param>
         /// <remarks>This constructor makes some base level assumptions to simplify the declaration of the filters, but
         /// it could lead to incorrect results.  For parameters with names equal to "Id" or with names ending with "Id",
         /// it assumes the use of SQL Server Table-Valued Parameters typed as GUID or 32-bit integers, respectively.
@@ -43,7 +42,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         public AuthorizationFilterDefinition(
             string filterName,
             string friendlyHqlConditionFormat,
-            Action<ICriteria, Junction, string, IDictionary<string, object>, JoinType> criteriaApplicator,
+            Action<ICriteria, Junction, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> criteriaApplicator,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance)
         {
@@ -64,7 +63,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <summary>
         /// Gets the function for applying the filter using NHibernate's <see cref="NHibernate.ICriteria"/> API.
         /// </summary>
-        public Action<ICriteria, Junction, string, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
+        public Action<ICriteria, Junction, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> CriteriaApplicator { get; protected set; }
 
         /// <summary>
         /// Gets the function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.

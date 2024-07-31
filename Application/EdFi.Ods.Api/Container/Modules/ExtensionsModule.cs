@@ -64,27 +64,22 @@ namespace EdFi.Ods.Api.Container.Modules
 
                     var relationshipContextDataProviderTypes = assembly.GetTypes()
                         .Where(
-                            t => !t.IsAbstract && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
+                            t => !t.IsAbstract && typeof(IRelationshipsAuthorizationContextDataProvider<>).IsAssignableFromGeneric(t))
                         .ToList();
 
-                    var contextDataType = typeof(RelationshipsAuthorizationContextData);
                     foreach (var providerType in relationshipContextDataProviderTypes)
                     {
                         var partiallyClosedInterfaceType =
                             providerType.GetInterfaces()
-                                .SingleOrDefault(i => i.Name == typeof(IRelationshipsAuthorizationContextDataProvider<,>).Name);
+                                .SingleOrDefault(i => i.Name == typeof(IRelationshipsAuthorizationContextDataProvider<>).Name);
 
                         var modelType = partiallyClosedInterfaceType?.GetGenericArguments()[0];
 
                         var closedInterfaceType =
-                            typeof(IRelationshipsAuthorizationContextDataProvider<,>)
-                                .MakeGenericType(modelType, contextDataType);
+                            typeof(IRelationshipsAuthorizationContextDataProvider<>)
+                                .MakeGenericType(modelType);
 
-                        var closedServiceType =
-                            providerType
-                                .MakeGenericType(contextDataType);
-
-                        builder.RegisterType(closedServiceType).As(closedInterfaceType)
+                        builder.RegisterType(providerType).As(closedInterfaceType)
                             .SingleInstance();
                     }
                 });

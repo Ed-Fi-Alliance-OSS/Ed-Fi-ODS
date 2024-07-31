@@ -15,20 +15,19 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.OrganizationDepartment table of the OrganizationDepartment aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class OrganizationDepartmentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class OrganizationDepartmentRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(IOrganizationDepartment resource)
+        public RelationshipsAuthorizationContextData GetContextData(IOrganizationDepartment resource)
         {
             if (resource == null)
                 throw new ArgumentNullException(nameof(resource), "The 'organizationDepartment' resource for obtaining authorization context data cannot be null.");
 
             var entity = resource as OrganizationDepartment;
 
-            var contextData = new TContextData();
+            var contextData = new RelationshipsAuthorizationContextData();
             // contextData.OrganizationDepartmentId = entity.OrganizationDepartmentId == default(int) ? null as int? : entity.OrganizationDepartmentId; // Primary key property, Only Education Organization Id present
             contextData.EducationOrganizationId = entity.ParentEducationOrganizationId; // Role name applied and not part of primary key
             return contextData;
@@ -51,7 +50,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((OrganizationDepartment)resource);
         }

@@ -5,6 +5,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -15,10 +16,12 @@ using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.CustomViewBased;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Api.Security.Utilities;
+using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Security.Container.Modules
 {
@@ -52,29 +55,28 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IEntityAuthorizer>()
                 .SingleInstance();
 
+
+            builder.RegisterType<NamedAuthorizationStrategyProvider>()
+                .As<IAuthorizationStrategyProvider>()
+                .SingleInstance();
+
+            // Register support for custom view-based authorization
+            builder.RegisterType<CustomViewBasedAuthorizationStrategyProvider>()
+                // Allow caching of information until the security metadata is refreshed
+                .EnableClassInterceptors()
+                .As<IAuthorizationStrategyProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<CustomViewBasedAuthorizationStrategy>()
+                .AsSelf();
+
+            builder.RegisterType<CustomViewBasisEntityProvider>()
+                .As<ICustomViewBasisEntityProvider>()
+                .SingleInstance();
+            
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 
-            var strategyTypes = assembly.GetTypes()
-                .Where(t => typeof(IAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract).ToList();
-
-            foreach (Type strategyType in strategyTypes)
-            {
-                // Handle relationship based authorization strategies explicitly
-                if (strategyType.IsGenericType)
-                {
-                    // Property injection is used for RelationshipsAuthorizationStrategyBase<>
-                    builder.RegisterType(strategyType.MakeGenericType(typeof(RelationshipsAuthorizationContextData)))
-                        .PropertiesAutowired()
-                        .As<IAuthorizationStrategy>()
-                        .SingleInstance();
-                }
-                else
-                {
-                    builder.RegisterType(strategyType)
-                        .As<IAuthorizationStrategy>()
-                        .SingleInstance();
-                }
-            }
+            RegisterNamedAuthorizationStrategies();
 
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
                 .Where(t => typeof(IAuthorizationFilterDefinitionsFactory).IsAssignableFrom(t))
@@ -108,14 +110,9 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .SingleInstance();
 
             // RelationshipsAuthorizationContextDataProviderFactory
-            builder.RegisterType(
-                    typeof(RelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
-                    typeof(IRelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType()))
+            builder.RegisterType<RelationshipsAuthorizationContextDataProviderFactory>()
+                .As<IRelationshipsAuthorizationContextDataProviderFactory>()
                 .SingleInstance();
-
-            Type GetRelationshipBasedAuthorizationStrategyContextDataType() => typeof(RelationshipsAuthorizationContextData);
 
             builder.RegisterGeneric(typeof(SetAuthorizationContextForGet<,,,>))
                 .AsSelf()
@@ -136,6 +133,28 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<EducationOrganizationIdNamesProvider>()
                 .As<IEducationOrganizationIdNamesProvider>()
                 .SingleInstance();
+
+            void RegisterNamedAuthorizationStrategies()
+            {
+                var namedStrategyTypes = assembly.GetTypes()
+                    .Where(t => typeof(IAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract)
+                    .Select(
+                        t => new
+                        {
+                            Type = t,
+                            AuthorizationStrategyName = t.GetCustomAttribute<AuthorizationStrategyNameAttribute>()?.Name
+                        })
+                    .Where(x => x.AuthorizationStrategyName != null)
+                    .ToList();
+
+                foreach (var namedStrategyInfo in namedStrategyTypes)
+                {
+                    builder.RegisterType(namedStrategyInfo.Type)
+                        .PropertiesAutowired() // Convenience for DI for derived relationship-based authorization strategies
+                        .Keyed<IAuthorizationStrategy>(namedStrategyInfo.AuthorizationStrategyName)
+                        .SingleInstance();
+                }
+            }
         }
     }
 }

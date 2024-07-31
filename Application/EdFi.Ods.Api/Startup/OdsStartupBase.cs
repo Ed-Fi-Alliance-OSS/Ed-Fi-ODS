@@ -420,7 +420,7 @@ namespace EdFi.Ods.Api.Startup
                     .HttpContext?.User;
 
                 ResourceModelHelper.ResourceModel =
-                    new Lazy<ResourceModel>(
+                    new Lazy<IResourceModel>(
                         () => Container.Resolve<IResourceModelProvider>()
                             .GetResourceModel());
 

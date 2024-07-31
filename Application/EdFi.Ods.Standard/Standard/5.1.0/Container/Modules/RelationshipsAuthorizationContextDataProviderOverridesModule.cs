@@ -16,26 +16,26 @@ namespace EdFi.Ods.Standard.Container.Modules
         {
             // Establish authorization context for EvaluationRubricDimension using the ProgramEducationOrganizationId rather than
             // using the default behavior (EducationOrganizationId)
-            builder.RegisterType<EvaluationRubricDimensionRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IEvaluationRubricDimension, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<EvaluationRubricDimensionRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IEvaluationRubricDimension>>()
                 .SingleInstance();
 
             // Establish authorization context for StudentAssessment using the ProgramEducationOrganizationId rather than
             // using the default behavior (EducationOrganizationId)
-            builder.RegisterType<ProgramEvaluationRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluation, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<ProgramEvaluationRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluation>>()
                 .SingleInstance();
 
             // Establish authorization context for StudentAssessment using the ProgramEducationOrganizationId rather than
             // using the default behavior (EducationOrganizationId)
-            builder.RegisterType<ProgramEvaluationElementRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationElement, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<ProgramEvaluationElementRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationElement>>()
                 .SingleInstance();
 
             // Establish authorization context for StudentAssessment using the ProgramEducationOrganizationId rather than
             // using the default behavior (EducationOrganizationId)
-            builder.RegisterType<ProgramEvaluationObjectiveRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
-                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationObjective, RelationshipsAuthorizationContextData>>()
+            builder.RegisterType<ProgramEvaluationObjectiveRelationshipsAuthorizationContextDataProvider>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IProgramEvaluationObjective>>()
                 .SingleInstance();
         }
     }

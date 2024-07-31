@@ -13,6 +13,8 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Api.Security.Conventions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
@@ -24,14 +26,38 @@ namespace EdFi.Ods.Api.Security.Authorization
         private readonly ISchemaNameMapProvider _schemaNameMapProvider;
         private readonly ConcurrentDictionary<Type, string[]> _resourceUrisByResourceType = new();
         private readonly ConcurrentDictionary<FullName, string[]> _resourceUrisByResourceFullName = new();
+        private readonly Lazy<ConcurrentDictionary<string, FullName>> _resourceFullNameByResourceUri;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceClaimUriProvider" /> class using the supplied schema name map provider.
         /// </summary>
         /// <param name="schemaNameMapProvider">The provider for mapping between schema names.</param>
-        public ResourceClaimUriProvider(ISchemaNameMapProvider schemaNameMapProvider)
+        /// <param name="resourceModelProvider"></param>
+        public ResourceClaimUriProvider(ISchemaNameMapProvider schemaNameMapProvider, IResourceModelProvider resourceModelProvider)
         {
-            _schemaNameMapProvider = Preconditions.ThrowIfNull(schemaNameMapProvider, nameof(schemaNameMapProvider));
+            ArgumentNullException.ThrowIfNull(schemaNameMapProvider, nameof(schemaNameMapProvider));
+            _schemaNameMapProvider = schemaNameMapProvider;
+
+            _resourceFullNameByResourceUri = new Lazy<ConcurrentDictionary<string, FullName>>(
+                () =>
+                {
+                    var resourceFullNameByResourceUri = new ConcurrentDictionary<string, FullName>();
+
+                    foreach (var resource in resourceModelProvider.GetResourceModel().GetAllResources())
+                    {
+                        resourceFullNameByResourceUri.TryAdd(
+                            CreateSchemaBasedResourceClaimUri(resource.SchemaUriSegment(), resource.Name),
+                            resource.FullName);
+
+                        // Add legacy representation for Ed-Fi Standard resources
+                        if (resource.FullName.Schema == EdFiConventions.PhysicalSchemaName)
+                        {
+                            resourceFullNameByResourceUri.TryAdd(CreateLegacyResourceClaimUri(resource.Name), resource.FullName);
+                        }
+                    }
+
+                    return resourceFullNameByResourceUri;
+                });
         }
 
         /// <summary>
@@ -41,7 +67,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The resource claim URIs.</returns>
         public string[] GetResourceClaimUris(Type resourceType)
         {
-            Preconditions.ThrowIfNull(resourceType, nameof(resourceType));
+            ArgumentNullException.ThrowIfNull(resourceType, nameof(resourceType));
 
             return _resourceUrisByResourceType.GetOrAdd(
                 resourceType,
@@ -54,15 +80,22 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                     var schemaNameMap = schemaNameMapProvider.GetSchemaMapByProperCaseName(schemaProperCaseName);
 
-                    var uris = new[]
-                    {
-                        // Schema-based URI format
-                        CreateSchemaBasedResourceClaimUri(schemaNameMap.UriSegment, resourceName),
+                    // Include legacy representation for Ed-Fi Standard resources only
+                    var uris = (schemaNameMap.PhysicalName == EdFiConventions.PhysicalSchemaName)
+                        ? new[]
+                        {
+                            // Schema-based URI format
+                            CreateSchemaBasedResourceClaimUri(schemaNameMap.UriSegment, resourceName),
 
-                        // Legacy URI format
-                        CreateLegacyResourceClaimUri(resourceName),
-                    };
-                    
+                            // Legacy URI format
+                            CreateLegacyResourceClaimUri(resourceName),
+                        }
+                        : new[]
+                        {
+                            // Schema-based URI format
+                            CreateSchemaBasedResourceClaimUri(schemaNameMap.UriSegment, resourceName),
+                        };
+
                     // Opportunistic assignment to map keyed by resource full name
                     resourceUrisByResourceFullName.TryAdd(new FullName(schemaNameMap.PhysicalName, resourceName), uris);
 
@@ -78,22 +111,44 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The resource claim URIs.</returns>
         public string[] GetResourceClaimUris(Resource resource)
         {
-            Preconditions.ThrowIfNull(resource, nameof(resource));
+            ArgumentNullException.ThrowIfNull(resource, nameof(resource));
 
             return _resourceUrisByResourceFullName.GetOrAdd(
                 resource.FullName,
                 (fn, res) =>
                 {
-                    return new[]
-                    {
-                        // Schema-based URI format
-                        CreateSchemaBasedResourceClaimUri(res.SchemaUriSegment(), res.Name),
+                    // Include legacy representation for Ed-Fi Standard resources only
+                    return (res.FullName.Schema == EdFiConventions.PhysicalSchemaName)
+                        ? new[]
+                        {
+                            // Schema-based URI format
+                            CreateSchemaBasedResourceClaimUri(res.SchemaUriSegment(), res.Name),
 
-                        // Legacy URI format
-                        CreateLegacyResourceClaimUri(res.Name),
-                    };
+                            // Legacy URI format
+                            CreateLegacyResourceClaimUri(res.Name),
+                        }
+                        : new[]
+                        {
+                            // Schema-based URI format
+                            CreateSchemaBasedResourceClaimUri(res.SchemaUriSegment(), res.Name),
+                        };
                 },
                 resource);
+        }
+
+        public FullName GetResourceFullName(string[] resourceClaimUris)
+        {
+            ArgumentNullException.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
+
+            foreach (string resourceClaimUri in resourceClaimUris)
+            {
+                if (_resourceFullNameByResourceUri.Value.TryGetValue(resourceClaimUri, out var resourceName))
+                {
+                    return resourceName;
+                }
+            }
+
+            throw new Exception($"Unable to identify resource from supplied '{nameof(resourceClaimUris)}' argument.");
         }
 
         /// <summary>

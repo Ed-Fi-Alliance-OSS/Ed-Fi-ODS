@@ -24,19 +24,19 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    using context_data_provider = IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>;
-    using context_data_provider_factory = IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>;
+    using context_data_provider = IRelationshipsAuthorizationContextDataProvider;
+    using context_data_provider_factory = IRelationshipsAuthorizationContextDataProviderFactory;
 
     // Dependency type aliases (for readability)
-    using edorgs_and_people_strategy = RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>;
+    using edorgs_and_people_strategy = RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy;
 
     // -------------------------------------------------------
     // NOTE: This is an exploratory style of unit testing.
     // -------------------------------------------------------
     public static class FeatureExtensions
     {
-        public static IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> that_returns_property_names(
-            this IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> dependency,
+        public static IRelationshipsAuthorizationContextDataProvider that_returns_property_names(
+            this IRelationshipsAuthorizationContextDataProvider dependency,
             params string[] propertyNames)
         {
             A.CallTo(() =>
@@ -46,9 +46,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return dependency;
         }
 
-        public static IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData> that_always_returns(
-            this IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData> dependency,
-            IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> provider)
+        public static IRelationshipsAuthorizationContextDataProviderFactory that_always_returns(
+            this IRelationshipsAuthorizationContextDataProviderFactory dependency,
+            IRelationshipsAuthorizationContextDataProvider provider)
         {
             A.CallTo(() =>
                     dependency.GetProvider(A<Type>.Ignored))
@@ -171,7 +171,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         }
 
         public class When_authorizing_a_single_item_request_with_correct_claims_for_request
-            : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>>
+            : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy>
         {
             [Schema("TestSchema")]
             private class TestEntity
@@ -286,7 +286,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         }
 
         public class When_authorizing_a_single_item_request_with_all_claim_values_needed_for_local_request_authorization
-            : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>>
+            : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy>
         {
             private class TestEntity
             {

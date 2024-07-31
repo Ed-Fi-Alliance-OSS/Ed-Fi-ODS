@@ -98,6 +98,12 @@ public static class BytesExtensions
     
     private static byte[] GetArrayBytes(List<byte[]> byteArrays)
     {
+        // Handle the simple, single array case first
+        if (byteArrays.Count == 1)
+        {
+            return xxHash3.ComputeHash(byteArrays[0], byteArrays[0].Length).GetBytes();
+        }
+
         var totalBytes = byteArrays.Sum(x => x.Length + 1);
 
         var buffer = ArrayPool<byte>.Shared.Rent(totalBytes);
@@ -109,7 +115,7 @@ public static class BytesExtensions
             foreach (byte[] valueAsBytes in byteArrays)
             {
                 valueAsBytes.AsSpan().CopyTo(buffer.AsSpan(startIndex));
-                _enumerableItemDelimiter.AsSpan().CopyTo(buffer.AsSpan(valueAsBytes.Length + 1));
+                _enumerableItemDelimiter.AsSpan().CopyTo(buffer.AsSpan(startIndex + valueAsBytes.Length));
                 startIndex += valueAsBytes.Length + 1;
             }
 

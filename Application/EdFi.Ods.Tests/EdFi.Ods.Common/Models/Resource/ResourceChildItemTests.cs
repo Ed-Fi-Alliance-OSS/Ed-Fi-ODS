@@ -20,7 +20,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         public class When_building_a_resource_with_aggregate_extension
             : TestFixtureBase
         {
-            private ResourceModel _resourceModel;
+            private IResourceModel _resourceModel;
             private global::EdFi.Ods.Common.Models.Resource.Resource _student;
             private ResourceChildItem _studentExtension;
             private ResourceChildItem _studentPet;

@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
+    [AuthorizationStrategyName(AuthorizationStrategyName)]
     public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy
     {
         private const string AuthorizationStrategyName = "NamespaceBased";

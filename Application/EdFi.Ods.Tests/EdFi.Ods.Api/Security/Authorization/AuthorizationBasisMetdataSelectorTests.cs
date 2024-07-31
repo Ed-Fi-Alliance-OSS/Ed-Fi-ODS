@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
@@ -89,11 +90,9 @@ public class AuthorizationBasisMetadataSelectorTests
 
         _claimSetClaimsProvider = A.Fake<IClaimSetClaimsProvider>();
 
-        _suppliedAuthorizationStrategies = new IAuthorizationStrategy[]
-        {
-            _fake1AuthorizationStrategy, 
-            _fake2AuthorizationStrategy
-        };
+        var authorizationStrategyProvider = A.Fake<IAuthorizationStrategyProvider>();
+        A.CallTo(() => authorizationStrategyProvider.GetByName(A<string>.That.IsEqualTo("Fake1", StringComparer.OrdinalIgnoreCase))).Returns(_fake1AuthorizationStrategy);
+        A.CallTo(() => authorizationStrategyProvider.GetByName(A<string>.That.IsEqualTo("Fake2", StringComparer.OrdinalIgnoreCase))).Returns(_fake2AuthorizationStrategy);
 
         _suppliedApiClientContext = new ApiClientContext("API_KEY",
             SuppliedClaimSetName,
@@ -109,8 +108,8 @@ public class AuthorizationBasisMetadataSelectorTests
         _authorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
             _resourceAuthorizationMetadataProvider,
             _securityRepository,
-            _suppliedAuthorizationStrategies,
-            _claimSetClaimsProvider);
+            _claimSetClaimsProvider,
+            new[]{ authorizationStrategyProvider });
     }
 
     private static IEnumerable<object[]> GetActionScenarios()
@@ -250,6 +249,7 @@ public class AuthorizationBasisMetadataSelectorTests
         return new EdFiResourceClaimValue() { Actions = resourceActions.ToArray() };
     }
 
+    [AuthorizationStrategyName("Fake1")]
     private class Fake1AuthorizationStrategy : IAuthorizationStrategy
     {
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
@@ -258,6 +258,7 @@ public class AuthorizationBasisMetadataSelectorTests
             => new();
     }
 
+    [AuthorizationStrategyName("Fake2")]
     private class Fake2AuthorizationStrategy : IAuthorizationStrategy
     {
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(

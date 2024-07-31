@@ -30,9 +30,9 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesA
             personTypesProvider,
             multiValueRestrictions) { }
 
-    public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+    public override IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
     {
-        string authorizationPathModifier = RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategy<RelationshipsAuthorizationContextData>.AuthorizationPathModifier;
+        string authorizationPathModifier = RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletesAuthorizationStrategy.AuthorizationPathModifier;
 
         return CreateAllEducationOrganizationToPersonFilters(
                 shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,

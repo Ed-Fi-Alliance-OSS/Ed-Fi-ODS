@@ -17,6 +17,6 @@ namespace EdFi.Ods.Common.Models
         /// <summary>
         /// Returns the resource model from the container.
         /// </summary>
-        public static Lazy<ResourceModel> ResourceModel;
+        public static Lazy<IResourceModel> ResourceModel;
     }
 }

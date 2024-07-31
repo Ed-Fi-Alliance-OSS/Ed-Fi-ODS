@@ -20,7 +20,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider)
         {
-            configuration.Interceptor = new CreateDateBasedTransientInterceptor();
+            configuration.Interceptor = new EdFiOdsInterceptor();
             configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener());
             configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener());
 

@@ -15,20 +15,19 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.DisciplineAction table of the DisciplineAction aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class DisciplineActionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IDisciplineAction, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    public class DisciplineActionRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IDisciplineAction>
     {
         /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(IDisciplineAction resource)
+        public RelationshipsAuthorizationContextData GetContextData(IDisciplineAction resource)
         {
             if (resource == null)
                 throw new ArgumentNullException("resource", "The 'disciplineAction' resource for obtaining authorization context data cannot be null.");
 
             var entity = resource as DisciplineAction;
 
-            var contextData = new TContextData();
+            var contextData = new RelationshipsAuthorizationContextData();
             // AssignmentSchoolId = entity.AssignmentSchoolId, // Role name applied and not part of primary key
             contextData.SchoolId = entity.ResponsibilitySchoolId; // Role name applied and not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default ? null : entity.StudentUSI; // Primary key property, USI
@@ -53,7 +52,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public TContextData GetContextData(object resource)
+        public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
             return GetContextData((DisciplineAction)resource);
         }

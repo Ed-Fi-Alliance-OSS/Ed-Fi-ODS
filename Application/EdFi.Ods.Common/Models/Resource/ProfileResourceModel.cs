@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <param name="resourceModel">The backing <see cref="ResourceModel"/> for the Profile-constrained model.</param>
         /// <param name="profileDefinition">The Profile definition which is to be used to constraint the Resource model.</param>
         /// <param name="profileValidationReporter"></param>
-        public ProfileResourceModel(ResourceModel resourceModel, XElement profileDefinition, IProfileValidationReporter profileValidationReporter)
+        public ProfileResourceModel(IResourceModel resourceModel, XElement profileDefinition, IProfileValidationReporter profileValidationReporter)
         {
             ResourceModel = resourceModel;
 
@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public IReadOnlyList<ProfileResourceContentTypes> Resources => ResourceByName.Values.ToList();
 
-        internal ResourceModel ResourceModel { get; }
+        internal IResourceModel ResourceModel { get; }
 
         public Resource GetResourceByName(FullName resourceName)
         {
@@ -86,7 +86,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <param name="resourceModel"></param>
         /// <returns></returns>
-        private Dictionary<FullName, ProfileResourceContentTypes> CreateResourceByName(ResourceModel resourceModel, Func<Resource, FullName> createKey)
+        private Dictionary<FullName, ProfileResourceContentTypes> CreateResourceByName(IResourceModel resourceModel, Func<Resource, FullName> createKey)
         {
             var resourceElts = _profileDefinition.Elements("Resource");
 
@@ -108,7 +108,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
                     // Use the direct/default resource selector on the resource model because we need the main resource, not the contextual one
                     var fullName = new FullName(physicalName, resourceName);
-                    var sourceResource = ResourceModel.DefaultResourceSelector.GetByName(fullName);
+                    var sourceResource = (ResourceModel as IHasDefaultResourceSelector).DefaultResourceSelector.GetByName(fullName);
 
                     resources[createKey(sourceResource)] = new ProfileResourceContentTypes(sourceResource, resourceElt, _profileValidationReporter);
                 });

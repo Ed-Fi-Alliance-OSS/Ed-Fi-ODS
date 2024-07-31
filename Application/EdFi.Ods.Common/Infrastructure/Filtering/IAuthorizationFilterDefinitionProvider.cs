@@ -15,7 +15,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// </summary>
         /// <param name="filterName">The name of the filter.</param>
         /// <returns>The details for applying the filter in various contexts.</returns>
-        AuthorizationFilterDefinition GetFilterDefinition(string filterName);
+        AuthorizationFilterDefinition GetAuthorizationFilterDefinition(string filterName);
         
         /// <summary>
         /// Attempts to get the filter definition containing information for applying the specified filter in various contexts.

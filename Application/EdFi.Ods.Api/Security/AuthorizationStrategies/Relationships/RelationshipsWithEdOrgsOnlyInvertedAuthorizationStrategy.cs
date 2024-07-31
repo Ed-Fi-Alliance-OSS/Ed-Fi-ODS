@@ -10,10 +10,12 @@ using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
-public class RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy<TContextData>
-    : RelationshipsAuthorizationStrategyBase<TContextData>
-    where TContextData : RelationshipsAuthorizationContextData, new()
+[AuthorizationStrategyName(RelationshipAuthorizationStrategyName)]
+public class RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy
+    : RelationshipsAuthorizationStrategyBase
 {
+    private const string RelationshipAuthorizationStrategyName = "RelationshipsWithEdOrgsOnlyInverted";
+
     private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
 
     public RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy(
@@ -22,6 +24,11 @@ public class RelationshipsWithEdOrgsOnlyInvertedAuthorizationStrategy<TContextDa
         : base(domainModelProvider)
     {
         _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
+    }
+
+    protected override string AuthorizationStrategyName
+    {
+        get => RelationshipAuthorizationStrategyName;
     }
 
     protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(

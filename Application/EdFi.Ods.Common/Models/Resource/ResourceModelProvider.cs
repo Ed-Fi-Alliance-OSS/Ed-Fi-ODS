@@ -21,7 +21,7 @@ namespace EdFi.Ods.Common.Models.Resource
             _resourceModel = new Lazy<ResourceModel>(() => new ResourceModel(domainModel.Value));
         }
 
-        public ResourceModel GetResourceModel()
+        public IResourceModel GetResourceModel()
         {
             return _resourceModel.Value;
         }

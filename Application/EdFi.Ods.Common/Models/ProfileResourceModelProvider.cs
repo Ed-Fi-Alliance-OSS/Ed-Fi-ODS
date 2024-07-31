@@ -22,7 +22,7 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
     private readonly IProfileMetadataProvider _profileMetadataProvider;
     private readonly IProfileValidationReporter _profileValidationReporter;
 
-    private readonly Lazy<ResourceModel> _resourceModel;
+    private readonly Lazy<IResourceModel> _resourceModel;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(ProfileResourceModelProvider));
     
@@ -34,7 +34,7 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
         _profileMetadataProvider = profileMetadataProvider;
         _profileValidationReporter = profileValidationReporter;
 
-        _resourceModel = new Lazy<ResourceModel>(resourceModelProvider.GetResourceModel);
+        _resourceModel = new Lazy<IResourceModel>(resourceModelProvider.GetResourceModel);
     }
 
     public ProfileResourceModel GetProfileResourceModel(string profileName)

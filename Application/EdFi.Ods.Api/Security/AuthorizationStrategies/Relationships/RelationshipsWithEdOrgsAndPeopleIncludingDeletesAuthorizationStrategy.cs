@@ -10,10 +10,12 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy<TContextData>
-        : RelationshipsAuthorizationStrategyBase<TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
+    [AuthorizationStrategyName(RelationshipAuthorizationStrategyName)]
+    public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy
+        : RelationshipsAuthorizationStrategyBase
     {
+        private const string RelationshipAuthorizationStrategyName = "RelationshipsWithEdOrgsAndPeopleIncludingDeletes";
+
         private readonly IPersonEntitySpecification _personEntitySpecification;
 
         public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy(
@@ -22,6 +24,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             : base(domainModelProvider)
         {
             _personEntitySpecification = personEntitySpecification;
+        }
+
+        protected override string AuthorizationStrategyName
+        {
+            get => RelationshipAuthorizationStrategyName;
         }
 
         protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(

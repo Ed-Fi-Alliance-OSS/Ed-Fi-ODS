@@ -6,8 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Authorization;
@@ -23,27 +22,26 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         
     private readonly IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
     private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
-    private readonly Dictionary<string, IAuthorizationStrategy> _authorizationStrategyByName;
+    private readonly IAuthorizationStrategyProvider[] _authorizationStrategyProviders;
 
     private readonly Lazy<Dictionary<string, int>> _bitValuesByAction;
-
-    private const string AuthorizationStrategyNameSuffix = "AuthorizationStrategy";
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AuthorizationBasisMetadataSelector"/> class.
     /// </summary>
     /// <param name="resourceAuthorizationMetadataProvider">The component that will be used to supply the claims/strategies that can be used to authorize the resource.</param>
     /// <param name="securityRepository"></param>
-    /// <param name="authorizationStrategies"></param>
     /// <param name="claimSetClaimsProvider"></param>
+    /// <param name="authorizationStrategyProviders"></param>
     public AuthorizationBasisMetadataSelector(
         IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider,
         ISecurityRepository securityRepository,
-        IAuthorizationStrategy[] authorizationStrategies,
-        IClaimSetClaimsProvider claimSetClaimsProvider)
+        IClaimSetClaimsProvider claimSetClaimsProvider,
+        IAuthorizationStrategyProvider[] authorizationStrategyProviders)
     {
         _resourceAuthorizationMetadataProvider = resourceAuthorizationMetadataProvider;
         _claimSetClaimsProvider = claimSetClaimsProvider;
+        _authorizationStrategyProviders = authorizationStrategyProviders;
 
         // Lazy initialization
         _bitValuesByAction = new Lazy<Dictionary<string, int>>(
@@ -55,44 +53,6 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 { securityRepository.GetActionByName("Delete").ActionUri, 0x8 },
                 { securityRepository.GetActionByName("ReadChanges").ActionUri, 0x10 },
             });
-
-        _authorizationStrategyByName = CreateAuthorizationStrategyByNameDictionary();
-
-        Dictionary<string, IAuthorizationStrategy> CreateAuthorizationStrategyByNameDictionary()
-        {
-            var strategyByName = new Dictionary<string, IAuthorizationStrategy>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var strategy in authorizationStrategies)
-            {
-                string strategyTypeName = GetStrategyTypeName(strategy);
-
-                // TODO: Embedded convention
-                // Enforce naming conventions on authorization strategies
-                if (!strategyTypeName.EndsWith(AuthorizationStrategyNameSuffix))
-                {
-                    throw new ArgumentException(
-                        $"The authorization strategy '{strategyTypeName}' does not follow proper naming conventions, ending with '{AuthorizationStrategyNameSuffix}'.");
-                }
-
-                string strategyName = strategyTypeName.TrimSuffix(AuthorizationStrategyNameSuffix);
-                strategyByName.Add(strategyName, strategy);
-            }
-
-            return strategyByName;
-        }
-
-        string GetStrategyTypeName(IAuthorizationStrategy strategy)
-        {
-            string rawTypeName = strategy.GetType().Name;
-
-            int genericMarkerPos = rawTypeName.IndexOf('`');
-
-            string strategyTypeName = genericMarkerPos < 0
-                ? rawTypeName
-                : rawTypeName.Substring(0, genericMarkerPos);
-
-            return strategyTypeName;
-        }
     }
         
     /// <inheritdoc cref="IAuthorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata" />
@@ -135,7 +95,8 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         // No authorization strategies were defined for this request
         if (authorizationStrategyNames == null || !authorizationStrategyNames.Any())
         {
-            throw new Exception(
+            throw new SecurityConfigurationException(
+                SecurityConfigurationException.DefaultDetail,
                 string.Format(
                     "No authorization strategies were defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
                     claimCheckResponse.RequestedAction,
@@ -171,13 +132,19 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             return strategyNames.Select(
                     strategyName =>
                     {
-                        if (!_authorizationStrategyByName.ContainsKey(strategyName))
+                        foreach (var authorizationStrategyProvider in _authorizationStrategyProviders)
                         {
-                            throw new Exception(
-                                $"Could not find authorization implementation for strategy '{strategyName}' based on naming convention of '{{strategyName}}{AuthorizationStrategyNameSuffix}'.");
+                            var authorizationStrategy = authorizationStrategyProvider.GetByName(strategyName);
+
+                            if (authorizationStrategy != null)
+                            {
+                                return authorizationStrategy;
+                            }
                         }
 
-                        return _authorizationStrategyByName[strategyName];
+                        throw new SecurityConfigurationException(
+                            SecurityConfigurationException.DefaultDetail,
+                            $"Could not find an authorization strategy implementation for strategy name '{strategyName}'.");
                     })
                 .ToArray();
         }

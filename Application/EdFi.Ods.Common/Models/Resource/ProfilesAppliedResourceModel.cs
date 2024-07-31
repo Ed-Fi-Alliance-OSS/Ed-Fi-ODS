@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Models.Resource
         // NOTE: This should be used as a transient object, or the Lazy implementation of the _underlyingResourceModel assignment will need to be reworked.
 
         private readonly ProfilesAppliedResourceSelector _resourceSelector;
-        private readonly ResourceModel _backingResourceModel;
+        private readonly IResourceModel _backingResourceModel;
 
         public ProfilesAppliedResourceModel(
             ContentTypeUsage usage,

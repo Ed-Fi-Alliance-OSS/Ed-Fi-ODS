@@ -47,7 +47,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             _multiValueRestrictions = multiValueRestrictions;
         }
         
-        public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
+        public AuthorizationFilterDefinition CreateAuthorizationFilterDefinition(string filterName)
+        {
+            // Only pre-defined filter definitions are created by this factory
+            return null;
+        }
+
+        public virtual IReadOnlyList<AuthorizationFilterDefinition> CreatePredefinedAuthorizationFilterDefinitions()
         {
             return CreateAllEducationOrganizationToPersonFilters()
                 .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
