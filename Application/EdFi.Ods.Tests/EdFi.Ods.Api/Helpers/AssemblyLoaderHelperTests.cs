@@ -122,7 +122,14 @@ public class AssemblyLoaderHelperTests
             // Delete the folders and files created for the tests
             if (Directory.Exists(_temporaryDirectory))
             {
-                Directory.Delete(_temporaryDirectory, true);
+                try
+                {
+                    Directory.Delete(_temporaryDirectory, true);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.WriteLine($"WARNING: Failed to remove user temp directory '{_temporaryDirectory}': {ex.Message}");
+                }
             }
         }
 
