@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.Extensions;
@@ -68,9 +69,6 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
                 filterName,
                 result.entity.Identifier.Properties.Select(p => p.PropertyName).ToArray(),
                 ApplyTrackedChangesAuthorizationCriteria,
-                // @"({currentAlias}.{subjectEndpointName} IS NOT NULL AND {currentAlias}.{subjectEndpointName} LIKE :Namespace)",
-                // ApplyAuthorizationCriteria,
-                // ApplyTrackedChangesAuthorizationCriteria,
                 AuthorizeInstance, 
                 _viewBasedSingleItemAuthorizationQuerySupport);
 
@@ -86,47 +84,6 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
         return Array.Empty<AuthorizationFilterDefinition>();
     }
 
-    private static void ApplyAuthorizationCriteria(
-        ICriteria criteria,
-        Junction @where,
-        string[] subjectEndpointNames,
-        IDictionary<string, object> parameters,
-        JoinType joinType)
-    {
-        throw new NotSupportedException();
-
-        // // Defensive check to ensure required parameter is present
-        // if (!parameters.TryGetValue(FilterPropertyName, out var parameterValue))
-        // {
-        //     throw new Exception(
-        //         $"Unable to find parameter '{FilterPropertyName}' for applying namespace-based authorization. Available parameters: '{string.Join("', '", parameters.Keys)}'");
-        // }
-        //
-        // // Ensure the Namespace parameter is represented as an object array
-        // var namespacePrefixes = parameterValue as object[] ?? new[] { parameterValue };
-        //
-        // // Combine the namespace filters using OR (only one must match to grant authorization)
-        // var namespacesDisjunction = new Disjunction();
-        //
-        // foreach (var namespacePrefix in namespacePrefixes)
-        // {
-        //     namespacesDisjunction.Add(Restrictions.Like(subjectEndpointNames[0], namespacePrefix));
-        // }
-        //
-        // // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        // @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointNames[0]), namespacesDisjunction));
-    }
-
-    // private static PropertyMapping[] GetContextDataPropertyMappings(string resourceFullName, IEnumerable<string> availablePropertyNames)
-    // {
-    //     return new PropertyMapping[]
-    //     {
-    //         new(
-    //             NamespaceAuthorizationConvention.GetNamespacePropertyName(resourceFullName, availablePropertyNames),
-    //             "Namespace")
-    //     };
-    // }
-    
     private InstanceAuthorizationResult AuthorizeInstance(
         EdFiAuthorizationContext authorizationContext,
         AuthorizationFilterContext authorizationFilterContext,
@@ -139,9 +96,11 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
                 if (!authorizationFilterContext.SubjectEndpointNames[i].EndsWith("USI"))
                 {
                     string existingLiteral = authorizationContext.GetPhaseText("existing ");
-                
+
+                    string subjectEndpointName = authorizationFilterContext.SubjectEndpointNames[i].ReplaceSuffix("DescriptorId", "Descriptor");
+
                     throw new SecurityAuthorizationException(
-                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{authorizationFilterContext.SubjectEndpointNames[i]}' value is required for authorization purposes.",
+                        SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{subjectEndpointName}' value is required for authorization purposes.",
                         authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
@@ -151,9 +110,14 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
                             : ["custom-view", "invalid-data", "element-uninitialized"]
                     };
                 }
+                
+                // We will defer to the final authorization check to produce identical messages
+                // whether the endpoint values are null or not.
+                return InstanceAuthorizationResult.NotPerformed();
             }
+            
             // If the subject's endpoint name is an Education Organization Id, we can try to authenticate it here using claim values
-            else if (_educationOrganizationIdNamesProvider.IsEducationOrganizationIdName(authorizationFilterContext.SubjectEndpointNames[i]))
+            if (_educationOrganizationIdNamesProvider.IsEducationOrganizationIdName(authorizationFilterContext.SubjectEndpointNames[i]))
             {
                 // NOTE: Could consider caching the EdOrgToEdOrgId tuple table.
                 // If the EdOrgId values match, then we can report the filter as successfully authorized
@@ -177,7 +141,7 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
         bool useOuterJoins)
     {
         throw new NotSupportedException();
-        
+
         // if (filterContext.ClaimParameterValues.Length == 1)
         // {
         //     if (filterContext.SubjectEndpointName == "Namespace")

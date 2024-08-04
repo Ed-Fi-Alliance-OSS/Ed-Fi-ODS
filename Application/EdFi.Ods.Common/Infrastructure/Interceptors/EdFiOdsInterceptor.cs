@@ -20,7 +20,7 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
         private const string SpaceLiteral = " ";
 
         private static readonly Regex regex = new(
-            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on\s+)",
+            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on[\s\(]+this_)",
             RegexOptions.Compiled);
 
         public override bool? IsTransient(object entity)

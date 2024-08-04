@@ -2291,6 +2291,249 @@
 			]
 		},
 		{
+			"name": "Custom View-based on Optional Property",
+			"item": [
+				{
+					"name": "Get Student Transportations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const items = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Should return at least 1 item.\", () => {\r",
+									"  pm.expect(items.length).to.be.greaterThan(0);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"All items have transportation types containing the term 'Bus'.\", () => {\r",
+									"    // Iterate through all items to check the assessmentIdentifier\r",
+									"    const allContainBus = items.every(item => {\r",
+									"        return item.transportationTypeDescriptor.indexOf(\"Bus\") >= 0;\r",
+									"    });\r",
+									"    \r",
+									"    // Assert that all items pass the condition\r",
+									"    pm.expect(allContainBus).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student Transportations (with inaccesible transportation type)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+									"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"604822\"\r\n    },\r\n    \"transportationEducationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"specialAccomodationRequirements\": \"Wheelchair Accessibility\",\r\n    \"transportationPublicExpenseEligibilityTypeDescriptor\": \"uri://ed-fi.org/TransportationPublicExpenseEligibilityTypeDescriptor#Eligible - Disability\",\r\n    \"transportationTypeDescriptor\": \"uri://ed-fi.org/TransportationTypeDescriptor#General Public Transportation\",\r\n    \"studentBusDetails\": {\r\n      \"busNumber\": \"Bus 101\",\r\n      \"busRouteDescriptor\": \"uri://gbisd.edu/BusRouteDescriptor#101\",\r\n      \"mileage\": 7.20,\r\n      \"travelDayofWeeks\": [\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Wednesday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Monday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Friday\"\r\n        }\r\n      ],\r\n      \"travelDirections\": [\r\n        {\r\n          \"travelDirectionDescriptor\": \"uri://ed-fi.org/TravelDirectionDescriptor#To and From School\"\r\n        }\r\n      ]\r\n    }\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student Transportations (with null transportation type)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(403);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+									"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized. The 'TransportationTypeDescriptor' value is required for authorization purposes.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Type indicates an element is required.\", () => {\r",
+									"  pm.expect(pm.response.json().type).to.equal(\"urn:ed-fi:api:security:authorization:custom-view:access-denied:element-required\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"604822\"\r\n    },\r\n    \"transportationEducationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"specialAccomodationRequirements\": \"Wheelchair Accessibility\",\r\n    \"transportationPublicExpenseEligibilityTypeDescriptor\": \"uri://ed-fi.org/TransportationPublicExpenseEligibilityTypeDescriptor#Eligible - Disability\",\r\n    \"studentBusDetails\": {\r\n      \"busNumber\": \"Bus 101\",\r\n      \"busRouteDescriptor\": \"uri://gbisd.edu/BusRouteDescriptor#101\",\r\n      \"mileage\": 7.20,\r\n      \"travelDayofWeeks\": [\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Wednesday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Monday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Friday\"\r\n        }\r\n      ],\r\n      \"travelDirections\": [\r\n        {\r\n          \"travelDirectionDescriptor\": \"uri://ed-fi.org/TravelDirectionDescriptor#To and From School\"\r\n        }\r\n      ]\r\n    }\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student Transportations (with accesible transportation type)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set('known:studentTransportation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"604822\"\r\n    },\r\n    \"transportationEducationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"specialAccomodationRequirements\": \"Wheelchair Accessibility\",\r\n    \"transportationPublicExpenseEligibilityTypeDescriptor\": \"uri://ed-fi.org/TransportationPublicExpenseEligibilityTypeDescriptor#Eligible - Disability\",\r\n    \"transportationTypeDescriptor\": \"uri://ed-fi.org/TransportationTypeDescriptor#Special Needs Bus\",\r\n    \"studentBusDetails\": {\r\n      \"busNumber\": \"Bus 101\",\r\n      \"busRouteDescriptor\": \"uri://gbisd.edu/BusRouteDescriptor#101\",\r\n      \"mileage\": 7.20,\r\n      \"travelDayofWeeks\": [\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Wednesday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Monday\"\r\n        },\r\n        {\r\n          \"travelDayofWeekDescriptor\": \"uri://ed-fi.org/TravelDayofWeekDescriptor#Friday\"\r\n        }\r\n      ],\r\n      \"travelDirections\": [\r\n        {\r\n          \"travelDirectionDescriptor\": \"uri://ed-fi.org/TravelDirectionDescriptor#To and From School\"\r\n        }\r\n      ]\r\n    }\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Transportation By id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Item returned should reflect changed transportationTypeDescriptor.\", () => {\r",
+									"  pm.expect(item.transportationTypeDescriptor).to.contain(\"Special Needs Bus\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations/{{known:studentTransportation:id}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations",
+								"{{known:studentTransportation:id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Test-Suite Teardown",
 			"item": [
 				{
