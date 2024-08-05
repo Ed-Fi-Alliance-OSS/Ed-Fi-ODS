@@ -4,16 +4,25 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Data.SqlClient;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using Microsoft.Data.SqlClient;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
     public class SqlServerConstraintExceptionTranslator : IProblemDetailsExceptionTranslator
     {
+        private readonly IDomainModelProvider _domainModelProvider;
+
+        public SqlServerConstraintExceptionTranslator(IDomainModelProvider domainModelProvider)
+        {
+            _domainModelProvider = domainModelProvider;
+        }
+
         /* Sample errors:
 
          * Delete fails, single column child reference
@@ -39,9 +48,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
          */
 
         private static readonly Regex _expression = new(
-            @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""[a-z]+\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
+            @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""(?<SchemaName>\w+)\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
 
-        // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
+        // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "(?<SchemaName>\w+)\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
         public bool TryTranslate(Exception ex, out IEdFiProblemDetails problemDetails)
         {
             var exception = ex is GenericADOException
@@ -57,6 +66,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 {
                     string statementType = match.Groups["StatementType"].Value;
                     string constraintType = match.Groups["ConstraintType"].Value;
+                    string schemaName = match.Groups["SchemaName"].Value;
                     string tableName = match.Groups["TableName"].Value;
 
                     switch (statementType)
@@ -71,13 +81,18 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                             }
 
                             break;
-                        
+
                         case "DELETE":
 
                             if (constraintType == "REFERENCE")
                             {
-                                problemDetails = new DependentResourceItemExistsException(tableName);
-                                return true;
+                                if (_domainModelProvider.GetDomainModel()
+                                    .EntityByFullName.TryGetValue(new FullName(schemaName, tableName), out var entity))
+                                {
+                                    problemDetails = new DependentResourceItemExistsException(entity);
+
+                                    return true;
+                                }
                             }
 
                             break;
