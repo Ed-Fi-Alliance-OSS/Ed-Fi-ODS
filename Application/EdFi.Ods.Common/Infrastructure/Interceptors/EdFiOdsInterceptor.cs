@@ -7,6 +7,7 @@ using System;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Security.CustomViewBased;
+using log4net;
 using NHibernate;
 using NHibernate.SqlCommand;
 
@@ -14,10 +15,12 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
 {
     public class EdFiOdsInterceptor : EmptyInterceptor
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsInterceptor));
+
         private const string SpaceLiteral = " ";
 
         private static readonly Regex regex = new(
-            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on\s+)",
+            @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on[\s\(]+this_)",
             RegexOptions.Compiled);
 
         public override bool? IsTransient(object entity)
@@ -61,6 +64,11 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
                     
                     sql = final;
                 }
+            }
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Prepared SQL: {sql}");
             }
 
             return sql;

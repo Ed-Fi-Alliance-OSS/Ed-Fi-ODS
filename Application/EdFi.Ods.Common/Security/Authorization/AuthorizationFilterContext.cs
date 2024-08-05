@@ -18,8 +18,11 @@ namespace EdFi.Ods.Common.Security.Authorization
     public class AuthorizationFilterContext
     {
         private string _subjectEndpointName;
-        private string[] _subjectEndpointNames;
+        private string[] _subjectEndpointNameAsArray;
         private object _subjectEndpointValue;
+        private object[] _subjectEndpointValueAsArray;
+
+        private string[] _subjectEndpointNames;
         private IList<object> _subjectEndpointValues;
         
         /// <summary>
@@ -48,6 +51,7 @@ namespace EdFi.Ods.Common.Security.Authorization
                 }
 
                 _subjectEndpointName = value;
+                _subjectEndpointNameAsArray = [value];
             }
         }
 
@@ -58,7 +62,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         {
             get
             {
-                return _subjectEndpointNames ?? new[] { _subjectEndpointName };
+                return _subjectEndpointNames ?? _subjectEndpointNameAsArray;
             }
             set
             {
@@ -121,12 +125,8 @@ namespace EdFi.Ods.Common.Security.Authorization
         {
             get
             {
-                if (_subjectEndpointValues != null)
-                {
-                    throw new InvalidOperationException("Cannot use SubjectEndpointValue when SubjectEndpointValues is already set.");
-                }
-
-                return _subjectEndpointValue;
+                // Ensure an error occurs if the single-endpoint property is requested and a multi-item array has been set
+                return _subjectEndpointValue ?? _subjectEndpointValues?.SingleOrDefault();
             }
             set
             {
@@ -136,6 +136,7 @@ namespace EdFi.Ods.Common.Security.Authorization
                 }
 
                 _subjectEndpointValue = value;
+                _subjectEndpointValueAsArray = [value];
             }
         }
 
@@ -146,12 +147,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         {
             get
             {
-                if (_subjectEndpointValue != null)
-                {
-                    throw new InvalidOperationException("Cannot use SubjectEndpointValues when SubjectEndpointValue is already set.");
-                }
-
-                return _subjectEndpointValues;
+                return _subjectEndpointValues ?? _subjectEndpointValueAsArray;
             }
             set
             {
