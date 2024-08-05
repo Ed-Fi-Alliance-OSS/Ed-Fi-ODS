@@ -9218,7 +9218,10 @@
 															"\r",
 															"const responseItems = pm.response.json();\r",
 															"\r",
-															"pm.environment.set('known:educationOrganizationCategoryDescriptor:StateEducationAgency:id', responseItems[0].id);\r",
+															"let descriptor = responseItems\r",
+															"    .find(item => item.codeValue === \"State Education Agency\");\r",
+															"\r",
+															"pm.environment.set('known:educationOrganizationCategoryDescriptor:StateEducationAgency:id', descriptor.id);\r",
 															""
 														],
 														"type": "text/javascript",
@@ -9240,7 +9243,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors?codeValue=State Education Agency",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -9249,19 +9252,13 @@
 														"v3",
 														"ed-fi",
 														"educationOrganizationCategoryDescriptors"
-													],
-													"query": [
-														{
-															"key": "codeValue",
-															"value": "State Education Agency"
-														}
 													]
 												}
 											},
 											"response": []
 										},
 										{
-											"name": "Initialize CreditCategoryDescriptor",
+											"name": "Initialize CourseIdentificationSystemDescriptor",
 											"event": [
 												{
 													"listen": "test",
@@ -9273,7 +9270,10 @@
 															"\r",
 															"const responseItems = pm.response.json();\r",
 															"\r",
-															"pm.environment.set('known:creditCategoryDescriptor:General:id', responseItems[0].id);\r",
+															"let descriptor = responseItems\r",
+															"    .find(item => item.codeValue === \"LEA course code\");\r",
+															"\r",
+															"pm.environment.set('known:courseIdentificationSystemDescriptors:LEACourseCode:id', descriptor.id);\r",
 															""
 														],
 														"type": "text/javascript",
@@ -9295,7 +9295,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/creditCategoryDescriptors?codeValue=General",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseIdentificationSystemDescriptors",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -9303,13 +9303,7 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"creditCategoryDescriptors"
-													],
-													"query": [
-														{
-															"key": "codeValue",
-															"value": "General"
-														}
+														"courseIdentificationSystemDescriptors"
 													]
 												}
 											},
@@ -9433,7 +9427,7 @@
 									"name": "Attempt to delete item with root concrete dependencies",
 									"item": [
 										{
-											"name": "Delete CreditCategoryDescriptors fails with 409",
+											"name": "Delete CourseIdentificationSystemDescriptor with 409",
 											"event": [
 												{
 													"listen": "test",
@@ -9447,7 +9441,7 @@
 															"\r",
 															"pm.test(\"Should return a problem details result for dependent item exists\", () => {\r",
 															"  pm.expect(problemDetails).to.deep.include({\r",
-															"    \"detail\": \"The requested action cannot be performed because this item is referenced by an existing 'CourseTranscriptCreditCategory' item contained within an 'CourseTranscript' resource item.\",\r",
+															"    \"detail\": \"The requested action cannot be performed because this item is referenced by an existing 'CourseIdentificationCode' item contained within an 'Course' resource item.\",\r",
 															"    \"type\": \"urn:ed-fi:api:data-conflict:dependent-item-exists\",\r",
 															"    \"title\": \"Dependent Item Exists\",\r",
 															"    \"status\": 409\r",
@@ -9463,7 +9457,7 @@
 												"method": "DELETE",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/creditCategoryDescriptors/{{known:creditCategoryDescriptor:General:id}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseIdentificationSystemDescriptors/{{known:courseIdentificationSystemDescriptors:LEACourseCode:id}}",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -9471,8 +9465,8 @@
 														"data",
 														"v3",
 														"ed-fi",
-														"creditCategoryDescriptors",
-														"{{known:creditCategoryDescriptor:General:id}}"
+														"courseIdentificationSystemDescriptors",
+														"{{known:courseIdentificationSystemDescriptors:LEACourseCode:id}}"
 													]
 												}
 											},
