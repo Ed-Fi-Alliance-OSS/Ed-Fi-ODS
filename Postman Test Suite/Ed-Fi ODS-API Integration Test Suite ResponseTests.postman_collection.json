@@ -9149,6 +9149,171 @@
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
 											},
 											"response": []
+										},
+										{
+											"name": "Create State Education Agency",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.environment.set('supplied:stateEducationAgencyId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+														],
+														"type": "text/javascript"
+										}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200 or 201\", () => {",
+															"  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+															"});",
+															"",
+															"pm.environment.set('known:stateEducationAgency:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"stateEducationAgencyId\": \"{{supplied:stateEducationAgencyId}}\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#State Education Agency\"\r\n    }\r\n  ],\r\n  \"nameOfInstitution\": \"State-31\",\r\n  \"shortNameOfInstitution\": \"S31\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/stateEducationAgencies",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"stateEducationAgencies"
+									]
+								},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Initialize EducationOrganizationCategoryDescriptor",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.environment.set('known:educationOrganizationCategoryDescriptor:StateEducationAgency:id', responseItems[0].id);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors?codeValue=State Education Agency",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationOrganizationCategoryDescriptors"
+													],
+													"query": [
+														{
+															"key": "codeValue",
+															"value": "State Education Agency"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Initialize CreditCategoryDescriptor",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"    pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.environment.set('known:creditCategoryDescriptor:General:id', responseItems[0].id);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/creditCategoryDescriptors?codeValue=General",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"creditCategoryDescriptors"
+													],
+													"query": [
+														{
+															"key": "codeValue",
+															"value": "General"
+														}
+													]
+												}
+											},
+											"response": []
 										}
 									]
 								},
@@ -9206,6 +9371,108 @@
 														"ed-fi",
 														"students",
 														"{{known:student:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Attempt to delete item with root abstract dependencies",
+									"item": [
+										{
+											"name": "Delete EducationOrganizationCategoryDescriptor fails with 409",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(409);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result for dependent item exists\", () => {\r",
+															"  pm.expect(problemDetails).to.deep.include({\r",
+															"    \"detail\": \"The requested action cannot be performed because this item is referenced by an existing 'EducationOrganizationCategory' item contained within a resource item of one of the following types: CommunityOrganization, CommunityProvider, EducationOrganizationNetwork, EducationServiceCenter, LocalEducationAgency, OrganizationDepartment, PostSecondaryInstitution, School, StateEducationAgency.\",\r",
+															"    \"type\": \"urn:ed-fi:api:data-conflict:dependent-item-exists\",\r",
+															"    \"title\": \"Dependent Item Exists\",\r",
+															"    \"status\": 409\r",
+															"  });\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationOrganizationCategoryDescriptors/{{known:educationOrganizationCategoryDescriptor:StateEducationAgency:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationOrganizationCategoryDescriptors",
+														"{{known:educationOrganizationCategoryDescriptor:StateEducationAgency:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Attempt to delete item with root concrete dependencies",
+									"item": [
+										{
+											"name": "Delete CreditCategoryDescriptors fails with 409",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(409);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result for dependent item exists\", () => {\r",
+															"  pm.expect(problemDetails).to.deep.include({\r",
+															"    \"detail\": \"The requested action cannot be performed because this item is referenced by an existing 'CourseTranscriptCreditCategory' item contained within an 'CourseTranscript' resource item.\",\r",
+															"    \"type\": \"urn:ed-fi:api:data-conflict:dependent-item-exists\",\r",
+															"    \"title\": \"Dependent Item Exists\",\r",
+															"    \"status\": 409\r",
+															"  });\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/creditCategoryDescriptors/{{known:creditCategoryDescriptor:General:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"creditCategoryDescriptors",
+														"{{known:creditCategoryDescriptor:General:id}}"
 													]
 												}
 											},
@@ -9315,6 +9582,42 @@
 														"ed-fi",
 														"students",
 														"{{known:student:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete State Education Agency",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/stateEducationAgencies/{{known:stateEducationAgency:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"stateEducationAgencies",
+														"{{known:stateEducationAgency:id}}"
 													]
 												}
 											},
