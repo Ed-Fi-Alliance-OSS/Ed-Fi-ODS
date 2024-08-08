@@ -5,14 +5,11 @@
 
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
@@ -47,7 +44,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                         {
                             // Iterate the incoming associations looking for the offending constraint
                             var association = entity?.IncomingAssociations.SingleOrDefault(
-                                a => 
+                                a =>
                                     a.Association.ConstraintByDatabaseEngine[DatabaseEngine.Postgres.Value]
                                     .EqualsIgnoreCase(postgresException.ConstraintName));
 
@@ -63,7 +60,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                             // NOTE: FK violations won't happen in the ODS for "update" because where key updates are allowed, cascade updates are applied.
                             // So this scenario will only happen with deletes where there are child aggregate/resources that must be removed first.
                             // In this case, the PostgreSQL exception identifies the dependent table (no translation is necesssary)
-                            problemDetails = new DependentResourceItemExistsException(entity.Name);
+
+                            problemDetails = new DependentResourceItemExistsException(entity);
 
                             return true;
                         }

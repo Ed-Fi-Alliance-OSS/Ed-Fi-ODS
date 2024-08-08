@@ -9,13 +9,14 @@ using System.Net;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Tests._Builders;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
+using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 {
@@ -34,7 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator();
+            var translator = new SqlServerConstraintExceptionTranslator(Stub<IDomainModelProvider>());
             translator.TryTranslate(_suppliedInsertException, out _actualError);
         }
 
@@ -68,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator();
+            var translator = new SqlServerConstraintExceptionTranslator(Stub<IDomainModelProvider>());
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
@@ -93,9 +94,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     {
         private Exception _suppliedUpdateException;
         private IEdFiProblemDetails _actualError;
+        private IDomainModelProvider _domainModelProvider;
 
         protected override void Arrange()
         {
+            _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
+
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not delete: [something-a-rather][SQL: SQL not available]",
                 $"The DELETE statement conflicted with the REFERENCE constraint \"FK_DisciplineAction_DisciplineIncident_SchoolId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.DisciplineAction\".{Environment.NewLine}The statement has been terminated.");
@@ -103,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator();
+            var translator = new SqlServerConstraintExceptionTranslator(_domainModelProvider);
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
@@ -129,9 +133,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
     {
         private Exception _suppliedUpdateException;
         private IEdFiProblemDetails _actualError;
+        private IDomainModelProvider _domainModelProvider;
 
         protected override void Arrange()
         {
+            _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
+
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not delete: [something-a-rather][SQL: SQL not available]",
                 $"The DELETE statement conflicted with the REFERENCE constraint \"FK_CourseTranscript_CourseAttemptResultType_CourseAttemptResultTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.CourseTranscript\", column 'CourseAttemptResultTypeId'.{Environment.NewLine}The statement has been terminated.");
@@ -139,7 +146,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
         protected override void Act()
         {
-            var translator = new SqlServerConstraintExceptionTranslator();
+            var translator = new SqlServerConstraintExceptionTranslator(_domainModelProvider);
             translator.TryTranslate(_suppliedUpdateException, out _actualError);
         }
 
