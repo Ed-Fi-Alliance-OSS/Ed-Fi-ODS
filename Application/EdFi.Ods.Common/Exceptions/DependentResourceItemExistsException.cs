@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
-using static Dapper.SqlMapper;
 
 namespace EdFi.Ods.Common.Exceptions;
 

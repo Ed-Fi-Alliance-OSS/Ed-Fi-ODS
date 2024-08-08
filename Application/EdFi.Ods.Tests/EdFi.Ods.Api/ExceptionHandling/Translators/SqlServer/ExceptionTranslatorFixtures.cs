@@ -6,20 +6,16 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using Castle.Components.DictionaryAdapter.Xml;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Builders;
 using EdFi.TestFixture;
 using FakeItEasy;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NUnit.Framework;
-using SharpYaml.Schemas;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling

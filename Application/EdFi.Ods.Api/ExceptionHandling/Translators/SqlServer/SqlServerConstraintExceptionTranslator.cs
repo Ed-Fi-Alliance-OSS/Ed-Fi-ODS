@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
