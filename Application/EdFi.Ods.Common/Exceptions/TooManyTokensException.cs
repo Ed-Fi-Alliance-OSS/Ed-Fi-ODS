@@ -20,8 +20,8 @@ public class TooManyTokensException : EdFiProblemDetailsExceptionBase
     private const string ErrorText = "Too many access tokens have been requested (limit is {0}). Access tokens should be reused until they expire.";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OptimisticLockException"/> class using the default text and error messages
-    /// indicating an optimistic locking evaluation detected changes from another API client.
+    /// Initializes a new instance of the <see cref="TooManyTokensException"/> class using the default text and error messages
+    /// indicating that the maximum token limit has been reached by the API client.
     /// </summary>
     public TooManyTokensException(int tokenPerClientLimit)
         : base(DetailText, [string.Format(ErrorText, tokenPerClientLimit.ToString())]) { }
