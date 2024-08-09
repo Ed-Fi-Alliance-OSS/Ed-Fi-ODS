@@ -16,13 +16,15 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
     private readonly int _tokenDurationMinutes;
+    private readonly int _tokenPerClientLimit;
 
     private const string InsertClientAccessTokenSql = "INSERT INTO dbo.ClientAccessTokens(Id, Expiration, Scope, ApiClient_ApiClientId) VALUES (@Id, @Expiration, @Scope, @ApiClientId);";
 
     public EdFiAdminAccessTokenFactory(
         DbProviderFactory dbProviderFactory,
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
-        int tokenDurationMinutes)
+        int tokenDurationMinutes,
+        int tokenPerClientLimit)
     {
         if (tokenDurationMinutes <= 0)
         {
@@ -33,6 +35,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
 
         _tokenDurationMinutes = tokenDurationMinutes;
+        _tokenPerClientLimit = tokenPerClientLimit;
     }
     
     public async Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null)
