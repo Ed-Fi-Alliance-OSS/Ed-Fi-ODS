@@ -60,8 +60,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         {
             await connection.ExecuteAsync(AddTokenProcedureName, @params, commandType: CommandType.StoredProcedure);
         }
-        catch (DbException ex) when ((ex.Data["MessageText"]?.Equals(TokenLimitReachedDbMessage) ?? false) ||
-                                     ex.Message.Equals(TokenLimitReachedDbMessage))
+        catch (DbException ex) when (ex.Message.Contains(TokenLimitReachedDbMessage))
         {
             throw new TooManyTokensException(_tokenPerClientLimit);
         }
