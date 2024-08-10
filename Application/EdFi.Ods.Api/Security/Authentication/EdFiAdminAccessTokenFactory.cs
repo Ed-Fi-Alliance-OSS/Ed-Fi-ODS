@@ -20,7 +20,8 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
     private readonly int _tokenDurationMinutes;
     private readonly int _tokenPerClientLimit;
 
-    private const string AddTokenSPName = "dbo.CreateClientAccessToken";
+    private const string AddTokenProcedureName = "dbo.CreateClientAccessToken";
+    private const string TokenLimitReachedDbMessage = "Token limit reached";
 
     public EdFiAdminAccessTokenFactory(
         DbProviderFactory dbProviderFactory,
@@ -50,16 +51,17 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         {
             id = Guid.NewGuid(),
             expiration = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_tokenDurationMinutes)),
-            scope,
+            scope = scope,
             apiclientid = apiClientId,
             maxtokencount = _tokenPerClientLimit
         };
 
         try
         {
-            await connection.ExecuteAsync(AddTokenSPName, @params, commandType: CommandType.StoredProcedure);
+            await connection.ExecuteAsync(AddTokenProcedureName, @params, commandType: CommandType.StoredProcedure);
         }
-        catch (Exception ex) when (ex.Message.Contains("Token limit reached"))
+        catch (DbException ex) when ((ex.Data["MessageText"]?.Equals(TokenLimitReachedDbMessage) ?? false) ||
+                                     ex.Message.Equals(TokenLimitReachedDbMessage))
         {
             throw new TooManyTokensException(_tokenPerClientLimit);
         }
