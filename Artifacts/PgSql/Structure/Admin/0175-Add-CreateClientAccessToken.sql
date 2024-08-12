@@ -12,12 +12,18 @@ CREATE OR REPLACE PROCEDURE dbo.CreateClientAccessToken(
 AS
 $BODY$
 DECLARE
-    active_token_count integer = 0;
+    active_token_count integer;
 BEGIN
-    active_token_count := (SELECT COUNT(1)
-                           FROM dbo.clientaccesstokens actoken
-                           WHERE apiclient_apiclientid = ApiClientId
-                             AND actoken.expiration > current_timestamp at time zone 'utc');
+
+    IF maxtokencount < 1 THEN
+        active_token_count := 0;
+    ELSE
+        active_token_count := (SELECT COUNT(1)
+                               FROM dbo.clientaccesstokens actoken
+                               WHERE apiclient_apiclientid = ApiClientId
+                                 AND actoken.expiration > current_timestamp at time zone 'utc');
+    END IF;
+
     IF (maxtokencount < 1) OR (active_token_count < maxtokencount) THEN
         INSERT INTO dbo.ClientAccessTokens(id, expiration, scope, apiclient_apiclientid)
         VALUES (CreateClientAccessToken.id, CreateClientAccessToken.expiration, CreateClientAccessToken.scope,
@@ -25,6 +31,7 @@ BEGIN
     ELSE
         RAISE EXCEPTION USING MESSAGE = 'Token limit reached';
     END IF;
+
 END
 $BODY$
     LANGUAGE plpgsql;

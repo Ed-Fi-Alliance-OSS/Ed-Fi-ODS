@@ -1,4 +1,4 @@
--- SPDX-License-Identifier: Apache-2.0
+ -- SPDX-License-Identifier: Apache-2.0
 -- Licensed to the Ed-Fi Alliance under one or more agreements.
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
@@ -14,17 +14,22 @@ AS
 BEGIN
     SET NOCOUNT ON
 	
-	DECLARE @msg AS nvarchar(max)
-
-    DECLARE @ActiveTokenCount INT = (SELECT COUNT(1)
-                                     FROM dbo.clientaccesstokens actoken
+    DECLARE @ActiveTokenCount INT
+	
+	IF @MaxTokenCount < 1
+		SET @ActiveTokenCount = 0
+	ELSE
+	BEGIN
+		SET @ActiveTokenCount = (SELECT COUNT(1)
+                                     FROM dbo.ClientAccessTokens actoken
                                      WHERE ApiClient_ApiClientId = @ApiClientId
                                        AND actoken.Expiration > GETUTCDATE())
-
+	END
+	
     IF (@MaxTokenCount < 1) OR (@ActiveTokenCount < @MaxTokenCount)
 	BEGIN
         INSERT INTO dbo.ClientAccessTokens(Id, Expiration, Scope, ApiClient_ApiClientId)
-        VALUES (@Id, @Expiration, @Scope, @ApiClientId);
+        VALUES (@Id, @Expiration, @Scope, @ApiClientId)
 	END
     ELSE
 		THROW 50000, 'Token limit reached', 1;
