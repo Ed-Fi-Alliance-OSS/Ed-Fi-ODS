@@ -261,6 +261,10 @@ namespace EdFi.Ods.Api.Container.Modules
                     new ResolvedParameter(
                         (p, c) => p.Name == "tokenDurationMinutes",
                         (p, c) => c.Resolve<ApiSettings>().BearerTokenTimeoutMinutes))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name == "tokenPerClientLimit",
+                        (p, c) => c.Resolve<ApiSettings>().BearerTokenPerClientLimit))
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()

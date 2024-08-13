@@ -4,10 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
@@ -16,13 +18,16 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
     private readonly int _tokenDurationMinutes;
+    private readonly int _tokenPerClientLimit;
 
-    private const string InsertClientAccessTokenSql = "INSERT INTO dbo.ClientAccessTokens(Id, Expiration, Scope, ApiClient_ApiClientId) VALUES (@Id, @Expiration, @Scope, @ApiClientId);";
+    private const string AddTokenProcedureName = "dbo.CreateClientAccessToken";
+    private const string TokenLimitReachedDbMessage = "Token limit reached";
 
     public EdFiAdminAccessTokenFactory(
         DbProviderFactory dbProviderFactory,
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
-        int tokenDurationMinutes)
+        int tokenDurationMinutes,
+        int tokenPerClientLimit)
     {
         if (tokenDurationMinutes <= 0)
         {
@@ -33,8 +38,9 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
 
         _tokenDurationMinutes = tokenDurationMinutes;
+        _tokenPerClientLimit = tokenPerClientLimit;
     }
-    
+
     public async Task<AccessToken> CreateAccessTokenAsync(int apiClientId, string scope = null)
     {
         await using var connection = _dbProviderFactory.CreateConnection();
@@ -43,14 +49,22 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
 
         var @params = new
         {
-            Id = Guid.NewGuid(),
-            Expiration = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_tokenDurationMinutes)),
-            Scope = scope,
-            ApiClientId = apiClientId
+            id = Guid.NewGuid(),
+            expiration = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_tokenDurationMinutes)),
+            scope = scope,
+            apiclientid = apiClientId,
+            maxtokencount = _tokenPerClientLimit
         };
-            
-        await connection.ExecuteAsync(InsertClientAccessTokenSql, @params);
 
-        return new AccessToken(@params.Id, TimeSpan.FromMinutes(_tokenDurationMinutes), scope);
+        try
+        {
+            await connection.ExecuteAsync(AddTokenProcedureName, @params, commandType: CommandType.StoredProcedure);
+        }
+        catch (DbException ex) when (ex.Message.Contains(TokenLimitReachedDbMessage))
+        {
+            throw new TooManyTokensException(_tokenPerClientLimit);
+        }
+
+        return new AccessToken(@params.id, TimeSpan.FromMinutes(_tokenDurationMinutes), scope);
     }
 }
