@@ -47,7 +47,6 @@ using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -247,18 +246,18 @@ namespace EdFi.Ods.Api.Startup
             {
                 _logger.Debug("Configuring services in plugins:");
                 
-                foreach (var type in TypeHelper.GetPluginTypes())
+                foreach (var servicesConfigurationActivity in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
                 {
-                    _logger.Debug($"Plugin {type.Name}");
+                    _logger.Debug($"Plugin {servicesConfigurationActivity.Name}");
 
                     try
                     {
-                        var plugin = (IPlugin) Activator.CreateInstance(type);
+                        var plugin = (IServicesConfigurationActivity) Activator.CreateInstance(servicesConfigurationActivity);
                         plugin?.ConfigureServices(Configuration, services, _apiSettings);
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"Error configuring services using plugin '{type.Name}'.", ex);
+                        _logger.Error($"Error configuring services using plugin '{servicesConfigurationActivity.Name}'.", ex);
                     }
                 }
             }
@@ -294,13 +293,20 @@ namespace EdFi.Ods.Api.Startup
                 {
                     _logger.Debug($"Module {type.Name}");
 
-                    if (type.IsSubclassOf(typeof(ConditionalModule)))
+                    try
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, _apiSettings));
+                        if (type.IsSubclassOf(typeof(ConditionalModule)))
+                        {
+                            builder.RegisterModule((IModule)Activator.CreateInstance(type, _apiSettings));
+                        }
+                        else
+                        {
+                            builder.RegisterModule((IModule)Activator.CreateInstance(type));
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        _logger.Error($"Error registering module '{type.Name}'.", ex);
                     }
                 }
             }
