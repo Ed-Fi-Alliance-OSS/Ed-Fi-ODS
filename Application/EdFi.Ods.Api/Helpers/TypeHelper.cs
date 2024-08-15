@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Helpers
             return allModules
                 .OrderBy(m =>
                     // Plugin modules should be invoked last
-                    m.type.IsImplementationOf<IPluginModule>() ? 2
+                    m.type.IsImplementationOf<ICustomModule>() ? 2
                     // ... after modules using "Override" prefix naming convention
                     : m.type.Name.StartsWithIgnoreCase("Override") ? 1
                     // ... after all others
@@ -50,22 +50,22 @@ namespace EdFi.Ods.Api.Helpers
             return allModules;
         }
 
-        private static Type[] _pluginTypes;
+        private static Type[] _foundTypes;
         
-        public static IEnumerable<Type> GetPluginTypes()
+        public static IEnumerable<Type> GetAssemblyTypes<T>()
         {
-            if (_pluginTypes != null)
+            if (_foundTypes != null)
             {
-                return _pluginTypes;
+                return _foundTypes;
             }
             
-            var allPlugins = GetImplementationsOf<IPlugin>().ToArray();
+            var allFoundAssemblies = GetImplementationsOf<T>().ToArray();
 
-            _logger.Debug($"Assemblies with plugins: {string.Join(", ", allPlugins.Select(m => m.assembly.GetName().Name))}");
+            _logger.Debug($"Assemblies with type: {string.Join(", ", allFoundAssemblies.Select(m => m.assembly.GetName().Name))}");
 
-            _pluginTypes ??= allPlugins.Select(t => t.type).ToArray();
+            _foundTypes ??= allFoundAssemblies.Select(t => t.type).ToArray();
 
-            return _pluginTypes;
+            return _foundTypes;
         }
     }
 }
