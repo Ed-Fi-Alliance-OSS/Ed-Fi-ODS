@@ -8,7 +8,7 @@ using Autofac.Core;
 namespace EdFi.Ods.Common;
 
 /// <summary>
-/// Marks a module as a "plugin" module so that it is invoked after all other types of modules so that
+/// Marks a module as a "custom" module so that it is invoked after all other types of modules so that
 /// services registered this way override services registered by other modules.
 /// </summary>
-public interface IPluginModule : IModule { }
+public interface ICustomModule : IModule { }
