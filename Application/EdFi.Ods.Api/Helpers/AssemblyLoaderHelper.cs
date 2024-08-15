@@ -29,10 +29,10 @@ namespace EdFi.Ods.Api.Helpers
     public static class AssemblyLoaderHelper
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
-        private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
-
         private static readonly Dictionary<bool, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
 
+        private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
+        
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
             if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(includeFramework))
@@ -46,53 +46,53 @@ namespace EdFi.Ods.Api.Helpers
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
 
-            LoadAssembliesFromExecutingFolder();
+            // Load referenced assemblies into the domain. This is effectively the same as EnsureLoaded in common
+            // however the assemblies are linked in the project.
+            var directoryInfo = new DirectoryInfo(
+                Path.GetDirectoryName(
+                    Assembly.GetExecutingAssembly()
+                        .Location) ?? string.Empty);
+
+            _logger.Debug($"Loaded assemblies from executing folder: '{directoryInfo.FullName}'");
+
+            foreach (FileInfo assemblyFilesToLoad in directoryInfo.GetFiles("*.dll")
+                         .Where(fi => ShouldLoad(fi.Name, loadedByAssemblyName, includeFramework)))
+            {
+                LoadAssemblyFile(assemblyFilesToLoad);
+            }
 
             int alreadyLoaded = loadedByAssemblyName.Keys.Count;
 
             var sw = new Stopwatch();
+            sw.Start();
+            
             _logger.Debug($"Already loaded assemblies:");
 
             CacheAlreadyLoadedAssemblies(loadedByAssemblyName, includeFramework);
 
             // Loop on loaded assemblies to load dependencies (it includes Startup assembly so should load all the dependency tree)
             foreach (Assembly nonFrameworkAssemblies in AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => IsNotNetFramework(a.FullName)))
+                         .Where(a => IsNotNetFramework(a.FullName)))
             {
                 LoadReferencedAssembly(nonFrameworkAssemblies, loadedByAssemblyName, includeFramework);
             }
 
             _logger.Debug(
                 $"Assemblies loaded after scan ({loadedByAssemblyName.Keys.Count - alreadyLoaded} assemblies in {sw.ElapsedMilliseconds} ms):");
+        }
 
-            void LoadAssembliesFromExecutingFolder()
+        private static void LoadAssemblyFile(FileInfo assemblyFilesToLoad)
+        {
+            _logger.Debug($"{assemblyFilesToLoad.Name}");
+
+            try
             {
-                // Load referenced assemblies into the domain. This is effectively the same as EnsureLoaded in common
-                // however the assemblies are linked in the project.
-                var directoryInfo = new DirectoryInfo(
-                    Path.GetDirectoryName(
-                        Assembly.GetExecutingAssembly()
-                            .Location));
-
-                _logger.Debug($"Loaded assemblies from executing folder: '{directoryInfo.FullName}'");
-
-                foreach (FileInfo assemblyFilesToLoad in directoryInfo.GetFiles("*.dll")
-                    .Where(fi => ShouldLoad(fi.Name, loadedByAssemblyName, includeFramework)))
-                {
-                    _logger.Debug($"{assemblyFilesToLoad.Name}");
-
-                    try
-                    {
-                        var assemblyName = AssemblyName.GetAssemblyName(assemblyFilesToLoad.FullName);
-                        
-                        Assembly.LoadFrom(assemblyFilesToLoad.FullName);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Error($"Unable to load assembly {assemblyFilesToLoad.FullName}", ex);
-                        throw;
-                    }
-                }
+                Assembly.LoadFrom(assemblyFilesToLoad.FullName);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Unable to load assembly {assemblyFilesToLoad.FullName}", ex);
+                throw;
             }
         }
 
@@ -101,10 +101,12 @@ namespace EdFi.Ods.Api.Helpers
         {
             // Check all referenced assemblies of the specified assembly
             foreach (var referencedAssembliesToLoad in assembly.GetReferencedAssemblies()
-                .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
+                         .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
             {
                 // Load the assembly and load its dependencies
-                LoadReferencedAssembly(Assembly.Load(referencedAssembliesToLoad), loaded, includeFramework); // AppDomain.CurrentDomain.Load(name)
+                LoadReferencedAssembly(
+                    Assembly.Load(referencedAssembliesToLoad), loaded, includeFramework); // AppDomain.CurrentDomain.Load(name)
+
                 loaded.TryAdd(referencedAssembliesToLoad.FullName, true);
                 _logger.Debug($"Referenced assembly => '{referencedAssembliesToLoad.FullName}'");
             }
@@ -113,7 +115,7 @@ namespace EdFi.Ods.Api.Helpers
         private static void CacheAlreadyLoadedAssemblies(IDictionary<string, bool> loaded, bool includeFramework = false)
         {
             foreach (var alreadyLoadedAssemblies in AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
+                         .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
             {
                 loaded.TryAdd(alreadyLoadedAssemblies.FullName, true);
                 _logger.Debug($"Assembly '{alreadyLoadedAssemblies.FullName}' was already loaded.");
@@ -134,12 +136,14 @@ namespace EdFi.Ods.Api.Helpers
                    && assemblyName != "netstandard"
                    && !assemblyName.StartsWithIgnoreCase("Autofac")
                    && !assemblyName.StartsWithIgnoreCase("nunit")
+
                    // Additional assembly included based on target runtime during publish
                    // Needed by System.Data.SqlClient, which is used by Entity Framework
                    && assemblyName != "sni.dll";
         }
 
-        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false, bool includeExtensionAssemblies = true)
+        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false,
+            bool includeExtensionAssemblies = true)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
@@ -160,9 +164,9 @@ namespace EdFi.Ods.Api.Helpers
             }
 
             // Only process extension ApiModel metadata files if the includeExtensions flag is set
-            var apiModelFiles = includeExtensionAssemblies 
+            var apiModelFiles = includeExtensionAssemblies
                 ? Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories)
-                : new string[] {};
+                : new string[] { };
 
             var physicalNames = new List<KeyValuePair<string, string>>();
 
@@ -179,6 +183,7 @@ namespace EdFi.Ods.Api.Helpers
                 if (physicalNameJToken != null)
                 {
                     string[] folderNames = apiModelFilePath.Split(Path.DirectorySeparatorChar);
+
                     foreach (string folder in folderNames)
                     {
                         if (folder.Contains("Extensions"))
@@ -188,17 +193,19 @@ namespace EdFi.Ods.Api.Helpers
                             physicalNames.Add(element);
                         }
                     }
-                } 
+                }
             }
 
             bool isDuplicate = false;
-            var duplicateExtensionPlugins = physicalNames.ToLookup( x => x.Key).Where(x => x.Count() > 1);
+            var duplicateExtensionPlugins = physicalNames.ToLookup(x => x.Key).Where(x => x.Count() > 1);
 
             foreach (var duplicateExtensionPlugin in duplicateExtensionPlugins)
             {
                 isDuplicate = true;
-                var pluginFolders = duplicateExtensionPlugin.Select(s => s.Value); 
-                _logger.Error($"found duplicate extension schema name '{duplicateExtensionPlugin.Key}' in plugin folder." +
+                var pluginFolders = duplicateExtensionPlugin.Select(s => s.Value);
+
+                _logger.Error(
+                    $"found duplicate extension schema name '{duplicateExtensionPlugin.Key}' in plugin folder." +
                     $" You will be able to deploy only one of the following plugins '{string.Join("' and '", pluginFolders)}' folder name." +
                     $" Please remove the conflicting plugins and retry");
             }
@@ -252,14 +259,9 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         yield return assembly.Location;
                     }
-                    else if (IsCustomPluginAssembly(assembly))
+                    else if (IsCustomModuleAssembly(assembly))
                     {
                         yield return assembly.Location;
-                    }
-                    else
-                    {
-                        throw new Exception(
-                            $"No plugin artifacts were found in assembly '{Path.GetFileName(assembly.Location)}'. Expected an IPluginMarker implementation and assembly metadata embedded resource '{AssemblyMetadataSearchString}' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
                     }
                 }
             }
@@ -294,10 +296,9 @@ namespace EdFi.Ods.Api.Helpers
             {
                 return assembly.GetTypes().Any(
                     t => t.GetInterfaces()
-                        .Any(i => 
-                            i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName
-                            || i.AssemblyQualifiedName == typeof(IPlugin).AssemblyQualifiedName
-                            || i.AssemblyQualifiedName == typeof(IPluginModule).AssemblyQualifiedName));
+                        .Any(
+                            i =>
+                                i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName));
             }
         }
 
@@ -313,16 +314,16 @@ namespace EdFi.Ods.Api.Helpers
                 .Any(n => n.EndsWithIgnoreCase("Profiles.xml"));
         }
 
-        private static bool IsCustomPluginAssembly(Assembly assembly)
+        private static bool IsCustomModuleAssembly(Assembly assembly)
         {
-            // Determine custom plugin assembly from presence of either IPlugin or IPluginModule implementations
-            return assembly.GetTypes().Any(t => t.IsImplementationOf<IPlugin>() || t.IsImplementationOf<IPluginModule>());
+            // Determine custom module assembly from presence of ICustomModule implementations
+            return assembly.GetTypes().Any(t => t.IsImplementationOf<ICustomModule>());
         }
 
         private static bool TryReadAssemblyMetadata(Assembly assembly, out AssemblyMetadata assemblyMetadata)
         {
             assemblyMetadata = null;
-            
+
             var resourceName = assembly.GetManifestResourceNames()
                 .FirstOrDefault(p => p.EndsWith(AssemblyMetadataSearchString));
 
@@ -339,7 +340,8 @@ namespace EdFi.Ods.Api.Helpers
 
             _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.");
 
-            assemblyMetadata =  JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile,
+            assemblyMetadata = JsonConvert.DeserializeObject<AssemblyMetadata>(
+                jsonFile,
                 new JsonSerializerSettings
                 {
                     Error = (sender, args) => throw new Exception(
