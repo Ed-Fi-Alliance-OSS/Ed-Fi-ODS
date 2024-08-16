@@ -12,10 +12,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
-// ------------------------------------------------------------------------------------------
-// TODO: ODS-6426, ODS-6427 - This file is a work-in-progress across multiple stories.
-// ------------------------------------------------------------------------------------------
-
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
     public class ViewBasedAuthorizationFilterDefinition : AuthorizationFilterDefinition
@@ -69,8 +65,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 authorizeInstance)
         {
             ViewName = viewName;
-            ViewSourceEndpointName = viewSourceEndpointName;
-            ViewTargetEndpointName = viewTargetEndpointName;
+            ViewSourceEndpointNames = [viewSourceEndpointName];
+            ViewTargetEndpointNames = [viewTargetEndpointName];
             ViewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
@@ -87,26 +83,19 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public ViewBasedAuthorizationFilterDefinition(
             string filterName,
             string viewName,
-            // string viewSourceEndpointName,
             string[] viewTargetEndpointNames,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport) //,
-            // IMultiValueRestrictions multiValueRestrictions)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointNames[0]} // TODO: Fix HQL 
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} )",
-                    //WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (criteria, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) 
                     => criteria.ApplyCustomViewJoinFilter(
-                        // multiValueRestrictions,
-                        // @where,
-                        // parameters,
                         viewName,
                         subjectEndpointNames,
-                        // viewSourceEndpointName,
                         viewTargetEndpointNames,
                         joinType,
                         Guid.NewGuid().ToString("N"),
@@ -115,16 +104,43 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 authorizeInstance)
         {
             ViewName = viewName;
-            // ViewSourceEndpointName = viewSourceEndpointName;
             ViewTargetEndpointNames = viewTargetEndpointNames;
             ViewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         public string ViewName { get; }
-
-        public string ViewSourceEndpointName { get; }
-        public string ViewTargetEndpointName { get; }
+        public string[] ViewSourceEndpointNames { get; }
         public string[] ViewTargetEndpointNames { get; }
+
+        // Single-value property retained for backwards compatibility with existing use of single-column joins
+        public string ViewSourceEndpointName
+        {
+            get
+            {
+                return ViewSourceEndpointNames?.Length switch
+                {
+                    0 => null,
+                    1 => ViewSourceEndpointNames[0],
+                    _ => throw new InvalidOperationException(
+                        "Multiple view source endpoint names were found in the filter definition when exactly one was expected.")
+                };
+            }
+        }
+
+        // Single-value property retained for backwards compatibility with existing use of single-column joins
+        public string ViewTargetEndpointName
+        {
+            get
+            {
+                return ViewTargetEndpointNames?.Length switch
+                {
+                    0 => null,
+                    1 => ViewTargetEndpointNames[0],
+                    _ => throw new InvalidOperationException(
+                        "Multiple view target endpoint names were found in the filter definition when exactly one was expected.")
+                };
+            }
+        }
 
         public IViewBasedSingleItemAuthorizationQuerySupport ViewBasedSingleItemAuthorizationQuerySupport { get; set; }
 

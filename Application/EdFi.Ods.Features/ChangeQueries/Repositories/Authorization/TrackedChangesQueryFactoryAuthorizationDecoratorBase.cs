@@ -88,7 +88,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
             // If there are multiple authorization strategies with views, we must use left outer joins and null/not null checks
-            var joinType = DetermineJoinType();
+            var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
             var filterIndex = 0;
 
@@ -97,10 +97,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
             return;
 
-            JoinType DetermineJoinType()
+            JoinType DetermineRelationshipBasedAuthViewJoinType()
             {
-                var countOfAuthorizationFiltersWithViewBasedFilters = authorizationFiltering.Count(
-                    af => af.Filters.Select(
+                var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
+                    af => af.Operator == FilterOperator.Or && af.Filters.Select(
                             afd =>
                             {
                                 if (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         .OfType<ViewBasedAuthorizationFilterDefinition>()
                         .Any());
 
-                return countOfAuthorizationFiltersWithViewBasedFilters > 1
+                return countOfRelationshipBasedAuthorizationFilters > 1
                     ? JoinType.LeftOuterJoin
                     : JoinType.InnerJoin;
             }
@@ -135,7 +135,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         {
                             foreach (var andStrategy in andStrategies)
                             {
-                                if (!TryApplyFilters(nestedAndQueryBuilder, andStrategy.Filters))
+                                if (!TryApplyFilters(nestedAndQueryBuilder, andStrategy.Filters, false))
                                 {
                                     // All filters for AND strategies must be applied, and if not, this is an error condition
                                     throw new Exception(
@@ -162,7 +162,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         {
                             foreach (var orStrategy in orStrategies)
                             {
-                                if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters))
+                                if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters, relationshipBasedAuthViewJoinType != JoinType.InnerJoin))
                                 {
                                     orFiltersApplied = true;
                                 }
@@ -180,7 +180,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 }
             }
 
-            bool TryApplyFilters(QueryBuilder nestedQueryBuilder, IReadOnlyList<AuthorizationFilterContext> filterContexts)
+            bool TryApplyFilters(QueryBuilder nestedQueryBuilder, IReadOnlyList<AuthorizationFilterContext> filterContexts, bool useOuterJoins)
             {
                 bool allFiltersCanBeApplied = true;
 
@@ -211,11 +211,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
                     var applicator = filterDefinition.TrackedChangesCriteriaApplicator;
 
-                    // var parameterValues = new Dictionary<string, object>
-                    // {
-                    //     { filterContext.ClaimParameterName, filterContext.ClaimParameterValues }
-                    // };
-
                     // Apply the authorization strategy filter
                     applicator(
                         filterDefinition,
@@ -223,7 +218,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         resource,
                         filterIndex,
                         nestedQueryBuilder,
-                        joinType != JoinType.InnerJoin);
+                        useOuterJoins);
 
                     filterIndex++;
                     filtersApplied = true;
