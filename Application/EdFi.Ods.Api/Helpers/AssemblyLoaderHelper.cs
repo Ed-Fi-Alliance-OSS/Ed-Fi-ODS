@@ -225,7 +225,7 @@ namespace EdFi.Ods.Api.Helpers
                 {
                     var assembly = pluginAssemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
 
-                    if (!HasPlugin(assembly))
+                    if (!HasPluginMarker(assembly))
                     {
                         continue;
                     }
@@ -286,7 +286,7 @@ namespace EdFi.Ods.Api.Helpers
                 return false;
             }
 
-            static bool HasPlugin(Assembly assembly)
+            static bool HasPluginMarker(Assembly assembly)
             {
                 return assembly.GetTypes().Any(
                     t => t.GetInterfaces()
