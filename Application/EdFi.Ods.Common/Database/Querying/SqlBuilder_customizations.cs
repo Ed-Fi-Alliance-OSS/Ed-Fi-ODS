@@ -143,5 +143,31 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             return _data.Count == 0;
         }
+
+        public bool HasWhereClause()
+        {
+            return HasClause(ClauseKey.Where);
+        }
+        
+        private bool HasClause(string clausekey)
+        {
+            return _data.Any(kvp => kvp.Key == clausekey);
+        }
+    }
+
+    public static class ClauseKey
+    {
+        public static string Intersect = "intersect";
+        public static string InnerJoin = "innerjoin";
+        public static string LeftJoin = "leftjoin";
+        public static string RightJoin = "rightjoin";
+        public static string Where = "where";
+        public static string OrderBy = "orderby";
+        public static string Select = "select";
+        public static string Parameters = "--parameters";
+        public static string Join = "join";
+        public static string GroupBy = "groupby";
+        public static string Having = "having";
+        public static string Set = "set";
     }
 }
