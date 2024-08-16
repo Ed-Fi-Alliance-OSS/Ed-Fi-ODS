@@ -301,19 +301,6 @@ namespace EdFi.Ods.Api.Helpers
             return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Extension);
         }
 
-        private static bool IsProfileAssembly(Assembly assembly)
-        {
-            // Determine Profiles assembly from presence of Profiles.xml embedded resource
-            return assembly.GetManifestResourceNames()
-                .Any(n => n.EndsWithIgnoreCase("Profiles.xml"));
-        }
-
-        private static bool IsCustomModuleAssembly(Assembly assembly)
-        {
-            // Determine custom module assembly from presence of ICustomModule implementations
-            return assembly.GetTypes().Any(t => t.IsImplementationOf<ICustomModule>());
-        }
-
         private static bool TryReadAssemblyMetadata(Assembly assembly, out AssemblyMetadata assemblyMetadata)
         {
             assemblyMetadata = null;
