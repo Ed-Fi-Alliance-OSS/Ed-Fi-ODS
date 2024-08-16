@@ -255,14 +255,8 @@ namespace EdFi.Ods.Api.Helpers
                             }
                         }
                     }
-                    else if (IsProfileAssembly(assembly))
-                    {
-                        yield return assembly.Location;
-                    }
-                    else if (IsCustomModuleAssembly(assembly))
-                    {
-                        yield return assembly.Location;
-                    }
+                   
+                    yield return assembly.Location;
                 }
             }
             finally
