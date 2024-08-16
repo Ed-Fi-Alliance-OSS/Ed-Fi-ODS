@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Database.NamingConventions;
@@ -15,43 +15,29 @@ using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.CustomViewBased;
 
-// ------------------------------------------------------------------------------------------
-// TODO: ODS-6426, ODS-6427 - This file is a work-in-progress across multiple stories.
-// ------------------------------------------------------------------------------------------
-
 public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
 {
-    // private readonly IDatabaseNamingConvention _databaseNamingConvention;
-    // private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
+    private readonly IDatabaseNamingConvention _databaseNamingConvention;
 
-    private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
-    private readonly IApiClientContextProvider _apiClientContextProvider;
+    private const string TrackedChangesAlias = "c";
+
     private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
     private readonly ICustomViewBasisEntityProvider _customViewBasisEntityProvider;
+    private readonly ConcurrentDictionary<(Resource resource, string viewName), string> _nonIdentifyingPropertiesTextByResourceAndView = new();
 
     public CustomViewBasedAuthorizationFilterDefinitionsFactory(
-        // IDatabaseNamingConvention databaseNamingConvention,
-        IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
-        IApiClientContextProvider apiClientContextProvider,
+        IDatabaseNamingConvention databaseNamingConvention,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
         ICustomViewBasisEntityProvider customViewBasisEntityProvider)
     {
-        // _databaseNamingConvention = databaseNamingConvention;
-        _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
-        _apiClientContextProvider = apiClientContextProvider;
+        _databaseNamingConvention = databaseNamingConvention;
         _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         _customViewBasisEntityProvider = customViewBasisEntityProvider;
-
-        // _oldNamespaceQueryColumnExpression = $"{TrackedChangesAlias}.{databaseNamingConvention.ColumnName($"OldNamespace")}";
     }
 
     public AuthorizationFilterDefinition CreateAuthorizationFilterDefinition(string filterName)
@@ -115,18 +101,6 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
                 // whether the endpoint values are null or not.
                 return InstanceAuthorizationResult.NotPerformed();
             }
-            
-            // If the subject's endpoint name is an Education Organization Id, we can try to authenticate it here using claim values
-            if (_educationOrganizationIdNamesProvider.IsEducationOrganizationIdName(authorizationFilterContext.SubjectEndpointNames[i]))
-            {
-                // NOTE: Could consider caching the EdOrgToEdOrgId tuple table.
-                // If the EdOrgId values match, then we can report the filter as successfully authorized
-                if (_apiClientContextProvider.GetApiClientContext()
-                    .EducationOrganizationIds.Contains((long) authorizationFilterContext.SubjectEndpointValues[i]))
-                {
-                    return InstanceAuthorizationResult.Success();
-                }
-            }
         }
 
         return InstanceAuthorizationResult.NotPerformed();
@@ -140,45 +114,64 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
         QueryBuilder queryBuilder,
         bool useOuterJoins)
     {
-        throw new NotSupportedException();
+        if (filterDefinition is not ViewBasedAuthorizationFilterDefinition viewBasedFilterDefinition)
+        {
+            throw new Exception($"Expected a view-based filter definition of type '{nameof(ViewBasedAuthorizationFilterDefinition)}'.");
+        }
 
-        // if (filterContext.ClaimParameterValues.Length == 1)
-        // {
-        //     if (filterContext.SubjectEndpointName == "Namespace")
-        //     {
-        //         queryBuilder.WhereLike($"{_oldNamespaceQueryColumnExpression}", filterContext.ClaimParameterValues.Single());
-        //     }
-        //     else
-        //     {
-        //         queryBuilder.WhereLike(
-        //             $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName($"Old{filterContext.SubjectEndpointName}")}",
-        //             filterContext.ClaimParameterValues.Single());
-        //     }
-        // }
-        // else if (filterContext.ClaimParameterValues.Length > 1)
-        // {
-        //     queryBuilder.Where(
-        //         q =>
-        //         {
-        //             if (filterContext.SubjectEndpointName == "Namespace")
-        //             {
-        //                 filterContext.ClaimParameterValues.ForEach(ns => q.OrWhereLike(_oldNamespaceQueryColumnExpression, ns));
-        //             }
-        //             else
-        //             {
-        //                 filterContext.ClaimParameterValues.ForEach(
-        //                     ns => q.OrWhereLike(
-        //                         $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName($"Old{filterContext.SubjectEndpointName}")}",
-        //                         ns));
-        //             }
-        //
-        //             return q;
-        //         });
-        // }
-        // else
-        // {
-        //     // This should never happen
-        //     throw new SecurityAuthorizationException(SecurityAuthorizationException.DefaultTechnicalProblemDetail, "No namespaces found in claims.");
-        // }
+        string viewName = viewBasedFilterDefinition.ViewName;
+
+        string[] trackedChangesPropertyNames = resource.Entity.IsDerived 
+            ? filterContext.SubjectEndpointNames.Select(GetBasePropertyNameForSubjectEndpointName).ToArray() 
+            : filterContext.SubjectEndpointNames;
+
+        if (useOuterJoins)
+        {
+            throw new InvalidOperationException("Outer joins are not used with custom view-based authorizations.");
+        }
+
+        // Verify that all the tracked changes property names are identifying (a requirement for tracked change queries)
+        string nonIdentifyPropertyNames = _nonIdentifyingPropertiesTextByResourceAndView.GetOrAdd(
+            (resource, viewBasedFilterDefinition.ViewName),
+            (x, propertyNames) =>
+            {
+                return string.Join(
+                    "', '",
+                    propertyNames.Where(
+                        tcpn => !x.resource.Entity.Identifier.Properties.Any(p => p.PropertyName.EqualsIgnoreCase(tcpn))));
+            },
+            trackedChangesPropertyNames);
+
+        if (nonIdentifyPropertyNames.Length > 0)
+        {
+            throw new SecurityConfigurationException(
+                SecurityConfigurationException.DefaultDetail,
+                $"Non-identifying properties ('{nonIdentifyPropertyNames}') were found to be used for the custom view-based authorization strategy, but this is not supported by Change Queries which only tracks deleted/changed values of identifying properties. Should a different authorization strategy be used?");
+        }
+        
+        queryBuilder.Join(
+            $"auth.{viewName} AS rba{filterIndex}", 
+            j =>
+            {
+                for (int i = 0; i < trackedChangesPropertyNames.Length; i++)
+                {
+                    j.On(
+                        $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName($"Old{trackedChangesPropertyNames[i]}")}",
+                        $"rba{filterIndex}.{_databaseNamingConvention.ColumnName(viewBasedFilterDefinition.ViewTargetEndpointNames[i])}");
+                }
+
+                return j;
+            });
+
+        string GetBasePropertyNameForSubjectEndpointName(string filterContextSubjectEndpointName)
+        {
+            if (!resource.Entity.PropertyByName.TryGetValue(filterContextSubjectEndpointName, out var entityProperty))
+            {
+                throw new Exception(
+                    $"Unable to find property '{filterContextSubjectEndpointName}' on entity '{resource.Entity.FullName}'.");
+            }
+
+            return entityProperty.BaseProperty.PropertyName;
+        }
     }
 }

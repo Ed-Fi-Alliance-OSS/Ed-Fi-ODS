@@ -183,6 +183,39 @@
 								"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
 							},
 							"response": []
+						},
+						{
+							"name": "Get Available Changes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -651,6 +684,66 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Deleted Student Program Associations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return 1 deleted item.\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return an entry with the key values of the item previously added and deleted.\", () => {\r",
+											"  pm.expect(item.keyValues).to.deep.equal({\r",
+											"    \"studentUniqueId\": \"ABC123\",\r",
+											"    \"educationOrganizationId\": 255901,\r",
+											"    \"programEducationOrganizationId\": 255901,\r",
+											"    \"programName\": \"Gifted and Talented\",\r",
+											"    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Gifted and Talented\",\r",
+											"    \"beginDate\": \"2021-08-30\",\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/deletes?MinChangeVersion={{known:changeVersion:minimum}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "MinChangeVersion",
+											"value": "{{known:changeVersion:minimum}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -854,7 +947,41 @@
 			"item": [
 				{
 					"name": "Setup",
-					"item": []
+					"item": [
+						{
+							"name": "Get Available Changes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Student Special Ed Program Eligibility Lifecycle",
@@ -1167,21 +1294,9 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "  {\r\n    \"consentToEvaluationReceivedDate\": \"2024-08-02\",\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"Bilingual\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:studentSpecialEducationProgramEligibilityAssociation:id}}",
 									"host": [
@@ -1219,21 +1334,9 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "  {\r\n    \"consentToEvaluationReceivedDate\": \"2024-08-02\",\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"Bilingual\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
 									"host": [
@@ -1439,21 +1542,9 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "  {\r\n    \"consentToEvaluationReceivedDate\": \"2024-08-02\",\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"Bilingual\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/{{known:studentSpecialEducationProgramEligibilityAssociation:id}}",
 									"host": [
@@ -1491,21 +1582,9 @@
 									}
 								}
 							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "  {\r\n    \"consentToEvaluationReceivedDate\": \"2024-08-02\",\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": 255901,\r\n      \"programName\": \"Bilingual\",\r\n      \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"ideaPartDescriptor\": \"uri://ed-fi.org/IDEAPartDescriptor#IDEA Part B\"\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations",
 									"host": [
@@ -1711,6 +1790,65 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get Deleted Special Ed Program Eligibility",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return 1 deleted item.\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return an entry with the key values of the item previously added and deleted.\", () => {\r",
+											"  pm.expect(item.keyValues).to.deep.equal({\r",
+											"    \"consentToEvaluationReceivedDate\": \"2024-08-02\",\r",
+											"    \"studentUniqueId\": \"ABC123\",\r",
+											"    \"educationOrganizationId\": 255901,\r",
+											"    \"programName\": \"Bilingual\",\r",
+											"    \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\",\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramEligibilityAssociations/deletes?MinChangeVersion={{known:changeVersion:minimum}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSpecialEducationProgramEligibilityAssociations",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "MinChangeVersion",
+											"value": "{{known:changeVersion:minimum}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1894,399 +2032,505 @@
 			"name": "Composite Key View-based Authorization",
 			"item": [
 				{
-					"name": "Create Student Assessment (unaffiliated SchoolId, non ACT assessment)",
-					"event": [
+					"name": "Setup",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-									"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 5\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [\r\n      {\r\n        \"assessmentItemReference\": {\r\n          \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n          \"identificationCode\": \"0\",\r\n          \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n          \"link\": {\r\n            \"rel\": \"AssessmentItem\",\r\n            \"href\": \"/ed-fi/assessmentItems/776f505ee30d4574976d51a581595ff6\"\r\n          }\r\n        },\r\n        \"assessmentItemResultDescriptor\": \"uri://ed-fi.org/AssessmentItemResultDescriptor#Correct\",\r\n        \"assessmentResponse\": \"A\",\r\n        \"responseIndicatorDescriptor\": \"uri://ed-fi.org/ResponseIndicatorDescriptor#Nonscorable response\"\r\n      }\r\n    ],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Student Assessment (affiliated SchoolId, non ACT assessment)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(403);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-									"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-									"})\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [\r\n      {\r\n        \"assessmentItemReference\": {\r\n          \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n          \"identificationCode\": \"0\",\r\n          \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n          \"link\": {\r\n            \"rel\": \"AssessmentItem\",\r\n            \"href\": \"/ed-fi/assessmentItems/776f505ee30d4574976d51a581595ff6\"\r\n          }\r\n        },\r\n        \"assessmentItemResultDescriptor\": \"uri://ed-fi.org/AssessmentItemResultDescriptor#Correct\",\r\n        \"assessmentResponse\": \"A\",\r\n        \"responseIndicatorDescriptor\": \"uri://ed-fi.org/ResponseIndicatorDescriptor#Nonscorable response\"\r\n      }\r\n    ],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Student Assessments",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									"\r",
-									"const items = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Should return no items.\", () => {\r",
-									"  pm.expect(items.length).to.equal(0);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments?Limit=500",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments"
-							],
-							"query": [
+							"name": "Get Available Changes",
+							"event": [
 								{
-									"key": "Limit",
-									"value": "500"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							]
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Create Student Assessment (affiliated SchoolId, ACT assessment)",
-					"event": [
+					"name": "Student Assessment Lifecyle",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(201);\r",
-									"});\r",
-									"\r",
-									"pm.environment.set('known:studentAssessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"ACT English\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Student Assessments",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									"\r",
-									"const items = pm.response.json();\r",
-									"\r",
-									"pm.test(\"At least 1 item was returned.\", () => {\r",
-									"  pm.expect(items.length).to.be.greaterThan(0);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"All items have identifiers starting with ACT.\", () => {\r",
-									"    // Iterate through all items to check the assessmentIdentifier\r",
-									"    const allStartWithACT = items.every(item => {\r",
-									"        return item.assessmentReference && \r",
-									"               item.assessmentReference.assessmentIdentifier &&\r",
-									"               item.assessmentReference.assessmentIdentifier.startsWith(\"ACT\");\r",
-									"    });\r",
-									"    \r",
-									"    // Assert that all items pass the condition\r",
-									"    pm.expect(allStartWithACT).to.be.true;\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments?Limit=500",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments"
-							],
-							"query": [
+							"name": "Create Student Assessment (unaffiliated SchoolId, non ACT assessment)",
+							"event": [
 								{
-									"key": "Limit",
-									"value": "500"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Student Assessment By id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments/{{known:studentAssessment:id}}",
-							"host": [
-								"{{ApiBaseUrl}}"
 							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments",
-								"{{known:studentAssessment:id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Student Assessment",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(204);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 5\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [\r\n      {\r\n        \"assessmentItemReference\": {\r\n          \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n          \"identificationCode\": \"0\",\r\n          \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n          \"link\": {\r\n            \"rel\": \"AssessmentItem\",\r\n            \"href\": \"/ed-fi/assessmentItems/776f505ee30d4574976d51a581595ff6\"\r\n          }\r\n        },\r\n        \"assessmentItemResultDescriptor\": \"uri://ed-fi.org/AssessmentItemResultDescriptor#Correct\",\r\n        \"assessmentResponse\": \"A\",\r\n        \"responseIndicatorDescriptor\": \"uri://ed-fi.org/ResponseIndicatorDescriptor#Nonscorable response\"\r\n      }\r\n    ],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments/{{known:studentAssessment:id}}",
-							"host": [
-								"{{ApiBaseUrl}}"
+						{
+							"name": "Create Student Assessment (affiliated SchoolId, non ACT assessment)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
 							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"studentAssessments",
-								"{{known:studentAssessment:id}}"
-							]
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [\r\n      {\r\n        \"assessmentItemReference\": {\r\n          \"assessmentIdentifier\": \"01774fa3-06f1-47fe-8801-c8b1e65057f2\",\r\n          \"identificationCode\": \"0\",\r\n          \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r\n          \"link\": {\r\n            \"rel\": \"AssessmentItem\",\r\n            \"href\": \"/ed-fi/assessmentItems/776f505ee30d4574976d51a581595ff6\"\r\n          }\r\n        },\r\n        \"assessmentItemResultDescriptor\": \"uri://ed-fi.org/AssessmentItemResultDescriptor#Correct\",\r\n        \"assessmentResponse\": \"A\",\r\n        \"responseIndicatorDescriptor\": \"uri://ed-fi.org/ResponseIndicatorDescriptor#Nonscorable response\"\r\n      }\r\n    ],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student Assessments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return no items.\", () => {\r",
+											"  pm.expect(items.length).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments?Limit=500",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments"
+									],
+									"query": [
+										{
+											"key": "Limit",
+											"value": "500"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student Assessment (affiliated SchoolId, ACT assessment)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentAssessment:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"ABC123\"\r\n    },\r\n    \"reportedSchoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"assessmentReference\": {\r\n      \"assessmentIdentifier\": \"ACT English\",\r\n      \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\"\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\",\r\n    \"administrationDate\": \"2021-09-28T15:00:00Z\",\r\n    \"administrationEnvironmentDescriptor\": \"uri://ed-fi.org/AdministrationEnvironmentDescriptor#Testing Center\",\r\n    \"administrationLanguageDescriptor\": \"uri://ed-fi.org/LanguageDescriptor#eng\",\r\n    \"retestIndicatorDescriptor\": \"uri://ed-fi.org/RetestIndicatorDescriptor#Primary Administration\",\r\n    \"whenAssessedGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Third grade\",\r\n    \"accommodations\": [],\r\n    \"items\": [],\r\n    \"performanceLevels\": [],\r\n    \"scoreResults\": [\r\n      {\r\n        \"assessmentReportingMethodDescriptor\": \"uri://ed-fi.org/AssessmentReportingMethodDescriptor#Raw score\",\r\n        \"result\": \"3\",\r\n        \"resultDatatypeTypeDescriptor\": \"uri://ed-fi.org/ResultDatatypeTypeDescriptor#Integer\"\r\n      }\r\n    ],\r\n    \"studentObjectiveAssessments\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student Assessments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"At least 1 item was returned.\", () => {\r",
+											"  pm.expect(items.length).to.be.greaterThan(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"All items have identifiers starting with ACT.\", () => {\r",
+											"    // Iterate through all items to check the assessmentIdentifier\r",
+											"    const allStartWithACT = items.every(item => {\r",
+											"        return item.assessmentReference && \r",
+											"               item.assessmentReference.assessmentIdentifier &&\r",
+											"               item.assessmentReference.assessmentIdentifier.startsWith(\"ACT\");\r",
+											"    });\r",
+											"    \r",
+											"    // Assert that all items pass the condition\r",
+											"    pm.expect(allStartWithACT).to.be.true;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments?Limit=500",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments"
+									],
+									"query": [
+										{
+											"key": "Limit",
+											"value": "500"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student Assessment By id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments/{{known:studentAssessment:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments",
+										"{{known:studentAssessment:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student Assessment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments/{{known:studentAssessment:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments",
+										"{{known:studentAssessment:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted Student Assessment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return 1 deleted item.\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return an entry with the key values of the item previously added and deleted.\", () => {\r",
+											"  pm.expect(item.keyValues).to.deep.equal({\r",
+											"    \"studentUniqueId\": \"ABC123\",\r",
+											"    \"assessmentIdentifier\": \"ACT English\",\r",
+											"    \"namespace\": \"uri://ed-fi.org/Assessment/Assessment.xml\",\r",
+											"    \"studentAssessmentIdentifier\": \"/Qhqqe/gI4p3RguP68ZEDArGHM64FKnCg/RLHG8c\"\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentAssessments/deletes?MinChangeVersion={{known:changeVersion:minimum}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentAssessments",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "MinChangeVersion",
+											"value": "{{known:changeVersion:minimum}}"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Clean up Environment Variables",
-					"event": [
+					"name": "Teardown",
+					"item": [
 						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-									"_.chain(_.keys(pm.environment.toObject()))\r",
-									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();"
-								],
-								"type": "text/javascript"
-							}
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
 						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}",
-							"host": [
-								"{{ApiBaseUrl}}"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -2308,7 +2552,7 @@
 									"\r",
 									"pm.test(\"Should return at least 1 item.\", () => {\r",
 									"  pm.expect(items.length).to.be.greaterThan(0);\r",
-									"})\r",
+									"});\r",
 									"\r",
 									"pm.test(\"All items have transportation types containing the term 'Bus'.\", () => {\r",
 									"    // Iterate through all items to check the assessmentIdentifier\r",
@@ -2330,7 +2574,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations?totalCount=true",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -2339,6 +2583,12 @@
 								"v3",
 								"ed-fi",
 								"studentTransportations"
+							],
+							"query": [
+								{
+									"key": "totalCount",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -2530,6 +2780,637 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Deleted Student Transportations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating only identifying properties can be used to authorize access to the deletes.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"Non-identifying properties ('TransportationTypeDescriptorId') were found to be used for the custom view-based authorization strategy, but this is not supported by Change Queries which only tracks deleted/changed values of identifying properties. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations/deletes",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentTransportations",
+								"deletes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Custom View-based on EdOrgId",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Get Available Changes",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Accountability Rating Lifecycle",
+					"item": [
+						{
+							"name": "Get Accountability Ratings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return at least 1 item.\", () => {\r",
+											"  pm.expect(items.length).to.be.greaterThan(0);\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Should NOT return an accountability rating for the Local Education Agency\", () => {\r",
+											"    // Get the response JSON array\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    // Use the array.every() method to ensure no item contains the value 255901\r",
+											"    const allIdsAreValid = jsonData.every(item => {\r",
+											"        return item.educationOrganizationReference.educationOrganizationId !== 255901;\r",
+											"    });\r",
+											"\r",
+											"    // Assert that the condition is true\r",
+											"    pm.expect(allIdsAreValid).to.be.true;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Accountability Rating (non-accessible EdOrg)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+											"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Errors indicate access cannot be authorized based on the EducationOrganizationId value.\", () => {\r",
+											"  pm.expect(pm.response.json().errors).to.contain(\"The caller is not authorized to perform the requested operation on the item based on the proposed value of the 'EducationOrganizationId' property of the item.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"ratingTitle\": \"Test Rating Title\",\r\n  \"rating\": \"Test Rating\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Accountability Rating (accessible EdOrg)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:accountabilityRating:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 6000203\r\n  },\r\n  \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"ratingTitle\": \"Test Rating Title\",\r\n  \"rating\": \"Test Rating\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Accountability Rating",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 6000203\r\n  },\r\n  \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"ratingTitle\": \"Test Rating Title\",\r\n  \"rating\": \"Test Rating UPDATED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Accountability Rating By Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return the accountability rating with the updated rating value\", () => {\r",
+											"    // Assert that the condition is true\r",
+											"    pm.expect(item.rating).to.equal(\"Test Rating UPDATED\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings/{{known:accountabilityRating:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings",
+										"{{known:accountabilityRating:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Accountability Ratings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings/{{known:accountabilityRating:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings",
+										"{{known:accountabilityRating:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted Accountability Ratings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return 1 deleted item.\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Should return an entry with the key values of the item previously added and deleted.\", () => {\r",
+											"  pm.expect(item.keyValues).to.deep.equal({\r",
+											"    \"educationOrganizationId\": 6000203,\r",
+											"    \"ratingTitle\": \"Test Rating Title\",\r",
+											"    \"schoolYear\": 2022\r",
+											"  });\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/accountabilityRatings/deletes?MinChangeVersion={{known:changeVersion:minimum}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"accountabilityRatings",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "MinChangeVersion",
+											"value": "{{known:changeVersion:minimum}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Invalid Custom View Authorization Usage",
+			"item": [
+				{
+					"name": "Get Chart of Accounts (Get Many)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating that there are no properties on the resource that match those required by the custom view-based authorization strategy.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"Unable to find a property on the authorization subject entity type 'ChartOfAccount' corresponding to the 'StudentUSI' property on the custom authorization view's basis entity type 'Student' in order to perform authorization. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"chartOfAccounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Chart of Accounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating that there are no properties on the resource that match those required by the custom view-based authorization strategy.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"Unable to find a property on the authorization subject entity type 'ChartOfAccount' corresponding to the 'StudentUSI' property on the custom authorization view's basis entity type 'Student' in order to perform authorization. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"fundDimensionReference\": {\r\n      \"code\": \"1\",\r\n      \"fiscalYear\": 2022\r\n    },\r\n    \"sourceDimensionReference\": {\r\n      \"code\": \"1000\",\r\n      \"fiscalYear\": 2022\r\n    },\r\n    \"accountIdentifier\": \"XYZ\",\r\n    \"fiscalYear\": 2022,\r\n    \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Revenue\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"chartOfAccounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deleted Chart of Accounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating that there are no properties on the resource that match those required by the custom view-based authorization strategy.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"Unable to find a property on the authorization subject entity type 'ChartOfAccount' corresponding to the 'StudentUSI' property on the custom authorization view's basis entity type 'Student' in order to perform authorization. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/deletes",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"chartOfAccounts",
+								"deletes"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2605,6 +3486,38 @@
 									"  .each(k => pm.environment.unset(k)).value();"
 								],
 								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clean up Test Suite Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'test-suite:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();"
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],

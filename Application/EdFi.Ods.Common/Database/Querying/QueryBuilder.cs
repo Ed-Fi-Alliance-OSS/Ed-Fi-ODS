@@ -131,16 +131,19 @@ namespace EdFi.Ods.Common.Database.Querying
                 return this;
             }
 
-            var template = childScopeSqlBuilder.AddTemplate(
-                "/**where**/",
-                childScope.Parameters.Any()
-                    ? new DynamicParameters(childScope.Parameters)
-                    : null);
+            if (childScopeSqlBuilder.HasWhereClause())
+            {
+                var template = childScopeSqlBuilder.AddTemplate(
+                    "/**where**/",
+                    childScope.Parameters.Any()
+                        ? new DynamicParameters(childScope.Parameters)
+                        : null);
 
-            // Wrap the WHERE clause directly
-            _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                // Wrap the WHERE clause directly
+                _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+            }
 
-            // Incorporate the JOINs into this builder
+            // Incorporate any JOINs added into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
@@ -325,7 +328,7 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
-        
+
         public QueryBuilder LimitOffset(int limit, int offset = 0)
         {
             // Apply paging

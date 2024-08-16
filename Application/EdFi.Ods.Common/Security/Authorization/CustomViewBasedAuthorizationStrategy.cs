@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
@@ -83,7 +84,8 @@ public class CustomViewBasedAuthorizationStrategy : IAuthorizationStrategy
                     continue;
                 }
 
-                throw new Exception(
+                throw new SecurityConfigurationException(
+                    SecurityConfigurationException.DefaultDetail,
                     $"Unable to find a property on the authorization subject entity type '{subjectEntity.Name}' corresponding to the '{basisProperty.PropertyName}' property on the custom authorization view's basis entity type '{_basisEntity.Name}' in order to perform authorization. Should a different authorization strategy be used?");
             }
 
