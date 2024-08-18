@@ -9,16 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Extensions
 {
     public static class TypeExtensions
     {
-        private static readonly ConcurrentDictionary<Type, object>
-            _defaultValuesByType = new ConcurrentDictionary<Type, object>();
-
-        private static readonly ConcurrentDictionary<Type, Type> _itemTypesByGenericListType =
-            new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, object> _defaultValuesByType = new();
+        private static readonly ConcurrentDictionary<Type, Type> _itemTypesByGenericListType = new();
+        private static readonly ConcurrentDictionary<Type, FullName> _fullNameByEntityType = new();
 
         public static T GetDefaultValue<T>()
         {
@@ -84,6 +83,28 @@ namespace EdFi.Ods.Common.Extensions
             return type.GetProperties()
                 .Where(
                     p => Attribute.IsDefined(p, typeof(DomainSignatureAttribute), true));
+        }
+
+        public static FullName GetApiModelFullName(this Type entityType)
+        {
+            return _fullNameByEntityType.GetOrAdd(
+                entityType,
+                static t =>
+                {
+                    var schema = t.GetCustomAttribute<SchemaAttribute>(false)?.Schema
+                        ?? throw new Exception($"The '{nameof(SchemaAttribute)}' was not found on entity type '{t.FullName}'.");
+
+                    var fullName = new FullName(schema, t.Name);
+
+                    return fullName;
+                });
+        }
+
+        public static FullName GetApiModelFullName<TEntity>(this TEntity entity)
+        {
+            Type entityType = typeof(TEntity);
+
+            return GetApiModelFullName(entityType);
         }
 
         public static bool IsScalar(this Type type)

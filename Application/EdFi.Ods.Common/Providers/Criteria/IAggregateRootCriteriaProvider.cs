@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Database.Querying;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Providers.Criteria
@@ -21,6 +22,8 @@ namespace EdFi.Ods.Common.Providers.Criteria
         /// <param name="specification">An instance of the entity containing parameters to be added to the query.</param>
         /// <param name="queryParameters">The query parameters to be applied to the filtering.</param>
         /// <returns>The NHibernate <see cref="NHibernate.ICriteria"/> instance representing the query.</returns>
-        ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters);
+        // ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters);
+ 
+        QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters);
     }
 }

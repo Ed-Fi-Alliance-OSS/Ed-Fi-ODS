@@ -144,7 +144,7 @@ namespace EdFi.Ods.Common.Database.Querying
                         ? new DynamicParameters(childScope.Parameters)
                         : null);
 
-                // Wrap the WHERE clause directly
+                // Since we're dealing with an explicit child scope, wrap the WHERE clause here to be safe
                 _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
             }
 
@@ -175,8 +175,8 @@ namespace EdFi.Ods.Common.Database.Querying
                     ? new DynamicParameters(childScope.Parameters)
                     : null);
 
-            // Wrap the WHERE clause directly
-            _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+            // SqlBuilder warps 'OR' where clauses when building the template SQL
+            _sqlBuilder.OrWhere($"{template.RawSql.Replace("WHERE ", string.Empty)}", template.Parameters);
 
             // Incorporate the JOINs into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
@@ -191,19 +191,34 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder WhereLike(string columnName, object value)
+        public QueryBuilder WhereLike(string columnName, object value, MatchMode matchMode = MatchMode.Exact)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(
+                matchMode switch
+                {
+                    // NOTE: May need dialect support for varying text match symbols
+                    MatchMode.Start => $"%{value}",
+                    MatchMode.Anywhere => $"%{value}%",
+                    MatchMode.End => $"{value}%",
+                    _ => value
+                });
 
             _sqlBuilder.Where($"{columnName} LIKE {parameterName}", parameters);
 
             return this;
         }
 
-        public QueryBuilder OrWhereLike(string expression, object value)
+        public QueryBuilder OrWhereLike(string expression, object value, MatchMode matchMode = MatchMode.Exact)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
-
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(matchMode switch
+            {
+                // NOTE: May need dialect support for varying text match symbols
+                MatchMode.Start => $"%{value}",
+                MatchMode.Anywhere => $"%{value}%",
+                MatchMode.End => $"{value}%",
+                _ => value
+            });
+            
             _sqlBuilder.OrWhere($"{expression} LIKE {parameterName}", parameters);
 
             return this;
@@ -261,12 +276,20 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder Join(string table, Func<Join, Join> joiner)
+        public QueryBuilder Join(string table, Func<Join, Join> joiner, JoinType joinType = JoinType.InnerJoin)
         {
             var join = joiner(new Join(table));
 
-            _sqlBuilder.InnerJoin(
-                $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            if (joinType == JoinType.InnerJoin)
+            {
+                _sqlBuilder.InnerJoin(
+                    $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            }
+            else if (joinType == JoinType.LeftOuterJoin)
+            {
+                _sqlBuilder.LeftJoin(
+                    $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            }
 
             return this;
         }
@@ -443,5 +466,22 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
+    }
+
+    public enum MatchMode
+    {
+        Exact,
+        Start,
+        Anywhere,
+        End,
+    }
+    
+    public enum JoinType
+    {
+        InnerJoin = 0,
+        LeftOuterJoin = 1,
+        // RightOuterJoin = 2,
+        // FullJoin = 4,
+        // CrossJoin = 8
     }
 }

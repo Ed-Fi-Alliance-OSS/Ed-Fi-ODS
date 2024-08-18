@@ -79,9 +79,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
-                    _viewBasedSingleItemAuthorizationQuerySupport,
-                    _multiValueRestrictions
-                ));
+                    _viewBasedSingleItemAuthorizationQuerySupport
+                    // _multiValueRestrictions
+                )
+            );
         }
 
         protected IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
@@ -99,8 +100,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         EducationOrganizationAuthorizationViewConstants.TargetColumnName,
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
-                        _viewBasedSingleItemAuthorizationQuerySupport,
-                        _multiValueRestrictions))
+                        _viewBasedSingleItemAuthorizationQuerySupport
+                        // _multiValueRestrictions
+                    )
+                )
                 // Add filter definitions for using the EdOrg hierarchy inverted
                 .Concat(concreteEdOrgIdNames
                     // Sort the edorg id names to ensure a determinate alias generation during filter definition
@@ -113,8 +116,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                             EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                             ApplyTrackedChangesAuthorizationCriteria,
                             AuthorizeInstance,
-                            _viewBasedSingleItemAuthorizationQuerySupport,
-                            _multiValueRestrictions)));
+                            _viewBasedSingleItemAuthorizationQuerySupport
+                            // _multiValueRestrictions
+                        )
+                    )
+                );
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(

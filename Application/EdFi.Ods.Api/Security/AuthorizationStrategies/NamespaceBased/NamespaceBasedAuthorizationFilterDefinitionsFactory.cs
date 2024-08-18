@@ -16,9 +16,10 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
+// using NHibernate;
+// using NHibernate.Criterion;
+// using NHibernate.SqlCommand;
+// using MatchMode = EdFi.Ods.Common.Database.Querying.MatchMode;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
@@ -66,8 +67,8 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     }
 
     private static void ApplyAuthorizationCriteria(
-        ICriteria criteria,
-        Junction @where,
+        QueryBuilder queryBuilder,
+        QueryBuilder whereBuilder,
         string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
         JoinType joinType,
@@ -91,15 +92,26 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         var namespacePrefixes = parameterValue as object[] ?? new[] { parameterValue };
 
         // Combine the namespace filters using OR (only one must match to grant authorization)
-        var namespacesDisjunction = new Disjunction();
-
-        foreach (var namespacePrefix in namespacePrefixes)
-        {
-            namespacesDisjunction.Add(Restrictions.Like(subjectEndpointName, namespacePrefix));
-        }
+        // var namespacesDisjunction = new Disjunction();
+        //
+        // foreach (var namespacePrefix in namespacePrefixes)
+        // {
+        //     namespacesDisjunction.Add(Restrictions.Like(subjectEndpointName, namespacePrefix));
+        // }
 
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointName), namespacesDisjunction));
+        // @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointName), namespacesDisjunction));
+        whereBuilder.WhereNotNull(subjectEndpointName)
+            .Where(
+                qb =>
+                {
+                    foreach (var namespacePrefix in namespacePrefixes)
+                    {
+                        qb.OrWhereLike(subjectEndpointName, namespacePrefix, MatchMode.Start);
+                    }
+
+                    return qb;
+                });
     }
 
     private static PropertyMapping[] GetContextDataPropertyMappings(string resourceFullName, IEnumerable<string> availablePropertyNames)

@@ -3,8 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
@@ -19,12 +23,18 @@ namespace EdFi.Ods.Common.Providers.Criteria
     public class TotalCountCriteriaProvider<TEntity> : AggregateRootCriteriaProviderBase<TEntity>, ITotalCountCriteriaProvider<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
+        private readonly Dialect _dialect;
+
         public TotalCountCriteriaProvider(
             ISessionFactory sessionFactory,
             IDescriptorResolver descriptorResolver,
             IPersonEntitySpecification personEntitySpecification,
-            IPersonTypesProvider personTypesProvider)
-            : base(sessionFactory, descriptorResolver, personEntitySpecification, personTypesProvider) { }
+            IPersonTypesProvider personTypesProvider,
+            Dialect dialect)
+            : base(sessionFactory, descriptorResolver, personEntitySpecification, personTypesProvider)
+        {
+            _dialect = dialect;
+        }
 
         /// <summary>
         /// Get a <see cref="NHibernate.ICriteria"/> query that retrieves the total count of resource items available to the current caller.
@@ -32,19 +42,40 @@ namespace EdFi.Ods.Common.Providers.Criteria
         /// <param name="specification">An instance of the entity containing parameters to be added to the query.</param>
         /// <param name="queryParameters">The query parameters to be applied to the filtering.</param>
         /// <returns>The NHibernate <see cref="NHibernate.ICriteria"/> instance representing the query.</returns>
-        public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
+        // public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
+        // {
+        //     var countQueryCriteria = Session
+        //         .CreateCriteria<TEntity>("aggregateRoot")
+        //         .SetProjection(Projections.CountDistinct<TEntity>(x => x.Id));
+        //
+        //     // Add specification-based criteria
+        //     ProcessSpecification(countQueryCriteria, specification);
+        //
+        //     // Add special query fields
+        //     ProcessQueryParameters(countQueryCriteria, queryParameters);
+        //
+        //     return countQueryCriteria;
+        // }
+
+        public QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters)
         {
-            var countQueryCriteria = Session
-                .CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.CountDistinct<TEntity>(x => x.Id));
+            var countQueryBuilder = new QueryBuilder(_dialect);
+            var tableName = specification.GetApiModelFullName().ToString();
+
+            countQueryBuilder.From(tableName.Alias("r")).Select("COUNT(DISTINCT Id)");
+
+            // var countQueryCriteria = Session
+            //     .CreateCriteria<TEntity>("aggregateRoot")
+            //     .SetProjection(Projections.CountDistinct<TEntity>(x => x.Id));
 
             // Add specification-based criteria
-            ProcessSpecification(countQueryCriteria, specification);
+            throw new NotImplementedException("Feature is obsolete.");
+            // ProcessSpecification(countQueryBuilder, specification, entity);
 
             // Add special query fields
-            ProcessQueryParameters(countQueryCriteria, queryParameters);
+            // ProcessQueryParameters(countQueryBuilder, queryParameters);
 
-            return countQueryCriteria;
+            // return countQueryBuilder;
         }
     }
 }
