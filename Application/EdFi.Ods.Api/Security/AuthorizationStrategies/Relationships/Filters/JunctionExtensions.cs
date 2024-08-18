@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Database.Querying;
 using NHibernate.Criterion;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
@@ -29,6 +30,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 else
                 {
                     whereJunction.Add(Restrictions.Eq($"{nameAndValue.Key}", nameAndValue.Value));
+                }
+            }
+        }
+        public static void ApplyPropertyFilters(this QueryBuilder whereQueryBuilder, IDictionary<string, object> parameters, params string[] availableFilterProperties)
+        {
+            foreach (var nameAndValue in parameters.Where(x => availableFilterProperties.Contains(x.Key, StringComparer.OrdinalIgnoreCase)))
+            {
+                if (nameAndValue.Value is object[] arrayOfValues)
+                {
+                    whereQueryBuilder.WhereIn($"{nameAndValue.Key}", arrayOfValues);
+                }
+                else
+                {
+                    whereQueryBuilder.Where($"{nameAndValue.Key}", nameAndValue.Value);
                 }
             }
         }

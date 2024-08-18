@@ -6,13 +6,17 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
-using NHibernate.Criterion;
+// using NHibernate.Criterion;
+// using NHMatchMode = NHibernate.Criterion.MatchMode;
+// using MatchMode = EdFi.Ods.Common.Database.Querying.MatchMode;
 
 namespace EdFi.Ods.Common.Providers.Criteria
 {
@@ -39,7 +43,43 @@ namespace EdFi.Ods.Common.Providers.Criteria
             _personTypesProvider = personTypesProvider;
         }
 
-        protected void ProcessSpecification(ICriteria queryCriteria, TEntity specification)
+        // protected void ProcessSpecification(ICriteria queryCriteria, TEntity specification)
+        // {
+        //     if (specification != null)
+        //     {
+        //         var propertyValuePairs = specification.ToDictionary(
+        //             (descriptor, o) => ShouldIncludeInQueryCriteria(descriptor, o, specification));
+        //
+        //         foreach (var key in propertyValuePairs.Keys)
+        //         {
+        //             IHasLookupColumnPropertyMap map = specification as IHasLookupColumnPropertyMap;
+        //
+        //             if (map.IdPropertyByLookupProperty.TryGetValue(key, out LookupColumnDetails columnDetails))
+        //             {
+        //                 // Look up the corresponding lookup id value from the cache
+        //                 var lookupId = _descriptorResolver.GetDescriptorId(
+        //                     columnDetails.LookupTypeName,
+        //                     Convert.ToString(propertyValuePairs[key]));
+        //
+        //                 // Add criteria for the lookup Id value, to avoid need to incorporate an INNER JOIN into the query
+        //                 queryCriteria.Add(
+        //                     propertyValuePairs[key] != null
+        //                         ? Restrictions.Eq(columnDetails.PropertyName, lookupId)
+        //                         : Restrictions.IsNull(key));
+        //             }
+        //             else
+        //             {
+        //                 // Add the property equality condition to the query criteria
+        //                 queryCriteria.Add(
+        //                     propertyValuePairs[key] != null
+        //                         ? Restrictions.Eq(key, propertyValuePairs[key])
+        //                         : Restrictions.IsNull(key));
+        //             }
+        //         }
+        //     }
+        // }
+
+        protected void ProcessSpecification(QueryBuilder queryBuilder, TEntity specification, Entity entity)
         {
             if (specification != null)
             {
@@ -58,30 +98,79 @@ namespace EdFi.Ods.Common.Providers.Criteria
                             Convert.ToString(propertyValuePairs[key]));
 
                         // Add criteria for the lookup Id value, to avoid need to incorporate an INNER JOIN into the query
-                        queryCriteria.Add(
-                            propertyValuePairs[key] != null
-                                ? Restrictions.Eq(columnDetails.PropertyName, lookupId)
-                                : Restrictions.IsNull(key));
+                        if (propertyValuePairs[key] != null)
+                        {
+                            queryBuilder.Where(columnDetails.PropertyName, lookupId);
+                        }
+                        else
+                        {
+                            queryBuilder.WhereNull(key);
+                        }
                     }
                     else
                     {
+                        string alias = (!entity.IsDerived || entity.PropertyByName.ContainsKey(key))
+                            ? "r"
+                            : "b";
+
                         // Add the property equality condition to the query criteria
-                        queryCriteria.Add(
-                            propertyValuePairs[key] != null
-                                ? Restrictions.Eq(key, propertyValuePairs[key])
-                                : Restrictions.IsNull(key));
+                        if (propertyValuePairs[key] != null)
+                        {
+                            queryBuilder.Where($"{alias}.{key}", propertyValuePairs[key]);
+                        }
+                        else
+                        {
+                            queryBuilder.WhereNull($"{alias}.{key}");
+                        }
                     }
                 }
             }
         }
 
-        protected static void ProcessQueryParameters(ICriteria queryCriteria, IQueryParameters parameters)
+        // protected static void ProcessQueryParameters(ICriteria queryCriteria, IQueryParameters parameters)
+        // {
+        //     foreach (IQueryCriteriaBase criteria in parameters.QueryCriteria)
+        //     {
+        //         TextCriteria textCriteria = criteria as TextCriteria;
+        //
+        //         if (textCriteria != null)
+        //         {
+        //             NHMatchMode mode;
+        //
+        //             switch (textCriteria.MatchMode)
+        //             {
+        //                 case TextMatchMode.Anywhere:
+        //                     mode = NHMatchMode.Anywhere;
+        //
+        //                     break;
+        //
+        //                 case TextMatchMode.Start:
+        //                     mode = NHMatchMode.Start;
+        //
+        //                     break;
+        //
+        //                 case TextMatchMode.End:
+        //                     mode = NHMatchMode.End;
+        //
+        //                     break;
+        //
+        //                 //case TextMatchMode.Exact:
+        //                 default:
+        //                     mode = NHMatchMode.Exact;
+        //
+        //                     break;
+        //             }
+        //
+        //             queryCriteria.Add(Restrictions.Like(textCriteria.PropertyName, textCriteria.Value, mode));
+        //         }
+        //     }
+        // }
+        
+        protected static void ProcessQueryParameters(QueryBuilder queryBuilder, IQueryParameters parameters)
         {
             foreach (IQueryCriteriaBase criteria in parameters.QueryCriteria)
             {
-                TextCriteria textCriteria = criteria as TextCriteria;
-
-                if (textCriteria != null)
+                if (criteria is TextCriteria textCriteria)
                 {
                     MatchMode mode;
 
@@ -109,7 +198,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
                             break;
                     }
 
-                    queryCriteria.Add(Restrictions.Like(textCriteria.PropertyName, textCriteria.Value, mode));
+                    queryBuilder.WhereLike(textCriteria.PropertyName, textCriteria.Value, mode);
                 }
             }
         }
