@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Dapper;
@@ -35,6 +36,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
         {
             var itemSystemType = values[0].GetType();
+
+            // ODS does not support TVPs using shorts, so use int instead
+            if (itemSystemType == typeof(short))
+            {
+                itemSystemType = typeof(int);
+            }
 
             var tvp = SqlServerTableValuedParameterHelper.CreateIdDataTable(values, itemSystemType)
                 .AsTableValuedParameter(SqlServerStructuredMappings.StructuredTypeNameBySystemType[itemSystemType]);
