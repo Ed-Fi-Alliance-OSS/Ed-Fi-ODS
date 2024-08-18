@@ -127,10 +127,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 
                 if (idsTemplate != null)
                 {
-                    var idsResults = await Session.Connection.QueryAsync(idsTemplate.RawSql, idsTemplate.Parameters);
+                    var idsResults = await Session.Connection.QueryAsync<IdOnly>(idsTemplate.RawSql, idsTemplate.Parameters);
                     return new SpecificationResult
                     {
-                        Ids = idsResults.Select(d => (Guid) d.Id).ToArray() 
+                        Ids = idsResults.Select(d => d.Id).ToArray() 
                     };
                 }
 
@@ -138,6 +138,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 return new SpecificationResult
                 {
+                    Ids = Array.Empty<Guid>(),
                     TotalCount = countResult 
                 };
             }
@@ -148,9 +149,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             QueryBuilder GetIdsQueryBuilder()
             {
-                QueryBuilder idsQueryBuilder;
-
-                idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(specification, queryParameters);
+                var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(specification, queryParameters);
                 SetChangeQueriesCriteria(idsQueryBuilder);
 
                 return idsQueryBuilder;
@@ -174,6 +173,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         {
             public IList<Guid> Ids { get; set; }
             public int TotalCount { get; set; }
+        }
+
+        private class IdOnly
+        {
+            public Guid Id { get; set; }
         }
     }
 }
