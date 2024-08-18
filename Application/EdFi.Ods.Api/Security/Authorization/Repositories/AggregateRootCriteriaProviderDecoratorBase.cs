@@ -124,8 +124,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 bool disjunctionFiltersApplied = false;
 
                 // Combine 'OR' strategies
-                ApplyStrategies(queryBuilder);
-                // queryBuilder.OrWhere(ApplyStrategies);
+                // ApplyStrategies(queryBuilder);
+                queryBuilder.Where(ApplyStrategies);
                 // queryBuilder.OrWhere(ApplyStrategies);
 
                 QueryBuilder ApplyStrategies(QueryBuilder disjunctionBuilder)
