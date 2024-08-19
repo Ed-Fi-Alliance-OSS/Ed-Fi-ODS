@@ -123,7 +123,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
             }
 
             // TODO: Need physical table name here -- entity.TableName()
-            var tableName = entityFullName.ToString();
+            var tableName = entity.FullName.ToString();
 
             string[] selectColumns = GetColumnProjectionsForDistinctWithOrderBy(entity).ToArray();
 
@@ -131,6 +131,8 @@ namespace EdFi.Ods.Common.Providers.Criteria
                 .Distinct()
                 .Select(selectColumns)
                 .LimitOffset(queryParameters.Limit ?? _defaultPageLimitSize, queryParameters.Offset ?? 0);
+
+            // TODO: In order for query caching to work, limit/offset must be parameterized in query (not embedded as literal values)
 
             // Add the join to the base type
             if (entity.IsDerived)
@@ -151,6 +153,8 @@ namespace EdFi.Ods.Common.Providers.Criteria
             }
 
             AddDefaultOrdering(idQueryBuilder, entity);
+
+            // TODO: Consider cloning the querybuilder at this point and introducing a seam for applying the additional parameters so that authorization strategies can also be incorporated and cloned
 
             // Add specification-based criteria
             ProcessSpecification(idQueryBuilder, specification, entity);

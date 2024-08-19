@@ -16,6 +16,8 @@ using NHibernate.Criterion;
 
 namespace EdFi.Ods.Common.Providers.Criteria
 {
+    // TODO: ODS-6444 OBSOLETE
+
     /// <summary>
     /// Builds a query that retrieves the total count of resource items available to the current caller.
     /// </summary>
