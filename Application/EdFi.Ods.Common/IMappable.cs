@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+
 namespace EdFi.Ods.Common
 {
     /// <summary>
@@ -16,5 +18,14 @@ namespace EdFi.Ods.Common
         /// </summary>
         /// <param name="target">An uninitialized instance (of the same abstract entity type) to be mapped from the current object.</param>
         void Map(object target);
+    }
+
+    public interface IDeserializable
+    {
+        /// <summary>
+        /// Deserializes the current item to a fully initialized object of the specified target type.
+        /// </summary>
+        /// <param name="targetType">The resource class type to be deserialized.</param>
+        bool TryDeserialize<TTarget>(out TTarget deserialized);
     }
 }

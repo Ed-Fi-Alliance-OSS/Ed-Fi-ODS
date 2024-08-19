@@ -18,7 +18,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         where TContext : GetManyContext<TResourceModel, TEntityModel>
         where TResult : PipelineResultBase
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifier, IDateVersionedEntity
+        where TEntityModel : class, IHasIdentifier, IDateVersionedEntity, IMappable
     {
         private readonly IGetEntitiesBySpecification<TEntityModel> _repository;
 

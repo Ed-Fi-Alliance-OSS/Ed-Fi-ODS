@@ -35,6 +35,8 @@ namespace EdFi.Ods.Common.Models.Domain
         [DataMember]
         public virtual Guid Id { get; set; }
 
+        public virtual byte[] Json { get; set; }
+
         IdentifierSource IHasIdentifierSource.IdSource { get; set; }
 
         // Order to identify the owner (from the current API client), assign the ownership token id to the corresponding aggregate root entity

@@ -168,7 +168,9 @@ namespace EdFi.Ods.Common.Providers.Criteria
             {
                 // Add the resource identifier (this is the value we need for the secondary "page" query)
                 yield return "Id";
-            
+                yield return "Json";
+                yield return "LastModifiedDate";
+
                 // Add the order by (primary key) columns (required when using DISTINCT with ORDER BY)
                 // foreach (var identifierColumnName in _identifierColumnNames.Value)
                 foreach (var identifierProperty in (entity.BaseEntity ?? entity).Identifier.Properties)

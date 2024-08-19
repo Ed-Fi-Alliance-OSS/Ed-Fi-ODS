@@ -5,13 +5,14 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
 {
     public class GetManyContext<TResourceModel, TEntityModel>
         : IHasPersistentModel<TEntityModel>, IHasPersistentModels<TEntityModel>, IHasResource<TResourceModel> // IHasETag, IHasIdentifier 
         where TResourceModel : IHasETag
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         public GetManyContext(TResourceModel resourceSpecification, IQueryParameters queryParameters)
         {
@@ -32,7 +33,7 @@ namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
         /// <summary>
         ///     Gets or sets the list of persistent models retrieved from storage.
         /// </summary>
-        public IList<TEntityModel> PersistentModels { get; set; }
+        public IList<ResultItem<TEntityModel>> PersistentModels { get; set; }
 
         /// <summary>
         ///     Gets or sets the resource model to be used as a specification for the query.

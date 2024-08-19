@@ -162,6 +162,9 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<INHibernateConfigurator>()
                 .SingleInstance();
 
+            builder.RegisterType<JsonNHibernateConfigurationActivity>()
+                .As<INHibernateBeforeBindMappingActivity>();
+            
             builder.Register(
                     c => c.Resolve<INHibernateConfigurator>()
                         .Configure())

@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <typeparam name="TEntity">The <see cref="Type"/> of entity being queried.</typeparam>
     public class GetEntitiesBySpecificationAuthorizationDecorator<TEntity>
         : RepositoryOperationAuthorizationDecoratorBase<TEntity>, IGetEntitiesBySpecification<TEntity>
-        where TEntity : class, IHasIdentifier, IDateVersionedEntity
+        where TEntity : class, IHasIdentifier, IDateVersionedEntity, IMappable
     {
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IGetEntitiesBySpecification<TEntity> _next;

@@ -16,6 +16,8 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -37,16 +39,19 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly IOptions<MvcNewtonsoftJsonOptions> _jsonOptions;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
-            IAuthorizationContextProvider authorizationContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider,
+            IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
         {
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
+            _jsonOptions = jsonOptions;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -119,7 +124,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.AddCreateDateHooks(_entityAuthorizerResolver, _authorizationContextProvider);
+            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _jsonOptions);
 
             return configuration;
 

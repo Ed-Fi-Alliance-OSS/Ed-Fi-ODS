@@ -58,7 +58,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 
         public GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class
+            where TEntityModel : class, IMappable
         {
             var stepTypes = _getBySpecificationPipelineStepsProvider.GetSteps();
 

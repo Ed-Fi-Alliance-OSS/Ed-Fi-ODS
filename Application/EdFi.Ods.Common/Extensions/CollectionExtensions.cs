@@ -112,6 +112,9 @@ namespace EdFi.Ods.Common.Extensions
             var targetListType = targetList.GetType();
             var itemType = GetItemType();
 
+            bool isFirstItem = true;
+            bool isDeserializable = false;
+            
             foreach (var sourceItem in sourceList.Where(i => isItemIncluded == null || isItemIncluded(i)))
             {
                 if (!itemCreatable)
@@ -126,15 +129,36 @@ namespace EdFi.Ods.Common.Extensions
                     }
                 }
 
-                var targetItem = (TTarget) Activator.CreateInstance(itemType);
+                IDeserializable deserializable = null;
 
-                if (parent != null)
+                if (isFirstItem)
                 {
-                    (targetItem as IChildEntity)?.SetParent(parent);
+                    isFirstItem = false;
+                    deserializable = sourceItem as IDeserializable;
+                    isDeserializable = (deserializable != null);
+                }
+                else if (isDeserializable)
+                {
+                    deserializable = sourceItem as IDeserializable;
                 }
 
-                sourceItem.Map(targetItem);
-                targetList.Add(targetItem);
+                if (isDeserializable && deserializable?.TryDeserialize(out TTarget targetItem) == true)
+                {
+                    targetList.Add(targetItem);
+                }
+                else
+                {
+                    // Create and map the item
+                    var mappedTargetItem = (TTarget) Activator.CreateInstance(itemType);
+
+                    if (parent != null)
+                    {
+                        (mappedTargetItem as IChildEntity)?.SetParent(parent);
+                    }
+
+                    sourceItem.Map(mappedTargetItem);
+                    targetList.Add(mappedTargetItem);
+                }
             }
 
             Type GetItemType()

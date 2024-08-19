@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EdFi.Ods.Common.Repositories
 {
     public interface IGetEntitiesBySpecification<TEntity>
-        where TEntity : IHasIdentifier, IDateVersionedEntity
+        where TEntity : IHasIdentifier, IDateVersionedEntity, IMappable
     {
         Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification, IQueryParameters queryParameters, CancellationToken cancellationToken);
     }
