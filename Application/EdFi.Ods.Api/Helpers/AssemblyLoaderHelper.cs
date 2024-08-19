@@ -255,8 +255,10 @@ namespace EdFi.Ods.Api.Helpers
                             }
                         }
                     }
-                   
-                    yield return assembly.Location;
+                    else
+                    {
+                        yield return assembly.Location;
+                    }
                 }
             }
             finally
