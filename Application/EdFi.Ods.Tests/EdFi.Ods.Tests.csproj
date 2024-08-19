@@ -80,6 +80,5 @@
     <EmbeddedResource Include="_EmbeddedResources\Extensions.Sample-ApiModel-EXTENSION-For-Tests.json" />
     <EmbeddedResource Include="_EmbeddedResources\EdFi.Ods.Extensions.Sample.dll" />
     <EmbeddedResource Include="_EmbeddedResources\EdFi.Ods.Profiles.Sample.dll" />
-    <EmbeddedResource Include="_EmbeddedResources\InvalidPluginAssembly.dll" />
   </ItemGroup>
 </Project>
