@@ -137,7 +137,7 @@ namespace EdFi.Ods.Api.Startup
                     return factory.GetUrlHelper(actionContext);
                 });
 
-            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
+            AssemblyLoaderHelper.LoadAssembliesFromFolder();
 
             var pluginInfos = LoadPlugins(pluginSettings);
 
@@ -436,52 +436,10 @@ namespace EdFi.Ods.Api.Startup
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
-        
-        private string GetPluginFolder(Plugin pluginSettings)
-        {
-            if (string.IsNullOrWhiteSpace(pluginSettings.Folder))
-            {
-                return string.Empty;
-            }
-
-            if (Path.IsPathRooted(pluginSettings.Folder))
-            {
-                return pluginSettings.Folder;
-            }
-
-            // in a developer environment the plugin folder is relative to the WebApi project
-            // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net8.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
-            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
-            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, pluginSettings.Folder));
-
-            if (Directory.Exists(relativeToProject))
-            {
-                return relativeToProject;
-            }
-
-            // in a deployment environment the plugin folder is relative to the executable
-            // "C:/inetpub/Ed-Fi/WebApi"
-            var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, pluginSettings.Folder));
-
-            if (Directory.Exists(relativeToExecutable))
-            {
-                return relativeToExecutable;
-            }
-
-            // last attempt to get directory relative to the working directory
-            var relativeToWorkingDirectory = Path.GetFullPath(pluginSettings.Folder);
-
-            if (Directory.Exists(relativeToWorkingDirectory))
-            {
-                return relativeToWorkingDirectory;
-            }
-
-            return pluginSettings.Folder;
-        }
 
         private PluginInfo[] LoadPlugins(Plugin pluginSettings)
         {
-            var pluginFolder = GetPluginFolder(pluginSettings);
+            var pluginFolder = AssemblyLoaderHelper.GetPluginFolder(pluginSettings.Folder);
             var pluginFolderSettingsName = $"{nameof(Plugin)}:{nameof(Plugin.Folder)}";
 
             if (string.IsNullOrWhiteSpace(pluginFolder))

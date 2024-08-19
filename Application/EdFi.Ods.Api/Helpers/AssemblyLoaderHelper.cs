@@ -14,8 +14,6 @@ using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Conventions;
-using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Validation;
@@ -29,29 +27,39 @@ namespace EdFi.Ods.Api.Helpers
     public static class AssemblyLoaderHelper
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
-        private static readonly Dictionary<bool, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
+        private static readonly Dictionary<Tuple<string, bool>, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
 
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
-        
-        public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
+
+        /// <summary>
+        /// Load assemblies from the folder specified by <paramref name="directory"/>.
+        /// If <paramref name="directory"/> is null or empty, the folder containing the currently executing assembly will be used.
+        /// </summary>
+        /// <param name="directory">Optional: Directory from which assemblies should be loaded (Default: null). </param>
+        /// <param name="includeFramework">Optional: Should .NET framework assemblies be included in the loading (Default: false).</param>
+        public static void LoadAssembliesFromFolder(string directory = null, bool includeFramework = false)
         {
-            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(includeFramework))
+            directory = GetDefaultDirectoryIfNotProvided(directory);
+
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+            {
+                return;
+            }
+
+            var directoryInfo = new DirectoryInfo(directory);
+
+            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(
+                    new Tuple<string, bool>(directoryInfo.FullName, includeFramework)))
             {
                 return;
             }
 
             // Mark as having already executed with this option
-            _assembliesAlreadyLoadedByIncludeFrameworkOption[includeFramework] = true;
+            _assembliesAlreadyLoadedByIncludeFrameworkOption[
+                new Tuple<string, bool>(directoryInfo.FullName, includeFramework)] = true;
 
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
-
-            // Load referenced assemblies into the domain. This is effectively the same as EnsureLoaded in common
-            // however the assemblies are linked in the project.
-            var directoryInfo = new DirectoryInfo(
-                Path.GetDirectoryName(
-                    Assembly.GetExecutingAssembly()
-                        .Location) ?? string.Empty);
 
             _logger.Debug($"Loaded assemblies from executing folder: '{directoryInfo.FullName}'");
 
@@ -81,6 +89,49 @@ namespace EdFi.Ods.Api.Helpers
                 $"Assemblies loaded after scan ({loadedByAssemblyName.Keys.Count - alreadyLoaded} assemblies in {sw.ElapsedMilliseconds} ms):");
         }
 
+        public static string GetPluginFolder(string pluginSettingsFolder)
+        {
+            if (string.IsNullOrWhiteSpace(pluginSettingsFolder))
+            {
+                return string.Empty;
+            }
+
+            if (Path.IsPathRooted(pluginSettingsFolder))
+            {
+                return pluginSettingsFolder;
+            }
+
+            // in a developer environment the plugin folder is relative to the WebApi project
+            // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net8.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
+            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
+            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, pluginSettingsFolder));
+
+            if (Directory.Exists(relativeToProject))
+            {
+                return relativeToProject;
+            }
+
+            // in a deployment environment the plugin folder is relative to the executable
+            // "C:/inetpub/Ed-Fi/WebApi"
+            var relativeToExecutable =
+                Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, pluginSettingsFolder));
+
+            if (Directory.Exists(relativeToExecutable))
+            {
+                return relativeToExecutable;
+            }
+
+            // last attempt to get directory relative to the working directory
+            var relativeToWorkingDirectory = Path.GetFullPath(pluginSettingsFolder);
+
+            if (Directory.Exists(relativeToWorkingDirectory))
+            {
+                return relativeToWorkingDirectory;
+            }
+
+            return pluginSettingsFolder;
+        }
+
         private static void LoadAssemblyFile(FileInfo assemblyFilesToLoad)
         {
             _logger.Debug($"{assemblyFilesToLoad.Name}");
@@ -94,6 +145,13 @@ namespace EdFi.Ods.Api.Helpers
                 _logger.Error($"Unable to load assembly {assemblyFilesToLoad.FullName}", ex);
                 throw;
             }
+        }
+
+        private static string GetDefaultDirectoryIfNotProvided(string directory)
+        {
+            return string.IsNullOrEmpty(directory)
+                ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty
+                : directory;
         }
 
         private static void LoadReferencedAssembly(Assembly assembly, IDictionary<string, bool> loaded,
