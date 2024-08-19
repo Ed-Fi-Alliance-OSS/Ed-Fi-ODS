@@ -248,7 +248,7 @@ namespace EdFi.Ods.Api.Startup
                 
                 foreach (var servicesConfigurationActivity in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
                 {
-                    _logger.Debug($"Plugin {servicesConfigurationActivity.Name}");
+                    _logger.Debug($"Executing services configuration activity '{servicesConfigurationActivity.Name}'...");
 
                     try
                     {
@@ -257,7 +257,7 @@ namespace EdFi.Ods.Api.Startup
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"Error configuring services using plugin '{servicesConfigurationActivity.Name}'.", ex);
+                        _logger.Error($"Error occured during service configuration activity '{servicesConfigurationActivity.Name}': ", ex);
                     }
                 }
             }
