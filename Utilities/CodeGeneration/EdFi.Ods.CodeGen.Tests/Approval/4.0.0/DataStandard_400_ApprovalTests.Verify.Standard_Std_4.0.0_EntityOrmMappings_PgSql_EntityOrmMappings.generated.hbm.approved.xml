@@ -2557,12 +2557,13 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.DescriptorAggregate.EdFi.Descriptor" table="Descriptor" lazy="false" abstract="true">
+  <class name="EdFi.Ods.Entities.NHibernate.DescriptorAggregate.EdFi.Descriptor" table="Descriptor" lazy="false" abstract="true" discriminator-value="NULL">
     <id name="DescriptorId" column="DescriptorId" type="int">
       <generator class="identity" />
     </id>
 
     <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
 
     <!-- Optimistic locking for aggregate root -->
     <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
@@ -2587,7 +2588,8 @@
 
     <!-- Collections -->
     <!-- Derived classes -->
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AbsenceEventCategoryDescriptorAggregate.EdFi.AbsenceEventCategoryDescriptor" table="AbsenceEventCategoryDescriptor" lazy="false">
+    <subclass name="EdFi.Ods.Entities.NHibernate.AbsenceEventCategoryDescriptorAggregate.EdFi.AbsenceEventCategoryDescriptor" lazy="false" discriminator-value="edfi.AbsenceEventCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AbsenceEventCategoryDescriptor" >
           <key>
             <column name="AbsenceEventCategoryDescriptorId" />
           </key>
@@ -2600,8 +2602,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AcademicHonorCategoryDescriptorAggregate.EdFi.AcademicHonorCategoryDescriptor" table="AcademicHonorCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AcademicHonorCategoryDescriptorAggregate.EdFi.AcademicHonorCategoryDescriptor" lazy="false" discriminator-value="edfi.AcademicHonorCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AcademicHonorCategoryDescriptor" >
           <key>
             <column name="AcademicHonorCategoryDescriptorId" />
           </key>
@@ -2614,8 +2618,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptor" table="AcademicSubjectDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptor" lazy="false" discriminator-value="edfi.AcademicSubjectDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AcademicSubjectDescriptor" >
           <key>
             <column name="AcademicSubjectDescriptorId" />
           </key>
@@ -2628,8 +2634,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptor" table="AccommodationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptor" lazy="false" discriminator-value="edfi.AccommodationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AccommodationDescriptor" >
           <key>
             <column name="AccommodationDescriptorId" />
           </key>
@@ -2642,8 +2650,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptor" table="AccountTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptor" lazy="false" discriminator-value="edfi.AccountTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AccountTypeDescriptor" >
           <key>
             <column name="AccountTypeDescriptorId" />
           </key>
@@ -2656,8 +2666,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptor" table="AchievementCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptor" lazy="false" discriminator-value="edfi.AchievementCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AchievementCategoryDescriptor" >
           <key>
             <column name="AchievementCategoryDescriptorId" />
           </key>
@@ -2670,8 +2682,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptor" table="AdditionalCreditTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptor" lazy="false" discriminator-value="edfi.AdditionalCreditTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AdditionalCreditTypeDescriptor" >
           <key>
             <column name="AdditionalCreditTypeDescriptorId" />
           </key>
@@ -2684,8 +2698,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptor" table="AddressTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptor" lazy="false" discriminator-value="edfi.AddressTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AddressTypeDescriptor" >
           <key>
             <column name="AddressTypeDescriptorId" />
           </key>
@@ -2698,8 +2714,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AdministrationEnvironmentDescriptorAggregate.EdFi.AdministrationEnvironmentDescriptor" table="AdministrationEnvironmentDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AdministrationEnvironmentDescriptorAggregate.EdFi.AdministrationEnvironmentDescriptor" lazy="false" discriminator-value="edfi.AdministrationEnvironmentDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AdministrationEnvironmentDescriptor" >
           <key>
             <column name="AdministrationEnvironmentDescriptorId" />
           </key>
@@ -2712,8 +2730,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AdministrativeFundingControlDescriptorAggregate.EdFi.AdministrativeFundingControlDescriptor" table="AdministrativeFundingControlDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AdministrativeFundingControlDescriptorAggregate.EdFi.AdministrativeFundingControlDescriptor" lazy="false" discriminator-value="edfi.AdministrativeFundingControlDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AdministrativeFundingControlDescriptor" >
           <key>
             <column name="AdministrativeFundingControlDescriptorId" />
           </key>
@@ -2726,8 +2746,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor" table="AncestryEthnicOriginDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor" lazy="false" discriminator-value="edfi.AncestryEthnicOriginDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AncestryEthnicOriginDescriptor" >
           <key>
             <column name="AncestryEthnicOriginDescriptorId" />
           </key>
@@ -2740,8 +2762,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptor" table="AssessmentCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptor" lazy="false" discriminator-value="edfi.AssessmentCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentCategoryDescriptor" >
           <key>
             <column name="AssessmentCategoryDescriptorId" />
           </key>
@@ -2754,8 +2778,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentIdentificationSystemDescriptorAggregate.EdFi.AssessmentIdentificationSystemDescriptor" table="AssessmentIdentificationSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentIdentificationSystemDescriptorAggregate.EdFi.AssessmentIdentificationSystemDescriptor" lazy="false" discriminator-value="edfi.AssessmentIdentificationSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentIdentificationSystemDescriptor" >
           <key>
             <column name="AssessmentIdentificationSystemDescriptorId" />
           </key>
@@ -2768,8 +2794,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentItemCategoryDescriptorAggregate.EdFi.AssessmentItemCategoryDescriptor" table="AssessmentItemCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentItemCategoryDescriptorAggregate.EdFi.AssessmentItemCategoryDescriptor" lazy="false" discriminator-value="edfi.AssessmentItemCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentItemCategoryDescriptor" >
           <key>
             <column name="AssessmentItemCategoryDescriptorId" />
           </key>
@@ -2782,8 +2810,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentItemResultDescriptorAggregate.EdFi.AssessmentItemResultDescriptor" table="AssessmentItemResultDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentItemResultDescriptorAggregate.EdFi.AssessmentItemResultDescriptor" lazy="false" discriminator-value="edfi.AssessmentItemResultDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentItemResultDescriptor" >
           <key>
             <column name="AssessmentItemResultDescriptorId" />
           </key>
@@ -2796,8 +2826,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptor" table="AssessmentPeriodDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptor" lazy="false" discriminator-value="edfi.AssessmentPeriodDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentPeriodDescriptor" >
           <key>
             <column name="AssessmentPeriodDescriptorId" />
           </key>
@@ -2810,8 +2842,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptor" table="AssessmentReportingMethodDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptor" lazy="false" discriminator-value="edfi.AssessmentReportingMethodDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssessmentReportingMethodDescriptor" >
           <key>
             <column name="AssessmentReportingMethodDescriptorId" />
           </key>
@@ -2824,8 +2858,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssignmentLateStatusDescriptorAggregate.EdFi.AssignmentLateStatusDescriptor" table="AssignmentLateStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AssignmentLateStatusDescriptorAggregate.EdFi.AssignmentLateStatusDescriptor" lazy="false" discriminator-value="edfi.AssignmentLateStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AssignmentLateStatusDescriptor" >
           <key>
             <column name="AssignmentLateStatusDescriptorId" />
           </key>
@@ -2838,8 +2874,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AttemptStatusDescriptorAggregate.EdFi.AttemptStatusDescriptor" table="AttemptStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AttemptStatusDescriptorAggregate.EdFi.AttemptStatusDescriptor" lazy="false" discriminator-value="edfi.AttemptStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AttemptStatusDescriptor" >
           <key>
             <column name="AttemptStatusDescriptorId" />
           </key>
@@ -2852,8 +2890,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AttendanceEventCategoryDescriptorAggregate.EdFi.AttendanceEventCategoryDescriptor" table="AttendanceEventCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.AttendanceEventCategoryDescriptorAggregate.EdFi.AttendanceEventCategoryDescriptor" lazy="false" discriminator-value="edfi.AttendanceEventCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="AttendanceEventCategoryDescriptor" >
           <key>
             <column name="AttendanceEventCategoryDescriptorId" />
           </key>
@@ -2866,8 +2906,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor" table="BarrierToInternetAccessInResidenceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor" lazy="false" discriminator-value="edfi.BarrierToInternetAccessInResidenceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="BarrierToInternetAccessInResidenceDescriptor" >
           <key>
             <column name="BarrierToInternetAccessInResidenceDescriptorId" />
           </key>
@@ -2880,8 +2922,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptor" table="BehaviorDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptor" lazy="false" discriminator-value="edfi.BehaviorDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="BehaviorDescriptor" >
           <key>
             <column name="BehaviorDescriptorId" />
           </key>
@@ -2894,8 +2938,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CalendarEventDescriptorAggregate.EdFi.CalendarEventDescriptor" table="CalendarEventDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CalendarEventDescriptorAggregate.EdFi.CalendarEventDescriptor" lazy="false" discriminator-value="edfi.CalendarEventDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CalendarEventDescriptor" >
           <key>
             <column name="CalendarEventDescriptorId" />
           </key>
@@ -2908,8 +2954,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CalendarTypeDescriptorAggregate.EdFi.CalendarTypeDescriptor" table="CalendarTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CalendarTypeDescriptorAggregate.EdFi.CalendarTypeDescriptor" lazy="false" discriminator-value="edfi.CalendarTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CalendarTypeDescriptor" >
           <key>
             <column name="CalendarTypeDescriptorId" />
           </key>
@@ -2922,8 +2970,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CareerPathwayDescriptorAggregate.EdFi.CareerPathwayDescriptor" table="CareerPathwayDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CareerPathwayDescriptorAggregate.EdFi.CareerPathwayDescriptor" lazy="false" discriminator-value="edfi.CareerPathwayDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CareerPathwayDescriptor" >
           <key>
             <column name="CareerPathwayDescriptorId" />
           </key>
@@ -2936,8 +2986,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CharterApprovalAgencyTypeDescriptorAggregate.EdFi.CharterApprovalAgencyTypeDescriptor" table="CharterApprovalAgencyTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CharterApprovalAgencyTypeDescriptorAggregate.EdFi.CharterApprovalAgencyTypeDescriptor" lazy="false" discriminator-value="edfi.CharterApprovalAgencyTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CharterApprovalAgencyTypeDescriptor" >
           <key>
             <column name="CharterApprovalAgencyTypeDescriptorId" />
           </key>
@@ -2950,8 +3002,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CharterStatusDescriptorAggregate.EdFi.CharterStatusDescriptor" table="CharterStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CharterStatusDescriptorAggregate.EdFi.CharterStatusDescriptor" lazy="false" discriminator-value="edfi.CharterStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CharterStatusDescriptor" >
           <key>
             <column name="CharterStatusDescriptorId" />
           </key>
@@ -2964,8 +3018,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptor" table="CitizenshipStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptor" lazy="false" discriminator-value="edfi.CitizenshipStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CitizenshipStatusDescriptor" >
           <key>
             <column name="CitizenshipStatusDescriptorId" />
           </key>
@@ -2978,8 +3034,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ClassroomPositionDescriptorAggregate.EdFi.ClassroomPositionDescriptor" table="ClassroomPositionDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ClassroomPositionDescriptorAggregate.EdFi.ClassroomPositionDescriptor" lazy="false" discriminator-value="edfi.ClassroomPositionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ClassroomPositionDescriptor" >
           <key>
             <column name="ClassroomPositionDescriptorId" />
           </key>
@@ -2992,8 +3050,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CohortScopeDescriptorAggregate.EdFi.CohortScopeDescriptor" table="CohortScopeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CohortScopeDescriptorAggregate.EdFi.CohortScopeDescriptor" lazy="false" discriminator-value="edfi.CohortScopeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CohortScopeDescriptor" >
           <key>
             <column name="CohortScopeDescriptorId" />
           </key>
@@ -3006,8 +3066,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CohortTypeDescriptorAggregate.EdFi.CohortTypeDescriptor" table="CohortTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CohortTypeDescriptorAggregate.EdFi.CohortTypeDescriptor" lazy="false" discriminator-value="edfi.CohortTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CohortTypeDescriptor" >
           <key>
             <column name="CohortTypeDescriptorId" />
           </key>
@@ -3020,8 +3082,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CohortYearTypeDescriptorAggregate.EdFi.CohortYearTypeDescriptor" table="CohortYearTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CohortYearTypeDescriptorAggregate.EdFi.CohortYearTypeDescriptor" lazy="false" discriminator-value="edfi.CohortYearTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CohortYearTypeDescriptor" >
           <key>
             <column name="CohortYearTypeDescriptorId" />
           </key>
@@ -3034,8 +3098,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptor" table="CompetencyLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptor" lazy="false" discriminator-value="edfi.CompetencyLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CompetencyLevelDescriptor" >
           <key>
             <column name="CompetencyLevelDescriptorId" />
           </key>
@@ -3048,8 +3114,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptor" table="ContactTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptor" lazy="false" discriminator-value="edfi.ContactTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ContactTypeDescriptor" >
           <key>
             <column name="ContactTypeDescriptorId" />
           </key>
@@ -3062,8 +3130,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor" table="ContentClassDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor" lazy="false" discriminator-value="edfi.ContentClassDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ContentClassDescriptor" >
           <key>
             <column name="ContentClassDescriptorId" />
           </key>
@@ -3076,8 +3146,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ContinuationOfServicesReasonDescriptorAggregate.EdFi.ContinuationOfServicesReasonDescriptor" table="ContinuationOfServicesReasonDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ContinuationOfServicesReasonDescriptorAggregate.EdFi.ContinuationOfServicesReasonDescriptor" lazy="false" discriminator-value="edfi.ContinuationOfServicesReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ContinuationOfServicesReasonDescriptor" >
           <key>
             <column name="ContinuationOfServicesReasonDescriptorId" />
           </key>
@@ -3090,8 +3162,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CostRateDescriptorAggregate.EdFi.CostRateDescriptor" table="CostRateDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CostRateDescriptorAggregate.EdFi.CostRateDescriptor" lazy="false" discriminator-value="edfi.CostRateDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CostRateDescriptor" >
           <key>
             <column name="CostRateDescriptorId" />
           </key>
@@ -3104,8 +3178,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi.CountryDescriptor" table="CountryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi.CountryDescriptor" lazy="false" discriminator-value="edfi.CountryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CountryDescriptor" >
           <key>
             <column name="CountryDescriptorId" />
           </key>
@@ -3118,8 +3194,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseAttemptResultDescriptorAggregate.EdFi.CourseAttemptResultDescriptor" table="CourseAttemptResultDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseAttemptResultDescriptorAggregate.EdFi.CourseAttemptResultDescriptor" lazy="false" discriminator-value="edfi.CourseAttemptResultDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseAttemptResultDescriptor" >
           <key>
             <column name="CourseAttemptResultDescriptorId" />
           </key>
@@ -3132,8 +3210,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseDefinedByDescriptorAggregate.EdFi.CourseDefinedByDescriptor" table="CourseDefinedByDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseDefinedByDescriptorAggregate.EdFi.CourseDefinedByDescriptor" lazy="false" discriminator-value="edfi.CourseDefinedByDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseDefinedByDescriptor" >
           <key>
             <column name="CourseDefinedByDescriptorId" />
           </key>
@@ -3146,8 +3226,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseGPAApplicabilityDescriptorAggregate.EdFi.CourseGPAApplicabilityDescriptor" table="CourseGPAApplicabilityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseGPAApplicabilityDescriptorAggregate.EdFi.CourseGPAApplicabilityDescriptor" lazy="false" discriminator-value="edfi.CourseGPAApplicabilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseGPAApplicabilityDescriptor" >
           <key>
             <column name="CourseGPAApplicabilityDescriptorId" />
           </key>
@@ -3160,8 +3242,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptor" table="CourseIdentificationSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptor" lazy="false" discriminator-value="edfi.CourseIdentificationSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseIdentificationSystemDescriptor" >
           <key>
             <column name="CourseIdentificationSystemDescriptorId" />
           </key>
@@ -3174,8 +3258,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptor" table="CourseLevelCharacteristicDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptor" lazy="false" discriminator-value="edfi.CourseLevelCharacteristicDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseLevelCharacteristicDescriptor" >
           <key>
             <column name="CourseLevelCharacteristicDescriptorId" />
           </key>
@@ -3188,8 +3274,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CourseRepeatCodeDescriptorAggregate.EdFi.CourseRepeatCodeDescriptor" table="CourseRepeatCodeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CourseRepeatCodeDescriptorAggregate.EdFi.CourseRepeatCodeDescriptor" lazy="false" discriminator-value="edfi.CourseRepeatCodeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CourseRepeatCodeDescriptor" >
           <key>
             <column name="CourseRepeatCodeDescriptorId" />
           </key>
@@ -3202,8 +3290,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CredentialFieldDescriptorAggregate.EdFi.CredentialFieldDescriptor" table="CredentialFieldDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CredentialFieldDescriptorAggregate.EdFi.CredentialFieldDescriptor" lazy="false" discriminator-value="edfi.CredentialFieldDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CredentialFieldDescriptor" >
           <key>
             <column name="CredentialFieldDescriptorId" />
           </key>
@@ -3216,8 +3306,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CredentialTypeDescriptorAggregate.EdFi.CredentialTypeDescriptor" table="CredentialTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CredentialTypeDescriptorAggregate.EdFi.CredentialTypeDescriptor" lazy="false" discriminator-value="edfi.CredentialTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CredentialTypeDescriptor" >
           <key>
             <column name="CredentialTypeDescriptorId" />
           </key>
@@ -3230,8 +3322,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CreditCategoryDescriptorAggregate.EdFi.CreditCategoryDescriptor" table="CreditCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CreditCategoryDescriptorAggregate.EdFi.CreditCategoryDescriptor" lazy="false" discriminator-value="edfi.CreditCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CreditCategoryDescriptor" >
           <key>
             <column name="CreditCategoryDescriptorId" />
           </key>
@@ -3244,8 +3338,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptor" table="CreditTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptor" lazy="false" discriminator-value="edfi.CreditTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CreditTypeDescriptor" >
           <key>
             <column name="CreditTypeDescriptorId" />
           </key>
@@ -3258,8 +3354,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CTEProgramServiceDescriptorAggregate.EdFi.CTEProgramServiceDescriptor" table="CTEProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CTEProgramServiceDescriptorAggregate.EdFi.CTEProgramServiceDescriptor" lazy="false" discriminator-value="edfi.CTEProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CTEProgramServiceDescriptor" >
           <key>
             <column name="CTEProgramServiceDescriptorId" />
           </key>
@@ -3272,8 +3370,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.CurriculumUsedDescriptorAggregate.EdFi.CurriculumUsedDescriptor" table="CurriculumUsedDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.CurriculumUsedDescriptorAggregate.EdFi.CurriculumUsedDescriptor" lazy="false" discriminator-value="edfi.CurriculumUsedDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="CurriculumUsedDescriptor" >
           <key>
             <column name="CurriculumUsedDescriptorId" />
           </key>
@@ -3286,8 +3386,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DeliveryMethodDescriptorAggregate.EdFi.DeliveryMethodDescriptor" table="DeliveryMethodDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DeliveryMethodDescriptorAggregate.EdFi.DeliveryMethodDescriptor" lazy="false" discriminator-value="edfi.DeliveryMethodDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DeliveryMethodDescriptor" >
           <key>
             <column name="DeliveryMethodDescriptorId" />
           </key>
@@ -3300,8 +3402,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptor" table="DiagnosisDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptor" lazy="false" discriminator-value="edfi.DiagnosisDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DiagnosisDescriptor" >
           <key>
             <column name="DiagnosisDescriptorId" />
           </key>
@@ -3314,8 +3418,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DiplomaLevelDescriptorAggregate.EdFi.DiplomaLevelDescriptor" table="DiplomaLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DiplomaLevelDescriptorAggregate.EdFi.DiplomaLevelDescriptor" lazy="false" discriminator-value="edfi.DiplomaLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DiplomaLevelDescriptor" >
           <key>
             <column name="DiplomaLevelDescriptorId" />
           </key>
@@ -3328,8 +3434,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DiplomaTypeDescriptorAggregate.EdFi.DiplomaTypeDescriptor" table="DiplomaTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DiplomaTypeDescriptorAggregate.EdFi.DiplomaTypeDescriptor" lazy="false" discriminator-value="edfi.DiplomaTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DiplomaTypeDescriptor" >
           <key>
             <column name="DiplomaTypeDescriptorId" />
           </key>
@@ -3342,8 +3450,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptor" table="DisabilityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptor" lazy="false" discriminator-value="edfi.DisabilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisabilityDescriptor" >
           <key>
             <column name="DisabilityDescriptorId" />
           </key>
@@ -3356,8 +3466,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptor" table="DisabilityDesignationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptor" lazy="false" discriminator-value="edfi.DisabilityDesignationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisabilityDesignationDescriptor" >
           <key>
             <column name="DisabilityDesignationDescriptorId" />
           </key>
@@ -3370,8 +3482,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptor" table="DisabilityDeterminationSourceTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptor" lazy="false" discriminator-value="edfi.DisabilityDeterminationSourceTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisabilityDeterminationSourceTypeDescriptor" >
           <key>
             <column name="DisabilityDeterminationSourceTypeDescriptorId" />
           </key>
@@ -3384,8 +3498,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisciplineActionLengthDifferenceReasonDescriptorAggregate.EdFi.DisciplineActionLengthDifferenceReasonDescriptor" table="DisciplineActionLengthDifferenceReasonDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisciplineActionLengthDifferenceReasonDescriptorAggregate.EdFi.DisciplineActionLengthDifferenceReasonDescriptor" lazy="false" discriminator-value="edfi.DisciplineActionLengthDifferenceReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisciplineActionLengthDifferenceReasonDescriptor" >
           <key>
             <column name="DisciplineActionLengthDifferenceReasonDescriptorId" />
           </key>
@@ -3398,8 +3514,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisciplineDescriptorAggregate.EdFi.DisciplineDescriptor" table="DisciplineDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisciplineDescriptorAggregate.EdFi.DisciplineDescriptor" lazy="false" discriminator-value="edfi.DisciplineDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisciplineDescriptor" >
           <key>
             <column name="DisciplineDescriptorId" />
           </key>
@@ -3412,8 +3530,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptor" table="DisciplineIncidentParticipationCodeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptor" lazy="false" discriminator-value="edfi.DisciplineIncidentParticipationCodeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DisciplineIncidentParticipationCodeDescriptor" >
           <key>
             <column name="DisciplineIncidentParticipationCodeDescriptorId" />
           </key>
@@ -3426,8 +3546,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptor" table="EducationalEnvironmentDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptor" lazy="false" discriminator-value="edfi.EducationalEnvironmentDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EducationalEnvironmentDescriptor" >
           <key>
             <column name="EducationalEnvironmentDescriptorId" />
           </key>
@@ -3440,8 +3562,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationAssociationTypeDescriptorAggregate.EdFi.EducationOrganizationAssociationTypeDescriptor" table="EducationOrganizationAssociationTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationAssociationTypeDescriptorAggregate.EdFi.EducationOrganizationAssociationTypeDescriptor" lazy="false" discriminator-value="edfi.EducationOrganizationAssociationTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EducationOrganizationAssociationTypeDescriptor" >
           <key>
             <column name="EducationOrganizationAssociationTypeDescriptorId" />
           </key>
@@ -3454,8 +3578,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptor" table="EducationOrganizationCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptor" lazy="false" discriminator-value="edfi.EducationOrganizationCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EducationOrganizationCategoryDescriptor" >
           <key>
             <column name="EducationOrganizationCategoryDescriptorId" />
           </key>
@@ -3468,8 +3594,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptor" table="EducationOrganizationIdentificationSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptor" lazy="false" discriminator-value="edfi.EducationOrganizationIdentificationSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EducationOrganizationIdentificationSystemDescriptor" >
           <key>
             <column name="EducationOrganizationIdentificationSystemDescriptorId" />
           </key>
@@ -3482,8 +3610,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EducationPlanDescriptorAggregate.EdFi.EducationPlanDescriptor" table="EducationPlanDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EducationPlanDescriptorAggregate.EdFi.EducationPlanDescriptor" lazy="false" discriminator-value="edfi.EducationPlanDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EducationPlanDescriptor" >
           <key>
             <column name="EducationPlanDescriptorId" />
           </key>
@@ -3496,8 +3626,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptor" table="ElectronicMailTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptor" lazy="false" discriminator-value="edfi.ElectronicMailTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ElectronicMailTypeDescriptor" >
           <key>
             <column name="ElectronicMailTypeDescriptorId" />
           </key>
@@ -3510,8 +3642,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EmploymentStatusDescriptorAggregate.EdFi.EmploymentStatusDescriptor" table="EmploymentStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EmploymentStatusDescriptorAggregate.EdFi.EmploymentStatusDescriptor" lazy="false" discriminator-value="edfi.EmploymentStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EmploymentStatusDescriptor" >
           <key>
             <column name="EmploymentStatusDescriptorId" />
           </key>
@@ -3524,8 +3658,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EntryGradeLevelReasonDescriptorAggregate.EdFi.EntryGradeLevelReasonDescriptor" table="EntryGradeLevelReasonDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EntryGradeLevelReasonDescriptorAggregate.EdFi.EntryGradeLevelReasonDescriptor" lazy="false" discriminator-value="edfi.EntryGradeLevelReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EntryGradeLevelReasonDescriptor" >
           <key>
             <column name="EntryGradeLevelReasonDescriptorId" />
           </key>
@@ -3538,8 +3674,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EntryTypeDescriptorAggregate.EdFi.EntryTypeDescriptor" table="EntryTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EntryTypeDescriptorAggregate.EdFi.EntryTypeDescriptor" lazy="false" discriminator-value="edfi.EntryTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EntryTypeDescriptor" >
           <key>
             <column name="EntryTypeDescriptorId" />
           </key>
@@ -3552,8 +3690,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.EventCircumstanceDescriptorAggregate.EdFi.EventCircumstanceDescriptor" table="EventCircumstanceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.EventCircumstanceDescriptorAggregate.EdFi.EventCircumstanceDescriptor" lazy="false" discriminator-value="edfi.EventCircumstanceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="EventCircumstanceDescriptor" >
           <key>
             <column name="EventCircumstanceDescriptorId" />
           </key>
@@ -3566,8 +3706,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ExitWithdrawTypeDescriptorAggregate.EdFi.ExitWithdrawTypeDescriptor" table="ExitWithdrawTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ExitWithdrawTypeDescriptorAggregate.EdFi.ExitWithdrawTypeDescriptor" lazy="false" discriminator-value="edfi.ExitWithdrawTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ExitWithdrawTypeDescriptor" >
           <key>
             <column name="ExitWithdrawTypeDescriptorId" />
           </key>
@@ -3580,8 +3722,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor" table="FinancialCollectionDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor" lazy="false" discriminator-value="edfi.FinancialCollectionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="FinancialCollectionDescriptor" >
           <key>
             <column name="FinancialCollectionDescriptorId" />
           </key>
@@ -3594,8 +3738,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradebookEntryTypeDescriptorAggregate.EdFi.GradebookEntryTypeDescriptor" table="GradebookEntryTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GradebookEntryTypeDescriptorAggregate.EdFi.GradebookEntryTypeDescriptor" lazy="false" discriminator-value="edfi.GradebookEntryTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GradebookEntryTypeDescriptor" >
           <key>
             <column name="GradebookEntryTypeDescriptorId" />
           </key>
@@ -3608,8 +3754,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptor" table="GradeLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptor" lazy="false" discriminator-value="edfi.GradeLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GradeLevelDescriptor" >
           <key>
             <column name="GradeLevelDescriptorId" />
           </key>
@@ -3622,8 +3770,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradePointAverageTypeDescriptorAggregate.EdFi.GradePointAverageTypeDescriptor" table="GradePointAverageTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GradePointAverageTypeDescriptorAggregate.EdFi.GradePointAverageTypeDescriptor" lazy="false" discriminator-value="edfi.GradePointAverageTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GradePointAverageTypeDescriptor" >
           <key>
             <column name="GradePointAverageTypeDescriptorId" />
           </key>
@@ -3636,8 +3786,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradeTypeDescriptorAggregate.EdFi.GradeTypeDescriptor" table="GradeTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GradeTypeDescriptorAggregate.EdFi.GradeTypeDescriptor" lazy="false" discriminator-value="edfi.GradeTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GradeTypeDescriptor" >
           <key>
             <column name="GradeTypeDescriptorId" />
           </key>
@@ -3650,8 +3802,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradingPeriodDescriptorAggregate.EdFi.GradingPeriodDescriptor" table="GradingPeriodDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GradingPeriodDescriptorAggregate.EdFi.GradingPeriodDescriptor" lazy="false" discriminator-value="edfi.GradingPeriodDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GradingPeriodDescriptor" >
           <key>
             <column name="GradingPeriodDescriptorId" />
           </key>
@@ -3664,8 +3818,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GraduationPlanTypeDescriptorAggregate.EdFi.GraduationPlanTypeDescriptor" table="GraduationPlanTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GraduationPlanTypeDescriptorAggregate.EdFi.GraduationPlanTypeDescriptor" lazy="false" discriminator-value="edfi.GraduationPlanTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GraduationPlanTypeDescriptor" >
           <key>
             <column name="GraduationPlanTypeDescriptorId" />
           </key>
@@ -3678,8 +3834,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.GunFreeSchoolsActReportingStatusDescriptorAggregate.EdFi.GunFreeSchoolsActReportingStatusDescriptor" table="GunFreeSchoolsActReportingStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.GunFreeSchoolsActReportingStatusDescriptorAggregate.EdFi.GunFreeSchoolsActReportingStatusDescriptor" lazy="false" discriminator-value="edfi.GunFreeSchoolsActReportingStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="GunFreeSchoolsActReportingStatusDescriptor" >
           <key>
             <column name="GunFreeSchoolsActReportingStatusDescriptorId" />
           </key>
@@ -3692,8 +3850,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.HomelessPrimaryNighttimeResidenceDescriptorAggregate.EdFi.HomelessPrimaryNighttimeResidenceDescriptor" table="HomelessPrimaryNighttimeResidenceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.HomelessPrimaryNighttimeResidenceDescriptorAggregate.EdFi.HomelessPrimaryNighttimeResidenceDescriptor" lazy="false" discriminator-value="edfi.HomelessPrimaryNighttimeResidenceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="HomelessPrimaryNighttimeResidenceDescriptor" >
           <key>
             <column name="HomelessPrimaryNighttimeResidenceDescriptorId" />
           </key>
@@ -3706,8 +3866,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.HomelessProgramServiceDescriptorAggregate.EdFi.HomelessProgramServiceDescriptor" table="HomelessProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.HomelessProgramServiceDescriptorAggregate.EdFi.HomelessProgramServiceDescriptor" lazy="false" discriminator-value="edfi.HomelessProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="HomelessProgramServiceDescriptor" >
           <key>
             <column name="HomelessProgramServiceDescriptorId" />
           </key>
@@ -3720,8 +3882,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptor" table="IdentificationDocumentUseDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptor" lazy="false" discriminator-value="edfi.IdentificationDocumentUseDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IdentificationDocumentUseDescriptor" >
           <key>
             <column name="IdentificationDocumentUseDescriptorId" />
           </key>
@@ -3734,8 +3898,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.IncidentLocationDescriptorAggregate.EdFi.IncidentLocationDescriptor" table="IncidentLocationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IncidentLocationDescriptorAggregate.EdFi.IncidentLocationDescriptor" lazy="false" discriminator-value="edfi.IncidentLocationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IncidentLocationDescriptor" >
           <key>
             <column name="IncidentLocationDescriptorId" />
           </key>
@@ -3748,8 +3914,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptor" table="IndicatorDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptor" lazy="false" discriminator-value="edfi.IndicatorDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IndicatorDescriptor" >
           <key>
             <column name="IndicatorDescriptorId" />
           </key>
@@ -3762,8 +3930,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptor" table="IndicatorGroupDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptor" lazy="false" discriminator-value="edfi.IndicatorGroupDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IndicatorGroupDescriptor" >
           <key>
             <column name="IndicatorGroupDescriptorId" />
           </key>
@@ -3776,8 +3946,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptor" table="IndicatorLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptor" lazy="false" discriminator-value="edfi.IndicatorLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="IndicatorLevelDescriptor" >
           <key>
             <column name="IndicatorLevelDescriptorId" />
           </key>
@@ -3790,8 +3962,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptor" table="InstitutionTelephoneNumberTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptor" lazy="false" discriminator-value="edfi.InstitutionTelephoneNumberTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InstitutionTelephoneNumberTypeDescriptor" >
           <key>
             <column name="InstitutionTelephoneNumberTypeDescriptorId" />
           </key>
@@ -3804,8 +3978,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InteractivityStyleDescriptorAggregate.EdFi.InteractivityStyleDescriptor" table="InteractivityStyleDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InteractivityStyleDescriptorAggregate.EdFi.InteractivityStyleDescriptor" lazy="false" discriminator-value="edfi.InteractivityStyleDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InteractivityStyleDescriptor" >
           <key>
             <column name="InteractivityStyleDescriptorId" />
           </key>
@@ -3818,8 +3994,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InternetAccessDescriptorAggregate.EdFi.InternetAccessDescriptor" table="InternetAccessDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InternetAccessDescriptorAggregate.EdFi.InternetAccessDescriptor" lazy="false" discriminator-value="edfi.InternetAccessDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InternetAccessDescriptor" >
           <key>
             <column name="InternetAccessDescriptorId" />
           </key>
@@ -3832,8 +4010,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor" table="InternetAccessTypeInResidenceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor" lazy="false" discriminator-value="edfi.InternetAccessTypeInResidenceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InternetAccessTypeInResidenceDescriptor" >
           <key>
             <column name="InternetAccessTypeInResidenceDescriptorId" />
           </key>
@@ -3846,8 +4026,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor" table="InternetPerformanceInResidenceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor" lazy="false" discriminator-value="edfi.InternetPerformanceInResidenceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InternetPerformanceInResidenceDescriptor" >
           <key>
             <column name="InternetPerformanceInResidenceDescriptorId" />
           </key>
@@ -3860,8 +4042,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptor" table="InterventionClassDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptor" lazy="false" discriminator-value="edfi.InterventionClassDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InterventionClassDescriptor" >
           <key>
             <column name="InterventionClassDescriptorId" />
           </key>
@@ -3874,8 +4058,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InterventionEffectivenessRatingDescriptorAggregate.EdFi.InterventionEffectivenessRatingDescriptor" table="InterventionEffectivenessRatingDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.InterventionEffectivenessRatingDescriptorAggregate.EdFi.InterventionEffectivenessRatingDescriptor" lazy="false" discriminator-value="edfi.InterventionEffectivenessRatingDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="InterventionEffectivenessRatingDescriptor" >
           <key>
             <column name="InterventionEffectivenessRatingDescriptorId" />
           </key>
@@ -3888,8 +4074,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LanguageDescriptorAggregate.EdFi.LanguageDescriptor" table="LanguageDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LanguageDescriptorAggregate.EdFi.LanguageDescriptor" lazy="false" discriminator-value="edfi.LanguageDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LanguageDescriptor" >
           <key>
             <column name="LanguageDescriptorId" />
           </key>
@@ -3902,8 +4090,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LanguageInstructionProgramServiceDescriptorAggregate.EdFi.LanguageInstructionProgramServiceDescriptor" table="LanguageInstructionProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LanguageInstructionProgramServiceDescriptorAggregate.EdFi.LanguageInstructionProgramServiceDescriptor" lazy="false" discriminator-value="edfi.LanguageInstructionProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LanguageInstructionProgramServiceDescriptor" >
           <key>
             <column name="LanguageInstructionProgramServiceDescriptorId" />
           </key>
@@ -3916,8 +4106,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptor" table="LanguageUseDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptor" lazy="false" discriminator-value="edfi.LanguageUseDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LanguageUseDescriptor" >
           <key>
             <column name="LanguageUseDescriptorId" />
           </key>
@@ -3930,8 +4122,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardCategoryDescriptorAggregate.EdFi.LearningStandardCategoryDescriptor" table="LearningStandardCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardCategoryDescriptorAggregate.EdFi.LearningStandardCategoryDescriptor" lazy="false" discriminator-value="edfi.LearningStandardCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LearningStandardCategoryDescriptor" >
           <key>
             <column name="LearningStandardCategoryDescriptorId" />
           </key>
@@ -3944,8 +4138,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardEquivalenceStrengthDescriptorAggregate.EdFi.LearningStandardEquivalenceStrengthDescriptor" table="LearningStandardEquivalenceStrengthDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardEquivalenceStrengthDescriptorAggregate.EdFi.LearningStandardEquivalenceStrengthDescriptor" lazy="false" discriminator-value="edfi.LearningStandardEquivalenceStrengthDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LearningStandardEquivalenceStrengthDescriptor" >
           <key>
             <column name="LearningStandardEquivalenceStrengthDescriptorId" />
           </key>
@@ -3958,8 +4154,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardScopeDescriptorAggregate.EdFi.LearningStandardScopeDescriptor" table="LearningStandardScopeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LearningStandardScopeDescriptorAggregate.EdFi.LearningStandardScopeDescriptor" lazy="false" discriminator-value="edfi.LearningStandardScopeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LearningStandardScopeDescriptor" >
           <key>
             <column name="LearningStandardScopeDescriptorId" />
           </key>
@@ -3972,8 +4170,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptor" table="LevelOfEducationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptor" lazy="false" discriminator-value="edfi.LevelOfEducationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LevelOfEducationDescriptor" >
           <key>
             <column name="LevelOfEducationDescriptorId" />
           </key>
@@ -3986,8 +4186,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LicenseStatusDescriptorAggregate.EdFi.LicenseStatusDescriptor" table="LicenseStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LicenseStatusDescriptorAggregate.EdFi.LicenseStatusDescriptor" lazy="false" discriminator-value="edfi.LicenseStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LicenseStatusDescriptor" >
           <key>
             <column name="LicenseStatusDescriptorId" />
           </key>
@@ -4000,8 +4202,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LicenseTypeDescriptorAggregate.EdFi.LicenseTypeDescriptor" table="LicenseTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LicenseTypeDescriptorAggregate.EdFi.LicenseTypeDescriptor" lazy="false" discriminator-value="edfi.LicenseTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LicenseTypeDescriptor" >
           <key>
             <column name="LicenseTypeDescriptorId" />
           </key>
@@ -4014,8 +4218,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptor" table="LimitedEnglishProficiencyDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptor" lazy="false" discriminator-value="edfi.LimitedEnglishProficiencyDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LimitedEnglishProficiencyDescriptor" >
           <key>
             <column name="LimitedEnglishProficiencyDescriptorId" />
           </key>
@@ -4028,8 +4234,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LocaleDescriptorAggregate.EdFi.LocaleDescriptor" table="LocaleDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LocaleDescriptorAggregate.EdFi.LocaleDescriptor" lazy="false" discriminator-value="edfi.LocaleDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LocaleDescriptor" >
           <key>
             <column name="LocaleDescriptorId" />
           </key>
@@ -4042,8 +4250,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.LocalEducationAgencyCategoryDescriptorAggregate.EdFi.LocalEducationAgencyCategoryDescriptor" table="LocalEducationAgencyCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.LocalEducationAgencyCategoryDescriptorAggregate.EdFi.LocalEducationAgencyCategoryDescriptor" lazy="false" discriminator-value="edfi.LocalEducationAgencyCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="LocalEducationAgencyCategoryDescriptor" >
           <key>
             <column name="LocalEducationAgencyCategoryDescriptorId" />
           </key>
@@ -4056,8 +4266,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.MagnetSpecialProgramEmphasisSchoolDescriptorAggregate.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor" table="MagnetSpecialProgramEmphasisSchoolDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.MagnetSpecialProgramEmphasisSchoolDescriptorAggregate.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor" lazy="false" discriminator-value="edfi.MagnetSpecialProgramEmphasisSchoolDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="MagnetSpecialProgramEmphasisSchoolDescriptor" >
           <key>
             <column name="MagnetSpecialProgramEmphasisSchoolDescriptorId" />
           </key>
@@ -4070,8 +4282,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.MediumOfInstructionDescriptorAggregate.EdFi.MediumOfInstructionDescriptor" table="MediumOfInstructionDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.MediumOfInstructionDescriptorAggregate.EdFi.MediumOfInstructionDescriptor" lazy="false" discriminator-value="edfi.MediumOfInstructionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="MediumOfInstructionDescriptor" >
           <key>
             <column name="MediumOfInstructionDescriptorId" />
           </key>
@@ -4084,8 +4298,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptor" table="MethodCreditEarnedDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptor" lazy="false" discriminator-value="edfi.MethodCreditEarnedDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="MethodCreditEarnedDescriptor" >
           <key>
             <column name="MethodCreditEarnedDescriptorId" />
           </key>
@@ -4098,8 +4314,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.MigrantEducationProgramServiceDescriptorAggregate.EdFi.MigrantEducationProgramServiceDescriptor" table="MigrantEducationProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.MigrantEducationProgramServiceDescriptorAggregate.EdFi.MigrantEducationProgramServiceDescriptor" lazy="false" discriminator-value="edfi.MigrantEducationProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="MigrantEducationProgramServiceDescriptor" >
           <key>
             <column name="MigrantEducationProgramServiceDescriptorId" />
           </key>
@@ -4112,8 +4330,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptor" table="ModelEntityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptor" lazy="false" discriminator-value="edfi.ModelEntityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ModelEntityDescriptor" >
           <key>
             <column name="ModelEntityDescriptorId" />
           </key>
@@ -4126,8 +4346,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.MonitoredDescriptorAggregate.EdFi.MonitoredDescriptor" table="MonitoredDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.MonitoredDescriptorAggregate.EdFi.MonitoredDescriptor" lazy="false" discriminator-value="edfi.MonitoredDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="MonitoredDescriptor" >
           <key>
             <column name="MonitoredDescriptorId" />
           </key>
@@ -4140,8 +4362,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.NeglectedOrDelinquentProgramDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramDescriptor" table="NeglectedOrDelinquentProgramDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.NeglectedOrDelinquentProgramDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramDescriptor" lazy="false" discriminator-value="edfi.NeglectedOrDelinquentProgramDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="NeglectedOrDelinquentProgramDescriptor" >
           <key>
             <column name="NeglectedOrDelinquentProgramDescriptorId" />
           </key>
@@ -4154,8 +4378,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramServiceDescriptor" table="NeglectedOrDelinquentProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramServiceDescriptor" lazy="false" discriminator-value="edfi.NeglectedOrDelinquentProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="NeglectedOrDelinquentProgramServiceDescriptor" >
           <key>
             <column name="NeglectedOrDelinquentProgramServiceDescriptorId" />
           </key>
@@ -4168,8 +4394,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.NetworkPurposeDescriptorAggregate.EdFi.NetworkPurposeDescriptor" table="NetworkPurposeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.NetworkPurposeDescriptorAggregate.EdFi.NetworkPurposeDescriptor" lazy="false" discriminator-value="edfi.NetworkPurposeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="NetworkPurposeDescriptor" >
           <key>
             <column name="NetworkPurposeDescriptorId" />
           </key>
@@ -4182,8 +4410,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptor" table="OldEthnicityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptor" lazy="false" discriminator-value="edfi.OldEthnicityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="OldEthnicityDescriptor" >
           <key>
             <column name="OldEthnicityDescriptorId" />
           </key>
@@ -4196,8 +4426,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.OperationalStatusDescriptorAggregate.EdFi.OperationalStatusDescriptor" table="OperationalStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.OperationalStatusDescriptorAggregate.EdFi.OperationalStatusDescriptor" lazy="false" discriminator-value="edfi.OperationalStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="OperationalStatusDescriptor" >
           <key>
             <column name="OperationalStatusDescriptorId" />
           </key>
@@ -4210,8 +4442,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptor" table="OtherNameTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptor" lazy="false" discriminator-value="edfi.OtherNameTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="OtherNameTypeDescriptor" >
           <key>
             <column name="OtherNameTypeDescriptorId" />
           </key>
@@ -4224,8 +4458,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ParticipationDescriptorAggregate.EdFi.ParticipationDescriptor" table="ParticipationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ParticipationDescriptorAggregate.EdFi.ParticipationDescriptor" lazy="false" discriminator-value="edfi.ParticipationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ParticipationDescriptor" >
           <key>
             <column name="ParticipationDescriptorId" />
           </key>
@@ -4238,8 +4474,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ParticipationStatusDescriptorAggregate.EdFi.ParticipationStatusDescriptor" table="ParticipationStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ParticipationStatusDescriptorAggregate.EdFi.ParticipationStatusDescriptor" lazy="false" discriminator-value="edfi.ParticipationStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ParticipationStatusDescriptor" >
           <key>
             <column name="ParticipationStatusDescriptorId" />
           </key>
@@ -4252,8 +4490,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PerformanceBaseConversionDescriptorAggregate.EdFi.PerformanceBaseConversionDescriptor" table="PerformanceBaseConversionDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PerformanceBaseConversionDescriptorAggregate.EdFi.PerformanceBaseConversionDescriptor" lazy="false" discriminator-value="edfi.PerformanceBaseConversionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PerformanceBaseConversionDescriptor" >
           <key>
             <column name="PerformanceBaseConversionDescriptorId" />
           </key>
@@ -4266,8 +4506,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptor" table="PerformanceLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptor" lazy="false" discriminator-value="edfi.PerformanceLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PerformanceLevelDescriptor" >
           <key>
             <column name="PerformanceLevelDescriptorId" />
           </key>
@@ -4280,8 +4522,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptor" table="PersonalInformationVerificationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptor" lazy="false" discriminator-value="edfi.PersonalInformationVerificationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PersonalInformationVerificationDescriptor" >
           <key>
             <column name="PersonalInformationVerificationDescriptorId" />
           </key>
@@ -4294,8 +4538,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptor" table="PlatformTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptor" lazy="false" discriminator-value="edfi.PlatformTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PlatformTypeDescriptor" >
           <key>
             <column name="PlatformTypeDescriptorId" />
           </key>
@@ -4308,8 +4554,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptor" table="PopulationServedDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptor" lazy="false" discriminator-value="edfi.PopulationServedDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PopulationServedDescriptor" >
           <key>
             <column name="PopulationServedDescriptorId" />
           </key>
@@ -4322,8 +4570,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PostingResultDescriptorAggregate.EdFi.PostingResultDescriptor" table="PostingResultDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PostingResultDescriptorAggregate.EdFi.PostingResultDescriptor" lazy="false" discriminator-value="edfi.PostingResultDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PostingResultDescriptor" >
           <key>
             <column name="PostingResultDescriptorId" />
           </key>
@@ -4336,8 +4586,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PostSecondaryEventCategoryDescriptorAggregate.EdFi.PostSecondaryEventCategoryDescriptor" table="PostSecondaryEventCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PostSecondaryEventCategoryDescriptorAggregate.EdFi.PostSecondaryEventCategoryDescriptor" lazy="false" discriminator-value="edfi.PostSecondaryEventCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PostSecondaryEventCategoryDescriptor" >
           <key>
             <column name="PostSecondaryEventCategoryDescriptorId" />
           </key>
@@ -4350,8 +4602,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi.PostSecondaryInstitutionLevelDescriptor" table="PostSecondaryInstitutionLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi.PostSecondaryInstitutionLevelDescriptor" lazy="false" discriminator-value="edfi.PostSecondaryInstitutionLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PostSecondaryInstitutionLevelDescriptor" >
           <key>
             <column name="PostSecondaryInstitutionLevelDescriptorId" />
           </key>
@@ -4364,8 +4618,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor" table="PrimaryLearningDeviceAccessDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor" lazy="false" discriminator-value="edfi.PrimaryLearningDeviceAccessDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PrimaryLearningDeviceAccessDescriptor" >
           <key>
             <column name="PrimaryLearningDeviceAccessDescriptorId" />
           </key>
@@ -4378,8 +4634,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor" table="PrimaryLearningDeviceAwayFromSchoolDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor" lazy="false" discriminator-value="edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PrimaryLearningDeviceAwayFromSchoolDescriptor" >
           <key>
             <column name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" />
           </key>
@@ -4392,8 +4650,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor" table="PrimaryLearningDeviceProviderDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor" lazy="false" discriminator-value="edfi.PrimaryLearningDeviceProviderDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PrimaryLearningDeviceProviderDescriptor" >
           <key>
             <column name="PrimaryLearningDeviceProviderDescriptorId" />
           </key>
@@ -4406,8 +4666,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProficiencyDescriptorAggregate.EdFi.ProficiencyDescriptor" table="ProficiencyDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProficiencyDescriptorAggregate.EdFi.ProficiencyDescriptor" lazy="false" discriminator-value="edfi.ProficiencyDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProficiencyDescriptor" >
           <key>
             <column name="ProficiencyDescriptorId" />
           </key>
@@ -4420,8 +4682,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramAssignmentDescriptorAggregate.EdFi.ProgramAssignmentDescriptor" table="ProgramAssignmentDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgramAssignmentDescriptorAggregate.EdFi.ProgramAssignmentDescriptor" lazy="false" discriminator-value="edfi.ProgramAssignmentDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgramAssignmentDescriptor" >
           <key>
             <column name="ProgramAssignmentDescriptorId" />
           </key>
@@ -4434,8 +4698,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramCharacteristicDescriptorAggregate.EdFi.ProgramCharacteristicDescriptor" table="ProgramCharacteristicDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgramCharacteristicDescriptorAggregate.EdFi.ProgramCharacteristicDescriptor" lazy="false" discriminator-value="edfi.ProgramCharacteristicDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgramCharacteristicDescriptor" >
           <key>
             <column name="ProgramCharacteristicDescriptorId" />
           </key>
@@ -4448,8 +4714,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramSponsorDescriptorAggregate.EdFi.ProgramSponsorDescriptor" table="ProgramSponsorDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgramSponsorDescriptorAggregate.EdFi.ProgramSponsorDescriptor" lazy="false" discriminator-value="edfi.ProgramSponsorDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgramSponsorDescriptor" >
           <key>
             <column name="ProgramSponsorDescriptorId" />
           </key>
@@ -4462,8 +4730,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgramTypeDescriptorAggregate.EdFi.ProgramTypeDescriptor" table="ProgramTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgramTypeDescriptorAggregate.EdFi.ProgramTypeDescriptor" lazy="false" discriminator-value="edfi.ProgramTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgramTypeDescriptor" >
           <key>
             <column name="ProgramTypeDescriptorId" />
           </key>
@@ -4476,8 +4746,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgressDescriptorAggregate.EdFi.ProgressDescriptor" table="ProgressDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgressDescriptorAggregate.EdFi.ProgressDescriptor" lazy="false" discriminator-value="edfi.ProgressDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgressDescriptor" >
           <key>
             <column name="ProgressDescriptorId" />
           </key>
@@ -4490,8 +4762,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProgressLevelDescriptorAggregate.EdFi.ProgressLevelDescriptor" table="ProgressLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProgressLevelDescriptorAggregate.EdFi.ProgressLevelDescriptor" lazy="false" discriminator-value="edfi.ProgressLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProgressLevelDescriptor" >
           <key>
             <column name="ProgressLevelDescriptorId" />
           </key>
@@ -4504,8 +4778,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProviderCategoryDescriptorAggregate.EdFi.ProviderCategoryDescriptor" table="ProviderCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProviderCategoryDescriptorAggregate.EdFi.ProviderCategoryDescriptor" lazy="false" discriminator-value="edfi.ProviderCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProviderCategoryDescriptor" >
           <key>
             <column name="ProviderCategoryDescriptorId" />
           </key>
@@ -4518,8 +4794,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProviderProfitabilityDescriptorAggregate.EdFi.ProviderProfitabilityDescriptor" table="ProviderProfitabilityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProviderProfitabilityDescriptorAggregate.EdFi.ProviderProfitabilityDescriptor" lazy="false" discriminator-value="edfi.ProviderProfitabilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProviderProfitabilityDescriptor" >
           <key>
             <column name="ProviderProfitabilityDescriptorId" />
           </key>
@@ -4532,8 +4810,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ProviderStatusDescriptorAggregate.EdFi.ProviderStatusDescriptor" table="ProviderStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ProviderStatusDescriptorAggregate.EdFi.ProviderStatusDescriptor" lazy="false" discriminator-value="edfi.ProviderStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ProviderStatusDescriptor" >
           <key>
             <column name="ProviderStatusDescriptorId" />
           </key>
@@ -4546,8 +4826,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptor" table="PublicationStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptor" lazy="false" discriminator-value="edfi.PublicationStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="PublicationStatusDescriptor" >
           <key>
             <column name="PublicationStatusDescriptorId" />
           </key>
@@ -4560,8 +4842,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QuestionFormDescriptorAggregate.EdFi.QuestionFormDescriptor" table="QuestionFormDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.QuestionFormDescriptorAggregate.EdFi.QuestionFormDescriptor" lazy="false" discriminator-value="edfi.QuestionFormDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="QuestionFormDescriptor" >
           <key>
             <column name="QuestionFormDescriptorId" />
           </key>
@@ -4574,8 +4858,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RaceDescriptorAggregate.EdFi.RaceDescriptor" table="RaceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RaceDescriptorAggregate.EdFi.RaceDescriptor" lazy="false" discriminator-value="edfi.RaceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RaceDescriptor" >
           <key>
             <column name="RaceDescriptorId" />
           </key>
@@ -4588,8 +4874,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ReasonExitedDescriptorAggregate.EdFi.ReasonExitedDescriptor" table="ReasonExitedDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ReasonExitedDescriptorAggregate.EdFi.ReasonExitedDescriptor" lazy="false" discriminator-value="edfi.ReasonExitedDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ReasonExitedDescriptor" >
           <key>
             <column name="ReasonExitedDescriptorId" />
           </key>
@@ -4602,8 +4890,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ReasonNotTestedDescriptorAggregate.EdFi.ReasonNotTestedDescriptor" table="ReasonNotTestedDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ReasonNotTestedDescriptorAggregate.EdFi.ReasonNotTestedDescriptor" lazy="false" discriminator-value="edfi.ReasonNotTestedDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ReasonNotTestedDescriptor" >
           <key>
             <column name="ReasonNotTestedDescriptorId" />
           </key>
@@ -4616,8 +4906,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptor" table="RecognitionTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptor" lazy="false" discriminator-value="edfi.RecognitionTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RecognitionTypeDescriptor" >
           <key>
             <column name="RecognitionTypeDescriptorId" />
           </key>
@@ -4630,8 +4922,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RelationDescriptorAggregate.EdFi.RelationDescriptor" table="RelationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RelationDescriptorAggregate.EdFi.RelationDescriptor" lazy="false" discriminator-value="edfi.RelationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RelationDescriptor" >
           <key>
             <column name="RelationDescriptorId" />
           </key>
@@ -4644,8 +4938,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RepeatIdentifierDescriptorAggregate.EdFi.RepeatIdentifierDescriptor" table="RepeatIdentifierDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RepeatIdentifierDescriptorAggregate.EdFi.RepeatIdentifierDescriptor" lazy="false" discriminator-value="edfi.RepeatIdentifierDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RepeatIdentifierDescriptor" >
           <key>
             <column name="RepeatIdentifierDescriptorId" />
           </key>
@@ -4658,8 +4954,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ReporterDescriptionDescriptorAggregate.EdFi.ReporterDescriptionDescriptor" table="ReporterDescriptionDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ReporterDescriptionDescriptorAggregate.EdFi.ReporterDescriptionDescriptor" lazy="false" discriminator-value="edfi.ReporterDescriptionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ReporterDescriptionDescriptor" >
           <key>
             <column name="ReporterDescriptionDescriptorId" />
           </key>
@@ -4672,8 +4970,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptor" table="ReportingTagDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptor" lazy="false" discriminator-value="edfi.ReportingTagDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ReportingTagDescriptor" >
           <key>
             <column name="ReportingTagDescriptorId" />
           </key>
@@ -4686,8 +4986,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ResidencyStatusDescriptorAggregate.EdFi.ResidencyStatusDescriptor" table="ResidencyStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ResidencyStatusDescriptorAggregate.EdFi.ResidencyStatusDescriptor" lazy="false" discriminator-value="edfi.ResidencyStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ResidencyStatusDescriptor" >
           <key>
             <column name="ResidencyStatusDescriptorId" />
           </key>
@@ -4700,8 +5002,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ResponseIndicatorDescriptorAggregate.EdFi.ResponseIndicatorDescriptor" table="ResponseIndicatorDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ResponseIndicatorDescriptorAggregate.EdFi.ResponseIndicatorDescriptor" lazy="false" discriminator-value="edfi.ResponseIndicatorDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ResponseIndicatorDescriptor" >
           <key>
             <column name="ResponseIndicatorDescriptorId" />
           </key>
@@ -4714,8 +5018,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ResponsibilityDescriptorAggregate.EdFi.ResponsibilityDescriptor" table="ResponsibilityDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ResponsibilityDescriptorAggregate.EdFi.ResponsibilityDescriptor" lazy="false" discriminator-value="edfi.ResponsibilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ResponsibilityDescriptor" >
           <key>
             <column name="ResponsibilityDescriptorId" />
           </key>
@@ -4728,8 +5034,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RestraintEventReasonDescriptorAggregate.EdFi.RestraintEventReasonDescriptor" table="RestraintEventReasonDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RestraintEventReasonDescriptorAggregate.EdFi.RestraintEventReasonDescriptor" lazy="false" discriminator-value="edfi.RestraintEventReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RestraintEventReasonDescriptor" >
           <key>
             <column name="RestraintEventReasonDescriptorId" />
           </key>
@@ -4742,8 +5050,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptor" table="ResultDatatypeTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptor" lazy="false" discriminator-value="edfi.ResultDatatypeTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ResultDatatypeTypeDescriptor" >
           <key>
             <column name="ResultDatatypeTypeDescriptorId" />
           </key>
@@ -4756,8 +5066,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.RetestIndicatorDescriptorAggregate.EdFi.RetestIndicatorDescriptor" table="RetestIndicatorDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.RetestIndicatorDescriptorAggregate.EdFi.RetestIndicatorDescriptor" lazy="false" discriminator-value="edfi.RetestIndicatorDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="RetestIndicatorDescriptor" >
           <key>
             <column name="RetestIndicatorDescriptorId" />
           </key>
@@ -4770,8 +5082,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SchoolCategoryDescriptorAggregate.EdFi.SchoolCategoryDescriptor" table="SchoolCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SchoolCategoryDescriptorAggregate.EdFi.SchoolCategoryDescriptor" lazy="false" discriminator-value="edfi.SchoolCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SchoolCategoryDescriptor" >
           <key>
             <column name="SchoolCategoryDescriptorId" />
           </key>
@@ -4784,8 +5098,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SchoolChoiceImplementStatusDescriptorAggregate.EdFi.SchoolChoiceImplementStatusDescriptor" table="SchoolChoiceImplementStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SchoolChoiceImplementStatusDescriptorAggregate.EdFi.SchoolChoiceImplementStatusDescriptor" lazy="false" discriminator-value="edfi.SchoolChoiceImplementStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SchoolChoiceImplementStatusDescriptor" >
           <key>
             <column name="SchoolChoiceImplementStatusDescriptorId" />
           </key>
@@ -4798,8 +5114,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi.SchoolFoodServiceProgramServiceDescriptor" table="SchoolFoodServiceProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi.SchoolFoodServiceProgramServiceDescriptor" lazy="false" discriminator-value="edfi.SchoolFoodServiceProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SchoolFoodServiceProgramServiceDescriptor" >
           <key>
             <column name="SchoolFoodServiceProgramServiceDescriptorId" />
           </key>
@@ -4812,8 +5130,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SchoolTypeDescriptorAggregate.EdFi.SchoolTypeDescriptor" table="SchoolTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SchoolTypeDescriptorAggregate.EdFi.SchoolTypeDescriptor" lazy="false" discriminator-value="edfi.SchoolTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SchoolTypeDescriptor" >
           <key>
             <column name="SchoolTypeDescriptorId" />
           </key>
@@ -4826,8 +5146,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SectionCharacteristicDescriptorAggregate.EdFi.SectionCharacteristicDescriptor" table="SectionCharacteristicDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SectionCharacteristicDescriptorAggregate.EdFi.SectionCharacteristicDescriptor" lazy="false" discriminator-value="edfi.SectionCharacteristicDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SectionCharacteristicDescriptor" >
           <key>
             <column name="SectionCharacteristicDescriptorId" />
           </key>
@@ -4840,8 +5162,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SeparationDescriptorAggregate.EdFi.SeparationDescriptor" table="SeparationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SeparationDescriptorAggregate.EdFi.SeparationDescriptor" lazy="false" discriminator-value="edfi.SeparationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SeparationDescriptor" >
           <key>
             <column name="SeparationDescriptorId" />
           </key>
@@ -4854,8 +5178,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SeparationReasonDescriptorAggregate.EdFi.SeparationReasonDescriptor" table="SeparationReasonDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SeparationReasonDescriptorAggregate.EdFi.SeparationReasonDescriptor" lazy="false" discriminator-value="edfi.SeparationReasonDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SeparationReasonDescriptor" >
           <key>
             <column name="SeparationReasonDescriptorId" />
           </key>
@@ -4868,8 +5194,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ServiceDescriptorAggregate.EdFi.ServiceDescriptor" table="ServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.ServiceDescriptorAggregate.EdFi.ServiceDescriptor" lazy="false" discriminator-value="edfi.ServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="ServiceDescriptor" >
           <key>
             <column name="ServiceDescriptorId" />
           </key>
@@ -4882,8 +5210,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SexDescriptorAggregate.EdFi.SexDescriptor" table="SexDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SexDescriptorAggregate.EdFi.SexDescriptor" lazy="false" discriminator-value="edfi.SexDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SexDescriptor" >
           <key>
             <column name="SexDescriptorId" />
           </key>
@@ -4896,8 +5226,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor" table="SourceSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor" lazy="false" discriminator-value="edfi.SourceSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SourceSystemDescriptor" >
           <key>
             <column name="SourceSystemDescriptorId" />
           </key>
@@ -4910,8 +5242,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor" table="SpecialEducationProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor" lazy="false" discriminator-value="edfi.SpecialEducationProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SpecialEducationProgramServiceDescriptor" >
           <key>
             <column name="SpecialEducationProgramServiceDescriptorId" />
           </key>
@@ -4924,8 +5258,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationSettingDescriptorAggregate.EdFi.SpecialEducationSettingDescriptor" table="SpecialEducationSettingDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationSettingDescriptorAggregate.EdFi.SpecialEducationSettingDescriptor" lazy="false" discriminator-value="edfi.SpecialEducationSettingDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SpecialEducationSettingDescriptor" >
           <key>
             <column name="SpecialEducationSettingDescriptorId" />
           </key>
@@ -4938,8 +5274,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StaffClassificationDescriptorAggregate.EdFi.StaffClassificationDescriptor" table="StaffClassificationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StaffClassificationDescriptorAggregate.EdFi.StaffClassificationDescriptor" lazy="false" discriminator-value="edfi.StaffClassificationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StaffClassificationDescriptor" >
           <key>
             <column name="StaffClassificationDescriptorId" />
           </key>
@@ -4952,8 +5290,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptor" table="StaffIdentificationSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptor" lazy="false" discriminator-value="edfi.StaffIdentificationSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StaffIdentificationSystemDescriptor" >
           <key>
             <column name="StaffIdentificationSystemDescriptorId" />
           </key>
@@ -4966,8 +5306,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StaffLeaveEventCategoryDescriptorAggregate.EdFi.StaffLeaveEventCategoryDescriptor" table="StaffLeaveEventCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StaffLeaveEventCategoryDescriptorAggregate.EdFi.StaffLeaveEventCategoryDescriptor" lazy="false" discriminator-value="edfi.StaffLeaveEventCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StaffLeaveEventCategoryDescriptor" >
           <key>
             <column name="StaffLeaveEventCategoryDescriptorId" />
           </key>
@@ -4980,8 +5322,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptor" table="StateAbbreviationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptor" lazy="false" discriminator-value="edfi.StateAbbreviationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StateAbbreviationDescriptor" >
           <key>
             <column name="StateAbbreviationDescriptorId" />
           </key>
@@ -4994,8 +5338,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptor" table="StudentCharacteristicDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptor" lazy="false" discriminator-value="edfi.StudentCharacteristicDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StudentCharacteristicDescriptor" >
           <key>
             <column name="StudentCharacteristicDescriptorId" />
           </key>
@@ -5008,8 +5354,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor" table="StudentIdentificationSystemDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor" lazy="false" discriminator-value="edfi.StudentIdentificationSystemDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StudentIdentificationSystemDescriptor" >
           <key>
             <column name="StudentIdentificationSystemDescriptorId" />
           </key>
@@ -5022,8 +5370,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor" table="StudentParticipationCodeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor" lazy="false" discriminator-value="edfi.StudentParticipationCodeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="StudentParticipationCodeDescriptor" >
           <key>
             <column name="StudentParticipationCodeDescriptorId" />
           </key>
@@ -5036,8 +5386,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor" table="SubmissionStatusDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor" lazy="false" discriminator-value="edfi.SubmissionStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SubmissionStatusDescriptor" >
           <key>
             <column name="SubmissionStatusDescriptorId" />
           </key>
@@ -5050,8 +5402,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SurveyCategoryDescriptorAggregate.EdFi.SurveyCategoryDescriptor" table="SurveyCategoryDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SurveyCategoryDescriptorAggregate.EdFi.SurveyCategoryDescriptor" lazy="false" discriminator-value="edfi.SurveyCategoryDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SurveyCategoryDescriptor" >
           <key>
             <column name="SurveyCategoryDescriptorId" />
           </key>
@@ -5064,8 +5418,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SurveyLevelDescriptorAggregate.EdFi.SurveyLevelDescriptor" table="SurveyLevelDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.SurveyLevelDescriptorAggregate.EdFi.SurveyLevelDescriptor" lazy="false" discriminator-value="edfi.SurveyLevelDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="SurveyLevelDescriptor" >
           <key>
             <column name="SurveyLevelDescriptorId" />
           </key>
@@ -5078,8 +5434,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TeachingCredentialBasisDescriptorAggregate.EdFi.TeachingCredentialBasisDescriptor" table="TeachingCredentialBasisDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TeachingCredentialBasisDescriptorAggregate.EdFi.TeachingCredentialBasisDescriptor" lazy="false" discriminator-value="edfi.TeachingCredentialBasisDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TeachingCredentialBasisDescriptor" >
           <key>
             <column name="TeachingCredentialBasisDescriptorId" />
           </key>
@@ -5092,8 +5450,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TeachingCredentialDescriptorAggregate.EdFi.TeachingCredentialDescriptor" table="TeachingCredentialDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TeachingCredentialDescriptorAggregate.EdFi.TeachingCredentialDescriptor" lazy="false" discriminator-value="edfi.TeachingCredentialDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TeachingCredentialDescriptor" >
           <key>
             <column name="TeachingCredentialDescriptorId" />
           </key>
@@ -5106,8 +5466,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TechnicalSkillsAssessmentDescriptorAggregate.EdFi.TechnicalSkillsAssessmentDescriptor" table="TechnicalSkillsAssessmentDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TechnicalSkillsAssessmentDescriptorAggregate.EdFi.TechnicalSkillsAssessmentDescriptor" lazy="false" discriminator-value="edfi.TechnicalSkillsAssessmentDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TechnicalSkillsAssessmentDescriptor" >
           <key>
             <column name="TechnicalSkillsAssessmentDescriptorId" />
           </key>
@@ -5120,8 +5482,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptor" table="TelephoneNumberTypeDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptor" lazy="false" discriminator-value="edfi.TelephoneNumberTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TelephoneNumberTypeDescriptor" >
           <key>
             <column name="TelephoneNumberTypeDescriptorId" />
           </key>
@@ -5134,8 +5498,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TermDescriptorAggregate.EdFi.TermDescriptor" table="TermDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TermDescriptorAggregate.EdFi.TermDescriptor" lazy="false" discriminator-value="edfi.TermDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TermDescriptor" >
           <key>
             <column name="TermDescriptorId" />
           </key>
@@ -5148,8 +5514,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartAParticipantDescriptorAggregate.EdFi.TitleIPartAParticipantDescriptor" table="TitleIPartAParticipantDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartAParticipantDescriptorAggregate.EdFi.TitleIPartAParticipantDescriptor" lazy="false" discriminator-value="edfi.TitleIPartAParticipantDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TitleIPartAParticipantDescriptor" >
           <key>
             <column name="TitleIPartAParticipantDescriptorId" />
           </key>
@@ -5162,8 +5530,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartAProgramServiceDescriptorAggregate.EdFi.TitleIPartAProgramServiceDescriptor" table="TitleIPartAProgramServiceDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartAProgramServiceDescriptorAggregate.EdFi.TitleIPartAProgramServiceDescriptor" lazy="false" discriminator-value="edfi.TitleIPartAProgramServiceDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TitleIPartAProgramServiceDescriptor" >
           <key>
             <column name="TitleIPartAProgramServiceDescriptorId" />
           </key>
@@ -5176,8 +5546,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartASchoolDesignationDescriptorAggregate.EdFi.TitleIPartASchoolDesignationDescriptor" table="TitleIPartASchoolDesignationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TitleIPartASchoolDesignationDescriptorAggregate.EdFi.TitleIPartASchoolDesignationDescriptor" lazy="false" discriminator-value="edfi.TitleIPartASchoolDesignationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TitleIPartASchoolDesignationDescriptor" >
           <key>
             <column name="TitleIPartASchoolDesignationDescriptorId" />
           </key>
@@ -5190,8 +5562,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptor" table="TribalAffiliationDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptor" lazy="false" discriminator-value="edfi.TribalAffiliationDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="TribalAffiliationDescriptor" >
           <key>
             <column name="TribalAffiliationDescriptorId" />
           </key>
@@ -5204,8 +5578,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.VisaDescriptorAggregate.EdFi.VisaDescriptor" table="VisaDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.VisaDescriptorAggregate.EdFi.VisaDescriptor" lazy="false" discriminator-value="edfi.VisaDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="VisaDescriptor" >
           <key>
             <column name="VisaDescriptorId" />
           </key>
@@ -5218,8 +5594,10 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.WeaponDescriptorAggregate.EdFi.WeaponDescriptor" table="WeaponDescriptor" lazy="false">
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.WeaponDescriptorAggregate.EdFi.WeaponDescriptor" lazy="false" discriminator-value="edfi.WeaponDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="WeaponDescriptor" >
           <key>
             <column name="WeaponDescriptorId" />
           </key>
@@ -5232,7 +5610,8 @@
           <!-- Aggregate references -->
 
           <!-- Collections -->
-      </joined-subclass>
+      </join>
+    </subclass>
 </class>
 
 
