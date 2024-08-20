@@ -47,7 +47,6 @@ using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -138,7 +137,7 @@ namespace EdFi.Ods.Api.Startup
                     return factory.GetUrlHelper(actionContext);
                 });
 
-            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
+            AssemblyLoaderHelper.LoadAssembliesFromFolder();
 
             var pluginInfos = LoadPlugins(pluginSettings);
 
@@ -247,18 +246,18 @@ namespace EdFi.Ods.Api.Startup
             {
                 _logger.Debug("Configuring services in plugins:");
                 
-                foreach (var type in TypeHelper.GetPluginTypes())
+                foreach (var servicesConfigurationActivityType in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
                 {
-                    _logger.Debug($"Plugin {type.Name}");
+                    _logger.Debug($"Executing services configuration activity '{servicesConfigurationActivityType.Name}'...");
 
                     try
                     {
-                        var plugin = (IPlugin) Activator.CreateInstance(type);
-                        plugin?.ConfigureServices(Configuration, services, _apiSettings);
+                        var servicesConfigurationActivity = (IServicesConfigurationActivity) Activator.CreateInstance(servicesConfigurationActivityType);
+                        servicesConfigurationActivity?.ConfigureServices(Configuration, services, _apiSettings);
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"Error configuring services using plugin '{type.Name}'.", ex);
+                        _logger.Error($"Error occured during service configuration activity '{servicesConfigurationActivityType.Name}': ", ex);
                     }
                 }
             }
@@ -294,13 +293,20 @@ namespace EdFi.Ods.Api.Startup
                 {
                     _logger.Debug($"Module {type.Name}");
 
-                    if (type.IsSubclassOf(typeof(ConditionalModule)))
+                    try
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, _apiSettings));
+                        if (type.IsSubclassOf(typeof(ConditionalModule)))
+                        {
+                            builder.RegisterModule((IModule)Activator.CreateInstance(type, _apiSettings));
+                        }
+                        else
+                        {
+                            builder.RegisterModule((IModule)Activator.CreateInstance(type));
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        _logger.Error($"Error registering module '{type.Name}'.", ex);
                     }
                 }
             }
@@ -430,52 +436,10 @@ namespace EdFi.Ods.Api.Startup
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
-        
-        private string GetPluginFolder(Plugin pluginSettings)
-        {
-            if (string.IsNullOrWhiteSpace(pluginSettings.Folder))
-            {
-                return string.Empty;
-            }
-
-            if (Path.IsPathRooted(pluginSettings.Folder))
-            {
-                return pluginSettings.Folder;
-            }
-
-            // in a developer environment the plugin folder is relative to the WebApi project
-            // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net8.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
-            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
-            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, pluginSettings.Folder));
-
-            if (Directory.Exists(relativeToProject))
-            {
-                return relativeToProject;
-            }
-
-            // in a deployment environment the plugin folder is relative to the executable
-            // "C:/inetpub/Ed-Fi/WebApi"
-            var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, pluginSettings.Folder));
-
-            if (Directory.Exists(relativeToExecutable))
-            {
-                return relativeToExecutable;
-            }
-
-            // last attempt to get directory relative to the working directory
-            var relativeToWorkingDirectory = Path.GetFullPath(pluginSettings.Folder);
-
-            if (Directory.Exists(relativeToWorkingDirectory))
-            {
-                return relativeToWorkingDirectory;
-            }
-
-            return pluginSettings.Folder;
-        }
 
         private PluginInfo[] LoadPlugins(Plugin pluginSettings)
         {
-            var pluginFolder = GetPluginFolder(pluginSettings);
+            var pluginFolder = AssemblyLoaderHelper.GetPluginFolder(pluginSettings.Folder);
             var pluginFolderSettingsName = $"{nameof(Plugin)}:{nameof(Plugin.Folder)}";
 
             if (string.IsNullOrWhiteSpace(pluginFolder))

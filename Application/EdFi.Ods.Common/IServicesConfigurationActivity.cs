@@ -6,16 +6,15 @@
 using EdFi.Ods.Common.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace EdFi.Ods.Common;
 
 /// <summary>
-/// Provides a custom assembly author a way of configuring the host before it is built, and then to configure
-/// services direction with the <see cref="IServiceCollection" /> during ASP.NET configuration process.
+/// Provides a custom assembly author a way to configure services registration with
+/// the <see cref="IServiceCollection" /> during ASP.NET configuration process.
 /// </summary>
-/// <seealso cref="IPluginModule"/>
-public interface IPlugin
+/// <seealso cref="ICustomModule"/>
+public interface IServicesConfigurationActivity
 {
     /// <summary>
     /// Configures services during ASP.NET startup/configuration process.
@@ -24,10 +23,4 @@ public interface IPlugin
     /// <param name="services">The service collection being configured.</param>
     /// <param name="apiSettings">The <see cref="ApiSettings" /> configuration object that has already been bound from the configuration.</param>
     void ConfigureServices(IConfigurationRoot configuration, IServiceCollection services, ApiSettings apiSettings);
-
-    /// <summary>
-    /// Configures the host prior to being finalized and built.
-    /// </summary>
-    /// <param name="hostBuilder">The <see cref="IHostBuilder" /> on which to perform configuration activities.</param>
-    void ConfigureHost(IHostBuilder hostBuilder);
 }

@@ -251,17 +251,6 @@ public class AssemblyLoaderHelperTests
             result.ShouldBeEmpty();
         }
 
-        [Test]
-        public void Should_throw_exception_when_an_invalid_plugin_assembly_is_in_plugin_folder()
-        {
-            // Arrange
-
-            // Act & Assert
-            Should.Throw<Exception>(() => AssemblyLoaderHelper.FindPluginAssemblies(_unitTestInvalidPluginFolder).ToList())
-                .Message
-                .ShouldBe("No plugin artifacts were found in assembly 'InvalidPluginAssembly.dll'. Expected an IPluginMarker implementation and assembly metadata embedded resource 'assemblyMetadata.json' (for Profiles or Extensions plugins), or implementations of IPlugin and/or IPlugModule (for custom application plugins).");
-        }
-
         // This method uses parts of the example code found at the following link
         // https://learn.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
         private static bool FileExistsInDirectory(string fileName, string directory, bool recursive)
