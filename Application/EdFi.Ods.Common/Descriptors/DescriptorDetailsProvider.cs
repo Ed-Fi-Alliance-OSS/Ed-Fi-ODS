@@ -7,7 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Dapper;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
@@ -25,26 +28,29 @@ namespace EdFi.Ods.Common.Descriptors;
 public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 {
     private readonly IContextStorage _contextStorage;
+    private readonly Dialect _dialect;
     private readonly ISessionFactory _sessionFactory;
     
-    private readonly Lazy<Dictionary<string, string>> _descriptorTypeNameByEntityName;
+    private readonly Lazy<Dictionary<string, string>> _discriminatorByDescriptorName;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DescriptorDetailsProvider));
     
     public DescriptorDetailsProvider(
         ISessionFactory sessionFactory,
         IDomainModelProvider domainModelProvider,
-        IContextStorage contextStorage)
+        IContextStorage contextStorage,
+        Dialect dialect)
     {
         _contextStorage = contextStorage;
+        _dialect = dialect;
         _sessionFactory = sessionFactory;
         
-        _descriptorTypeNameByEntityName = new Lazy<Dictionary<string, string>>(
+        _discriminatorByDescriptorName = new Lazy<Dictionary<string, string>>(
             () => domainModelProvider.GetDomainModel()
                 .Entities.Where(e => e.IsDescriptorEntity)
                 .ToDictionary(
                     e => e.Name, 
-                    e => e.EntityTypeFullName(e.SchemaProperCaseName())));
+                    e => e.FullName.ToString()));
     }
 
     /// <inheritdoc cref="IDescriptorDetailsProvider.GetAllDescriptorDetails" />
@@ -56,32 +62,22 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             using (var session = _sessionFactory.OpenSession())
             {
-                var queries = GetQueries(session).ToList();
+                var qb = GetDescriptorQueryBuilder();
+                var template = qb.BuildTemplate();
 
-                var results = queries
-                    .SelectMany(x => x.detailQuery
-                        .Select(d =>
+                var records = session.Connection.Query<DescriptorRecord>(template.RawSql);
+
+                var results = records.Select(
+                        r => new DescriptorDetails()
                         {
-                            // Assign the descriptor name to the details
-                            d.DescriptorName = x.descriptorName;
-                            return d;
+                            DescriptorId = r.DescriptorId,
+                            DescriptorName = r.Discriminator?.Substring(r.Discriminator.IndexOf('.') + 1),
+                            CodeValue = r.CodeValue,
+                            Namespace = r.Namespace
                         })
-                        .ToList())
                     .ToList();
 
                 return results;
-            }
-
-            IEnumerable<(string descriptorName, IEnumerable<DescriptorDetails> detailQuery)> GetQueries(ISession session)
-            {
-                foreach (string descriptorName in _descriptorTypeNameByEntityName.Value.Keys)
-                {
-                    var query = 
-                        GetDescriptorCriteria(descriptorName, session)
-                        .Future<DescriptorDetails>();
-
-                    yield return (descriptorName, query);
-                }
             }
         }
         catch (Exception ex)
@@ -96,45 +92,52 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
         }
     }
 
+    private QueryBuilder GetDescriptorQueryBuilder()
+    {
+        var qb = new QueryBuilder(_dialect)
+            .From("edfi.Descriptor")
+            .Select("DescriptorId", "CodeValue", "Namespace", "Discriminator");
+
+        return qb;
+    }
+
     /// <inheritdoc cref="IDescriptorDetailsProvider.GetDescriptorDetails(string,int)" />
     public DescriptorDetails GetDescriptorDetails(string descriptorName, int descriptorId)
     {
         using var session = _sessionFactory.OpenSession();
-        
-        return GetDescriptorCriteria(descriptorName, session, descriptorId).UniqueResult<DescriptorDetails>();
+
+        var qb = GetFilteredDescriptorQueryBuilder(descriptorName, descriptorId);
+        var template = qb.BuildTemplate();
+
+        return session.Connection.QuerySingleOrDefault<DescriptorDetails>(template.RawSql, template.Parameters);
     }
 
     /// <inheritdoc cref="IDescriptorDetailsProvider.GetDescriptorDetails(string,string)" />
     public DescriptorDetails GetDescriptorDetails(string descriptorName, string uri)
     {
         using var session = _sessionFactory.OpenSession();
-        
-        return GetDescriptorCriteria(descriptorName, session, uri: uri).UniqueResult<DescriptorDetails>();
+
+        var qb = GetFilteredDescriptorQueryBuilder(descriptorName, uri: uri);
+        var template = qb.BuildTemplate();
+
+        return session.Connection.QuerySingleOrDefault<DescriptorDetails>(template.RawSql, template.Parameters);
     }
 
-    private ICriteria GetDescriptorCriteria(
+    private QueryBuilder GetFilteredDescriptorQueryBuilder(
         string descriptorName,
-        ISession session,
         int? descriptorId = null,
         string uri = null)
     {
-        if (!_descriptorTypeNameByEntityName.Value.TryGetValue(descriptorName, out string descriptorTypeName))
+        if (!_discriminatorByDescriptorName.Value.TryGetValue(descriptorName, out string discriminator))
         {
             throw new ArgumentException($"Descriptor '{descriptorName}' is not a known descriptor entity name.");
         }
 
-        var descriptorIdColumnName = descriptorName + "Id";
-
-        var criteria = session.CreateCriteria(descriptorTypeName)
-            .SetProjection(
-                Projections.ProjectionList()
-                    .Add(Projections.Property(descriptorIdColumnName), "DescriptorId")
-                    .Add(Projections.Property("Namespace"), "Namespace")
-                    .Add(Projections.Property("CodeValue"), "CodeValue"));
+        var qb = GetDescriptorQueryBuilder();
 
         if (descriptorId.HasValue)
         {
-            criteria.Add(Restrictions.Eq(descriptorIdColumnName, descriptorId.Value));
+            qb.Where("DescriptorId", descriptorId.Value);
         }
 
         if (uri != null)
@@ -146,12 +149,18 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
                 throw new ValidationException($"{descriptorName} value '{uri}' is not a valid value for use as a descriptor (a '#' is expected to delineate the namespace and code value portions).");
             }
 
-            criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));
-            criteria.Add(Restrictions.Eq("CodeValue", uri.Substring(pos + 1)));
+            qb.Where("Namespace", uri.Substring(0, pos));
+            qb.Where("CodeValue", uri.Substring(pos + 1));
         }
 
-        criteria.SetResultTransformer(Transformers.AliasToBean<DescriptorDetails>());
+        return qb;
+    }
 
-        return criteria;
+    private class DescriptorRecord
+    {
+        public int DescriptorId { get; set; }
+        public string Discriminator { get; set; }
+        public string Namespace { get; set; }
+        public string CodeValue { get; set; }
     }
 }
