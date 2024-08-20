@@ -133,7 +133,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
             throw new ArgumentException($"Descriptor '{descriptorName}' is not a known descriptor entity name.");
         }
 
-        var qb = GetDescriptorQueryBuilder();
+        var qb = GetDescriptorQueryBuilder().Where("Discriminator", discriminator);
 
         if (descriptorId.HasValue)
         {
