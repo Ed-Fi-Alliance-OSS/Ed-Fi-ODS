@@ -27,7 +27,7 @@ namespace EdFi.Ods.Api.Helpers
     public static class AssemblyLoaderHelper
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
-        private static readonly Dictionary<Tuple<string, bool>, bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
+        private static readonly Dictionary<(string path, bool includeFramework), bool> _assembliesAlreadyLoadedByIncludeFrameworkOption = new();
 
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
@@ -48,15 +48,13 @@ namespace EdFi.Ods.Api.Helpers
 
             var directoryInfo = new DirectoryInfo(directory);
 
-            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey(
-                    new Tuple<string, bool>(directoryInfo.FullName, includeFramework)))
+            if (_assembliesAlreadyLoadedByIncludeFrameworkOption.ContainsKey((directoryInfo.FullName, includeFramework)))
             {
                 return;
             }
 
             // Mark as having already executed with this option
-            _assembliesAlreadyLoadedByIncludeFrameworkOption[
-                new Tuple<string, bool>(directoryInfo.FullName, includeFramework)] = true;
+            _assembliesAlreadyLoadedByIncludeFrameworkOption[(directoryInfo.FullName, includeFramework)] = true;
 
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
