@@ -143,13 +143,8 @@
       {{#HasDerivedEntities}}
     <!-- Derived classes -->
       {{#DerivedEntities}}
-      {{#IsJoinedSubclass}}
-    <joined-subclass name="{{ClassName}}" table="{{TableName}}" lazy="false"{{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}>
-      {{/IsJoinedSubclass}}
-      {{^IsJoinedSubclass}}
     <subclass name="{{ClassName}}" lazy="false" discriminator-value="{{DiscriminatorValue}}" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="{{TableName}}" {{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}>
-      {{/IsJoinedSubclass}}
           <key>
                     {{#KeyColumns}}
             <column name="{{Name}}" />
@@ -199,13 +194,8 @@
           </set>
 
                 {{/Collections}}
-     {{^IsJoinedSubclass}}
       </join>
     </subclass>
-     {{/IsJoinedSubclass}}
-     {{#IsJoinedSubclass}}
-      </joined-subclass>
-     {{/IsJoinedSubclass}}
      {{/DerivedEntities}}
      {{/HasDerivedEntities}}
 </class>

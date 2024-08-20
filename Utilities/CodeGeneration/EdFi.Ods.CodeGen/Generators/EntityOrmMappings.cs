@@ -358,7 +358,6 @@ namespace EdFi.Ods.CodeGen.Generators
                         return
                             new OrmDerivedEntity
                             {
-                                IsJoinedSubclass = e.IsDescriptorEntity,
                                 ClassName = className,
                                 ReferenceClassName = className + "ReferenceData",
                                 TableName = e.Name,
