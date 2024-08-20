@@ -188,10 +188,6 @@ namespace EdFi.Ods.Common.Models.Domain
             if (entity.IsDerived)
                 return false;
 
-            // Ed-Fi descriptors cannot be derived
-            if (entity.IsDescriptorBaseEntity())
-                return false;
-
             // SchoolYearType is also not derivable
             if (entity.FullName.Equals(new FullName(EdFiConventions.PhysicalSchemaName, "SchoolYearType")))
                 return false;

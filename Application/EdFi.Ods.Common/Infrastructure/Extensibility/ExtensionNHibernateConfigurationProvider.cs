@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dtos;
@@ -77,14 +76,6 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         }
 
         /// <summary>
-        /// Returns a dictionary keyed by Ed-Fi standard base entity name, containing the derived entity discriminators as HbmJoinedSubclasses.
-        /// </summary>
-        public IDictionary<string, HbmJoinedSubclass[]> NonDiscriminatorBasedHbmJoinedSubclassesByEntityName
-        {
-            get => CreateNonDiscriminatorBasedHbmJoinedSubclassesByEntityName();
-        }
-
-        /// <summary>
         /// Returns a dictionary keyed by Ed-Fi standard base entity name, containing the derived entity as HbmSubclass. (Discriminator is required)
         /// </summary>
         public IDictionary<string, HbmSubclass[]> DiscriminatorBasedHbmSubclassesByEntityName
@@ -148,63 +139,14 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                 .ToDictionary(x => x.Key, x => x.ToArray());
         }
 
-        private Dictionary<string, HbmJoinedSubclass[]> CreateNonDiscriminatorBasedHbmJoinedSubclassesByEntityName()
-        {
-            return Enumerable.Select(
-                    _domainModel.Entities
-                        .Where(e => e.IsDerived && e.IsExtensionEntity && e.Schema.Equals(PhysicalName) && e.IsDescriptorEntity), e => new
-                    {
-                        EntityName = !e.BaseEntity.IsAbstract
-                            ? $"{e.BaseEntity.Name}Base"
-                            : e.BaseEntity.Name,
-                        HbmJoinedSubclass = CreateHbmJoinSubclass(e)
-                    })
-                .GroupBy(x => x.EntityName, x => x.HbmJoinedSubclass)
-                .ToDictionary(x => x.Key, x => x.ToArray());
-
-            HbmJoinedSubclass CreateHbmJoinSubclass(Entity entity)
-            {
-                var properties = Enumerable.ToArray<object>(
-                        entity.Properties
-                            .OrderBy(p => p.PropertyName)
-                            .Select(p => CreateHbmProperty(p, entity)));
-
-                var references = Enumerable.ToArray<object>(entity.NavigableOneToOnes.Select(CreateHbmBag));
-
-                return new HbmJoinedSubclass
-                {
-                    table = entity.TableName(_databaseEngine),
-                    schema = PhysicalName,
-                    name = GetExtensionEntityAssemblyQualifiedName(entity),
-                    key = CreateHbmKey(entity.Properties.Where(p => p.IsIdentifying).OrderBy(p => p.PropertyName)),
-                    Items = properties.Concat(references).ToArray(),
-                    lazy = false
-                };
-
-                HbmBag CreateHbmBag(AssociationView association)
-                {
-                    return new
-                        HbmBag
-                        {
-                            name = $"{association.Name}",
-                            cascade = "all-delete-orphan",
-                            inverse = true,
-                            lazy = HbmCollectionLazy.False,
-                            key = CreateHbmKey(
-                                association.OtherEntity.Properties.Where(p => p.IsIdentifying).OrderBy(p => p.PropertyName)),
-                            Item = new HbmOneToMany {@class = GetExtensionEntityAssemblyQualifiedName(association.OtherEntity)}
-                        };
-                }
-            }
-        }
-
         private Dictionary<string, HbmSubclass[]> CreateDiscriminatorBasedHbmSubclassesByEntityName()
         {
             return Enumerable.Select(
                     _domainModel.Entities
                         .Where(
                             e => e.IsDerived && e.IsExtensionEntity && e.Schema.Equals(PhysicalName) &&
-                                 !e.BaseEntity.Schema.Equals(PhysicalName) && !e.IsDescriptorEntity), e => new
+                                 !e.BaseEntity.Schema.Equals(PhysicalName)), 
+                    e => new
                     {
                         EntityName = !e.BaseEntity.IsAbstract
                             ? $"{e.BaseEntity.Name}Base"
