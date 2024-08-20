@@ -246,18 +246,18 @@ namespace EdFi.Ods.Api.Startup
             {
                 _logger.Debug("Configuring services in plugins:");
                 
-                foreach (var servicesConfigurationActivity in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
+                foreach (var servicesConfigurationActivityType in TypeHelper.GetAssemblyTypes<IServicesConfigurationActivity>())
                 {
-                    _logger.Debug($"Executing services configuration activity '{servicesConfigurationActivity.Name}'...");
+                    _logger.Debug($"Executing services configuration activity '{servicesConfigurationActivityType.Name}'...");
 
                     try
                     {
-                        var plugin = (IServicesConfigurationActivity) Activator.CreateInstance(servicesConfigurationActivity);
-                        plugin?.ConfigureServices(Configuration, services, _apiSettings);
+                        var servicesConfigurationActivity = (IServicesConfigurationActivity) Activator.CreateInstance(servicesConfigurationActivityType);
+                        servicesConfigurationActivity?.ConfigureServices(Configuration, services, _apiSettings);
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"Error occured during service configuration activity '{servicesConfigurationActivity.Name}': ", ex);
+                        _logger.Error($"Error occured during service configuration activity '{servicesConfigurationActivityType.Name}': ", ex);
                     }
                 }
             }
