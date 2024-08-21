@@ -15,10 +15,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
                 .SingleInstance();
-
-            builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
-                .As(typeof(ITotalCountCriteriaProvider<>))
-                .SingleInstance();
         }
     }
 }

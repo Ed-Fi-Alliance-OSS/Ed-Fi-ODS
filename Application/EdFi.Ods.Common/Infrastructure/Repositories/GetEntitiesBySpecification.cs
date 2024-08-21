@@ -28,19 +28,16 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         protected static IList<TEntity> EmptyList = new List<TEntity>();
 
         private readonly IPagedAggregateIdsCriteriaProvider<TEntity> _pagedAggregateIdsCriteriaProvider;
-        private readonly ITotalCountCriteriaProvider<TEntity> _totalCountCriteriaProvider;
         private readonly IGetEntitiesByIds<TEntity> _getEntitiesByIds;
 
         public GetEntitiesBySpecification(
             ISessionFactory sessionFactory,
             IGetEntitiesByIds<TEntity> getEntitiesByIds,
-            IPagedAggregateIdsCriteriaProvider<TEntity> pagedAggregateIdsCriteriaProvider,
-            ITotalCountCriteriaProvider<TEntity> totalCountCriteriaProvider)
+            IPagedAggregateIdsCriteriaProvider<TEntity> pagedAggregateIdsCriteriaProvider)
             : base(sessionFactory)
         {
             _getEntitiesByIds = getEntitiesByIds;
             _pagedAggregateIdsCriteriaProvider = pagedAggregateIdsCriteriaProvider;
-            _totalCountCriteriaProvider = totalCountCriteriaProvider;
         }
 
         public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification,
