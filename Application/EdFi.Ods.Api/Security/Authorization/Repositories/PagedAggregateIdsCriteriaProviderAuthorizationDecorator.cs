@@ -28,7 +28,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        protected PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
+        public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
             IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
