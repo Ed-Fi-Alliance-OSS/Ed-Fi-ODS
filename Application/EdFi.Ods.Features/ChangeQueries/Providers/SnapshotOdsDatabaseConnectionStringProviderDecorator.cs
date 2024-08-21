@@ -66,9 +66,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
             if (!odsInstanceContext.ConnectionStringByDerivativeType.TryGetValue(
                     DerivativeType.Snapshot, out string snapshotConnectionString))
             {
-                throw new NotFoundException("Snapshots are not configured.");
+                throw new NotFoundException(
+                    "Snapshot not found.",
+                    ["The snapshot connection for the ODS has not been configured."]);
             }
-            
+
             return snapshotConnectionString;
         }
     }

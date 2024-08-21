@@ -27,6 +27,12 @@ namespace EdFi.Ods.Common.Exceptions
         public NotFoundException(string detail)
             : base(detail, detail) { }
 
+        public NotFoundException(string detail, string[] errors)
+            : base(detail, detail)
+        {
+            this.SetErrors(errors);
+        }
+
         public NotFoundException(string detail, string message)
             : base(detail, message) { }
 
