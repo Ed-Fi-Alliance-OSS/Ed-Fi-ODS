@@ -151,21 +151,21 @@ INNER JOIN edfi.StateAbbreviationDescriptor sad
 ON d.DescriptorId = sad.StateAbbreviationDescriptorId;
 
 -- Create new descriptor values
-insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    values ('uri://ed-fi.org/ArtMediumDescriptor', 'Art Medium', 'Art Medium', 'Art Medium');
+insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    values ('uri://ed-fi.org/ArtMediumDescriptor', 'Art Medium', 'Art Medium', 'Art Medium', 'sample.ArtMediumDescriptor');
 select DescriptorId into artMediumDescriptorId
     from edfi.Descriptor where Namespace = 'uri://ed-fi.org/ArtMediumDescriptor' and CodeValue = 'Art Medium';
 insert into sample.ArtMediumDescriptor values (artMediumDescriptorId);
 
 
-insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    values ('uri://ed-fi.org/MembershipTypeDescriptor', 'Membership Type', 'Membership Type', 'Membership Type');
+insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    values ('uri://ed-fi.org/MembershipTypeDescriptor', 'Membership Type', 'Membership Type', 'Membership Type', 'sample.MembershipTypeDescriptor');
 select DescriptorId into membershipTypeDescId
     from edfi.Descriptor where Namespace = 'uri://ed-fi.org/MembershipTypeDescriptor' and CodeValue = 'Membership Type';
 insert into sample.MembershipTypeDescriptor values (membershipTypeDescId);
 
-insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    values ('uri://ed-fi.org/FavoriteBookCategoryDescriptor', 'Non-Fiction', 'Non-Fiction', 'Non-Fiction');
+insert into edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    values ('uri://ed-fi.org/FavoriteBookCategoryDescriptor', 'Non-Fiction', 'Non-Fiction', 'Non-Fiction', 'sample.FavoriteBookCategoryDescriptor');
 select DescriptorId into favoriteBookCategoryDescriptorId
     from edfi.Descriptor where Namespace = 'uri://ed-fi.org/FavoriteBookCategoryDescriptor' and CodeValue = 'Non-Fiction';
 insert into sample.FavoriteBookCategoryDescriptor values (favoriteBookCategoryDescriptorId);

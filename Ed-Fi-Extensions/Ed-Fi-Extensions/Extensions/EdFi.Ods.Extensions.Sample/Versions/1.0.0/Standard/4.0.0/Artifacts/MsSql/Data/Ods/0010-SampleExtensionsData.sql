@@ -178,22 +178,22 @@ SELECT @stateAbbreviationDescriptorId = DescriptorId
 
 -- Create new descriptor values
 DECLARE @artMediumDescriptorId INT;
-INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    VALUES ('uri://ed-fi.org/ArtMediumDescriptor', 'Art Medium', 'Art Medium', 'Art Medium')
+INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    VALUES ('uri://ed-fi.org/ArtMediumDescriptor', 'Art Medium', 'Art Medium', 'Art Medium', 'sample.ArtMediumDescriptor')
 SELECT @artMediumDescriptorId = DescriptorId
     FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/ArtMediumDescriptor' AND CodeValue = 'Art Medium'
 INSERT INTO sample.ArtMediumDescriptor VALUES (@artMediumDescriptorId)
 
 DECLARE @membershipTypeDescriptorId INT;
-INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    VALUES ('uri://ed-fi.org/MembershipTypeDescriptor', 'Membership Type', 'Membership Type', 'Membership Type')
+INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    VALUES ('uri://ed-fi.org/MembershipTypeDescriptor', 'Membership Type', 'Membership Type', 'Membership Type', 'sample.MembershipTypeDescriptor')
 SELECT @membershipTypeDescriptorId = DescriptorId
     FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/MembershipTypeDescriptor' AND CodeValue = 'Membership Type'
 INSERT INTO sample.MembershipTypeDescriptor VALUES (@membershipTypeDescriptorId)
 
 DECLARE @favoriteBookCategoryDescriptorId INT;
-INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description)
-    VALUES ('uri://ed-fi.org/FavoriteBookCategoryDescriptor', 'Non-Fiction', 'Non-Fiction', 'Non-Fiction')
+INSERT INTO edfi.Descriptor (Namespace, CodeValue, ShortDescription, Description, Discriminator)
+    VALUES ('uri://ed-fi.org/FavoriteBookCategoryDescriptor', 'Non-Fiction', 'Non-Fiction', 'Non-Fiction', 'sample.FavoriteBookCategoryDescriptor')
 SELECT @favoriteBookCategoryDescriptorId = DescriptorId
     FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/FavoriteBookCategoryDescriptor' AND CodeValue = 'Non-Fiction'
 INSERT INTO sample.FavoriteBookCategoryDescriptor VALUES (@favoriteBookCategoryDescriptorId)
