@@ -92,7 +92,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
             if (entity.IsDerived)
             {
                 idQueryBuilder.Join(
-                    $"{entity.Schema}.{entity.BaseEntity.TableName(_databaseEngine)} AS b",
+                    $"{entity.BaseEntity.Schema}.{entity.BaseEntity.TableName(_databaseEngine)} AS b",
                     j =>
                     {
                         foreach (var propertyMapping in entity.BaseAssociation.PropertyMappings)
