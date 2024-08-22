@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
+using Dapper;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database.Querying;
@@ -229,14 +231,36 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     }
                     else
                     {
-                        string alias = (!entity.IsDerived || entity.PropertyByName.ContainsKey(key))
-                            ? "r"
-                            : "b";
+                        string alias;
+                        
+                        if (!entity.PropertyByName.TryGetValue(key, out var entityProperty))
+                        {
+                            if (!entity.IsDerived || !entity.BaseEntity.PropertyByName.TryGetValue(key, out entityProperty))
+                            {
+                                throw new ArgumentException($"Property '{key}' was not found.");
+                            }
+
+                            alias = "b";
+                        }
+                        else
+                        {
+                            alias = "r";
+                        }
 
                         // Add the property equality condition to the query criteria
                         if (propertyValuePairs[key] != null)
                         {
-                            queryBuilder.Where($"{alias}.{key}", propertyValuePairs[key]);
+                            // Special handling required for money data types due to PostgreSQL
+                            if (entityProperty.PropertyType.DbType == DbType.Currency)
+                            {
+                                DynamicParameters parameter = new();
+                                parameter.Add($"@{key}", Convert.ToDecimal(propertyValuePairs[key]), DbType.Currency);
+                                queryBuilder.Where($"{alias}.{key}", parameter);
+                            }
+                            else
+                            {
+                                queryBuilder.Where($"{alias}.{key}", propertyValuePairs[key]);
+                            }
                         }
                         else
                         {

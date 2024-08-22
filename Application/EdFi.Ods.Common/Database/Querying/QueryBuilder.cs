@@ -110,6 +110,12 @@ namespace EdFi.Ods.Common.Database.Querying
                 parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
                 parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, values) });
             }
+            else if (value is DynamicParameters dynamicParameters)
+            {
+                // Just use the dynamic parameters, as provided
+                parameters = dynamicParameters;
+                parameterName = dynamicParameters.ParameterNames.SingleOrDefault();
+            }
             else
             {
                 // Inline parameter, automatically named
