@@ -80,7 +80,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
                     _viewBasedSingleItemAuthorizationQuerySupport
-                    // _multiValueRestrictions
                 )
             );
         }
@@ -101,7 +100,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
                         _viewBasedSingleItemAuthorizationQuerySupport
-                        // _multiValueRestrictions
                     )
                 )
                 // Add filter definitions for using the EdOrg hierarchy inverted
@@ -117,7 +115,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                             ApplyTrackedChangesAuthorizationCriteria,
                             AuthorizeInstance,
                             _viewBasedSingleItemAuthorizationQuerySupport
-                            // _multiValueRestrictions
                         )
                     )
                 );

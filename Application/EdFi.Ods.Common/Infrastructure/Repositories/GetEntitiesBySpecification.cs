@@ -14,8 +14,6 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.Multi;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
@@ -108,7 +106,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     var parameters = new DynamicParameters();
                     parameters.AddDynamicParams(idsTemplate.Parameters);
-                    // parameters.AddDynamicParams(countTemplate.Parameters);
 
                     await using var multi = await Session.Connection.QueryMultipleAsync(combinedSql, parameters);
 

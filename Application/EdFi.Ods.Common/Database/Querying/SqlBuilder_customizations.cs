@@ -19,12 +19,14 @@ namespace EdFi.Ods.Common.Database.Querying
         /// <param name="name"></param>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
+        /// <param name="prefix"></param>
+        /// <param name="postfix"></param>
         /// <returns></returns>
-        protected SqlBuilder SetClause(string name, string sql, object parameters, string prefix = "\n", string postfix = "\n")
+        private SqlBuilder SetClause(string name, string sql, object parameters, string prefix = "\n", string postfix = "\n")
         {
             if (!_data.TryGetValue(name, out var clauses))
             {
-                clauses = new Clauses(string.Empty, prefix, postfix); //"\n", "\n");
+                clauses = new Clauses(string.Empty, prefix, postfix);
                 _data[name] = clauses;
             }
             else

@@ -13,9 +13,6 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-// using NHibernate;
-// using NHibernate.Criterion;
-// using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased;
 
@@ -65,7 +62,6 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         }
 
         // NOTE: subjectEndpointName is ignored here -- we don't expect or want any variation due to role names applied here.
-        // @where.ApplyPropertyFilters(parameters, FilterPropertyName);
         whereQueryBuilder.ApplyPropertyFilters(parameters, FilterPropertyName);
     }
 

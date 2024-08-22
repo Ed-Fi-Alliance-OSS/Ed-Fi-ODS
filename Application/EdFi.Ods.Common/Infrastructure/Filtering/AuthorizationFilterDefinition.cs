@@ -5,15 +5,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-// using NHibernate;
-// using NHibernate.Criterion;
-// using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {

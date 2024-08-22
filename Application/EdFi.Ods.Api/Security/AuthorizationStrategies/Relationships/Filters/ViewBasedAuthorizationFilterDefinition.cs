@@ -38,7 +38,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
-            // IMultiValueRestrictions multiValueRestrictions)
             : base(
                 filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
@@ -52,7 +51,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         throw new ArgumentException("Exactly one authorization subject endpoint name is expected for single-column view-based authorization.");
                     }
 
-                    //////////////////////////////////////////////////////
                     @where.ApplySingleColumnJoinFilter(
                         parameters,
                         viewName,

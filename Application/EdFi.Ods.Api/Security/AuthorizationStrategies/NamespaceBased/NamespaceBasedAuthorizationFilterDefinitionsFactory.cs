@@ -16,10 +16,6 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-// using NHibernate;
-// using NHibernate.Criterion;
-// using NHibernate.SqlCommand;
-// using MatchMode = EdFi.Ods.Common.Database.Querying.MatchMode;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
@@ -89,18 +85,9 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         }
 
         // Ensure the Namespace parameter is represented as an object array
-        var namespacePrefixes = parameterValue as object[] ?? new[] { parameterValue };
-
-        // Combine the namespace filters using OR (only one must match to grant authorization)
-        // var namespacesDisjunction = new Disjunction();
-        //
-        // foreach (var namespacePrefix in namespacePrefixes)
-        // {
-        //     namespacesDisjunction.Add(Restrictions.Like(subjectEndpointName, namespacePrefix));
-        // }
+        var namespacePrefixes = parameterValue as object[] ?? [parameterValue];
 
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        // @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointName), namespacesDisjunction));
         whereBuilder.WhereNotNull(subjectEndpointName)
             .Where(
                 qb =>
