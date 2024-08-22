@@ -129,7 +129,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     yield break;
                 }
              
-                if (IsDerivedFromEntityWithDiscriminator(entityProperty.Entity))
+                if (entityProperty.Entity.IsDerived && !entityProperty.Entity.IsDescriptorEntity)
                 {
                     yield return new SelectColumn
                     {
@@ -171,8 +171,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     JsonPropertyName = resourceProperty.JsonPropertyName,
                 };
             }
-            
-            bool IsDerivedFromEntityWithDiscriminator(Entity entity) => entity.BaseEntity?.HasDiscriminator() == true;
         }
     }
 }

@@ -6227,6 +6227,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi
         // -------------------------------------------------------------
 
         // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
         //                          Properties
         // -------------------------------------------------------------
         public virtual string CodeValue  { get; set; }

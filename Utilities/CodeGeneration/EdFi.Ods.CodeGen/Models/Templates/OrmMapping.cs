@@ -170,8 +170,6 @@ namespace EdFi.Ods.CodeGen.Models.Templates
 
     public class OrmDerivedEntity
     {
-        public bool IsJoinedSubclass { get; set; }
-
         public string ClassName { get; set; }
 
         public string ReferenceClassName { get; set; }

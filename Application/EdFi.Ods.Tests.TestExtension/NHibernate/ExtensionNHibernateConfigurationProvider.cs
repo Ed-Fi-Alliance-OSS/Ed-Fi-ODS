@@ -106,8 +106,6 @@ namespace EdFi.Ods.Tests.TestExtension.NHibernate
             }
         }
 
-        public IDictionary<string, HbmJoinedSubclass[]> NonDiscriminatorBasedHbmJoinedSubclassesByEntityName => new Dictionary<string, HbmJoinedSubclass[]>();
-
         public IDictionary<string, HbmSubclass[]> DiscriminatorBasedHbmSubclassesByEntityName => new Dictionary<string, HbmSubclass[]>();
     }
 }

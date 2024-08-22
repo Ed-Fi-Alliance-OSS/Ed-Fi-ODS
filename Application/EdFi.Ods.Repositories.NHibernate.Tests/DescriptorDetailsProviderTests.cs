@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
@@ -85,6 +86,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 session.Save(AssessmentPeriodTestDescriptor1);
             }
 
+            using (var session = SessionFactory.OpenSession())
+            {
+                CountryTestDescriptor1 = session.Load<CountryDescriptor>(CountryTestDescriptor1.DescriptorId);
+                CountryTestDescriptor2 = session.Load<CountryDescriptor>(CountryTestDescriptor2.DescriptorId);
+                CountryTestDescriptor3 = session.Load<CountryDescriptor>(CountryTestDescriptor3.DescriptorId);
+                AssessmentPeriodTestDescriptor1 = session.Load<AssessmentPeriodDescriptor>(AssessmentPeriodTestDescriptor1.DescriptorId);
+            }
+
             var domainModelBuilder = new DomainModelBuilder();
 
             domainModelBuilder.AddSchema(new SchemaDefinition("Ed-Fi", "edfi"));
@@ -145,7 +154,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             DescriptorDetailsProvider = new DescriptorDetailsProvider(
                 SessionFactory, 
                 domainModelProvider,
-                new HashtableContextStorage());
+                new HashtableContextStorage(),
+                new SqlServerDialect());
 
             AssociationDefinition CreateDescriptorInheritanceAssociation(string descriptorName)
             {

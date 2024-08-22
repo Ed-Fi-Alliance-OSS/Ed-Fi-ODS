@@ -33,7 +33,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IDictionary<string, HbmBag[]> _entityExtensionHbmBagsByEntityName;
         private readonly IExtensionNHibernateConfigurationProvider[] _extensionConfigurationProviders;
         private readonly IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
-        private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
@@ -71,14 +70,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             _aggregateExtensionHbmBagsByEntityName = _extensionConfigurationProviders
                 .SelectMany(x => x.AggregateExtensionHbmBagsByEntityName)
-                .GroupBy(x => x.Key)
-                .ToDictionary(
-                    x => x.Key,
-                    x => x.SelectMany(y => y.Value)
-                        .ToArray());
-
-            _extensionDescriptorByEntityName = _extensionConfigurationProviders
-                .SelectMany(x => x.NonDiscriminatorBasedHbmJoinedSubclassesByEntityName)
                 .GroupBy(x => x.Key)
                 .ToDictionary(
                     x => x.Key,
@@ -172,8 +163,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 MapJoinedSubclassesToCoreEntity(
                     classMappingByEntityName, joinedSubclassMappingByEntityName, subclassJoinMappingByEntityName);
 
-                MapDescriptorToCoreDescriptorEntity(classMappingByEntityName);
-
                 MapDerivedEntityToCoreEntity(classMappingByEntityName);
             }
 
@@ -195,27 +184,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object) x).ToArray();
 
                     classMapping.Items1 = (classMapping.Items1 ?? Array.Empty<object>()).Concat(hbmSubclasses).ToArray();
-                }
-            }
-
-            void MapDescriptorToCoreDescriptorEntity(Dictionary<string, HbmClass> classMappingByEntityName)
-            {
-                // foreach entity name, look in core mapping file (e.mapping) for core entity mapping and if found
-                // concat new extension HbmJoinedSubclass to current set of Ed-Fi entity HbmJoinedSubclasses.
-                foreach (string entityName in _extensionDescriptorByEntityName.Keys)
-                {
-                    if (!classMappingByEntityName.TryGetValue(entityName, out HbmClass classMapping))
-                    {
-                        throw new MappingException(
-                            $"The subclass extension to entity '{entityName}' could not be applied because the class mapping could not be found.");
-                    }
-
-                    var hbmJoinedSubclasses = _extensionDescriptorByEntityName[entityName]
-                        .Select(x => (object) x)
-                        .ToArray();
-
-                    classMapping.Items1 = (classMapping.Items1 ?? Array.Empty<object>()).Concat(hbmJoinedSubclasses)
-                        .ToArray();
                 }
             }
 

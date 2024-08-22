@@ -24,11 +24,6 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         IDictionary<string, HbmBag[]> AggregateExtensionHbmBagsByEntityName { get; }
 
         /// <summary>
-        /// Extensions that are derived from a class without a discriminator (e.g. a descriptor).
-        /// </summary>
-        IDictionary<string, HbmJoinedSubclass[]> NonDiscriminatorBasedHbmJoinedSubclassesByEntityName { get; }
-
-        /// <summary>
         /// Extensions that are derived from either a class using a discriminator.
         /// </summary>
         IDictionary<string, HbmSubclass[]> DiscriminatorBasedHbmSubclassesByEntityName { get; }
