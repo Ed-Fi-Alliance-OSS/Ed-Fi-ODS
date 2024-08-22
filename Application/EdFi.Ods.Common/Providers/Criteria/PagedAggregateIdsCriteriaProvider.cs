@@ -207,19 +207,24 @@ namespace EdFi.Ods.Common.Providers.Criteria
 
                     if (map.IdPropertyByLookupProperty.TryGetValue(key, out LookupColumnDetails columnDetails))
                     {
+                        string alias = (!entity.IsDerived || entity.PropertyByName.ContainsKey(columnDetails.PropertyName))
+                            ? "r"
+                            : "b";
+
                         // Look up the corresponding lookup id value from the cache
                         var lookupId = _descriptorResolver.GetDescriptorId(
                             columnDetails.LookupTypeName,
                             Convert.ToString(propertyValuePairs[key]));
-
+                    
                         // Add criteria for the lookup Id value, to avoid need to incorporate an INNER JOIN into the query
-                        if (propertyValuePairs[key] != null)
+                        if (lookupId != 0)
                         {
-                            queryBuilder.Where(columnDetails.PropertyName, lookupId);
+                            queryBuilder.Where($"{alias}.{columnDetails.PropertyName}", lookupId);
                         }
                         else
                         {
-                            queryBuilder.WhereNull(key);
+                            // Descriptor did not match any value -- criteria should exclude all entries
+                            queryBuilder.WhereRaw("1 = 0");
                         }
                     }
                     else
@@ -250,6 +255,12 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     return false;
                 }
 
+                if (property.Name.EndsWith("DescriptorId"))
+                {
+                    // DescriptorIds are not used directly from the specification because they might not be set if the value is invalid (rather, the Descriptor lookup is used)
+                    return false;
+                }
+                
                 Type valueType = value.GetType();
 
                 // Only use value types (or strings), and non-default values (i.e. ignore 0's)

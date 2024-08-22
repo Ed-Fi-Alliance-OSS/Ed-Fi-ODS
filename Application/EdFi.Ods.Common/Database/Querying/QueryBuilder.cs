@@ -224,6 +224,13 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public QueryBuilder WhereRaw(string rawSql)
+        {
+            _sqlBuilder.Where(rawSql);
+
+            return this;
+        }
+
         public QueryBuilder WhereNull(string columnName)
         {
             _sqlBuilder.Where($"{columnName} IS NULL");
