@@ -16,11 +16,10 @@ namespace EdFi.Ods.Common.Database.Querying
 {
     public class QueryBuilder
     {
-        private readonly List<Cte> _ctes = new List<Cte>();
         private readonly Dialect _dialect;
 
-        private readonly ParameterIndexer _parameterIndexer = new ParameterIndexer();
-        private readonly SqlBuilder _sqlBuilder = new SqlBuilder();
+        private readonly ParameterIndexer _parameterIndexer = new();
+        private readonly SqlBuilder _sqlBuilder = new();
 
         public QueryBuilder(Dialect dialect)
         {
@@ -112,9 +111,9 @@ namespace EdFi.Ods.Common.Database.Querying
             }
             else if (value is DynamicParameters dynamicParameters)
             {
-                // Just use the dynamic parameters, as provided
+                // Just use the dynamic parameters, as provided (but force an exception if more than 1 parameter is present)
                 parameters = dynamicParameters;
-                parameterName = dynamicParameters.ParameterNames.SingleOrDefault();
+                parameterName = $"@{dynamicParameters.ParameterNames.Single()}";
             }
             else
             {
@@ -150,8 +149,10 @@ namespace EdFi.Ods.Common.Database.Querying
                         ? new DynamicParameters(childScope.Parameters)
                         : null);
 
-                // Since we're dealing with an explicit child scope, wrap the WHERE clause here to be safe
-                _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                string whereCriteria = template.RawSql.Replace("WHERE ", string.Empty);
+
+                // Since we're dealing with a child scope with only 1 WHERE clause, no need to wrap it
+                _sqlBuilder.Where($"{whereCriteria}", template.Parameters);
             }
 
             // Incorporate any JOINs added into this builder
@@ -174,7 +175,7 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 return this;
             }
-            
+
             var template = childScopeSqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
@@ -182,10 +183,24 @@ namespace EdFi.Ods.Common.Database.Querying
                     : null);
 
             // SqlBuilder warps 'OR' where clauses when building the template SQL
-            _sqlBuilder.OrWhere($"{template.RawSql.Replace("WHERE ", string.Empty)}", template.Parameters);
+            _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
 
             // Incorporate the JOINs into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+
+            return this;
+        }
+
+        public QueryBuilder OrWhere(string column, object value)
+        {
+            return OrWhere(column, "=", value);
+        }
+
+        public QueryBuilder OrWhere(string column, string op, object value)
+        {
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+
+            _sqlBuilder.OrWhere($"{column} {op} {parameterName}", parameters);
 
             return this;
         }
@@ -307,11 +322,6 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        // public QueryBuilder Join(QueryBuilder query, Func<Join, Join> joiner, string type = "inner join")
-        // {
-        //     return this;
-        // }
-
         public QueryBuilder LeftJoin(string tableName, string thisExpression, string otherExpression)
         {
             _sqlBuilder.LeftJoin($"{tableName} ON {thisExpression} = {otherExpression}");
@@ -328,11 +338,6 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
-
-        // public QueryBuilder LeftJoin(QueryBuilder query, Func<Join, Join> joiner, string type = "inner join")
-        // {
-        //     return this;
-        // }
 
         public QueryBuilder Select(params string[] columns)
         {

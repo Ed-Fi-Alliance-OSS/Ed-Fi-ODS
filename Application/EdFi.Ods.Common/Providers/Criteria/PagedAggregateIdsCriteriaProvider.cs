@@ -78,12 +78,12 @@ namespace EdFi.Ods.Common.Providers.Criteria
                 throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
             }
 
-            // TODO: ODS-6444 - Need physical table name here (and everywhere, really) -- entity.TableName()
-            var tableName = entity.FullName.ToString();
+            // Get the fully qualified physical table name
+            var schemaTableName = $"{entity.Schema}.{entity.TableName(_databaseEngine)}";
 
             string[] selectColumns = GetColumnProjectionsForDistinctWithOrderBy(entity).ToArray();
 
-            idQueryBuilder.From(tableName.Alias("r"))
+            idQueryBuilder.From(schemaTableName.Alias("r"))
                 .Distinct()
                 .Select(selectColumns)
                 .LimitOffset(queryParameters.Limit ?? _defaultPageLimitSize, queryParameters.Offset ?? 0);
@@ -153,7 +153,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     }
                     else
                     {
-                        queryBuilder.OrderBy(identifierColumnName);
+                        queryBuilder.OrderBy($"r.{identifierColumnName}");
                     }
                 }
             }

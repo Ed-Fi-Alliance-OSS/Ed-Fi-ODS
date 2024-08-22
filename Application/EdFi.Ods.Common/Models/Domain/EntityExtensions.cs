@@ -274,16 +274,16 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         /// <param name="entity">The entity for which to obtain the physical table name.</param>
         /// <param name="databaseEngine">The key representing the database engine.</param>
-        /// <param name="explicitTableName">Explicit name to use instead of the <see cref="Entity.Name" /> property if no
+        /// <param name="overrideFallbackName">Explicit name to use instead of the <see cref="Entity.Name" /> property if no
         /// entry is found for the specified database engine.</param>
         /// <returns></returns>
-        public static string TableName(this Entity entity, DatabaseEngine databaseEngine, string explicitTableName = null)
+        public static string TableName(this Entity entity, DatabaseEngine databaseEngine, string overrideFallbackName = null)
         {
             return entity.TableNameByDatabaseEngine == null || entity.TableNameByDatabaseEngine.Count == 0
-                ? explicitTableName ?? entity.Name
+                ? overrideFallbackName ?? entity.Name
                 : entity.TableNameByDatabaseEngine.TryGetValue(databaseEngine, out string tableName)
                     ? tableName
-                    : explicitTableName ?? entity.Name;
+                    : overrideFallbackName ?? entity.Name;
         }
 
         /// <summary>

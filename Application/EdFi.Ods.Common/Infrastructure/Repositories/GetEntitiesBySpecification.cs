@@ -118,7 +118,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         TotalCount = totalCount
                     };
                 }
-                
+
                 if (idsTemplate != null)
                 {
                     var idsResults = await Session.Connection.QueryAsync<IdOnly>(idsTemplate.RawSql, idsTemplate.Parameters);

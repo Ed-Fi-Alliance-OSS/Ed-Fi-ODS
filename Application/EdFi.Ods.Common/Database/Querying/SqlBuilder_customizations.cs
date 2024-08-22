@@ -152,7 +152,7 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             return HasClause(ClauseKey.Where);
         }
-        
+
         private bool HasClause(string clausekey)
         {
             return _data.Any(kvp => kvp.Key == clausekey);
