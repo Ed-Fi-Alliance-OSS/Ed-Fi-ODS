@@ -6,10 +6,13 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+
+using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
@@ -19,6 +22,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         private const string SourceTableAlias = "src";
+        private const string CurrentTableAliasPrefix = "curr";
 
         private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName = new();
 
@@ -51,14 +55,67 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
-            var baselineDeletedItemsQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity)
+            // USIs needing translation to "current" values
+            var usiProperties = entity.Identifier.Properties.Where(p => p.DefiningProperty.Entity.IsPersonEntity()).ToArray();
+
+            QueryBuilder baselineDeletedItemsQuery; 
+
+            if (usiProperties.Any())
+            {
+                // Build the CTE query
+                var cteQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity);
+
+                int i = 0;
+                
+                foreach (var usiProperty in usiProperties)
+                {
+                    string uniqueIdName = usiProperty.PropertyName.ReplaceSuffix("USI", "UniqueId");
+
+                    string tableName = _namingConvention.TableName(usiProperty.DefiningProperty.Entity);
+                    string schemaName = _namingConvention.Schema(usiProperty.DefiningProperty.Entity);
+                    
+                    cteQuery.LeftJoin(
+                        $"{schemaName}.{tableName}".Alias($"{CurrentTableAliasPrefix}{i}"),
+                        $"{TrackedChangesAlias}.{_namingConvention.ColumnName($"Old{uniqueIdName}")}",
+                        $"{CurrentTableAliasPrefix}{i}.{_namingConvention.ColumnName(uniqueIdName)}");
+
+                    // Current USI
+                    cteQuery.Select(
+                        $"{CurrentTableAliasPrefix}{i}.{_namingConvention.ColumnName(usiProperty.DefiningProperty)} AS {_namingConvention.ColumnName($"Current{usiProperty.PropertyName}")}");
+
+                    cteQuery
+                        // Old Unique Id, and Old and New USIs
+                        .Select(
+                            _namingConvention.ColumnName($"Old{uniqueIdName}"),
+                            _namingConvention.ColumnName($"New{usiProperty.PropertyName}"),
+                            _namingConvention.ColumnName($"Old{usiProperty.PropertyName}"));
+
+                    i++;
+                }
+
+                string cteName = "TranslatedTrackedChanges";
+
+                cteQuery.Select(
+                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
+                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeVersionColumnName)}");
+
+                baselineDeletedItemsQuery = _createQueryBuilder()
+                    .From(cteName.Alias(TrackedChangesAlias))
+                    .With(cteName, cteQuery);
+            }
+            else
+            {
+                baselineDeletedItemsQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity);
+            }
+
+            baselineDeletedItemsQuery
                 .Select(
-                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
-                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}")
+                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
+                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeVersionColumnName)}")
                 .Select(QueryFactoryHelper.IdentifyingColumns(identifierProjections, columnGroups: ColumnGroups.OldValue))
                 .Distinct()
                 .OrderBy(
-                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
+                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeVersionColumnName)}");
 
             QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(baselineDeletedItemsQuery, entity, _namingConvention);
 
@@ -78,7 +135,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                         foreach (var projection in identifierProjections)
                         {
                             @join.On(
-                                $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{projection.ChangeTableJoinColumnName}",
+                                $"{TrackedChangesAlias}.{projection.ChangeTableJoinColumnName}",
                                 $"{SourceTableAlias}.{projection.SourceTableJoinColumnName}");
                         }
 
@@ -97,9 +154,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     : entity).Identifier.Properties.First();
 
                 string columnName = _namingConvention.ColumnName(
-                    $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
+                    $"{NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
 
-                baselineDeletedItemsQuery.WhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
+                baselineDeletedItemsQuery.WhereNull($"{TrackedChangesAlias}.{columnName}");
             }
         }
     }
