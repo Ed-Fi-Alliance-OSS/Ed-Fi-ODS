@@ -52,7 +52,8 @@ namespace EdFi.Ods.Common.Models.Resource
     {
         private readonly ResourceMemberBase _containingMember;
         private Lazy<Resource> _descriptorResource;
-
+        private Lazy<bool> _isUniqueIdUsage;
+        
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
             : this(null, resourceClass, entityProperty) { }
 
@@ -66,9 +67,7 @@ namespace EdFi.Ods.Common.Models.Resource
             // Assign property characteristics
             IsDescriptorUsage = entityProperty.IsDescriptorUsage;
             IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
-            IsUniqueIdUsage = entityProperty.DefiningProperty.Entity.IsPersonEntity()
-                && entityProperty.DefiningProperty.Entity != resourceClass.Entity;
-
+            
             IsIdentifying = entityProperty.IsIdentifying
                 || (UniqueIdConventions.IsUniqueId(entityProperty.PropertyName)
                     && entityProperty.Entity.IsPersonEntity()
@@ -130,6 +129,10 @@ namespace EdFi.Ods.Common.Models.Resource
                 () => EntityProperty.DescriptorEntity == null
                     ? null
                     : ResourceClass?.ResourceModel?.GetResourceByFullName(EntityProperty.DescriptorEntity.FullName));
+
+            _isUniqueIdUsage = new Lazy<bool>(
+                () => EntityProperty.DefiningProperty.Entity.IsPersonEntity()
+                    && EntityProperty.DefiningProperty.Entity != ResourceClass.Entity);
         }
         
         public string DescriptorName { get; }
@@ -181,8 +184,13 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         public bool IsDescriptorUsage { get; }
 
-        // Indicates whether the property is a usage of a person-type identifier.
-        public bool IsUniqueIdUsage { get; }
+        /// <summary>
+        /// Indicates whether the property is a usage of a person-type unique identifier.
+        /// </summary>
+        public bool IsUniqueIdUsage
+        {
+            get => _isUniqueIdUsage.Value;
+        }
 
         public bool IsServerAssigned { get; }
 
