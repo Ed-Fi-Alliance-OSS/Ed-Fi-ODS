@@ -5403,7 +5403,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"contactUniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\"\r\n}",
+											"raw": "{\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5411,7 +5411,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5419,7 +5419,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts"
+												"{{ParentOrContactCollectionName}}"
 											]
 										}
 									},
@@ -5449,7 +5449,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"contactReference\": {\r\n    \"contactUniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5457,7 +5457,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5465,7 +5465,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations"
+												"student{{ParentOrContactProperName}}Associations"
 											]
 										}
 									},
@@ -5533,7 +5533,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations/{{known:studentContactAssociation:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations/{{known:studentContactAssociation:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5541,7 +5541,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations",
+												"student{{ParentOrContactProperName}}Associations",
 												"{{known:studentContactAssociation:id}}"
 											]
 										}
@@ -5569,7 +5569,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts/{{known:contact:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:contact:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5577,7 +5577,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts",
+												"{{ParentOrContactCollectionName}}",
 												"{{known:contact:id}}"
 											]
 										}
@@ -5601,12 +5601,13 @@
 													"  pm.expect(items.length).to.equal(1);\r",
 													"});\r",
 													"\r",
+													"const uniqueIdPropertyName = pm.environment.get(\"ParentOrContactName\") + \"UniqueId\";\r",
 													"\r",
 													"pm.test(\"Should return the deleted contact.\", () => {\r",
 													"  const item = items[0];\r",
 													"\r",
 													"  pm.expect(item.keyValues).to.deep.contain({\r",
-													"    \"contactUniqueId\": \"CDE123\"\r",
+													"    [uniqueIdPropertyName]: \"CDE123\"\r",
 													"  });\r",
 													"});"
 												],
@@ -5619,7 +5620,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts/deletes?MinChangeVersion={{known:minChangeVersion}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/deletes?MinChangeVersion={{known:minChangeVersion}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5627,7 +5628,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts",
+												"{{ParentOrContactCollectionName}}",
 												"deletes"
 											],
 											"query": [
@@ -5657,11 +5658,13 @@
 													"  pm.expect(items.length).to.equal(1);\r",
 													"});\r",
 													"\r",
+													"const uniqueIdPropertyName = pm.environment.get(\"ParentOrContactName\") + \"UniqueId\";\r",
+													"\r",
 													"pm.test(\"Should return the deleted contact.\", () => {\r",
 													"  const item = items[0];\r",
 													"\r",
 													"  pm.expect(item.keyValues).to.deep.contain({\r",
-													"    \"contactUniqueId\": \"CDE123\",\r",
+													"    [uniqueIdPropertyName]: \"CDE123\",\r",
 													"    \"studentUniqueId\": \"ABC123\",\r",
 													"  });\r",
 													"});"
@@ -5675,7 +5678,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations/deletes?MinChangeVersion={{known:minChangeVersion}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations/deletes?MinChangeVersion={{known:minChangeVersion}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5683,7 +5686,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations",
+												"student{{ParentOrContactProperName}}Associations",
 												"deletes"
 											],
 											"query": [
@@ -5719,7 +5722,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"contactUniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\",\r\n    \"personalTitlePrefix\": \"Sir\"\r\n}",
+											"raw": "{\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\",\r\n    \"personalTitlePrefix\": \"Sir\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5727,7 +5730,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5735,7 +5738,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts"
+												"{{ParentOrContactCollectionName}}"
 											]
 										}
 									},
@@ -5765,7 +5768,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"contactReference\": {\r\n    \"contactUniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5773,7 +5776,7 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5781,7 +5784,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations"
+												"student{{ParentOrContactProperName}}Associations"
 											]
 										}
 									},
@@ -5814,7 +5817,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts/deletes?MinChangeVersion={{known:minChangeVersion}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/deletes?MinChangeVersion={{known:minChangeVersion}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5822,7 +5825,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts",
+												"{{ParentOrContactCollectionName}}",
 												"deletes"
 											],
 											"query": [
@@ -5862,7 +5865,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations/deletes?MinChangeVersion={{known:minChangeVersion}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations/deletes?MinChangeVersion={{known:minChangeVersion}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5870,7 +5873,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations",
+												"student{{ParentOrContactProperName}}Associations",
 												"deletes"
 											],
 											"query": [
@@ -5909,7 +5912,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentContactAssociations/{{known:studentContactAssociation:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/student{{ParentOrContactProperName}}Associations/{{known:studentContactAssociation:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5917,7 +5920,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"studentContactAssociations",
+												"student{{ParentOrContactProperName}}Associations",
 												"{{known:studentContactAssociation:id}}"
 											]
 										}
@@ -5945,7 +5948,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/contacts/{{known:contact:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:contact:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5953,7 +5956,7 @@
 												"data",
 												"v3",
 												"ed-fi",
-												"contacts",
+												"{{ParentOrContactCollectionName}}",
 												"{{known:contact:id}}"
 											]
 										}
