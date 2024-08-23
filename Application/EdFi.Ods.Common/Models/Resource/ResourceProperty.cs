@@ -66,6 +66,8 @@ namespace EdFi.Ods.Common.Models.Resource
             // Assign property characteristics
             IsDescriptorUsage = entityProperty.IsDescriptorUsage;
             IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
+            IsUniqueIdUsage = entityProperty.DefiningProperty.Entity.IsPersonEntity()
+                && entityProperty.DefiningProperty.Entity != resourceClass.Entity;
 
             IsIdentifying = entityProperty.IsIdentifying
                 || (UniqueIdConventions.IsUniqueId(entityProperty.PropertyName)
@@ -178,7 +180,10 @@ namespace EdFi.Ods.Common.Models.Resource
         /// Indicates whether the property represents the usage of a descriptor.
         /// </summary>
         public bool IsDescriptorUsage { get; }
-        
+
+        // Indicates whether the property is a usage of a person-type identifier.
+        public bool IsUniqueIdUsage { get; }
+
         public bool IsServerAssigned { get; }
 
         /// <summary>
