@@ -27,15 +27,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
         private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName = new();
 
         private readonly Func<QueryBuilder> _createQueryBuilder;
+        private readonly Func<ParameterIndexer, QueryBuilder> _createQueryBuilderWithIndexer;
 
         public DeletedItemsQueryBuilderFactory(
             IDatabaseNamingConvention namingConvention,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
-            Func<QueryBuilder> createQueryBuilder)
+            Func<QueryBuilder> createQueryBuilder,
+            Func<ParameterIndexer, QueryBuilder> createQueryBuilderWithIndexer)
         {
             _namingConvention = namingConvention;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
             _createQueryBuilder = createQueryBuilder;
+            _createQueryBuilderWithIndexer = createQueryBuilderWithIndexer;
         }
 
         public QueryBuilder CreateQueryBuilder(Resource resource)
@@ -56,18 +59,21 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
             // USIs needing translation to "current" values
-            var usiProperties = entity.Identifier.Properties.Where(p => p.DefiningProperty.Entity.IsPersonEntity()).ToArray();
+            var subjectUsiProperties = entity.Identifier.Properties
+                .Where(p => p.DefiningProperty.Entity.IsPersonEntity())
+                .ToArray();
 
             QueryBuilder baselineDeletedItemsQuery; 
 
-            if (usiProperties.Any())
+            if (subjectUsiProperties.Any())
             {
                 // Build the CTE query
                 var cteQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity);
+                cteQuery.Select($"{TrackedChangesAlias}.*");
 
                 int i = 0;
                 
-                foreach (var usiProperty in usiProperties)
+                foreach (var usiProperty in subjectUsiProperties)
                 {
                     string uniqueIdName = usiProperty.PropertyName.ReplaceSuffix("USI", "UniqueId");
 
@@ -83,29 +89,21 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     cteQuery.Select(
                         $"{CurrentTableAliasPrefix}{i}.{_namingConvention.ColumnName(usiProperty.DefiningProperty)} AS {_namingConvention.ColumnName($"Current{usiProperty.PropertyName}")}");
 
-                    cteQuery
-                        // Old Unique Id, and Old and New USIs
-                        .Select(
-                            _namingConvention.ColumnName($"Old{uniqueIdName}"),
-                            _namingConvention.ColumnName($"New{usiProperty.PropertyName}"),
-                            _namingConvention.ColumnName($"Old{usiProperty.PropertyName}"));
-
                     i++;
                 }
 
                 string cteName = "TranslatedTrackedChanges";
 
-                cteQuery.Select(
-                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
-                    $"{TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeVersionColumnName)}");
+                QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(cteQuery, entity, _namingConvention);
 
-                baselineDeletedItemsQuery = _createQueryBuilder()
+                baselineDeletedItemsQuery = _createQueryBuilderWithIndexer(cteQuery.ParameterIndexer)
                     .From(cteName.Alias(TrackedChangesAlias))
                     .With(cteName, cteQuery);
             }
             else
             {
                 baselineDeletedItemsQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity);
+                QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(baselineDeletedItemsQuery, entity, _namingConvention);
             }
 
             baselineDeletedItemsQuery
@@ -116,8 +114,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 .Distinct()
                 .OrderBy(
                     $"{TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeVersionColumnName)}");
-
-            QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(baselineDeletedItemsQuery, entity, _namingConvention);
 
             // Deletes-specific query filters
             ApplySourceTableExclusionForUndeletedItems();
