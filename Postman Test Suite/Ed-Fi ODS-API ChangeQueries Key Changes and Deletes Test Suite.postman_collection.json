@@ -5342,7 +5342,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\"\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"isSportsFan\": false,\r\n      \"authors\": [],\r\n      \"ceilingHeights\": [],\r\n      \"educationContents\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"studentProgramAssociations\": []\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5388,7 +5388,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true,\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"bedtimeReader\": false,\r\n      \"disciplines\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"hoursPerWeeks\": [],\r\n      \"pagesReads\": [],\r\n      \"staffEducationOrganizationEmploymentAssociations\": []\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5661,7 +5661,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n    \"firstName\": \"John\",\r\n    \"lastSurname\": \"Doe\",\r\n    \"personalTitlePrefix\": \"Sir\"\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}UniqueId\": \"CDE123\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"personalTitlePrefix\": \"Sir\",\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"isSportsFan\": false,\r\n      \"authors\": [],\r\n      \"ceilingHeights\": [],\r\n      \"educationContents\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"studentProgramAssociations\": []\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5707,7 +5707,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactName}}UniqueId\": \"CDE123\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"ABC123\"\r\n  },\r\n  \"emergencyContactStatus\": true,\r\n  \"_ext\": {\r\n    \"sample\": {\r\n      \"bedtimeReader\": false,\r\n      \"disciplines\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"hoursPerWeeks\": [],\r\n      \"pagesReads\": [],\r\n      \"staffEducationOrganizationEmploymentAssociations\": []\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
