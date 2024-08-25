@@ -79,7 +79,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/init@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-ODS-Implementation
@@ -111,7 +111,7 @@ jobs:
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             Invoke-CodeGen -Engine PostgreSQL -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }}
       - name: Cache Nuget packages
-        uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+        uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
@@ -128,4 +128,4 @@ jobs:
         run: |
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@896079047b4bb059ba6f150a5d87d47dde99e6e5  # codeql-bundle-20221211
+        uses: github/codeql-action/analyze@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2
