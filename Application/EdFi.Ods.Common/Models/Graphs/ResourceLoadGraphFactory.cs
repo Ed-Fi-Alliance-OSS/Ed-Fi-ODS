@@ -71,7 +71,7 @@ namespace EdFi.Ods.Common.Models.Graphs
                 }
             }
             
-            resourceGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
+            resourceGraph.BreakCycles(edge => edge.AssociationView?.IsSoftDependency ?? false);
 
             return resourceGraph;
         }

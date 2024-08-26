@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
@@ -17,9 +18,10 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class PersonResourceLoadGraphTransformer : IResourceLoadGraphTransformer
     {
-        private const string TransformationErrorText = "Dependency graph transformation for security considerations failed. See log for more details.";
+        private const string TransformationErrorText =
+            "Dependency graph transformation for security considerations failed. See log for more details.";
         private readonly ILog _logger = LogManager.GetLogger(typeof(PersonResourceLoadGraphTransformer));
-        
+
         public void Transform(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             ApplyStudentTransformation(resourceGraph);
@@ -30,16 +32,19 @@ namespace EdFi.Ods.Api.Security.Authorization
         private void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
-            
-            var staffResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Staff"));
+
+            var staffResource =
+                resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Staff"));
 
             var staffEdOrgEmployAssoc =
                 resources.FirstOrDefault(
-                    x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation"));
+                    x => x.FullName == new FullName(
+                        EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation"));
 
             var staffEdOrgAssignAssoc =
                 resources.FirstOrDefault(
-                    x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation"));
+                    x => x.FullName == new FullName(
+                        EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation"));
 
             // No staff entity in the graph, nothing to do.
             if (staffResource == null)
@@ -49,7 +54,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             if (staffEdOrgEmployAssoc == null && staffEdOrgAssignAssoc == null)
             {
-                var message = "Unable to transform resource load graph since StaffEducationOrganizationAssignmentAssociation and StaffEducationOrganizationEmploymentAssociation were not found in the graph.";
+                var message =
+                    "Unable to transform resource load graph since StaffEducationOrganizationAssignmentAssociation and StaffEducationOrganizationEmploymentAssociation were not found in the graph.";
 
                 _logger.Error(message);
 
@@ -63,24 +69,62 @@ namespace EdFi.Ods.Api.Security.Authorization
             var directStaffDependencies = resourceGraph.OutEdges(staffResource)
                 .Where(e => e.Target != staffEdOrgEmployAssoc && e.Target != staffEdOrgAssignAssoc)
                 .ToList();
-            
+
             // Add dependency on primaryRelationship path
             foreach (var directStaffDependency in directStaffDependencies)
             {
                 // Re-point the edge to the primary relationships
                 resourceGraph.RemoveEdge(directStaffDependency);
-                
-                resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgAssignAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
-                resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgEmployAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
+
+                resourceGraph.AddEdge(
+                    new AssociationViewEdge(
+                        staffEdOrgAssignAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
+
+                resourceGraph.AddEdge(
+                    new AssociationViewEdge(
+                        staffEdOrgEmployAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
             }
+            
+            // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
+            var staffEdOrgEmployAssocPostRetryResource = new Resource(staffEdOrgEmployAssoc?.Name);
+            var staffEdOrgEmployAssocDict = staffEdOrgEmployAssoc.ToDictionary();
+
+
+            staffEdOrgEmployAssocPostRetryResource.FromDictionary(staffEdOrgEmployAssocDict);
+            staffEdOrgEmployAssocPostRetryResource.IsPostRetryResource = true;
+
+            staffEdOrgEmployAssocPostRetryResource.PostRetryOriginalSchemaUriSegment =
+                staffEdOrgEmployAssoc.SchemaUriSegment();
+
+            resourceGraph.AddVertex(staffEdOrgEmployAssocPostRetryResource);
+            resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgEmployAssocPostRetryResource, staffResource, null));
+            
+            
+            // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
+            var staffEdOrgAssignAssocPostRetryResource = new Resource(staffEdOrgAssignAssoc?.Name);
+            var staffEdOrgAssignAssocDict = staffEdOrgAssignAssoc.ToDictionary();
+
+
+            staffEdOrgAssignAssocPostRetryResource.FromDictionary(staffEdOrgAssignAssocDict);
+            staffEdOrgAssignAssocPostRetryResource.IsPostRetryResource = true;
+
+            staffEdOrgAssignAssocPostRetryResource.PostRetryOriginalSchemaUriSegment =
+                staffEdOrgAssignAssoc.SchemaUriSegment();
+
+            resourceGraph.AddVertex(staffEdOrgAssignAssocPostRetryResource);
+            resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgAssignAssocPostRetryResource, staffResource, null));
+
         }
 
         private static void ApplyStudentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
 
-            var studentResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Student"));
-            var studentSchoolAssociationResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentSchoolAssociation"));
+            var studentResource =
+                resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Student"));
+
+            var studentSchoolAssociationResource = resources.FirstOrDefault(
+                x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentSchoolAssociation"));
 
             // No student entity in the graph, nothing to do.
             if (studentResource == null)
@@ -108,18 +152,37 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 // Re-point the edge to the primary relationships
                 resourceGraph.RemoveEdge(directStudentDependency);
-                resourceGraph.AddEdge(new AssociationViewEdge(studentSchoolAssociationResource, directStudentDependency.Target, directStudentDependency.AssociationView));
+
+                resourceGraph.AddEdge(
+                    new AssociationViewEdge(
+                        studentSchoolAssociationResource, directStudentDependency.Target,
+                        directStudentDependency.AssociationView));
             }
+
+            // Add a StudentSchoolAssociation/#POSTRetry node for Student resource
+            var studentSchoolAssociationPostRetryResource = new Resource(studentSchoolAssociationResource.Name);
+            var studentSchoolAssociationResourceDict = studentSchoolAssociationResource.ToDictionary();
+
+
+            studentSchoolAssociationPostRetryResource.FromDictionary(studentSchoolAssociationResourceDict);
+            studentSchoolAssociationPostRetryResource.IsPostRetryResource = true;
+
+            studentSchoolAssociationPostRetryResource.PostRetryOriginalSchemaUriSegment =
+                studentSchoolAssociationResource.SchemaUriSegment();
+
+            resourceGraph.AddVertex(studentSchoolAssociationPostRetryResource);
+            resourceGraph.AddEdge(new AssociationViewEdge(studentSchoolAssociationPostRetryResource, studentResource, null));
         }
 
         private void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
             var resources = resourceGraph.Vertices.ToList();
 
-            var contactResource = resources.FirstOrDefault(x => 
-                x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact") 
-                || x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
-            
+            var contactResource = resources.FirstOrDefault(
+                x =>
+                    x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact")
+                    || x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
+
             // No entity named Parent or Contact in the graph, nothing to do.
             if (contactResource == null)
             {
@@ -135,10 +198,12 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             var studentContactAssociationResource = resources.FirstOrDefault(
                 x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, contactStudentAssociationName));
-            
+
             if (studentContactAssociationResource == null)
             {
-                string message = $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.";
+                string message =
+                    $"Unable to transform resource load graph as {contactStudentAssociationName} was not found in the graph.";
+
                 _logger.Error(message);
 
                 throw new SecurityAuthorizationException(
@@ -157,12 +222,32 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 // Re-point the edge to the primary relationships
                 resourceGraph.RemoveEdge(directContactDependency);
-                resourceGraph.AddEdge(new AssociationViewEdge(studentContactAssociationResource, directContactDependency.Target, directContactDependency.AssociationView));
+
+                resourceGraph.AddEdge(
+                    new AssociationViewEdge(
+                        studentContactAssociationResource, directContactDependency.Target,
+                        directContactDependency.AssociationView));
             }
+            
+            // Add a StudentContactAssociationResource/#POSTRetry node for Contact resource
+            var studentContactAssociationPostRetryResource = new Resource(contactStudentAssociationName);
+            var studentContactAssociationPostRetryResourceDict = studentContactAssociationResource.ToDictionary();
+
+
+            studentContactAssociationPostRetryResource.FromDictionary(studentContactAssociationPostRetryResourceDict);
+            studentContactAssociationPostRetryResource.IsPostRetryResource = true;
+
+            studentContactAssociationPostRetryResource.PostRetryOriginalSchemaUriSegment =
+                studentContactAssociationResource.SchemaUriSegment();
+
+            resourceGraph.AddVertex(studentContactAssociationPostRetryResource);
+            resourceGraph.AddEdge(new AssociationViewEdge(studentContactAssociationPostRetryResource, contactResource, null));
 
             string LogAndThrowException()
             {
-                string message = $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.";
+                string message =
+                    $"Unable to transform resource load graph as a student association for {contactResource.FullName} is not defined.";
+
                 _logger.Error(message);
 
                 throw new SecurityAuthorizationException(

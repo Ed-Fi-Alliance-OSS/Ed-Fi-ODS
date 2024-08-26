@@ -74,6 +74,10 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         public bool IsEdFiCore { get; set; }
+        
+        public bool IsPostRetryResource { get; set; }
+        
+        public string PostRetryOriginalSchemaUriSegment { get; set; }
 
         /// <summary>
         /// Gets the root <see cref="Resource" /> class for the current resource.

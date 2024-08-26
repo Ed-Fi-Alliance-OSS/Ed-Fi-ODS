@@ -36,6 +36,8 @@ namespace EdFi.Ods.Features.Controllers
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
+        
+        private const string postRetrySuffix = "/#POSTRetry";
 
         public AggregateDependencyController(
             ApiSettings apiSettings,
@@ -135,7 +137,12 @@ namespace EdFi.Ods.Features.Controllers
         }
 
         private static string GetNodeId(Resource resource)
-            => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
+        {
+            var postRetrySuffixToApply = resource.IsPostRetryResource
+                ? postRetrySuffix
+                : string.Empty;
+            return $"/{resource.SchemaUriSegment() ?? resource.PostRetryOriginalSchemaUriSegment}/{resource.PluralName.ToCamelCase()}{postRetrySuffixToApply}";
+        }
 
         private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
         {
