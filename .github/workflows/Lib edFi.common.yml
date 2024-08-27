@@ -38,7 +38,7 @@ jobs:
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
     - name: Cache Nuget packages
-      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
