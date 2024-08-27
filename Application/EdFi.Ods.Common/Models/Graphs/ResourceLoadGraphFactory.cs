@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.Models.Graphs
             _graphTransformers = graphTransformers;
         }
         
-        public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph(bool removePostRetryNodes = false)
+        public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph(bool removePostRetryNodes)
         {
             var resourceModel = _resourceModelProvider.GetResourceModel();
             
