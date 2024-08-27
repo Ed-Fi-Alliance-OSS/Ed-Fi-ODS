@@ -34,10 +34,12 @@ namespace EdFi.Ods.Features.ChangeQueries
 
                 // Maps the ChangeVersion column dynamically
                 // Requires there be a property on the base entity already
-                // nHibernate wraps property getter exception in PropertyAccessException if any
+                // NHibernate wraps property getter exception in PropertyAccessException if any
                 // underlying mapped properties are set to access "none", due to an invoke exception being triggered.
-                // generated = "always" to avoid nHibernate trying to set values for it
-                // <property name="ChangeVersion" column="ChangeVersion" type="long" not-null="true" generated="always" />
+                // generated = "never" to prevent NHibernate trying to retrieve the value for it after insert or update
+                // insert = false to never include it in an INSERT statement
+                // update = false to never include it in an UPDATE statement
+                // <property name="ChangeVersion" column="ChangeVersion" type="long" not-null="true" generated="never" insert="false" update="false" />
                 var changeVersionProperty = new HbmProperty
                 {
                     name = ChangeQueriesDatabaseConstants.ChangeVersionColumnName,
@@ -47,7 +49,9 @@ namespace EdFi.Ods.Features.ChangeQueries
                                name = "long"
                            },
                     notnull = true,
-                    generated = HbmPropertyGeneration.Always
+                    generated = HbmPropertyGeneration.Never,
+                    insert = false,
+                    update = false,
                 };
                 classMapping.Items = classMapping.Items.Concat(changeVersionProperty).ToArray();
             }
