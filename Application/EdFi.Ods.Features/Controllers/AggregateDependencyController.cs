@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
-                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()).ToList();
+                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph(true)).ToList();
                 ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
                 return Request.GetTypedHeaders().Accept != null
                     && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))

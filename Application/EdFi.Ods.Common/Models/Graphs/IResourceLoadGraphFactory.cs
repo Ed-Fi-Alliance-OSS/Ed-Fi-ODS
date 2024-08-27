@@ -16,6 +16,6 @@ namespace EdFi.Ods.Common.Models.Graphs
         /// Creates a new graph containing the Ed-Fi model's resources, performing any defined graph transformations.
         /// </summary>
         /// <returns>A new graph instance.</returns>
-        BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph();
+        BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph(bool removePostRetryNodes = false);
     }
 }
