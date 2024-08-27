@@ -38,7 +38,7 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             return entityIdentifier.IsPrimary
                 && entityIdentifier.Properties.Count == 1
-                && entityIdentifier.Properties.First().IsServerAssigned;
+                && entityIdentifier.Properties[0].IsServerAssigned;
         }
         
         /// <summary>

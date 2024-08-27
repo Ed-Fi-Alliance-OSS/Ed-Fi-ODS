@@ -22,11 +22,16 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class GetEntityByKey<TEntity> : GetEntitiesBase<TEntity>, IGetEntityByKey<TEntity>
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
         public GetEntityByKey(
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider) { }
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+        {
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        }
 
         /// <summary>
         /// Gets a single entity by its composite primary key values.
@@ -52,22 +57,25 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Go try to get the existing entity
                 var compositeKeyValues = entityWithKeyValues.GetPrimaryKeyValues();
 
-                // Only look up by composite key if "Id" is not considered part of the "DomainSignature"
-                if (!compositeKeyValues.Contains("Id"))
+                if (ShouldTryLoadByCompositePrimaryKey())
                 {
-                    persistedEntity = (await GetAggregateResultsAsync(
-                            GetWhereClause(compositeKeyValues), q => q.SetParameters(compositeKeyValues), cancellationToken))
-                        .SingleOrDefault();
+                    // Only look up by composite key if "Id" is not considered part of the "DomainSignature"
+                    if (!compositeKeyValues.Contains("Id"))
+                    {
+                        persistedEntity = (await GetAggregateResultsAsync(
+                                GetWhereClause(compositeKeyValues), q => q.SetParameters(compositeKeyValues), cancellationToken))
+                            .SingleOrDefault();
+                    }
+
+                    if (persistedEntity != null)
+                    {
+                        return persistedEntity;
+                    }
                 }
 
-                if (persistedEntity != null)
-                {
-                    return persistedEntity;
-                }
-
-                // Does entity have an alternate key?
                 var entityWithAlternateKeyValues = specification as IHasAlternateKeyValues;
 
+                // If entity doesn't have an alternate key, we're done.
                 if (entityWithAlternateKeyValues == null)
                 {
                     return null;
@@ -84,6 +92,31 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 return persistedEntity;
+                
+                bool ShouldTryLoadByCompositePrimaryKey()
+                {
+                    if (compositeKeyValues.Count > 1)
+                    {
+                        return true;
+                    }
+
+                    var resource = _dataManagementResourceContextProvider.Get()?.Resource;
+                    var identifier = resource?.Entity?.Identifier;
+
+                    // If the entity doesn't have a surrogate key, proceed with load by primary key
+                    if (identifier?.IsSurrogateIdentifier() != true)
+                    {
+                        return true;
+                    }
+
+                    // If the surrogate primary key values are non-zero, proceed with load by primary key (i.e. USIs for existing people will be resolved already)
+                    if ((int) compositeKeyValues[identifier.Properties[0].PropertyName]! != 0)
+                    {
+                        return true;
+                    }
+                    
+                    return false;
+                }
             }
 
             string GetWhereClause(OrderedDictionary keyValues)
