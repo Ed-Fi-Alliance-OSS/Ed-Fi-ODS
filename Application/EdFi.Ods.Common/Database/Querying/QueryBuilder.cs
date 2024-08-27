@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Database.Querying
         /// </summary>
         /// <param name="dialect"></param>
         /// <param name="parameterIndexer"></param>
-        private QueryBuilder(Dialect dialect, ParameterIndexer parameterIndexer)
+        public QueryBuilder(Dialect dialect, ParameterIndexer parameterIndexer)
         {
             _dialect = dialect;
             _parameterIndexer = parameterIndexer;
@@ -56,6 +56,11 @@ namespace EdFi.Ods.Common.Database.Querying
         public string TableName { get; private set; }
 
         private IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+
+        public ParameterIndexer ParameterIndexer
+        {
+            get => _parameterIndexer;
+        }
 
         /// <summary>
         /// Clones the current instance with all its state so it can be used as a starting point for future queries.
@@ -388,33 +393,33 @@ namespace EdFi.Ods.Common.Database.Querying
 
             public object Parameters { get; }
         }
-
-        protected class ParameterIndexer
-        {
-            private int _parameterIndex = -1;
-
-            public ParameterIndexer() { }
-
-            private ParameterIndexer(int parameterIndex)
-            {
-                _parameterIndex = parameterIndex;
-            }
-
-            public int Increment() => Interlocked.Increment(ref _parameterIndex);
-
-            /// <summary>
-            /// Gets the next parameter name, incrementing the index with a call to <see cref="Increment" />.
-            /// </summary>
-            /// <returns></returns>
-            public string NextParameterName() => $"@p{Increment()}";
-
-            public ParameterIndexer Clone()
-            {
-                return new ParameterIndexer(_parameterIndex);
-            }
-        }
     }
 
+    public class ParameterIndexer
+    {
+        private int _parameterIndex = -1;
+
+        public ParameterIndexer() { }
+
+        private ParameterIndexer(int parameterIndex)
+        {
+            _parameterIndex = parameterIndex;
+        }
+
+        public int Increment() => Interlocked.Increment(ref _parameterIndex);
+
+        /// <summary>
+        /// Gets the next parameter name, incrementing the index with a call to <see cref="Increment" />.
+        /// </summary>
+        /// <returns></returns>
+        public string NextParameterName() => $"@p{Increment()}";
+
+        public ParameterIndexer Clone()
+        {
+            return new ParameterIndexer(_parameterIndex);
+        }
+    }
+    
     public class Join
     {
         private readonly List<(string first, string second, string @operator)> _segments =
