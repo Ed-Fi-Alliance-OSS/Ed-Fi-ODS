@@ -1,0 +1,4100 @@
+<SecurityMetadata>
+	<Claims>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/balanceSheetDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/bellSchedule">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/calendarDate">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/chartOfAccount">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/classPeriod">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/cohort">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+				<Claim name="http://ed-fi.org/ods/identity/claims/academicWeek">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/accountabilityRating">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+				<Claim name="http://ed-fi.org/ods/identity/claims/course">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/courseOffering">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/courseTranscript">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/crisisEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/descriptorMapping">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/disciplineAction">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/disciplineIncident">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/communityProviderLicense">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/competencyObjective">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/course">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/course">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/courseOffering">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/courseTranscript">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/crisisEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/descriptorMapping">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/disciplineAction">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/disciplineIncident">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationInterventionPrescriptionAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationPeerAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/evaluationRubricDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/feederSchoolAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/functionDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/fundDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/grade">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/gradebookEntry">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/gradingPeriod">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/graduationPlan">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/intervention">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/interventionPrescription">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/interventionStudy">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localAccount">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localActual">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localBudget">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localContractedStaff">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localEncumbrance">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localPayroll">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/location">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/objectDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/openStaffPosition">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/perationalUnitDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/person">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/postSecondaryEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/program">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/programDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/programEvaluation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/programEvaluationElement">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/programEvaluationObjective">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/projectDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/reportCard">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/restraintEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/section">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/sectionAttendanceTakenEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/session">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/sourceDimension">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffAbsenceEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffCohortAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffDisciplineIncidentAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationContactAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffLeave">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffSchoolAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffSectionAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentAcademicRecord">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentCohortAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentCompetencyObjective">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentContactAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentCTEProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentBehaviorAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentGradebookEntry">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentHealth">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentHomelessProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentInterventionAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentInterventionAttendanceEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentLanguageInstructionProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentMigrantEducationProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentNeglectedOrDelinquentProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentProgramAttendanceEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentProgramEvaluation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolAttendanceEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolFoodServiceProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAttendanceEvent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentTitleIPartAProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentTransportation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyCourseAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyProgramAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestion">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyResponseEducationOrganizationTargetAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyResponseStaffTargetAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionResponseEducationOrganizationTargetAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionResponseStaffTargetAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/assessment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentItem">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/objectiveAssessment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/communityOrganization">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/communityProvider">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationOrganizationNetwork">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/educationServiceCenter">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/localEducationAgency">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/organizationDepartment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/postSecondaryInstitution">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/school">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/stateEducationAgency">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/contact">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staff">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/student">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationAssignmentAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationEmploymentAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/survey">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestion">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyQuestionResponse">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveyResponse">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySection">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/surveySectionResponse">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+			</Claims>
+		</Claim>		
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/learningStandard">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim name="http://ed-fi.org/ods/identity/claims/learningStandardEquivalenceAssociation">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>				
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/learningStandard">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/edFiTypes">
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/schoolYearType">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="ReadChanges">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+			</Claims>
+		</Claim>		
+		<Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="ReadChanges">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+		</Claim>		
+	</Claims>
+</SecurityMetadata>

@@ -33,7 +33,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
             var orderedAggregates = domainModel
                 .Entities
-                .Where(x => x.IsAggregateRoot && !x.IsAbstract)
+                .Where(x => x.IsAggregateRoot && !x.IsAbstract && x.IsDescriptorEntity)
                 .OrderBy(x => x.FullName.Name)
                 .Select(
                     x => new
