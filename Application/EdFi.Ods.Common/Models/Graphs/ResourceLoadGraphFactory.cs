@@ -75,7 +75,15 @@ namespace EdFi.Ods.Common.Models.Graphs
             
             if (!includePostRetryNodes)
             {
+                RemovePostRetryNodes();
+            }
+            
+            return resourceGraph;
+
+            void RemovePostRetryNodes()
+            {
                 var postRetryVertices = resourceGraph.Vertices.Where(v => v.IsPostRetryResource).ToList();
+
                 foreach(var postRetryVertex in postRetryVertices)
                 {
                     var outEdges = resourceGraph.OutEdges(postRetryVertex).ToList();
@@ -86,8 +94,6 @@ namespace EdFi.Ods.Common.Models.Graphs
                     resourceGraph.RemoveVertex(postRetryVertex);
                 }
             }
-            
-            return resourceGraph;
         }
     }
 

@@ -84,36 +84,12 @@ namespace EdFi.Ods.Api.Security.Authorization
                     new AssociationViewEdge(
                         staffEdOrgEmployAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
             }
-            
+
             // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
-            var staffEdOrgEmployAssocPostRetryResource = new Resource(staffEdOrgEmployAssoc?.Name);
-            var staffEdOrgEmployAssocDict = staffEdOrgEmployAssoc.ToDictionary();
+            AddPostRetryVertexForResource(resourceGraph, staffEdOrgAssignAssoc, staffResource);
 
-
-            staffEdOrgEmployAssocPostRetryResource.FromDictionary(staffEdOrgEmployAssocDict);
-            staffEdOrgEmployAssocPostRetryResource.IsPostRetryResource = true;
-
-            staffEdOrgEmployAssocPostRetryResource.PostRetryOriginalSchemaUriSegment =
-                staffEdOrgEmployAssoc.SchemaUriSegment();
-
-            resourceGraph.AddVertex(staffEdOrgEmployAssocPostRetryResource);
-            resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgEmployAssocPostRetryResource, staffResource, null));
-            
-            
             // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
-            var staffEdOrgAssignAssocPostRetryResource = new Resource(staffEdOrgAssignAssoc?.Name);
-            var staffEdOrgAssignAssocDict = staffEdOrgAssignAssoc.ToDictionary();
-
-
-            staffEdOrgAssignAssocPostRetryResource.FromDictionary(staffEdOrgAssignAssocDict);
-            staffEdOrgAssignAssocPostRetryResource.IsPostRetryResource = true;
-
-            staffEdOrgAssignAssocPostRetryResource.PostRetryOriginalSchemaUriSegment =
-                staffEdOrgAssignAssoc.SchemaUriSegment();
-
-            resourceGraph.AddVertex(staffEdOrgAssignAssocPostRetryResource);
-            resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgAssignAssocPostRetryResource, staffResource, null));
-
+            AddPostRetryVertexForResource(resourceGraph, staffEdOrgEmployAssoc, staffResource);
         }
 
         private static void ApplyStudentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -160,18 +136,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
 
             // Add a StudentSchoolAssociation/#POSTRetry node for Student resource
-            var studentSchoolAssociationPostRetryResource = new Resource(studentSchoolAssociationResource.Name);
-            var studentSchoolAssociationResourceDict = studentSchoolAssociationResource.ToDictionary();
-
-
-            studentSchoolAssociationPostRetryResource.FromDictionary(studentSchoolAssociationResourceDict);
-            studentSchoolAssociationPostRetryResource.IsPostRetryResource = true;
-
-            studentSchoolAssociationPostRetryResource.PostRetryOriginalSchemaUriSegment =
-                studentSchoolAssociationResource.SchemaUriSegment();
-
-            resourceGraph.AddVertex(studentSchoolAssociationPostRetryResource);
-            resourceGraph.AddEdge(new AssociationViewEdge(studentSchoolAssociationPostRetryResource, studentResource, null));
+            AddPostRetryVertexForResource(resourceGraph, studentSchoolAssociationResource, studentResource);
         }
 
         private void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -230,19 +195,8 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
             
             // Add a StudentContactAssociationResource/#POSTRetry node for Contact resource
-            var studentContactAssociationPostRetryResource = new Resource(contactStudentAssociationName);
-            var studentContactAssociationPostRetryResourceDict = studentContactAssociationResource.ToDictionary();
-
-
-            studentContactAssociationPostRetryResource.FromDictionary(studentContactAssociationPostRetryResourceDict);
-            studentContactAssociationPostRetryResource.IsPostRetryResource = true;
-
-            studentContactAssociationPostRetryResource.PostRetryOriginalSchemaUriSegment =
-                studentContactAssociationResource.SchemaUriSegment();
-
-            resourceGraph.AddVertex(studentContactAssociationPostRetryResource);
-            resourceGraph.AddEdge(new AssociationViewEdge(studentContactAssociationPostRetryResource, contactResource, null));
-
+            AddPostRetryVertexForResource(resourceGraph, studentContactAssociationResource, contactResource);
+            
             string LogAndThrowException()
             {
                 string message =
@@ -255,6 +209,19 @@ namespace EdFi.Ods.Api.Security.Authorization
                     error: TransformationErrorText,
                     message: message);
             }
+        }
+        
+        private static void AddPostRetryVertexForResource(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph, Resource postRetrySource,
+            Resource postRetryTarget)
+        {
+            var postRetryVertex = new Resource(postRetrySource.Name);
+            postRetryVertex.IsPostRetryResource = true;
+
+            postRetryVertex.PostRetryOriginalSchemaUriSegment =
+                postRetrySource.SchemaUriSegment();
+
+            resourceGraph.AddVertex(postRetryVertex);
+            resourceGraph.AddEdge(new AssociationViewEdge(postRetryVertex, postRetryTarget, null));
         }
     }
 }
