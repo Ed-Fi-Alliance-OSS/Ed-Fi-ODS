@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_call_the_resource_model_provider_to_get_the_model_for_building_the_output()
             {
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(true)).MustHaveHappened();
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false)).MustHaveHappened();
             }
 
             [Test]
