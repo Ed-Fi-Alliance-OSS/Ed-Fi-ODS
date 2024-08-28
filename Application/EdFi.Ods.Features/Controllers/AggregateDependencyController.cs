@@ -59,12 +59,16 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
+                if(Request.GetTypedHeaders().Accept != null
+                   && Request.GetTypedHeaders().Accept.Any(a => 
+                       a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML)))
+                {
+                    return Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph(true)));
+                }
+
                 var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph(false)).ToList();
                 ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
-                return Request.GetTypedHeaders().Accept != null
-                    && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
-                ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
-                : Ok(groupedLoadOrder);
+                return Ok(groupedLoadOrder);
             }
             catch (NonAcyclicGraphException e)
             {
