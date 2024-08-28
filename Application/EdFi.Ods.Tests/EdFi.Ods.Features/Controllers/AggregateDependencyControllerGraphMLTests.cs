@@ -43,7 +43,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(true))
                     .Returns(graph);
 
-                _controller = CreateController(_resourceLoadGraphFactory);
+                _controller = CreateController(_resourceLoadGraphFactory, true);
             }
 
             protected override void Act()
