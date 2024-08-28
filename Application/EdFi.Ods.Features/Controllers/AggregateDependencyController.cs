@@ -37,7 +37,7 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
         
-        private const string postRetrySuffix = "/#POSTRetry";
+        private const string PostRetrySuffix = "/#POSTRetry";
 
         public AggregateDependencyController(
             ApiSettings apiSettings,
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
-                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph(true)).ToList();
+                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph(false)).ToList();
                 ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
                 return Request.GetTypedHeaders().Accept != null
                     && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
@@ -138,10 +138,10 @@ namespace EdFi.Ods.Features.Controllers
 
         private static string GetNodeId(Resource resource)
         {
-            var postRetrySuffixToApply = resource.IsPostRetryResource
-                ? postRetrySuffix
+            var suffixToApply = resource.IsPostRetryResource
+                ? PostRetrySuffix
                 : string.Empty;
-            return $"/{resource.SchemaUriSegment() ?? resource.PostRetryOriginalSchemaUriSegment}/{resource.PluralName.ToCamelCase()}{postRetrySuffixToApply}";
+            return $"/{resource.SchemaUriSegment() ?? resource.PostRetryOriginalSchemaUriSegment}/{resource.PluralName.ToCamelCase()}{suffixToApply}";
         }
 
         private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
