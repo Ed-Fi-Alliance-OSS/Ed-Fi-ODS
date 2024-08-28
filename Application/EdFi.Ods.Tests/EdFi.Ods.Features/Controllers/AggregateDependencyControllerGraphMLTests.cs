@@ -24,7 +24,7 @@ using Assert = NUnit.Framework.Legacy.ClassicAssert;
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {
     [TestFixture]
-    public class AggregateDependencyControllerTests
+    public class AggregateDependencyControllerGraphMLTests
     {
         public class When_getting_the_dependencies_for_loading_data : TestFixtureBase
         {
@@ -40,7 +40,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
                 graph.AddVertex(new Resource("Test"));
 
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false))
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(true))
                     .Returns(graph);
 
                 _controller = CreateController(_resourceLoadGraphFactory);
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_get_the_resource_model_for_building_the_output()
             {
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false))
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(true))
                     .MustHaveHappened();
             }
 
