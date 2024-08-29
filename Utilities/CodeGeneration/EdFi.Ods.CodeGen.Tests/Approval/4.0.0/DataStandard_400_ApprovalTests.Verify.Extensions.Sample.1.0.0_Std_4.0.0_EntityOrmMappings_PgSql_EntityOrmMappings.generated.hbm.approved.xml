@@ -13,7 +13,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.Bus" table="Bus" lazy="false" schema="sample" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.BusAggregate.Sample.Bus" table="Bus" lazy="false" schema="sample" discriminator-value="null">
     <id name="BusId" column="BusId" type="string" length="60">
       <generator class="assigned" />
     </id>
@@ -55,7 +55,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRoute" table="BusRoute" lazy="false" schema="sample" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRoute" table="BusRoute" lazy="false" schema="sample" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BusId" column="BusId" type="string" length="60" />
@@ -1268,7 +1268,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociation" table="StudentGraduationPlanAssociation" lazy="false" schema="sample" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociation" table="StudentGraduationPlanAssociation" lazy="false" schema="sample" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />

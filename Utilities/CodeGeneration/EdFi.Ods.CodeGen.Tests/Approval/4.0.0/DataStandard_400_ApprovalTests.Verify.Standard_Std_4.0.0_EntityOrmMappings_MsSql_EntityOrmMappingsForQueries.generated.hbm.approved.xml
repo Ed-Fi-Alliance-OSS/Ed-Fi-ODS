@@ -2,7 +2,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AcademicWeekAggregate.EdFi.AcademicWeekQ" table="AcademicWeek" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AcademicWeekAggregate.EdFi.AcademicWeekQ" table="AcademicWeek" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="SchoolId" column="SchoolId" type="int" />
@@ -49,7 +49,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi.AccountabilityRatingQ" table="AccountabilityRating" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi.AccountabilityRatingQ" table="AccountabilityRating" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -93,7 +93,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" table="Assessment" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ" table="Assessment" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -650,7 +650,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi.AssessmentItemQ" table="AssessmentItem" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi.AssessmentItemQ" table="AssessmentItem" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -790,7 +790,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandardQ" table="AssessmentScoreRangeLearningStandard" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandardQ" table="AssessmentScoreRangeLearningStandard" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -878,7 +878,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionQ" table="BalanceSheetDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionQ" table="BalanceSheetDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -956,7 +956,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi.BellScheduleQ" table="BellSchedule" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi.BellScheduleQ" table="BellSchedule" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BellScheduleName" column="BellScheduleName" type="string" length="60" />
@@ -1102,7 +1102,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi.CalendarQ" table="Calendar" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi.CalendarQ" table="Calendar" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
@@ -1211,7 +1211,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi.CalendarDateQ" table="CalendarDate" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi.CalendarDateQ" table="CalendarDate" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
@@ -1301,7 +1301,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ" table="ChartOfAccount" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ" table="ChartOfAccount" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -1431,7 +1431,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ" table="ClassPeriod" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ" table="ClassPeriod" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
@@ -1526,7 +1526,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ" table="Cohort" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ" table="Cohort" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CohortIdentifier" column="CohortIdentifier" type="string" length="20" />
@@ -1639,7 +1639,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicenseQ" table="CommunityProviderLicense" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicenseQ" table="CommunityProviderLicense" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
@@ -1690,7 +1690,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveQ" table="CompetencyObjective" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveQ" table="CompetencyObjective" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1742,7 +1742,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ" table="Course" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ" table="Course" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
@@ -2066,7 +2066,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi.CourseOfferingQ" table="CourseOffering" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi.CourseOfferingQ" table="CourseOffering" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
@@ -2247,7 +2247,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ" table="CourseTranscript" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ" table="CourseTranscript" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseAttemptResultDescriptorId" column="CourseAttemptResultDescriptorId" type="int" />
@@ -2572,7 +2572,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ" table="Credential" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ" table="Credential" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CredentialIdentifier" column="CredentialIdentifier" type="string" length="60" />
@@ -2757,7 +2757,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi.DescriptorQ" table="Descriptor" lazy="false" abstract="true" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi.DescriptorQ" table="Descriptor" lazy="false" abstract="true" discriminator-value="null">
     <id name="DescriptorId" column="DescriptorId" type="int">
       <generator class="identity" />
     </id>
@@ -8591,7 +8591,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorMappingAggregate.EdFi.DescriptorMappingQ" table="DescriptorMapping" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorMappingAggregate.EdFi.DescriptorMappingQ" table="DescriptorMapping" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="MappedNamespace" column="MappedNamespace" type="string" length="255" />
@@ -8666,7 +8666,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionQ" table="DisciplineAction" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionQ" table="DisciplineAction" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="DisciplineActionIdentifier" column="DisciplineActionIdentifier" type="string" length="32" />
@@ -8880,7 +8880,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ" table="DisciplineIncident" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ" table="DisciplineIncident" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
@@ -9078,7 +9078,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ" table="EducationContent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ" table="EducationContent" lazy="false" discriminator-value="null">
     <id name="ContentIdentifier" column="ContentIdentifier" type="string" length="225">
       <generator class="assigned" />
     </id>
@@ -9394,7 +9394,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ" table="EducationOrganization" lazy="false" abstract="true" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ" table="EducationOrganization" lazy="false" abstract="true" discriminator-value="null">
     <id name="EducationOrganizationId" column="EducationOrganizationId" type="int">
       <generator class="assigned" />
     </id>
@@ -10495,7 +10495,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociationQ" table="EducationOrganizationInterventionPrescriptionAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociationQ" table="EducationOrganizationInterventionPrescriptionAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -10538,7 +10538,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociationQ" table="EducationOrganizationNetworkAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociationQ" table="EducationOrganizationNetworkAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationNetworkId" column="EducationOrganizationNetworkId" type="int" />
@@ -10579,7 +10579,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationPeerAssociationAggregate.EdFi.EducationOrganizationPeerAssociationQ" table="EducationOrganizationPeerAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationPeerAssociationAggregate.EdFi.EducationOrganizationPeerAssociationQ" table="EducationOrganizationPeerAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -10618,7 +10618,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggregate.EdFi.FeederSchoolAssociationQ" table="FeederSchoolAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggregate.EdFi.FeederSchoolAssociationQ" table="FeederSchoolAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -10660,7 +10660,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FunctionDimensionAggregate.EdFi.FunctionDimensionQ" table="FunctionDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FunctionDimensionAggregate.EdFi.FunctionDimensionQ" table="FunctionDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -10738,7 +10738,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FundDimensionAggregate.EdFi.FundDimensionQ" table="FundDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.FundDimensionAggregate.EdFi.FundDimensionQ" table="FundDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -10816,7 +10816,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ" table="GeneralStudentProgramAssociation" lazy="false" abstract="true" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ" table="GeneralStudentProgramAssociation" lazy="false" abstract="true" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -11462,7 +11462,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi.GradeQ" table="Grade" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi.GradeQ" table="Grade" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -11609,7 +11609,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi.GradebookEntryQ" table="GradebookEntry" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi.GradebookEntryQ" table="GradebookEntry" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string" length="60" />
@@ -11717,7 +11717,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ" table="GradingPeriod" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ" table="GradingPeriod" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
@@ -11824,7 +11824,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi.GraduationPlanQ" table="GraduationPlan" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi.GraduationPlanQ" table="GraduationPlan" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -12200,7 +12200,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionQ" table="Intervention" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionQ" table="Intervention" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -12619,7 +12619,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionQ" table="InterventionPrescription" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionQ" table="InterventionPrescription" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -12936,7 +12936,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyQ" table="InterventionStudy" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyQ" table="InterventionStudy" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -13282,7 +13282,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ" table="LearningObjective" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ" table="LearningObjective" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LearningObjectiveId" column="LearningObjectiveId" type="string" length="60" />
@@ -13532,7 +13532,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ" table="LearningStandard" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ" table="LearningStandard" lazy="false" discriminator-value="null">
     <id name="LearningStandardId" column="LearningStandardId" type="string" length="60">
       <generator class="assigned" />
     </id>
@@ -13871,7 +13871,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceAssociationAggregate.EdFi.LearningStandardEquivalenceAssociationQ" table="LearningStandardEquivalenceAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceAssociationAggregate.EdFi.LearningStandardEquivalenceAssociationQ" table="LearningStandardEquivalenceAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -13917,7 +13917,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ" table="LocalAccount" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ" table="LocalAccount" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14046,7 +14046,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalActualAggregate.EdFi.LocalActualQ" table="LocalActual" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalActualAggregate.EdFi.LocalActualQ" table="LocalActual" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14091,7 +14091,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalBudgetAggregate.EdFi.LocalBudgetQ" table="LocalBudget" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalBudgetAggregate.EdFi.LocalBudgetQ" table="LocalBudget" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14136,7 +14136,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi.LocalContractedStaffQ" table="LocalContractedStaff" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi.LocalContractedStaffQ" table="LocalContractedStaff" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14252,7 +14252,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEncumbranceAggregate.EdFi.LocalEncumbranceQ" table="LocalEncumbrance" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEncumbranceAggregate.EdFi.LocalEncumbranceQ" table="LocalEncumbrance" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14297,7 +14297,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalPayrollAggregate.EdFi.LocalPayrollQ" table="LocalPayroll" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalPayrollAggregate.EdFi.LocalPayrollQ" table="LocalPayroll" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
@@ -14346,7 +14346,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi.LocationQ" table="Location" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi.LocationQ" table="Location" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ClassroomIdentificationCode" column="ClassroomIdentificationCode" type="string" length="60" />
@@ -14392,7 +14392,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectDimensionAggregate.EdFi.ObjectDimensionQ" table="ObjectDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectDimensionAggregate.EdFi.ObjectDimensionQ" table="ObjectDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -14470,7 +14470,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ" table="ObjectiveAssessment" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ" table="ObjectiveAssessment" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -14711,7 +14711,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi.OpenStaffPositionQ" table="OpenStaffPosition" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi.OpenStaffPositionQ" table="OpenStaffPosition" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -14838,7 +14838,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionQ" table="OperationalUnitDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionQ" table="OperationalUnitDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -14916,7 +14916,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi.ParentQ" table="Parent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi.ParentQ" table="Parent" lazy="false" discriminator-value="null">
     <id name="ParentUSI" column="ParentUSI" type="int">
       <generator class="identity" />
     </id>
@@ -15354,7 +15354,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ" table="Person" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ" table="Person" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="PersonId" column="PersonId" type="string" length="32" />
@@ -15414,7 +15414,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventAggregate.EdFi.PostSecondaryEventQ" table="PostSecondaryEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventAggregate.EdFi.PostSecondaryEventQ" table="PostSecondaryEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EventDate" column="EventDate" type="date" />
@@ -15485,7 +15485,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ" table="Program" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ" table="Program" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -15790,7 +15790,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramDimensionAggregate.EdFi.ProgramDimensionQ" table="ProgramDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProgramDimensionAggregate.EdFi.ProgramDimensionQ" table="ProgramDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -15868,7 +15868,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProjectDimensionAggregate.EdFi.ProjectDimensionQ" table="ProjectDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ProjectDimensionAggregate.EdFi.ProjectDimensionQ" table="ProjectDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -15946,7 +15946,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ" table="ReportCard" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ" table="ReportCard" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -16223,7 +16223,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventQ" table="RestraintEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventQ" table="RestraintEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RestraintEventIdentifier" column="RestraintEventIdentifier" type="string" length="20" />
@@ -16551,7 +16551,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ" table="Section" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ" table="Section" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
@@ -16930,7 +16930,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAggregate.EdFi.SectionAttendanceTakenEventQ" table="SectionAttendanceTakenEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAggregate.EdFi.SectionAttendanceTakenEventQ" table="SectionAttendanceTakenEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CalendarCode" column="CalendarCode" type="string" length="60" />
@@ -16986,7 +16986,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi.SessionQ" table="Session" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi.SessionQ" table="Session" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="SchoolId" column="SchoolId" type="int" />
@@ -17141,7 +17141,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SourceDimensionAggregate.EdFi.SourceDimensionQ" table="SourceDimension" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SourceDimensionAggregate.EdFi.SourceDimensionQ" table="SourceDimension" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Code" column="Code" type="string" length="16" />
@@ -17219,7 +17219,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ" table="Staff" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ" table="Staff" lazy="false" discriminator-value="null">
     <id name="StaffUSI" column="StaffUSI" type="int">
       <generator class="identity" />
     </id>
@@ -18106,7 +18106,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAbsenceEventAggregate.EdFi.StaffAbsenceEventQ" table="StaffAbsenceEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffAbsenceEventAggregate.EdFi.StaffAbsenceEventQ" table="StaffAbsenceEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AbsenceEventCategoryDescriptorId" column="AbsenceEventCategoryDescriptorId" type="int" />
@@ -18148,7 +18148,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffCohortAssociationAggregate.EdFi.StaffCohortAssociationQ" table="StaffCohortAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffCohortAssociationAggregate.EdFi.StaffCohortAssociationQ" table="StaffCohortAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -18192,7 +18192,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssociationAggregate.EdFi.StaffDisciplineIncidentAssociationQ" table="StaffDisciplineIncidentAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssociationAggregate.EdFi.StaffDisciplineIncidentAssociationQ" table="StaffDisciplineIncidentAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
@@ -18271,7 +18271,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationQ" table="StaffEducationOrganizationAssignmentAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationQ" table="StaffEducationOrganizationAssignmentAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -18334,7 +18334,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociationQ" table="StaffEducationOrganizationContactAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociationQ" table="StaffEducationOrganizationContactAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ContactTitle" column="ContactTitle" type="string" length="75" />
@@ -18508,7 +18508,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ" table="StaffEducationOrganizationEmploymentAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ" table="StaffEducationOrganizationEmploymentAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -18581,7 +18581,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveAggregate.EdFi.StaffLeaveQ" table="StaffLeave" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveAggregate.EdFi.StaffLeaveQ" table="StaffLeave" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -18624,7 +18624,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggregate.EdFi.StaffProgramAssociationQ" table="StaffProgramAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggregate.EdFi.StaffProgramAssociationQ" table="StaffProgramAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -18670,7 +18670,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationQ" table="StaffSchoolAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationQ" table="StaffSchoolAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ProgramAssignmentDescriptorId" column="ProgramAssignmentDescriptorId" type="int" />
@@ -18799,7 +18799,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ" table="StaffSectionAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ" table="StaffSectionAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
@@ -18908,7 +18908,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ" table="Student" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ" table="Student" lazy="false" discriminator-value="null">
     <id name="StudentUSI" column="StudentUSI" type="int">
       <generator class="identity" />
     </id>
@@ -19313,7 +19313,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ" table="StudentAcademicRecord" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ" table="StudentAcademicRecord" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -19694,7 +19694,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ" table="StudentAssessment" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ" table="StudentAssessment" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -20147,7 +20147,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociationQ" table="StudentAssessmentEducationOrganizationAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociationQ" table="StudentAssessmentEducationOrganizationAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
@@ -20200,7 +20200,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggregate.EdFi.StudentCohortAssociationQ" table="StudentCohortAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggregate.EdFi.StudentCohortAssociationQ" table="StudentCohortAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -20291,7 +20291,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAggregate.EdFi.StudentCompetencyObjectiveQ" table="StudentCompetencyObjective" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAggregate.EdFi.StudentCompetencyObjectiveQ" table="StudentCompetencyObjective" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
@@ -20585,7 +20585,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationQ" table="StudentDisciplineIncidentAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationQ" table="StudentDisciplineIncidentAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
@@ -20678,7 +20678,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationQ" table="StudentDisciplineIncidentBehaviorAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationQ" table="StudentDisciplineIncidentBehaviorAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int" />
@@ -20774,7 +20774,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationQ" table="StudentDisciplineIncidentNonOffenderAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationQ" table="StudentDisciplineIncidentNonOffenderAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
@@ -20853,7 +20853,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" table="StudentEducationOrganizationAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" table="StudentEducationOrganizationAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -21724,7 +21724,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi.StudentEducationOrganizationResponsibilityAssociationQ" table="StudentEducationOrganizationResponsibilityAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi.StudentEducationOrganizationResponsibilityAssociationQ" table="StudentEducationOrganizationResponsibilityAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -21769,7 +21769,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregate.EdFi.StudentGradebookEntryQ" table="StudentGradebookEntry" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregate.EdFi.StudentGradebookEntryQ" table="StudentGradebookEntry" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string" length="60" />
@@ -21863,7 +21863,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationQ" table="StudentInterventionAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationQ" table="StudentInterventionAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -21963,7 +21963,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAttendanceEventAggregate.EdFi.StudentInterventionAttendanceEventQ" table="StudentInterventionAttendanceEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAttendanceEventAggregate.EdFi.StudentInterventionAttendanceEventQ" table="StudentInterventionAttendanceEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
@@ -22099,7 +22099,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggregate.EdFi.StudentLearningObjectiveQ" table="StudentLearningObjective" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggregate.EdFi.StudentLearningObjectiveQ" table="StudentLearningObjective" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradingPeriodDescriptorId" column="GradingPeriodDescriptorId" type="int" />
@@ -22350,7 +22350,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentParentAssociationAggregate.EdFi.StudentParentAssociationQ" table="StudentParentAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentParentAssociationAggregate.EdFi.StudentParentAssociationQ" table="StudentParentAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ParentUSI" column="ParentUSI" type="int" />
@@ -22434,7 +22434,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ" table="StudentProgramAttendanceEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEventQ" table="StudentProgramAttendanceEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
@@ -22493,7 +22493,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ" table="StudentSchoolAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ" table="StudentSchoolAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EntryDate" column="EntryDate" type="date" />
@@ -22662,7 +22662,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAttendanceEventAggregate.EdFi.StudentSchoolAttendanceEventQ" table="StudentSchoolAttendanceEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAttendanceEventAggregate.EdFi.StudentSchoolAttendanceEventQ" table="StudentSchoolAttendanceEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
@@ -22757,7 +22757,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ" table="StudentSectionAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ" table="StudentSectionAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -22855,7 +22855,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ" table="StudentSectionAttendanceEvent" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ" table="StudentSectionAttendanceEvent" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" />
@@ -23234,7 +23234,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ" table="Survey" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ" table="Survey" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23336,7 +23336,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCourseAssociationAggregate.EdFi.SurveyCourseAssociationQ" table="SurveyCourseAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCourseAssociationAggregate.EdFi.SurveyCourseAssociationQ" table="SurveyCourseAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CourseCode" column="CourseCode" type="string" length="60" />
@@ -23379,7 +23379,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyProgramAssociationAggregate.EdFi.SurveyProgramAssociationQ" table="SurveyProgramAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyProgramAssociationAggregate.EdFi.SurveyProgramAssociationQ" table="SurveyProgramAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -23424,7 +23424,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi.SurveyQuestionQ" table="SurveyQuestion" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi.SurveyQuestionQ" table="SurveyQuestion" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23556,7 +23556,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggregate.EdFi.SurveyQuestionResponseQ" table="SurveyQuestionResponse" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggregate.EdFi.SurveyQuestionResponseQ" table="SurveyQuestionResponse" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23684,7 +23684,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ" table="SurveyResponse" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ" table="SurveyResponse" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23813,7 +23813,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveyResponseEducationOrganizationTargetAssociationQ" table="SurveyResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveyResponseEducationOrganizationTargetAssociationQ" table="SurveyResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -23856,7 +23856,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseStaffTargetAssociationAggregate.EdFi.SurveyResponseStaffTargetAssociationQ" table="SurveyResponseStaffTargetAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseStaffTargetAssociationAggregate.EdFi.SurveyResponseStaffTargetAssociationQ" table="SurveyResponseStaffTargetAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23899,7 +23899,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAggregate.EdFi.SurveySectionQ" table="SurveySection" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAggregate.EdFi.SurveySectionQ" table="SurveySection" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -23955,7 +23955,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAssociationAggregate.EdFi.SurveySectionAssociationQ" table="SurveySectionAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAssociationAggregate.EdFi.SurveySectionAssociationQ" table="SurveySectionAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
@@ -24004,7 +24004,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseAggregate.EdFi.SurveySectionResponseQ" table="SurveySectionResponse" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseAggregate.EdFi.SurveySectionResponseQ" table="SurveySectionResponse" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -24070,7 +24070,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationQ" table="SurveySectionResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationQ" table="SurveySectionResponseEducationOrganizationTargetAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -24115,7 +24115,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseStaffTargetAssociationAggregate.EdFi.SurveySectionResponseStaffTargetAssociationQ" table="SurveySectionResponseStaffTargetAssociation" lazy="false" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseStaffTargetAssociationAggregate.EdFi.SurveySectionResponseStaffTargetAssociationQ" table="SurveySectionResponseStaffTargetAssociation" lazy="false" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
