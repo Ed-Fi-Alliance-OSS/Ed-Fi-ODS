@@ -190,10 +190,10 @@ BEGIN
     VALUES (N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL);
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/identity' )
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/services/identity' )
 BEGIN
     INSERT [dbo].[ResourceClaims] ( [ResourceName], [ClaimName], [ParentResourceClaimId])
-    VALUES (N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL);
+    VALUES (N'identity', N'http://ed-fi.org/ods/identity/claims/services/identity', NULL);
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ResourceClaims] WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationStandards' )
