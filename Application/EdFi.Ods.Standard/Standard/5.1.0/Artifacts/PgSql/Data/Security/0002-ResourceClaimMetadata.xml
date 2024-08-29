@@ -744,7 +744,6 @@
 				<Claim claimId="40" name="http://ed-fi.org/ods/identity/claims/bellSchedule" />
 				<Claim claimId="42" name="http://ed-fi.org/ods/identity/claims/calendar" />
 				<Claim claimId="43" name="http://ed-fi.org/ods/identity/claims/calendarDate" />
-				<Claim claimId="49" name="http://ed-fi.org/ods/identity/claims/chartOfAccount" />
 				<Claim claimId="51" name="http://ed-fi.org/ods/identity/claims/classPeriod">
 					<ClaimSets>
 						<ClaimSet name="Roster Vendor">
@@ -821,7 +820,6 @@
 					</ClaimSets>
 				</Claim>
 				<Claim claimId="76" name="http://ed-fi.org/ods/identity/claims/courseTranscript" />
-				<Claim claimId="82" name="http://ed-fi.org/ods/identity/claims/crisisEvent" />
 				<Claim claimId="87" name="http://ed-fi.org/ods/identity/claims/descriptorMapping" />
 				<Claim claimId="94" name="http://ed-fi.org/ods/identity/claims/disciplineAction" />
 				<Claim claimId="97" name="http://ed-fi.org/ods/identity/claims/disciplineIncident" />
@@ -875,12 +873,6 @@
 				<Claim claimId="151" name="http://ed-fi.org/ods/identity/claims/intervention" />
 				<Claim claimId="154" name="http://ed-fi.org/ods/identity/claims/interventionPrescription" />
 				<Claim claimId="155" name="http://ed-fi.org/ods/identity/claims/interventionStudy" />
-				<Claim claimId="168" name="http://ed-fi.org/ods/identity/claims/localAccount" />
-				<Claim claimId="169" name="http://ed-fi.org/ods/identity/claims/localActual" />
-				<Claim claimId="170" name="http://ed-fi.org/ods/identity/claims/localBudget" />
-				<Claim claimId="171" name="http://ed-fi.org/ods/identity/claims/localContractedStaff" />
-				<Claim claimId="175" name="http://ed-fi.org/ods/identity/claims/localEncumbrance" />
-				<Claim claimId="176" name="http://ed-fi.org/ods/identity/claims/localPayroll" />
 				<Claim claimId="177" name="http://ed-fi.org/ods/identity/claims/location">
 					<ClaimSets>
 						<ClaimSet name="Roster Vendor">
@@ -994,7 +986,6 @@
 				<Claim claimId="296" name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation" />
 				<Claim claimId="297" name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation" />
 				<Claim claimId="298" name="http://ed-fi.org/ods/identity/claims/studentGradebookEntry" />
-				<Claim claimId="299" name="http://ed-fi.org/ods/identity/claims/studentHealth" />
 				<Claim claimId="300" name="http://ed-fi.org/ods/identity/claims/studentHomelessProgramAssociation" />
 				<Claim claimId="302" name="http://ed-fi.org/ods/identity/claims/studentInterventionAssociation" />
 				<Claim claimId="303" name="http://ed-fi.org/ods/identity/claims/studentInterventionAttendanceEvent" />
