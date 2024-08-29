@@ -93,13 +93,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
-    - name: Upload EdFi.Ods.CodeGen Approval
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: CodeGen Approval
-        path: |
-          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/Approval/4.0.0/DataStandard_400_ApprovalTests.Generated_File_List.Standard.4.0.0.*.txt     
-          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/Approval/5.1.0/DataStandard_510_ApprovalTests.Generated_File_List.Standard.5.1.0.*.txt         
     - name: Run Unit tests for  codegen Project 
       working-directory: ./Ed-Fi-ODS/    
       run: |
