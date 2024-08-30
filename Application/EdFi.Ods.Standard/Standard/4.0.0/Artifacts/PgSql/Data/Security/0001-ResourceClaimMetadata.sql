@@ -173,9 +173,9 @@ begin
         VALUES ('assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', null);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/identity') THEN
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/services/identity') THEN
         insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-        values ('identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', null);
+        values ('identity', 'http://ed-fi.org/ods/identity/claims/services/identity', null);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName ='http://ed-fi.org/ods/identity/claims/domains/educationStandards') THEN
