@@ -40,7 +40,7 @@
         {{/IsAggregateRoot}}
 
   <!-- Class definition -->
-  <class name="{{ClassName}}" table="{{TableName}}" lazy="false"{{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}{{#IsAbstract}} abstract="true"{{/IsAbstract}}{{#HasDiscriminator}} discriminator-value="NULL"{{/HasDiscriminator}}>
+  <class name="{{ClassName}}" table="{{TableName}}" lazy="false"{{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}{{#IsAbstract}} abstract="true"{{/IsAbstract}}{{#HasDiscriminator}} discriminator-value="null"{{/HasDiscriminator}}>
         {{#Id}}
     <id name="{{PropertyName}}" column="{{ColumnName}}" type="{{NHibernateTypeName}}"{{#MaxLength}} length="{{MaxLength}}"{{/MaxLength}}>
       <generator class="{{GeneratorClass}}" />
