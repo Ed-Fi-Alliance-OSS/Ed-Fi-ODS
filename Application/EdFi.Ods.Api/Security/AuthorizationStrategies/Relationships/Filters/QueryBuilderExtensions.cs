@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Security.Authorization;
@@ -143,6 +144,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         return j;
                     },
                     joinType);
+            }
+        }
+        
+        /// <summary>
+        /// Applies property-level filter expressions to the query builder as either Equal or In expressions based on the supplied parameters.
+        /// </summary>
+        /// <param name="whereQueryBuilder">The <see cref="QueryBuilder" /> for adding WHERE clause-only criteria.</param>
+        /// <param name="parameters">The named parameters to be processed into the criteria query.</param>
+        /// <param name="availableFilterProperties">The array of property names that can be used for filtering.</param>
+        public static void ApplyPropertyFilters(this QueryBuilder whereQueryBuilder, IDictionary<string, object> parameters, params string[] availableFilterProperties)
+        {
+            foreach (var nameAndValue in parameters.Where(x => availableFilterProperties.Contains(x.Key, StringComparer.OrdinalIgnoreCase)))
+            {
+                if (nameAndValue.Value is object[] arrayOfValues)
+                {
+                    whereQueryBuilder.WhereIn($"{nameAndValue.Key}", arrayOfValues);
+                }
+                else
+                {
+                    whereQueryBuilder.Where($"{nameAndValue.Key}", nameAndValue.Value);
+                }
             }
         }
     }
