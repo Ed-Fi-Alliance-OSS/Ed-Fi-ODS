@@ -15,7 +15,7 @@
     <dependencies>
       <dependency id="NewtonSoft.Json" version="13.0.3" />
       <dependency id="JsonSubTypes" version="2.0.1" />
-      <dependency id="RestSharp" version="110.2.0" />
+      <dependency id="RestSharp" version="112.0.0" />
       <dependency id="Polly" version="8.1.0" />
     </dependencies>
   </metadata>
