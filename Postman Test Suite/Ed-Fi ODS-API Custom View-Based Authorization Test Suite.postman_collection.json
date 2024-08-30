@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ca822f55-c7f6-4d9c-9cd2-80efbe0ab5db",
-		"name": "Custom View-Based Authorization Test Suite",
+		"_postman_id": "43aead58-5baa-4df3-b6ee-bddbd5148fa4",
+		"name": "Ed-Fi ODS/API Custom View-Based Authorization Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1213570"
 	},
@@ -230,7 +230,13 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(403);\r",
+											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -495,6 +501,12 @@
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
+											"});\r",
 											""
 										],
 										"type": "text/javascript",
@@ -577,6 +589,12 @@
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -995,6 +1013,12 @@
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -1527,9 +1551,10 @@
 											"  pm.expect(response.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Detail should include hints for the two applied relationship-based authorization strategies.\", () => {\r",
+											"pm.test(\"Detail should include hints for the each applied authorization strategy.\", () => {\r",
 											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");\r",
 											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentEducationOrganizationResponsibilityAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Errors should indicate a problem with the StudentUniqueId for authorization.\", () => {\r",
@@ -1609,6 +1634,14 @@
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Detail should include hints for the each applied authorization strategy.\", () => {\r",
+											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentEducationOrganizationResponsibilityAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -2083,10 +2116,15 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-											"})\r",
-											""
+											"  pm.expect(problemDetails.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Assessment with an ACT Identifier.\");\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -2131,10 +2169,15 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-											"})\r",
-											""
+											"  pm.expect(problemDetails.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Assessment with an ACT Identifier.\");\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -2943,8 +2986,14 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
+											"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized./);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Education Organization with a Category Containing an S Word.\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Errors indicate access cannot be authorized based on the EducationOrganizationId value.\", () => {\r",
@@ -3544,7 +3593,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{AccessToken_255901}}",
+				"value": "{{AccessToken_CustomView_255901}}",
 				"type": "string"
 			}
 		]
@@ -3567,6 +3616,7 @@
 					"const defaultSecret = pm.environment.get('ApiSecret')\r",
 					"\r",
 					"CreateAccessToken(\"255901\");\r",
+					"CreateAccessToken(\"CustomView_255901\");\r",
 					"\r",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman\r",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret\r",
