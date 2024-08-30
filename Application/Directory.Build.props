@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <NuGetAudit>true</NuGetAudit>
-    <NuGetAuditLevel>high</NuGetAuditLevel>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
     <NuGetAuditMode>direct</NuGetAuditMode>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
