@@ -106,7 +106,7 @@ namespace EdFi.Common.Extensions
             var parts = Regex.Matches(
                 compositeTerm,
                 string.Format(
-                    @"(?:[A-Z]+(?=[A-Z][a-z0-9])|[A-Z]?[a-z]+|[A-Z][a-z0-9]*){0}",
+                    @"(?:[A-Z]{{2,}}(?![a-z])|[A-Z]+(?=[A-Z][a-z0-9])|[A-Z]?[a-z]+|[A-Z][a-z0-9]*){0}",
                     delimiterExpression));
 
             string displayText = string.Empty;
