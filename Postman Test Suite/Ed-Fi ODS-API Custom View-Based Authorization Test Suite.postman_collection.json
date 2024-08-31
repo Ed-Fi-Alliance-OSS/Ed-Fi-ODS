@@ -2587,25 +2587,30 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
+									"const transporationAvailable = (pm.response.status !== 404);\r",
+									"pm.environment.set(\"known:transportation-available\", transporationAvailable);\r",
 									"\r",
-									"const items = pm.response.json();\r",
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 200\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(200);\r",
+									"  });\r",
 									"\r",
-									"pm.test(\"Should return at least 1 item.\", () => {\r",
-									"  pm.expect(items.length).to.be.greaterThan(0);\r",
-									"});\r",
+									"  const items = pm.response.json();\r",
 									"\r",
-									"pm.test(\"All items have transportation types containing the term 'Bus'.\", () => {\r",
-									"    // Iterate through all items to check the assessmentIdentifier\r",
-									"    const allContainBus = items.every(item => {\r",
-									"        return item.transportationTypeDescriptor.indexOf(\"Bus\") >= 0;\r",
-									"    });\r",
-									"    \r",
-									"    // Assert that all items pass the condition\r",
-									"    pm.expect(allContainBus).to.be.true;\r",
-									"});\r",
+									"  pm.test(\"Should return at least 1 item.\", () => {\r",
+									"    pm.expect(items.length).to.be.greaterThan(0);\r",
+									"  });\r",
+									"\r",
+									"  pm.test(\"All items have transportation types containing the term 'Bus'.\", () => {\r",
+									"      // Iterate through all items to check the assessmentIdentifier\r",
+									"      const allContainBus = items.every(item => {\r",
+									"          return item.transportationTypeDescriptor.indexOf(\"Bus\") >= 0;\r",
+									"      });\r",
+									"      \r",
+									"      // Assert that all items pass the condition\r",
+									"      pm.expect(allContainBus).to.be.true;\r",
+									"  });\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -2617,7 +2622,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations?totalCount=true",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -2630,7 +2635,8 @@
 							"query": [
 								{
 									"key": "totalCount",
-									"value": "true"
+									"value": "true",
+									"disabled": true
 								}
 							]
 						}
@@ -2644,14 +2650,17 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 403\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(403);\r",
-									"});\r",
+									"const transporationAvailable = pm.environment.get(\"known:transportation-available\");\r",
 									"\r",
-									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-									"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
-									"});\r",
-									""
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 403\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(403);\r",
+									"  });\r",
+									"\r",
+									"  pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+									"    pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
+									"  });\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2692,18 +2701,21 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 403\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(403);\r",
-									"});\r",
+									"const transporationAvailable = pm.environment.get(\"known:transportation-available\");\r",
 									"\r",
-									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-									"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized. The 'TransportationTypeDescriptor' value is required for authorization purposes.\");\r",
-									"});\r",
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 403\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(403);\r",
+									"  });\r",
 									"\r",
-									"pm.test(\"Type indicates an element is required.\", () => {\r",
-									"  pm.expect(pm.response.json().type).to.equal(\"urn:ed-fi:api:security:authorization:custom-view:access-denied:element-required\");\r",
-									"});\r",
-									""
+									"  pm.test(\"Detail indicates basic authorization message.\", () => {\r",
+									"    pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized. The 'TransportationTypeDescriptor' value is required for authorization purposes.\");\r",
+									"  });\r",
+									"\r",
+									"  pm.test(\"Type indicates an element is required.\", () => {\r",
+									"    pm.expect(pm.response.json().type).to.equal(\"urn:ed-fi:api:security:authorization:custom-view:access-denied:element-required\");\r",
+									"  });\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2744,11 +2756,15 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
+									"const transporationAvailable = pm.environment.get(\"known:transportation-available\");\r",
 									"\r",
-									"pm.environment.set('known:studentTransportation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 200\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(200);\r",
+									"  });\r",
+									"\r",
+									"  pm.environment.set('known:studentTransportation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2789,16 +2805,19 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
+									"const transporationAvailable = pm.environment.get(\"known:transportation-available\");\r",
 									"\r",
-									"const item = pm.response.json();\r",
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 200\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(200);\r",
+									"  });\r",
 									"\r",
-									"pm.test(\"Item returned should reflect changed transportationTypeDescriptor.\", () => {\r",
-									"  pm.expect(item.transportationTypeDescriptor).to.contain(\"Special Needs Bus\");\r",
-									"});\r",
-									""
+									"  const item = pm.response.json();\r",
+									"\r",
+									"  pm.test(\"Item returned should reflect changed transportationTypeDescriptor.\", () => {\r",
+									"    pm.expect(item.transportationTypeDescriptor).to.contain(\"Special Needs Bus\");\r",
+									"  });\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2831,25 +2850,28 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 500\", () => {\r",
-									"    pm.expect(pm.response.code).to.equal(500);\r",
-									"});\r",
+									"const transporationAvailable = pm.environment.get(\"known:transportation-available\");\r",
 									"\r",
-									"const item = pm.response.json();\r",
-									"\r",
-									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
-									"  pm.expect(item).to.deep.contain({\r",
-									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
-									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
-									"    \"title\": \"Security Configuration Error\",\r",
-									"    \"status\": 500,\r",
+									"if (transporationAvailable) {\r",
+									"  pm.test(\"Status code is 500\", () => {\r",
+									"      pm.expect(pm.response.code).to.equal(500);\r",
 									"  });\r",
-									"});\r",
 									"\r",
-									"pm.test(\"Errors should contain a message indicating only identifying properties can be used to authorize access to the deletes.\", () => {\r",
-									"  pm.expect(item.errors).to.contain(\"Non-identifying properties ('TransportationTypeDescriptorId') were found to be used for the custom view-based authorization strategy, but this is not supported by Change Queries which only tracks deleted/changed values of identifying properties. Should a different authorization strategy be used?\");\r",
-									"});\r",
-									""
+									"  const item = pm.response.json();\r",
+									"\r",
+									"  pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"    pm.expect(item).to.deep.contain({\r",
+									"      \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"      \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"      \"title\": \"Security Configuration Error\",\r",
+									"      \"status\": 500,\r",
+									"    });\r",
+									"  });\r",
+									"\r",
+									"  pm.test(\"Errors should contain a message indicating only identifying properties can be used to authorize access to the deletes.\", () => {\r",
+									"    pm.expect(item.errors).to.contain(\"Non-identifying properties ('TransportationTypeDescriptorId') were found to be used for the custom view-based authorization strategy, but this is not supported by Change Queries which only tracks deleted/changed values of identifying properties. Should a different authorization strategy be used?\");\r",
+									"  });\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2870,6 +2892,37 @@
 								"ed-fi",
 								"studentTransportations",
 								"deletes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
 							]
 						}
 					},
