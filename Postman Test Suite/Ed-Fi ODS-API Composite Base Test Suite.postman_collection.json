@@ -257,13 +257,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/XAAAAAAA-6666-7777-8888-FFFFFFFFFFFF",
 											"host": [
@@ -439,13 +433,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/{{known:studentId}}",
 											"host": [
@@ -504,13 +492,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/{{known:studentIdFormattedGuid}}",
 											"host": [
@@ -708,13 +690,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithUniqueIds?staffUniqueId={{known:staffUniqueId}}",
 											"host": [
@@ -776,13 +752,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "bearer {{odsapi:access_token}}",
-												"uuid": "ddbe82a8-f614-48cd-a273-13b174ff0d1d"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithUniqueIds?staffUniqueId=7cc57a79-b108-4535-a15f-ff9c6d368070",
 											"host": [
@@ -1865,13 +1835,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffByRange?q=Birthdate:[{{supplied:minBirthDate}}..{{supplied:maxBirthDate}}] ,YearsOfPriorProfessionalExperience:[{{supplied:minYearsOfExperience}}..{{supplied:maxYearsOfExperience}}]",
 											"host": [
