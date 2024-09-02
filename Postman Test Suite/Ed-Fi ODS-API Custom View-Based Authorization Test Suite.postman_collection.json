@@ -7,8 +7,48 @@
 	},
 	"item": [
 		{
-			"name": "Test-Suite Setup",
+			"name": "Test Suite Setup",
 			"item": [
+				{
+					"name": "Initialize StandardVersion-specific",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version)[0];\r",
+									"var majorVersion = Number(standardVersion.split('.')[0]);\r",
+									"var minorVersion = Number(standardVersion.split('.')[1]);\r",
+									"var revision = Number(standardVersion.split('.')[2]);\r",
+									"\r",
+									"pm.environment.set('test-suite:known:standardVersion', standardVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:major', majorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:minor', minorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:revision', revision);\r",
+									"\r",
+									"// Set Standard-version specific values\r",
+									"pm.environment.set(\"test-suite:known:parentOrContactProperName\", majorVersion < 5 ? \"Parent\" : \"Contact\");\r",
+									"pm.environment.set(\"test-suite:known:maxSafeEducationOrganizationId\", majorVersion < 5 ? 2147483647 : Number.MAX_SAFE_INTEGER);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Create Student",
 					"event": [
@@ -1064,8 +1104,14 @@
 									"script": {
 										"exec": [
 											"const item = pm.response.json();\r",
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);\r",
 											"\r",
-											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+											"const eligibilityAvailable = Number(pm.environment.get(\"test-suite:known:standardVersion:major\")) >= 5;\r",
+											"\r",
+											"if (!eligibilityAvailable) {\r",
+											"  // Jump to Clean up Environment Variables, in Teardown folder\r",
+											"  pm.execution.setNextRequest(\"1213570-7db30d7f-9ff0-42c7-ad8a-60876f04bc75\");\r",
+											"}"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -3727,7 +3773,7 @@
 			]
 		},
 		{
-			"name": "Test-Suite Teardown",
+			"name": "Test Suite Teardown",
 			"item": [
 				{
 					"name": "Delete Student",
