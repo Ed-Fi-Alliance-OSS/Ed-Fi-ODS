@@ -88,7 +88,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
             AddPostRetryVertexForResource(resourceGraph, staffEdOrgAssignAssoc, staffResource);
 
-            // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
+            // Add StaffEducationOrganizationEmploymentAssociations/#POSTRetry node for Staff resource
             AddPostRetryVertexForResource(resourceGraph, staffEdOrgEmployAssoc, staffResource);
         }
 
