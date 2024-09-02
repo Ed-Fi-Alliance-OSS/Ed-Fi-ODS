@@ -8,6 +8,51 @@
 	},
 	"item": [
 		{
+			"name": "Test Suite Setup",
+			"item": [
+				{
+					"name": "Initialize StandardVersion-specific values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version)[0];\r",
+									"var majorVersion = Number(standardVersion.split('.')[0]);\r",
+									"var minorVersion = Number(standardVersion.split('.')[1]);\r",
+									"var revision = Number(standardVersion.split('.')[2]);\r",
+									"\r",
+									"pm.environment.set('test-suite:known:standardVersion', standardVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:major', majorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:minor', minorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:revision', revision);\r",
+									"\r",
+									"// Set ParentOrContactProperName based on version of the API\r",
+									"pm.environment.set(\"test-suite:known:parentOrContactProperName\", majorVersion < 5 ? \"Parent\" : \"Contact\");\r",
+									"pm.environment.set(\"test-suite:known:maxSafeEducationOrganizationId\", majorVersion < 5 ? 2147483647 : Number.MAX_SAFE_INTEGER);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Authenticate API Client Key/Secret",
 			"item": [
 				{
@@ -17,6 +62,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -49,12 +104,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "{{ApiSecret_255901}}",
+									"value": "{{known:ApiSecret_255901}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "{{ApiKey_255901}}",
+									"value": "{{known:ApiKey_255901}}",
 									"type": "string"
 								}
 							]
@@ -98,6 +153,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -135,12 +200,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "{{ApiSecret_255901}}",
+									"value": "{{known:ApiSecret_255901}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "{{ApiKey_255901}}",
+									"value": "{{known:ApiKey_255901}}",
 									"type": "string"
 								}
 							]
@@ -270,6 +335,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -302,7 +377,7 @@
 							"basic": [
 								{
 									"key": "username",
-									"value": "{{ApiKey_255901}}",
+									"value": "{{known:ApiKey_255901}}",
 									"type": "string"
 								},
 								{
@@ -669,6 +744,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -705,12 +790,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "{{ApiSecret_255901}}",
+									"value": "{{known:ApiSecret_255901}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "{{ApiKey_255901}}",
+									"value": "{{known:ApiKey_255901}}",
 									"type": "string"
 								}
 							]
@@ -765,6 +850,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const clientSuffix = \"255901\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
 									""
 								],
 								"type": "text/javascript"
@@ -801,12 +896,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "{{ApiSecret_255901}}",
+									"value": "{{known:ApiSecret_255901}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "{{ApiKey_255901}}",
+									"value": "{{known:ApiKey_255901}}",
 									"type": "string"
 								}
 							]
@@ -1530,7 +1625,7 @@
 									"const academicWeeksGetRequest = {",
 									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks\",",
 									"  method:'GET',",
-									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken_255901\"),",
 									"  body: {",
 									"  }",
 									"};",
@@ -1718,7 +1813,7 @@
 									"const academicWeeksGetRequest = {",
 									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks\",",
 									"  method:'GET',",
-									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken_255901\"),",
 									"  body: {",
 									"  }",
 									"};",
@@ -2182,7 +2277,7 @@
 									"const academicWeeksGetRequest = {",
 									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"),",
 									"  method:'GET',",
-									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken_255901\"),",
 									"  body: {",
 									"  }",
 									"};",
@@ -2686,7 +2781,7 @@
 									"const gacademicWeeksGetRequest = {",
 									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\") ,",
 									"  method:'GET',",
-									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken_255901\"),",
 									"  body: {",
 									"  }",
 									"};",
@@ -2755,7 +2850,7 @@
 									"const gacademicWeeksGetRequest = {",
 									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\") ,",
 									"  method:'GET',",
-									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken_255901\"),",
 									"  body: {",
 									"  }",
 									"};",
@@ -3709,16 +3804,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -3775,16 +3860,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -3840,16 +3915,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -3974,16 +4039,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -4067,16 +4122,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4133,16 +4178,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4197,16 +4232,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4261,16 +4286,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4338,16 +4353,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -4400,16 +4405,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4533,16 +4528,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -4626,16 +4611,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4692,16 +4667,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -4983,16 +4948,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -5049,16 +5004,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -5462,16 +5407,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -5528,16 +5463,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -5968,16 +5893,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -6031,16 +5946,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -6094,16 +5999,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -6165,16 +6060,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6233,16 +6118,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6301,16 +6176,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6367,16 +6232,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -6447,16 +6302,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6541,16 +6386,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6624,16 +6459,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6707,16 +6532,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6790,16 +6605,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6878,16 +6683,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -6946,16 +6741,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7011,16 +6796,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -7092,16 +6867,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7175,16 +6940,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -13328,7 +13083,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"schoolId\": {{MaxSafeEducationOrganizationId}},\r\n  \"nameOfInstitution\": \"School with max edorgId value\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}"
+							"raw": "{\r\n  \"schoolId\": {{test-suite:known:maxSafeEducationOrganizationId}},\r\n  \"nameOfInstitution\": \"School with max edorgId value\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -13743,6 +13498,43 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Test Suite Teardown",
+			"item": [
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'test-suite:known:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -13750,7 +13542,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{AccessToken}}",
+				"value": "{{AccessToken_255901}}",
 				"type": "string"
 			}
 		]
@@ -13768,7 +13560,7 @@
 					"CreateAccessToken(\"255901\");",
 					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
-					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
+					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\") ?? pm.environment.get(\"test-suite:known:parentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
 					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
 					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
