@@ -35,6 +35,12 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 
         public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)
         {
+            // If list is empty, replace the IN clause with literal false condition
+            if (values.Count == 0)
+            {
+                return ("1 = 0", null);
+            }
+
             var itemSystemType = values[0].GetType();
 
             // ODS does not support TVPs using shorts, so use int instead
