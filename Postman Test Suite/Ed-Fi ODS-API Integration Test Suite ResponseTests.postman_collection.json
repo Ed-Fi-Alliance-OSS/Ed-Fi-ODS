@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "aecc2c8a-5e04-4d78-9855-a49424bd1e3e",
+		"_postman_id": "d3d5da8b-42ff-4fcb-bb76-d215b5cebd98",
 		"name": "Ed-Fi ODS/API Integration Test Suite ResponseTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -1482,9 +1482,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1543,9 +1542,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1620,9 +1618,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1681,9 +1678,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1757,9 +1753,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1818,9 +1813,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -1879,9 +1873,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -2713,8 +2706,7 @@
 															"value": "invalid"
 														}
 													]
-												},
-												"description": ""
+												}
 											},
 											"response": []
 										},
@@ -2782,8 +2774,7 @@
 															"value": "invalid"
 														}
 													]
-												},
-												"description": ""
+												}
 											},
 											"response": []
 										}
@@ -2847,9 +2838,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -2908,9 +2898,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -3058,9 +3047,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -3119,9 +3107,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -3399,14 +3386,17 @@
 															"    pm.expect(pm.response.code).to.equal(404);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the snapshot could not be found.\", () => {",
-															"  const problemDetails = pm.response.json();",
+															"const problemDetails = pm.response.json();",
 															"",
+															"pm.test(\"Should return a message indicating that the snapshot could not be found.\", () => {",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"Snapshot not found.\");",
 															"  pm.expect(problemDetails.title).to.equal(\"Not Found\");",
+															"});",
 															"",
+															"pm.test(\"Should provide an error indicating that the snapshot connection has not been configured.\", () => {",
+															"  pm.expect(problemDetails.errors).to.match(/The snapshot connection for the ODS has not been configured./);",
 															"});"
 														],
 														"type": "text/javascript",
@@ -3422,8 +3412,7 @@
 												"header": [
 													{
 														"key": "Use-Snapshot",
-														"value": "true",
-														"uuid": "272fc061-d817-41f8-b7a6-50409377a517"
+														"value": "true"
 													}
 												],
 												"body": {
@@ -3505,9 +3494,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -3566,9 +3554,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -3685,9 +3672,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													},
 													{
 														"key": "If-None-Match",
@@ -3789,14 +3775,19 @@
 															"    pm.expect(pm.response.code).to.equal(404);\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Should return a message indicating that the specified data could not be found.\", () => {\r",
-															"  const problemDetails = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
+															"pm.test(\"Should return a message indicating that the snapshot could not be found.\", () => {\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are not configured.\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Snapshot not found.\");\r",
+															"  pm.expect(problemDetails.title).to.equal(\"Not Found\");\r",
+															"});\r",
 															"\r",
-															"});"
+															"pm.test(\"Should provide an error indicating that the snapshot connection has not been configured.\", () => {\r",
+															"  pm.expect(problemDetails.errors).to.match(/The snapshot connection for the ODS has not been configured./);\r",
+															"});\r",
+															""
 														],
 														"type": "text/javascript",
 														"packages": {}
@@ -3848,13 +3839,17 @@
 															"    pm.expect(pm.response.code).to.equal(404);\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Should return a message indicating that the specified data could not be found.\", () => {\r",
-															"  const problemDetails = pm.response.json();\r",
+															"const problemDetails = pm.response.json();\r",
 															"\r",
+															"pm.test(\"Should return a message indicating that the snapshot could not be found.\", () => {\r",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:not-found\");\r",
-															"  pm.expect(problemDetails.detail).to.equal(\"Snapshots are not configured.\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Snapshot not found.\");\r",
+															"  pm.expect(problemDetails.title).to.equal(\"Not Found\");\r",
+															"});\r",
 															"\r",
+															"pm.test(\"Should provide an error indicating that the snapshot connection has not been configured.\", () => {\r",
+															"  pm.expect(problemDetails.errors).to.match(/The snapshot connection for the ODS has not been configured./);\r",
 															"});"
 														],
 														"type": "text/javascript",
@@ -4115,9 +4110,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4176,9 +4170,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4352,9 +4345,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4442,9 +4434,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4526,9 +4517,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4600,9 +4590,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4692,9 +4681,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4754,9 +4742,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -4873,9 +4860,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5017,9 +5003,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5085,9 +5070,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5148,9 +5132,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5203,9 +5186,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5267,9 +5249,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5322,9 +5303,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5385,9 +5365,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5440,9 +5419,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5504,9 +5482,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -5596,7 +5573,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -5705,7 +5681,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -5801,7 +5776,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -5867,9 +5841,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -6017,9 +5990,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -6082,13 +6054,11 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"uuid": "0eac8b7f-cc98-4c71-b47a-010cb1a4d0a0"
+												"value": "application/json"
 											},
 											{
 												"key": "Use-Snapshot",
-												"value": "true",
-												"uuid": "5b0fbcb3-766b-4f99-98f4-81936bae82f7"
+												"value": "true"
 											}
 										],
 										"body": {
@@ -6803,9 +6773,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -6864,9 +6833,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -6985,9 +6953,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7072,9 +7039,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7133,9 +7099,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7259,9 +7224,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7346,9 +7310,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7407,9 +7370,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7527,9 +7489,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													},
 													{
 														"key": "If-Match",
@@ -7619,9 +7580,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7680,9 +7640,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7801,9 +7760,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													},
 													{
 														"key": "If-Match",
@@ -7893,9 +7851,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7954,9 +7911,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8076,9 +8032,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													},
 													{
 														"key": "If-Match",
@@ -8168,9 +8123,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8229,9 +8183,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8345,9 +8298,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8432,9 +8384,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8493,9 +8444,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8614,9 +8564,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8681,9 +8630,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8744,9 +8692,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8857,13 +8804,11 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"uuid": "6266b300-ec98-48b6-8d75-6df6f14d87df"
+												"value": "application/json"
 											},
 											{
 												"key": "Use-Snapshot",
-												"value": "true",
-												"uuid": "6e50d725-6315-4b13-93ec-cb4e80845091"
+												"value": "true"
 											}
 										],
 										"body": {
@@ -8955,7 +8900,6 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
 														"value": "application/json",
 														"type": "text"
 													}
@@ -9067,9 +9011,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9125,9 +9068,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9160,7 +9102,7 @@
 															"pm.environment.set('supplied:stateEducationAgencyId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
 														],
 														"type": "text/javascript"
-										}
+													}
 												},
 												{
 													"listen": "test",
@@ -9199,8 +9141,8 @@
 														"v3",
 														"ed-fi",
 														"stateEducationAgencies"
-									]
-								},
+													]
+												},
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
 											},
 											"response": []
@@ -9509,9 +9451,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9824,9 +9765,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9878,9 +9818,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													},
 													{
 														"key": "If-Match",
@@ -9968,9 +9907,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -10029,9 +9967,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -10210,13 +10147,11 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"uuid": "d75d4f07-9576-4838-8a6e-e91d079d2fc1"
+												"value": "application/json"
 											},
 											{
 												"key": "Use-Snapshot",
-												"value": "true",
-												"uuid": "2d5e379c-0e2d-4073-904c-5e8dbd148b78"
+												"value": "true"
 											}
 										],
 										"body": {

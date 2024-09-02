@@ -6,32 +6,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NHibernate;
-using NHibernate.Criterion;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
     /// <summary>
-    /// Provides an abstract implementation for applying authorization filters to <see cref="ICriteria"/> queries on aggregate roots.
+    /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
     /// <typeparam name="TEntity">The type of the aggregate root entity being queried.</typeparam>
-    public abstract class AggregateRootCriteriaProviderAuthorizationDecoratorBase<TEntity>
-        : IAggregateRootCriteriaProvider<TEntity>
+    public class PagedAggregateIdsCriteriaProviderAuthorizationDecorator<TEntity>
+        : IPagedAggregateIdsCriteriaProvider<TEntity>
         where TEntity : class
     {
-        private readonly IAggregateRootCriteriaProvider<TEntity> _decoratedInstance;
+        private readonly IPagedAggregateIdsCriteriaProvider<TEntity> _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        protected AggregateRootCriteriaProviderAuthorizationDecoratorBase(
-            IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
+        public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
+            IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
@@ -46,29 +44,21 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="specification">An instance of the entity representing the parameters to the query.</param>
         /// <param name="queryParameters">The parameter values to apply to the query.</param>
         /// <returns>The criteria created by the decorated instance.</returns>
-        public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
+        public QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters)
         {
-            var criteria = _decoratedInstance.GetCriteriaQuery(specification, queryParameters);
+            var queryBuilder = _decoratedInstance.GetQueryBuilder(specification, queryParameters);
 
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
-            // Create the "AND" junction
-            var mainConjunction = new Conjunction();
-            
-            // Create the "OR" junction
-            var mainDisjunction = new Disjunction();
-
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
-            bool conjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithAndLogic();
-            bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
+            ApplyAuthorizationStrategiesCombinedWithAndLogic();
+            ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
-            ApplyJunctionsToCriteriaQuery();
-
-            return criteria;
+            return queryBuilder;
 
             JoinType DetermineRelationshipBasedAuthViewJoinType()
             {
@@ -94,57 +84,62 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     : JoinType.InnerJoin;
             }
 
-            bool ApplyAuthorizationStrategiesCombinedWithAndLogic()
+            void ApplyAuthorizationStrategiesCombinedWithAndLogic()
             {
                 var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
 
                 // Combine 'AND' strategies
-                bool conjunctionFiltersApplied = false;
-
                 foreach (var andStrategy in andStrategies)
                 {
-                    if (!TryApplyFilters(mainConjunction, andStrategy.Filters, andStrategy.AuthorizationStrategy, JoinType.InnerJoin))
+                    if (!TryApplyFilters(queryBuilder, andStrategy.Filters, andStrategy.AuthorizationStrategy, JoinType.InnerJoin))
                     {
                         // All filters for AND strategies must be applied, and if not, this is an error condition
                         throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                     }
-
-                    conjunctionFiltersApplied = true;
                 }
-
-                return conjunctionFiltersApplied;
             }
 
-            bool ApplyAuthorizationStrategiesCombinedWithOrLogic()
+            void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
                 var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
 
-                // Combine 'OR' strategies
                 bool disjunctionFiltersApplied = false;
 
-                foreach (var orStrategy in orStrategies)
-                {
-                    var filtersConjunction = new Conjunction(); // Combine filters with 'AND'
-
-                    if (TryApplyFilters(filtersConjunction, orStrategy.Filters, orStrategy.AuthorizationStrategy, relationshipBasedAuthViewJoinType))
+                // Combine 'OR' strategies
+                queryBuilder.Where(
+                    disjunctionBuilder =>
                     {
-                        mainDisjunction.Add(filtersConjunction);
+                        foreach (var orStrategy in orStrategies)
+                        {
+                            disjunctionBuilder.OrWhere(
+                                filtersConjunctionBuilder =>
+                                {
+                                    // Combine filters with 'AND'
+                                    if (TryApplyFilters(
+                                            filtersConjunctionBuilder,
+                                            orStrategy.Filters,
+                                            orStrategy.AuthorizationStrategy,
+                                            relationshipBasedAuthViewJoinType))
+                                    {
+                                        disjunctionFiltersApplied = true;
+                                    }
 
-                        disjunctionFiltersApplied = true;
-                    }
-                }
+                                    return filtersConjunctionBuilder;
+                                });
+                        }
+
+                        return disjunctionBuilder;
+                    });
 
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
                 if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
                 {
                     throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                 }
-                
-                return disjunctionFiltersApplied;
             }
 
             bool TryApplyFilters(
-                Conjunction conjunction,
+                QueryBuilder conjunctionQueryBuilder,
                 IReadOnlyList<AuthorizationFilterContext> filters,
                 IAuthorizationStrategy authorizationStrategy,
                 JoinType joinType)
@@ -184,32 +179,18 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             };
 
                     // Apply the authorization strategy filter
-                    filterDefinition.CriteriaApplicator(criteria, conjunction, filterContext.SubjectEndpointNames, parameterValues, joinType, authorizationStrategy);
+                    filterDefinition.CriteriaApplicator(
+                        queryBuilder,
+                        conjunctionQueryBuilder,
+                        filterContext.SubjectEndpointNames,
+                        parameterValues,
+                        joinType,
+                        authorizationStrategy);
 
                     filtersApplied = true;
                 }
                 
                 return filtersApplied;
-            }
-
-            void ApplyJunctionsToCriteriaQuery()
-            {
-                if (disjunctionFiltersWereApplied)
-                {
-                    if (conjunctionFiltersWereApplied)
-                    {
-                        mainConjunction.Add(mainDisjunction);
-                    }
-                    else
-                    {
-                        criteria.Add(mainDisjunction);
-                    }
-                }
-
-                if (conjunctionFiltersWereApplied)
-                {
-                    criteria.Add(mainConjunction);
-                }
             }
         }
     }

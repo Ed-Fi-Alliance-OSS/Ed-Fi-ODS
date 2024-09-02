@@ -16,6 +16,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
     public class ViewBasedAuthorizationFilterDefinition : AuthorizationFilterDefinition
     {
+        private AliasGenerator _aliasGenerator = new AliasGenerator("authvw");
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewBasedAuthorizationFilterDefinition"/> class using parameters for a
         /// relationship-based authorization view join using a single column.
@@ -35,31 +37,28 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewTargetEndpointName,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IMultiValueRestrictions multiValueRestrictions)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
                     WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
-                (criteria, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) =>
+                (queryBuilder, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) =>
                 {
                     if (subjectEndpointNames?.Length != 1)
                     {
                         throw new ArgumentException("Exactly one authorization subject endpoint name is expected for single-column view-based authorization.");
                     }
 
-                    criteria.ApplySingleColumnJoinFilter(
-                        multiValueRestrictions,
-                        @where,
+                    @where.ApplySingleColumnJoinFilter(
                         parameters,
                         viewName,
                         subjectEndpointNames[0],
                         viewSourceEndpointName,
                         viewTargetEndpointName,
                         joinType,
-                        Guid.NewGuid().ToString("N"));
+                        Guid.NewGuid().ToString("N").Substring(0, 6));
                 },
                 trackedChangesCriteriaApplicator,
                 authorizeInstance)

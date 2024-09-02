@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Microsoft.Data.SqlClient;
 using Dapper;
@@ -32,6 +33,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
 
             template.RawSql.NormalizeSql()
                 .ShouldBe("SELECT NameOfInstitution, WebSite FROM edfi.EducationOrganization");
+            
+            ExecuteQueryAndWriteResults(databaseEngine, template);
+            
+            // Check the cloned query results
+            var clonedQueryResult = q.Clone().BuildTemplate();
+            template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+        }
+        
+        [TestCase(DatabaseEngine.MsSql)]
+        [TestCase(DatabaseEngine.PgSql)]
+        public void Should_select_distinct_columns(DatabaseEngine databaseEngine)
+        {
+            var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                .From("edfi.EducationOrganization")
+                .Select("NameOfInstitution", "WebSite")
+                .Distinct();
+
+            var template = q.BuildTemplate();
+
+            template.RawSql.NormalizeSql()
+                .ShouldBe("SELECT DISTINCT NameOfInstitution, WebSite FROM edfi.EducationOrganization");
             
             ExecuteQueryAndWriteResults(databaseEngine, template);
             
@@ -110,7 +132,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Where("BirthCity", "Chicago")
-                    .WhereNull("MiddleName");
+                    .WhereNull("MiddleName")
+                    .WhereRaw("1 = 0");
                 
                 var template = q.BuildTemplate();
 
@@ -120,7 +143,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     SELECT  FirstName, LastSurname 
                     FROM    edfi.Student
                     WHERE   BirthCity = @p0
-                            AND MiddleName IS NULL".NormalizeSql()));
+                            AND MiddleName IS NULL
+                            AND 1 = 0".NormalizeSql()));
 
                 ExecuteQueryAndWriteResults(databaseEngine, template);
                 
@@ -129,6 +153,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_where_with_nested_conditions_wrapped_in_parenthesis(DatabaseEngine databaseEngine)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("FirstName", "LastSurname")
+                    .OrWhere(qb => qb
+                        .Where("BirthCity", "Chicago")
+                        .WhereNull("MiddleName")
+                    )
+                    .OrWhere("Name", "Bob")
+                    .OrWhere("Age", ">", 42);
+
+                var template = q.BuildTemplate();
+
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
+                        .ShouldBe(@"
+                    SELECT  FirstName, LastSurname 
+                    FROM    edfi.Student
+                    WHERE   ((BirthCity = @p0
+                            AND MiddleName IS NULL) OR Name = @p1 OR Age > @p2)".NormalizeSql()));
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_not_null(DatabaseEngine databaseEngine)
@@ -314,6 +369,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
+            [TestCase(DatabaseEngine.MsSql, "(SELECT Id FROM @p1)")]
+            [TestCase(DatabaseEngine.PgSql, "(VALUES (@p1_0), (@p1_1), (@p1_2), (@p1_3))")]
+            public void Should_apply_OR_where_with_IN(DatabaseEngine databaseEngine, string expectedInClause)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI", "SchoolId", "EntryDate")
+                    .OrWhere("SchoolId", 1234)
+                    .OrWhereIn("StudentUSI", new [] { 12, 34, 56, 78 });
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    SELECT  StudentUSI, SchoolId, EntryDate 
+                    FROM    edfi.StudentSchoolAssociation
+                    WHERE   (SchoolId = @p0 OR StudentUSI IN {expectedInClause})".NormalizeSql())
+                    );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_explicit_comparison_operators(DatabaseEngine databaseEngine)
@@ -323,7 +406,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     .Select("FirstName", "LastSurname")
                     .Select("ChangeVersion")
                     .Where("ChangeVersion", ">", 10000)
-                    .Where("ChangeVersion", "<", 11000);
+                    .Where("ChangeVersion", "<", 11000)
+                    .OrWhere("ChangeVersion", "<", 0)
+                    .OrWhere("ChangeVersion", ">", 2000000);
 
                 var template = q.BuildTemplate();
 
@@ -334,7 +419,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     SELECT  FirstName, LastSurname, ChangeVersion 
                     FROM    edfi.Student
                     WHERE   ChangeVersion > @p0
-                            AND ChangeVersion < @p1".NormalizeSql()),
+                            AND ChangeVersion < @p1 
+                            AND (ChangeVersion < @p2 OR ChangeVersion > @p3)".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldContain("p0"),
                     () => actualParameters.Get<int>("@p0").ShouldBe(10000),
@@ -356,9 +442,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
                     .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
-                    .Where(
-                        q => q.OrWhere(q2 => q2.Where("ChangeVersion", ">=", 10000).Where("ChangeVersion", "<=", 11000))
-                            .OrWhereNull("ChangeVersion"));
+                    .Where(q => 
+                        q.OrWhere(q2 => 
+                                q2.Where("ChangeVersion", ">=", 10000)
+                                    .Where("ChangeVersion", "<=", 11000)
+                        )
+                        .OrWhereNull("ChangeVersion"));
 
                 var template = q.BuildTemplate();
 
@@ -368,8 +457,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion
                     FROM    edfi.Student
-                    WHERE   (((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
-                            OR ChangeVersion IS NULL))".NormalizeSql()),
+                    WHERE   ((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
+                            OR ChangeVersion IS NULL)".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldContain("p0"),
                     () => actualParameters.Get<int>("@p0").ShouldBe(10000),
@@ -463,8 +552,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion
                     FROM    edfi.Student
-                    WHERE   (((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
-                            OR ChangeVersion IS NULL))".NormalizeSql()),
+                    WHERE   ((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
+                            OR ChangeVersion IS NULL)".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldContain("p0"),
                     () => actualParameters.Get<int>("@p0").ShouldBe(10000),
@@ -486,10 +575,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
                     .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
-                    .Where(
-                        q => q.OrWhere(q2 =>
-                                q2.Where("ChangeVersion", ">=", new Parameter("@MinChangeVersion", 10000))
-                                    .Where("ChangeVersion", "<=", new Parameter( "@MaxChangeVersion", 11000)))
+                    .Where(q => q
+                            .OrWhere(q2 => q2
+                                .Where("ChangeVersion", ">=", new Parameter("@MinChangeVersion", 10000))
+                                .Where("ChangeVersion", "<=", new Parameter( "@MaxChangeVersion", 11000))
+                            )
                             .OrWhereNull("ChangeVersion"));
                 
                 var template = q.BuildTemplate();
@@ -500,8 +590,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion 
                     FROM    edfi.Student
-                    WHERE   (((ChangeVersion >= @MinChangeVersion AND ChangeVersion <= @MaxChangeVersion) 
-                            OR ChangeVersion IS NULL))".NormalizeSql()),
+                    WHERE   ((ChangeVersion >= @MinChangeVersion AND ChangeVersion <= @MaxChangeVersion) 
+                            OR ChangeVersion IS NULL)".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldContain("MinChangeVersion"),
                     () => actualParameters.Get<int>("@MinChangeVersion").ShouldBe(10000),
@@ -525,7 +615,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     .From("edfi.Student AS s")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
                     .Where(
-                        q => q.OrWhere( // <-- OrWhere with nested builder is the behavior being tested
+                        q => q
+                            .OrWhere( // <-- OrWhere with nested builder is the behavior being tested
                                 q2 => q2
                                     .Join("auth.EducationOrganizationIdToStudentUSI AS rba0", "s.StudentUSI", "rba0.StudentUSI")
                                     .WhereIn($"rba0.SourceEducationOrganizationId", new[] {255901001, 255901044}))
@@ -546,8 +637,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                         ON s.StudentUSI = rba0.StudentUSI
                     INNER JOIN auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1
                         ON s.StudentUSI = rba1.StudentUSI
-                    WHERE (((rba0.SourceEducationOrganizationId IN {expectedInClause1}) 
-                               OR (rba1.SourceEducationOrganizationId IN {expectedInClause2})))
+                    WHERE ((rba0.SourceEducationOrganizationId IN {expectedInClause1}) 
+                               OR (rba1.SourceEducationOrganizationId IN {expectedInClause2}))
                     ".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldBe(expectedParameterNames)
@@ -568,15 +659,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
                     .From("edfi.Student AS s")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
-                    .Where(
-                        q => q.Where( // <-- Where with nested builder is the behavior being tested
-                                q2 => q2
-                                    .Join("auth.EducationOrganizationIdToStudentUSI AS rba0", "s.StudentUSI", "rba0.StudentUSI")
-                                    .WhereIn($"rba0.SourceEducationOrganizationId", new[] {255901001, 255901044}))
-                            .Where( // <-- Where with nested builder is the behavior being tested
-                                q2 => q2
-                                    .Join("auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1", "s.StudentUSI", "rba1.StudentUSI" )
-                                    .WhereIn("rba1.SourceEducationOrganizationId", new[] {255901001, 255901044})));
+                    .Where(q => q
+                        .Where( // <-- Where with nested builder is the behavior being tested
+                            q2 => q2
+                                .Join("auth.EducationOrganizationIdToStudentUSI AS rba0", "s.StudentUSI", "rba0.StudentUSI")
+                                .WhereIn($"rba0.SourceEducationOrganizationId", new[] {255901001, 255901044})
+                        )
+                        .Where( // <-- Where with nested builder is the behavior being tested
+                            q2 => q2
+                                .Join("auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1", "s.StudentUSI", "rba1.StudentUSI" )
+                                .WhereIn("rba1.SourceEducationOrganizationId", new[] {255901001, 255901044}))
+                    );
 
                 var template = q.BuildTemplate();
 
@@ -590,11 +683,45 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                         ON s.StudentUSI = rba0.StudentUSI
                     INNER JOIN auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1
                         ON s.StudentUSI = rba1.StudentUSI
-                    WHERE ((rba0.SourceEducationOrganizationId IN {expectedInClause1}) 
-                               AND (rba1.SourceEducationOrganizationId IN {expectedInClause2}))
+                    WHERE rba0.SourceEducationOrganizationId IN {expectedInClause1} 
+                               AND rba1.SourceEducationOrganizationId IN {expectedInClause2}
                     ".NormalizeSql()),
                     () => actualParameters.ShouldNotBeNull(),
                     () => actualParameters.ParameterNames.ShouldBe(expectedParameterNames)
+                );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+            
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_where_with_explicit_parameter_type(DatabaseEngine databaseEngine)
+            {
+                DynamicParameters parameter = new();
+                parameter.Add($"@Cost", Convert.ToDecimal(100000), DbType.Currency);
+                
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.BusRoute")
+                    .Select("RouteNumber", "RouteName")
+                    .Select("OperationalCost")
+                    .Where("OperationalCost", ">", parameter);
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
+                    SELECT  RouteNumber, RouteName, OperationalCost
+                    FROM    edfi.BusRoute
+                    WHERE   OperationalCost > @Cost".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldContain("Cost"),
+                    () => actualParameters.Get<decimal>("Cost").ShouldBe(100000)
                 );
 
                 ExecuteQueryAndWriteResults(databaseEngine, template);
@@ -662,6 +789,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
+            [TestCase(DatabaseEngine.MsSql, "OFFSET 25 ROWS FETCH NEXT 5 ROWS ONLY")]
+            [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 25")]
+            public void Should_apply_single_column_left_joins(DatabaseEngine databaseEngine, string pagingSql)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation AS ssa")
+                    .Select("s.FirstName", "s.LastSurname", "edOrg.NameOfInstitution", "ssa.EntryDate")
+                    .LeftJoin("edfi.Student s", "ssa.StudentUSI", "s.StudentUSI")
+                    .LeftJoin("edfi.EducationOrganization edOrg", "ssa.SchoolId", "edOrg.EducationOrganizationId")
+                    .OrderBy("s.LastSurname")
+                    .LimitOffset(5, 25);
+
+                var template = q.BuildTemplate();
+
+                template.RawSql.NormalizeSql()
+                    .ShouldBe(@$"
+                    SELECT  s.FirstName, s.LastSurname, edOrg.NameOfInstitution, ssa.EntryDate 
+                    FROM    edfi.StudentSchoolAssociation AS ssa 
+                        LEFT JOIN edfi.Student s ON ssa.StudentUSI = s.StudentUSI
+                        LEFT JOIN edfi.EducationOrganization edOrg ON ssa.SchoolId = edOrg.EducationOrganizationId
+                    ORDER BY s.LastSurname
+                    {pagingSql}".NormalizeSql());
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+            
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_multiple_column_left_join(DatabaseEngine databaseEngine)
@@ -682,6 +839,40 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     SELECT  c.Id, c.ChangeVersion 
                     FROM    tracked_changes_edfi.CalendarDate AS c 
                         LEFT JOIN edfi.CalendarDate src 
+                            ON c.OldCalendarCode = src.CalendarCode
+                            AND c.OldDate = src.Date
+                            AND c.OldSchoolId = src.SchoolId
+                            AND c.OldSchoolYear = src.SchoolYear".NormalizeSql());
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [TestCase(DatabaseEngine.MsSql, JoinType.InnerJoin, "INNER")]
+            [TestCase(DatabaseEngine.MsSql, JoinType.LeftOuterJoin, "LEFT")]
+            [TestCase(DatabaseEngine.PgSql, JoinType.InnerJoin, "INNER")]
+            [TestCase(DatabaseEngine.PgSql, JoinType.LeftOuterJoin, "LEFT")]
+            public void Should_apply_multiple_column_join_using_enumerated_join_type(DatabaseEngine databaseEngine, JoinType joinType, string expectedJoinModifier)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("tracked_changes_edfi.CalendarDate AS c")
+                    .Select("c.Id", "c.ChangeVersion")
+                    .Join("edfi.CalendarDate src", joiner => 
+                        joiner.On("c.OldCalendarCode", "src.CalendarCode")
+                            .On("c.OldDate", "src.Date")
+                            .On("c.OldSchoolId", "src.SchoolId")
+                            .On("c.OldSchoolYear", "src.SchoolYear"), joinType);
+
+                var template = q.BuildTemplate();
+            
+                template.RawSql.NormalizeSql()
+                    .ShouldBe(@$"
+                    SELECT  c.Id, c.ChangeVersion 
+                    FROM    tracked_changes_edfi.CalendarDate AS c 
+                        {expectedJoinModifier} JOIN edfi.CalendarDate src 
                             ON c.OldCalendarCode = src.CalendarCode
                             AND c.OldDate = src.Date
                             AND c.OldSchoolId = src.SchoolId
