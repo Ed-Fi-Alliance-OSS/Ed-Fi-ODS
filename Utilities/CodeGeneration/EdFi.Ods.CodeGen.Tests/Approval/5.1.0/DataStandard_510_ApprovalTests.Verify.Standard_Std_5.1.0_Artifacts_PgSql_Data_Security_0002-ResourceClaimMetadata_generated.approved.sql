@@ -49,19 +49,9 @@ begin
     values ('academicSubjectDescriptor', 'http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='academicWeek') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('academicWeek', 'http://ed-fi.org/ods/identity/claims/academicWeek', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='accommodationDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('accommodationDescriptor', 'http://ed-fi.org/ods/identity/claims/accommodationDescriptor', managedDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='accountabilityRating') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/accountabilityRating', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='accountTypeDescriptor') THEN
@@ -99,11 +89,6 @@ begin
     values ('ancestryEthnicOriginDescriptor', 'http://ed-fi.org/ods/identity/claims/ancestryEthnicOriginDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessment') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('assessment', 'http://ed-fi.org/ods/identity/claims/assessment', assessmentMetadataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessmentCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('assessmentCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/assessmentCategoryDescriptor', systemDescriptorsResourceClaimId);
@@ -112,11 +97,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessmentIdentificationSystemDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('assessmentIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/assessmentIdentificationSystemDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessmentItem') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('assessmentItem', 'http://ed-fi.org/ods/identity/claims/assessmentItem', assessmentMetadataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessmentItemCategoryDescriptor') THEN
@@ -139,11 +119,6 @@ begin
     values ('assessmentReportingMethodDescriptor', 'http://ed-fi.org/ods/identity/claims/assessmentReportingMethodDescriptor', managedDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assessmentScoreRangeLearningStandard') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('assessmentScoreRangeLearningStandard', 'http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard', assessmentMetadataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='assignmentLateStatusDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('assignmentLateStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/assignmentLateStatusDescriptor', systemDescriptorsResourceClaimId);
@@ -159,11 +134,6 @@ begin
     values ('attendanceEventCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/attendanceEventCategoryDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='balanceSheetDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('balanceSheetDimension', 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='barrierToInternetAccessInResidenceDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('barrierToInternetAccessInResidenceDescriptor', 'http://ed-fi.org/ods/identity/claims/barrierToInternetAccessInResidenceDescriptor', systemDescriptorsResourceClaimId);
@@ -174,24 +144,9 @@ begin
     values ('behaviorDescriptor', 'http://ed-fi.org/ods/identity/claims/behaviorDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='bellSchedule') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('bellSchedule', 'http://ed-fi.org/ods/identity/claims/bellSchedule', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='busRouteDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('busRouteDescriptor', 'http://ed-fi.org/ods/identity/claims/busRouteDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='calendar') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('calendar', 'http://ed-fi.org/ods/identity/claims/calendar', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='calendarDate') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('calendarDate', 'http://ed-fi.org/ods/identity/claims/calendarDate', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='calendarEventDescriptor') THEN
@@ -219,29 +174,14 @@ begin
     values ('charterStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/charterStatusDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='chartOfAccount') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('chartOfAccount', 'http://ed-fi.org/ods/identity/claims/chartOfAccount', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='citizenshipStatusDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('citizenshipStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/citizenshipStatusDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='classPeriod') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('classPeriod', 'http://ed-fi.org/ods/identity/claims/classPeriod', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='classroomPositionDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('classroomPositionDescriptor', 'http://ed-fi.org/ods/identity/claims/classroomPositionDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='cohort') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('cohort', 'http://ed-fi.org/ods/identity/claims/cohort', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='cohortScopeDescriptor') THEN
@@ -259,34 +199,9 @@ begin
     values ('cohortYearTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/cohortYearTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='communityOrganization') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('communityOrganization', 'http://ed-fi.org/ods/identity/claims/communityOrganization', educationOrganizationsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='communityProvider') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('communityProvider', 'http://ed-fi.org/ods/identity/claims/communityProvider', educationOrganizationsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='communityProviderLicense') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('communityProviderLicense', 'http://ed-fi.org/ods/identity/claims/communityProviderLicense', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='competencyLevelDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('competencyLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/competencyLevelDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='competencyObjective') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('competencyObjective', 'http://ed-fi.org/ods/identity/claims/competencyObjective', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='contact') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('contact', 'http://ed-fi.org/ods/identity/claims/contact', peopleResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='contactTypeDescriptor') THEN
@@ -314,11 +229,6 @@ begin
     values ('countryDescriptor', 'http://ed-fi.org/ods/identity/claims/countryDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='course') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('course', 'http://ed-fi.org/ods/identity/claims/course', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='courseAttemptResultDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('courseAttemptResultDescriptor', 'http://ed-fi.org/ods/identity/claims/courseAttemptResultDescriptor', systemDescriptorsResourceClaimId);
@@ -344,24 +254,9 @@ begin
     values ('courseLevelCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/courseLevelCharacteristicDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='courseOffering') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('courseOffering', 'http://ed-fi.org/ods/identity/claims/courseOffering', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='courseRepeatCodeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('courseRepeatCodeDescriptor', 'http://ed-fi.org/ods/identity/claims/courseRepeatCodeDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='courseTranscript') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('courseTranscript', 'http://ed-fi.org/ods/identity/claims/courseTranscript', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='credential') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('credential', 'http://ed-fi.org/ods/identity/claims/credential', educationStandardsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='credentialFieldDescriptor') THEN
@@ -384,11 +279,6 @@ begin
     values ('creditTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/creditTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='crisisEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('crisisEvent', 'http://ed-fi.org/ods/identity/claims/crisisEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='crisisTypeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('crisisTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor', systemDescriptorsResourceClaimId);
@@ -407,11 +297,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='deliveryMethodDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('deliveryMethodDescriptor', 'http://ed-fi.org/ods/identity/claims/deliveryMethodDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='descriptorMapping') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('descriptorMapping', 'http://ed-fi.org/ods/identity/claims/descriptorMapping', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='diagnosisDescriptor') THEN
@@ -444,11 +329,6 @@ begin
     values ('disabilityDeterminationSourceTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/disabilityDeterminationSourceTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='disciplineAction') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('disciplineAction', 'http://ed-fi.org/ods/identity/claims/disciplineAction', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='disciplineActionLengthDifferenceReasonDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('disciplineActionLengthDifferenceReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/disciplineActionLengthDifferenceReasonDescriptor', systemDescriptorsResourceClaimId);
@@ -457,11 +337,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='disciplineDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('disciplineDescriptor', 'http://ed-fi.org/ods/identity/claims/disciplineDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='disciplineIncident') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('disciplineIncident', 'http://ed-fi.org/ods/identity/claims/disciplineIncident', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='disciplineIncidentParticipationCodeDescriptor') THEN
@@ -479,11 +354,6 @@ begin
     values ('educationalEnvironmentDescriptor', 'http://ed-fi.org/ods/identity/claims/educationalEnvironmentDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationContent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationContent', 'http://ed-fi.org/ods/identity/claims/educationContent', null);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationAssociationTypeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('educationOrganizationAssociationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', systemDescriptorsResourceClaimId);
@@ -499,34 +369,9 @@ begin
     values ('educationOrganizationIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationSystemDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationInterventionPrescriptionAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationOrganizationInterventionPrescriptionAssociation', 'http://ed-fi.org/ods/identity/claims/educationOrganizationInterventionPrescriptionAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationNetwork') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationOrganizationNetwork', 'http://ed-fi.org/ods/identity/claims/educationOrganizationNetwork', educationOrganizationsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationNetworkAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationOrganizationNetworkAssociation', 'http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationOrganizationPeerAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationOrganizationPeerAssociation', 'http://ed-fi.org/ods/identity/claims/educationOrganizationPeerAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationPlanDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('educationPlanDescriptor', 'http://ed-fi.org/ods/identity/claims/educationPlanDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='educationServiceCenter') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('educationServiceCenter', 'http://ed-fi.org/ods/identity/claims/educationServiceCenter', educationOrganizationsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='electronicMailTypeDescriptor') THEN
@@ -569,11 +414,6 @@ begin
     values ('evaluationDelayReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/evaluationDelayReasonDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='evaluationRubricDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('evaluationRubricDimension', 'http://ed-fi.org/ods/identity/claims/evaluationRubricDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='eventCircumstanceDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('eventCircumstanceDescriptor', 'http://ed-fi.org/ods/identity/claims/eventCircumstanceDescriptor', systemDescriptorsResourceClaimId);
@@ -584,34 +424,9 @@ begin
     values ('exitWithdrawTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/exitWithdrawTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='feederSchoolAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('feederSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/feederSchoolAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='financialCollectionDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('financialCollectionDescriptor', 'http://ed-fi.org/ods/identity/claims/financialCollectionDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='functionDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('functionDimension', 'http://ed-fi.org/ods/identity/claims/functionDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='fundDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('fundDimension', 'http://ed-fi.org/ods/identity/claims/fundDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='grade') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('grade', 'http://ed-fi.org/ods/identity/claims/grade', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='gradebookEntry') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('gradebookEntry', 'http://ed-fi.org/ods/identity/claims/gradebookEntry', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='gradebookEntryTypeDescriptor') THEN
@@ -634,19 +449,9 @@ begin
     values ('gradeTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/gradeTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='gradingPeriod') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('gradingPeriod', 'http://ed-fi.org/ods/identity/claims/gradingPeriod', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='gradingPeriodDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('gradingPeriodDescriptor', 'http://ed-fi.org/ods/identity/claims/gradingPeriodDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='graduationPlan') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('graduationPlan', 'http://ed-fi.org/ods/identity/claims/graduationPlan', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='graduationPlanTypeDescriptor') THEN
@@ -729,11 +534,6 @@ begin
     values ('internetPerformanceInResidenceDescriptor', 'http://ed-fi.org/ods/identity/claims/internetPerformanceInResidenceDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='intervention') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('intervention', 'http://ed-fi.org/ods/identity/claims/intervention', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='interventionClassDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('interventionClassDescriptor', 'http://ed-fi.org/ods/identity/claims/interventionClassDescriptor', systemDescriptorsResourceClaimId);
@@ -742,16 +542,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='interventionEffectivenessRatingDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('interventionEffectivenessRatingDescriptor', 'http://ed-fi.org/ods/identity/claims/interventionEffectivenessRatingDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='interventionPrescription') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('interventionPrescription', 'http://ed-fi.org/ods/identity/claims/interventionPrescription', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='interventionStudy') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('interventionStudy', 'http://ed-fi.org/ods/identity/claims/interventionStudy', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='languageDescriptor') THEN
@@ -769,19 +559,9 @@ begin
     values ('languageUseDescriptor', 'http://ed-fi.org/ods/identity/claims/languageUseDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='learningStandard') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('learningStandard', 'http://ed-fi.org/ods/identity/claims/learningStandard', educationStandardsResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='learningStandardCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('learningStandardCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/learningStandardCategoryDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='learningStandardEquivalenceAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('learningStandardEquivalenceAssociation', 'http://ed-fi.org/ods/identity/claims/learningStandardEquivalenceAssociation', educationStandardsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='learningStandardEquivalenceStrengthDescriptor') THEN
@@ -814,54 +594,14 @@ begin
     values ('limitedEnglishProficiencyDescriptor', 'http://ed-fi.org/ods/identity/claims/limitedEnglishProficiencyDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localAccount') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localAccount', 'http://ed-fi.org/ods/identity/claims/localAccount', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localActual') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localActual', 'http://ed-fi.org/ods/identity/claims/localActual', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localBudget') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localBudget', 'http://ed-fi.org/ods/identity/claims/localBudget', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localContractedStaff') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localContractedStaff', 'http://ed-fi.org/ods/identity/claims/localContractedStaff', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('localeDescriptor', 'http://ed-fi.org/ods/identity/claims/localeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localEducationAgency') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localEducationAgency', 'http://ed-fi.org/ods/identity/claims/localEducationAgency', educationOrganizationsResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localEducationAgencyCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('localEducationAgencyCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/localEducationAgencyCategoryDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localEncumbrance') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localEncumbrance', 'http://ed-fi.org/ods/identity/claims/localEncumbrance', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='localPayroll') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('localPayroll', 'http://ed-fi.org/ods/identity/claims/localPayroll', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='location') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('location', 'http://ed-fi.org/ods/identity/claims/location', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='magnetSpecialProgramEmphasisSchoolDescriptor') THEN
@@ -914,34 +654,9 @@ begin
     values ('nonMedicalImmunizationExemptionDescriptor', 'http://ed-fi.org/ods/identity/claims/nonMedicalImmunizationExemptionDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='objectDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('objectDimension', 'http://ed-fi.org/ods/identity/claims/objectDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='objectiveAssessment') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('objectiveAssessment', 'http://ed-fi.org/ods/identity/claims/objectiveAssessment', assessmentMetadataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='openStaffPosition') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('openStaffPosition', 'http://ed-fi.org/ods/identity/claims/openStaffPosition', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='operationalStatusDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('operationalStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='operationalUnitDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('operationalUnitDimension', 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='organizationDepartment') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('organizationDepartment', 'http://ed-fi.org/ods/identity/claims/organizationDepartment', educationOrganizationsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='otherNameTypeDescriptor') THEN
@@ -969,11 +684,6 @@ begin
     values ('performanceLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/performanceLevelDescriptor', managedDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='person') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('person', 'http://ed-fi.org/ods/identity/claims/person', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='personalInformationVerificationDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('personalInformationVerificationDescriptor', 'http://ed-fi.org/ods/identity/claims/personalInformationVerificationDescriptor', systemDescriptorsResourceClaimId);
@@ -994,19 +704,9 @@ begin
     values ('postingResultDescriptor', 'http://ed-fi.org/ods/identity/claims/postingResultDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='postSecondaryEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('postSecondaryEvent', 'http://ed-fi.org/ods/identity/claims/postSecondaryEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='postSecondaryEventCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('postSecondaryEventCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/postSecondaryEventCategoryDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='postSecondaryInstitution') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('postSecondaryInstitution', 'http://ed-fi.org/ods/identity/claims/postSecondaryInstitution', educationOrganizationsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='postSecondaryInstitutionLevelDescriptor') THEN
@@ -1034,11 +734,6 @@ begin
     values ('proficiencyDescriptor', 'http://ed-fi.org/ods/identity/claims/proficiencyDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='program') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('program', 'http://ed-fi.org/ods/identity/claims/program', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programAssignmentDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('programAssignmentDescriptor', 'http://ed-fi.org/ods/identity/claims/programAssignmentDescriptor', systemDescriptorsResourceClaimId);
@@ -1047,26 +742,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programCharacteristicDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('programCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/programCharacteristicDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('programDimension', 'http://ed-fi.org/ods/identity/claims/programDimension', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('programEvaluation', 'http://ed-fi.org/ods/identity/claims/programEvaluation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluationElement') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('programEvaluationElement', 'http://ed-fi.org/ods/identity/claims/programEvaluationElement', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluationObjective') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('programEvaluationObjective', 'http://ed-fi.org/ods/identity/claims/programEvaluationObjective', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='programEvaluationPeriodDescriptor') THEN
@@ -1097,11 +772,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='progressLevelDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('progressLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/progressLevelDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='projectDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('projectDimension', 'http://ed-fi.org/ods/identity/claims/projectDimension', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='providerCategoryDescriptor') THEN
@@ -1164,11 +834,6 @@ begin
     values ('repeatIdentifierDescriptor', 'http://ed-fi.org/ods/identity/claims/repeatIdentifierDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='reportCard') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('reportCard', 'http://ed-fi.org/ods/identity/claims/reportCard', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='reporterDescriptionDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('reporterDescriptionDescriptor', 'http://ed-fi.org/ods/identity/claims/reporterDescriptionDescriptor', systemDescriptorsResourceClaimId);
@@ -1194,11 +859,6 @@ begin
     values ('responsibilityDescriptor', 'http://ed-fi.org/ods/identity/claims/responsibilityDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='restraintEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('restraintEvent', 'http://ed-fi.org/ods/identity/claims/restraintEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='restraintEventReasonDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('restraintEventReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/restraintEventReasonDescriptor', systemDescriptorsResourceClaimId);
@@ -1212,11 +872,6 @@ begin
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='retestIndicatorDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('retestIndicatorDescriptor', 'http://ed-fi.org/ods/identity/claims/retestIndicatorDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='school') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('school', 'http://ed-fi.org/ods/identity/claims/school', educationOrganizationsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='schoolCategoryDescriptor') THEN
@@ -1244,21 +899,6 @@ begin
     values ('schoolTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/schoolTypeDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='schoolYearType') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('schoolYearType', 'http://ed-fi.org/ods/identity/claims/schoolYearType', typesResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='section') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('section', 'http://ed-fi.org/ods/identity/claims/section', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sectionAttendanceTakenEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('sectionAttendanceTakenEvent', 'http://ed-fi.org/ods/identity/claims/sectionAttendanceTakenEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sectionCharacteristicDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('sectionCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/sectionCharacteristicDescriptor', systemDescriptorsResourceClaimId);
@@ -1284,19 +924,9 @@ begin
     values ('serviceDescriptor', 'http://ed-fi.org/ods/identity/claims/serviceDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='session') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('session', 'http://ed-fi.org/ods/identity/claims/session', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sexDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('sexDescriptor', 'http://ed-fi.org/ods/identity/claims/sexDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sourceDimension') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('sourceDimension', 'http://ed-fi.org/ods/identity/claims/sourceDimension', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='sourceSystemDescriptor') THEN
@@ -1319,44 +949,9 @@ begin
     values ('specialEducationSettingDescriptor', 'http://ed-fi.org/ods/identity/claims/specialEducationSettingDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staff') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staff', 'http://ed-fi.org/ods/identity/claims/staff', peopleResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffAbsenceEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffAbsenceEvent', 'http://ed-fi.org/ods/identity/claims/staffAbsenceEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffClassificationDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('staffClassificationDescriptor', 'http://ed-fi.org/ods/identity/claims/staffClassificationDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffCohortAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffCohortAssociation', 'http://ed-fi.org/ods/identity/claims/staffCohortAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffDisciplineIncidentAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffDisciplineIncidentAssociation', 'http://ed-fi.org/ods/identity/claims/staffDisciplineIncidentAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffEducationOrganizationAssignmentAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffEducationOrganizationAssignmentAssociation', 'http://ed-fi.org/ods/identity/claims/staffEducationOrganizationAssignmentAssociation', primaryRelationshipsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffEducationOrganizationContactAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffEducationOrganizationContactAssociation', 'http://ed-fi.org/ods/identity/claims/staffEducationOrganizationContactAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffEducationOrganizationEmploymentAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffEducationOrganizationEmploymentAssociation', 'http://ed-fi.org/ods/identity/claims/staffEducationOrganizationEmploymentAssociation', primaryRelationshipsResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffIdentificationSystemDescriptor') THEN
@@ -1364,29 +959,9 @@ begin
     values ('staffIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/staffIdentificationSystemDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffLeave') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffLeave', 'http://ed-fi.org/ods/identity/claims/staffLeave', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffLeaveEventCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('staffLeaveEventCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/staffLeaveEventCategoryDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffProgramAssociation', 'http://ed-fi.org/ods/identity/claims/staffProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffSchoolAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/staffSchoolAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='staffSectionAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('staffSectionAssociation', 'http://ed-fi.org/ods/identity/claims/staffSectionAssociation', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='stateAbbreviationDescriptor') THEN
@@ -1394,89 +969,9 @@ begin
     values ('stateAbbreviationDescriptor', 'http://ed-fi.org/ods/identity/claims/stateAbbreviationDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='stateEducationAgency') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('stateEducationAgency', 'http://ed-fi.org/ods/identity/claims/stateEducationAgency', educationOrganizationsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='student') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('student', 'http://ed-fi.org/ods/identity/claims/student', peopleResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentAcademicRecord') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentAcademicRecord', 'http://ed-fi.org/ods/identity/claims/studentAcademicRecord', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentAssessment') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/studentAssessment', assessmentMetadataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentAssessmentEducationOrganizationAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentAssessmentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentCharacteristicDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('studentCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/studentCharacteristicDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentCohortAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentCohortAssociation', 'http://ed-fi.org/ods/identity/claims/studentCohortAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentCompetencyObjective') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentCompetencyObjective', 'http://ed-fi.org/ods/identity/claims/studentCompetencyObjective', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentContactAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentContactAssociation', 'http://ed-fi.org/ods/identity/claims/studentContactAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentCTEProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentCTEProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentCTEProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentDisciplineIncidentBehaviorAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentDisciplineIncidentBehaviorAssociation', 'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentBehaviorAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentDisciplineIncidentNonOffenderAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentDisciplineIncidentNonOffenderAssociation', 'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentEducationOrganizationAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentEducationOrganizationResponsibilityAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentEducationOrganizationResponsibilityAssociation', 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentGradebookEntry') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentGradebookEntry', 'http://ed-fi.org/ods/identity/claims/studentGradebookEntry', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentHealth') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentHealth', 'http://ed-fi.org/ods/identity/claims/studentHealth', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentHomelessProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentHomelessProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentHomelessProgramAssociation', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentIdentificationSystemDescriptor') THEN
@@ -1484,94 +979,9 @@ begin
     values ('studentIdentificationSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/studentIdentificationSystemDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentInterventionAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentInterventionAssociation', 'http://ed-fi.org/ods/identity/claims/studentInterventionAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentInterventionAttendanceEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentInterventionAttendanceEvent', 'http://ed-fi.org/ods/identity/claims/studentInterventionAttendanceEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentLanguageInstructionProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentLanguageInstructionProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentLanguageInstructionProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentMigrantEducationProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentMigrantEducationProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentMigrantEducationProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentNeglectedOrDelinquentProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentNeglectedOrDelinquentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentNeglectedOrDelinquentProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentParticipationCodeDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('studentParticipationCodeDescriptor', 'http://ed-fi.org/ods/identity/claims/studentParticipationCodeDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentProgramAttendanceEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentProgramAttendanceEvent', 'http://ed-fi.org/ods/identity/claims/studentProgramAttendanceEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentProgramEvaluation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentProgramEvaluation', 'http://ed-fi.org/ods/identity/claims/studentProgramEvaluation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSchoolAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/studentSchoolAssociation', primaryRelationshipsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSchoolAttendanceEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSchoolAttendanceEvent', 'http://ed-fi.org/ods/identity/claims/studentSchoolAttendanceEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSchoolFoodServiceProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSchoolFoodServiceProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentSchoolFoodServiceProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSectionAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/studentSectionAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSectionAttendanceEvent') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSectionAttendanceEvent', 'http://ed-fi.org/ods/identity/claims/studentSectionAttendanceEvent', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSpecialEducationProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSpecialEducationProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentSpecialEducationProgramEligibilityAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentTitleIPartAProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentTitleIPartAProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentTitleIPartAProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='studentTransportation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/studentTransportation', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='submissionStatusDescriptor') THEN
@@ -1584,79 +994,14 @@ begin
     values ('supporterMilitaryConnectionDescriptor', 'http://ed-fi.org/ods/identity/claims/supporterMilitaryConnectionDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='survey') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('survey', 'http://ed-fi.org/ods/identity/claims/survey', surveyDomainResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('surveyCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/surveyCategoryDescriptor', systemDescriptorsResourceClaimId);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyCourseAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyCourseAssociation', 'http://ed-fi.org/ods/identity/claims/surveyCourseAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyLevelDescriptor') THEN
     insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
     values ('surveyLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/surveyLevelDescriptor', systemDescriptorsResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyProgramAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyProgramAssociation', 'http://ed-fi.org/ods/identity/claims/surveyProgramAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyQuestion') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyQuestion', 'http://ed-fi.org/ods/identity/claims/surveyQuestion', surveyDomainResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyQuestionResponse') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyQuestionResponse', 'http://ed-fi.org/ods/identity/claims/surveyQuestionResponse', surveyDomainResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyResponse') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyResponse', 'http://ed-fi.org/ods/identity/claims/surveyResponse', surveyDomainResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyResponseEducationOrganizationTargetAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyResponseEducationOrganizationTargetAssociation', 'http://ed-fi.org/ods/identity/claims/surveyResponseEducationOrganizationTargetAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveyResponseStaffTargetAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveyResponseStaffTargetAssociation', 'http://ed-fi.org/ods/identity/claims/surveyResponseStaffTargetAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveySection') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveySection', 'http://ed-fi.org/ods/identity/claims/surveySection', surveyDomainResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveySectionAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveySectionAssociation', 'http://ed-fi.org/ods/identity/claims/surveySectionAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveySectionResponse') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveySectionResponse', 'http://ed-fi.org/ods/identity/claims/surveySectionResponse', surveyDomainResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveySectionResponseEducationOrganizationTargetAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveySectionResponseEducationOrganizationTargetAssociation', 'http://ed-fi.org/ods/identity/claims/surveySectionResponseEducationOrganizationTargetAssociation', relationshipBasedDataResourceClaimId);
-    END IF;
-
-    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='surveySectionResponseStaffTargetAssociation') THEN
-    insert into dbo.ResourceClaims (ResourceName, ClaimName, ParentResourceClaimId)
-    values ('surveySectionResponseStaffTargetAssociation', 'http://ed-fi.org/ods/identity/claims/surveySectionResponseStaffTargetAssociation', relationshipBasedDataResourceClaimId);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='teachingCredentialBasisDescriptor') THEN
