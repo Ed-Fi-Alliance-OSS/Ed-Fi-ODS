@@ -355,11 +355,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => template.RawSql.NormalizeSql().ShouldBe(@$"
                     SELECT  StudentUSI, SchoolId, EntryDate 
                     FROM    edfi.StudentSchoolAssociation
-                    WHERE   StudentUSI IN {expectedInClause}".NormalizeSql()) //,
-                    // () => actualParameters.ShouldNotBeNull(),
-                    // () => actualParameters.ParameterNames.Count().ShouldBe(1),
-                    // () => actualParameters.ParameterNames.ShouldContain("p0"),
-                    // () => actualParameters.Get<int[]>("@p0").ShouldBe(new [] {12, 34, 56, 78})
+                    WHERE   StudentUSI IN {expectedInClause}".NormalizeSql())
+                    );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_where_with_empty_IN_values_using_1_equals_0_to_avoid_invalid_SQL(DatabaseEngine databaseEngine)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI", "SchoolId", "EntryDate")
+                    .WhereIn("StudentUSI", Array.Empty<int>());
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    SELECT  StudentUSI, SchoolId, EntryDate 
+                    FROM    edfi.StudentSchoolAssociation
+                    WHERE   1 = 0".NormalizeSql())
                     );
 
                 ExecuteQueryAndWriteResults(databaseEngine, template);
@@ -388,6 +411,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     SELECT  StudentUSI, SchoolId, EntryDate 
                     FROM    edfi.StudentSchoolAssociation
                     WHERE   (SchoolId = @p0 OR StudentUSI IN {expectedInClause})".NormalizeSql())
+                    );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_OR_where_with_IN(DatabaseEngine databaseEngine)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation")
+                    .Select("StudentUSI", "SchoolId", "EntryDate")
+                    .OrWhere("SchoolId", 1234)
+                    .OrWhereIn("StudentUSI", Array.Empty<int>());
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    SELECT  StudentUSI, SchoolId, EntryDate 
+                    FROM    edfi.StudentSchoolAssociation
+                    WHERE   (SchoolId = @p0 OR 1 = 0)".NormalizeSql())
                     );
 
                 ExecuteQueryAndWriteResults(databaseEngine, template);
