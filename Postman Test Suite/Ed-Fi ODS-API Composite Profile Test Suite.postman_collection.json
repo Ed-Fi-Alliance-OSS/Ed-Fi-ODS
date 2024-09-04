@@ -7308,7 +7308,6 @@
 					"      let newAccessToken = jsonResponse.access_token;",
 					"",
 					"      // console.log({ err, jsonResponse, newAccessToken })",
-					"      console.log(`${accessTokenName} = ${newAccessToken}`);",
 					"      pm.environment.set(accessTokenName, newAccessToken);",
 					"",
 					"      let expiryDate = new Date();",
