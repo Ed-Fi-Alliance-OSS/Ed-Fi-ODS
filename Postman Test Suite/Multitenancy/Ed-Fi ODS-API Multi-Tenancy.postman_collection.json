@@ -1739,7 +1739,7 @@
 					"  }",
 					"",
 					"  if (getToken === true) {",
-					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + `/${clientSuffix}` + '/oauth/token';",
 					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
 					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
 					"    let grantType = 'client_credentials';",
