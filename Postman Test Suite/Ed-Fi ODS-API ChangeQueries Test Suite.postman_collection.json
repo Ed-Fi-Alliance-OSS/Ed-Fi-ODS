@@ -4686,6 +4686,11 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// Add a correlation id to the query string of every request and save it to the environment as well",
+					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"pm.environment.set('correlationId', correlationId);",
+					"",
 					"CreateAccessToken(\"255901\")",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",

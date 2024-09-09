@@ -7224,6 +7224,7 @@
 					"// Add a correlation id to the query string of every request and save it to the environment as well",
 					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"pm.environment.set('correlationId', correlationId);",
 					"",
 					"InitializeSharedEnvironmentVariables();",
 					"",
