@@ -18,15 +18,14 @@ public class CustomAuthorizationViewHintProvider : IAuthorizationViewHintProvide
 {
     private readonly ICustomViewBasisEntityProvider _customViewBasisEntityProvider;
 
-    // NOTE: These words MUST be sorted alphabetically due to use of BinarySearch
-    private static readonly List<string> Prepositions =
-    [
+    private static readonly HashSet<string> _prepositions = new(StringComparer.OrdinalIgnoreCase)
+    {
         "a", "about", "above", "across", "after", "against", "along", "among", "an", "and", "around", "as", "at", "before",
         "behind", "below", "beneath", "beside", "between", "beyond", "by", "despite", "down", "during", "except", "for", "from",
         "in", "inside", "into", "like", "near", "of", "off", "on", "onto", "opposite", "or", "out", "outside", "over", "past",
         "round", "since", "than", "the", "through", "to", "towards", "under", "underneath", "unlike", "until", "up", "upon", 
         "via", "with", "within", "without"
-    ];
+    };
     
     public CustomAuthorizationViewHintProvider(ICustomViewBasisEntityProvider customViewBasisEntityProvider)
     {
@@ -58,11 +57,9 @@ public class CustomAuthorizationViewHintProvider : IAuthorizationViewHintProvide
         string SetCasing(string term)
         {
             // If it's a preposition
-            int termIndex = Prepositions.BinarySearch(term, StringComparer.OrdinalIgnoreCase);
-            
-            if (termIndex >= 0)
+            if (_prepositions.TryGetValue(term, out string exactCaseTerm))
             {
-                return Prepositions[termIndex];
+                return exactCaseTerm;
             }
 
             return term;
