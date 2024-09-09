@@ -2113,10 +2113,7 @@
 								"type": "text/javascript",
 								"packages": {},
 								"exec": [
-									"// Skip if Special Education Program Eligibility is not available (Standard v4.x and earlier)\r",
-									"if (!pm.environment.get('test-suite:available:specialEducationProgramEligibility')) {\r",
-									"  pm.execution.skipRequest();\r",
-									"}"
+									""
 								]
 							}
 						},
@@ -2313,9 +2310,12 @@
 											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 											"_.chain(_.keys(pm.environment.toObject()))\r",
 											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();"
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											"\r",
+											"pm.execution.skipRequest();"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -2335,6 +2335,31 @@
 							"response": []
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Skip if Special Education Program Eligibility is not available (Standard v4.x and earlier)\r",
+							"if (!pm.environment.get('test-suite:available:specialEducationProgramEligibility')) {\r",
+							"  pm.execution.skipRequest();\r",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
