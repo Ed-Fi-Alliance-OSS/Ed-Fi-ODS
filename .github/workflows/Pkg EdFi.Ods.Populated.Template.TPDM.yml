@@ -143,7 +143,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}') 
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy  -NoRestore  -ExtensionVersion ${{ matrix.ExtensionVersion }} -MssqlSaPassword ${{ env.DB_PASS }}
+        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy  -NoRestore  -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -MssqlSaPassword ${{ env.DB_PASS }}
       shell: pwsh
     - name: Create Database Template (no extensions)
       working-directory: ./
@@ -164,7 +164,7 @@ jobs:
       shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
