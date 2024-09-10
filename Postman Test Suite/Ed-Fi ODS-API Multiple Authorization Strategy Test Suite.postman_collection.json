@@ -419,7 +419,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901}}",
+											"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 											"type": "string"
 										}
 									]
@@ -2075,12 +2075,13 @@
 													"const studentThroughOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughOwnedSectionAssociationId });\r",
 													"\r",
 													"pm.test(`Should include the registered student (through owned section association).`, () => {\r",
+													"  // Ownership-based authorization allows\r",
 													"  pm.expect(studentThroughOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
 													"});\r",
 													"\r",
-													"pm.test(`Should include the registered student (through unowned section association, but only until ownership-based security is supported).`, () => {\r",
-													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
-													"  pm.expect(studentThroughUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"pm.test(`Should NOT include the registered student (through unowned section association).`, () => {\r",
+													"  // Ownership-based authorization disallows\r",
+													"  pm.expect(studentThroughUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
 													"// -----------------------------\r",
@@ -2173,12 +2174,12 @@
 													"\r",
 													"const studentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughLeaUnownedSectionAssociationId });\r",
 													"\r",
-													"pm.test(`Should include the registered student (through LEA-unowned section association, but only until ownership-based security is supported).`, () => {\r",
-													"  pm.expect(studentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"pm.test(`Should NOT include the registered student (through LEA-unowned section association).`, () => {\r",
+													"  // Ownership-based authorization disallows\r",
+													"  pm.expect(studentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
-													"pm.test(`Should include the registered student (through LEA-owned section association, ).`, () => {\r",
-													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
+													"pm.test(`Should include the registered student (through LEA-owned section association).`, () => {\r",
 													"  pm.expect(studentThroughLeaOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
 													"});\r",
 													"\r",
@@ -2194,9 +2195,9 @@
 													"\r",
 													"const responsibilityStudentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughLeaUnownedSectionAssociationId });\r",
 													"\r",
-													"pm.test(`Should include the responsibility student (through LEA-unowned section association, but only until ownership-based security is implemented).`, () => {\r",
-													"  // After ownership-based security support --> pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
-													"  pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('BBBBBB');\r",
+													"pm.test(`Should NOT include the responsibility student (through LEA-unowned section association).`, () => {\r",
+													"  // Ownership-based security disallows\r",
+													"  pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
 													"pm.test(`Should include the responsibility student (through the LEA-owned section association, because the student is associated through responsibility association).`, () => {\r",
@@ -4192,6 +4193,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
@@ -4218,6 +4229,16 @@
 					"event": [
 						{
 							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
 							"script": {
 								"exec": [
 									"// Remove all environment variables related to Access Tokens\r",
