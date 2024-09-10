@@ -99,6 +99,19 @@ namespace EdFi.Ods.Features.Composites
                 authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(
                     authorizationContext,
                     authorizationBasisMetadata);
+                
+                // Make sure that all applied filtering has HQL support 
+                if (!authorizationFiltering.All(
+                        filtering => filtering.Filters.All(
+                            f => (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
+                                f.FilterName,
+                                out var filterApplicationDetails)
+                            && filterApplicationDetails.HqlConditionFormatString != null))))
+                {
+                    throw new SecurityConfigurationException(
+                        SecurityConfigurationException.DefaultDetail,
+                        $"The request cannot be authorized because an authorization strategy has been used for the '{resource.FullName}' resource that does not support Composites requests. Should a different authorization strategy be used?");
+                }
             }
             catch (SecurityAuthorizationException ex)
             {
@@ -459,6 +472,15 @@ namespace EdFi.Ods.Features.Composites
                                     filterContext.ClaimParameterValues;
                             }
                         }
+                    }
+                    else
+                    {
+                        // NOTE: The HqlBuilderAuthorizationDecorator's TryIncludeResource method should prevent this code from
+                        // ever executing, but for defensive purposes, we'll still catch and throw an exception here to prevent
+                        // request processing.
+                        throw new SecurityConfigurationException(
+                            SecurityConfigurationException.DefaultDetail,
+                            $"The '{filterContext.FilterName}' filter has been applied as part of an authorization strategy that does not support Composites requests. Should a different authorization strategy be used?");
                     }
 
                     filtersApplied = true;
