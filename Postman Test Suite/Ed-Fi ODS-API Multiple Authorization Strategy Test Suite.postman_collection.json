@@ -344,7 +344,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901001}}",
+											"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 											"type": "string"
 										}
 									]
@@ -419,7 +419,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901}}",
+											"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 											"type": "string"
 										}
 									]
@@ -687,7 +687,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901001}}",
+											"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 											"type": "string"
 										}
 									]
@@ -753,7 +753,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901}}",
+											"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 											"type": "string"
 										}
 									]
@@ -908,7 +908,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken_255901_Other_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -974,7 +974,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1064,7 +1064,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken_255901_Other_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1147,7 +1147,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken_255901_Other_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1229,7 +1229,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken_255901_Other_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1312,7 +1312,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken_255901_Other_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1403,7 +1403,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1486,7 +1486,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1568,7 +1568,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1652,7 +1652,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1729,7 +1729,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1794,7 +1794,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1858,7 +1858,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -1923,7 +1923,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2015,7 +2015,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2032,65 +2032,6 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												""
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get StudentSectionAttendanceEvents",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"var items = pm.response.json();",
-													"",
-													"pm.test(\"Items were returned\", () => {",
-													"  pm.expect(items.length).is.greaterThan(0);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken_255901001}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"studentSectionAttendanceEvents",
 												""
 											]
 										}
@@ -2134,12 +2075,13 @@
 													"const studentThroughOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughOwnedSectionAssociationId });\r",
 													"\r",
 													"pm.test(`Should include the registered student (through owned section association).`, () => {\r",
+													"  // Ownership-based authorization allows\r",
 													"  pm.expect(studentThroughOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
 													"});\r",
 													"\r",
-													"pm.test(`Should include the registered student (through unowned section association, but only until ownership-based security is supported).`, () => {\r",
-													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
-													"  pm.expect(studentThroughUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"pm.test(`Should NOT include the registered student (through unowned section association).`, () => {\r",
+													"  // Ownership-based authorization disallows\r",
+													"  pm.expect(studentThroughUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
 													"// -----------------------------\r",
@@ -2173,7 +2115,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2232,12 +2174,12 @@
 													"\r",
 													"const studentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughLeaUnownedSectionAssociationId });\r",
 													"\r",
-													"pm.test(`Should include the registered student (through LEA-unowned section association, but only until ownership-based security is supported).`, () => {\r",
-													"  pm.expect(studentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"pm.test(`Should NOT include the registered student (through LEA-unowned section association).`, () => {\r",
+													"  // Ownership-based authorization disallows\r",
+													"  pm.expect(studentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
-													"pm.test(`Should include the registered student (through LEA-owned section association, ).`, () => {\r",
-													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
+													"pm.test(`Should include the registered student (through LEA-owned section association).`, () => {\r",
 													"  pm.expect(studentThroughLeaOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
 													"});\r",
 													"\r",
@@ -2253,9 +2195,9 @@
 													"\r",
 													"const responsibilityStudentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughLeaUnownedSectionAssociationId });\r",
 													"\r",
-													"pm.test(`Should include the responsibility student (through LEA-unowned section association, but only until ownership-based security is implemented).`, () => {\r",
-													"  // After ownership-based security support --> pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
-													"  pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('BBBBBB');\r",
+													"pm.test(`Should NOT include the responsibility student (through LEA-unowned section association).`, () => {\r",
+													"  // Ownership-based security disallows\r",
+													"  pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
 													"});\r",
 													"\r",
 													"pm.test(`Should include the responsibility student (through the LEA-owned section association, because the student is associated through responsibility association).`, () => {\r",
@@ -2273,7 +2215,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901}}",
+													"value": "{{AccessToken_255901_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2347,7 +2289,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2424,7 +2366,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2500,7 +2442,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2577,7 +2519,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2663,7 +2605,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2740,7 +2682,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2817,7 +2759,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2894,7 +2836,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -2987,7 +2929,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3072,7 +3014,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3156,7 +3098,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3241,7 +3183,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3330,7 +3272,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3396,7 +3338,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3461,7 +3403,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3536,7 +3478,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901001}}",
+													"value": "{{AccessToken_255901001_EdFi_Ns_MultAuth}}",
 													"type": "string"
 												}
 											]
@@ -3840,7 +3782,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{AccessToken_255901001}}",
+									"value": "{{AccessToken_255901}}",
 									"type": "string"
 								}
 							]
@@ -4251,6 +4193,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
@@ -4261,6 +4213,47 @@
 						}
 					],
 					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clean up Access Tokens",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Remove all environment variables related to Access Tokens\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
+									"  .each(k => pm.environment.unset(k)).value();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -4295,42 +4288,40 @@
 					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
 					"",
-					"CreateAccessToken(\"TokenExpiry_255901\",",
-					"  \"AccessToken_255901\",",
-					"  \"ApiKey_255901\",",
-					"  \"ApiSecret_255901\")",
+					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"255901001\");",
 					"",
-					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",",
-					"  \"AccessToken_Other_Namespace\",",
-					"  \"ApiKey_Other_Namespace\",",
-					"  \"ApiSecret_Other_Namespace\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_255901001\",",
-					"  \"AccessToken_255901001\",",
-					"  \"ApiKey_255901001\",",
-					"  \"ApiSecret_255901001\")",
+					"CreateAccessToken(\"255901_Other_Ns_MultAuth\");",
+					"CreateAccessToken(\"255901_EdFi_Ns_MultAuth\");",
+					"CreateAccessToken(\"255901001_EdFi_Ns_MultAuth\");",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"function CreateAccessToken(TokenExpiry, AccessToken, ApiKey, ApiSecret) {",
-					"  let tokenExpiration = pm.environment.get(TokenExpiry);",
-					"  let currentToken = pm.environment.get(AccessToken);",
+					"function CreateAccessToken(clientSuffix) {",
+					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
+					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
+					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
+					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
+					"",
+					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
+					"  let currentToken = pm.environment.get(accessTokenName);",
 					"  let getToken = true;",
-					"  if (!tokenExpiration ||",
-					"    !currentToken) {",
+					"  ",
+					"  if (!tokenExpiration || !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
 					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
 					"  } else {",
 					"    getToken = false;",
 					"  }",
+					"",
 					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get(ApiKey);",
-					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
 					"    let grantType = 'client_credentials';",
 					"",
 					"    let getTokenRequest = {",
@@ -4353,16 +4344,15 @@
 					"    };",
 					"",
 					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"      let jsonResponse = response.json(),",
-					"        newAccessToken = jsonResponse.access_token;",
+					"      let jsonResponse = response.json();",
+					"      let newAccessToken = jsonResponse.access_token;",
 					"",
-					"      console.log({ err, jsonResponse, newAccessToken })",
-					"",
-					"      pm.environment.set(AccessToken, newAccessToken);",
+					"      // console.log({ err, jsonResponse, newAccessToken })",
+					"      pm.environment.set(accessTokenName, newAccessToken);",
 					"",
 					"      let expiryDate = new Date();",
 					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"      pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
 					"    });",
 					"  }",
 					"}",

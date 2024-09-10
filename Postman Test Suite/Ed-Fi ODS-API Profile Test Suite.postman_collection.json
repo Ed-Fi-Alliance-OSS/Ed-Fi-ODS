@@ -14040,12 +14040,23 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"// Remove all environment variables related to Access Tokens\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
 									"  .each(k => pm.environment.unset(k)).value();"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -14811,8 +14822,8 @@
 					"",
 					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get(apiKeyName);",
-					"    let clientSecret = pm.environment.get(apiSecretName);",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
 					"    let grantType = 'client_credentials';",
 					"",
 					"    let getTokenRequest = {",
@@ -14839,7 +14850,6 @@
 					"      let newAccessToken = jsonResponse.access_token;",
 					"",
 					"      // console.log({ err, jsonResponse, newAccessToken })",
-					"      console.log(`${accessTokenName} = ${newAccessToken}`);",
 					"      pm.environment.set(accessTokenName, newAccessToken);",
 					"",
 					"      let expiryDate = new Date();",

@@ -88,9 +88,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,
-                $@"{{currentAlias}}.{{subjectEndpointName}} IN (
-                    SELECT {{newAlias1}}.{viewTargetEndpointNames[0]} // TODO: Fix HQL 
-                    FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} )",
+                null, // HQL condition (not supported by view-based authorization)
                 (criteria, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) 
                     => criteria.ApplyCustomViewJoinFilter(
                         viewName,
