@@ -7178,12 +7178,23 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"// Remove all environment variables related to Access Tokens\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
 									"  .each(k => pm.environment.unset(k)).value();"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
