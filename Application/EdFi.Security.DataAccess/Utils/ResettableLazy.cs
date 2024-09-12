@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace EdFi.Security.DataAccess.Utils
 {
@@ -13,12 +14,12 @@ namespace EdFi.Security.DataAccess.Utils
         public ResettableLazy(Func<T> valueFactory)
         {
             _valueFactory = valueFactory;
-            _lazy = new Lazy<T>(_valueFactory);
+            _lazy = new Lazy<T>(_valueFactory, LazyThreadSafetyMode.PublicationOnly);
         }
 
         public void Reset()
         {
-            _lazy = new Lazy<T>(_valueFactory);
+            _lazy = new Lazy<T>(_valueFactory, LazyThreadSafetyMode.PublicationOnly);
         }
     }
 }
