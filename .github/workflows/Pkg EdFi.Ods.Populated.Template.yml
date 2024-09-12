@@ -147,7 +147,7 @@ jobs:
       shell: pwsh
     - name: Set permissions for database backup file
       working-directory: ./
-      run: sudo chmod -R 777 $GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/
+      run: sudo chmod -R 777 Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/
       shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS/
