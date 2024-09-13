@@ -17,7 +17,11 @@ namespace EdFi.Security.DataAccess.Repositories;
 [Intercept("cache-security")]
 public interface ISecurityRepository
 {
+    IList<Action> GetActions();
+
     Action GetActionByName(string actionName);
+
+    Action GetActionByUri(string uri);
 
     AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName);
 

@@ -23,9 +23,19 @@ namespace EdFi.Security.DataAccess.Repositories
             _securityTableGateway = securityTableGateway ?? throw new ArgumentNullException(nameof(securityTableGateway));
         }
 
+        public virtual IList<Action> GetActions()
+        {
+            return _securityTableGateway.GetActions();
+        }
+
         public virtual Action GetActionByName(string actionName)
         {
             return _securityTableGateway.GetActions().First(a => a.ActionName.Equals(actionName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public virtual Action GetActionByUri(string uri)
+        {
+            return _securityTableGateway.GetActions().First(a => a.ActionUri.Equals(uri, StringComparison.OrdinalIgnoreCase));
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
