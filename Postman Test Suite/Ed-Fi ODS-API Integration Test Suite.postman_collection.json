@@ -948,6 +948,125 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Token Introspection Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return the Claim Set's name\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    pm.expect(responseItem?.claim_set?.name).to.equal(\"Token Introspection Test\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should have access to the expected number of resources\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    const standardMajorVersion = pm.variables.get(\"test-suite:known:standardVersion:major\");\r",
+									"    pm.expect(responseItem?.resources.length).to.equal(standardMajorVersion <= 4 ? 5 : 4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should have access to the expected number of services\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    pm.expect(responseItem?.services.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should have access to resources down the hierarchy chain\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    const standardMajorVersion = pm.variables.get(\"test-suite:known:standardVersion:major\");\r",
+									"\r",
+									"    const credential = responseItem.resources.find(s => s.resource === \"/ed-fi/credentials\");\r",
+									"    pm.expect(credential).to.not.be.undefined;\r",
+									"    pm.expect(credential.operations.join()).to.equal(\"Create,Read\");\r",
+									"\r",
+									"    if (standardMajorVersion <= 4) {\r",
+									"        const learningObjective = responseItem.resources.find(s => s.resource === \"/ed-fi/learningObjectives\");\r",
+									"        pm.expect(learningObjective).to.not.be.undefined;\r",
+									"        pm.expect(learningObjective.operations.join()).to.equal(\"Create,Read\");\r",
+									"    }\r",
+									"\r",
+									"    const learningStandard = responseItem.resources.find(s => s.resource === \"/ed-fi/learningStandards\");\r",
+									"    pm.expect(learningStandard).to.not.be.undefined;\r",
+									"    pm.expect(learningStandard.operations.join()).to.equal(\"Create,Read\");\r",
+									"\r",
+									"    const learningStandardEquivalenceAssociation = responseItem.resources.find(s => s.resource === \"/ed-fi/learningStandardEquivalenceAssociations\");\r",
+									"    pm.expect(learningStandardEquivalenceAssociation).to.not.be.undefined;\r",
+									"    pm.expect(learningStandardEquivalenceAssociation.operations.join()).to.equal(\"Create,Read\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should have access to a directly assigned resource\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    const stateAbbreviationDescriptor = responseItem.resources.find(s => s.resource === \"/ed-fi/stateAbbreviationDescriptors\");\r",
+									"\r",
+									"    pm.expect(stateAbbreviationDescriptor).to.not.be.undefined;\r",
+									"    pm.expect(stateAbbreviationDescriptor.operations.join()).to.equal(\"Update,Delete\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should have access to the identity service\", () => {\r",
+									"    const responseItem = pm.response.json();\r",
+									"    const identity = responseItem.services.find(s => s.service === \"identity\");\r",
+									"\r",
+									"    pm.expect(identity).to.not.be.undefined;\r",
+									"    pm.expect(identity.operations.join()).to.equal(\"ReadChanges\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_TokenIntrospection_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Token\": \"{{AccessToken_TokenIntrospection_255901}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/oauth/token_info",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token_info"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -13558,6 +13677,7 @@
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
 					"",
 					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"TokenIntrospection_255901\");",
 					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\") ?? pm.environment.get(\"test-suite:known:parentOrContactProperName\");",
