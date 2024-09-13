@@ -31,8 +31,17 @@ namespace EdFi.Ods.Features.TokenInfo
         [JsonProperty("assigned_profiles")]
         public IReadOnlyList<string> AssignedProfiles { get; private set; }
 
+        [JsonProperty("claim_set")]
+        public TokenInfoClaimSet TokenInfoClaimSet { get; private set; }
+
+        public IReadOnlyList<TokenInfoResource> Resources { get; private set; }
+
+        public IReadOnlyList<TokenInfoService> Services { get; private set; }
+
         public static TokenInfo Create(ApiClientContext apiClientContext,
-            IList<TokenInfoEducationOrganizationData> tokenInfoData)
+            IList<TokenInfoEducationOrganizationData> tokenInfoData,
+            IReadOnlyList<TokenInfoResource> resources,
+            IReadOnlyList<TokenInfoService> services)
         {
             var dataGroupedByEdOrgId = tokenInfoData
                 .GroupBy(
@@ -74,7 +83,10 @@ namespace EdFi.Ods.Features.TokenInfo
                 NamespacePrefixes = apiClientContext.NamespacePrefixes.ToArray(),
                 AssignedProfiles = apiClientContext.Profiles.ToArray(),
                 StudentIdentificationSystem = apiClientContext.StudentIdentificationSystemDescriptor,
-                EducationOrganizations = tokenInfoEducationOrganizations.ToArray()
+                EducationOrganizations = tokenInfoEducationOrganizations.ToArray(),
+                TokenInfoClaimSet = new TokenInfoClaimSet { Name = apiClientContext.ClaimSetName },
+                Resources = resources,
+                Services = services
             };
         }
     }

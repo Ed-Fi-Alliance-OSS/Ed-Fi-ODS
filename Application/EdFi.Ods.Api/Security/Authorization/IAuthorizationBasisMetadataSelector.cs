@@ -21,6 +21,14 @@ public interface IAuthorizationBasisMetadataSelector
         string claimSetName,
         IList<string> requestResourceClaimUris,
         string requestAction);
+
+    /// <summary>
+    /// Returns whether the given claim set name is authorized to the resource and action combination. 
+    /// </summary>
+    ClaimCheckResponse PerformClaimCheck(
+        string claimSetName,
+        IList<string> resourceClaimUris,
+        string requestAction);
 }
 
 public class AuthorizationBasisMetadata
@@ -43,4 +51,23 @@ public class AuthorizationBasisMetadata
     public EdFiResourceClaim RelevantClaim { get; }
 
     public string ValidationRuleSetName { get; }
+}
+
+public class ClaimCheckResponse
+{
+    public bool Success { get; set; }
+
+    public IList<EdFiResourceClaim> RelevantClaims { get; set; }
+
+    public string RequestedAction { get; set; }
+
+    public IList<string> RequestedResourceUris { get; set; }
+
+    public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
+
+    public string SecurityExceptionDetail { get; set; }
+
+    public string SecurityExceptionMessage { get; set; }
+
+    public IEnumerable<string> SecurityExceptionInstanceTypeParts { get; set; }
 }
