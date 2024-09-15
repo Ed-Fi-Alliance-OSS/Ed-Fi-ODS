@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Startup;
 
 namespace EdFi.Ods.Features.OpenApiMetadata
 {
-    public class InitializeOpenApiMetadataCache : IExternalTask
+    public class InitializeOpenApiMetadataCache : IStartupCommand
     {
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
 

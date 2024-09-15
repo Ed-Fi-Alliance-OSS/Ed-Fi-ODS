@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<InitializeOpenApiMetadataCache>()
-                .As<IExternalTask>()
+                .As<IStartupCommand>()
                 .SingleInstance();
 
             builder.RegisterType<AllOpenApiMetadataRouteInformation>()

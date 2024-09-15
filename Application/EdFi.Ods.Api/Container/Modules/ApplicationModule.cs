@@ -17,7 +17,6 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Filters;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -27,6 +26,7 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Api.Serialization;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -377,7 +377,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<InitializeScheduledJobs>()
-                .As<IExternalTask>();
+                .As<IStartupCommand>();
 
             // Register components for string encryption/decryption 
             builder.RegisterType<Aes256SymmetricStringEncryptionProvider>()

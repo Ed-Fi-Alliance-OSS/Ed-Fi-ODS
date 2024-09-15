@@ -36,8 +36,6 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using Polly;
-using Polly.Retry;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -162,6 +160,20 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(problemDetails);
             }
 
+            var queryParameters = new QueryParameters(urlQueryParametersRequest);
+
+            if (queryParameters.Offset is not (null or 0) && queryParameters.MinAggregateId != null)
+            {
+                var problemDetails = new BadRequestParameterException(
+                    "The offset parameter was incorrect.",
+                    new[] { $"Offset must be omitted when a page token is provided." })
+                {
+                    CorrelationId = _logContextAccessor.GetCorrelationId()
+                }.AsSerializableModel();
+
+                return BadRequest(problemDetails);
+            }
+
             var internalRequestAsResource = new TResourceModel();
             var internalRequest = internalRequestAsResource as TEntityInterface;
 
@@ -169,8 +181,6 @@ namespace EdFi.Ods.Api.Controllers
             {
                 MapAll(request, internalRequest);
             }
-
-            var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
             // Execute the pipeline (synchronously)
             var result = await GetManyPipeline.Value
@@ -189,6 +199,11 @@ namespace EdFi.Ods.Api.Controllers
             if (queryParameters.TotalCount)
             {
                 Response.Headers.Append(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
+            }
+
+            if (queryParameters.MinAggregateId != null && result.Resources.Count > 0)
+            {
+                Response.Headers.Append(HeaderConstants.NextPageToken, result.ResultMetadata.NextPageToken);
             }
 
             Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());

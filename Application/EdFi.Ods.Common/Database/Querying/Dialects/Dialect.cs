@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return "COUNT(1)";
         }
 
-        public abstract string GetLimitOffsetString(int? limit, int? offset);
+        public abstract string GetLimitOffsetString(string limitParameter, string offsetParameter);
 
         public abstract (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values);
 

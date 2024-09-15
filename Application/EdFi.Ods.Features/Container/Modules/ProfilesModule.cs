@@ -8,7 +8,6 @@ using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
@@ -79,8 +78,8 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<IAdminProfileNamesPublisher>()
                 .SingleInstance();
 
-            builder.RegisterType<AdminProfileNamesPublisherTask>()
-                .As<IExternalTask>()
+            builder.RegisterType<PublishAdminProfileNamesStartupCommand>()
+                .As<IStartupCommand>()
                 .SingleInstance();
 
             builder.RegisterType<ApiJobScheduler>()

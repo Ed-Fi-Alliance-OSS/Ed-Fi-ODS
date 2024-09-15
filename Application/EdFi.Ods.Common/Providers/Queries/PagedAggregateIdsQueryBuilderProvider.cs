@@ -10,7 +10,6 @@ using System.Data;
 using System.Linq;
 using Dapper;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Descriptors;
@@ -19,6 +18,7 @@ using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
 
@@ -27,77 +27,80 @@ namespace EdFi.Ods.Common.Providers.Criteria
     /// <summary>
     /// Builds a query that retrieves the Ids for the next page of data.
     /// </summary>
-    /// <typeparam name="TEntity">The type of entity for which to build the query.</typeparam>
-    public class PagedAggregateIdsCriteriaProvider<TEntity> : NHibernateRepositoryOperationBase, IPagedAggregateIdsCriteriaProvider<TEntity>
-        where TEntity : class
+    public class PagedAggregateIdsQueryBuilderProvider : NHibernateRepositoryOperationBase, IAggregateRootQueryBuilderProvider
     {
+        public const string RegistrationKey = "PagedAggregateIds";
+
         private readonly IDescriptorResolver _descriptorResolver;
         private readonly IPersonEntitySpecification _personEntitySpecification;
-        private readonly IDomainModelProvider _domainModelProvider;
         private readonly Dialect _dialect;
         private readonly DatabaseEngine _databaseEngine;
         private readonly IPersonTypesProvider _personTypesProvider;
 
-        public PagedAggregateIdsCriteriaProvider(
+        public PagedAggregateIdsQueryBuilderProvider(
             ISessionFactory sessionFactory, 
             IDescriptorResolver descriptorResolver, 
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IPersonEntitySpecification personEntitySpecification,
             IPersonTypesProvider personTypesProvider,
-            IDomainModelProvider domainModelProvider,
             Dialect dialect,
             DatabaseEngine databaseEngine)
             : base(sessionFactory)
         {
             _descriptorResolver = descriptorResolver;
             _personEntitySpecification = personEntitySpecification;
-            _domainModelProvider = domainModelProvider;
             _dialect = dialect;
             _databaseEngine = databaseEngine;
             _personTypesProvider = personTypesProvider;
-
-            _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
-
-        private readonly int _defaultPageLimitSize;
 
         /// <summary>
         /// Get a <see cref="QueryBuilder"/> containing the query that retrieves the Ids for the next page of data.
         /// </summary>
+        /// <param name="aggregateRootEntity"></param>
         /// <param name="specification">An instance of the entity containing parameters to be added to the query.</param>
         /// <param name="queryParameters">The query parameters to be applied to the filtering.</param>
         /// <returns>The <see cref="QueryBuilder"/> instance representing the query.</returns>
-        public QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters)
+        public QueryBuilder GetQueryBuilder(
+            Entity aggregateRootEntity,
+            AggregateRootWithCompositeKey specification,
+            IQueryParameters queryParameters)
         {
+            // -----------------------------------------------------------------------------
+            // BEGIN potentially shared code
+            // -----------------------------------------------------------------------------
             var idQueryBuilder = new QueryBuilder(_dialect);
 
-            var entityFullName = specification.GetApiModelFullName();
-            
-            if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var entity))
-            {
-                throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
-            }
+            // var entityFullName = specification.GetApiModelFullName();
+            //
+            // if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var entity))
+            // {
+            //     throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
+            // }
+
+            string rootTableAlias = aggregateRootEntity.IsDerived ? "b" : "r";
 
             // Get the fully qualified physical table name
-            var schemaTableName = $"{entity.Schema}.{entity.TableName(_databaseEngine)}";
+            var schemaTableName = $"{aggregateRootEntity.Schema}.{aggregateRootEntity.TableName(_databaseEngine)}";
 
-            string[] selectColumns = GetColumnProjectionsForDistinctWithOrderBy(entity).ToArray();
+            // -----------------------------------------------------------------------------
+            // END potentially shared code
+            // -----------------------------------------------------------------------------
+            
+            // POTENTIAL Template method -- Build
+            string[] selectColumns = GetColumnProjectionsForDistinctWithOrderBy().ToArray();
 
-            idQueryBuilder.From(schemaTableName.Alias("r"))
-                .Distinct()
-                .Select(selectColumns)
-                .LimitOffset(queryParameters.Limit ?? _defaultPageLimitSize, queryParameters.Offset ?? 0);
+            idQueryBuilder.From(schemaTableName.Alias("r")).Select(selectColumns);
 
-            // TODO: ODS-6444 - In order for query caching to work, limit/offset must be parameterized in query (not embedded as literal values)
+            // TODO: ODS-6444 - Derived entity may not be needed unless there is criteria to be applied that uses the derived type. This would eliminate a join with every page. Will need to include Discriminator value in join in lieu of join to base.
 
-            // Add the join to the base type
-            if (entity.IsDerived)
+            // Add the join to the base type (TODO: Determine if needed, with caching considerations)
+            if (aggregateRootEntity.IsDerived)
             {
                 idQueryBuilder.Join(
-                    $"{entity.BaseEntity.Schema}.{entity.BaseEntity.TableName(_databaseEngine)} AS b",
+                    $"{aggregateRootEntity.BaseEntity.Schema}.{aggregateRootEntity.BaseEntity.TableName(_databaseEngine)} AS b",
                     j =>
                     {
-                        foreach (var propertyMapping in entity.BaseAssociation.PropertyMappings)
+                        foreach (var propertyMapping in aggregateRootEntity.BaseAssociation.PropertyMappings)
                         {
                             j.On(
                                 $"r.{propertyMapping.ThisProperty.ColumnNameByDatabaseEngine[_databaseEngine]}",
@@ -108,56 +111,32 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     });
             }
 
-            AddDefaultOrdering(idQueryBuilder, entity);
+            // -----------------------------------------------------------------------------
+            // END ALL potentially shared code
+            // -----------------------------------------------------------------------------
+
+            // Order the results
+            idQueryBuilder.OrderBy($"{rootTableAlias}.AggregateId");
+            
+            // END of Cacheable portion of query
 
             // TODO: ODS-6444 - Consider cloning the querybuilder at this point and introducing a seam for applying the additional parameters so that authorization strategies can also be incorporated and cloned
 
             // Add specification-based criteria
-            ProcessSpecification(idQueryBuilder, specification, entity);
+            ProcessSpecification(idQueryBuilder, specification, aggregateRootEntity);
 
             // Add special query fields
             ProcessQueryParameters(idQueryBuilder, queryParameters);
 
             return idQueryBuilder;
-            
-            IEnumerable<string> GetColumnProjectionsForDistinctWithOrderBy(Entity entity)
+
+            IEnumerable<string> GetColumnProjectionsForDistinctWithOrderBy()
             {
                 // Add the resource identifier (this is the value we need for the secondary "page" query)
-                yield return "Id";
-            
-                // Add the order by (primary key) columns (required when using DISTINCT with ORDER BY)
-                foreach (var identifierProperty in (entity.BaseEntity ?? entity).Identifier.Properties)
-                {
-                    string identifierColumnName = identifierProperty.ColumnName(_databaseEngine, identifierProperty.PropertyName);
-                    
-                    if (entity.IsDerived)
-                    {
-                        yield return $"b.{identifierColumnName}";
-                    }
-                    else
-                    {
-                        yield return $"r.{identifierColumnName}";
-                    }
-                }
+                yield return $"{rootTableAlias}.Id";
+                yield return $"{rootTableAlias}.AggregateId";
             }
 
-            void AddDefaultOrdering(QueryBuilder queryBuilder, Entity entity)
-            {
-                foreach (var identifierProperty in (entity.BaseEntity ?? entity).Identifier.Properties)
-                {
-                    string identifierColumnName = identifierProperty.ColumnName(_databaseEngine, identifierProperty.PropertyName);
-
-                    if (entity.IsDerived)
-                    {
-                        queryBuilder.OrderBy($"b.{identifierColumnName}");
-                    }
-                    else
-                    {
-                        queryBuilder.OrderBy($"r.{identifierColumnName}");
-                    }
-                }
-            }
-            
             static void ProcessQueryParameters(QueryBuilder queryBuilder, IQueryParameters parameters)
             {
                 foreach (IQueryCriteriaBase criteria in parameters.QueryCriteria)
@@ -196,7 +175,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
             }
         }
 
-        private void ProcessSpecification(QueryBuilder queryBuilder, TEntity specification, Entity entity)
+        private void ProcessSpecification(QueryBuilder queryBuilder, AggregateRootWithCompositeKey specification, Entity entity)
         {
             if (specification != null)
             {
@@ -270,7 +249,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
                 }
             }
 
-            bool ShouldIncludeInQueryCriteria(PropertyDescriptor property, object value, TEntity entity)
+            bool ShouldIncludeInQueryCriteria(PropertyDescriptor property, object value, AggregateRootWithCompositeKey entity)
             {
                 // Null values and underscore-prefixed properties are ignored for specification purposes
                 if (value == null || property.Name.StartsWith("_") || "|Url|".Contains((string)property.Name))
@@ -303,7 +282,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
 
                 return result;
             
-                object GetPropertyValue(TEntity entity, string propertyName)
+                object GetPropertyValue(AggregateRootWithCompositeKey entity, string propertyName)
                 {
                     var properties = entity.ToDictionary();
 

@@ -14,11 +14,11 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {

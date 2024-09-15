@@ -17,7 +17,6 @@ using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.Jobs.Extensions;
@@ -392,14 +391,14 @@ namespace EdFi.Ods.Api.Startup
 
             SetStaticResolvers();
 
-            RunExternalTasks();
+            RunStartupCommands();
 
-            void RunExternalTasks()
+            void RunStartupCommands()
             {
-                foreach (IExternalTask externalTask in Container.Resolve<IEnumerable<IExternalTask>>())
+                foreach (IStartupCommand startupCommand in Container.Resolve<IEnumerable<IStartupCommand>>())
                 {
-                    _logger.Debug($"Running external task {externalTask.GetType().Name}");
-                    externalTask.Execute();
+                    _logger.Debug($"Running startup command '{startupCommand.GetType().Name}'...");
+                    startupCommand.Execute();
                 }
             }
 

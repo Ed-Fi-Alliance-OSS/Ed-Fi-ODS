@@ -10,24 +10,24 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
     public class PostgreSqlDialect : Dialect
     {
-        public override string GetLimitOffsetString(int? limit, int? offset)
+        public override string GetLimitOffsetString(string limitParameter, string offsetParameter)
         {
-            if (offset == null && limit == null)
+            if (offsetParameter == null && limitParameter == null)
             {
                 return null;
             }
 
-            if (offset != null && limit != null)
+            if (offsetParameter != null && limitParameter != null)
             {
-                return $"LIMIT {limit} OFFSET {offset}";
+                return $"LIMIT {limitParameter} OFFSET {offsetParameter}";
             }
 
-            if (offset != null)
+            if (offsetParameter != null)
             {
-                return $"OFFSET {offset}";
+                return $"OFFSET {offsetParameter}";
             }
 
-            return $"LIMIT {limit}";
+            return $"LIMIT {limitParameter}";
         }
 
         public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)

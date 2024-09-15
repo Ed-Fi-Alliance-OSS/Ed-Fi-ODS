@@ -19,10 +19,6 @@ namespace EdFi.Ods.Common.Repositories
     {
         public int TotalCount { get; set; }
 
-        public string CurrentPage { get; set; }
-
-        public string NextPage { get; set; }
-
-        public string PreviousPage { get; set; }
+        public string NextPageToken { get; set; }
     }
 }

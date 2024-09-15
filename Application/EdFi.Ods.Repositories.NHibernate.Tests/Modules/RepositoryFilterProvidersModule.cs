@@ -5,6 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Providers.Queries;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
@@ -12,8 +13,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
+            builder.RegisterType<PagedAggregateIdsQueryBuilderProvider>()
+                .Keyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)
                 .SingleInstance();
         }
     }

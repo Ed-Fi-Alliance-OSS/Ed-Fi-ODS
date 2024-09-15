@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Common.Infrastructure.Repositories;
 
 namespace EdFi.Ods.Common.Models.Queries
 {
@@ -24,6 +25,14 @@ namespace EdFi.Ods.Common.Models.Queries
             Q = parameters.Q;
             MinChangeVersion = parameters.MinChangeVersion;
             MaxChangeVersion = parameters.MaxChangeVersion;
+
+            // Process the keyset paging page token, if supplied
+            if (parameters.PageToken != null)
+            {
+                var range = PagingHelpers.GetAggregateIdRange(parameters.PageToken);
+                MinAggregateId = range.minAggregateId;
+                MaxAggregateId = range.maxAggregateId;
+            }
         }
 
         public QueryParameters()
@@ -45,6 +54,10 @@ namespace EdFi.Ods.Common.Models.Queries
         public long? MinChangeVersion { get; set; }
 
         public long? MaxChangeVersion { get; set; }
+
+        public int? MinAggregateId { get; set; }
+        
+        public int? MaxAggregateId { get; set; }
 
         public string Q
         {

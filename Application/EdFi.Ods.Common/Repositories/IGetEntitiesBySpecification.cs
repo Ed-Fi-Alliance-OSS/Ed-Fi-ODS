@@ -11,6 +11,9 @@ namespace EdFi.Ods.Common.Repositories
     public interface IGetEntitiesBySpecification<TEntity>
         where TEntity : IHasIdentifier, IDateVersionedEntity
     {
-        Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification, IQueryParameters queryParameters, CancellationToken cancellationToken);
+        Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
+            TEntity specification,
+            IQueryParameters queryParameters,
+            CancellationToken cancellationToken);
     }
 }

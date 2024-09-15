@@ -12,6 +12,7 @@ using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
+using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
@@ -25,6 +26,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
@@ -101,10 +103,26 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IOdsDatabaseAccessIntentProvider>()
                 .SingleInstance();
 
-            builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
+            // Paged query builder
+            builder.RegisterType<PagedAggregateIdsQueryBuilderProvider>()
+                .Keyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)
                 .SingleInstance();
 
+            // Limit/offset paging support
+            builder.RegisterDecorator(
+                typeof(PagedAggregateIdsCriteriaProviderLimitOffsetPagingDecorator),
+                typeof(IAggregateRootQueryBuilderProvider),
+                // Paging logic only applied to the PagedAggregateIdsQueryBuilderProvider
+                ctx => ctx.ImplementationType == typeof(PagedAggregateIdsQueryBuilderProvider));
+
+            // Keyset paging support
+            builder.RegisterDecorator(
+                typeof(PagedAggregateIdsQueryBuilderProviderKeySetPagingDecorator),
+                typeof(IAggregateRootQueryBuilderProvider),
+                // Paging logic only applied to the PagedAggregateIdsQueryBuilderProvider
+                ctx => ctx.ImplementationType == typeof(PagedAggregateIdsQueryBuilderProvider));
+
+            // Repository operations
             builder.RegisterGeneric(typeof(CreateEntity<>))
                 .As(typeof(ICreateEntity<>))
                 .SingleInstance();
@@ -123,6 +141,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
+                // We need a fully decorated PagedAggregateIdsQueryBuilderProvider here
+                .WithParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(IAggregateRootQueryBuilderProvider),
+                    (pi, ctx) => ctx.ResolveKeyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey))
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))

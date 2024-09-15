@@ -5,6 +5,8 @@
 
 using Autofac;
 using EdFi.Ods.Common.Infrastructure.Repositories;
+using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Repositories;
 
 
@@ -32,6 +34,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
+                // We need a fully decorated PagedAggregateIdsQueryBuilderProvider here
+                .WithParameter(
+                    (pi, ctx) => pi.ParameterType == typeof(IAggregateRootQueryBuilderProvider),
+                    (pi, ctx) => ctx.ResolveKeyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey))
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))

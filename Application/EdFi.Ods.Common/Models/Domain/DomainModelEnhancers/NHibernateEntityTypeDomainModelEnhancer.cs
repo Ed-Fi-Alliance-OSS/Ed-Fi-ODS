@@ -8,13 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Attributes;
-using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using NHibernate;
 using NHibernate.Metadata;
 
-namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
+namespace EdFi.Ods.Common.Models.Domain.DomainModelEnhancers
 {
     /// <summary>
     /// Implements a domain model enhancer that provides access to the <see cref="Type" /> of the NHibernate entity class

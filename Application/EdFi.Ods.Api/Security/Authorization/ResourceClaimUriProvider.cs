@@ -105,35 +105,53 @@ namespace EdFi.Ods.Api.Security.Authorization
         }
 
         /// <summary>
+        /// Gets the resource URIs for the specified entity class using Ed-Fi schema-based and legacy URI conventions.
+        /// </summary>
+        /// <param name="entity">The <see cref="EdFi.Ods.Common.Models.Domain.Entity" /> for which to build the resource URIs.</param>
+        /// <returns>The resource claim URIs.</returns>
+        public string[] GetResourceClaimUris(Entity entity)
+        {
+            return GetResourceClaimUris(entity.FullName, entity.SchemaUriSegment());
+        }
+
+        /// <summary>
         /// Gets the resource URIs for the specified Resource class using Ed-Fi schema-based and legacy URI conventions.
         /// </summary>
         /// <param name="resource">The <see cref="EdFi.Ods.Common.Models.Resource.Resource" /> for which to build the resource URIs.</param>
         /// <returns>The resource claim URIs.</returns>
         public string[] GetResourceClaimUris(Resource resource)
         {
-            ArgumentNullException.ThrowIfNull(resource, nameof(resource));
+            return GetResourceClaimUris(resource.FullName, resource.SchemaUriSegment());
+        }
 
+        /// <summary>
+        /// Gets the resource URIs for the specified Resource class using Ed-Fi schema-based and legacy URI conventions.
+        /// </summary>
+        /// <param name="fullName">The <see cref="FullName" /> of the <see cref="EdFi.Ods.Common.Models.Resource.Resource" /> for which to build the resource URIs.</param>
+        /// <returns>The resource claim URIs.</returns>
+        private string[] GetResourceClaimUris(FullName fullName, string schemaUriSegment)
+        {
             return _resourceUrisByResourceFullName.GetOrAdd(
-                resource.FullName,
-                (fn, res) =>
+                fullName,
+                static (fn, segment) =>
                 {
                     // Include legacy representation for Ed-Fi Standard resources only
-                    return (res.FullName.Schema == EdFiConventions.PhysicalSchemaName)
+                    return (fn.Schema == EdFiConventions.PhysicalSchemaName)
                         ? new[]
                         {
                             // Schema-based URI format
-                            CreateSchemaBasedResourceClaimUri(res.SchemaUriSegment(), res.Name),
+                            CreateSchemaBasedResourceClaimUri(segment, fn.Name),
 
                             // Legacy URI format
-                            CreateLegacyResourceClaimUri(res.Name),
+                            CreateLegacyResourceClaimUri(fn.Name),
                         }
                         : new[]
                         {
                             // Schema-based URI format
-                            CreateSchemaBasedResourceClaimUri(res.SchemaUriSegment(), res.Name),
+                            CreateSchemaBasedResourceClaimUri(segment, fn.Name),
                         };
                 },
-                resource);
+                schemaUriSegment);
         }
 
         public FullName GetResourceFullName(string[] resourceClaimUris)

@@ -33,6 +33,8 @@ namespace EdFi.Ods.Common.Models.Domain
         [IgnoreDataMember] //JsonIgnore
         public virtual DateTime CreateDate { get; set; }
 
+        public virtual int AggregateId { get; set; }
+
         public override bool Equals(object obj)
         {
             var compareTo = obj as DomainObjectBase;

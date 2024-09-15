@@ -12,6 +12,8 @@ using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -19,17 +21,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <summary>
     /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the aggregate root entity being queried.</typeparam>
-    public class PagedAggregateIdsCriteriaProviderAuthorizationDecorator<TEntity>
-        : IPagedAggregateIdsCriteriaProvider<TEntity>
-        where TEntity : class
+    public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
-        private readonly IPagedAggregateIdsCriteriaProvider<TEntity> _decoratedInstance;
+        private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
-            IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
+        public AggregateRootQueryBuilderProviderAuthorizationDecorator(
+            IAggregateRootQueryBuilderProvider decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
@@ -41,12 +40,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <summary>
         /// Applies the authorization filtering criteria to the query created by the decorated instance.
         /// </summary>
+        /// <param name="aggregateRootEntity"></param>
         /// <param name="specification">An instance of the entity representing the parameters to the query.</param>
         /// <param name="queryParameters">The parameter values to apply to the query.</param>
         /// <returns>The criteria created by the decorated instance.</returns>
-        public QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters)
+        public QueryBuilder GetQueryBuilder(
+            Entity aggregateRootEntity,
+            AggregateRootWithCompositeKey specification,
+            IQueryParameters queryParameters)
         {
-            var queryBuilder = _decoratedInstance.GetQueryBuilder(specification, queryParameters);
+            var queryBuilder = _decoratedInstance.GetQueryBuilder(aggregateRootEntity, specification, queryParameters);
+
+            // Authorization could introduce duplicates items, so we must apply DISTINCT
+            queryBuilder.Distinct();
 
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 

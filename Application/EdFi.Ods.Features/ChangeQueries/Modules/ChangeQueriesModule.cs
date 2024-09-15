@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
+using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
 using EdFi.Ods.Features.ChangeQueries.Providers;
 using EdFi.Ods.Features.ChangeQueries.Repositories;

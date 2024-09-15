@@ -17,6 +17,8 @@ namespace EdFi.Ods.Common.Models.Queries
 
         public long? MaxChangeVersion { get; set; }
 
+        public string PageToken { get; set; }
+
         public string Q { get; set; }
     }
 }

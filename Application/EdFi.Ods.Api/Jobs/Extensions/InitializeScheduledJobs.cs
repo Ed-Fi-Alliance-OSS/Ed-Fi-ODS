@@ -5,14 +5,14 @@
 
 using System.Linq;
 using Autofac.Features.Indexed;
-using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using log4net;
 using Quartz;
 
 namespace EdFi.Ods.Api.Jobs.Extensions
 {
-    public class InitializeScheduledJobs : IExternalTask
+    public class InitializeScheduledJobs : IStartupCommand
     {
         private readonly ApiSettings _apiSettings;
         private readonly IApiJobScheduler _apiJobScheduler;
