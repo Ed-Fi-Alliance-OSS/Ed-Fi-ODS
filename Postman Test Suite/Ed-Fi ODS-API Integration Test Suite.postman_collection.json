@@ -14312,13 +14312,33 @@
 											"     pm.expect(responseItems.length).to.equal(500);",
 											"});",
 											"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
-											"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
+											"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));",
+											"pm.environment.set('known:schoolId11', 255901001)",
+											"pm.environment.set('known:schoolId12', 255901044)"
 										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -14542,7 +14562,7 @@
 							"response": []
 						},
 						{
-							"name": "Include total count in Get request without search condition Copy",
+							"name": "Include total count in Get request without search condition",
 							"event": [
 								{
 									"listen": "test",
