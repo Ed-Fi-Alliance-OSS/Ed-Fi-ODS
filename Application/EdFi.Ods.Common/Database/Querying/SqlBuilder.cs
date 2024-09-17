@@ -52,7 +52,19 @@ namespace EdFi.Ods.Common.Database.Querying
                 {
                     try
                     {
-                        p.AddDynamicParams(item.Parameters);
+                        // ORIGINAL CODE
+                        // p.AddDynamicParams(item.Parameters);
+
+                        // BEGIN INLINE CUSTOMIZATIONS
+                        if (item.Parameters is DynamicParameters dynamicParameters)
+                        {
+                            p.MergeParameters(dynamicParameters);
+                        }
+                        else
+                        {
+                            p.AddDynamicParams(item.Parameters);
+                        }
+                        // END INLINE CUSTOMIZATIONS
                     }
                     catch (ArgumentException ex)
                     {

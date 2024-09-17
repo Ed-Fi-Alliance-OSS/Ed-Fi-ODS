@@ -31,27 +31,18 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
         // Get the CTE "row numbers" query
         var cteQueryBuilder = _partitionRowNumbersCteQueryBuilderProvider.GetQueryBuilder(aggregateRootEntity, null, new QueryParameters());
 
-        Entity queryEntity = aggregateRootEntity;
-        string discriminator = null;
+        var cteCountQueryBuilder = cteQueryBuilder.Clone();
+        bool hasDistinct = cteCountQueryBuilder.HasDistinct();
+        cteCountQueryBuilder.ClearSelect();
+        cteCountQueryBuilder.SelectRaw($"COUNT({(hasDistinct ? "DISTINCT " : null)}AggregateId) AS CountOfRows");
 
-        // For a derived entity, redirect the count query to the base table
-        if (aggregateRootEntity.IsDerived)
-        {
-            queryEntity = aggregateRootEntity.BaseEntity;
-            discriminator = aggregateRootEntity.FullName.ToString();
-        }
-
-        // TODO: ODS-6432 - Count query needs to be subjected to the same authorization filtering, as a second CTE
-
-        var queryBuilder = new QueryBuilder(_dialect).With("Numbered", cteQueryBuilder).From("Numbered")
+        var queryBuilder = new QueryBuilder(_dialect)
+            .With("Numbered", cteQueryBuilder)
+            .With("Counts", cteCountQueryBuilder)
+            .From("Numbered, Counts")
             .Select("AggregateId")
-            .WhereRaw($"RowNumber % ((SELECT COUNT(1) FROM {queryEntity.FullName}) / {number}) = 0")
+            .WhereRaw($"RowNumber % ((SELECT CountOfRows FROM Counts) / {number}) = 0")
             .OrderBy("AggregateId");
-
-        if (discriminator != null)
-        {
-            queryBuilder.Where("Discriminator", discriminator);
-        }
 
         return queryBuilder;
     }

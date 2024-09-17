@@ -52,8 +52,6 @@ namespace EdFi.Ods.Common.Database.Querying
             TableName = tableName;
         }
 
-        private string GetNextParameterName() => $"@p{_parameterIndexer.Increment()}";
-
         public string TableName { get; private set; }
 
         private IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
@@ -280,8 +278,8 @@ namespace EdFi.Ods.Common.Database.Querying
 
         private QueryBuilder WhereBetween(string columnName, object minValueInclusive, object maxValueInclusive, bool useOrWhere)
         {
-            string parameterNameMin = GetNextParameterName();
-            string parameterNameMax = GetNextParameterName();
+            string parameterNameMin = _parameterIndexer.NextParameterName();
+            string parameterNameMax = _parameterIndexer.NextParameterName();
 
             var parameters = new DynamicParameters();
             parameters.Add(parameterNameMin, minValueInclusive);
@@ -311,7 +309,7 @@ namespace EdFi.Ods.Common.Database.Querying
 
         private QueryBuilder WhereIn(string columnName, IList values, bool useOrWhere)
         {
-            string parameterName = GetNextParameterName();
+            string parameterName = _parameterIndexer.NextParameterName();
 
             var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
 
@@ -414,6 +412,11 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public bool HasDistinct()
+        {
+            return _sqlBuilder.HasDistinct();
+        }
+
         public QueryBuilder LimitOffset(int limit, int offset = 0)
         {
             DynamicParameters parameters = new DynamicParameters();
@@ -476,6 +479,15 @@ namespace EdFi.Ods.Common.Database.Querying
             public QueryBuilder QueryBuilder { get; }
 
             public object Parameters { get; }
+        }
+
+        /// <summary>
+        /// Clears the SELECT clause for reuse (e.g. for building a COUNT query with a cloned QueryBuilder).
+        /// </summary>
+        public void ClearSelect()
+        {
+            _sqlBuilder.ClearClause(ClauseKey.Select);
+            _sqlBuilder.ClearClause(ClauseKey.Distinct);
         }
     }
 

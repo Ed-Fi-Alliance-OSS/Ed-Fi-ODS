@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
@@ -51,9 +50,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         {
             var queryBuilder = _decoratedInstance.GetQueryBuilder(aggregateRootEntity, specification, queryParameters);
 
-            // Authorization could introduce duplicates items, so we must apply DISTINCT
-            queryBuilder.Distinct();
-
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
@@ -61,14 +57,33 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
+            // We ONLY need to use DISTINCT (which comes with a performance cost) if there are multiple OR strategies being applied
+            // resulting in LEFT JOINs, or if there are multiple EdOrgIds applied to the API client. Also wrapped up in this are
+            // some assumptions:
+            //    1) That the only type of OR authorization strategies are relationship-based authorization
+            //    2) That because of #1, the only type of claim values that would be present in ClaimParameterValues are EdOrgIds
+            if (relationshipBasedAuthViewJoinType == JoinType.LeftOuterJoin)
+            {
+                // Authorization could introduce duplicates items, so we must apply DISTINCT
+                queryBuilder.Distinct();
+            }
+            else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
+            {
+                if (authorizationFiltering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues.Length > 1)))
+                {
+                    // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
+                    queryBuilder.Distinct();
+                }
+            }
+
             ApplyAuthorizationStrategiesCombinedWithAndLogic();
             ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
             return queryBuilder;
 
-            JoinType DetermineRelationshipBasedAuthViewJoinType()
+            JoinType? DetermineRelationshipBasedAuthViewJoinType()
             {
-                // Relationship-based authorization filters are combined using OR, Custom auth-view filters are combined using AND
+                // NOTE: Relationship-based authorization filters are combined using OR, while custom auth-view filters are combined using AND
                 var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
                     af => af.Operator == FilterOperator.Or && af.Filters.Select(afd =>
                         {
@@ -85,9 +100,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         .OfType<ViewBasedAuthorizationFilterDefinition>()
                         .Any());
 
-                return countOfRelationshipBasedAuthorizationFilters > 1
-                    ? JoinType.LeftOuterJoin
-                    : JoinType.InnerJoin;
+                return countOfRelationshipBasedAuthorizationFilters switch
+                {
+                    0 => null,
+                    1 => JoinType.InnerJoin,
+                    _ => JoinType.LeftOuterJoin
+                };
             }
 
             void ApplyAuthorizationStrategiesCombinedWithAndLogic()
@@ -117,6 +135,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         foreach (var orStrategy in orStrategies)
                         {
+                            // Should never happen as code is currently written, but this is a defensive check with additional clarity should it occur
+                            if (relationshipBasedAuthViewJoinType == null)
+                            {
+                                throw new InvalidOperationException(
+                                    $"The authorization strategy '{orStrategy.AuthorizationStrategyName}' is combined using 'OR' logic but does not have a join type identified.");
+                            }
+
                             disjunctionBuilder.OrWhere(
                                 filtersConjunctionBuilder =>
                                 {
@@ -125,7 +150,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                             filtersConjunctionBuilder,
                                             orStrategy.Filters,
                                             orStrategy.AuthorizationStrategy,
-                                            relationshipBasedAuthViewJoinType))
+                                            relationshipBasedAuthViewJoinType.Value))
                                     {
                                         disjunctionFiltersApplied = true;
                                     }

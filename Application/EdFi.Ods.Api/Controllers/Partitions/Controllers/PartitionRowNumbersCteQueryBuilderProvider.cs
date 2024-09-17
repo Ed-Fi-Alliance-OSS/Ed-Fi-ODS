@@ -80,7 +80,7 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         var rowNumbersQueryBuilder = new QueryBuilder(_dialect);
 
         var entityFullName = aggregateRootEntity.FullName;
-        
+
         if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var entity))
         {
             throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
