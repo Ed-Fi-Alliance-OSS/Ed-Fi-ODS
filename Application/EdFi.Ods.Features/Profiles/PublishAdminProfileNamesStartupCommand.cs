@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Threading.Tasks;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Startup;
 
@@ -20,12 +21,10 @@ namespace EdFi.Ods.Features.Profiles
             _apiJobScheduler = apiJobScheduler;
         }
 
-        public void Execute()
+        public async Task ExecuteAsync()
         {
-            _apiJobScheduler.AddSingleExecutionJob<AdminProfileNamesPublisherJob>(nameof(PublishAdminProfileNamesStartupCommand))
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
+            await _apiJobScheduler.AddSingleExecutionJob<AdminProfileNamesPublisherJob>(nameof(PublishAdminProfileNamesStartupCommand))
+                .ConfigureAwait(false);
         }
     }
 }

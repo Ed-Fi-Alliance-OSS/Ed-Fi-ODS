@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
@@ -395,10 +396,31 @@ namespace EdFi.Ods.Api.Startup
 
             void RunStartupCommands()
             {
+                List<Task> tasks = new();
+
                 foreach (IStartupCommand startupCommand in Container.Resolve<IEnumerable<IStartupCommand>>())
                 {
-                    _logger.Debug($"Running startup command '{startupCommand.GetType().Name}'...");
-                    startupCommand.Execute();
+                    _logger.Info($"Running startup command '{startupCommand.GetType().Name}'...");
+
+                    tasks.Add(startupCommand.ExecuteAsync());
+                }
+
+                try
+                {
+                    // Wait for all tasks to complete, catch all exceptions in an AggregateException
+                    Task.WaitAll(tasks.ToArray());
+                }
+                catch (AggregateException ex)
+                {
+                    // Log any exceptions that occurred
+                    foreach (var innerEx in ex.InnerExceptions)
+                    {
+                        _logger.Error("Unhandled exception during startup commands execution.", innerEx);
+                    }
+                }
+                finally
+                {
+                    _logger.Info("Startup commands complete.");
                 }
             }
 

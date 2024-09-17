@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Models.Domain.DomainModelEnhancers
                 }
             }
 
-            if (missingEntities.Any() && _logger.IsDebugEnabled)
+            if (_logger.IsDebugEnabled && missingEntities.Any())
             {
                 _logger.Debug(
                     $"Unable to locate the following entity classes (the .NET Type references will not be available on the Entity in the semantic API model):{Environment.NewLine}"

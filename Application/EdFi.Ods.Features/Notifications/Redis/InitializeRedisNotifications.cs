@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Threading.Tasks;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Services.Redis;
@@ -34,13 +35,13 @@ public class InitializeRedisNotifications : IStartupCommand
         _notificationsMessageSink = notificationsMessageSink;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync()
     {
         try
         {
             var subscriber = _redisConnectionProvider.Get().Multiplexer.GetSubscriber();
 
-            subscriber.Subscribe(
+            await subscriber.SubscribeAsync(
                 new RedisChannel(_redisNotificationSettings.Channel, PatternMode.Auto),
                 (channel, message) => { _notificationsMessageSink.Receive(message); });
         }
