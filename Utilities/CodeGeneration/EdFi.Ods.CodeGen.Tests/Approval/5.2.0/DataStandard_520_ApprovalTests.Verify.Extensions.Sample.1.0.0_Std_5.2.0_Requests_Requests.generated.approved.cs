@@ -13,8 +13,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.ArtMediumDescriptors
     {
         public int ArtMediumDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -170,9 +174,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescrip
     public class FavoriteBookCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int FavoriteBookCategoryDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -219,9 +227,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.MembershipTypeDescriptors
     public class MembershipTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MembershipTypeDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -270,6 +282,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociatio
         public int ArtPieces { get; set; }
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public DateTime ExhibitDate { get; set; }
         public decimal HoursPerDay { get; set; }
         public Guid Id { get; set; }
@@ -284,6 +297,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociatio
         public decimal ProgramFees { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
