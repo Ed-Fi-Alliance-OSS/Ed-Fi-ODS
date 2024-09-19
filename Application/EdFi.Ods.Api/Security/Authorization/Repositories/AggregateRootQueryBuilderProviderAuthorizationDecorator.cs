@@ -131,7 +131,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
-                var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
+                var orStrategies = authorizationFiltering
+                    .Where(x => x.Operator == FilterOperator.Or && x.AuthorizationStrategy != null)
+                    .ToArray();
 
                 bool disjunctionFiltersApplied = false;
 
