@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -43,8 +44,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _domainModelProvider = domainModelProvider;
         }
 
-        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification,
-            IQueryParameters queryParameters, CancellationToken cancellationToken)
+        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
+            TEntity specification,
+            IQueryParameters queryParameters,
+            IDictionary<string, string> additionalParameters,
+            CancellationToken cancellationToken)
         {
             var entityFullName = specification.GetApiModelFullName();
             
@@ -128,6 +132,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (CountRequested())
                 {
                     countTemplate = (idsQueryBuilder ?? GetIdsQueryBuilder()).BuildCountTemplate();
+
+                    if (countTemplate.Parameters is DynamicParameters countTemplateParameters)
+                    {
+                        if (countTemplateParameters.ParameterNames.Contains("MinAggregateId"))
+                        {
+                            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["Total count cannot be determined while using key set paging."]);
+                        }
+                    }
                 }
 
                 if (idsTemplate != null && countTemplate != null)
@@ -170,7 +182,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 
                 QueryBuilder GetIdsQueryBuilder()
                 {
-                    var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(aggregateRootEntity, specification, queryParameters);
+                    var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(
+                        aggregateRootEntity,
+                        specification,
+                        queryParameters,
+                        additionalParameters);
 
                     SetChangeQueriesCriteria(idsQueryBuilder);
 

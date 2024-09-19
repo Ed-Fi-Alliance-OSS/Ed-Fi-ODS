@@ -41,7 +41,7 @@ public static class PagingHelpers
 
         if (string.IsNullOrEmpty(minMaxAggregateIds[0]))
         {
-            throw new BadRequestParameterException("The page token parameter was incorrect.", ["Invalid page token."]);
+            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["The page token provided was invalid."]);
         }
 
         try
@@ -52,7 +52,7 @@ public static class PagingHelpers
         }
         catch (Exception ex)
         {
-            throw new BadRequestParameterException("The page token parameter was incorrect.", ["Invalid page token."], ex);
+            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["The page token provided was invalid."], ex);
         }
     }
 }
