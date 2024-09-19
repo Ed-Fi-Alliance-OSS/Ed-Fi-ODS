@@ -69,7 +69,7 @@ namespace EdFi.Ods.Common.Extensions
                                             x => x.IsIdentifyingAndHasAssociations()),
                                         ModelComparers.ResourcePropertyNameOnly)
                                    .Union(
-                                        resourceClassBase.InheritedKeyProperties(),
+                                        resourceClassBase.InheritedProperties(),
                                         ModelComparers.ResourcePropertyNameOnly)
                 : resourceClassBase.AllProperties;
         }
