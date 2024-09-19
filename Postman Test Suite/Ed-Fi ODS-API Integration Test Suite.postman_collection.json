@@ -4527,6 +4527,61 @@
 									"response": []
 								},
 								{
+									"name": "Key set paging, Invalid page token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate the page token is invalid.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"The page token provided was invalid.\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken=DefinitelyNotValid&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "DefinitelyNotValid"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Key set paging, Offset also specified",
 									"event": [
 										{
@@ -4636,6 +4691,69 @@
 												{
 													"key": "limit",
 													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Total Count requested",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate Total Count cannot be determined while using key set paging.\", () => {\r",
+													"  pm.expect(items.errors).to.contain(\"Total count cannot be determined while using key set paging.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:gradingPeriods:partition1:pageToken}}&pageSize=2&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
 												}
 											]
 										}
