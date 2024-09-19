@@ -132,7 +132,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
                 var orStrategies = authorizationFiltering
-                    .Where(x => x.Operator == FilterOperator.Or && x.AuthorizationStrategy != null)
+                    .Where(x => x.Operator == FilterOperator.Or)
                     .ToArray();
 
                 bool disjunctionFiltersApplied = false;
@@ -143,13 +143,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         foreach (var orStrategy in orStrategies)
                         {
-                            // Should never happen as code is currently written, but this is a defensive check with additional clarity should it occur
-                            if (relationshipBasedAuthViewJoinType == null)
-                            {
-                                throw new InvalidOperationException(
-                                    $"The authorization strategy '{orStrategy.AuthorizationStrategyName}' is combined using 'OR' logic but does not have a join type identified.");
-                            }
-
                             disjunctionBuilder.OrWhere(
                                 filtersConjunctionBuilder =>
                                 {
@@ -158,7 +151,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                             filtersConjunctionBuilder,
                                             orStrategy.Filters,
                                             orStrategy.AuthorizationStrategy,
-                                            relationshipBasedAuthViewJoinType.Value))
+                                            relationshipBasedAuthViewJoinType ?? JoinType.InnerJoin))
                                     {
                                         disjunctionFiltersApplied = true;
                                     }
