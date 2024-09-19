@@ -3,17 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-/* Generated with SSMS using:
-------------------------------------------------
-	SELECT 'CREATE SEQUENCE ' + LOWER(c.TABLE_SCHEMA) + '.' + LOWER(c.TABLE_NAME) + '_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-	ALTER TABLE ' + c.TABLE_SCHEMA + '.' + c.TABLE_NAME + ' ADD COLUMN AggregateId int NOT NULL DEFAULT nextval(''' + LOWER(c.TABLE_SCHEMA) + '.' + LOWER(c.TABLE_NAME) + '_aggseq'');
-	CREATE INDEX ix_' + LOWER(c.TABLE_NAME) + '_aggid ON ' + c.TABLE_SCHEMA + '.' + c.TABLE_NAME + ' (AggregateId);' AS PostgreSQL
-	FROM INFORMATION_SCHEMA.COLUMNS c
-	WHERE c.COLUMN_NAME = 'Id' and c.TABLE_SCHEMA = @schema
-	ORDER BY c.TABLE_SCHEMA, c.TABLE_NAME
-------------------------------------------------
-*/
-
 CREATE SEQUENCE edfi.academicweek_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.AcademicWeek ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.academicweek_aggseq');
 CREATE INDEX ix_academicweek_aggid ON edfi.AcademicWeek (AggregateId);
@@ -70,10 +59,6 @@ CREATE SEQUENCE edfi.competencyobjective_aggseq START WITH -2147483648 INCREMENT
 ALTER TABLE edfi.CompetencyObjective ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.competencyobjective_aggseq');
 CREATE INDEX ix_competencyobjective_aggid ON edfi.CompetencyObjective (AggregateId);
 
-CREATE SEQUENCE edfi.contact_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.Contact ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.contact_aggseq');
-CREATE INDEX ix_contact_aggid ON edfi.Contact (AggregateId);
-
 CREATE SEQUENCE edfi.course_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Course ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.course_aggseq');
 CREATE INDEX ix_course_aggid ON edfi.Course (AggregateId);
@@ -89,10 +74,6 @@ CREATE INDEX ix_coursetranscript_aggid ON edfi.CourseTranscript (AggregateId);
 CREATE SEQUENCE edfi.credential_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Credential ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.credential_aggseq');
 CREATE INDEX ix_credential_aggid ON edfi.Credential (AggregateId);
-
-CREATE SEQUENCE edfi.crisisevent_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.CrisisEvent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.crisisevent_aggseq');
-CREATE INDEX ix_crisisevent_aggid ON edfi.CrisisEvent (AggregateId);
 
 CREATE SEQUENCE edfi.descriptor_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Descriptor ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.descriptor_aggseq');
@@ -129,10 +110,6 @@ CREATE INDEX ix_educationorganizationnetworkassociation_aggid ON edfi.EducationO
 CREATE SEQUENCE edfi.educationorganizationpeerassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.EducationOrganizationPeerAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.educationorganizationpeerassociation_aggseq');
 CREATE INDEX ix_educationorganizationpeerassociation_aggid ON edfi.EducationOrganizationPeerAssociation (AggregateId);
-
-CREATE SEQUENCE edfi.evaluationrubricdimension_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.EvaluationRubricDimension ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.evaluationrubricdimension_aggseq');
-CREATE INDEX ix_evaluationrubricdimension_aggid ON edfi.EvaluationRubricDimension (AggregateId);
 
 CREATE SEQUENCE edfi.feederschoolassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.FeederSchoolAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.feederschoolassociation_aggseq');
@@ -177,6 +154,10 @@ CREATE INDEX ix_interventionprescription_aggid ON edfi.InterventionPrescription 
 CREATE SEQUENCE edfi.interventionstudy_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.InterventionStudy ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.interventionstudy_aggseq');
 CREATE INDEX ix_interventionstudy_aggid ON edfi.InterventionStudy (AggregateId);
+
+CREATE SEQUENCE edfi.learningobjective_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.LearningObjective ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.learningobjective_aggseq');
+CREATE INDEX ix_learningobjective_aggid ON edfi.LearningObjective (AggregateId);
 
 CREATE SEQUENCE edfi.learningstandard_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.LearningStandard ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.learningstandard_aggseq');
@@ -230,6 +211,10 @@ CREATE SEQUENCE edfi.operationalunitdimension_aggseq START WITH -2147483648 INCR
 ALTER TABLE edfi.OperationalUnitDimension ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.operationalunitdimension_aggseq');
 CREATE INDEX ix_operationalunitdimension_aggid ON edfi.OperationalUnitDimension (AggregateId);
 
+CREATE SEQUENCE edfi.parent_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.Parent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.parent_aggseq');
+CREATE INDEX ix_parent_aggid ON edfi.Parent (AggregateId);
+
 CREATE SEQUENCE edfi.person_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Person ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.person_aggseq');
 CREATE INDEX ix_person_aggid ON edfi.Person (AggregateId);
@@ -245,18 +230,6 @@ CREATE INDEX ix_program_aggid ON edfi.Program (AggregateId);
 CREATE SEQUENCE edfi.programdimension_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.ProgramDimension ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.programdimension_aggseq');
 CREATE INDEX ix_programdimension_aggid ON edfi.ProgramDimension (AggregateId);
-
-CREATE SEQUENCE edfi.programevaluation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.ProgramEvaluation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.programevaluation_aggseq');
-CREATE INDEX ix_programevaluation_aggid ON edfi.ProgramEvaluation (AggregateId);
-
-CREATE SEQUENCE edfi.programevaluationelement_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.ProgramEvaluationElement ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.programevaluationelement_aggseq');
-CREATE INDEX ix_programevaluationelement_aggid ON edfi.ProgramEvaluationElement (AggregateId);
-
-CREATE SEQUENCE edfi.programevaluationobjective_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.ProgramEvaluationObjective ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.programevaluationobjective_aggseq');
-CREATE INDEX ix_programevaluationobjective_aggid ON edfi.ProgramEvaluationObjective (AggregateId);
 
 CREATE SEQUENCE edfi.projectdimension_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.ProjectDimension ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.projectdimension_aggseq');
@@ -358,9 +331,9 @@ CREATE SEQUENCE edfi.studentcompetencyobjective_aggseq START WITH -2147483648 IN
 ALTER TABLE edfi.StudentCompetencyObjective ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentcompetencyobjective_aggseq');
 CREATE INDEX ix_studentcompetencyobjective_aggid ON edfi.StudentCompetencyObjective (AggregateId);
 
-CREATE SEQUENCE edfi.studentcontactassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentContactAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentcontactassociation_aggseq');
-CREATE INDEX ix_studentcontactassociation_aggid ON edfi.StudentContactAssociation (AggregateId);
+CREATE SEQUENCE edfi.studentdisciplineincidentassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentdisciplineincidentassociation_aggseq');
+CREATE INDEX ix_studentdisciplineincidentassociation_aggid ON edfi.StudentDisciplineIncidentAssociation (AggregateId);
 
 CREATE SEQUENCE edfi.studentdisciplineincidentbehaviorassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentdisciplineincidentbehaviorassociation_aggseq');
@@ -382,10 +355,6 @@ CREATE SEQUENCE edfi.studentgradebookentry_aggseq START WITH -2147483648 INCREME
 ALTER TABLE edfi.StudentGradebookEntry ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentgradebookentry_aggseq');
 CREATE INDEX ix_studentgradebookentry_aggid ON edfi.StudentGradebookEntry (AggregateId);
 
-CREATE SEQUENCE edfi.studenthealth_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentHealth ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studenthealth_aggseq');
-CREATE INDEX ix_studenthealth_aggid ON edfi.StudentHealth (AggregateId);
-
 CREATE SEQUENCE edfi.studentinterventionassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentInterventionAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentinterventionassociation_aggseq');
 CREATE INDEX ix_studentinterventionassociation_aggid ON edfi.StudentInterventionAssociation (AggregateId);
@@ -394,13 +363,17 @@ CREATE SEQUENCE edfi.studentinterventionattendanceevent_aggseq START WITH -21474
 ALTER TABLE edfi.StudentInterventionAttendanceEvent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentinterventionattendanceevent_aggseq');
 CREATE INDEX ix_studentinterventionattendanceevent_aggid ON edfi.StudentInterventionAttendanceEvent (AggregateId);
 
+CREATE SEQUENCE edfi.studentlearningobjective_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentLearningObjective ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentlearningobjective_aggseq');
+CREATE INDEX ix_studentlearningobjective_aggid ON edfi.StudentLearningObjective (AggregateId);
+
+CREATE SEQUENCE edfi.studentparentassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
+ALTER TABLE edfi.StudentParentAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentparentassociation_aggseq');
+CREATE INDEX ix_studentparentassociation_aggid ON edfi.StudentParentAssociation (AggregateId);
+
 CREATE SEQUENCE edfi.studentprogramattendanceevent_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentProgramAttendanceEvent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentprogramattendanceevent_aggseq');
 CREATE INDEX ix_studentprogramattendanceevent_aggid ON edfi.StudentProgramAttendanceEvent (AggregateId);
-
-CREATE SEQUENCE edfi.studentprogramevaluation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentProgramEvaluation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentprogramevaluation_aggseq');
-CREATE INDEX ix_studentprogramevaluation_aggid ON edfi.StudentProgramEvaluation (AggregateId);
 
 CREATE SEQUENCE edfi.studentschoolassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentSchoolAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentschoolassociation_aggseq');
@@ -417,14 +390,6 @@ CREATE INDEX ix_studentsectionassociation_aggid ON edfi.StudentSectionAssociatio
 CREATE SEQUENCE edfi.studentsectionattendanceevent_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.StudentSectionAttendanceEvent ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentsectionattendanceevent_aggseq');
 CREATE INDEX ix_studentsectionattendanceevent_aggid ON edfi.StudentSectionAttendanceEvent (AggregateId);
-
-CREATE SEQUENCE edfi.studentspecialeducationprogrameligibilityassociation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studentspecialeducationprogrameligibilityassociation_aggseq');
-CREATE INDEX ix_studentspecialeducationprogrameligibilityassociation_aggid ON edfi.StudentSpecialEducationProgramEligibilityAssociation (AggregateId);
-
-CREATE SEQUENCE edfi.studenttransportation_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE edfi.StudentTransportation ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.studenttransportation_aggseq');
-CREATE INDEX ix_studenttransportation_aggid ON edfi.StudentTransportation (AggregateId);
 
 CREATE SEQUENCE edfi.survey_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
 ALTER TABLE edfi.Survey ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('edfi.survey_aggseq');
