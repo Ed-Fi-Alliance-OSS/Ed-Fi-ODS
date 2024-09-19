@@ -13,8 +13,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptor
     {
         public int AccreditationStatusDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -62,8 +66,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AidTypeDescriptors
     {
         public int AidTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -236,8 +244,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors
     {
         public int CertificationRouteDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -285,8 +297,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescri
     {
         public string CodeValue { get; set; }
         public int CoteachingStyleObservedDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -334,8 +350,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors
     {
         public string CodeValue { get; set; }
         public int CredentialStatusDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -433,9 +453,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors
     public class EducatorRoleDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducatorRoleDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -482,9 +506,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptor
     public class EnglishLanguageExamDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EnglishLanguageExamDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -531,9 +559,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors
     public class EPPProgramPathwayDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EPPProgramPathwayDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -760,9 +792,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelD
     public class EvaluationElementRatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationElementRatingLevelDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -927,9 +963,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors
     public class EvaluationPeriodDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationPeriodDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1038,9 +1078,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescript
     public class EvaluationRatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationRatingLevelDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1087,9 +1131,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescrip
     public class EvaluationRatingStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationRatingStatusDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1136,9 +1184,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors
     public class EvaluationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1238,9 +1290,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.GenderDescriptors
     public class GenderDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GenderDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1287,9 +1343,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescripto
     public class ObjectiveRatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ObjectiveRatingLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1452,9 +1512,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLe
     public class PerformanceEvaluationRatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PerformanceEvaluationRatingLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1501,9 +1565,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDesc
     public class PerformanceEvaluationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PerformanceEvaluationTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1609,9 +1677,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors
     public class RubricRatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RubricRatingLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]

@@ -48,8 +48,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.AccreditationStatusDescriptorId = request.AccreditationStatusDescriptorId;
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -81,8 +85,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.AidTypeDescriptorId = request.AidTypeDescriptorId;
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -207,8 +215,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationRouteDescriptorId = request.CertificationRouteDescriptorId;
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -240,8 +252,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
             specification.CoteachingStyleObservedDescriptorId = request.CoteachingStyleObservedDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -273,8 +289,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
             specification.CredentialStatusDescriptorId = request.CredentialStatusDescriptorId;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -340,9 +360,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
             specification.EducatorRoleDescriptorId = request.EducatorRoleDescriptorId;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -373,9 +397,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EnglishLanguageExamDescriptorId = request.EnglishLanguageExamDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -406,9 +434,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EPPProgramPathwayDescriptorId = request.EPPProgramPathwayDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -571,9 +603,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationElementRatingLevelDescriptorId = request.EvaluationElementRatingLevelDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -690,9 +726,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationPeriodDescriptorId = request.EvaluationPeriodDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -769,9 +809,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationRatingLevelDescriptorId = request.EvaluationRatingLevelDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -802,9 +846,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescripto
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationRatingStatusDescriptorId = request.EvaluationRatingStatusDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -835,9 +883,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.EvaluationTypeDescriptorId = request.EvaluationTypeDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -905,9 +957,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.GenderDescriptorId = request.GenderDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -938,9 +994,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.ObjectiveRatingLevelDescriptorId = request.ObjectiveRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -1055,9 +1115,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PerformanceEvaluationRatingLevelDescriptorId = request.PerformanceEvaluationRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -1088,9 +1152,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PerformanceEvaluationTypeDescriptorId = request.PerformanceEvaluationTypeDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -1164,9 +1232,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.RubricRatingLevelDescriptorId = request.RubricRatingLevelDescriptorId;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }

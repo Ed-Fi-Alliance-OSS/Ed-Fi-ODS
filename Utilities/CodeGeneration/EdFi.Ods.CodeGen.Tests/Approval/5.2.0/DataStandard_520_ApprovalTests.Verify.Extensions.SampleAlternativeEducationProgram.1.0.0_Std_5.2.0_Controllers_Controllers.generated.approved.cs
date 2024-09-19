@@ -48,8 +48,12 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleAlternativeEducationProgram.Al
             specification.SuspendReferenceAssignmentCheck();
             specification.AlternativeEducationEligibilityReasonDescriptorId = request.AlternativeEducationEligibilityReasonDescriptorId;
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -82,10 +86,13 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleAlternativeEducationProgram.St
             specification.AlternativeEducationEligibilityReasonDescriptor = request.AlternativeEducationEligibilityReasonDescriptor;
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.ProgramEducationOrganizationId = request.ProgramEducationOrganizationId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
+            specification.ServedOutsideOfRegularSession = request.ServedOutsideOfRegularSession;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
