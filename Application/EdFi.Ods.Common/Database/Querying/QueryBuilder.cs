@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public string TableName { get; private set; }
 
-        private IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+        public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
 
         public ParameterIndexer ParameterIndexer
         {
@@ -212,35 +212,42 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder WhereLike(string columnName, object value, MatchMode matchMode = MatchMode.Exact)
+        public QueryBuilder WhereLike(string expression, object value, MatchMode matchMode = MatchMode.Exact, string parameterName = null)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(
-                matchMode switch
-                {
-                    // NOTE: May need dialect support for varying text match symbols
-                    MatchMode.Start => $"%{value}",
-                    MatchMode.Anywhere => $"%{value}%",
-                    MatchMode.End => $"{value}%",
-                    _ => value
-                });
-
-            _sqlBuilder.Where($"{columnName} LIKE {parameterName}", parameters);
-
-            return this;
+            return WhereLike(expression, value, matchMode, useOrWhere: false, parameterName);
         }
 
-        public QueryBuilder OrWhereLike(string expression, object value, MatchMode matchMode = MatchMode.Exact)
+        public QueryBuilder OrWhereLike(string expression, object value, MatchMode matchMode = MatchMode.Exact, string parameterName = null)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(matchMode switch
+            return WhereLike(expression, value, matchMode, useOrWhere: true, parameterName);
+        }
+
+        private QueryBuilder WhereLike(
+            string expression,
+            object value,
+            MatchMode matchMode,
+            bool useOrWhere = false,
+            string parameterName = null)
+        {
+            object matchValue = matchMode switch
             {
                 // NOTE: May need dialect support for varying text match symbols
                 MatchMode.Start => $"%{value}",
                 MatchMode.Anywhere => $"%{value}%",
                 MatchMode.End => $"{value}%",
                 _ => value
-            });
-            
-            _sqlBuilder.OrWhere($"{expression} LIKE {parameterName}", parameters);
+            };
+
+            (DynamicParameters parameters, string finalParameterName) = GetParametersFromObject(matchValue, parameterName);
+
+            if (useOrWhere)
+            {
+                _sqlBuilder.OrWhere($"{expression} LIKE {finalParameterName}", parameters);
+            }
+            else
+            {
+                _sqlBuilder.Where($"{expression} LIKE {finalParameterName}", parameters);
+            }
 
             return this;
         }
@@ -266,20 +273,20 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder WhereBetween(string columnName, object minValueInclusive, object maxValueInclusive)
+        public QueryBuilder WhereBetween(string columnName, object minValueInclusive, object maxValueInclusive, string minParameterName = null, string maxParameterName = null)
         {
-            return WhereBetween(columnName, minValueInclusive, maxValueInclusive, useOrWhere: false);
+            return WhereBetween(columnName, minValueInclusive, maxValueInclusive, useOrWhere: false, minParameterName, maxParameterName);
         }
 
-        public QueryBuilder OrWhereBetween(string columnName, object minValueInclusive, object maxValueInclusive)
+        public QueryBuilder OrWhereBetween(string columnName, object minValueInclusive, object maxValueInclusive, string minParameterName = null, string maxParameterName = null)
         {
-            return WhereBetween(columnName, minValueInclusive, maxValueInclusive, useOrWhere: true);
+            return WhereBetween(columnName, minValueInclusive, maxValueInclusive, useOrWhere: true, minParameterName, maxParameterName);
         }
 
-        private QueryBuilder WhereBetween(string columnName, object minValueInclusive, object maxValueInclusive, bool useOrWhere)
+        private QueryBuilder WhereBetween(string columnName, object minValueInclusive, object maxValueInclusive, bool useOrWhere, string minParameterName = null, string maxParameterName = null)
         {
-            string parameterNameMin = _parameterIndexer.NextParameterName();
-            string parameterNameMax = _parameterIndexer.NextParameterName();
+            string parameterNameMin = minParameterName ?? _parameterIndexer.NextParameterName();
+            string parameterNameMax = maxParameterName ?? _parameterIndexer.NextParameterName();
 
             var parameters = new DynamicParameters();
             parameters.Add(parameterNameMin, minValueInclusive);
@@ -417,14 +424,14 @@ namespace EdFi.Ods.Common.Database.Querying
             return _sqlBuilder.HasDistinct();
         }
 
-        public QueryBuilder LimitOffset(int limit, int offset = 0)
+        public QueryBuilder LimitOffset(int limit, int offset = 0, string limitParameterName = "@Limit", string offsetParameterName = "@Offset")
         {
             DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("Limit", limit);
-            parameters.Add("Offset", offset);
+            parameters.Add(limitParameterName, limit);
+            parameters.Add(offsetParameterName, offset);
 
             // Apply paging
-            _sqlBuilder.LimitOffset(_dialect.GetLimitOffsetString("@Limit", "@Offset"), parameters);
+            _sqlBuilder.LimitOffset(_dialect.GetLimitOffsetString(limitParameterName, offsetParameterName), parameters);
 
             return this;
         }
