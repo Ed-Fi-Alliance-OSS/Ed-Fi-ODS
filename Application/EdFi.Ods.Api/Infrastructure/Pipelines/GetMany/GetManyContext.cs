@@ -9,20 +9,30 @@ using EdFi.Ods.Api.Infrastructure.Pipelines;
 namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
 {
     public class GetManyContext<TResourceModel, TEntityModel>
-        : IHasPersistentModel<TEntityModel>, IHasPersistentModels<TEntityModel>, IHasResource<TResourceModel> // IHasETag, IHasIdentifier 
+        : IHasPersistentModel<TEntityModel>, IHasPersistentModels<TEntityModel>,
+            IHasResource<TResourceModel> 
         where TResourceModel : IHasETag
         where TEntityModel : class
     {
-        public GetManyContext(TResourceModel resourceSpecification, IQueryParameters queryParameters)
+        public GetManyContext(
+            TResourceModel resourceSpecification,
+            IQueryParameters queryParameters,
+            IDictionary<string, string> additionalParameters)
         {
             Resource = resourceSpecification;
             QueryParameters = queryParameters;
+            AdditionalParameters = additionalParameters;
         }
 
         /// <summary>
         ///     Gets or sets additional query parameters to apply to the search/filter.
         /// </summary>
         public IQueryParameters QueryParameters { get; set; }
+
+        /// <summary>
+        /// Gets or sets additional parameters supplied by the API client that are not recognized as common parameters or members of the resource.
+        /// </summary>
+        public IDictionary<string, string> AdditionalParameters { get; set; }
 
         /// <summary>
         ///     Gets or sets the persistent model to be used as a specification for the query.

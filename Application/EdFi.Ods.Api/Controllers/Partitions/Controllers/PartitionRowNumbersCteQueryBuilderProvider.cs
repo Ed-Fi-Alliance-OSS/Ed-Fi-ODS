@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
@@ -14,6 +15,7 @@ using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Providers.Queries;
+using EdFi.Ods.Common.Providers.Queries.Criteria;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -26,8 +28,8 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
     public const string RegistrationKey = "PartitionRowNumbersCte";
 
     private readonly Dialect _dialect;
-    private readonly IDomainModelProvider _domainModelProvider;
     private readonly DatabaseEngine _databaseEngine;
+    private readonly IAggregateRootQueryCriteriaApplicator[] _additionalParametersCriteriaApplicator;
 
     // Security dependencies
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
@@ -41,8 +43,9 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
 
     public PartitionRowNumbersCteQueryBuilderProvider(
         Dialect dialect,
-        IDomainModelProvider domainModelProvider,
         DatabaseEngine databaseEngine,
+        IAggregateRootQueryCriteriaApplicator[] additionalParametersCriteriaApplicator,
+
         // Security dependencies
         IApiClientContextProvider apiClientContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -54,8 +57,8 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         IResourceClaimUriProvider resourceClaimUriProvider)
     {
         _dialect = dialect;
-        _domainModelProvider = domainModelProvider;
         _databaseEngine = databaseEngine;
+        _additionalParametersCriteriaApplicator = additionalParametersCriteriaApplicator;
         _apiClientContextProvider = apiClientContextProvider;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _authorizationContextProvider = authorizationContextProvider;
@@ -67,44 +70,27 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
     }
 
     public QueryBuilder GetQueryBuilder(
-        Entity aggregateRootEntity,
+        Entity entity,
         AggregateRootWithCompositeKey specification,
-        IQueryParameters queryParameters)
+        IQueryParameters queryParameters,
+        IDictionary<string, string> additionalParameters)
     {
         // TODO: ODS-6432 - This needs to be invokes an authorization decorator of some sort -- copied from the data management controller pipeline. Also, look for approach to DRY here.
-        EstablishAuthorizationFilteringContext(aggregateRootEntity);
+        EstablishAuthorizationFilteringContext(entity);
 
-        // -----------------------------------------------------------------------------
-        // BEGIN potentially shared code
-        // -----------------------------------------------------------------------------
         var rowNumbersQueryBuilder = new QueryBuilder(_dialect);
-
-        var entityFullName = aggregateRootEntity.FullName;
-
-        if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var entity))
-        {
-            throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
-        }
-
-        string rootTableAlias = entity.IsDerived ? "b" : "r";
 
         // Get the fully qualified physical table name
         var schemaTableName = $"{entity.Schema}.{entity.TableName(_databaseEngine)}";
 
-        // -----------------------------------------------------------------------------
-        // END potentially shared code
-        // -----------------------------------------------------------------------------
-
-        // POTENTIAL Template method -- Build initial query with SELECT
-        rowNumbersQueryBuilder.From(schemaTableName.Alias("r"));
+        string rootTableAlias = entity.IsDerived ? "b" : "r";
 
         rowNumbersQueryBuilder
+            .From(schemaTableName.Alias("r"))
             .Select($"{rootTableAlias}.AggregateId")
             .SelectRaw($"ROW_NUMBER() OVER (ORDER BY {rootTableAlias}.AggregateId) AS RowNumber");
 
-        // TODO: ODS-6432 - Derived entity may not be needed unless there is criteria to be applied that uses the derived type. This would eliminate a join with every page. Will need to include Discriminator value in join in lieu of join to base.
-
-        // Add the join to the base type (TODO: Determine if needed, with caching considerations)
+        // Add the join to the base type
         if (entity.IsDerived)
         {
             rowNumbersQueryBuilder.Join(
@@ -122,14 +108,19 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
                 });
         }
 
-        // -----------------------------------------------------------------------------
-        // END ALL potentially shared code
-        // -----------------------------------------------------------------------------
+        // Add special query fields
+        AggregateQueryBuilderHelpers.ProcessCommonQueryParameters(rowNumbersQueryBuilder, queryParameters);
+
+        // Apply additional parameters, as applicable
+        foreach (var applicator in _additionalParametersCriteriaApplicator)
+        {
+            applicator.ApplyAdditionalParameters(rowNumbersQueryBuilder, entity, specification, additionalParameters);
+        }
 
         return rowNumbersQueryBuilder;
     }
 
-    // TODO: ODS-6432 - ALL OF THIS NEEDS TO FACTORED OUT INTO A SECURITY COMPONENT SOMEWHERE
+    // TODO: ODS-6432 - ALL OF THIS NEEDS TO REFACTORED OUT INTO A SECURITY COMPONENT SOMEWHERE - Pay attention to DRY
     private void EstablishAuthorizationFilteringContext(dynamic aggregateRootEntity)
     {
         // Establish the authorization context -- currently done in SetAuthorizationContext pipeline step, not accessible here

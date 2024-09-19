@@ -15,7 +15,7 @@ public class DataPolicyException : BadRequestException
     // Fields containing override values for Problem Details
     private const string TypePart = "data-policy-enforced";
     private const string TitleText = "Data Policy Enforced";
-    private const string DefaultDetail =
+    private const string DataPolicyDefaultDetail =
         "The data cannot be saved because a data policy has been applied to the request that prevents it.";
 
     private const string ResourceMessageFormat =
@@ -25,13 +25,13 @@ public class DataPolicyException : BadRequestException
         "The Profile definition for '{0}' excludes (or does not include) one or more required data elements needed to create a child item of type '{1}' in the resource.";
     
     public DataPolicyException(string profileName)
-        : base(DefaultDetail)
+        : base(DataPolicyDefaultDetail)
     {
         this.SetErrors(string.Format(ResourceMessageFormat, profileName));
     }
 
     public DataPolicyException(string profileName, string childTypeName)
-        : base(DefaultDetail)
+        : base(DataPolicyDefaultDetail)
     {
         this.SetErrors(string.Format(ResourceChildMessageFormat, profileName, childTypeName));
     }

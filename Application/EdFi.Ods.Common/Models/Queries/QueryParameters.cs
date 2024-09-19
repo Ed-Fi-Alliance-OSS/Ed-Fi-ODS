@@ -26,6 +26,8 @@ namespace EdFi.Ods.Common.Models.Queries
             MinChangeVersion = parameters.MinChangeVersion;
             MaxChangeVersion = parameters.MaxChangeVersion;
 
+            PageSize = parameters.PageSize;
+
             // Process the keyset paging page token, if supplied
             if (parameters.PageToken != null)
             {
@@ -55,8 +57,10 @@ namespace EdFi.Ods.Common.Models.Queries
 
         public long? MaxChangeVersion { get; set; }
 
+        public int? PageSize { get; set; }
+
         public int? MinAggregateId { get; set; }
-        
+
         public int? MaxAggregateId { get; set; }
 
         public string Q
@@ -80,15 +84,12 @@ namespace EdFi.Ods.Common.Models.Queries
 
                 foreach (Match match in matches)
                 {
-                    string propertyName = match.Groups["PropertyName"]
-                        .Value;
+                    string propertyName = match.Groups["PropertyName"].Value;
 
                     // Supporting only non-quoted text searches for now
-                    if (match.Groups["Text"]
-                        .Success)
+                    if (match.Groups["Text"].Success)
                     {
-                        string text = match.Groups["Text"]
-                            .Value;
+                        string text = match.Groups["Text"].Value;
 
                         bool leadingAsterisk = text[0] == '*';
                         bool trailingAsterisk = text[text.Length - 1] == '*';

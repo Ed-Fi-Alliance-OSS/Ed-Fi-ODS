@@ -14,7 +14,7 @@ public class BadRequestException : EdFiProblemDetailsExceptionBase
     // Fields containing override values for Problem Details
     private const string TypePart = "bad-request";
     private const string TitleText = "Bad Request";
-    private const string DefaultDetail = "The request construction was invalid.";
+    public const string DefaultDetail = "The request construction was invalid.";
 
     private const int StatusValue = StatusCodes.Status400BadRequest;
 

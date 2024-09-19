@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
@@ -27,11 +28,14 @@ using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Providers.Queries;
+using EdFi.Ods.Common.Providers.Queries.Criteria;
+using EdFi.Ods.Common.Providers.Queries.Paging;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
+using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -109,18 +113,19 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             // Limit/offset paging support
-            builder.RegisterDecorator(
-                typeof(PagedAggregateIdsCriteriaProviderLimitOffsetPagingDecorator),
-                typeof(IAggregateRootQueryBuilderProvider),
-                // Paging logic only applied to the PagedAggregateIdsQueryBuilderProvider
-                ctx => ctx.ImplementationType == typeof(PagedAggregateIdsQueryBuilderProvider));
+            builder.RegisterType<LimitOffsetPagingStrategy>()
+                .Keyed<IPagingStrategy>(PagingStrategy.LimitOffset)
+                .SingleInstance();
 
-            // Keyset paging support
-            builder.RegisterDecorator(
-                typeof(PagedAggregateIdsQueryBuilderProviderKeySetPagingDecorator),
-                typeof(IAggregateRootQueryBuilderProvider),
-                // Paging logic only applied to the PagedAggregateIdsQueryBuilderProvider
-                ctx => ctx.ImplementationType == typeof(PagedAggregateIdsQueryBuilderProvider));
+            // Key set paging support
+            builder.RegisterType<KeySetPagingStrategy>()
+                .Keyed<IPagingStrategy>(PagingStrategy.KeySet)
+                .SingleInstance();
+
+            // Additional criteria applicators
+            builder.RegisterAssemblyTypes(typeof(IAggregateRootQueryCriteriaApplicator).Assembly)
+                .Where(t => t.IsImplementationOf<IAggregateRootQueryCriteriaApplicator>())
+                .As<IAggregateRootQueryCriteriaApplicator>();
 
             // Repository operations
             builder.RegisterGeneric(typeof(CreateEntity<>))

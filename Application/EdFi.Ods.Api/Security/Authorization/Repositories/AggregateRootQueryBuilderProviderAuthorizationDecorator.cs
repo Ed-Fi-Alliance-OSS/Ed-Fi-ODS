@@ -42,13 +42,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="aggregateRootEntity"></param>
         /// <param name="specification">An instance of the entity representing the parameters to the query.</param>
         /// <param name="queryParameters">The parameter values to apply to the query.</param>
+        /// <param name="additionalQueryParameters">Additional parameters supplied by the API client that are resource-level properties or common parameters.</param>
         /// <returns>The criteria created by the decorated instance.</returns>
         public QueryBuilder GetQueryBuilder(
             Entity aggregateRootEntity,
             AggregateRootWithCompositeKey specification,
-            IQueryParameters queryParameters)
+            IQueryParameters queryParameters,
+            IDictionary<string, string> additionalQueryParameters)
         {
-            var queryBuilder = _decoratedInstance.GetQueryBuilder(aggregateRootEntity, specification, queryParameters);
+            var queryBuilder = _decoratedInstance.GetQueryBuilder(
+                aggregateRootEntity,
+                specification,
+                queryParameters,
+                additionalQueryParameters);
 
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 

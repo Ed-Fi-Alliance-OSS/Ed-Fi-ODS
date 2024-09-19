@@ -28,19 +28,12 @@ public static class DynamicParametersExtensions
         var targetParameters = _getParametersDelegate(target);
         var sourceParameters = _getParametersDelegate(source);
 
-        // Merge source parameters into target parameters
+        // Merge source parameters into target parameters, preserving the target values when they're already present.
         foreach (string key in sourceParameters.Keys)
         {
             if (!targetParameters.Contains(key))
             {
                 targetParameters.Add(key, sourceParameters[key]);
-            }
-            else
-            {
-                if (!targetParameters[key].Equals(sourceParameters[key]))
-                {
-                    throw new Exception($"Target parameters already contains a key of '{key}' with a different value.");
-                }
             }
         }
     }

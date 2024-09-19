@@ -47,5 +47,10 @@ namespace EdFi.Ods.Common
         /// The inclusive maximum AggregateId to be applied to the query. Used with keyset paging.
         /// </summary>
         int? MaxAggregateId { get; set; }
+
+        /// <summary>
+        /// The size of the page. Used with keyset paging.
+        /// </summary>
+        int? PageSize { get; set; }
     }
 }

@@ -19,6 +19,8 @@ namespace EdFi.Ods.Common.Models.Queries
 
         public string PageToken { get; set; }
 
+        public int? PageSize { get; set; }
+
         public string Q { get; set; }
     }
 }
