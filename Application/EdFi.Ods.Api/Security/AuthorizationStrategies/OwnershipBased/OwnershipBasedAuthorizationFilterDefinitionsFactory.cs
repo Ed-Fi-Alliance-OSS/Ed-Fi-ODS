@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -18,8 +19,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased;
 
 public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
 {
-    private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
-
     private const string FilterPropertyName = "CreatedByOwnershipTokenId";
 
     public AuthorizationFilterDefinition CreateAuthorizationFilterDefinition(string filterName)
@@ -82,7 +81,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         string authorizationStrategyName)
     {
         var contextData =
-            _authorizationContextDataFactory.CreateContextData<OwnershipBasedAuthorizationContextData>(
+            DynamicMapper.CreateContextData<OwnershipBasedAuthorizationContextData>(
                 authorizationContext.Data);
 
         if (contextData == null)

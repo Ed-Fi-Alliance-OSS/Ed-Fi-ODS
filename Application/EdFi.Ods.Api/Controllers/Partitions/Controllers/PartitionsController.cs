@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -155,7 +156,7 @@ public class PartitionsController : ControllerBase
             var mappingInterfaceType = resourceModelType.GetInterfaces().Single(t => t.Name == $"I{resource.Name}");
 
             // Map the request model to the resource model
-            var resourceInstance = (IMappable)AuthorizationContextDataFactory.MapToTarget(
+            var resourceInstance = (IMappable)DynamicMapper.MapToTarget(
                 requestModel,
                 Activator.CreateInstance(resourceModelType),
                 mappingInterfaceType);

@@ -6,6 +6,7 @@
 using System;
 using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using NUnit.Framework;
@@ -14,7 +15,7 @@ using Test.Common;
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 {
     [TestFixture]
-    public class AuthorizationContextDataFactoryTests
+    public class DynamicMapperTests
     {
         public class When_creating_authorization_context_WITHOUT_an_explicit_property_name_mapping
             : TestFixtureBase
@@ -25,14 +26,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 
             protected override void Act()
             {
-                var factory = new AuthorizationContextDataFactory();
-
                 _suppliedEntity = new EntityWithRoleNamedProperties
                 {
                     Name = "Bob", SchoolId = 1, FirstEducationOrganizationId = 10, SecondEducationOrganizationId = 20
                 };
 
-                _actualContextData = factory.CreateContextData<RelationshipsAuthorizationContextData>(_suppliedEntity);
+                _actualContextData = DynamicMapper.CreateContextData<RelationshipsAuthorizationContextData>(_suppliedEntity);
             }
 
             [Assert]
@@ -81,14 +80,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 
             protected override void Act()
             {
-                var factory = new AuthorizationContextDataFactory();
-
                 _suppliedEntity = new EntityWithRoleNamedProperties
                 {
                     Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
                 };
 
-                _actualContextData = factory.CreateContextData<RelationshipsAuthorizationContextData>(
+                _actualContextData = DynamicMapper.CreateContextData<RelationshipsAuthorizationContextData>(
                     _suppliedEntity,
                     new[]
                     {
@@ -138,14 +135,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 
             protected override void Act()
             {
-                var factory = new AuthorizationContextDataFactory();
-
                 _suppliedEntity = new EntityWithRoleNamedProperties
                 {
                     Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
                 };
 
-                factory.CreateContextData<RelationshipsAuthorizationContextData>(
+                DynamicMapper.CreateContextData<RelationshipsAuthorizationContextData>(
                     _suppliedEntity,
                     new[]
                     {
