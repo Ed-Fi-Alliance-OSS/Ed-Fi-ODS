@@ -12,6 +12,8 @@ using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 
+using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
+
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public class TrackedChangesIdentifierProjectionsProvider : ITrackedChangesIdentifierProjectionsProvider
@@ -50,7 +52,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                             IsDescriptorUsage = rp.IsDescriptorUsage,
 
                             // Columns for performing join to source table (if necessary)
-                            ChangeTableJoinColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeTableJoinProperty.PropertyName}"),
+                            ChangeTableJoinColumnName = _namingConvention.ColumnName($"{(rp.IsUniqueIdUsage ? CurrentKeyValueColumnPrefix : OldKeyValueColumnPrefix)}{changeTableJoinProperty.PropertyName}"),
                             SourceTableJoinColumnName = _namingConvention.ColumnName(rp.EntityProperty),
                         };
                     })

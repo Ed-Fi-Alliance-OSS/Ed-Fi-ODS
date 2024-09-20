@@ -34,10 +34,18 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
                 connection.Open();
             }
+            catch (EdFiProblemDetailsExceptionBase)
+            {
+                connection.Dispose();
+
+                // Throw the problem details exception, as-is
+                throw;
+            }
             catch (Exception ex)
             {
                 connection.Dispose();
 
+                // Wrap the underlying exception with a user-facing exception. 
                 throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
             }
 
@@ -54,10 +62,18 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
                 await connection.OpenAsync(cancellationToken);
             }
+            catch (EdFiProblemDetailsExceptionBase)
+            {
+                connection.Dispose();
+
+                // Throw the problem details exception, as-is
+                throw;
+            }
             catch (Exception ex)
             {
                 connection.Dispose();
 
+                // Wrap the underlying exception with a user-facing exception. 
                 throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
             }
 

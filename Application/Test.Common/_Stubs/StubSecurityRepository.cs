@@ -11,6 +11,8 @@ namespace Test.Common._Stubs
 {
     public class StubSecurityRepository : ISecurityRepository
     {
+        public IList<Action> GetActions() => throw new System.NotImplementedException();
+
         public Action GetActionByName(string actionName)
         {
             return new Action
@@ -20,6 +22,8 @@ namespace Test.Common._Stubs
                 ActionUri = "http://ed-fi.org/ods/actions/" + actionName.ToLowerInvariant()
             };
         }
+
+        public Action GetActionByUri(string uri) => throw new System.NotImplementedException();
 
         public AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
         {

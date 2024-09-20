@@ -149,8 +149,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 .ToArray();
         }
     }
-        
-    private ClaimCheckResponse PerformClaimCheck(string claimSetName, IList<string> resourceClaimUris, string requestAction)
+
+    /// <inheritdoc cref="IAuthorizationBasisMetadataSelector.PerformClaimCheck" />
+    public ClaimCheckResponse PerformClaimCheck(string claimSetName, IList<string> resourceClaimUris, string requestAction)
     {
         var claimSetClaims = _claimSetClaimsProvider.GetClaims(claimSetName);
         
@@ -273,24 +274,5 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
             // Should never happen
             throw new NotSupportedException("The requested action is not a supported action.  Authorization cannot be performed.");
         }
-    }
-
-    private class ClaimCheckResponse
-    {
-        public bool Success { get; set; }
-
-        public IList<EdFiResourceClaim> RelevantClaims { get; set; }
-
-        public string RequestedAction { get; set; }
-
-        public IList<string> RequestedResourceUris { get; set; }
-
-        public IList<ResourceClaimAuthorizationMetadata> AuthorizationMetadata { get; set; }
-
-        public string SecurityExceptionDetail { get; set; }       
-
-        public string SecurityExceptionMessage { get; set; }
-
-        public IEnumerable<string> SecurityExceptionInstanceTypeParts { get; set; }
     }
 }

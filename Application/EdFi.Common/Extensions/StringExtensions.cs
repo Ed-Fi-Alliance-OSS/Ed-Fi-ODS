@@ -87,6 +87,18 @@ namespace EdFi.Common.Extensions
         /// <returns>The text processed for display.</returns>
         public static string NormalizeCompositeTermForDisplay(this string compositeTerm, params char[] delimiters)
         {
+            return NormalizeCompositeTermForDisplay(compositeTerm, ToMixedCase, delimiters);
+        }
+
+        /// <summary>
+        /// Breaks the supplied text into individual words using mixed-casing conventions augmented by delimiters.
+        /// </summary>
+        /// <param name="compositeTerm">The text to process for display.</param>
+        /// <param name="applyCasing">A function that can be used to process each term before inclusion in the final text.</param>
+        /// <param name="delimiters">Additional delimiters to use as word breaks.</param>
+        /// <returns>The text processed for display.</returns>
+        public static string NormalizeCompositeTermForDisplay(this string compositeTerm, Func<string, string> applyCasing, params char[] delimiters)
+        {
             string delimiterExpression = delimiters.Length == 0
                 ? string.Empty
                 : "(?=[" + string.Join(string.Empty, delimiters.Select(c => @"\" + c)) + "])?";
@@ -94,16 +106,14 @@ namespace EdFi.Common.Extensions
             var parts = Regex.Matches(
                 compositeTerm,
                 string.Format(
-                    @"((?:[a-z]+|[A-Z]+)(?:[a-z0-9]+)?{0})",
-                    delimiters.Length == 0
-                        ? string.Empty
-                        : delimiterExpression));
+                    @"(?:[A-Z]{{2,}}(?![a-z])|[A-Z]+(?=[A-Z][a-z0-9])|[A-Z]?[a-z]+|[A-Z][a-z0-9]*){0}",
+                    delimiterExpression));
 
             string displayText = string.Empty;
 
             foreach (Match part in parts)
             {
-                displayText += part.Value.ToMixedCase() + " ";
+                displayText += applyCasing(part.Value) + " ";
             }
 
             return displayText.TrimEnd(' ');

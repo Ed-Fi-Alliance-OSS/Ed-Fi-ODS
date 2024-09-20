@@ -27,7 +27,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             {typeof(IGetEntityByKey<>), typeof(GetEntityByKeyAuthorizationDecorator<>)},
             {typeof(IGetEntitiesBySpecification<>), typeof(GetEntitiesBySpecificationAuthorizationDecorator<>)},
             {typeof(IPagedAggregateIdsCriteriaProvider<>), typeof(PagedAggregateIdsCriteriaProviderAuthorizationDecorator<>)},
-            {typeof(ITotalCountCriteriaProvider<>), typeof(TotalCountCriteriaProviderAuthorizationDecorator<>)},
             {typeof(IGetEntityById<>), typeof(GetEntityByIdAuthorizationDecorator<>)},
             {typeof(IGetEntitiesByIds<>), typeof(GetEntitiesByIdsAuthorizationDecorator<>)},
             {typeof(ICreateEntity<>), typeof(CreateEntityAuthorizationDecorator<>)},

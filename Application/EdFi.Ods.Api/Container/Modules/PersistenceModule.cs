@@ -105,10 +105,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
                 .SingleInstance();
 
-            builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
-                .As(typeof(ITotalCountCriteriaProvider<>))
-                .SingleInstance();
-
             builder.RegisterGeneric(typeof(CreateEntity<>))
                 .As(typeof(ICreateEntity<>))
                 .SingleInstance();

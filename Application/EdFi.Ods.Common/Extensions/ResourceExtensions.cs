@@ -187,7 +187,7 @@ namespace EdFi.Ods.Common.Extensions
         public static string SchemaUriSegment(this Resource resource) => resource
                                                                         .ResourceModel?.SchemaNameMapProvider
                                                                        ?.GetSchemaMapByPhysicalName(resource.FullName.Schema)
-                                                                        .UriSegment;
+                                                                        .UriSegment ?? resource.PostRetryOriginalSchemaUriSegment;
 
         /// <summary>
         /// Check if resource is abstract.

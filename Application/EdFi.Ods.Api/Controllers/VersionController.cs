@@ -103,6 +103,7 @@ namespace EdFi.Ods.Api.Controllers
                 }
 
                 urlsByName["oauth"] = $"{rootUrl}/oauth/token";
+                urlsByName["oauthTokenIntrospection"] = $"{rootUrl}/oauth/token_info";
 
                 urlsByName["dataManagementApi"] = $"{rootUrl}/data/v{ApiVersionConstants.Ods}/";
 

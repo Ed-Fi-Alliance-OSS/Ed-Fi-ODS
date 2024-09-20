@@ -8,8 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Claims;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Features.TokenInfo;
+using EdFi.Security.DataAccess.Repositories;
 using FakeItEasy;
 using NHibernate;
 using NHibernate.Transform;
@@ -112,7 +117,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 .Returns(CreateEducationOrganizationIdentifiers());
 
             // Act
-            var tokenInfoProvider = new TokenInfoProvider(sessionFactory);
+            var tokenInfoProvider = new TokenInfoProvider(
+                sessionFactory, 
+                A.Fake<IResourceModelProvider>(), 
+                A.Fake<IClaimSetClaimsProvider>(), 
+                A.Fake<IResourceClaimUriProvider>(), 
+                A.Fake<ISecurityRepository>(), 
+                A.Fake<IAuthorizationBasisMetadataSelector>());
 
             var results = await tokenInfoProvider.GetTokenInfoAsync(CreateApiContext());
 

@@ -257,13 +257,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/XAAAAAAA-6666-7777-8888-FFFFFFFFFFFF",
 											"host": [
@@ -439,13 +433,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/{{known:studentId}}",
 											"host": [
@@ -504,13 +492,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentByIds/{{known:studentIdFormattedGuid}}",
 											"host": [
@@ -708,13 +690,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithUniqueIds?staffUniqueId={{known:staffUniqueId}}",
 											"host": [
@@ -776,13 +752,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "bearer {{odsapi:access_token}}",
-												"uuid": "ddbe82a8-f614-48cd-a273-13b174ff0d1d"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithUniqueIds?staffUniqueId=7cc57a79-b108-4535-a15f-ff9c6d368070",
 											"host": [
@@ -1865,13 +1835,7 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"type": "text",
-												"value": "bearer {{odsapi:access_token}}"
-											}
-										],
+										"header": [],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffByRange?q=Birthdate:[{{supplied:minBirthDate}}..{{supplied:maxBirthDate}}] ,YearsOfPriorProfessionalExperience:[{{supplied:minYearsOfExperience}}..{{supplied:maxYearsOfExperience}}]",
 											"host": [
@@ -8943,7 +8907,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{AccessToken}}",
+				"value": "{{AccessToken_255901}}",
 				"type": "string"
 			}
 		]
@@ -8957,6 +8921,8 @@
 					"// Add a correlation id to the query string of every request and save it to the environment as well",
 					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"",
+					"CreateAccessToken(\"255901\");",
 					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
@@ -8975,55 +8941,63 @@
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"let tokenExpiration = pm.environment.get('TokenExpiry');",
-					"let currentToken = pm.environment.get('AccessToken');",
-					"let  getToken = true;",
-					"if (!tokenExpiration || ",
-					"    !currentToken) {",
+					"function CreateAccessToken(clientSuffix) {",
+					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
+					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
+					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
+					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
+					"",
+					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
+					"  let currentToken = pm.environment.get(accessTokenName);",
+					"  let getToken = true;",
+					"  ",
+					"  if (!tokenExpiration || !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
-					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
-					"} else {",
+					"  } else {",
 					"    getToken = false;",
-					"}",
-					"if (getToken === true) {",
+					"  }",
+					"",
+					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get('ApiKey_255901');",
-					"    let clientSecret = pm.environment.get('ApiSecret_255901');",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
 					"    let grantType = 'client_credentials';",
-					"    ",
+					"",
 					"    let getTokenRequest = {",
-					"        method: 'POST',",
-					"        url: tokenUrl,",
-					"        auth: {",
-					"            type: \"basic\",",
-					"            basic: [",
-					"                { key: \"username\", value: clientId },",
-					"                { key: \"password\", value: clientSecret }",
-					"            ]",
-					"        },",
-					"        header: [",
-					"            \"content-type:application/x-www-form-urlencoded\"",
-					"        ],",
-					"        body: {",
-					"            mode: \"urlencoded\",",
-					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
-					"        }",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/x-www-form-urlencoded\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
+					"      }",
 					"    };",
-					"    ",
+					"",
 					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"        let jsonResponse = response.json(),",
-					"            newAccessToken = jsonResponse.access_token;",
-					"    ",
-					"        // console.log({ err, jsonResponse, newAccessToken })",
-					"    ",
-					"        pm.environment.set(\"AccessToken\", newAccessToken);",
-					"    ",
-					"        let expiryDate = new Date();",
-					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"        pm.environment.set('TokenExpiry', expiryDate.getTime());",
+					"      let jsonResponse = response.json();",
+					"      let newAccessToken = jsonResponse.access_token;",
+					"",
+					"      // console.log({ err, jsonResponse, newAccessToken })",
+					"      pm.environment.set(accessTokenName, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
 					"    });",
-					"}"
+					"  }",
+					"}",
+					""
 				]
 			}
 		},

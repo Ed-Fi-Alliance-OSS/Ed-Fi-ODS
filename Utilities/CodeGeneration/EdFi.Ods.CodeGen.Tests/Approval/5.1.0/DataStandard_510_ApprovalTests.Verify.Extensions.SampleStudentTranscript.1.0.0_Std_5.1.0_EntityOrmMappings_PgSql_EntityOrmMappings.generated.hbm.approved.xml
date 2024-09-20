@@ -13,7 +13,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganization" table="PostSecondaryOrganization" lazy="false" schema="samplestudenttranscript" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganization" table="PostSecondaryOrganization" lazy="false" schema="samplestudenttranscript" discriminator-value="null">
     <id name="NameOfInstitution" column="NameOfInstitution" type="string" length="75">
       <generator class="assigned" />
     </id>

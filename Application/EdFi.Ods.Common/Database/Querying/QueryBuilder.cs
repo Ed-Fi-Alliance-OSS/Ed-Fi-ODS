@@ -16,11 +16,10 @@ namespace EdFi.Ods.Common.Database.Querying
 {
     public class QueryBuilder
     {
-        private readonly List<Cte> _ctes = new List<Cte>();
         private readonly Dialect _dialect;
 
-        private readonly ParameterIndexer _parameterIndexer = new ParameterIndexer();
-        private readonly SqlBuilder _sqlBuilder = new SqlBuilder();
+        private readonly ParameterIndexer _parameterIndexer = new();
+        private readonly SqlBuilder _sqlBuilder = new();
 
         public QueryBuilder(Dialect dialect)
         {
@@ -32,7 +31,7 @@ namespace EdFi.Ods.Common.Database.Querying
         /// </summary>
         /// <param name="dialect"></param>
         /// <param name="parameterIndexer"></param>
-        private QueryBuilder(Dialect dialect, ParameterIndexer parameterIndexer)
+        public QueryBuilder(Dialect dialect, ParameterIndexer parameterIndexer)
         {
             _dialect = dialect;
             _parameterIndexer = parameterIndexer;
@@ -56,6 +55,11 @@ namespace EdFi.Ods.Common.Database.Querying
         public string TableName { get; private set; }
 
         private IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
+
+        public ParameterIndexer ParameterIndexer
+        {
+            get => _parameterIndexer;
+        }
 
         /// <summary>
         /// Clones the current instance with all its state so it can be used as a starting point for future queries.
@@ -105,6 +109,12 @@ namespace EdFi.Ods.Common.Database.Querying
                 parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
                 parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, values) });
             }
+            else if (value is DynamicParameters dynamicParameters)
+            {
+                // Just use the dynamic parameters, as provided (but force an exception if more than 1 parameter is present)
+                parameters = dynamicParameters;
+                parameterName = $"@{dynamicParameters.ParameterNames.Single()}";
+            }
             else
             {
                 // Inline parameter, automatically named
@@ -139,8 +149,10 @@ namespace EdFi.Ods.Common.Database.Querying
                         ? new DynamicParameters(childScope.Parameters)
                         : null);
 
-                // Wrap the WHERE clause directly
-                _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                string whereCriteria = template.RawSql.Replace("WHERE ", string.Empty);
+
+                // Since we're dealing with a child scope with only 1 WHERE clause, no need to wrap it
+                _sqlBuilder.Where($"{whereCriteria}", template.Parameters);
             }
 
             // Incorporate any JOINs added into this builder
@@ -163,18 +175,32 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 return this;
             }
-            
+
             var template = childScopeSqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
                     ? new DynamicParameters(childScope.Parameters)
                     : null);
 
-            // Wrap the WHERE clause directly
+            // SqlBuilder warps 'OR' where clauses when building the template SQL
             _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
 
             // Incorporate the JOINs into this builder
             _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+
+            return this;
+        }
+
+        public QueryBuilder OrWhere(string column, object value)
+        {
+            return OrWhere(column, "=", value);
+        }
+
+        public QueryBuilder OrWhere(string column, string op, object value)
+        {
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+
+            _sqlBuilder.OrWhere($"{column} {op} {parameterName}", parameters);
 
             return this;
         }
@@ -186,20 +212,42 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder WhereLike(string columnName, object value)
+        public QueryBuilder WhereLike(string columnName, object value, MatchMode matchMode = MatchMode.Exact)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(
+                matchMode switch
+                {
+                    // NOTE: May need dialect support for varying text match symbols
+                    MatchMode.Start => $"%{value}",
+                    MatchMode.Anywhere => $"%{value}%",
+                    MatchMode.End => $"{value}%",
+                    _ => value
+                });
 
             _sqlBuilder.Where($"{columnName} LIKE {parameterName}", parameters);
 
             return this;
         }
 
-        public QueryBuilder OrWhereLike(string expression, object value)
+        public QueryBuilder OrWhereLike(string expression, object value, MatchMode matchMode = MatchMode.Exact)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
-
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(matchMode switch
+            {
+                // NOTE: May need dialect support for varying text match symbols
+                MatchMode.Start => $"%{value}",
+                MatchMode.Anywhere => $"%{value}%",
+                MatchMode.End => $"{value}%",
+                _ => value
+            });
+            
             _sqlBuilder.OrWhere($"{expression} LIKE {parameterName}", parameters);
+
+            return this;
+        }
+
+        public QueryBuilder WhereRaw(string rawSql)
+        {
+            _sqlBuilder.Where(rawSql);
 
             return this;
         }
@@ -256,20 +304,23 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder Join(string table, Func<Join, Join> joiner)
+        public QueryBuilder Join(string table, Func<Join, Join> joiner, JoinType joinType = JoinType.InnerJoin)
         {
             var join = joiner(new Join(table));
 
-            _sqlBuilder.InnerJoin(
-                $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            if (joinType == JoinType.InnerJoin)
+            {
+                _sqlBuilder.InnerJoin(
+                    $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            }
+            else if (joinType == JoinType.LeftOuterJoin)
+            {
+                _sqlBuilder.LeftJoin(
+                    $"{join.TableName} ON {string.Join(" AND ", join.Segments.Select(s => $"{s.first} {s.@operator} {s.second}"))}");
+            }
 
             return this;
         }
-
-        // public QueryBuilder Join(QueryBuilder query, Func<Join, Join> joiner, string type = "inner join")
-        // {
-        //     return this;
-        // }
 
         public QueryBuilder LeftJoin(string tableName, string thisExpression, string otherExpression)
         {
@@ -287,11 +338,6 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
-
-        // public QueryBuilder LeftJoin(QueryBuilder query, Func<Join, Join> joiner, string type = "inner join")
-        // {
-        //     return this;
-        // }
 
         public QueryBuilder Select(params string[] columns)
         {
@@ -388,33 +434,33 @@ namespace EdFi.Ods.Common.Database.Querying
 
             public object Parameters { get; }
         }
-
-        protected class ParameterIndexer
-        {
-            private int _parameterIndex = -1;
-
-            public ParameterIndexer() { }
-
-            private ParameterIndexer(int parameterIndex)
-            {
-                _parameterIndex = parameterIndex;
-            }
-
-            public int Increment() => Interlocked.Increment(ref _parameterIndex);
-
-            /// <summary>
-            /// Gets the next parameter name, incrementing the index with a call to <see cref="Increment" />.
-            /// </summary>
-            /// <returns></returns>
-            public string NextParameterName() => $"@p{Increment()}";
-
-            public ParameterIndexer Clone()
-            {
-                return new ParameterIndexer(_parameterIndex);
-            }
-        }
     }
 
+    public class ParameterIndexer
+    {
+        private int _parameterIndex = -1;
+
+        public ParameterIndexer() { }
+
+        private ParameterIndexer(int parameterIndex)
+        {
+            _parameterIndex = parameterIndex;
+        }
+
+        public int Increment() => Interlocked.Increment(ref _parameterIndex);
+
+        /// <summary>
+        /// Gets the next parameter name, incrementing the index with a call to <see cref="Increment" />.
+        /// </summary>
+        /// <returns></returns>
+        public string NextParameterName() => $"@p{Increment()}";
+
+        public ParameterIndexer Clone()
+        {
+            return new ParameterIndexer(_parameterIndex);
+        }
+    }
+    
     public class Join
     {
         private readonly List<(string first, string second, string @operator)> _segments =
@@ -438,5 +484,22 @@ namespace EdFi.Ods.Common.Database.Querying
 
             return this;
         }
+    }
+
+    public enum MatchMode
+    {
+        Exact,
+        Start,
+        Anywhere,
+        End,
+    }
+    
+    public enum JoinType
+    {
+        InnerJoin = 0,
+        LeftOuterJoin = 1,
+        // RightOuterJoin = 2,
+        // FullJoin = 4,
+        // CrossJoin = 8
     }
 }

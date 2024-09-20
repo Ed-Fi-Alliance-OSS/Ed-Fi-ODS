@@ -15,7 +15,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph.Contact" table="Contact" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph.Contact" table="Contact" lazy="false" schema="homograph" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ContactFirstName" column="ContactFirstName" type="string" length="75" />
@@ -136,7 +136,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.Name" table="Name" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.Name" table="Name" lazy="false" schema="homograph" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="FirstName" column="FirstName" type="string" length="75" />
@@ -178,7 +178,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.School" table="School" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.School" table="School" lazy="false" schema="homograph" discriminator-value="null">
     <id name="SchoolName" column="SchoolName" type="string" length="100">
       <generator class="assigned" />
     </id>
@@ -254,7 +254,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearType" table="SchoolYearType" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearType" table="SchoolYearType" lazy="false" schema="homograph" discriminator-value="null">
     <id name="SchoolYear" column="SchoolYear" type="string" length="20">
       <generator class="assigned" />
     </id>
@@ -296,7 +296,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.Staff" table="Staff" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.Staff" table="Staff" lazy="false" schema="homograph" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="StaffFirstName" column="StaffFirstName" type="string" length="75" />
@@ -417,7 +417,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.Student" table="Student" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.Student" table="Student" lazy="false" schema="homograph" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="StudentFirstName" column="StudentFirstName" type="string" length="75" />
@@ -504,7 +504,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociation" table="StudentSchoolAssociation" lazy="false" schema="homograph" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociation" table="StudentSchoolAssociation" lazy="false" schema="homograph" discriminator-value="null">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="SchoolName" column="SchoolName" type="string" length="100" />

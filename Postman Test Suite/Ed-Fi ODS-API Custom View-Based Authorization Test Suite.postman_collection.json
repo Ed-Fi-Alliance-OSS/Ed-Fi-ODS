@@ -1,14 +1,56 @@
 {
 	"info": {
-		"_postman_id": "ca822f55-c7f6-4d9c-9cd2-80efbe0ab5db",
-		"name": "Custom View-Based Authorization Test Suite",
+		"_postman_id": "43aead58-5baa-4df3-b6ee-bddbd5148fa4",
+		"name": "Ed-Fi ODS/API Custom View-Based Authorization Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
-			"name": "Test-Suite Setup",
+			"name": "Test Suite Setup",
 			"item": [
+				{
+					"name": "Initialize StandardVersion-specific",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"var standardVersion = response[\"dataModels\"].filter(dm => dm.name === 'Ed-Fi').map(dm => dm.version)[0];\r",
+									"var majorVersion = Number(standardVersion.split('.')[0]);\r",
+									"var minorVersion = Number(standardVersion.split('.')[1]);\r",
+									"var revision = Number(standardVersion.split('.')[2]);\r",
+									"\r",
+									"pm.environment.set('test-suite:known:standardVersion', standardVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:major', majorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:minor', minorVersion);\r",
+									"pm.environment.set('test-suite:known:standardVersion:revision', revision);\r",
+									"\r",
+									"// Set Standard-version specific values\r",
+									"pm.environment.set(\"test-suite:known:parentOrContactProperName\", majorVersion < 5 ? \"Parent\" : \"Contact\");\r",
+									"pm.environment.set(\"test-suite:known:maxSafeEducationOrganizationId\", majorVersion < 5 ? 2147483647 : Number.MAX_SAFE_INTEGER);\r",
+									"\r",
+									"pm.environment.set('test-suite:available:specialEducationProgramEligibility', majorVersion >= 5)\r",
+									"pm.environment.set('test-suite:available:studentTransportation', majorVersion >= 5)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Create Student",
 					"event": [
@@ -38,6 +80,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -102,6 +154,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -157,6 +219,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -230,7 +302,13 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(403);\r",
+											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -285,6 +363,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -458,6 +546,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -494,6 +592,12 @@
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -578,6 +682,12 @@
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need a Student with CTE Course Enrollments.\");\r",
+											"});\r",
 											""
 										],
 										"type": "text/javascript",
@@ -623,6 +733,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -769,6 +889,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -824,6 +954,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -880,6 +1020,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -956,8 +1106,8 @@
 									"script": {
 										"exec": [
 											"const item = pm.response.json();\r",
-											"\r",
-											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);"
+											"pm.environment.set(\"known:changeVersion:minimum\", item.newestChangeVersion + 1);\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -995,6 +1145,12 @@
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
+											"});\r",
+											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											""
 										],
@@ -1059,6 +1215,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1105,6 +1271,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1150,6 +1326,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1204,6 +1390,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -1381,6 +1577,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1427,6 +1633,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -1482,6 +1698,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -1527,9 +1753,10 @@
 											"  pm.expect(response.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Detail should include hints for the two applied relationship-based authorization strategies.\", () => {\r",
+											"pm.test(\"Detail should include hints for the each applied authorization strategy.\", () => {\r",
 											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");\r",
 											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentEducationOrganizationResponsibilityAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Errors should indicate a problem with the StudentUniqueId for authorization.\", () => {\r",
@@ -1610,6 +1837,14 @@
 											"pm.test(\"Status code is 403\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Detail should include hints for the each applied authorization strategy.\", () => {\r",
+											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentSchoolAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need to create a corresponding 'StudentEducationOrganizationResponsibilityAssociation' item.\");\r",
+											"  pm.expect(response.detail).to.contain(\"You may need a Student with CTE Course Enrollments.\");\r",
+											"});\r",
 											""
 										],
 										"type": "text/javascript",
@@ -1674,6 +1909,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1720,6 +1965,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -1850,6 +2105,28 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -1874,6 +2151,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -1919,6 +2206,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
@@ -1965,6 +2262,16 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -2003,9 +2310,12 @@
 											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 											"_.chain(_.keys(pm.environment.toObject()))\r",
 											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();"
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											"\r",
+											"pm.execution.skipRequest();"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -2025,6 +2335,31 @@
 							"response": []
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Skip if Special Education Program Eligibility is not available (Standard v4.x and earlier)\r",
+							"if (!pm.environment.get('test-suite:available:specialEducationProgramEligibility')) {\r",
+							"  pm.execution.skipRequest();\r",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -2083,10 +2418,15 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-											"})\r",
-											""
+											"  pm.expect(problemDetails.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Assessment with an ACT Identifier.\");\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -2131,10 +2471,15 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.equal(\"Access to the requested data could not be authorized.\");\r",
-											"})\r",
-											""
+											"  pm.expect(problemDetails.detail).to.contain(\"Access to the requested data could not be authorized.\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Assessment with an ACT Identifier.\");\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -2574,7 +2919,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations?totalCount=true",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentTransportations",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -2587,7 +2932,8 @@
 							"query": [
 								{
 									"key": "totalCount",
-									"value": "true"
+									"value": "true",
+									"disabled": true
 								}
 							]
 						}
@@ -2607,8 +2953,7 @@
 									"\r",
 									"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
 									"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2659,8 +3004,7 @@
 									"\r",
 									"pm.test(\"Type indicates an element is required.\", () => {\r",
 									"  pm.expect(pm.response.json().type).to.equal(\"urn:ed-fi:api:security:authorization:custom-view:access-denied:element-required\");\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2705,7 +3049,8 @@
 									"    pm.expect(pm.response.code).to.equal(200);\r",
 									"});\r",
 									"\r",
-									"pm.environment.set('known:studentTransportation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+									"pm.environment.set('known:studentTransportation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2754,8 +3099,7 @@
 									"\r",
 									"pm.test(\"Item returned should reflect changed transportationTypeDescriptor.\", () => {\r",
 									"  pm.expect(item.transportationTypeDescriptor).to.contain(\"Special Needs Bus\");\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2805,8 +3149,7 @@
 									"\r",
 									"pm.test(\"Errors should contain a message indicating only identifying properties can be used to authorize access to the deletes.\", () => {\r",
 									"  pm.expect(item.errors).to.contain(\"Non-identifying properties ('TransportationTypeDescriptorId') were found to be used for the custom view-based authorization strategy, but this is not supported by Change Queries which only tracks deleted/changed values of identifying properties. Should a different authorization strategy be used?\");\r",
-									"});\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2831,6 +3174,65 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									"\r",
+									"pm.execution.skipRequest();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Skip if Student Transportation is not available (Standard v4.x and earlier)\r",
+							"if (!pm.environment.get('test-suite:available:studentTransportation')) {\r",
+							"  pm.execution.skipRequest();\r",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -2943,8 +3345,14 @@
 											"    pm.expect(pm.response.code).to.equal(403);\r",
 											"});\r",
 											"\r",
+											"const problemDetails = pm.response.json();\r",
+											"\r",
 											"pm.test(\"Detail indicates basic authorization message.\", () => {\r",
-											"  pm.expect(pm.response.json().detail).to.match(/^Access to the requested data could not be authorized./);\r",
+											"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized./);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include a hint indicating that a Student with a CTE course enrollment may be needed.\", () => {\r",
+											"  pm.expect(problemDetails.detail).to.contain(\"Hint: You may need an Education Organization with a Category Containing an S Word.\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Errors indicate access cannot be authorized based on the EducationOrganizationId value.\", () => {\r",
@@ -3415,7 +3823,114 @@
 			]
 		},
 		{
-			"name": "Test-Suite Teardown",
+			"name": "Composite Requests",
+			"item": [
+				{
+					"name": "Composite based on StudentAssessment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating that an authorization strategy has been used that does not support Composites requests.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"The request cannot be authorized because an authorization strategy has been used for the 'edfi.StudentAssessment' resource that does not support Composites requests. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/studentCollectionWithCollections",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"composites",
+								"v1",
+								"ed-fi",
+								"test",
+								"studentCollectionWithCollections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Composite with linked StudentAssessment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"const item = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Detail should indicate a security configuration error.\", () => {\r",
+									"  pm.expect(item).to.deep.contain({\r",
+									"    \"detail\": \"A security configuration problem was detected. The request cannot be authorized.\",\r",
+									"    \"type\": \"urn:ed-fi:api:system:configuration:security\",\r",
+									"    \"title\": \"Security Configuration Error\",\r",
+									"    \"status\": 500,\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Errors should contain a message indicating that an authorization strategy has been used that does not support Composites requests.\", () => {\r",
+									"  pm.expect(item.errors).to.contain(\"The request cannot be authorized because an authorization strategy has been used for the 'edfi.StudentAssessment' resource that does not support Composites requests. Should a different authorization strategy be used?\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentUnflattenedReferenceWithLinkedCollections",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"composites",
+								"v1",
+								"ed-fi",
+								"test",
+								"StudentUnflattenedReferenceWithLinkedCollections"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Suite Teardown",
 			"item": [
 				{
 					"name": "Delete Student",
@@ -3445,6 +3960,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{AccessToken_255901}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -3480,12 +4005,23 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
 									"// Remove all environment variables related to Access Tokens\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
 									"  .each(k => pm.environment.unset(k)).value();"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -3514,7 +4050,9 @@
 									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'test-suite:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();"
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									"\r",
+									"pm.execution.skipRequest();"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -3544,7 +4082,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{AccessToken_255901}}",
+				"value": "{{AccessToken_CustomView_255901}}",
 				"type": "string"
 			}
 		]
@@ -3561,12 +4099,8 @@
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);\r",
 					"pm.environment.set('correlationId', correlationId);\r",
 					"\r",
-					"// Allow use of the same key/secret if not defined\r",
-					"const useDefaults = true;\r",
-					"const defaultKey = pm.environment.get('ApiKey');\r",
-					"const defaultSecret = pm.environment.get('ApiSecret')\r",
-					"\r",
 					"CreateAccessToken(\"255901\");\r",
+					"CreateAccessToken(\"CustomView_255901\");\r",
 					"\r",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman\r",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret\r",
@@ -3593,14 +4127,8 @@
 					"\r",
 					"  if (getToken === true) {\r",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';\r",
-					"    let clientId = pm.environment.get(apiKeyName);\r",
-					"    let clientSecret = pm.environment.get(apiSecretName);\r",
-					"\r",
-					"    if (!(clientId || clientSecret) && useDefaults) {\r",
-					"      clientId = defaultKey;\r",
-					"      clientSecret = defaultSecret;\r",
-					"    }\r",
-					"\r",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
 					"    let grantType = 'client_credentials';\r",
 					"\r",
 					"    let getTokenRequest = {\r",
@@ -3627,7 +4155,6 @@
 					"      let newAccessToken = jsonResponse.access_token;\r",
 					"\r",
 					"      // console.log({ err, jsonResponse, newAccessToken })\r",
-					"      console.log(`${accessTokenName} = ${newAccessToken}`);\r",
 					"      pm.environment.set(accessTokenName, newAccessToken);\r",
 					"\r",
 					"      let expiryDate = new Date();\r",
