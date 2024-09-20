@@ -97,18 +97,6 @@
       "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForViews.generated.hbm.xml"
     }
   ],
-  "database": [
-    {
-      "Name": "ResourceClaimMetadata",
-      "Driver": "ResourceClaimMetadata",
-      "OutputPath": "MsSql/Data/Security/0002-ResourceClaimMetadata_generated.sql"
-    },
-    {
-      "Name": "ResourceClaimMetadata.pgsql",
-      "Driver": "ResourceClaimMetadata",
-      "OutputPath": "PgSql/Data/Security/0002-ResourceClaimMetadata_generated.sql"
-    }
-  ],
   "extension": [
     {
       "Name": "EntityAuthorizationContextProviders",

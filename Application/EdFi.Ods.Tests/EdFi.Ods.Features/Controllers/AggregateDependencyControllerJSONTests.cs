@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -17,6 +18,7 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using QuickGraph;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
@@ -24,7 +26,7 @@ using Assert = NUnit.Framework.Legacy.ClassicAssert;
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 {
     [TestFixture]
-    public class AggregateDependencyControllerTests
+    public class AggregateDependencyControllerJSONTests
     {
         public class When_getting_the_dependencies_for_loading_data : TestFixtureBase
         {
@@ -40,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
                 graph.AddVertex(new Resource("Test"));
 
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph())
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false))
                     .Returns(graph);
 
                 _controller = CreateController(_resourceLoadGraphFactory);
@@ -55,7 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_get_the_resource_model_for_building_the_output()
             {
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph())
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false))
                     .MustHaveHappened();
             }
 
@@ -88,10 +90,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
                 var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
                 graph.AddVertex(new Resource("Test"));
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph())
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false))
                     .Returns(graph);
 
-                _controller = CreateController(_resourceLoadGraphFactory, true);
+                _controller = CreateController(_resourceLoadGraphFactory, false);
             }
 
             protected override void Act()
@@ -104,18 +106,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_call_the_resource_model_provider_to_get_the_model_for_building_the_output()
             {
-                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph()).MustHaveHappened();
+                A.CallTo(() => _resourceLoadGraphFactory.CreateResourceLoadGraph(false)).MustHaveHappened();
             }
 
             [Test]
-            public void Should_have_result_content_of_xml()
+            public void Should_have_result_content_with_one_resource()
             {
-                var resultvalue = (GraphML)objectResult.Value;
-                string stringcontent = Serialize(resultvalue.Nodes);
-                var doc = new XmlDocument();
-                doc.LoadXml(stringcontent);
-
-                Assert.That(doc.ChildNodes.Count, Is.GreaterThan(1));
+                Assert.That((objectResult.Value as ICollection)?.Count == 1);
             }
 
             [Test]
@@ -123,18 +120,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 Assert.AreEqual(objectResult.StatusCode, 200);
             }
-            public static string Serialize(object dataToSerialize)
-            {
-                if (dataToSerialize == null) return null;
-
-                using (StringWriter stringwriter = new System.IO.StringWriter())
-                {
-                    var serializer = new XmlSerializer(dataToSerialize.GetType());
-                    serializer.Serialize(stringwriter, dataToSerialize);
-                    return stringwriter.ToString();
-                }
-            }
-
         }
 
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,

@@ -7058,16 +7058,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -7123,16 +7113,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -7178,16 +7158,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7232,16 +7202,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7286,16 +7246,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7342,16 +7292,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7396,16 +7336,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7452,16 +7382,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7506,16 +7426,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -7560,16 +7470,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -8042,16 +7942,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [],
 												"url": {
@@ -8114,16 +8004,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [],
 												"url": {
@@ -8182,16 +8062,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [],
 												"url": {
@@ -8519,16 +8389,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8564,16 +8424,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8738,16 +8588,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -8793,16 +8633,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8838,16 +8668,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8882,16 +8702,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8927,16 +8737,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -8972,16 +8772,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"body": {
@@ -9026,16 +8816,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -9223,16 +9003,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "POST",
 												"header": [],
 												"body": {
@@ -9290,16 +9060,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "POST",
 												"header": [],
 												"body": {
@@ -9354,16 +9114,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "POST",
 												"header": [],
 												"body": {
@@ -9418,16 +9168,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "DELETE",
 												"header": [],
 												"body": {
@@ -9549,16 +9289,6 @@
 												}
 											],
 											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken}}",
-															"type": "string"
-														}
-													]
-												},
 												"method": "GET",
 												"header": [],
 												"url": {
@@ -9836,16 +9566,6 @@
 														}
 													],
 													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
 														"method": "GET",
 														"header": [],
 														"url": {
@@ -10105,16 +9825,6 @@
 														}
 													],
 													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
 														"method": "POST",
 														"header": [],
 														"body": {
@@ -10178,16 +9888,6 @@
 														}
 													],
 													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
 														"method": "POST",
 														"header": [],
 														"body": {
@@ -10236,16 +9936,6 @@
 														}
 													],
 													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
 														"method": "DELETE",
 														"header": [],
 														"url": {
@@ -12009,16 +11699,6 @@
 										"disableBodyPruning": true
 									},
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"body": {
@@ -12066,16 +11746,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -12125,16 +11795,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -12184,16 +11844,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -12240,16 +11890,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -12294,16 +11934,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -12352,16 +11982,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -12410,16 +12030,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -12468,16 +12078,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "POST",
 										"header": [],
 										"body": {
@@ -12707,16 +12307,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -12755,16 +12345,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -12803,16 +12383,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -12848,16 +12418,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -12893,16 +12453,6 @@
 										}
 									],
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "DELETE",
 										"header": [],
 										"url": {
@@ -13287,7 +12837,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{AccessToken}}",
+				"value": "{{AccessToken_255901}}",
 				"type": "string"
 			}
 		]
@@ -13308,15 +12858,12 @@
 					"pm.environment.set('known:localEducationAgencyId', 255901);",
 					"pm.environment.set('known:schoolId', 255901001);",
 					"",
-					"CreateAccessToken(\"TokenExpiry\", \"AccessToken\", \"ApiKey_255901\", \"ApiSecret_255901\")",
-					"CreateAccessToken(\"TokenExpiry_255902\", \"AccessToken_255902\", \"ApiKey_255902\", \"ApiSecret_255902\")",
-					"CreateAccessToken(\"TokenExpiry_255901001\", \"AccessToken_255901001\", \"ApiKey_255901001\", \"ApiSecret_255901001\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_255901044\", \"AccessToken_255901044\", \"ApiKey_255901044\", \"ApiSecret_255901044\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_Other_Namespace\", \"AccessToken_Other_Namespace\", \"ApiKey_Other_Namespace\", \"ApiSecret_Other_Namespace\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_NoEdorg\", \"AccessToken_NoEdorg\", \"ApiKey_NoEdorg\", \"ApiSecret_NoEdorg\")",
+					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"255902\");",
+					"CreateAccessToken(\"255901001\");",
+					"CreateAccessToken(\"255901044\");",
+					"CreateAccessToken(\"Other_Namespace\");",
+					"CreateAccessToken(\"NoEdorg\");",
 					"",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
@@ -13335,22 +12882,28 @@
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"function CreateAccessToken(TokenExpiry, AccessToken, ApiKey, ApiSecret) {",
-					"  let tokenExpiration = pm.environment.get(TokenExpiry);",
-					"  let currentToken = pm.environment.get(AccessToken);",
+					"function CreateAccessToken(clientSuffix) {",
+					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
+					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
+					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
+					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
+					"",
+					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
+					"  let currentToken = pm.environment.get(accessTokenName);",
 					"  let getToken = true;",
-					"  if (!tokenExpiration ||",
-					"    !currentToken) {",
+					"  ",
+					"  if (!tokenExpiration || !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
 					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
 					"  } else {",
 					"    getToken = false;",
 					"  }",
+					"",
 					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get(ApiKey);",
-					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;",
+					"    let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;",
 					"    let grantType = 'client_credentials';",
 					"",
 					"    let getTokenRequest = {",
@@ -13364,25 +12917,24 @@
 					"        ]",
 					"      },",
 					"      header: [",
-					"        \"content-type:application/json\"",
+					"        \"content-type:application/x-www-form-urlencoded\"",
 					"      ],",
 					"      body: {",
-					"        mode: \"raw\",",
-					"        raw: JSON.stringify({ Grant_type: grantType })",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
 					"      }",
 					"    };",
 					"",
 					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"      let jsonResponse = response.json(),",
-					"        newAccessToken = jsonResponse.access_token;",
+					"      let jsonResponse = response.json();",
+					"      let newAccessToken = jsonResponse.access_token;",
 					"",
 					"      // console.log({ err, jsonResponse, newAccessToken })",
-					"",
-					"      pm.environment.set(AccessToken, newAccessToken);",
+					"      pm.environment.set(accessTokenName, newAccessToken);",
 					"",
 					"      let expiryDate = new Date();",
 					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"      pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
 					"    });",
 					"  }",
 					"}",

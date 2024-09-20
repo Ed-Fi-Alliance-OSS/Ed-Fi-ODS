@@ -28,6 +28,8 @@ namespace EdFi.Ods.Api.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
+            builder.RegisterInstance(DatabaseEngine.Postgres);
+
             builder.RegisterType<ParameterListSetter>()
                 .As<IParameterListSetter>()
                 .SingleInstance();

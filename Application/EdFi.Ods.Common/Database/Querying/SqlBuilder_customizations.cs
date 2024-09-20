@@ -11,18 +11,22 @@ namespace EdFi.Ods.Common.Database.Querying
 {
     public partial class SqlBuilder
     {
+        private const string Space = " ";
+
         /// <summary>
         /// Sets a clause that should only appear once within the resulting query (e.g. paging).
         /// </summary>
         /// <param name="name"></param>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
+        /// <param name="prefix"></param>
+        /// <param name="postfix"></param>
         /// <returns></returns>
-        protected SqlBuilder SetClause(string name, string sql, object parameters)
+        private SqlBuilder SetClause(string name, string sql, object parameters, string prefix = "\n", string postfix = "\n")
         {
             if (!_data.TryGetValue(name, out var clauses))
             {
-                clauses = new Clauses(string.Empty, "\n", "\n");
+                clauses = new Clauses(string.Empty, prefix, postfix);
                 _data[name] = clauses;
             }
             else
@@ -37,7 +41,7 @@ namespace EdFi.Ods.Common.Database.Querying
         }
 
         public SqlBuilder Distinct() =>
-            SetClause("distinct", "DISTINCT", null);
+            SetClause("distinct", "DISTINCT", null, null, null);
 
         public SqlBuilder LimitOffset(string sql, dynamic parameters = null) =>
             SetClause("paging", sql, parameters);
@@ -148,7 +152,7 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             return HasClause(ClauseKey.Where);
         }
-        
+
         private bool HasClause(string clausekey)
         {
             return _data.Any(kvp => kvp.Key == clausekey);

@@ -12,7 +12,7 @@ using Shouldly;
 namespace EdFi.Ods.Common.UnitTests.Extensions
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class When_trimming_a_suffix : TestFixtureBase
+    public class When_trimming_a_suffix
     {
         [Test]
         public void Should_trim_a_suffix_only_if_the_case_matches()
@@ -39,7 +39,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
         }
     }
 
-    public class When_converting_string_to_boolean : TestFixtureBase
+    public class When_converting_string_to_boolean
     {
         [Test]
         public void Should_convert_a_null_to_false()
@@ -74,6 +74,23 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
         {
             ("fAlSe").ToBoolean()
                 .ShouldBeFalse();
+        }
+    }
+
+    public class NormalizeCompositeTermForDisplayTests
+    {
+        [TestCase("TPDM", "TPDM")]
+        [TestCase("TPDModel", "TPD Model")]
+        [TestCase("MyTPDM", "My TPDM")]
+        [TestCase("MyTPDMIsTHEBest", "My TPDM Is THE Best")]
+        [TestCase("nothingdoinghere", "Nothingdoinghere")]
+        [TestCase("Ed-Fi", "Ed Fi")]
+        [TestCase("Ed-Fi is an MSDF thing", "Ed Fi Is An MSDF Thing")]
+        public void Should_normalize_text_correctly(string text, string expected)
+        {
+            string actual = text.NormalizeCompositeTermForDisplay(' ', '-');
+            
+            actual.ShouldBe(expected);
         }
     }
 }

@@ -5,26 +5,20 @@
 
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.CustomViewBased;
+using System.Linq;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Infrastructure.Activities;
-using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.CustomViewBased;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
-    public static class ICriteriaExtensions
+    public static class QueryBuilderExtensions
     {
         /// <summary>
         /// Applies a join-based filter to the criteria for the specified authorization view.
         /// </summary>
-        /// <param name="criteria">The criteria to which filters should be applied.</param>
-        /// <param name="whereJunction">The <see cref="ICriterion" /> container for adding WHERE clause criterion.</param>
+        /// <param name="queryBuilder"></param>
         /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
         /// <param name="subjectEndpointName">The name of the property to be joined for the entity being queried.</param>
@@ -33,9 +27,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="joinType">The <see cref="JoinType" /> to be used.</param>
         /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         public static void ApplySingleColumnJoinFilter(
-            this ICriteria criteria,
-            IMultiValueRestrictions multiValueRestrictions,
-            Junction whereJunction,
+            this QueryBuilder queryBuilder,
             IDictionary<string, object> parameters,
             string viewName,
             string subjectEndpointName,
@@ -47,13 +39,23 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
             // Apply authorization join using ICriteria
-            criteria.CreateEntityAlias(
-                authViewAlias,
-                Restrictions.EqProperty($"aggregateRoot.{subjectEndpointName}",
-                $"{authViewAlias}.{viewTargetEndpointName}"),
-                joinType, 
-                $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
-
+            if (joinType == JoinType.InnerJoin)
+            {
+                queryBuilder.Join(
+                    $"auth.{viewName} AS {authViewAlias}",
+                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+            }
+            else if (joinType == JoinType.LeftOuterJoin)
+            {
+                queryBuilder.LeftJoin(
+                    $"auth.{viewName} AS {authViewAlias}",
+                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+            }
+            else
+            {
+                throw new NotSupportedException("Unsupported authorization view join type.");
+            }
+            
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
             {
@@ -64,30 +66,26 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             {
                 if (joinType == JoinType.InnerJoin)
                 {
-                    whereJunction.Add(multiValueRestrictions.In($"{{{authViewAlias}}}.{viewSourceEndpointName}", arrayOfValues));
+                    queryBuilder.WhereIn($"{authViewAlias}.{viewSourceEndpointName}", arrayOfValues);
                 }
                 else
                 {
-                    var and = new AndExpression(
-                        multiValueRestrictions.In($"{{{authViewAlias}}}.{viewSourceEndpointName}", arrayOfValues),
-                        Restrictions.IsNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
-
-                    whereJunction.Add(and);
+                    queryBuilder.Where(qb => 
+                        qb.WhereIn($"{authViewAlias}.{viewSourceEndpointName}", arrayOfValues)
+                            .WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
                 }
             }
             else
             {
                 if (joinType == JoinType.InnerJoin)
                 {
-                    whereJunction.Add(Restrictions.Eq($"{authViewAlias}.{viewSourceEndpointName}", value));
+                    queryBuilder.Where($"{authViewAlias}.{viewSourceEndpointName}", value);
                 }
                 else
                 {
-                    var and = new AndExpression(
-                        Restrictions.Eq($"{authViewAlias}.{viewSourceEndpointName}", value),
-                        Restrictions.IsNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
-
-                    whereJunction.Add(and);
+                    queryBuilder.Where(qb => 
+                        qb.Where($"{authViewAlias}.{viewSourceEndpointName}", value)
+                            .WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
                 }
             }
         }
@@ -108,7 +106,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         /// <param name="authorizationStrategy">The authorization strategy instance (which may be an instance providing additional context for authorization).</param>
         public static void ApplyCustomViewJoinFilter(
-            this ICriteria criteria,
+            this QueryBuilder queryBuilder,
             string viewName,
             string[] subjectEndpointNames,
             string[] viewTargetEndpointNames,
@@ -126,44 +124,46 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             if (subjectEndpointNames.Length == 1)
             {
-                // Apply authorization join using ICriteria
-                criteria.CreateEntityAlias(
-                    authViewFullAlias,
-                    Restrictions.EqProperty(
-                        $"aggregateRoot.{subjectEndpointNames[0]}",
-                        $"{authViewFullAlias}.{viewTargetEndpointNames[0]}"),
-                    joinType,
-                    customViewBasedAuthorizationStrategy.BasisEntity.EntityTypeFullName());
+                // Apply authorization join using the query builder
+                queryBuilder.Join(
+                    $"auth.{viewName} AS {authViewFullAlias}",
+                    j => j.On($"r.{subjectEndpointNames[0]}", $"{authViewFullAlias}.{viewTargetEndpointNames[0]}"),
+                    joinType);
             }
             else
             {
                 // Apply authorization join using ICriteria
-                criteria.CreateEntityAlias(
-                    authViewFullAlias,
-                    BuildJoinCriterion(0),
-                    joinType,
-                    customViewBasedAuthorizationStrategy.BasisEntity.EntityTypeFullName());
-                
-                ICriterion BuildJoinCriterion(int endPointIndex)
-                {
-                    // If this is the last 2 names, build an And expression and terminate recursion
-                    if (endPointIndex == subjectEndpointNames.Length - 2)
+                queryBuilder.Join(
+                    $"auth.{viewName} AS {authViewFullAlias}", j =>
                     {
-                        return new AndExpression(
-                            Restrictions.EqProperty(
-                                $"aggregateRoot.{subjectEndpointNames[endPointIndex]}",
-                                $"{authViewFullAlias}.{viewTargetEndpointNames[endPointIndex]}"),
-                            Restrictions.EqProperty(
-                                $"aggregateRoot.{subjectEndpointNames[endPointIndex + 1]}",
-                                $"{authViewFullAlias}.{viewTargetEndpointNames[endPointIndex + 1]}"));
-                    }
+                        for (int i = 0; i < subjectEndpointNames.Length; i++)
+                        {
+                            j.On($"r.{subjectEndpointNames[i]}", $"{authViewFullAlias}.{viewTargetEndpointNames[i]}");
+                        }
 
-                    // Recursively build the and expression
-                    return new AndExpression(
-                        Restrictions.EqProperty(
-                            $"aggregateRoot.{subjectEndpointNames[endPointIndex]}",
-                            $"{authViewFullAlias}.{viewTargetEndpointNames[endPointIndex]}"),
-                        BuildJoinCriterion(endPointIndex + 1));
+                        return j;
+                    },
+                    joinType);
+            }
+        }
+        
+        /// <summary>
+        /// Applies property-level filter expressions to the query builder as either Equal or In expressions based on the supplied parameters.
+        /// </summary>
+        /// <param name="whereQueryBuilder">The <see cref="QueryBuilder" /> for adding WHERE clause-only criteria.</param>
+        /// <param name="parameters">The named parameters to be processed into the criteria query.</param>
+        /// <param name="availableFilterProperties">The array of property names that can be used for filtering.</param>
+        public static void ApplyPropertyFilters(this QueryBuilder whereQueryBuilder, IDictionary<string, object> parameters, params string[] availableFilterProperties)
+        {
+            foreach (var nameAndValue in parameters.Where(x => availableFilterProperties.Contains(x.Key, StringComparer.OrdinalIgnoreCase)))
+            {
+                if (nameAndValue.Value is object[] arrayOfValues)
+                {
+                    whereQueryBuilder.WhereIn($"{nameAndValue.Key}", arrayOfValues);
+                }
+                else
+                {
+                    whereQueryBuilder.Where($"{nameAndValue.Key}", nameAndValue.Value);
                 }
             }
         }

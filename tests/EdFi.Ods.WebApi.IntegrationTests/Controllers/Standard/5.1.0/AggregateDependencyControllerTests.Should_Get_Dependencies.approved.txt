@@ -176,6 +176,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/busRouteDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/calendarEventDescriptors",
     "order": 1,
     "operations": [
@@ -384,6 +392,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/crisisTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/cteProgramServiceDescriptors",
     "order": 1,
     "operations": [
@@ -473,6 +489,14 @@
   },
   {
     "resource": "/ed-fi/disciplineIncidentParticipationCodeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/displacedStudentStatusDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -689,6 +713,14 @@
   },
   {
     "resource": "/ed-fi/identificationDocumentUseDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/immunizationTypeDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -945,6 +977,14 @@
   },
   {
     "resource": "/ed-fi/networkPurposeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/nonMedicalImmunizationExemptionDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -1576,6 +1616,38 @@
     ]
   },
   {
+    "resource": "/ed-fi/transportationPublicExpenseEligibilityTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/transportationTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/travelDayofWeekDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/travelDirectionDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/tribalAffiliationDescriptors",
     "order": 1,
     "operations": [
@@ -1617,6 +1689,14 @@
   },
   {
     "resource": "/ed-fi/credentials",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/crisisEvents",
     "order": 2,
     "operations": [
       "Create",
@@ -2387,6 +2467,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/studentHealths",
+    "order": 14,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/studentHomelessProgramAssociations",
     "order": 14,
     "operations": [
@@ -2508,6 +2596,14 @@
   },
   {
     "resource": "/ed-fi/studentTitleIPartAProgramAssociations",
+    "order": 14,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentTransportations",
     "order": 14,
     "operations": [
       "Create",

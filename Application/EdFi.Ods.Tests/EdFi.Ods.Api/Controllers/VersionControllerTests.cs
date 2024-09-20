@@ -187,6 +187,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     { "dependencies", $"http://localhost/{expectedPathRootSegment}metadata/data/v3/dependencies" },
                     { "openApiMetadata", $"http://localhost/{expectedPathRootSegment}metadata/" },
                     { "oauth", $"http://localhost/{expectedPathRootSegment}oauth/token" },
+                    { "oauthTokenIntrospection", $"http://localhost/{expectedPathRootSegment}oauth/token_info" },
                     { "dataManagementApi", $"http://localhost/{expectedPathRootSegment}data/v3/" },
                     { "xsdMetadata", $"http://localhost/{expectedPathRootSegment}metadata/xsd" },
                     { "changeQueries", $"http://localhost/{expectedPathRootSegment}changeQueries/v1/" },

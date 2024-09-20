@@ -28,6 +28,11 @@ namespace EdFi.Ods.Features.ChangeQueries
         public const string OldKeyValueColumnPrefix = "Old";
         
         /// <summary>
+        /// Prefix applied to an USI column name containing the current value (for the tracked UniqueId value).
+        /// </summary>
+        public const string CurrentKeyValueColumnPrefix = "Current";
+
+        /// <summary>
         /// Prefix applied to the identifier column name containing the new value.
         /// </summary>
         public const string NewKeyValueColumnPrefix = "New";
