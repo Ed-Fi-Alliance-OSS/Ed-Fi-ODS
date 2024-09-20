@@ -232,9 +232,9 @@ namespace EdFi.Ods.Common.Database.Querying
             object matchValue = matchMode switch
             {
                 // NOTE: May need dialect support for varying text match symbols
-                MatchMode.Start => $"%{value}",
+                MatchMode.Start => $"{value}%",
                 MatchMode.Anywhere => $"%{value}%",
-                MatchMode.End => $"{value}%",
+                MatchMode.End => $"%{value}",
                 _ => value
             };
 

@@ -210,6 +210,88 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
+            [TestCase(DatabaseEngine.MsSql, MatchMode.Start, "Le", "Le%")]
+            [TestCase(DatabaseEngine.MsSql, MatchMode.Exact, "Le", "Le")]
+            [TestCase(DatabaseEngine.MsSql, MatchMode.End, "Le", "%Le")]
+            [TestCase(DatabaseEngine.MsSql, MatchMode.Anywhere, "Le", "%Le%")]
+            [TestCase(DatabaseEngine.PgSql, MatchMode.Start, "Le", "Le%")]
+            [TestCase(DatabaseEngine.PgSql, MatchMode.Exact, "Le", "Le")]
+            [TestCase(DatabaseEngine.PgSql, MatchMode.End, "Le", "%Le")]
+            [TestCase(DatabaseEngine.PgSql, MatchMode.Anywhere, "Le", "%Le%")]
+            public void Should_apply_where_like_with_match_mode(
+                DatabaseEngine databaseEngine,
+                MatchMode matchMode,
+                string providedValue,
+                string expectedValue)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("*")
+                    .WhereLike("LastSurname", providedValue, matchMode, "@LastSurname");
+                
+                var template = q.BuildTemplate();
+
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
+                        .ShouldBe(@"
+                    SELECT  * 
+                    FROM    edfi.Student
+                    WHERE   LastSurname LIKE @LastSurname".NormalizeSql()));
+
+                var finalParameters = template.Parameters as DynamicParameters;
+                finalParameters.Get<string>("@LastSurname").ShouldBe(expectedValue);
+                
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+            
+            [TestCase(DatabaseEngine.MsSql, null, null, @"
+                    SELECT  StudentUSI 
+                    FROM    edfi.StudentAssessmentItem
+                    WHERE   RawScoreResult BETWEEN @p0 AND @p1")]
+            [TestCase(DatabaseEngine.MsSql, "@MinScore", "@MaxScore", @"
+                    SELECT  StudentUSI 
+                    FROM    edfi.StudentAssessmentItem
+                    WHERE   RawScoreResult BETWEEN @MinScore AND @MaxScore")]
+            [TestCase(DatabaseEngine.PgSql, null, null, @"
+                    SELECT  StudentUSI 
+                    FROM    edfi.StudentAssessmentItem
+                    WHERE   RawScoreResult BETWEEN @p0 AND @p1")]
+            [TestCase(DatabaseEngine.PgSql, "@MinScore", "@MaxScore", @"
+                    SELECT  StudentUSI 
+                    FROM    edfi.StudentAssessmentItem
+                    WHERE   RawScoreResult BETWEEN @MinScore AND @MaxScore")]
+            public void Should_apply_where_between(
+                DatabaseEngine databaseEngine,
+                string minParameterName,
+                string maxParameterName,
+                string expectedSql)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentAssessmentItem")
+                    .Select("StudentUSI")
+                    .WhereBetween("RawScoreResult", 5, 15, minParameterName, maxParameterName);
+                
+                var template = q.BuildTemplate();
+
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
+                        .ShouldBe(expectedSql.NormalizeSql()));
+
+                var finalParameters = template.Parameters as DynamicParameters;
+                finalParameters.Get<int>(minParameterName ?? "@p0").ShouldBe(5);
+                finalParameters.Get<int>(maxParameterName ?? "@p1").ShouldBe(15);
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_exact_match_Date_value(DatabaseEngine databaseEngine)
@@ -785,9 +867,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
 
         public class With_paging
         {
-            [TestCase(DatabaseEngine.MsSql, "OFFSET 50 ROWS FETCH NEXT 5 ROWS ONLY")]
-            [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 50")]
-            public void Should_page_using_limit_and_offset_correctly(DatabaseEngine databaseEngine, string pagingSql)
+            [TestCase(DatabaseEngine.MsSql, "OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY")]
+            [TestCase(DatabaseEngine.PgSql, "LIMIT @Limit OFFSET @Offset")]
+            public void Should_page_using_limit_and_offset_values_correctly(DatabaseEngine databaseEngine, string pagingSql)
             {
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
                     .From("edfi.Student")
@@ -800,6 +882,41 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.NormalizeSql()
                     .ShouldBe($"SELECT * FROM edfi.Student ORDER BY LastSurname DESC, FirstName {pagingSql}");
 
+                // Verify parameter assignements
+                var finalParameters = template.Parameters as DynamicParameters;
+                finalParameters.Get<int>("@Offset").ShouldBe(50);
+                finalParameters.Get<int>("@Limit").ShouldBe(5);
+                
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [TestCase(DatabaseEngine.MsSql, "OFFSET @MyOffset ROWS FETCH NEXT @MyLimit ROWS ONLY")]
+            [TestCase(DatabaseEngine.PgSql, "LIMIT @MyLimit OFFSET @MyOffset")]
+            public void Should_page_using_limit_and_offset_parameter_name_correctly(DatabaseEngine databaseEngine, string pagingSql)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("*")
+                    .OrderBy("LastSurname DESC", "FirstName")
+                    .LimitOffset(5, 50, "@MyLimit" ,"@MyOffset");
+
+                var template = q.BuildTemplate();
+            
+                template.RawSql.NormalizeSql()
+                    .ShouldBe($"SELECT * FROM edfi.Student ORDER BY LastSurname DESC, FirstName {pagingSql}");
+
+                // Verify parameter assignements
+                var finalParameters = template.Parameters as DynamicParameters;
+                finalParameters.Get<int>("@MyOffset").ShouldBe(50);
+                finalParameters.Get<int>("@MyLimit").ShouldBe(5);
+                
+                finalParameters.ParameterNames.ShouldNotContain("Offset");
+                finalParameters.ParameterNames.ShouldNotContain("Limit");
+                
                 ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
@@ -810,8 +927,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
         
         public class With_joins
         {
-            [TestCase(DatabaseEngine.MsSql, "OFFSET 25 ROWS FETCH NEXT 5 ROWS ONLY")]
-            [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 25")]
+            [TestCase(DatabaseEngine.MsSql, "OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY")]
+            [TestCase(DatabaseEngine.PgSql, "LIMIT @Limit OFFSET @Offset")]
             public void Should_apply_single_column_inner_joins(DatabaseEngine databaseEngine, string pagingSql)
             {
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
@@ -840,8 +957,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
-            [TestCase(DatabaseEngine.MsSql, "OFFSET 25 ROWS FETCH NEXT 5 ROWS ONLY")]
-            [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 25")]
+            [TestCase(DatabaseEngine.MsSql, "OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY")]
+            [TestCase(DatabaseEngine.PgSql, "LIMIT @Limit OFFSET @Offset")]
             public void Should_apply_single_column_left_joins(DatabaseEngine databaseEngine, string pagingSql)
             {
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))
