@@ -49,6 +49,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Initialize Known School Ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');",
+									"const schools = pm.response.json();",
+									"const schoolIds = __.map(schools, school => school.schoolId);",
+									"pm.environment.set(\"test-suite:known:schoolIds\",schoolIds);",
+									"pm.environment.set(\"test-suite:known:schoolId\", __.sample(schoolIds));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							],
+							"query": [
+								{
+									"key": "localEducationAgencyId",
+									"value": "255901"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1120,53 +1163,6 @@
 			]
 		},
 		{
-			"name": "Initialize Known Data",
-			"item": [
-				{
-					"name": "Initialize Known School Ids",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const __ = require('lodash');",
-									"const schools = pm.response.json();",
-									"const schoolIds = __.map(schools, school => school.schoolId);",
-									"pm.environment.set(\"known:schoolIds\",schoolIds);",
-									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"schools"
-							],
-							"query": [
-								{
-									"key": "localEducationAgencyId",
-									"value": "255901"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "AcademicWeeks",
 			"item": [
 				{
@@ -1320,8 +1316,8 @@
 								"exec": [
 									"const __ = require('lodash');",
 									"",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
-									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"const schoolIds =pm.environment.get(\"test-suite:known:schoolIds\");",
+									"pm.environment.set(\"test-suite:known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCDE\" + __.random(70).toString());",
 									"",
 									"const moment = require('moment');",
@@ -1404,7 +1400,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
 									"",
@@ -1489,7 +1485,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds =pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
 									"",
@@ -1572,7 +1568,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"",
@@ -1652,7 +1648,7 @@
 								"exec": [
 									"const __ = require('lodash');",
 									"",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"pm.environment.set(\"known:totalInstructionalDays\",__.random(70));"
@@ -1782,7 +1778,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", pm.variables.replaceIn(\"{{$guid}}\").substring(0, 6));",
 									"const moment = require('moment');",
@@ -1890,7 +1886,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", pm.variables.replaceIn(\"{{$guid}}\").substring(0, 6));",
 									"",
@@ -4715,7 +4711,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should indicate Total Count cannot be determined while using key set paging.\", () => {\r",
-													"  pm.expect(items.errors).to.contain(\"Total count cannot be determined while using key set paging.\");\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Total count cannot be determined while using key set paging.\");\r",
 													"});\r",
 													""
 												],
@@ -13267,7 +13263,7 @@
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");\r",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
 									"\r",
 									"const moment = require('moment');\r",
@@ -13608,7 +13604,7 @@
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");\r",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
 									"\r",
 									"const moment = require('moment');\r",
