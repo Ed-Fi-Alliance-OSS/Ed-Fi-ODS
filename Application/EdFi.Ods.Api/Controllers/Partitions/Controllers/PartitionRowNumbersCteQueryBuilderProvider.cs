@@ -75,7 +75,7 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         IQueryParameters queryParameters,
         IDictionary<string, string> additionalParameters)
     {
-        // TODO: ODS-6432 - This needs to be invokes an authorization decorator of some sort -- copied from the data management controller pipeline. Also, look for approach to DRY here.
+        // TODO: ODS-6510 - This needs to be invokes an authorization decorator of some sort -- copied from the data management controller pipeline. Also, look for approach to DRY here.
         EstablishAuthorizationFilteringContext(entity);
 
         var rowNumbersQueryBuilder = new QueryBuilder(_dialect);
@@ -120,7 +120,7 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         return rowNumbersQueryBuilder;
     }
 
-    // TODO: ODS-6432 - ALL OF THIS NEEDS TO REFACTORED OUT INTO A SECURITY COMPONENT SOMEWHERE - Pay attention to DRY
+    // TODO: ODS-6510 - THIS NEEDS TO REFACTORED OUT INTO A SECURITY COMPONENT SOMEWHERE - Pay attention to DRY
     private void EstablishAuthorizationFilteringContext(dynamic aggregateRootEntity)
     {
         // Establish the authorization context -- currently done in SetAuthorizationContext pipeline step, not accessible here
