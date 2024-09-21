@@ -75,7 +75,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             }
             else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
             {
-                if (authorizationFiltering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues.Length > 1)))
+                if (authorizationFiltering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
                 {
                     // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
                     queryBuilder.Distinct();
