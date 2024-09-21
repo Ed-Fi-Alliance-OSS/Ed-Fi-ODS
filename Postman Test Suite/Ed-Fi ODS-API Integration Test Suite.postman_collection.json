@@ -7089,6 +7089,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
 											"let entryDate=new Date();",
@@ -7096,9 +7097,13 @@
 											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
 											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
 											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
-											" "
+											"",
+											"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
+											"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{

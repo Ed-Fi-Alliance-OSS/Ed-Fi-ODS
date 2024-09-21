@@ -1911,15 +1911,16 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=27",
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentById?limit=27",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
 											"path": [
-												"data",
-												"v3",
+												"composites",
+												"v1",
 												"ed-fi",
-												"students"
+												"test",
+												"StudentById"
 											],
 											"query": [
 												{
