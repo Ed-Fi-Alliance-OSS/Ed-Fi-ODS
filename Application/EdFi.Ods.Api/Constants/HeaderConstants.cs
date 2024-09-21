@@ -15,6 +15,6 @@ namespace EdFi.Ods.Api.Constants
         public const string XForwardedHost = "X-Forwarded-Host";
         public const string XForwardedPort = "X-Forwarded-Port";
         public const string ContentType = "Content-Type";
-        public const string NextPageToken = "Next-Page";
+        public const string NextPageToken = "Next-Page-Token";
     }
 }
