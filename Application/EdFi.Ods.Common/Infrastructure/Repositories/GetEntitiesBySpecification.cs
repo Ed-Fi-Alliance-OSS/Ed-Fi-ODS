@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -35,6 +36,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         public GetEntitiesBySpecification(
             ISessionFactory sessionFactory,
             IGetEntitiesByIds<TEntity> getEntitiesByIds,
+            [FromKeyedServices(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)]
             IAggregateRootQueryBuilderProvider pagedAggregateIdsCriteriaProvider,
             IDomainModelProvider domainModelProvider)
             : base(sessionFactory)

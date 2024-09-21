@@ -4,16 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Reflection;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
+using Autofac.Features.AttributeFilters;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Caching.Person;
-using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
@@ -26,7 +25,6 @@ using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Providers.Queries.Criteria;
 using EdFi.Ods.Common.Providers.Queries.Paging;
@@ -146,10 +144,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
-                // We need a fully decorated PagedAggregateIdsQueryBuilderProvider here
-                .WithParameter(
-                    (pi, ctx) => pi.ParameterType == typeof(IAggregateRootQueryBuilderProvider),
-                    (pi, ctx) => ctx.ResolveKeyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey))
+                .WithAttributeFiltering()
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))
