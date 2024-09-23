@@ -13654,6 +13654,1257 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Two Schools -Duplicate Items in Counts and Pages",
+			"item": [
+				{
+					"name": "Staff",
+					"item": [
+						{
+							"name": "Include total count in Get request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"",
+											"pm.environment.set('known:staffTotalCount', postman.getResponseHeader(\"Total-Count\"));",
+											"",
+											"pm.environment.set('known:schoolId11', 255901001)",
+											"pm.environment.set('known:schoolId12', 255901044)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staff Data for Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
+											"",
+											"",
+											"",
+											"pm.environment.set('known:'+scenarioId+':authorizedStaffUniqueIds',[]);",
+											"const authorizedStaffUniqueIds=pm.environment.get('known:'+scenarioId+':authorizedStaffUniqueIds');",
+											"authorizedStaffUniqueIds.push(pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"pm.environment.set('known:'+scenarioId+':authorizedStaffUniqueIds',authorizedStaffUniqueIds);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"pm.environment.set('scenarioId', createScenarioId());",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create  StaffEducationOrganizationEmploymentAssociations",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n \r\n   \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:schoolId11}}\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{known:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\",\r\n   \"hireDate\":\"2000-06-06\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StaffEducationOrganizationEmploymentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create StaffEducationOrganizationEmploymentAssociations for  2nd schoool",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n \r\n   \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:schoolId12}}\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{known:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\",\r\n   \"hireDate\":\"2000-06-06\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StaffEducationOrganizationEmploymentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request without search condition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+											"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
+											"});",
+											"",
+											"pm.test(\"No Duplicate count in staff\", () => {",
+											"const staffTotalCount = parseInt(pm.environment.get('known:staffTotalCount'), 10); // Convert to integer",
+											"const staffRevisedTotalCount = parseInt(postman.getResponseHeader(\"Total-Count\"), 10); // Convert to integer",
+											"",
+											"    pm.expect(staffTotalCount + 1).to.equal(staffRevisedTotalCount);",
+											"});",
+											"",
+											"pm.environment.set('known:staffUniqueId', __.first(responseItems).staffUniqueId);",
+											"pm.environment.set('known:staffTotalCount', postman.getResponseHeader(\"Total-Count\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request ,Set limit to 100",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+											"     pm.expect(responseItems.length).to.be.at.most(100);",
+											"});",
+											"const staffs = __.takeRight(responseItems, 25);",
+											"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
+											"console.log(staffUniqueIds);",
+											"pm.environment.set(\"known:staffUniqueIds\",staffUniqueIds);    ",
+											"  "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request and a search parameter like Staff Unique Id is passed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"",
+											"pm.test(\"Total-Count header has correct value\", () => {",
+											"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
+											"});",
+											"",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"    });",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true&staffUniqueId={{known:staffUniqueId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										},
+										{
+											"key": "staffUniqueId",
+											"value": "{{known:staffUniqueId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
+											"pm.environment.set(\"known:staffOffset\", Number(totalCount) -1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "{{known:staffOffset}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 25 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(25);",
+											"});",
+											"",
+											"pm.test(\"Should match with each  item course  in response\", () => {",
+											"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
+											"     \t__.each(responseItems, responseItem => {",
+											"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
+											"        });",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
+											"pm.environment.set(\"known:staffOffset\", Number(totalCount) -25);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}&limit=25",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "{{known:staffOffset}}"
+										},
+										{
+											"key": "limit",
+											"value": "25"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Student",
+					"item": [
+						{
+							"name": "Include total count in Get request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+											"     pm.expect(responseItems.length).to.equal(500);",
+											"});",
+											"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
+											"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));",
+											"pm.environment.set('known:schoolId11', 255901001)",
+											"pm.environment.set('known:schoolId12', 255901044)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"",
+											"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"var requestJson = JSON.parse(request.data);",
+											"pm.environment.set('known:student:UniqueId', requestJson.studentUniqueId);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n  \"birthDate\":\"2010-08-05\",\r\n  \"dateEnteredUS\": \"2020-08-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations with School1",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId11}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:student:UniqueId}}\"\r\n   },\r\n   \"entryDate\":\"2023-08-05\",\r\n   \"entryGradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations with school2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId12}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:student:UniqueId}}\"\r\n   },\r\n   \"entryDate\":\"2023-08-05\",\r\n   \"entryGradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request without search condition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+											"     pm.expect(responseItems.length).to.equal(500);",
+											"});",
+											"",
+											"pm.test(\"No Duplicate count in student\", () => {",
+											"const studentTotalCount = parseInt(pm.environment.get('known:studentTotalCount'), 10); // Convert to integer",
+											"const studentRevisedTotalCount = parseInt(postman.getResponseHeader(\"Total-Count\"), 10); // Convert to integer",
+											"",
+											"    pm.expect(studentTotalCount + 1).to.equal(studentRevisedTotalCount);",
+											"});",
+											"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
+											"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request ,Set limit to 100",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+											"     pm.expect(responseItems.length).to.be.at.most(100);",
+											"});",
+											"const students = __.takeRight(responseItems, 25);",
+											"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
+											"console.log(studentUniqueIds);",
+											"pm.environment.set(\"known:studentUniqueIds\",studentUniqueIds);    ",
+											"  "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request and a search parameter like Student Unique Id is passed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Total-Count header is present\", () => {",
+											"    pm.response.to.have.header(\"Total-Count\");",
+											"});",
+											"",
+											"pm.test(\"Total-Count header has correct value\", () => {",
+											"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
+											"});",
+											"",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"    });",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true&studentUniqueId={{known:studentUniqueId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "totalCount",
+											"value": "true"
+										},
+										{
+											"key": "studentUniqueId",
+											"value": "{{known:studentUniqueId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
+											"pm.environment.set(\"known:studentOffset\", Number(totalCount) -1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "{{known:studentOffset}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return 25 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(25);",
+											"});",
+											"",
+											"pm.test(\"Should match with each  item course  in response\", () => {",
+											"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
+											"     \t__.each(responseItems, responseItem => {",
+											"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
+											"        });",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
+											"pm.environment.set(\"known:studentOffset\", 100 - 25);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEmpAss_255901001_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}&limit=25",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "offset",
+											"value": "{{known:studentOffset}}"
+										},
+										{
+											"key": "limit",
+											"value": "25"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
@@ -13678,7 +14929,7 @@
 					"",
 					"CreateAccessToken(\"255901\");",
 					"CreateAccessToken(\"TokenIntrospection_255901\");",
-					"",
+					"CreateAccessToken(\"MultipleEmpAss_255901001_255901044\");",
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\") ?? pm.environment.get(\"test-suite:known:parentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
