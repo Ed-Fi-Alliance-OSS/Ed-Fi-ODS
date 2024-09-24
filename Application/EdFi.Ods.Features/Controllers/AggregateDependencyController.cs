@@ -36,8 +36,6 @@ namespace EdFi.Ods.Features.Controllers
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
-        
-        private const string PostRetrySuffix = "/#POSTRetry";
 
         public AggregateDependencyController(
             ApiSettings apiSettings,
@@ -59,16 +57,12 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
-                if(Request.GetTypedHeaders().Accept != null
-                   && Request.GetTypedHeaders().Accept.Any(a => 
-                       a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML)))
-                {
-                    return Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph(true)));
-                }
-
-                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph(false)).ToList();
+                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()).ToList();
                 ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
-                return Ok(groupedLoadOrder);
+                return Request.GetTypedHeaders().Accept != null
+                    && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
+                ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
+                : Ok(groupedLoadOrder);
             }
             catch (NonAcyclicGraphException e)
             {
@@ -141,12 +135,7 @@ namespace EdFi.Ods.Features.Controllers
         }
 
         private static string GetNodeId(Resource resource)
-        {
-            var suffixToApply = resource.IsPostRetryResource
-                ? PostRetrySuffix
-                : string.Empty;
-            return $"/{resource.SchemaUriSegment() ?? resource.PostRetryOriginalSchemaUriSegment}/{resource.PluralName.ToCamelCase()}{suffixToApply}";
-        }
+            => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
 
         private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
         {

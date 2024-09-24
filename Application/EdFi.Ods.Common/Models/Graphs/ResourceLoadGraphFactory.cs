@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.Models.Graphs
             _graphTransformers = graphTransformers;
         }
         
-        public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph(bool includePostRetryNodes)
+        public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph()
         {
             var resourceModel = _resourceModelProvider.GetResourceModel();
             
@@ -71,29 +71,9 @@ namespace EdFi.Ods.Common.Models.Graphs
                 }
             }
             
-            resourceGraph.BreakCycles(edge => edge.AssociationView?.IsSoftDependency ?? false);
-            
-            if (!includePostRetryNodes)
-            {
-                RemovePostRetryNodes();
-            }
-            
+            resourceGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
+
             return resourceGraph;
-
-            void RemovePostRetryNodes()
-            {
-                var postRetryVertices = resourceGraph.Vertices.Where(v => v.IsPostRetryResource).ToList();
-
-                foreach(var postRetryVertex in postRetryVertices)
-                {
-                    var outEdges = resourceGraph.OutEdges(postRetryVertex).ToList();
-                    foreach (var edge in outEdges)
-                    {
-                        resourceGraph.RemoveEdge(edge);
-                    }
-                    resourceGraph.RemoveVertex(postRetryVertex);
-                }
-            }
         }
     }
 
