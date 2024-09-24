@@ -7,8 +7,7 @@ name: Dependency Review Pull request
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
 
 env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}

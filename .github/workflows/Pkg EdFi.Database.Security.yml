@@ -7,13 +7,11 @@ name: Pkg EdFi.Database.Security
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - '**.sql'
   push:
-    branches:
-      - main
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - '**.sql'
   workflow_dispatch:

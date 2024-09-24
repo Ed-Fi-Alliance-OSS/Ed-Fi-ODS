@@ -2,11 +2,9 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
   push:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - Utilities/CodeGeneration/**/*
       - Application/EdFi.Common/**/*

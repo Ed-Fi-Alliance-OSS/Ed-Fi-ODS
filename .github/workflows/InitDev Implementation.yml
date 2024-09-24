@@ -2,8 +2,7 @@ name: Trigger InitDev workflows in Implementation repo
 
 on:
   pull_request:
-    branches:
-      - main-6x
+   branches: [main-6x, 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 env:
