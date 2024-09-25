@@ -8,9 +8,6 @@ name: Pkg EdFi.Ods.CodeGen Pull Request Build and Test
 on:
   pull_request:
     branches: [main-6x, 'b-v*-patch*','feature-*']
-    paths:
-      - Utilities/CodeGeneration/**/*
-      - Application/EdFi.Common/**/*
 
 env:
   # These vars are used by `build.githubactions.ps1 CheckoutBranch`

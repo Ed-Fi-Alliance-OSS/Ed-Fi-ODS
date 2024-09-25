@@ -4,10 +4,6 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [main-6x, 'b-v*-patch*','feature-*']
-    paths:
-      - Application/EdFi.Admin.DataAccess/**/*
-      - tests/EdFi.Admin.DataAccess.UnitTests/**/*
-      - Application/EdFi.Common/**/*
 
 env:
   INFORMATIONAL_VERSION: "6.2"
