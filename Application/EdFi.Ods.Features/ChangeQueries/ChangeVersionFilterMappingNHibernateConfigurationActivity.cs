@@ -36,7 +36,6 @@ namespace EdFi.Ods.Features.ChangeQueries
                 // Requires there be a property on the base entity already
                 // NHibernate wraps property getter exception in PropertyAccessException if any
                 // underlying mapped properties are set to access "none", due to an invoke exception being triggered.
-                // generated = "never" to prevent NHibernate trying to retrieve the value for it after insert or update
                 // insert = false to never include it in an INSERT statement
                 // update = false to never include it in an UPDATE statement
                 // <property name="ChangeVersion" column="ChangeVersion" type="long" not-null="true" generated="never" insert="false" update="false" />
@@ -49,7 +48,6 @@ namespace EdFi.Ods.Features.ChangeQueries
                                name = "long"
                            },
                     notnull = true,
-                    generated = HbmPropertyGeneration.Never,
                     insert = false,
                     update = false,
                 };
