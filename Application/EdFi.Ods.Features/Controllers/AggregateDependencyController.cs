@@ -12,9 +12,11 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Logging;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
@@ -37,6 +39,19 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
 
+        private static readonly FullName _studentFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Student");
+        private static readonly FullName _staffFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Staff");
+        private static readonly FullName _parentFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Parent");
+        private static readonly FullName _contactFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Contact");
+
+        private static readonly FullName _studentSchoolAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentSchoolAssociation");
+        private static readonly FullName _staffEdOrgAssignmentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation");
+        private static readonly FullName _staffEdOrgEmploymentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation");
+        private static readonly FullName _studentParentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentParentAssociation");
+        private static readonly FullName _studentContactAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentContactAssociation");
+
+        private const string RetrySuffix = "#Retry";
+
         public AggregateDependencyController(
             ApiSettings apiSettings,
             IResourceLoadGraphFactory resourceLoadGraphFactory,
@@ -57,12 +72,17 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
-                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()).ToList();
+                var resourceDependencyGraph = _resourceLoadGraphFactory.CreateResourceLoadGraph();
+                
+                var groupedLoadOrder = GetGroupedLoadOrder(resourceDependencyGraph).ToList();
+
+                if (IsGraphMLRequest())
+                {
+                    return Ok(CreateGraphML(resourceDependencyGraph));
+                }
+
                 ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
-                return Request.GetTypedHeaders().Accept != null
-                    && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
-                ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
-                : Ok(groupedLoadOrder);
+                return Ok(groupedLoadOrder);
             }
             catch (NonAcyclicGraphException e)
             {
@@ -78,25 +98,105 @@ namespace EdFi.Ods.Features.Controllers
                         CorrelationId = _logContextAccessor.GetCorrelationId()
                     }.AsSerializableModel());
             }
+
+            bool IsGraphMLRequest()
+            {
+                return Request.GetTypedHeaders().Accept != null
+                    && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML));
+            }
         }
 
         // ReSharper disable once InconsistentNaming
         private static GraphML CreateGraphML(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
+            var retryNodeIdByPrimaryAssociationNodeId = new Dictionary<string, string>();
+
+            var vertices = resourceGraph.Vertices
+                .SelectMany(ApplyStandardSecurityVertexExpansions)
+                .OrderBy(n => n.Id)
+                .ToList();
+
+            var edges = resourceGraph.Edges
+                .SelectMany(ApplyStandardSecurityEdgeExpansions)
+                .Distinct()
+                .GroupBy(x => x.Source)
+                .OrderBy(g => g.Key)
+                .SelectMany(g => g.OrderBy(x => x.Target))
+                .ToList();
+
+            var graphMLExecutionGraph = new BidirectionalGraph<GraphMLNode, GraphMLEdge>();
+            graphMLExecutionGraph.AddVertexRange(vertices);
+            graphMLExecutionGraph.AddEdgeRange(edges);
+
+            // Remove any cycles resulting from the application of standard security
+            graphMLExecutionGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
+
             return new GraphML
             {
                 Id = "EdFi Dependencies",
-                Nodes = resourceGraph.Vertices
-                    .Select(r => new GraphMLNode {Id = GetNodeId(r)})
-                    .OrderBy(n => n.Id)
-                    .ToList(),
-                Edges = resourceGraph.Edges
-                    .Select(edge => new GraphMLEdge(GetNodeId(edge.Source), GetNodeId(edge.Target)))
-                    .GroupBy(x => x.Source)
-                    .OrderBy(g => g.Key)
-                    .SelectMany(g => g.OrderBy(x => x.Target))
-                    .ToList()
+                Nodes = graphMLExecutionGraph.Vertices.ToArray(),
+                Edges = graphMLExecutionGraph.Edges.ToArray(),
             };
+
+            IEnumerable<GraphMLEdge> ApplyStandardSecurityEdgeExpansions(AssociationViewEdge edge)
+            {
+                // Add a dependency for the #Retry node of edges with person types as the source
+                if ((edge.Source.FullName == _studentFullName && edge.Target.FullName == _studentSchoolAssociationFullName)
+                    || (edge.Source.FullName == _staffFullName && (edge.Target.FullName == _staffEdOrgAssignmentAssociationFullName || edge.Target.FullName == _staffEdOrgEmploymentAssociationFullName))
+                    || (edge.Source.FullName == _parentFullName && edge.Target.FullName == _studentParentAssociationFullName)
+                    || (edge.Source.FullName == _contactFullName && edge.Target.FullName == _studentContactAssociationFullName))
+                {
+                    string primaryAssociationNodeId = GetNodeId(edge.Target);
+                    string retryNodeId = $"{GetNodeId(edge.Source)}{RetrySuffix}";
+
+                    // Capture the Retry node's relationship with the primary association for redirecting the dependencies
+                    retryNodeIdByPrimaryAssociationNodeId[primaryAssociationNodeId] = retryNodeId; 
+
+                    // Yield a new edge for the primary association as a dependency of the retry node
+                    yield return new GraphMLEdge(new GraphMLNode(primaryAssociationNodeId), new GraphMLNode(retryNodeId));
+
+                    // Yield the standard association edge
+                    yield return new GraphMLEdge(
+                        new GraphMLNode(GetNodeId(edge.Source)),
+                        new GraphMLNode(GetNodeId(edge.Target)),
+                        edge.AssociationView);
+                }
+                // Add copies of the downstream dependencies of the primary associations with the #Retry node
+                else if (edge.Source.FullName == _studentSchoolAssociationFullName
+                    || edge.Source.FullName == _staffEdOrgAssignmentAssociationFullName
+                    || edge.Source.FullName == _staffEdOrgEmploymentAssociationFullName
+                    || edge.Source.FullName == _studentContactAssociationFullName
+                    || edge.Source.FullName == _studentParentAssociationFullName)
+                {
+                    // Yield an association edge relocated to the retry node instead
+                    yield return new GraphMLEdge(
+                        new GraphMLNode(retryNodeIdByPrimaryAssociationNodeId[GetNodeId(edge.Source)]),
+                        new GraphMLNode(GetNodeId(edge.Target)),
+                        edge.AssociationView);
+                }
+                // Yield the standard association edge
+                else
+                {
+                    yield return new GraphMLEdge(
+                        new GraphMLNode(GetNodeId(edge.Source)),
+                        new GraphMLNode(GetNodeId(edge.Target)),
+                        edge.AssociationView);
+                }
+            }
+
+            IEnumerable<GraphMLNode> ApplyStandardSecurityVertexExpansions(Resource resource)
+            {
+                yield return new GraphMLNode { Id = GetNodeId(resource) };
+
+                // Yield "retry" nodes for person types
+                if (resource.FullName == _studentFullName
+                    || resource.FullName == _staffFullName
+                    || resource.FullName == _parentFullName
+                    || resource.FullName == _contactFullName)
+                {
+                    yield return new GraphMLNode() { Id = $"{GetNodeId(resource)}{RetrySuffix}" };
+                }
+            }
         }
 
         private static IEnumerable<ResourceLoadOrder> GetGroupedLoadOrder(

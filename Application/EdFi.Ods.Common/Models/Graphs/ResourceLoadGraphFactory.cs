@@ -24,17 +24,17 @@ namespace EdFi.Ods.Common.Models.Graphs
             _resourceModelProvider = resourceModelProvider;
             _graphTransformers = graphTransformers;
         }
-        
+
         public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph()
         {
             var resourceModel = _resourceModelProvider.GetResourceModel();
-            
+
             var resourceGraph = new BidirectionalGraph<Resource.Resource, AssociationViewEdge>();
 
             var resources = resourceModel.GetAllResources()
                 .Where(r => !r.IsAbstract() && !r.FullName.IsEdFiSchoolYearType()) 
                 .ToArray();
-            
+
             resourceGraph.AddVertexRange(resources);
 
             var edges = resources
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Common.Models.Graphs
 
                 // Eliminate redundant edges
                 .Distinct(AssociationViewEdge.Comparer);
-            
+
             resourceGraph.AddEdgeRange(edges.Where(e => !e.Source.FullName.IsEdFiSchoolYearType()));
 
             // Apply predefined graph transformations
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Common.Models.Graphs
                     graphTransformer.Transform(resourceGraph);
                 }
             }
-            
+
             resourceGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
 
             return resourceGraph;
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Common.Models.Graphs
             }
         }
 
-        public override string ToString() => AssociationView.Association.ToString();
+        public override string ToString() => $"({Source.FullName}) --> ({Target.FullName})";
 
         private sealed class AssociationViewEdgeEqualityComparer : IEqualityComparer<AssociationViewEdge>
         {
