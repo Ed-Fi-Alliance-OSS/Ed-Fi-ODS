@@ -48,8 +48,11 @@ namespace EdFi.Ods.Features.ChangeQueries
                                name = "long"
                            },
                     notnull = true,
+                    generated = HbmPropertyGeneration.Never,
                     insert = false,
+                    insertSpecified = true,
                     update = false,
+                    updateSpecified = true,
                 };
                 classMapping.Items = classMapping.Items.Concat(changeVersionProperty).ToArray();
             }
