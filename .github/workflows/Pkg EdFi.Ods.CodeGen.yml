@@ -5,9 +5,7 @@ on:
     branches: [main-6x, 'b-v*-patch*','feature-*']
   push:
     branches: [main-6x, 'b-v*-patch*','feature-*']
-    paths:
-      - Utilities/CodeGeneration/**/*
-      - Application/EdFi.Common/**/*
+
   workflow_dispatch:
     inputs:
       distinct_id:
