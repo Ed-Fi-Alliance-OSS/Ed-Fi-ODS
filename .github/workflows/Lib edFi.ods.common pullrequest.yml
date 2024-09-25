@@ -2,8 +2,7 @@ name: Lib EdFi.Ods.Common Pull request build and test
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - Application/EdFi.Ods.Common/**/*
       - tests/EdFi.Common.UnitTests/**/*

@@ -11,7 +11,6 @@ namespace EdFi.Ods.Api.OperationalContext.PersonIdentification
     /// <summary>
     /// Thrown when the client-supplied unique Id value cannot be resolved to any person.
     /// </summary>
-    [Serializable]
     public class NoUniqueIdMatchException : Exception
     {
         //
@@ -28,10 +27,5 @@ namespace EdFi.Ods.Api.OperationalContext.PersonIdentification
 
         public NoUniqueIdMatchException(string message, Exception inner)
             : base(message, inner) { }
-
-        protected NoUniqueIdMatchException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context) { }
     }
 }

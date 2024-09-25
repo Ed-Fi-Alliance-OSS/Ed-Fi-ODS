@@ -2,11 +2,9 @@ name: Pkg EdFi.Ods.CodeGen
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
   push:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - Utilities/CodeGeneration/**/*
       - Application/EdFi.Common/**/*
@@ -88,7 +86,7 @@ jobs:
 
     - name: Upload EdFi.Ods.CodeGen NugetPackage
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg

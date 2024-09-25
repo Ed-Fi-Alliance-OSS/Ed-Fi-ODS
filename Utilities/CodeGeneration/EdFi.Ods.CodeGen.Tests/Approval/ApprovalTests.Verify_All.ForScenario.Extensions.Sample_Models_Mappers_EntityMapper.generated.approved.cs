@@ -1499,8 +1499,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             var sourceExtensionSupport = source.ParentAddress as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -2162,8 +2160,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             var sourceExtensionSupport = source.Parent as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -3132,8 +3128,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -3311,8 +3305,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             var sourceExtensionSupport = source.Staff as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -3767,8 +3759,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             var sourceExtensionSupport = source.Student as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -5203,8 +5193,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
 
             var sourceExtensionSupport = source.StudentCTEProgramAssociation as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -5309,8 +5297,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             var sourceExtensionSupport = source.StudentEducationOrganizationAssociationAddress as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -5618,8 +5604,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             var sourceExtensionSupport = source.StudentEducationOrganizationAssociationStudentCharacteristic as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -7022,8 +7006,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             var sourceExtensionSupport = source.StudentParentAssociation as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -7937,8 +7919,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
 
             var sourceExtensionSupport = source.StudentSchoolAssociation as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -8030,8 +8010,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             var sourceExtensionSupport = source.StudentSectionAssociation as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
