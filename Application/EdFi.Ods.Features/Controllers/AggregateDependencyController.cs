@@ -39,16 +39,19 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
 
-        private static readonly FullName _studentFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Student");
-        private static readonly FullName _staffFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Staff");
-        private static readonly FullName _parentFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Parent");
-        private static readonly FullName _contactFullName = new FullName(EdFiConventions.PhysicalSchemaName, "Contact");
+        // ReSharper disable once InconsistentNaming
+        private static readonly string edfi = EdFiConventions.PhysicalSchemaName;
+        
+        private static readonly FullName _studentFullName = $"{edfi}.Student";
+        private static readonly FullName _staffFullName = $"{edfi}.Staff";
+        private static readonly FullName _parentFullName = $"{edfi}.Parent";
+        private static readonly FullName _contactFullName = $"{edfi}.Contact";
 
-        private static readonly FullName _studentSchoolAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentSchoolAssociation");
-        private static readonly FullName _staffEdOrgAssignmentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation");
-        private static readonly FullName _staffEdOrgEmploymentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation");
-        private static readonly FullName _studentParentAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentParentAssociation");
-        private static readonly FullName _studentContactAssociationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "StudentContactAssociation");
+        private static readonly FullName _studentSchoolAssociationFullName = $"{edfi}.StudentSchoolAssociation";
+        private static readonly FullName _staffEdOrgAssignmentAssociationFullName = $"{edfi}.StaffEducationOrganizationAssignmentAssociation";
+        private static readonly FullName _staffEdOrgEmploymentAssociationFullName = $"{edfi}.StaffEducationOrganizationEmploymentAssociation";
+        private static readonly FullName _studentParentAssociationFullName = $"{edfi}.StudentParentAssociation";
+        private static readonly FullName _studentContactAssociationFullName = $"{edfi}.StudentContactAssociation";
 
         private const string RetrySuffix = "#Retry";
 
