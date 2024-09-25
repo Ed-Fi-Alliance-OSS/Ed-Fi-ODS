@@ -5703,6 +5703,51 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Create StudentArtProgramAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentArtProgramAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Bilingual\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"605614\"\r\n    },\r\n    \"beginDate\": \"2018-08-20\",\r\n    \"artPieces\": 15,\r\n    \"exhibitDate\": \"2018-12-16\",\r\n    \"hoursPerDay\": 1,\r\n    \"identificationCode\": \"1234\",\r\n    \"kilnReservation\": \"12:15:00\",\r\n    \"kilnReservationLength\": \"60\",\r\n    \"masteredMediums\": 2.5,\r\n    \"numberOfDaysInAttendance\": 30,\r\n    \"portfolioPieces\": 32,\r\n    \"privateArtProgram\": false,\r\n    \"programFees\": 40,\r\n    \"programParticipationStatuses\": [],\r\n    \"artMedia\": [\r\n        {\r\n            \"artMediumDescriptor\": \"uri://ed-fi.org/ArtMediumDescriptor#Art Medium\"\r\n        }\r\n    ],\r\n    \"portfolioYears\": [\r\n        {\r\n            \"portfolioYears\": 2017\r\n        },\r\n        {\r\n            \"portfolioYears\": 2018\r\n        }\r\n    ],\r\n    \"services\": [\r\n        {\r\n            \"serviceDescriptor\": \"uri://ed-fi.org/ServiceDescriptor#Audiological services\",\r\n            \"primaryIndicator\": true,\r\n            \"serviceBeginDate\": \"2018-09-03\"\r\n        }\r\n    ],\r\n    \"styles\": [\r\n        {\r\n            \"style\": \"Post Modern\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/sample/studentArtProgramAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"sample",
+										"studentArtProgramAssociations"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -6567,6 +6612,64 @@
 											"response": []
 										}
 									]
+								}
+							]
+						},
+						{
+							"name": "StudentArtProgramAssociation",
+							"item": [
+								{
+									"name": "Get StudentArtProgramAssociation",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should only have the included fields\", () => {\r",
+													"\r",
+													"    const respnseKeys = Object.keys(responseItem)\r",
+													"        .filter(k => !k.startsWith(\"_\"))\r",
+													"        .sort();\r",
+													"\r",
+													"    pm.expect(respnseKeys).to.eql([\"id\", \"educationOrganizationReference\", \"programReference\", \"studentReference\", \"beginDate\", \"privateArtProgram\", \"styles\"].sort());\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.ed-fi.studentartprogramassociation.sample-studentartprogramassociation-logicalschema-includeonly.readable+json",
+												"description": "sample-school-multiple-extensions-includeonly",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/studentArtProgramAssociations/{{known:studentArtProgramAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"studentArtProgramAssociations",
+												"{{known:studentArtProgramAssociation:id}}"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}
@@ -7665,6 +7768,42 @@
 										"ed-fi",
 										"schools",
 										"{{known:school:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete StudentArtProgramAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/sample/studentArtProgramAssociations/{{known:studentArtProgramAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"sample",
+										"studentArtProgramAssociations",
+										"{{known:studentArtProgramAssociation:id}}"
 									]
 								}
 							},
