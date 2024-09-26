@@ -13,17 +13,18 @@ using System.Text;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Exceptions;
 
-namespace EdFi.Ods.Api.Security.AuthorizationStrategies
+namespace EdFi.Ods.Common.Models
 {
     /// <summary>
     /// Creates context data from a source entity using the specified types, based on matching property names.
     /// </summary>
     /// <remarks>This class is threadsafe and uses shared static state to persist the dynamically created factory methods.</remarks>
-    public class AuthorizationContextDataFactory
+    public static class DynamicMapper
     {
         private static readonly ConcurrentDictionary<string, ExtractDelegate> _factoryMethodByMethodName = new();
+        private static readonly ConcurrentDictionary<(Type sourceType, Type targetType), string> _factoryMethodNameByTypes = new();
 
-        public TContextData CreateContextData<TContextData>(
+        public static TContextData CreateContextData<TContextData>(
             object entity,
             PropertyMapping[] propertyNameMap = null,
             Func<string, IEnumerable<string>, PropertyMapping[]> getContextDataPropertyMappings = null)
@@ -35,14 +36,37 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
                 return null;
             }
 
-            Type sourceType = entity.GetType();
-            Type contextDataType = typeof(TContextData);
+            var targetInstance = Activator.CreateInstance<TContextData>();
 
-            string methodName = sourceType.FullName.Replace('.', '_') + "_to_" + contextDataType.FullName.Replace('.', '_');
+            return (TContextData) MapToTarget(
+                entity,
+                targetInstance,
+                typeof(TContextData),
+                propertyNameMap,
+                getContextDataPropertyMappings);
+        }
+
+        public static object MapToTarget(
+            object sourceInstance,
+            object targetInstance,
+            Type targetType,
+            PropertyMapping[] propertyNameMap = null,
+            Func<string, IEnumerable<string>, PropertyMapping[]> getContextDataPropertyMappings = null)
+        {
+            // Can't map anything if source is null
+            if (sourceInstance == null)
+            {
+                return null;
+            }
+
+            Type sourceType = sourceInstance.GetType();
+
+            string methodName = _factoryMethodNameByTypes.GetOrAdd((sourceType, targetType), types => 
+                $"{types.sourceType.FullName!.Replace('.', '_')}_to_{types.targetType.FullName!.Replace('.', '_')}");
 
             var factoryDelegate = _factoryMethodByMethodName.GetOrAdd(
                 methodName,
-                mn => CreateDynamicExtractorMethod(mn, sourceType, contextDataType, propertyNameMap, getContextDataPropertyMappings));
+                mn => CreateDynamicExtractorMethod(mn, sourceType, targetType, propertyNameMap, getContextDataPropertyMappings));
 
             // If no properties were present to be mapped, return a null context
             if (factoryDelegate == null)
@@ -50,10 +74,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
                 return null;
             }
 
-            var contextData = new TContextData();
-            factoryDelegate.Invoke(entity, contextData);
+            factoryDelegate.Invoke(sourceInstance, targetInstance);
 
-            return contextData;
+            return targetInstance;
         }
 
         /// <summary>

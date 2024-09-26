@@ -28,7 +28,7 @@
 									"pm.environment.set('test-suite:known:standardVersion:minor', minorVersion);\r",
 									"pm.environment.set('test-suite:known:standardVersion:revision', revision);\r",
 									"\r",
-									"// Set ParentOrContactProperName based on version of the API\r",
+									"// Set Standard-version specific values\r",
 									"pm.environment.set(\"test-suite:known:parentOrContactProperName\", majorVersion < 5 ? \"Parent\" : \"Contact\");\r",
 									"pm.environment.set(\"test-suite:known:maxSafeEducationOrganizationId\", majorVersion < 5 ? 2147483647 : Number.MAX_SAFE_INTEGER);\r",
 									""
@@ -45,6 +45,49 @@
 							"raw": "{{ApiBaseUrl}}",
 							"host": [
 								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize Known School Ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');",
+									"const schools = pm.response.json();",
+									"const schoolIds = __.map(schools, school => school.schoolId);",
+									"pm.environment.set(\"test-suite:known:schoolIds\",schoolIds);",
+									"pm.environment.set(\"test-suite:known:schoolId\", __.sample(schoolIds));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							],
+							"query": [
+								{
+									"key": "localEducationAgencyId",
+									"value": "255901"
+								}
 							]
 						}
 					},
@@ -1120,53 +1163,6 @@
 			]
 		},
 		{
-			"name": "Initialize Known Data",
-			"item": [
-				{
-					"name": "Initialize Known School Ids",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const __ = require('lodash');",
-									"const schools = pm.response.json();",
-									"const schoolIds = __.map(schools, school => school.schoolId);",
-									"pm.environment.set(\"known:schoolIds\",schoolIds);",
-									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"data",
-								"v3",
-								"ed-fi",
-								"schools"
-							],
-							"query": [
-								{
-									"key": "localEducationAgencyId",
-									"value": "255901"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "AcademicWeeks",
 			"item": [
 				{
@@ -1320,8 +1316,8 @@
 								"exec": [
 									"const __ = require('lodash');",
 									"",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
-									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"const schoolIds =pm.environment.get(\"test-suite:known:schoolIds\");",
+									"pm.environment.set(\"test-suite:known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCDE\" + __.random(70).toString());",
 									"",
 									"const moment = require('moment');",
@@ -1404,7 +1400,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
 									"",
@@ -1489,7 +1485,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds =pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
 									"",
@@ -1572,7 +1568,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"",
@@ -1652,7 +1648,7 @@
 								"exec": [
 									"const __ = require('lodash');",
 									"",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", \"ABCD\" + __.random(70).toString());",
 									"pm.environment.set(\"known:totalInstructionalDays\",__.random(70));"
@@ -1782,7 +1778,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", pm.variables.replaceIn(\"{{$guid}}\").substring(0, 6));",
 									"const moment = require('moment');",
@@ -1890,7 +1886,7 @@
 							"script": {
 								"exec": [
 									"const __ = require('lodash');",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
 									"pm.environment.set(\"known:weekIdentifier\", pm.variables.replaceIn(\"{{$guid}}\").substring(0, 6));",
 									"",
@@ -3036,851 +3032,2251 @@
 			]
 		},
 		{
-			"name": "Limit/Offset/Total Count",
+			"name": "Paging",
 			"item": [
 				{
-					"name": "Courses",
+					"name": "Limit/Offset/Total Count",
 					"item": [
 						{
-							"name": "Include total count in Get request without search condition",
-							"event": [
+							"name": "Courses",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
-											"});",
-											"pm.environment.set('known:courseCode', __.first(responseItems).courseCode);",
-											"pm.environment.set('known:totalCount', postman.getResponseHeader(\"Total-Count\"));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courses"
-									],
-									"query": [
+									"name": "Include total count in Get request without search condition",
+									"event": [
 										{
-											"key": "totalCount",
-											"value": "true"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
+													"});",
+													"pm.environment.set('known:courseCode', __.first(responseItems).courseCode);",
+													"pm.environment.set('known:totalCount', postman.getResponseHeader(\"Total-Count\"));"
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request ,Set limit to 100",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.most(100);",
-											"});",
-											"const courses = __.takeRight(responseItems, 25);",
-											"const courseCodes = __.map(courses, course => course.courseCode);",
-											"console.log(courseCodes);",
-											"pm.environment.set(\"known:courseCodes\",courseCodes);    ",
-											"  "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=100",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courses"
-									],
-									"query": [
-										{
-											"key": "limit",
-											"value": "100"
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request and a search parameter like course code is passed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"",
-											"pm.test(\"Total-Count header has correct value\", () => {",
-											"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
-											"});",
-											"",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"    });",
-											"    "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true&courseCode={{known:courseCode}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courses"
-									],
-									"query": [
-										{
-											"key": "totalCount",
-											"value": "true"
-										},
-										{
-											"key": "courseCode",
-											"value": "{{known:courseCode}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus one",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"});",
-											"    "
-										],
-										"type": "text/javascript"
-									}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:totalCount\");",
-											"pm.environment.set(\"known:offset\", Number(totalCount) -1);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courses"
-									],
-									"query": [
+									"name": "Include total count in Get request ,Set limit to 100",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:offset}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"});",
+													"const courses = __.takeRight(responseItems, 25);",
+													"const courseCodes = __.map(courses, course => course.courseCode);",
+													"console.log(courseCodes);",
+													"pm.environment.set(\"known:courseCodes\",courseCodes);    ",
+													"  "
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 25 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(25);",
-											"});",
-											"",
-											"pm.test(\"Should match with each  item course  in response\", () => {",
-											"    const courseCodes= pm.environment.get(\"known:courseCodes\");",
-											"     \t__.each(responseItems, responseItem => {",
-											"        \t      pm.expect(__.includes(courseCodes, responseItem.courseCode)).to.equal(true);",
-											"        });",
-											"});"
-										],
-										"type": "text/javascript"
-									}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=100",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:totalCount\");",
-											"pm.environment.set(\"known:offset\", Number(totalCount) -25);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}&limit=25",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courses"
-									],
-									"query": [
+									"name": "Include total count in Get request and a search parameter like course code is passed",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:offset}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"",
+													"pm.test(\"Total-Count header has correct value\", () => {",
+													"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"    });",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true&courseCode={{known:courseCode}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "courseCode",
+													"value": "{{known:courseCode}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"});",
+													"    "
+												],
+												"type": "text/javascript"
+											}
 										},
 										{
-											"key": "limit",
-											"value": "25"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:totalCount\");",
+													"pm.environment.set(\"known:offset\", Number(totalCount) -1);"
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:offset}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 25 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(25);",
+													"});",
+													"",
+													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"    const courseCodes= pm.environment.get(\"known:courseCodes\");",
+													"     \t__.each(responseItems, responseItem => {",
+													"        \t      pm.expect(__.includes(courseCodes, responseItem.courseCode)).to.equal(true);",
+													"        });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:totalCount\");",
+													"pm.environment.set(\"known:offset\", Number(totalCount) -25);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}&limit=25",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:offset}}"
+												},
+												{
+													"key": "limit",
+													"value": "25"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "Student",
+							"item": [
+								{
+									"name": "Include total count in Get request without search condition",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+													"     pm.expect(responseItems.length).to.equal(500);",
+													"});",
+													"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
+													"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request ,Set limit to 100",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"});",
+													"const students = __.takeRight(responseItems, 25);",
+													"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
+													"console.log(studentUniqueIds);",
+													"pm.environment.set(\"known:studentUniqueIds\",studentUniqueIds);    ",
+													"  "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request and a search parameter like Student Unique Id is passed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"",
+													"pm.test(\"Total-Count header has correct value\", () => {",
+													"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"    });",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true&studentUniqueId={{known:studentUniqueId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "studentUniqueId",
+													"value": "{{known:studentUniqueId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"});",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
+													"pm.environment.set(\"known:studentOffset\", Number(totalCount) -1);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:studentOffset}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 25 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(25);",
+													"});",
+													"",
+													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
+													"     \t__.each(responseItems, responseItem => {",
+													"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
+													"        });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
+													"pm.environment.set(\"known:studentOffset\", 100 - 25);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}&limit=25",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:studentOffset}}"
+												},
+												{
+													"key": "limit",
+													"value": "25"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Staff",
+							"item": [
+								{
+									"name": "Include total count in Get request without search condition",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
+													"});",
+													"pm.environment.set('known:staffUniqueId', __.first(responseItems).staffUniqueId);",
+													"pm.environment.set('known:staffTotalCount', postman.getResponseHeader(\"Total-Count\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request ,Set limit to 100",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+													"     pm.expect(responseItems.length).to.be.at.most(100);",
+													"});",
+													"const staffs = __.takeRight(responseItems, 25);",
+													"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
+													"console.log(staffUniqueIds);",
+													"pm.environment.set(\"known:staffUniqueIds\",staffUniqueIds);    ",
+													"  "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request and a search parameter like Staff Unique Id is passed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Total-Count header is present\", () => {",
+													"    pm.response.to.have.header(\"Total-Count\");",
+													"});",
+													"",
+													"pm.test(\"Total-Count header has correct value\", () => {",
+													"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"    });",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true&staffUniqueId={{known:staffUniqueId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											],
+											"query": [
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "staffUniqueId",
+													"value": "{{known:staffUniqueId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 1 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(1);",
+													"});",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
+													"pm.environment.set(\"known:staffOffset\", Number(totalCount) -1);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:staffOffset}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.test(\"Should return 25 item in response\", () => {",
+													"     pm.expect(responseItems).to.have.lengthOf(25);",
+													"});",
+													"",
+													"pm.test(\"Should match with each  item course  in response\", () => {",
+													"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
+													"     \t__.each(responseItems, responseItem => {",
+													"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
+													"        });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
+													"pm.environment.set(\"known:staffOffset\", Number(totalCount) -25);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}&limit=25",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "{{known:staffOffset}}"
+												},
+												{
+													"key": "limit",
+													"value": "25"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
 				{
-					"name": "Student",
+					"name": "Keyset Paging",
 					"item": [
 						{
-							"name": "Include total count in Get request without search condition",
-							"event": [
+							"name": "Setup",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
-											"     pm.expect(responseItems.length).to.equal(500);",
-											"});",
-											"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
-											"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"students"
-									],
-									"query": [
+									"name": "Get All GradingPeriods (for school)",
+									"event": [
 										{
-											"key": "totalCount",
-											"value": "true"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return all 6 grading periods for the specified school\", () => {\r",
+													"  pm.expect(items.length).to.equal(6);\r",
+													"});\r",
+													"\r",
+													"const ids = items.map(i => i.id);\r",
+													"pm.environment.set(\"known:gradingPeriods:ids:expected\", ids);\r",
+													"\r",
+													"const itemCount = items.length;\r",
+													"pm.environment.set(\"known:gradingPeriods:length\", ids.length);\r",
+													"\r",
+													"console.log(ids.map((id) => id.substring(0, 4)));"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&limit=500",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "offset",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": "500"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Include total count in Get request ,Set limit to 100",
-							"event": [
+							"name": "Paging through Partitions",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.most(100);",
-											"});",
-											"const students = __.takeRight(responseItems, 25);",
-											"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
-											"console.log(studentUniqueIds);",
-											"pm.environment.set(\"known:studentUniqueIds\",studentUniqueIds);    ",
-											"  "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=100",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"students"
-									],
-									"query": [
+									"name": "Get GradingPeriods Partitions",
+									"event": [
 										{
-											"key": "limit",
-											"value": "100"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the requested number of partitions\", () => {\r",
+													"  pm.expect(item.pageTokens.length).to.equal(2);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"known:gradingPeriods:partition1:pageToken\", item.pageTokens[0]);\r",
+													"pm.environment.set(\"known:gradingPeriods:partition2:pageToken\", item.pageTokens[1]);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request and a search parameter like Student Unique Id is passed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"",
-											"pm.test(\"Total-Count header has correct value\", () => {",
-											"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
-											"});",
-											"",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"    });",
-											"    "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?totalCount=true&studentUniqueId={{known:studentUniqueId}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"students"
-									],
-									"query": [
-										{
-											"key": "totalCount",
-											"value": "true"
-										},
-										{
-											"key": "studentUniqueId",
-											"value": "{{known:studentUniqueId}}"
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?schoolId=255901107&number=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods",
+												"partitions"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "number",
+													"value": "2"
+												}
+											]
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus one",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"});",
-											"    "
-										],
-										"type": "text/javascript"
-									}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
-											"pm.environment.set(\"known:studentOffset\", Number(totalCount) -1);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"students"
-									],
-									"query": [
+									"name": "Get GradingPeriods Partition 1, Page 1",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:studentOffset}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the requested number of items based on page size\", () => {\r",
+													"  pm.expect(items.length).to.equal(2);\r",
+													"});\r",
+													"\r",
+													"// Save the first page's ids\r",
+													"const retrievedIds = items.map(x => x.id);\r",
+													"pm.environment.set(\"known:gradingPeriods:ids:actual\", retrievedIds);\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"pm.environment.set(\"known:nextPageToken\", nextPageToken);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 25 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(25);",
-											"});",
-											"",
-											"pm.test(\"Should match with each  item course  in response\", () => {",
-											"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
-											"     \t__.each(responseItems, responseItem => {",
-											"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
-											"        });",
-											"});"
-										],
-										"type": "text/javascript"
-									}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:gradingPeriods:partition1:pageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
-											"pm.environment.set(\"known:studentOffset\", 100 - 25);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?offset={{known:studentOffset}}&limit=25",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"students"
-									],
-									"query": [
+									"name": "Get GradingPeriods Partition 1, Page 2",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:studentOffset}}"
-										},
-										{
-											"key": "limit",
-											"value": "25"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the requested number of items available for page 2 within the partition\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"// Append the page's ids\r",
+													"const actualIds = pm.environment.get(\"known:gradingPeriods:ids:actual\");\r",
+													"const retrievedIds = items.map(x => x.id);\r",
+													"const updatedActualIds = actualIds.concat(retrievedIds);\r",
+													"pm.environment.set(\"known:gradingPeriods:ids:actual\", updatedActualIds);\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"pm.environment.set(\"known:nextPageToken\", nextPageToken);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Staff",
-					"item": [
-						{
-							"name": "Include total count in Get request without search condition",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
-											"});",
-											"pm.environment.set('known:staffUniqueId', __.first(responseItems).staffUniqueId);",
-											"pm.environment.set('known:staffTotalCount', postman.getResponseHeader(\"Total-Count\"));"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"staffs"
-									],
-									"query": [
-										{
-											"key": "totalCount",
-											"value": "true"
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:nextPageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:nextPageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request ,Set limit to 100",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
-											"     pm.expect(responseItems.length).to.be.at.most(100);",
-											"});",
-											"const staffs = __.takeRight(responseItems, 25);",
-											"const staffUniqueIds = __.map(staffs, staff => staff.staffUniqueId);",
-											"console.log(staffUniqueIds);",
-											"pm.environment.set(\"known:staffUniqueIds\",staffUniqueIds);    ",
-											"  "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?limit=100",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"staffs"
-									],
-									"query": [
-										{
-											"key": "limit",
-											"value": "100"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request and a search parameter like Staff Unique Id is passed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"pm.test(\"Total-Count header is present\", () => {",
-											"    pm.response.to.have.header(\"Total-Count\");",
-											"});",
-											"",
-											"pm.test(\"Total-Count header has correct value\", () => {",
-											"    pm.expect(pm.response.headers.get(\"Total-Count\")).to.eql(\"1\");",
-											"});",
-											"",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"    });",
-											"    "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?totalCount=true&staffUniqueId={{known:staffUniqueId}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"staffs"
-									],
-									"query": [
-										{
-											"key": "totalCount",
-											"value": "true"
-										},
-										{
-											"key": "staffUniqueId",
-											"value": "{{known:staffUniqueId}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus one",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 1 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(1);",
-											"});",
-											"    "
-										],
-										"type": "text/javascript"
-									}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
-											"pm.environment.set(\"known:staffOffset\", Number(totalCount) -1);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"staffs"
-									],
-									"query": [
+									"name": "Get GradingPeriods Partition 1, Page 3",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:staffOffset}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an empty page for page 3\", () => {\r",
+													"  pm.expect(items.length).to.equal(0);\r",
+													"});\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"\r",
+													"pm.test(\"Should not return a Next-Page-Token header for an empty page of data.\", () => {\r",
+													"  pm.expect(nextPageToken).to.be.undefined;\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"const __ = require('lodash');",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should return 25 item in response\", () => {",
-											"     pm.expect(responseItems).to.have.lengthOf(25);",
-											"});",
-											"",
-											"pm.test(\"Should match with each  item course  in response\", () => {",
-											"    const staffUniqueIds= pm.environment.get(\"known:staffUniqueIds\");",
-											"     \t__.each(responseItems, responseItem => {",
-											"        \t      pm.expect(__.includes(staffUniqueIds, responseItem.staffUniqueId)).to.equal(true);",
-											"        });",
-											"});"
-										],
-										"type": "text/javascript"
-									}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:nextPageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:nextPageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
-											"pm.environment.set(\"known:staffOffset\", Number(totalCount) -25);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs?offset={{known:staffOffset}}&limit=25",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"staffs"
-									],
-									"query": [
+									"name": "Get GradingPeriods Partition 2, Page 1",
+									"event": [
 										{
-											"key": "offset",
-											"value": "{{known:staffOffset}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the requested number of items based on page size\", () => {\r",
+													"  pm.expect(items.length).to.equal(2);\r",
+													"});\r",
+													"\r",
+													"// Append the page's ids\r",
+													"const actualIds = pm.environment.get(\"known:gradingPeriods:ids:actual\");\r",
+													"const retrievedIds = items.map(x => x.id);\r",
+													"const updatedActualIds = actualIds.concat(retrievedIds);\r",
+													"pm.environment.set(\"known:gradingPeriods:ids:actual\", updatedActualIds);\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"pm.environment.set(\"known:nextPageToken\", nextPageToken);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:gradingPeriods:partition2:pageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition2:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get GradingPeriods Partition 2, Page 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the requested number of items available for page 2 within the partition\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"// Append the page's ids\r",
+													"const actualIds = pm.environment.get(\"known:gradingPeriods:ids:actual\");\r",
+													"const retrievedIds = items.map(x => x.id);\r",
+													"const updatedActualIds = actualIds.concat(retrievedIds);\r",
+													"pm.environment.set(\"known:gradingPeriods:ids:actual\", updatedActualIds);\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"pm.environment.set(\"known:nextPageToken\", nextPageToken);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:nextPageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:nextPageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get GradingPeriods Partition 2, Page 3",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an empty page for page 3\", () => {\r",
+													"  pm.expect(items.length).to.equal(0);\r",
+													"});\r",
+													"\r",
+													"// Note the next page token\r",
+													"const nextPageToken = pm.response.headers.get('Next-Page-Token');\r",
+													"\r",
+													"pm.test(\"Should not return a Next-Page-Token header for an empty page of data.\", () => {\r",
+													"  pm.expect(nextPageToken).to.be.undefined;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"All retrieved items through keyset paging should match original order\", () => {\r",
+													"  const actualIds = pm.environment.get(\"known:gradingPeriods:ids:actual\");\r",
+													"  const expectedIds = pm.environment.get(\"known:gradingPeriods:ids:expected\");\r",
+													"\r",
+													"  console.log('actualIds:');\r",
+													"  console.log(actualIds);\r",
+													"  console.log('expectedIds:');\r",
+													"  console.log(expectedIds);\r",
+													"  \r",
+													"  pm.expect(actualIds).to.deep.equal(expectedIds);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:nextPageToken}}&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:nextPageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Paging Validation",
+							"item": [
+								{
+									"name": "Key set paging, No page size",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Page token and page size must both be provided for key set paging.\")\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken={{known:gradingPeriods:partition1:pageToken}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, No page token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Page token and page size must both be provided for key set paging.\")\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Invalid page token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate the page token is invalid.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"The page token provided was invalid.\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken=DefinitelyNotValid&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "DefinitelyNotValid"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Offset also specified",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Both offset/limit and key set paging parameters are provided, but only one type of paging can be used.\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken={{known:gradingPeriods:partition1:pageToken}}&pageSize=2&offset=0",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												},
+												{
+													"key": "offset",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Limit also specified",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Both offset/limit and key set paging parameters are provided, but only one type of paging can be used.\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken={{known:gradingPeriods:partition1:pageToken}}&pageSize=2&limit=0",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												},
+												{
+													"key": "limit",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Total Count requested",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate Total Count cannot be determined while using key set paging.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Total count cannot be determined while using key set paging.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageToken={{known:gradingPeriods:partition1:pageToken}}&pageSize=2&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901107"
+												},
+												{
+													"key": "pageToken",
+													"value": "{{known:gradingPeriods:partition1:pageToken}}"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Partitions Validation",
+							"item": [
+								{
+									"name": "Invalid Requests",
+									"item": [
+										{
+											"name": "Partitions, non-existing resource",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(404);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should indicate the resource was not found.\", () => {\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The specified data could not be found.\");\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/nonExisting/partitions?number=200",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"nonExisting",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "number",
+															"value": "200"
+														}
+													]
+												}
+											},
+											"response": []
 										},
 										{
-											"key": "limit",
-											"value": "25"
+											"name": "Partitions, 0 partitions requested",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should indicate request was invalid.\", () => {\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+															"  pm.expect(problemDetails.errors).to.contain(\"Number of partitions must be between 1 and 200.\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?schoolId=255901107&number=0",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradingPeriods",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "schoolId",
+															"value": "255901107"
+														},
+														{
+															"key": "number",
+															"value": "0"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Partitions, 201 partitions requested",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should indicate request was invalid.\", () => {\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
+															"  pm.expect(problemDetails.errors).to.contain(\"Number of partitions must be between 1 and 200.\")\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?schoolId=255901107&number=201",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradingPeriods",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "schoolId",
+															"value": "255901107"
+														},
+														{
+															"key": "number",
+															"value": "201"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Last Partition Sizing",
+									"item": [
+										{
+											"name": "Partitions, 200 partitions requested, smaller than # of items",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const partitioning = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should have exactly the number of partitions requested.\", () => {\r",
+															"  const totalCount = pm.environment.get(\"known:gradingPeriods:length\");\r",
+															"  pm.expect(partitioning.pageTokens.length).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const pageTokenN_2 = partitioning.pageTokens.at(-3);\r",
+															"const pageTokenN_1 = partitioning.pageTokens.at(-2);\r",
+															"const pageTokenN = partitioning.pageTokens.at(-1);\r",
+															"\r",
+															"pm.environment.set(\"known:pageToken:n-2\", pageTokenN_2);\r",
+															"pm.environment.set(\"known:pageToken:n-1\", pageTokenN_1);\r",
+															"pm.environment.set(\"known:pageToken:n\", pageTokenN);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/partitions?number=200",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "number",
+															"value": "200"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Actual Partition Size (partition n-2)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const items = pm.response.json();\r",
+															"\r",
+															"pm.environment.set(\"known:partitionPageSize\", items.length);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents?pageSize=500&pageToken={{known:pageToken:n-2}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents"
+													],
+													"query": [
+														{
+															"key": "pageSize",
+															"value": "500"
+														},
+														{
+															"key": "pageToken",
+															"value": "{{known:pageToken:n-2}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Actual Partition Size (partition n-1)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const items = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should include the same number of items as studentSectionAttendanceEvents to last partition.\", () => {\r",
+															"  const knownPartitionSize = pm.environment.get(\"known:partitionPageSize\");\r",
+															"  pm.expect(items.length).to.equal(knownPartitionSize);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents?pageSize=500&pageToken={{known:pageToken:n-1}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents"
+													],
+													"query": [
+														{
+															"key": "pageSize",
+															"value": "500"
+														},
+														{
+															"key": "pageToken",
+															"value": "{{known:pageToken:n-1}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Actual Partition Size (partition n)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const items = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should include a number of items greater than (but less than 2x of) the next to last partition.\", () => {\r",
+															"  const knownPartitionSize = pm.environment.get(\"known:partitionPageSize\");\r",
+															"  pm.expect(items.length).to.be.gte(knownPartitionSize);\r",
+															"  pm.expect(items.length).to.be.lt(knownPartitionSize * 2);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents?pageSize=500&pageToken={{known:pageToken:n}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents"
+													],
+													"query": [
+														{
+															"key": "pageSize",
+															"value": "500"
+														},
+														{
+															"key": "pageToken",
+															"value": "{{known:pageToken:n}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Smallest Partitions",
+									"item": [
+										{
+											"name": "Partitions, 200 partitions requested, greater than # of items",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const partitioning = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should have one partition per resource item.\", () => {\r",
+															"  const totalCount = pm.environment.get(\"known:gradingPeriods:length\");\r",
+															"  pm.expect(partitioning.pageTokens.length).to.equal(totalCount);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?number=200&schoolId=255901107",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradingPeriods",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "number",
+															"value": "200"
+														},
+														{
+															"key": "schoolId",
+															"value": "255901107"
+														}
+													]
+												}
+											},
+											"response": []
 										}
 									]
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Access Tokens",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Remove all environment variables related to Access Tokens\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				}
@@ -5693,6 +7089,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
 											"let entryDate=new Date();",
@@ -5700,9 +7097,13 @@
 											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
 											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
 											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
-											" "
+											"",
+											"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");",
+											"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -11867,7 +13268,7 @@
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");\r",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
 									"\r",
 									"const moment = require('moment');\r",
@@ -12208,7 +13609,7 @@
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
-									"const schoolIds =pm.environment.get(\"known:schoolIds\");\r",
+									"const schoolIds = pm.environment.get(\"test-suite:known:schoolIds\");\r",
 									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));\r",
 									"\r",
 									"const moment = require('moment');\r",
@@ -13580,37 +14981,6 @@
 								"ed-fi",
 								"schools",
 								"{{known:school:id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Clean up Environment Variables",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-									"_.chain(_.keys(pm.environment.toObject()))\r",
-									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}",
-							"host": [
-								"{{ApiBaseUrl}}"
 							]
 						}
 					},

@@ -40,6 +40,17 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public SqlBuilder ClearClause(string name)
+        {
+            if (_data.TryGetValue(name, out var clauses))
+            {
+                // Clear existing clause
+                clauses.Clear();
+            }
+
+            return this;
+        }
+
         public SqlBuilder Distinct() =>
             SetClause("distinct", "DISTINCT", null, null, null);
 
@@ -153,6 +164,11 @@ namespace EdFi.Ods.Common.Database.Querying
             return HasClause(ClauseKey.Where);
         }
 
+        public bool HasDistinct()
+        {
+            return HasClause(ClauseKey.Distinct);
+        }
+
         private bool HasClause(string clausekey)
         {
             return _data.Any(kvp => kvp.Key == clausekey);
@@ -173,5 +189,6 @@ namespace EdFi.Ods.Common.Database.Querying
         public static string GroupBy = "groupby";
         public static string Having = "having";
         public static string Set = "set";
+        public static string Distinct = "distinct";
     }
 }

@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
             {
                 // Load the entities
                 var specificationResult = await _repository.GetBySpecificationAsync(
-                    context.PersistentModel, context.QueryParameters, cancellationToken);
+                    context.PersistentModel, context.QueryParameters, context.AdditionalParameters, cancellationToken);
 
                 context.PersistentModels = specificationResult.Results;
                 result.ResultMetadata = specificationResult.ResultMetadata;

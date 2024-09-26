@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Common.Infrastructure.Repositories;
 
 namespace EdFi.Ods.Common.Models.Queries
 {
@@ -24,6 +25,16 @@ namespace EdFi.Ods.Common.Models.Queries
             Q = parameters.Q;
             MinChangeVersion = parameters.MinChangeVersion;
             MaxChangeVersion = parameters.MaxChangeVersion;
+
+            PageSize = parameters.PageSize;
+
+            // Process the keyset paging page token, if supplied
+            if (parameters.PageToken != null)
+            {
+                var range = PagingHelpers.GetAggregateIdRange(parameters.PageToken);
+                MinAggregateId = range.minAggregateId;
+                MaxAggregateId = range.maxAggregateId;
+            }
         }
 
         public QueryParameters()
@@ -46,6 +57,12 @@ namespace EdFi.Ods.Common.Models.Queries
 
         public long? MaxChangeVersion { get; set; }
 
+        public int? PageSize { get; set; }
+
+        public int? MinAggregateId { get; set; }
+
+        public int? MaxAggregateId { get; set; }
+
         public string Q
         {
             get { return _q; }
@@ -67,15 +84,12 @@ namespace EdFi.Ods.Common.Models.Queries
 
                 foreach (Match match in matches)
                 {
-                    string propertyName = match.Groups["PropertyName"]
-                        .Value;
+                    string propertyName = match.Groups["PropertyName"].Value;
 
                     // Supporting only non-quoted text searches for now
-                    if (match.Groups["Text"]
-                        .Success)
+                    if (match.Groups["Text"].Success)
                     {
-                        string text = match.Groups["Text"]
-                            .Value;
+                        string text = match.Groups["Text"].Value;
 
                         bool leadingAsterisk = text[0] == '*';
                         bool trailingAsterisk = text[text.Length - 1] == '*';

@@ -30,7 +30,7 @@ public class RedisNotificationTests
     private readonly Dictionary<string, TimeSpan> _intervalsByNotificationType = new();
 
     [Test]
-    public void Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
+    public async Task Should_subscribe_to_and_receive_Redis_pub_sub_notification_and_invoke_appropriate_Mediatr_handler()
     {
         try
         {
@@ -66,7 +66,7 @@ public class RedisNotificationTests
             _redisNotificationSettings,
             new NotificationsMessageSink(mediator, _intervalsByNotificationType, TimeProvider.System));
 
-        activity.Execute();
+        await activity.ExecuteAsync();
 
         //--------------------------------
         // Act

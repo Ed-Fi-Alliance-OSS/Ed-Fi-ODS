@@ -5,7 +5,7 @@
 
 using Autofac;
 using Autofac.Core;
-using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -32,7 +32,7 @@ public class RedisNotificationsModule : ConditionalModule
 
         // Register the Redis-specific pub/sub initialization activity
         builder.RegisterType<InitializeRedisNotifications>()
-            .As<IExternalTask>()
+            .As<IStartupCommand>()
             .WithParameter(
                 new ResolvedParameter(
                     (p, c) => p.ParameterType == typeof(RedisNotificationSettings),

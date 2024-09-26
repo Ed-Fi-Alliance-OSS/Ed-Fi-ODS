@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
@@ -75,6 +76,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
             TEntity specification,
             IQueryParameters queryParameters,
+            IDictionary<string, string> additionalQueryParameters,
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
@@ -87,7 +89,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 _authorizationFilterContextProvider.SetFilterContext(authorizationFiltering);
 
                 // Pass call through to the repository operation implementation to execute the query
-                return await _next.GetBySpecificationAsync(specification, queryParameters, cancellationToken);
+                return await _next.GetBySpecificationAsync(
+                    specification,
+                    queryParameters,
+                    additionalQueryParameters,
+                    cancellationToken);
             }
         }
     }

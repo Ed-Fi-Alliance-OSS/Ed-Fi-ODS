@@ -7,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -19,17 +20,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <summary>
     /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the aggregate root entity being queried.</typeparam>
-    public class PagedAggregateIdsCriteriaProviderAuthorizationDecorator<TEntity>
-        : IPagedAggregateIdsCriteriaProvider<TEntity>
-        where TEntity : class
+    public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
-        private readonly IPagedAggregateIdsCriteriaProvider<TEntity> _decoratedInstance;
+        private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
-            IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
+        public AggregateRootQueryBuilderProviderAuthorizationDecorator(
+            IAggregateRootQueryBuilderProvider decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
@@ -41,12 +39,22 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <summary>
         /// Applies the authorization filtering criteria to the query created by the decorated instance.
         /// </summary>
+        /// <param name="aggregateRootEntity"></param>
         /// <param name="specification">An instance of the entity representing the parameters to the query.</param>
         /// <param name="queryParameters">The parameter values to apply to the query.</param>
+        /// <param name="additionalQueryParameters">Additional parameters supplied by the API client that are resource-level properties or common parameters.</param>
         /// <returns>The criteria created by the decorated instance.</returns>
-        public QueryBuilder GetQueryBuilder(TEntity specification, IQueryParameters queryParameters)
+        public QueryBuilder GetQueryBuilder(
+            Entity aggregateRootEntity,
+            AggregateRootWithCompositeKey specification,
+            IQueryParameters queryParameters,
+            IDictionary<string, string> additionalQueryParameters)
         {
-            var queryBuilder = _decoratedInstance.GetQueryBuilder(specification, queryParameters);
+            var queryBuilder = _decoratedInstance.GetQueryBuilder(
+                aggregateRootEntity,
+                specification,
+                queryParameters,
+                additionalQueryParameters);
 
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
@@ -55,14 +63,33 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
 
+            // We ONLY need to use DISTINCT (which comes with a performance cost) if there are multiple OR strategies being applied
+            // resulting in LEFT JOINs, or if there are multiple EdOrgIds applied to the API client. Also wrapped up in this are
+            // some assumptions:
+            //    1) That the only type of OR authorization strategies are relationship-based authorization
+            //    2) That because of #1, the only type of claim values that would be present in ClaimParameterValues are EdOrgIds
+            if (relationshipBasedAuthViewJoinType == JoinType.LeftOuterJoin)
+            {
+                // Authorization could introduce duplicates items, so we must apply DISTINCT
+                queryBuilder.Distinct();
+            }
+            else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
+            {
+                if (authorizationFiltering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
+                {
+                    // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
+                    queryBuilder.Distinct();
+                }
+            }
+
             ApplyAuthorizationStrategiesCombinedWithAndLogic();
             ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
             return queryBuilder;
 
-            JoinType DetermineRelationshipBasedAuthViewJoinType()
+            JoinType? DetermineRelationshipBasedAuthViewJoinType()
             {
-                // Relationship-based authorization filters are combined using OR, Custom auth-view filters are combined using AND
+                // NOTE: Relationship-based authorization filters are combined using OR, while custom auth-view filters are combined using AND
                 var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
                     af => af.Operator == FilterOperator.Or && af.Filters.Select(afd =>
                         {
@@ -79,9 +106,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         .OfType<ViewBasedAuthorizationFilterDefinition>()
                         .Any());
 
-                return countOfRelationshipBasedAuthorizationFilters > 1
-                    ? JoinType.LeftOuterJoin
-                    : JoinType.InnerJoin;
+                return countOfRelationshipBasedAuthorizationFilters switch
+                {
+                    0 => null,
+                    1 => JoinType.InnerJoin,
+                    _ => JoinType.LeftOuterJoin
+                };
             }
 
             void ApplyAuthorizationStrategiesCombinedWithAndLogic()
@@ -101,7 +131,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
-                var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
+                var orStrategies = authorizationFiltering
+                    .Where(x => x.Operator == FilterOperator.Or)
+                    .ToArray();
 
                 bool disjunctionFiltersApplied = false;
 
@@ -119,7 +151,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                             filtersConjunctionBuilder,
                                             orStrategy.Filters,
                                             orStrategy.AuthorizationStrategy,
-                                            relationshipBasedAuthViewJoinType))
+                                            relationshipBasedAuthViewJoinType ?? JoinType.InnerJoin))
                                     {
                                         disjunctionFiltersApplied = true;
                                     }

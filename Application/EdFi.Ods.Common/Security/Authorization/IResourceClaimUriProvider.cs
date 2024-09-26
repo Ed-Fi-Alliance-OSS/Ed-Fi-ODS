@@ -29,6 +29,13 @@ namespace EdFi.Ods.Common.Security.Authorization
         string[] GetResourceClaimUris(Resource resource);
 
         /// <summary>
+        /// Gets the resource URIs for the specified entity class using Ed-Fi schema-based and legacy URI conventions.
+        /// </summary>
+        /// <param name="entity">The <see cref="EdFi.Ods.Common.Models.Domain.Entity" /> for which to build the resource URIs.</param>
+        /// <returns>The resource claim URIs.</returns>
+        string[] GetResourceClaimUris(Entity entity);
+
+        /// <summary>
         /// Gets the full name of the resource associated with the specified resource claim URIs.
         /// </summary>
         /// <param name="resourceClaimUris">The resource claim URIs for which the associated resource name is to be obtained.</param>

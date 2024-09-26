@@ -36,8 +36,6 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using Polly;
-using Polly.Retry;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -146,22 +144,23 @@ namespace EdFi.Ods.Api.Controllers
         [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         public virtual async Task<IActionResult> GetAll(
             [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
-            [FromQuery] TGetByExampleRequest request = default(TGetByExampleRequest))
+            [FromQuery] TGetByExampleRequest request = default,
+            [FromQuery] Dictionary<string, string> additionalParameters = default)
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-            if (urlQueryParametersRequest.Limit != null &&
-                (urlQueryParametersRequest.Limit < 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
+            
+            var queryParameters = new QueryParameters(urlQueryParametersRequest);
+
+            if (!QueryParametersValidator.IsValid(queryParameters, _defaultPageLimitSize, out string errorMessage))
             {
-                var problemDetails = new BadRequestParameterException(
-                    "The limit parameter was incorrect.",
-                    new[] { $"Limit must be omitted or set to a value between 0 and {_defaultPageLimitSize}." })
+                var problemDetails = new BadRequestParameterException(BadRequestException.DefaultDetail, [errorMessage])
                 {
                     CorrelationId = _logContextAccessor.GetCorrelationId()
                 }.AsSerializableModel();
 
                 return BadRequest(problemDetails);
             }
-
+            
             var internalRequestAsResource = new TResourceModel();
             var internalRequest = internalRequestAsResource as TEntityInterface;
 
@@ -170,12 +169,10 @@ namespace EdFi.Ods.Api.Controllers
                 MapAll(request, internalRequest);
             }
 
-            var queryParameters = new QueryParameters(urlQueryParametersRequest);
-
             // Execute the pipeline (synchronously)
             var result = await GetManyPipeline.Value
                 .ProcessAsync(
-                    new GetManyContext<TResourceModel, TAggregateRoot>(internalRequestAsResource, queryParameters),
+                    new GetManyContext<TResourceModel, TAggregateRoot>(internalRequestAsResource, queryParameters, additionalParameters),
                     new CancellationToken());
 
             // Handle exception result
@@ -189,6 +186,11 @@ namespace EdFi.Ods.Api.Controllers
             if (queryParameters.TotalCount)
             {
                 Response.Headers.Append(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
+            }
+
+            if (queryParameters.MinAggregateId != null && result.Resources.Count > 0)
+            {
+                Response.Headers.Append(HeaderConstants.NextPageToken, result.ResultMetadata.NextPageToken);
             }
 
             Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());

@@ -3,10 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.ExternalTasks
+using System.Threading.Tasks;
+
+namespace EdFi.Ods.Api.Startup
 {
-    public interface IExternalTask
+    public interface IStartupCommand
     {
-        void Execute();
+        Task ExecuteAsync();
     }
 }

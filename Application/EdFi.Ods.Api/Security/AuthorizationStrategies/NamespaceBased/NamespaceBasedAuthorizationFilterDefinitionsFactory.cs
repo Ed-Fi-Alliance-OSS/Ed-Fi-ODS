@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -22,7 +23,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
 {
     private readonly IDatabaseNamingConvention _databaseNamingConvention;
-    private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
 
     private const string FilterPropertyName = "Namespace";
     private readonly string _oldNamespaceQueryColumnExpression;
@@ -119,7 +119,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         try
         {
             var contextData =
-                _authorizationContextDataFactory.CreateContextData<NamespaceBasedAuthorizationContextData>(
+                DynamicMapper.CreateContextData<NamespaceBasedAuthorizationContextData>(
                     authorizationContext.Data, getContextDataPropertyMappings: GetContextDataPropertyMappings);
 
             if (contextData == null)

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using Autofac.Features.AttributeFilters;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Repositories;
 
@@ -32,6 +33,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
+                .WithAttributeFiltering()
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))

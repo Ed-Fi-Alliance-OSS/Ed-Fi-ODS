@@ -4,15 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using System.Threading.Tasks;
 using Autofac.Features.Indexed;
-using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using log4net;
 using Quartz;
 
 namespace EdFi.Ods.Api.Jobs.Extensions
 {
-    public class InitializeScheduledJobs : IExternalTask
+    public class InitializeScheduledJobs : IStartupCommand
     {
         private readonly ApiSettings _apiSettings;
         private readonly IApiJobScheduler _apiJobScheduler;
@@ -29,7 +30,7 @@ namespace EdFi.Ods.Api.Jobs.Extensions
             _jobsByName = jobsByName;
         }
         
-        public void Execute()
+        public async Task ExecuteAsync()
         {
             var duplicateScheduledJobs =
                 _apiSettings.ScheduledJobs
@@ -60,10 +61,8 @@ namespace EdFi.Ods.Api.Jobs.Extensions
                 {
                     _logger.Debug($"Scheduled job '{scheduledJobSetting.Name}' added to background task scheduling service...");
                     
-                    _apiJobScheduler.AddScheduledJob(job.GetType(), scheduledJobSetting)
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult();
+                    await _apiJobScheduler.AddScheduledJob(job.GetType(), scheduledJobSetting)
+                        .ConfigureAwait(false);
                 }
                 else
                 {

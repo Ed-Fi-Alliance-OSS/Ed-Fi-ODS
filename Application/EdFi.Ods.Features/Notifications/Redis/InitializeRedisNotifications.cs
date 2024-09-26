@@ -4,7 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.ExternalTasks;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Services.Redis;
 using log4net;
@@ -16,7 +17,7 @@ namespace EdFi.Ods.Features.Notifications.Redis;
 /// <summary>
 /// Performs the initialization activity necessary to create a Redis subscription for notifications from the configured channel. 
 /// </summary>
-public class InitializeRedisNotifications : IExternalTask
+public class InitializeRedisNotifications : IStartupCommand
 {
     private readonly IRedisConnectionProvider _redisConnectionProvider;
     private readonly RedisNotificationSettings _redisNotificationSettings;
@@ -34,13 +35,13 @@ public class InitializeRedisNotifications : IExternalTask
         _notificationsMessageSink = notificationsMessageSink;
     }
 
-    public void Execute()
+    public async Task ExecuteAsync()
     {
         try
         {
             var subscriber = _redisConnectionProvider.Get().Multiplexer.GetSubscriber();
 
-            subscriber.Subscribe(
+            await subscriber.SubscribeAsync(
                 new RedisChannel(_redisNotificationSettings.Channel, PatternMode.Auto),
                 (channel, message) => { _notificationsMessageSink.Receive(message); });
         }

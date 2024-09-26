@@ -10,37 +10,55 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
     public class GetEntitiesBySpecification<TEntity>
         : NHibernateRepositoryOperationBase, IGetEntitiesBySpecification<TEntity>
-        where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
+        where TEntity : AggregateRootWithCompositeKey
     {
         private const string ChangeVersion = "ChangeVersion";
         public const string _Id = "Id";
-        protected static IList<TEntity> EmptyList = new List<TEntity>();
+        private static IList<TEntity> EmptyList = new List<TEntity>();
 
-        private readonly IPagedAggregateIdsCriteriaProvider<TEntity> _pagedAggregateIdsCriteriaProvider;
+        private readonly IAggregateRootQueryBuilderProvider _pagedAggregateIdsCriteriaProvider;
+        private readonly IDomainModelProvider _domainModelProvider;
         private readonly IGetEntitiesByIds<TEntity> _getEntitiesByIds;
 
         public GetEntitiesBySpecification(
             ISessionFactory sessionFactory,
             IGetEntitiesByIds<TEntity> getEntitiesByIds,
-            IPagedAggregateIdsCriteriaProvider<TEntity> pagedAggregateIdsCriteriaProvider)
+            [FromKeyedServices(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)]
+            IAggregateRootQueryBuilderProvider pagedAggregateIdsCriteriaProvider,
+            IDomainModelProvider domainModelProvider)
             : base(sessionFactory)
         {
             _getEntitiesByIds = getEntitiesByIds;
             _pagedAggregateIdsCriteriaProvider = pagedAggregateIdsCriteriaProvider;
+            _domainModelProvider = domainModelProvider;
         }
 
-        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification,
-            IQueryParameters queryParameters, CancellationToken cancellationToken)
+        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
+            TEntity specification,
+            IQueryParameters queryParameters,
+            IDictionary<string, string> additionalParameters,
+            CancellationToken cancellationToken)
         {
+            var entityFullName = specification.GetApiModelFullName();
+            
+            if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var aggregateRootEntity))
+            {
+                throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
+            }
+
             using (new SessionScope(SessionFactory))
             {
                 // Get the identifiers for a subsequent IN query
@@ -53,22 +71,41 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     return new GetBySpecificationResult<TEntity>
                     {
                         Results = EmptyList,
-                        ResultMetadata = new ResultMetadata {TotalCount = specificationResult.TotalCount}
+                        ResultMetadata = new ResultMetadata
+                        {
+                            TotalCount = specificationResult.TotalCount,
+                            NextPageToken = null
+                        }
                     };
                 }
 
                 // Get the full results
-                var result = await _getEntitiesByIds.GetByIdsAsync(specificationResult.Ids, cancellationToken);
+                var ids = specificationResult.Ids.Select(x => x.Id).ToList();
+
+                var result = await _getEntitiesByIds.GetByIdsAsync(ids, cancellationToken);
 
                 // Restore original order of the result rows (GetByIds sorts by Id)
-                var resultWithOriginalOrder = specificationResult.Ids
+                var resultWithOriginalOrder = ids
                     .Join(result, id => id, r => r.Id, (id, r) => r)
                     .ToList();
+
+                string nextPageToken = null;
+
+                if (queryParameters.MinAggregateId != null)
+                {
+                    nextPageToken = PagingHelpers.GetPageToken(
+                        specificationResult.Ids[^1].AggregateId + 1,
+                        queryParameters.MaxAggregateId!.Value);
+                }
 
                 return new GetBySpecificationResult<TEntity>
                 {
                     Results = resultWithOriginalOrder,
-                    ResultMetadata = new ResultMetadata {TotalCount = specificationResult.TotalCount}
+                    ResultMetadata = new ResultMetadata
+                    {
+                        TotalCount = specificationResult.TotalCount,
+                        NextPageToken = nextPageToken
+                    },
                 };
             }
 
@@ -77,7 +114,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Short circuit any work if no items requested, and no count to perform. 
                 if (!ItemsRequested() && !CountRequested())
                 {
-                    return new SpecificationResult { Ids = Array.Empty<Guid>() };
+                    return new SpecificationResult { Ids = Array.Empty<PageIds>() };
                 }
 
                 // If any items requested, get the requested page of Ids
@@ -97,6 +134,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (CountRequested())
                 {
                     countTemplate = (idsQueryBuilder ?? GetIdsQueryBuilder()).BuildCountTemplate();
+
+                    if (countTemplate.Parameters is DynamicParameters countTemplateParameters)
+                    {
+                        if (countTemplateParameters.ParameterNames.Contains("MinAggregateId"))
+                        {
+                            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["Total count cannot be determined while using key set paging."]);
+                        }
+                    }
                 }
 
                 if (idsTemplate != null && countTemplate != null)
@@ -109,7 +154,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     await using var multi = await Session.Connection.QueryMultipleAsync(combinedSql, parameters);
 
-                    var ids = (await multi.ReadAsync<Guid>()).ToList();
+                    var ids = (await multi.ReadAsync<PageIds>()).ToList();
                     var totalCount = await multi.ReadSingleAsync<int>();
 
                     return new SpecificationResult
@@ -121,10 +166,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 if (idsTemplate != null)
                 {
-                    var idsResults = await Session.Connection.QueryAsync<IdOnly>(idsTemplate.RawSql, idsTemplate.Parameters);
+                    var idsResults = await Session.Connection.QueryAsync<PageIds>(idsTemplate.RawSql, idsTemplate.Parameters);
+                    
                     return new SpecificationResult
                     {
-                        Ids = idsResults.Select(d => d.Id).ToArray() 
+                        Ids = idsResults.ToArray() 
                     };
                 }
 
@@ -132,46 +178,52 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 return new SpecificationResult
                 {
-                    Ids = Array.Empty<Guid>(),
+                    Ids = Array.Empty<PageIds>(),
                     TotalCount = countResult 
                 };
+                
+                QueryBuilder GetIdsQueryBuilder()
+                {
+                    var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(
+                        aggregateRootEntity,
+                        specification,
+                        queryParameters,
+                        additionalParameters);
+
+                    SetChangeQueriesCriteria(idsQueryBuilder);
+
+                    return idsQueryBuilder;
+
+                    void SetChangeQueriesCriteria(QueryBuilder queryBuilder)
+                    {
+                        if (queryParameters.MinChangeVersion.HasValue)
+                        {
+                            queryBuilder.Where(ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
+                        }
+
+                        if (queryParameters.MaxChangeVersion.HasValue)
+                        {
+                            queryBuilder.Where(ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
+                        }
+                    }
+                }
             }
 
             bool ItemsRequested() => !(queryParameters.Limit == 0);
 
             bool CountRequested() => queryParameters.TotalCount;
+        }
 
-            QueryBuilder GetIdsQueryBuilder()
-            {
-                var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(specification, queryParameters);
-                SetChangeQueriesCriteria(idsQueryBuilder);
-
-                return idsQueryBuilder;
-
-                void SetChangeQueriesCriteria(QueryBuilder queryBuilder)
-                {
-                    if (queryParameters.MinChangeVersion.HasValue)
-                    {
-                        queryBuilder.Where(ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
-                    }
-
-                    if (queryParameters.MaxChangeVersion.HasValue)
-                    {
-                        queryBuilder.Where(ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
-                    }
-                }
-            }
+        private class PageIds
+        {
+            public Guid Id { get; set; }
+            public int AggregateId { get; set; }
         }
 
         private class SpecificationResult
         {
-            public IList<Guid> Ids { get; set; }
+            public IList<PageIds> Ids { get; set; }
             public int TotalCount { get; set; }
-        }
-
-        private class IdOnly
-        {
-            public Guid Id { get; set; }
         }
     }
 }

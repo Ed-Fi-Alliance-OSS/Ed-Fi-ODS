@@ -7,6 +7,7 @@ using System;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
+using Autofac.Features.AttributeFilters;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
@@ -24,12 +25,15 @@ using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Providers.Queries;
+using EdFi.Ods.Common.Providers.Queries.Criteria;
+using EdFi.Ods.Common.Providers.Queries.Paging;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
 using NHibernate;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
+using Module = Autofac.Module;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -101,10 +105,27 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IOdsDatabaseAccessIntentProvider>()
                 .SingleInstance();
 
-            builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
+            // Paged query builder
+            builder.RegisterType<PagedAggregateIdsQueryBuilderProvider>()
+                .Keyed<IAggregateRootQueryBuilderProvider>(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)
                 .SingleInstance();
 
+            // Limit/offset paging support
+            builder.RegisterType<LimitOffsetPagingStrategy>()
+                .Keyed<IPagingStrategy>(PagingStrategy.LimitOffset)
+                .SingleInstance();
+
+            // Key set paging support
+            builder.RegisterType<KeySetPagingStrategy>()
+                .Keyed<IPagingStrategy>(PagingStrategy.KeySet)
+                .SingleInstance();
+
+            // Additional criteria applicators
+            builder.RegisterAssemblyTypes(typeof(IAggregateRootQueryCriteriaApplicator).Assembly)
+                .Where(t => t.IsImplementationOf<IAggregateRootQueryCriteriaApplicator>())
+                .As<IAggregateRootQueryCriteriaApplicator>();
+
+            // Repository operations
             builder.RegisterGeneric(typeof(CreateEntity<>))
                 .As(typeof(ICreateEntity<>))
                 .SingleInstance();
@@ -123,6 +144,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
+                .WithAttributeFiltering()
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))

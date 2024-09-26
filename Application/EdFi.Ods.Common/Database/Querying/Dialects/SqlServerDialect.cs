@@ -13,24 +13,24 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
     public class SqlServerDialect : Dialect
     {
-        public override string GetLimitOffsetString(int? limit, int? offset)
+        public override string GetLimitOffsetString(string limitParameter, string offsetParameter)
         {
-            if (offset == null && limit == null)
+            if (offsetParameter == null && limitParameter == null)
             {
                 return null;
             }
 
-            if (offset != null && limit != null)
+            if (offsetParameter != null && limitParameter != null)
             {
-                return $"OFFSET {offset} ROWS FETCH NEXT {limit} ROWS ONLY";
+                return $"OFFSET {offsetParameter} ROWS FETCH NEXT {limitParameter} ROWS ONLY";
             }
 
-            if (offset != null)
+            if (offsetParameter != null)
             {
-                return $"OFFSET {offset} ROWS";
+                return $"OFFSET {offsetParameter} ROWS";
             }
 
-            return $"OFFSET 0 ROWS FETCH NEXT {limit} ROWS ONLY";
+            return $"OFFSET 0 ROWS FETCH NEXT {limitParameter} ROWS ONLY";
         }
 
         public override (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values)

@@ -11,10 +11,13 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.StartupCommands;
+using EdFi.Ods.Api.Startup;
+using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Security.DataAccess.Contexts;
 
 namespace EdFi.Ods.Api.Security.Container.Modules
@@ -26,7 +29,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             // NHibernate authorization decorators
             {typeof(IGetEntityByKey<>), typeof(GetEntityByKeyAuthorizationDecorator<>)},
             {typeof(IGetEntitiesBySpecification<>), typeof(GetEntitiesBySpecificationAuthorizationDecorator<>)},
-            {typeof(IPagedAggregateIdsCriteriaProvider<>), typeof(PagedAggregateIdsCriteriaProviderAuthorizationDecorator<>)},
             {typeof(IGetEntityById<>), typeof(GetEntityByIdAuthorizationDecorator<>)},
             {typeof(IGetEntitiesByIds<>), typeof(GetEntitiesByIdsAuthorizationDecorator<>)},
             {typeof(ICreateEntity<>), typeof(CreateEntityAuthorizationDecorator<>)},
@@ -44,7 +46,9 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 typeof(AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator)
             },
             {typeof(IUpsertPipelineStepsProvider), typeof(AuthorizationContextUpsertPipelineStepsProviderDecorator)},
-            {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)}
+            {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)},
+            
+            {typeof(IAggregateRootQueryBuilderProvider), typeof(AggregateRootQueryBuilderProviderAuthorizationDecorator)},
         };
 
         protected override void Load(ContainerBuilder builder)
@@ -73,6 +77,15 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<SecurityContextFactory>()
                 .As<ISecurityContextFactory>()
+                .SingleInstance();
+            
+            // General authorization support (associating mapped entity types with semantic API model entities)
+            builder.RegisterType<NHibernateEntityTypeDomainModelEnhancer>()
+                .As<IDomainModelEnhancer>()
+                .SingleInstance();
+
+            builder.RegisterType<EnhanceDomainModelStartupCommand>()
+                .As<IStartupCommand>()
                 .SingleInstance();
         }
     }
