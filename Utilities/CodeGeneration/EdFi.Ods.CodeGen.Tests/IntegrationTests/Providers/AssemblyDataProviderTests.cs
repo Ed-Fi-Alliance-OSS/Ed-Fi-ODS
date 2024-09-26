@@ -29,7 +29,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             protected override void Arrange()
             {
                 var container = ContainerHelper.CreateContainer(new Options {
-                        StandardVersion = "5.1.0",
+                        StandardVersion = "5.2.0",
                         ExtensionVersion = "1.1.0"
                 });
 
@@ -66,7 +66,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "5.1.0",
+                        StandardVersion = "5.2.0",
                         ExtensionVersion = "1.1.0"
                     });
 
@@ -101,7 +101,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             {
                 var container = ContainerHelper.CreateContainer(new Options
                 {
-                    StandardVersion = "5.1.0",
+                    StandardVersion = "5.2.0",
                     ExtensionVersion = "1.1.0"
                 });
 
@@ -139,7 +139,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "5.1.0",
+                        StandardVersion = "5.2.0",
                         ExtensionVersion = "1.1.0"
                     });
 
