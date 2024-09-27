@@ -909,6 +909,20 @@
     </Resource>
   </Profile>
 
+  <!-- Profile on a extension resource -->
+  <Profile name="Sample-StudentArtProgramAssociation-LogicalSchema-IncludeOnly">
+    <Resource name="StudentArtProgramAssociation" logicalSchema="Sample">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="BeginDate" />
+        <Property name="EducationOrganizationReference" />
+        <Property name="ProgramReference" />
+        <Property name="StudentReference" />
+        <Property name="PrivateArtProgram" />
+        <Collection name="StudentArtProgramAssociationStyles" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
   <Profile name="Resource-with-excluded-required-reference">
     <Resource name="CourseOffering">
       <WriteContentType memberSelection="ExcludeOnly">
