@@ -6,7 +6,6 @@
 using System.Linq;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
@@ -36,15 +35,13 @@ namespace EdFi.Ods.Api.Security.Authorization
             var staffResource =
                 resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Staff"));
 
-            var staffEdOrgEmployAssoc =
-                resources.FirstOrDefault(
-                    x => x.FullName == new FullName(
-                        EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation"));
+            var staffEdOrgEmployAssoc = resources.FirstOrDefault(
+                x => x.FullName
+                    == new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationEmploymentAssociation"));
 
-            var staffEdOrgAssignAssoc =
-                resources.FirstOrDefault(
-                    x => x.FullName == new FullName(
-                        EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation"));
+            var staffEdOrgAssignAssoc = resources.FirstOrDefault(
+                x => x.FullName
+                    == new FullName(EdFiConventions.PhysicalSchemaName, "StaffEducationOrganizationAssignmentAssociation"));
 
             // No staff entity in the graph, nothing to do.
             if (staffResource == null)
@@ -78,18 +75,16 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 resourceGraph.AddEdge(
                     new AssociationViewEdge(
-                        staffEdOrgAssignAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
+                        staffEdOrgAssignAssoc,
+                        directStaffDependency.Target,
+                        directStaffDependency.AssociationView));
 
                 resourceGraph.AddEdge(
                     new AssociationViewEdge(
-                        staffEdOrgEmployAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
+                        staffEdOrgEmployAssoc,
+                        directStaffDependency.Target,
+                        directStaffDependency.AssociationView));
             }
-
-            // Add StaffEducationOrganizationAssignmentAssociations/#POSTRetry node for Staff resource
-            AddPostRetryVertexForResource(resourceGraph, staffEdOrgAssignAssoc, staffResource);
-
-            // Add StaffEducationOrganizationEmploymentAssociations/#POSTRetry node for Staff resource
-            AddPostRetryVertexForResource(resourceGraph, staffEdOrgEmployAssoc, staffResource);
         }
 
         private static void ApplyStudentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -131,12 +126,10 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 resourceGraph.AddEdge(
                     new AssociationViewEdge(
-                        studentSchoolAssociationResource, directStudentDependency.Target,
+                        studentSchoolAssociationResource,
+                        directStudentDependency.Target,
                         directStudentDependency.AssociationView));
             }
-
-            // Add a StudentSchoolAssociation/#POSTRetry node for Student resource
-            AddPostRetryVertexForResource(resourceGraph, studentSchoolAssociationResource, studentResource);
         }
 
         private void ApplyContactTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -144,8 +137,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             var resources = resourceGraph.Vertices.ToList();
 
             var contactResource = resources.FirstOrDefault(
-                x =>
-                    x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact")
+                x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Contact")
                     || x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
 
             // No entity named Parent or Contact in the graph, nothing to do.
@@ -190,13 +182,11 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 resourceGraph.AddEdge(
                     new AssociationViewEdge(
-                        studentContactAssociationResource, directContactDependency.Target,
+                        studentContactAssociationResource,
+                        directContactDependency.Target,
                         directContactDependency.AssociationView));
             }
-            
-            // Add a StudentContactAssociationResource/#POSTRetry node for Contact resource
-            AddPostRetryVertexForResource(resourceGraph, studentContactAssociationResource, contactResource);
-            
+
             string LogAndThrowException()
             {
                 string message =
@@ -209,19 +199,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                     error: TransformationErrorText,
                     message: message);
             }
-        }
-        
-        private static void AddPostRetryVertexForResource(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph, Resource postRetrySource,
-            Resource postRetryTarget)
-        {
-            var postRetryVertex = new Resource(postRetrySource.Name);
-            postRetryVertex.IsPostRetryResource = true;
-
-            postRetryVertex.PostRetryOriginalSchemaUriSegment =
-                postRetrySource.SchemaUriSegment();
-
-            resourceGraph.AddVertex(postRetryVertex);
-            resourceGraph.AddEdge(new AssociationViewEdge(postRetryVertex, postRetryTarget, null));
         }
     }
 }
