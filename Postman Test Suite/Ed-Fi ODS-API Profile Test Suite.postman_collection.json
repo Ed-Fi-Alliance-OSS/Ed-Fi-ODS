@@ -130,7 +130,7 @@
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the profile isn't readable using the profile\", () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not readable using API profile 'test-profile-resource-writeonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not readable using API profile 'test-profile-resource-writeonly'\\./i);",
 											"});",
 											""
 										],
@@ -518,7 +518,7 @@
 											"});",
 											"",
 											"pm.test(`Should return the error indicating the resource isn't writable using the profile`, () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'\\./i);",
 											"});",
 											""
 										],
@@ -618,7 +618,7 @@
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the reasource isn't writable using the profile\", () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'\\./i);",
 											"});",
 											""
 										],
@@ -960,7 +960,7 @@
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource isn't accessible using the profile\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"  pm.expect(problemDetails.errors).to.match(/Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\\./i);",
 													"});",
 													""
 												],
@@ -1052,7 +1052,7 @@
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource requested doesn't match the one specified by the profile\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"  pm.expect(problemDetails.errors).to.match(/The resource specified by the profile-based content type \\('school'\\) does not match the requested resource \\('Student'\\)\\./i);",
 													"});",
 													""
 												],
@@ -1452,7 +1452,7 @@
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the resource is not accessible through the profile specified by the content type.\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"  pm.expect(problemDetails.errors).to.match(/Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\\./i);",
 													"});",
 													""
 												],
@@ -1546,7 +1546,7 @@
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the profile-based content type does not match the resource targeted by the request.\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"  pm.expect(problemDetails.errors).to.match(/The resource specified by the profile-based content type \\('school'\\) does not match the requested resource \\('Student'\\)\\./i);",
 													"});",
 													""
 												],
@@ -5457,6 +5457,69 @@
 				{
 					"name": "Setup",
 					"item": [
+						{
+							"name": "Extension Descriptors",
+							"item": [
+								{
+									"name": "Ensure Art Medium Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"namespace\": \"uri://ed-fi.org/ArtMediumDescriptor\",\r\n  \"codeValue\": \"Art Medium\",\r\n  \"shortDescription\": \"Art Medium\",\r\n  \"description\": \"Art Medium\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/artMediumDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"artMediumDescriptors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Ensure Favorite Book Category Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"namespace\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor\",\r\n  \"codeValue\": \"Non-Fiction\",\r\n  \"shortDescription\": \"Non-Fiction\",\r\n  \"description\": \"Non-Fiction\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/favoriteBookCategoryDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"favoriteBookCategoryDescriptors"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Create Staff",
 							"event": [
@@ -10057,10 +10120,16 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"\r",
-											"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-											"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-											"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+											"if (pm.response.code == 404) {\r",
+											"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+											"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+											"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+											"} else {\r",
+											"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+											"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+											"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+											"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+											"}\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
@@ -10926,14 +10995,20 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
 												"type": "text/javascript",
@@ -11310,6 +11385,9 @@
 													"\r",
 													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
 													"    () => {\r",
+													"      console.log(Object.entries(profileEntity));\r",
+													"      console.log(profileIncludeKeys);\r",
+													"      console.log(keys);\r",
 													"        pm.expect(Object.entries(profileEntity).length).to.equal(profileIncludeKeys.length + keys.length);\r",
 													"});\r",
 													""
@@ -11758,14 +11836,20 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
 												"type": "text/javascript",
@@ -11844,7 +11928,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12623,14 +12707,20 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
 												"type": "text/javascript",
@@ -12709,7 +12799,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13057,10 +13147,16 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
@@ -13143,7 +13239,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13485,13 +13581,19 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"\r",
-											"pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", getPrimaryKeys(\"edFi_educationOrganizationAddress\"));\r",
+											"if (pm.response.code == 404) {\r",
+											"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+											"  pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", [\"addressTypeDescriptor\",\"stateAbbreviationDescriptor\",\"city\",\"postalCode\",\"streetNumberName\"]);\r",
+											"} else {\r",
+											"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+											"  pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", getPrimaryKeys(\"edFi_educationOrganizationAddress\"));\r",
+											"}\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true);\r",
-											"}"
+											"}\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -13569,7 +13671,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:A}},\r\n    \"nameOfInstitution\": \"LEA A\",\r\n    \"shortNameOfInstitution\": \"LEA A\",\r\n    \"webSite\": \"http://www.lea-a.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"AA\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": {{supplied:localEducationAgencyId:A}}\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:A}},\r\n    \"nameOfInstitution\": \"LEA A\",\r\n    \"shortNameOfInstitution\": \"LEA A\",\r\n    \"webSite\": \"http://www.lea-a.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"AA\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": \"{{supplied:localEducationAgencyId:A}}\"\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13637,7 +13739,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:B}},\r\n    \"nameOfInstitution\": \"LEA B\",\r\n    \"shortNameOfInstitution\": \"LEA B\",\r\n    \"webSite\": \"http://www.lea-b.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"BB\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": {{supplied:localEducationAgencyId:A}}\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:B}},\r\n    \"nameOfInstitution\": \"LEA B\",\r\n    \"shortNameOfInstitution\": \"LEA B\",\r\n    \"webSite\": \"http://www.lea-b.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"BB\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": \"{{supplied:localEducationAgencyId:A}}\"\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14262,7 +14364,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-non-creatable' excludes \\(or does not include\\) one or more required data elements needed to create the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14336,7 +14438,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14462,7 +14564,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14531,7 +14633,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14652,7 +14754,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14768,7 +14870,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -14832,7 +14934,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
 										"type": "text/javascript",
