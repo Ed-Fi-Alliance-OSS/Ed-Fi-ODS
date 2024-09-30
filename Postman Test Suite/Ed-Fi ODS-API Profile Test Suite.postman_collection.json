@@ -89,7 +89,6 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							}
@@ -153,8 +152,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -230,8 +229,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -315,8 +314,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -400,8 +399,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -450,8 +449,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -539,8 +538,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -637,8 +636,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -721,8 +720,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -887,9 +886,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -977,9 +976,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.readable+json",
-												"description": "test-profile-staffonly-resource-includeall"
+												"description": "test-profile-staffonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1067,9 +1066,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1156,9 +1155,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1245,9 +1244,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1313,8 +1312,8 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
-												"value": "application/vnd.ed-fi.invalid+json"
+												"value": "application/vnd.ed-fi.invalid+json",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1373,9 +1372,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1466,9 +1464,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1559,9 +1556,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1651,10 +1647,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1718,10 +1713,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1813,10 +1807,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1886,9 +1879,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.invalid+json"
+												"value": "application/vnd.ed-fi.invalid+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2023,9 +2015,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.non-existing.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2113,9 +2105,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.non-existing.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2374,9 +2366,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2438,9 +2430,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2507,9 +2499,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2579,9 +2571,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2789,8 +2781,8 @@
 									{
 										"key": "Accept",
 										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-										"type": "text",
-										"description": "test-profile-studentonly-resource-includeall"
+										"description": "test-profile-studentonly-resource-includeall",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2847,8 +2839,8 @@
 									{
 										"key": "Accept",
 										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-										"type": "text",
-										"description": "test-profile-studentonly-resource-includeall"
+										"description": "test-profile-studentonly-resource-includeall",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -3006,9 +2998,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.readable+json",
-												"description": "assessment-readable-excludes-embedded-object"
+												"description": "assessment-readable-excludes-embedded-object",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -3151,8 +3143,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3266,8 +3258,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3514,8 +3506,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3577,8 +3569,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3813,9 +3805,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.readable+json",
-														"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors"
+														"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -3914,8 +3906,8 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
-														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json"
+														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -3998,8 +3990,8 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
-																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json"
+																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4151,9 +4143,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json",
-																"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors"
+																"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4221,9 +4213,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors.writable+json",
-																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors"
+																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4378,9 +4370,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.writable+json",
-																"description": "test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors"
+																"description": "test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4468,8 +4460,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -4578,9 +4570,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4633,9 +4624,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4694,9 +4684,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4756,7 +4745,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -4850,9 +4838,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.readable+json",
-														"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors"
+														"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -4936,9 +4924,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.readable+json",
-														"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+														"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5000,9 +4988,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5160,9 +5148,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-escriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-escriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5230,10 +5218,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"name": "Content-Type",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.writable+json",
-																"type": "text",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5389,10 +5376,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"name": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5795,9 +5781,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-not-Included.readable+json",
-														"description": "sample-staff-extension-not-Included"
+														"description": "sample-staff-extension-not-Included",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5857,9 +5843,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-excluded.readable+json",
-														"description": "sample-staff-extension-excluded"
+														"description": "sample-staff-extension-excluded",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5930,9 +5916,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-include-only-deeply.readable+json",
-														"description": "sample-staff-extension-include-only-deeply"
+														"description": "sample-staff-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6003,9 +5989,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-only-deeply.readable+json",
-														"description": "sample-staff-extension-exclude-only-deeply"
+														"description": "sample-staff-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6065,9 +6051,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-everything.readable+json",
-														"description": "sample-staff-extension-exclude-everything"
+														"description": "sample-staff-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6143,9 +6129,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-include-only-deeply.readable+json",
-														"description": "sample-student-extension-include-only-deeply"
+														"description": "sample-student-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6216,9 +6202,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-exclude-only-deeply.readable+json",
-														"description": "sample-student-extension-exclude-only-deeply"
+														"description": "sample-student-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6278,9 +6264,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-exclude-everything.readable+json",
-														"description": "sample-student-extension-exclude-everything"
+														"description": "sample-student-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6354,9 +6340,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-multi-level-includeonly.readable+json",
-														"description": "sample-student-extension-multi-level-includeonly"
+														"description": "sample-student-extension-multi-level-includeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6430,9 +6416,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-multi-level-excludeonly.readable+json",
-														"description": "sample-student-extension-multi-level-excludeonly"
+														"description": "sample-student-extension-multi-level-excludeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6766,9 +6752,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-not-included.writable+json",
-														"description": "sample-staff-extension-not-included"
+														"description": "sample-staff-extension-not-included",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -6948,9 +6934,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-excluded.writable+json",
-														"description": "sample-staff-extension-excluded"
+														"description": "sample-staff-extension-excluded",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7130,9 +7116,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-include-only-deeply.writable+json",
-														"description": "sample-staff-extension-include-only-deeply"
+														"description": "sample-staff-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7312,9 +7298,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-only-deeply.writable+json",
-														"description": "sample-staff-extension-exclude-only-deeply"
+														"description": "sample-staff-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7494,9 +7480,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-everything.writable+json",
-														"description": "sample-staff-extension-exclude-everything"
+														"description": "sample-staff-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8058,9 +8044,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json",
-														"description": "test-profile-resource-includeonly"
+														"description": "test-profile-resource-includeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8158,9 +8144,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json",
-														"description": "test-profile-studentonly2-resource-includeall"
+														"description": "test-profile-studentonly2-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8445,8 +8431,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8545,8 +8531,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.Test-Profile-StudentOnly2-Resource-IncludeAll.readable+json",
-														"type": "text",
-														"description": "Test-Profile-StudentOnly2-Resource-IncludeAll"
+														"description": "Test-Profile-StudentOnly2-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8637,8 +8623,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-resource-includeall"
+														"description": "test-profile-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8745,8 +8731,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-studentonly2-resource-includeall"
+														"description": "test-profile-studentonly2-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8940,8 +8926,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9040,8 +9026,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-														"type": "text",
-														"description": "Test-Profile-Resource-IncludeAll"
+														"description": "Test-Profile-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9148,8 +9134,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json",
-														"type": "text",
-														"description": "Test-Profile-Resource-IncludeAll"
+														"description": "Test-Profile-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9278,8 +9264,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9329,8 +9315,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9647,8 +9633,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -9828,8 +9814,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9915,8 +9901,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9966,8 +9952,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
