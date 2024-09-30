@@ -242,7 +242,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "}",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -10078,7 +10078,8 @@
 												"header": [
 													{
 														"key": "If-Match",
-														"value": "InvalidETAG",
+														"value": "\"InvalidETAG\"",
+														"description": "ETag values must be enclosed in quotes to be processed.",
 														"type": "text"
 													}
 												],
