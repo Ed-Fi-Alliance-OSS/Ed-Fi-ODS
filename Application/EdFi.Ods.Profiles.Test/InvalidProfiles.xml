@@ -3,7 +3,7 @@
 <Profiles>
   <!--  Misconfigured Profiles-->
   <Profile name="Test-Profile-With-Unexisting-Resource">
-    <Resource name="Schools">
+    <Resource name="School">
       <ReadContentType memberSelection="IncludeAll"/>
       <WriteContentType memberSelection="IncludeAll"/>
     </Resource>
@@ -12,10 +12,10 @@
   <Profile name="Test-Profile-With-Unexisting-Property">
     <Resource name="School">
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name="NameOfInstitutions"/>
+        <Property name="NameOfInstitution"/>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeOnly">
-        <Property name="ShortNameOfInstitutions"/>
+        <Property name="ShortNameOfInstitution"/>
       </WriteContentType>
     </Resource>
   </Profile>
