@@ -7,9 +7,9 @@ name: Pkg EdFi.ProjectTemplates.Installer
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: ['b-v*-patch*','feature-*']
   push:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: ['b-v*-patch*','feature-*']
   workflow_dispatch:
 
 permissions: read-all

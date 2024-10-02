@@ -6,8 +6,10 @@
 name: Pkg EdFi.Database.Admin
 
 on:
-  push:
+  pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
+  push:
+    branches: ['b-v*-patch*','feature-*']
     paths:
       - '**.sql'
   workflow_dispatch:
@@ -26,6 +28,7 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  DB_PASS: temporaryDbP@ssw0rd!
 
 jobs:
 
@@ -37,7 +40,24 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: windows-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        volumes:
+          - /MssqlBackupVolume:/DatabaseBackups
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.DB_PASS }}
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "exit 0" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 3
+          --name mssql
+          --user root
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
@@ -49,8 +69,9 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
         exit 1 
-    - name: Support longpaths
-      run: git config --system core.longpaths true
+    - name: Set permissions for database server container backup directory
+      run: docker exec --user root mssql chmod 777 /DatabaseBackups
+      shell: pwsh
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -58,7 +79,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -68,7 +89,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
-      shell: powershell
+      shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: update BUILD_INCREMENTER 
@@ -79,27 +100,25 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    - name: Install sql-server-2019, sqlpackage, and postgres13
-      shell: powershell
+    - name: Install postgres16
+      shell: pwsh
       run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
           choco install postgresql16 --params '/Password:${{ env.POSTGRES_PASSWORD }}'
           $confPath = "C:\Program Files\PostgreSQL\16\data\pg_hba.conf"
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-16
     - name: Create Admin Database 
-      shell: powershell
+      shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "C:\ProgramData\chocolatey\lib\sqlpackage\tools"
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "C:\ProgramData\chocolatey\lib\sqlpackage\tools" -MssqlSaPassword ${{ env.DB_PASS }}
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
       with:
         nuget-version: '5.x'
     - name: Create NuGet package
-      shell: powershell
+      shell: pwsh
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
@@ -117,7 +136,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/      
       run: |      
         .\build.githubactions.ps1 InstallCredentialHandler
-      shell: powershell 
+      shell: pwsh 
     - name: Publish Nuget package
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
