@@ -117,9 +117,14 @@ jobs:
       with:
         dotnet-version: '8.x'
  
+    - name: Add .NET tools to PATH
+      run: |
+        echo "::add-path::$HOME/.dotnet/tools"
+
     - name: Install sqlpackage as a .NET Global Tool
       run: |
-        dotnet tool install --global sqlpackage      
+        dotnet tool list -g
+        dotnet tool install -g sqlpackage
     - name: Check sqlpackage path
       run: |
         which sqlpackage        
