@@ -122,8 +122,7 @@ jobs:
     - name: Check .NET Global Tool Path
       run: echo $PATH
     - name: Set permissions for .dotnet/tools directory
-      working-directory: ./    
-      run: sudo chmod -R 777 .dotnet/tools
+      run: sudo chmod -R 777 ~/.dotnet/tools
       shell: pwsh
     - name: Cleanup previous installations
       run: |
