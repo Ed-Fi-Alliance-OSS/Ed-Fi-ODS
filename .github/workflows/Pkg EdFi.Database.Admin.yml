@@ -122,8 +122,9 @@ jobs:
     - name: Check .NET Global Tool Path
       run: echo $PATH
     - name: Set permissions for .dotnet/tools directory
-      run: chmod -R 777 ~/.dotnet/tools
-
+      working-directory: ./    
+      run: sudo chmod -R 777 .dotnet/tools
+      shell: pwsh
     - name: Cleanup previous installations
       run: |
         if [ -d "/home/runner/.dotnet/tools/.store/sqlpackage" ]; then
