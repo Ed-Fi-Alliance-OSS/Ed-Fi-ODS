@@ -57,6 +57,12 @@ jobs:
           --health-retries 3
           --name mssql
           --user root
+      sqlpackage:
+        image: mcr.microsoft.com/mssql/sqlpackage
+        # Wait for the mssql service to be ready on port 1433 before executing the command
+        volumes:
+          - ./wait-for-it.sh:/opt/wait-for-it/wait-for-it.sh  # Mount the wait-for-it script
+
       postgres:
         image: postgres:16.3-alpine3.19@sha256:eb98285d1b37703deb53543d0d5f1b19124616bae59a6d42d1c98531f7c2677a
         env:
@@ -112,6 +118,16 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
+    - name: Install sqlpackage
+      shell: pwsh
+      run: |
+       curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+        curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+        sudo apt-get update
+        sudo apt-get install -y sqlpackage
+    - name: Check sqlpackage path
+      run: |
+        which sqlpackage        
     - name: Create Admin Database 
       shell: pwsh
       run: |
