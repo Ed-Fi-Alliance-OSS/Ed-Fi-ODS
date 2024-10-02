@@ -131,13 +131,15 @@ jobs:
             which sqlpackage
     - name: Set permissions for database server container backup directory
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
-      shell: pwsh             
+      shell: pwsh         
+
     - name: Create Admin Database 
+      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "/home/runner/.dotnet/tools/sqlpackage"  -MssqlSaPassword ${{ env.DB_PASS }}  -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+          . /logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "/home/runner/.dotnet/tools/sqlpackage"  -MssqlSaPassword ${{ env.DB_PASS }}  -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
       with:
