@@ -117,8 +117,8 @@ jobs:
       with:
         dotnet-version: '8.x'
  
-    - name: Add .NET tools to PATH
-      run: echo "/home/runner/.dotnet/tools" >> $GITHUB_PATH
+    # - name: Add .NET tools to PATH
+    #   run: echo "/home/runner/.dotnet/tools" >> $GITHUB_PATH
     - name: Check .NET Global Tool Path
       run: echo $PATH
     - name: Set permissions for .dotnet/tools directory
