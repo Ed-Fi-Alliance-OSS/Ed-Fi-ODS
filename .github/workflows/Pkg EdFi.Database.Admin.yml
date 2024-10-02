@@ -132,6 +132,26 @@ jobs:
     - name: Set permissions for database server container backup directory
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
       shell: pwsh         
+    - name: Find sqlpackage.exe
+      run: |
+        $sqlpackagePath = Get-Command sqlpackage.exe -ErrorAction SilentlyContinue
+        if ($sqlpackagePath) {
+          Write-Host "sqlpackage.exe found at: $($sqlpackagePath.Source)"
+        } else {
+          Write-Host "sqlpackage.exe not found."
+          # Optionally search in specific directories
+          $potentialPaths = @(
+            "$env:USERPROFILE\.dotnet\tools\sqlpackage.exe",
+            "C:\Program Files (x86)\Microsoft SQL Server\160\DAC\bin\sqlpackage.exe",
+            "C:\Program Files\Microsoft SQL Server\160\DAC\bin\sqlpackage.exe"
+          )
+          foreach ($path in $potentialPaths) {
+            if (Test-Path $path) {
+              Write-Host "sqlpackage.exe found at: $path"
+              break
+            }
+          }
+        }
 
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/
