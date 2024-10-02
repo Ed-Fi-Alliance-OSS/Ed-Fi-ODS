@@ -57,7 +57,7 @@ jobs:
           --health-retries 3
           --name mssql
           --user root
-        postgres:
+      postgres:
         image: postgres:16.3-alpine3.19@sha256:eb98285d1b37703deb53543d0d5f1b19124616bae59a6d42d1c98531f7c2677a
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
