@@ -112,15 +112,15 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8
+      with:
+        dotnet-version: '8.x'
+    - name: Set up .NET Global Tools Path
+      run: echo "::add-path::${HOME}/.dotnet/tools"        
     - name: Install sqlpackage as a .NET Global Tool
       run: |
         dotnet tool install --global sqlpackage      
-    - name: Install sqlpackage
-      run: |
-        wget https://aka.ms/sqlpackage-linux -O sqlpackage.zip
-        unzip sqlpackage.zip -d sqlpackage
-        sudo chmod +x sqlpackage/sqlpackage
-        sudo mv sqlpackage/sqlpackage /usr/local/bin/
     - name: Check sqlpackage path
       run: |
         which sqlpackage        
