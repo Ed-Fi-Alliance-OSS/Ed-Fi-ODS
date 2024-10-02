@@ -124,11 +124,6 @@ jobs:
     - name: Set permissions for .dotnet/tools directory
       run: sudo chmod -R 777 ~/.dotnet/tools
       shell: pwsh
-    - name: Cleanup previous installations
-      run: |
-        if [ -d "/home/runner/.dotnet/tools/.store/sqlpackage" ]; then
-          rm -rf /home/runner/.dotnet/tools/.store/sqlpackage
-        fi
 
     - name: Install sqlpackage as a .NET Global Tool
       run: |
