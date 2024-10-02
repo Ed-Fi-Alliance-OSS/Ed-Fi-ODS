@@ -119,6 +119,10 @@ jobs:
  
     - name: Add .NET tools to PATH
       run: echo "/home/runner/.dotnet/tools" >> $GITHUB_PATH
+    - name: Check .NET Global Tool Path
+      run: echo $PATH
+    - name: Set permissions for .dotnet/tools directory
+      run: chmod -R 777 ~/.dotnet/tools
 
     - name: Install sqlpackage as a .NET Global Tool
       run: |
