@@ -57,6 +57,18 @@ jobs:
           --health-retries 3
           --name mssql
           --user root
+      postgres:
+        image: postgres:16.3-alpine3.19@sha256:eb98285d1b37703deb53543d0d5f1b19124616bae59a6d42d1c98531f7c2677a
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432          
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -100,13 +112,6 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    - name: Install postgres16
-      shell: pwsh
-      run: |
-          choco install postgresql16 --params '/Password:${{ env.POSTGRES_PASSWORD }}'
-          $confPath = "C:\Program Files\PostgreSQL\16\data\pg_hba.conf"
-          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-          Restart-Service postgresql-x64-16
     - name: Create Admin Database 
       shell: pwsh
       run: |
