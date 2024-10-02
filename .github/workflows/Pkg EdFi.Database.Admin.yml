@@ -128,18 +128,18 @@ jobs:
     - name: Install sqlpackage as a .NET Global Tool
       run: |
             dotnet tool install -g microsoft.sqlpackage
-    - name: Find  sqlpackage location
+    - name: Check  sqlpackage location
       run: |
             which sqlpackage
-    - name: Verify Installation
-      run: |
-        sqlpackage /? || { echo 'sqlpackage command failed'; exit 1; }      
+    - name: Set permissions for database server container backup directory
+      run: docker exec --user root mssql chmod 777 /DatabaseBackups
+      shell: pwsh             
     - name: Create Admin Database 
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "/home/runner/.dotnet/tools/sqlpackage"  -MssqlSaPassword ${{ env.DB_PASS }}
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "/home/runner/.dotnet/tools/sqlpackage"  -MssqlSaPassword ${{ env.DB_PASS }}  -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
       with:
