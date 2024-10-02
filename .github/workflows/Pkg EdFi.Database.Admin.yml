@@ -112,13 +112,15 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
-    - name: Install sqlpackage
-      shell: pwsh
+    - name: Install sqlpackage as a .NET Global Tool
       run: |
-       curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-        curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
-        sudo apt-get update
-        sudo apt-get install -y sqlpackage
+        dotnet tool install --global sqlpackage      
+    - name: Install sqlpackage
+      run: |
+        wget https://aka.ms/sqlpackage-linux -O sqlpackage.zip
+        unzip sqlpackage.zip -d sqlpackage
+        sudo chmod +x sqlpackage/sqlpackage
+        sudo mv sqlpackage/sqlpackage /usr/local/bin/
     - name: Check sqlpackage path
       run: |
         which sqlpackage        
