@@ -118,8 +118,7 @@ jobs:
         dotnet-version: '8.x'
  
     - name: Add .NET tools to PATH
-      run: |
-        echo "::add-path::$HOME/.dotnet/tools"
+      run: echo "/home/runner/.dotnet/tools" >> $GITHUB_PATH
 
     - name: Install sqlpackage as a .NET Global Tool
       run: |
