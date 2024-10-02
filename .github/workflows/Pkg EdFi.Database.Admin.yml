@@ -128,6 +128,9 @@ jobs:
     - name: Install sqlpackage as a .NET Global Tool
       run: |
             dotnet tool install -g microsoft.sqlpackage
+    - name: Find  sqlpackage location
+      run: |
+            which sqlpackage
     - name: Verify Installation
       run: |
         sqlpackage /? || { echo 'sqlpackage command failed'; exit 1; }      
