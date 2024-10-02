@@ -132,9 +132,7 @@ jobs:
 
     - name: Install sqlpackage as a .NET Global Tool
       run: |
-        dotnet tool list -g
-        dotnet tool install -g sqlpackage --version 1.1.0 || { echo 'Failed to install sqlpackage'; exit 1; }
-
+            dotnet tool install -g microsoft.sqlpackage
     - name: Verify Installation
       run: |
         sqlpackage /? || { echo 'sqlpackage command failed'; exit 1; }      
