@@ -161,43 +161,6 @@ jobs:
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
     - name: Make sqlpackage executable
       run: chmod +x /home/runner/.dotnet/tools/sqlpackage
-    - name: Export SQLServer Admin Database to BACPAC
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-          $ErrorActionPreference = 'Stop'
-          $PSVersionTable
-          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1"
-          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-database-bacpac.psm1"
-          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/create-package.psm1"     
-          $settings = @{ ApiSettings = @{ } }  
-          Set-DeploymentSettings $settings | Out-Null
-          New-DevelopmentAppSettings $settings
-          $sqlServerSettings = Get-MergedAppSettings $settingsFiles
-          $sqlServerSettings = Add-DeploymentSpecificSettings $sqlServerSettings
-          $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-          $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-          $databaseName = $csb['database']
-          $Output = "NugetPackages"
-          $SQLPackage = "/home/runner/.dotnet/tools/sqlpackage"
-          $params = @{
-              sqlPackagePath = $SQLPackage
-              database       = $databaseName
-              artifactOutput = (Join-Path $Output "$databaseName.bacpac")
-          }
-         
-          $params = @()
-          $params += "/a:export"
-          $params += "/sdn:" + $database
-          $params += "/tf:" + $artifactOutput
-          $params += "/ssn:" + $server
-          $params += "/sec:False" # Source Encrypt Connection
-
-          /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-
-          Write-Host -ForegroundColor Magenta "/home/runner/.dotnet/tools/sqlpackage sqlpackage" $params
-          & "/home/runner/.dotnet/tools/sqlpackage sqlpackage" $params
-
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules 
       shell: pwsh
