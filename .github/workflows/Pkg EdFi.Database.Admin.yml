@@ -170,7 +170,7 @@ jobs:
               -DatabaseType Admin `
               -ExtensionVersion ${{ matrix.ExtensionVersion }} `
               -StandardVersion ${{ matrix.StandardVersion }} `
-              -SQLPackage "/home/runner/.dotnet/tools/sqlpackage" `
+              -SQLPackage "/home/runner/.dotnet/tools/" `
               -MssqlSaPassword ${{ env.DB_PASS }} `
               -LocalDbBackupDirectory /MssqlBackupVolume `
               -DbServerBackupDirectory /DatabaseBackups
