@@ -167,9 +167,9 @@ jobs:
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1')
-          Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-bacpac.psm1')
-          Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/create-package.psm1')          
+          Import-Module -Force -Scope Global 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1'
+          Import-Module -Force -Scope Global 'DatabaseTemplate/Modules/create-database-bacpac.psm1'
+          Import-Module -Force -Scope Global 'logistics/scripts/modules/packaging/create-package.psm1'       
           $settings = @{ ApiSettings = @{ } }  
           Set-DeploymentSettings $settings | Out-Null
           New-DevelopmentAppSettings $settings
