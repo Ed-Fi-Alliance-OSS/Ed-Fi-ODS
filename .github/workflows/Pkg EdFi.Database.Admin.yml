@@ -126,6 +126,11 @@ jobs:
     - name: Install sqlpackage as a .NET Global Tool
       run: |
             dotnet tool install -g microsoft.sqlpackage
+    - name: Update PATH for sqlpackage
+      run: |
+        echo "##[add-path]/home/runner/.dotnet/tools" # Add path where sqlpackage is installed
+        $env:PATH += ";$env:USERPROFILE\.dotnet\tools" # Ensure path is set for current session
+        Write-Host "Updated PATH: $env:PATH"            
     - name: Check  sqlpackage location
       run: |
             which sqlpackage
