@@ -116,51 +116,6 @@ jobs:
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8
       with:
         dotnet-version: '8.x'
- 
-    - name: Check .NET Global Tool Path
-      run: echo $PATH
-    - name: Set permissions for .dotnet/tools directory
-      run: sudo chmod -R 777 ~/.dotnet/tools
-      shell: pwsh
-
-    - name: Install sqlpackage as a .NET Global Tool
-      run: |
-            dotnet tool install -g microsoft.sqlpackage
-    - name: Update PATH for sqlpackage
-      run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH            
-    - name: Check  sqlpackage location
-      run: |
-            which sqlpackage
-    - name: Set permissions for database server container backup directory
-      run: docker exec --user root mssql chmod 777 /DatabaseBackups
-      shell: pwsh         
-    - name: Find sqlpackage
-      shell: pwsh
-      run: |
-        $sqlpackagePath = Get-Command sqlpackage -ErrorAction SilentlyContinue
-        if ($sqlpackagePath) {
-          Write-Host "sqlpackage.exe found at: $($sqlpackagePath.Source)"
-        } else {
-          Write-Host "sqlpackage.exe not found."
-          # Optionally search in specific directories
-          $potentialPaths = @(
-            "$HOME/.dotnet/tools/sqlpackage",
-            "/usr/local/bin/sqlpackage"
-          )
-          foreach ($path in $potentialPaths) {
-            if (Test-Path $path) {
-              Write-Host "sqlpackage.exe found at: $path"
-              break
-            }
-          }
-        }
-    - name: List sqlpackage directory
-      run: ls -la /home/runner/.dotnet/tools/sqlpackage      
-    - name: Run sqlpackage
-      run: |
-        /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-    - name: Make sqlpackage executable
-      run: chmod +x /home/runner/.dotnet/tools/sqlpackage
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules 
       shell: pwsh
