@@ -160,7 +160,8 @@ jobs:
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
     - name: Ensure sqlpackage is executable
-      run: chmod  777 /home/runner/.dotnet/tools/sqlpackage/sqlpackage
+      run: sudo chmod  777 /home/runner/.dotnet/tools/sqlpackage/sqlpackage
+      shell: pwsh      
     - name: Verify sqlpackage executable
       run: |
         if [ -f "/home/runner/.dotnet/tools/sqlpackage/sqlpackage" ]; then
