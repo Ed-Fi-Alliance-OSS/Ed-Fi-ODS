@@ -133,6 +133,7 @@ jobs:
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
       shell: pwsh         
     - name: Find sqlpackage.exe
+      shell: pwsh     
       run: |
         $sqlpackagePath = Get-Command sqlpackage.exe -ErrorAction SilentlyContinue
         if ($sqlpackagePath) {
