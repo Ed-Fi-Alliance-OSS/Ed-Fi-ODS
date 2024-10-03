@@ -159,9 +159,7 @@ jobs:
     - name: Run sqlpackage
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-    - name: Ensure sqlpackage is executable
-      run: sudo chmod  777 /home/runner/.dotnet/tools/sqlpackage/sqlpackage
-      shell: pwsh      
+  
 
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/
