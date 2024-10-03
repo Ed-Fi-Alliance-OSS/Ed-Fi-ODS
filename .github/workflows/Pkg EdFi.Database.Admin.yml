@@ -167,9 +167,9 @@ jobs:
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          Import-Module -Force -Scope Global '$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1'
-          Import-Module -Force -Scope Global '$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-database-bacpac.psm1'
-          Import-Module -Force -Scope Global '$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/create-package.psm1'       
+          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1"
+          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-database-bacpac.psm1"
+          Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/create-package.psm1"     
           $settings = @{ ApiSettings = @{ } }  
           Set-DeploymentSettings $settings | Out-Null
           New-DevelopmentAppSettings $settings
