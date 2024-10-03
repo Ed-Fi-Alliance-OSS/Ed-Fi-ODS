@@ -128,18 +128,13 @@ jobs:
             dotnet tool install -g microsoft.sqlpackage
     - name: Update PATH for sqlpackage
       run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH            
-    - name: Update PATH for sqlpackage
-      shell: pwsh    
-      run: |
-        echo "$env:USERPROFILE\.dotnet\tools" >> $GITHUB_PATH
-        Write-Host "Updated PATH: $env:PATH"            
     - name: Check  sqlpackage location
       run: |
             which sqlpackage
     - name: Set permissions for database server container backup directory
       run: docker exec --user root mssql chmod 777 /DatabaseBackups
       shell: pwsh         
-    - name: Find sqlpackage using PowerShell
+    - name: Find sqlpackage
       shell: pwsh
       run: |
         $sqlpackagePath = Get-Command sqlpackage -ErrorAction SilentlyContinue
@@ -159,6 +154,18 @@ jobs:
             }
           }
         }
+    - name: List sqlpackage directory
+      run: ls -la /home/runner/.dotnet/tools/sqlpackage        
+    - name: Ensure sqlpackage is executable
+      run: chmod +x /home/runner/.dotnet/tools/sqlpackage/sqlpackage
+    - name: Verify sqlpackage executable
+      run: |
+        if [ -f "/home/runner/.dotnet/tools/sqlpackage/sqlpackage" ]; then
+          echo "sqlpackage executable exists."
+        else
+          echo "sqlpackage executable does not exist."
+          exit 1
+        fi
 
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/
