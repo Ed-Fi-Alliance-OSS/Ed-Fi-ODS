@@ -160,7 +160,7 @@ jobs:
     - name: Make sqlpackage executable
       run: chmod +x /home/runner/.dotnet/tools/sqlpackage        
     - name: Create Admin Database 
-      working-directory: ./Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules 
+      working-directory: /home/runner/.dotnet/tools/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
