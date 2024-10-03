@@ -123,7 +123,7 @@ jobs:
       shell: pwsh
     - name: Install sqlpackage as a .NET Global Tool
       run: |
-            dotnet tool install -g microsoft.sqlpackage
+            dotnet tool install --global microsoft.sqlpackage
     - name: Update PATH for sqlpackage
       run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH            
     - name: Check  sqlpackage location
@@ -157,6 +157,7 @@ jobs:
     - name: Run sqlpackage
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
+        /home/runner/.dotnet/tools/sqlpackage sqlpackage /a:export /sdn:EdFi_Admin /tf:NugetPackages/EdFi_Admin.bacpac /ssn:. /sec:False        
     - name: Make sqlpackage executable
       run: chmod +x /home/runner/.dotnet/tools/sqlpackage        
     - name: Create Admin Database 
