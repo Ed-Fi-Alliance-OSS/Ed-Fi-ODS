@@ -160,7 +160,6 @@ jobs:
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
   
-
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/
       shell: pwsh
