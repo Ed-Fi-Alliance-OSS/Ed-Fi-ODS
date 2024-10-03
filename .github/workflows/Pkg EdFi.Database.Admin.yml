@@ -155,9 +155,12 @@ jobs:
           }
         }
     - name: List sqlpackage directory
-      run: ls -la /home/runner/.dotnet/tools/sqlpackage        
+      run: ls -la /home/runner/.dotnet/tools/sqlpackage      
+    - name: Run sqlpackage
+      run: |
+        /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
     - name: Ensure sqlpackage is executable
-      run: chmod +x /home/runner/.dotnet/tools/sqlpackage/sqlpackage
+      run: chmod  777 /home/runner/.dotnet/tools/sqlpackage/sqlpackage
     - name: Verify sqlpackage executable
       run: |
         if [ -f "/home/runner/.dotnet/tools/sqlpackage/sqlpackage" ]; then
