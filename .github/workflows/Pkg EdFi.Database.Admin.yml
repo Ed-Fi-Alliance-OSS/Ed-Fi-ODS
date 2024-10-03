@@ -161,12 +161,19 @@ jobs:
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
   
     - name: Create Admin Database 
-      working-directory: /home/runner/.dotnet/tools/sqlpackage/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Admin -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "/home/runner/.dotnet/tools/sqlpackage"  -MssqlSaPassword ${{ env.DB_PASS }}  -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 `
+              -Output NugetPackages `
+              -DatabaseType Admin `
+              -ExtensionVersion ${{ matrix.ExtensionVersion }} `
+              -StandardVersion ${{ matrix.StandardVersion }} `
+              -SQLPackage "/home/runner/.dotnet/tools/sqlpackage" `
+              -MssqlSaPassword ${{ env.DB_PASS }} `
+              -LocalDbBackupDirectory /MssqlBackupVolume `
+              -DbServerBackupDirectory /DatabaseBackups
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
       with:
