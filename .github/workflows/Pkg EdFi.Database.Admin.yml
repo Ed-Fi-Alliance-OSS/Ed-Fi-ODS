@@ -161,6 +161,7 @@ jobs:
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
   
     - name: Create Admin Database 
+      working-directory: ${{ env.GITHUB_WORKSPACE }}/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules 
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
