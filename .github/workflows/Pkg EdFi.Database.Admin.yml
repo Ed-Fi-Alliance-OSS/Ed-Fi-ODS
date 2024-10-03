@@ -162,14 +162,6 @@ jobs:
     - name: Ensure sqlpackage is executable
       run: sudo chmod  777 /home/runner/.dotnet/tools/sqlpackage/sqlpackage
       shell: pwsh      
-    - name: Verify sqlpackage executable
-      run: |
-        if [ -f "/home/runner/.dotnet/tools/sqlpackage/sqlpackage" ]; then
-          echo "sqlpackage executable exists."
-        else
-          echo "sqlpackage executable does not exist."
-          exit 1
-        fi
 
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/
