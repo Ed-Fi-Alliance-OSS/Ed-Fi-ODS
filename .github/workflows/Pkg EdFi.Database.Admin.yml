@@ -157,7 +157,6 @@ jobs:
     - name: Run sqlpackage
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-        /home/runner/.dotnet/tools/sqlpackage sqlpackage /a:export /sdn:EdFi_Admin /tf:NugetPackages/EdFi_Admin.bacpac /ssn:. /sec:False        
     - name: Make sqlpackage executable
       run: chmod +x /home/runner/.dotnet/tools/sqlpackage        
     - name: Create Admin Database 
