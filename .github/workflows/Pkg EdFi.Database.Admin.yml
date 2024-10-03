@@ -159,7 +159,8 @@ jobs:
     - name: Run sqlpackage
       run: |
         /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-  
+    - name: Make sqlpackage executable
+      run: chmod +x /home/runner/.dotnet/tools/sqlpackage
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules 
       shell: pwsh
