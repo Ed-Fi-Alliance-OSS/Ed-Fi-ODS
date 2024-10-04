@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
   push:
-    branches: ['b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*','feature-*']
     paths:
       - '**.sql'
   workflow_dispatch:
