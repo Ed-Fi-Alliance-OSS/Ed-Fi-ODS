@@ -977,6 +977,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingGetByExample
     {
+        public int ActualDuration { get; set; }
+        public string Comments { get; set; }
         public long EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }

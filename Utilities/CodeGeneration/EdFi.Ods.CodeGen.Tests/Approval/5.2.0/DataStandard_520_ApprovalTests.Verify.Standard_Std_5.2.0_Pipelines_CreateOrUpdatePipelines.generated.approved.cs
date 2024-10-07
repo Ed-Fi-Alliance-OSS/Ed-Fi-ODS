@@ -1775,12 +1775,6 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor, Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor>
-    {
-        public StudentParticipationCodeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class StudentProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentProgramAssociation.EdFi.StudentProgramAssociation, Entities.NHibernate.StudentProgramAssociationAggregate.EdFi.StudentProgramAssociation>
     {
         public StudentProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

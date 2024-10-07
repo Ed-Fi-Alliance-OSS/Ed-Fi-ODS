@@ -874,7 +874,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.
+        /// Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         DateTime? Entities.Common.Sample.IBusRoute.BeginDate
@@ -4349,14 +4349,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
-        /// First date the student was in this option for the current school year.
+        /// First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? ServiceBeginDate { get; set; }
 
         /// <summary>
-        /// Last date the student was in this option for the current school year.
+        /// Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -5795,7 +5795,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.EdFi.Extensions.Sample
         }
 
         /// <summary>
-        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.
+        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         DateTime Entities.Common.Sample.IContactStudentProgramAssociation.BeginDate
@@ -7060,14 +7060,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
-        /// First date the student was in this option for the current school year.
+        /// First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? ServiceBeginDate { get; set; }
 
         /// <summary>
-        /// Last date the student was in this option for the current school year.
+        /// Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -10810,7 +10810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.
+        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
@@ -11032,7 +11032,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year on which the student exited the program or stopped receiving services.
+        /// The month, day, and year on which the student exited the program or stopped receiving services.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -12871,14 +12871,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
-        /// First date the student was in this option for the current school year.
+        /// First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? ServiceBeginDate { get; set; }
 
         /// <summary>
-        /// Last date the student was in this option for the current school year.
+        /// Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -15093,7 +15093,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentContactAssociation.EdFi.Ex
         }
 
         /// <summary>
-        /// The month, day, and year on which an individual was hired for a position.
+        /// The month, day, and year on which an individual was hired for a position.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         DateTime Entities.Common.Sample.IStudentContactAssociationStaffEducationOrganizationEmploymentAssociation.HireDate
@@ -19444,14 +19444,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
-        /// First date the student was in this option for the current school year.
+        /// First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? ServiceBeginDate { get; set; }
 
         /// <summary>
-        /// Last date the student was in this option for the current school year.
+        /// Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -21436,7 +21436,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         }
 
         /// <summary>
-        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.
+        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         DateTime Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedBeginDate

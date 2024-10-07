@@ -50030,6 +50030,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
                 isModified = true;
             }
 
+            if ((mappingContract?.IsIncidentIdentifierSupported != false)
+                && target.IncidentIdentifier != source.IncidentIdentifier)
+            {
+                target.IncidentIdentifier = source.IncidentIdentifier;
+                isModified = true;
+            }
+
 
             // Sync lists
             if (mappingContract?.IsRestraintEventProgramsSupported ?? true)
@@ -50087,10 +50094,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.RestraintEventAggregate
             if (mappingContract?.IsEventDateSupported != false)
                 target.EventDate = source.EventDate;
 
+            if (mappingContract?.IsIncidentIdentifierSupported != false)
+                target.IncidentIdentifier = source.IncidentIdentifier;
+
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
+                target.DisciplineIncidentResourceId = source.DisciplineIncidentResourceId;
+                target.DisciplineIncidentDiscriminator = source.DisciplineIncidentDiscriminator;
                 target.SchoolResourceId = source.SchoolResourceId;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
@@ -70597,158 +70609,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
 
             // Map extensions
             source.MapExtensionsTo(target, mappingContract);
-
-            // Convert source to an ETag, if appropriate
-            if (target is IHasETag entityWithETag)
-                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
-
-            // Copy/assign LastModifiedDate, if appropriate
-            if (target is IDateVersionedEntity targetDateVersionedEntity)
-            {
-                if (source is IHasETag etagSource)
-                {
-                    // Convert resource's supplied eTag value to entity's LastModifiedDate
-                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
-                }
-                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
-                {
-                    // Copy LastModifiedDate, when mapping from entities to resources/entities
-                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
-                }
-            }
-        }
-    }
-
-}
-// Aggregate: StudentParticipationCodeDescriptor
-
-namespace EdFi.Ods.Entities.Common.EdFi //.StudentParticipationCodeDescriptorAggregate
-{
-    [ExcludeFromCodeCoverage]
-    public static class StudentParticipationCodeDescriptorMapper
-    {
-        private static readonly FullName _fullName_edfi_StudentParticipationCodeDescriptor = new FullName("edfi", "StudentParticipationCodeDescriptor");
-    
-        public static bool SynchronizeTo(this IStudentParticipationCodeDescriptor source, IStudentParticipationCodeDescriptor target)
-        {
-            bool isModified = false;
-
-            // Get the mapping contract for knowing what values to synchronize through to target entity
-            var mappingContract = (StudentParticipationCodeDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_StudentParticipationCodeDescriptor);
-
-            // Detect primary key changes
-            if (
-                !string.Equals(target.Namespace, source.Namespace, StringComparison.OrdinalIgnoreCase) 
-                || !string.Equals(target.CodeValue, source.CodeValue, StringComparison.OrdinalIgnoreCase))
-            {
-                // Disallow PK column updates on StudentParticipationCodeDescriptor
-                throw new KeyChangeNotSupportedException("StudentParticipationCodeDescriptor");
-            }
-
-
-            // Copy inherited non-PK properties
-
-
-            if ((mappingContract?.IsCodeValueSupported != false)
-                && target.CodeValue != source.CodeValue)
-            {
-                target.CodeValue = source.CodeValue;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsDescriptionSupported != false)
-                && target.Description != source.Description)
-            {
-                target.Description = source.Description;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
-                && target.EffectiveBeginDate != source.EffectiveBeginDate)
-            {
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsEffectiveEndDateSupported != false)
-                && target.EffectiveEndDate != source.EffectiveEndDate)
-            {
-                target.EffectiveEndDate = source.EffectiveEndDate;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsNamespaceSupported != false)
-                && target.Namespace != source.Namespace)
-            {
-                target.Namespace = source.Namespace;
-                isModified = true;
-            }
-
-            if ((mappingContract?.IsShortDescriptionSupported != false)
-                && target.ShortDescription != source.ShortDescription)
-            {
-                target.ShortDescription = source.ShortDescription;
-                isModified = true;
-            }
-
-            // Copy non-PK properties
-
-
-            // Synch inherited lists
-
-            // Sync lists
-
-            return isModified;
-        }
-
-        public static void MapTo(this IStudentParticipationCodeDescriptor source, IStudentParticipationCodeDescriptor target, Action<IStudentParticipationCodeDescriptor, IStudentParticipationCodeDescriptor> onMapped)
-        {
-            // Get the mapping contract for determining what values to map through to target
-            var mappingContract = (StudentParticipationCodeDescriptorMappingContract) GeneratedArtifactStaticDependencies
-                .MappingContractProvider
-                .GetMappingContract(_fullName_edfi_StudentParticipationCodeDescriptor);
-    
-            // Copy resource Id
-            target.Id = source.Id;
-
-            // Copy contextual primary key values
-            target.StudentParticipationCodeDescriptorId = source.StudentParticipationCodeDescriptorId;
-
-            // Copy inherited non-PK properties
-
-            if (mappingContract?.IsCodeValueSupported != false)
-                target.CodeValue = source.CodeValue;
-
-            if (mappingContract?.IsDescriptionSupported != false)
-                target.Description = source.Description;
-
-            if (mappingContract?.IsEffectiveBeginDateSupported != false)
-                target.EffectiveBeginDate = source.EffectiveBeginDate;
-
-            if (mappingContract?.IsEffectiveEndDateSupported != false)
-                target.EffectiveEndDate = source.EffectiveEndDate;
-
-            if (mappingContract?.IsNamespaceSupported != false)
-                target.Namespace = source.Namespace;
-
-            if (mappingContract?.IsShortDescriptionSupported != false)
-                target.ShortDescription = source.ShortDescription;
-
-            // Copy non-PK properties
-
-            // Copy Aggregate Reference Data
-
-
-            // ----------------------------------
-            //   Map One-to-one relationships
-            // ----------------------------------
-
-            // Map inherited lists
-
-            // Map lists
-
 
             // Convert source to an ETag, if appropriate
             if (target is IHasETag entityWithETag)
