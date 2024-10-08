@@ -6146,22 +6146,6 @@
           <!-- Collections -->
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor" lazy="false" discriminator-value="edfi.StudentParticipationCodeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
-      <join table="StudentParticipationCodeDescriptor" >
-          <key>
-            <column name="StudentParticipationCodeDescriptorId" />
-          </key>
-
-          <!-- PK properties -->
-          <property name="StudentParticipationCodeDescriptorId" column="StudentParticipationCodeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
-
-          <!-- Properties -->
-
-          <!-- Aggregate references -->
-
-          <!-- Collections -->
-      </join>
-    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor" lazy="false" discriminator-value="edfi.SubmissionStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="SubmissionStatusDescriptor" >
           <key>
@@ -12660,8 +12644,13 @@
     <!-- Properties -->
     <property name="EducationalEnvironmentDescriptorId" column="EducationalEnvironmentDescriptorId" type="int" />
     <property name="EventDate" column="EventDate" type="date" not-null="true" />
+    <property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
 
     <!-- Aggregate references -->
+    <many-to-one name="DisciplineIncidentReferenceData" class="EdFi.Ods.Entities.NHibernate.DisciplineIncidentAggregate.EdFi.DisciplineIncidentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="IncidentIdentifier" />
+      <column name="SchoolId" />
+    </many-to-one>
     <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="SchoolId" />
     </many-to-one>

@@ -748,12 +748,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         public virtual string PersonId  { get; set; }
         public virtual string PreferredFirstName  { get; set; }
         public virtual string PreferredLastSurname  { get; set; }
-        public virtual int SexDescriptorId 
+        public virtual int? SexDescriptorId 
         {
             get
             {
-                if (_sexDescriptorId == default(int))
-                    _sexDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", _sexDescriptor);
+                if (_sexDescriptorId == default(int?))
+                    _sexDescriptorId = string.IsNullOrWhiteSpace(_sexDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", _sexDescriptor);
 
                 return _sexDescriptorId;
             } 
@@ -764,7 +764,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
         }
 
-        private int _sexDescriptorId;
+        private int? _sexDescriptorId;
         private string _sexDescriptor;
 
         public virtual string SexDescriptor
@@ -772,14 +772,14 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_sexDescriptor == null)
-                    _sexDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", _sexDescriptorId);
+                    _sexDescriptor = _sexDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", _sexDescriptorId.Value);
                     
                 return _sexDescriptor;
             }
             set
             {
                 _sexDescriptor = value;
-                _sexDescriptorId = default(int);
+                _sexDescriptorId = default(int?);
             }
         }
         public virtual int? SourceSystemDescriptorId 
@@ -11235,6 +11235,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual int? ActualDuration  { get; set; }
+        public virtual string Comments  { get; set; }
         public virtual int? EvaluationRatingLevelDescriptorId 
         {
             get

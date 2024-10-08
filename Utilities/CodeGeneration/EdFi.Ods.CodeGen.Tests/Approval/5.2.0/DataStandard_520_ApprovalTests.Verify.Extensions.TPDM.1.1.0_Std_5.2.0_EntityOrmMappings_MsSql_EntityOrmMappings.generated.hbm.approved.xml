@@ -55,7 +55,7 @@
     <property name="PersonId" column="PersonId" type="string" length="32" />
     <property name="PreferredFirstName" column="PreferredFirstName" type="string" length="75" />
     <property name="PreferredLastSurname" column="PreferredLastSurname" type="string" length="75" />
-    <property name="SexDescriptorId" column="SexDescriptorId" type="int" not-null="true" />
+    <property name="SexDescriptorId" column="SexDescriptorId" type="int" />
     <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
 
     <!-- Aggregate references -->
@@ -1450,6 +1450,8 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
+    <property name="ActualDuration" column="ActualDuration" type="int" />
+    <property name="Comments" column="Comments" type="string" length="1024" />
     <property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
     <property name="EvaluationRatingStatusDescriptorId" column="EvaluationRatingStatusDescriptorId" type="int" />
     <property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />

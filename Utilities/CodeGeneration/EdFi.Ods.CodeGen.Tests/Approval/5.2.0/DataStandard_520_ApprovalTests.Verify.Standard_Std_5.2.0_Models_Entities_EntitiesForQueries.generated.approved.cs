@@ -6955,6 +6955,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventQ> RestraintEvents  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffDisciplineIncidentAssociationAggregate.EdFi.StaffDisciplineIncidentAssociationQ> StaffDisciplineIncidentAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -18166,6 +18169,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         // -------------------------------------------------------------
         public virtual int? EducationalEnvironmentDescriptorId  { get; set; }
         public virtual DateTime EventDate  { get; set; }
+        public virtual string IncidentIdentifier  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18181,6 +18185,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         // -------------------------------------------------------------
 
         // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ DisciplineIncident { get; set; }
         protected virtual NHibernate.QueryModels.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptorQ EducationalEnvironmentDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
@@ -26030,43 +26035,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentP
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramServiceDescriptorQ NeglectedOrDelinquentProgramServiceDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: StudentParticipationCodeDescriptor
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParticipationCodeDescriptorAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.StudentParticipationCodeDescriptor table of the StudentParticipationCodeDescriptor aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int StudentParticipationCodeDescriptorId { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
         // -------------------------------------------------------------
     }
 }

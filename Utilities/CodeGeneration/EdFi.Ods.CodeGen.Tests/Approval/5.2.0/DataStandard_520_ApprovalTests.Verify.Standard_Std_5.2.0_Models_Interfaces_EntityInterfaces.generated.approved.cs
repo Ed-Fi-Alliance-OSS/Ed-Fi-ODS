@@ -31317,6 +31317,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         string EducationalEnvironmentDescriptor { get; set; }
         DateTime EventDate { get; set; }
+        string IncidentIdentifier { get; set; }
 
         // One-to-one relationships
 
@@ -31325,6 +31326,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IRestraintEventReason> RestraintEventReasons { get; set; }
 
         // Resource reference data
+        Guid? DisciplineIncidentResourceId { get; set; }
+        string DisciplineIncidentDiscriminator { get; set; }
         Guid? SchoolResourceId { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
@@ -31337,8 +31340,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
     public class RestraintEventMappingContract : IMappingContract, IExtensionsMappingContract
     {
         public RestraintEventMappingContract(
+            bool isDisciplineIncidentReferenceSupported,
             bool isEducationalEnvironmentDescriptorSupported,
             bool isEventDateSupported,
+            bool isIncidentIdentifierSupported,
             bool isRestraintEventProgramsSupported,
             bool isRestraintEventReasonsSupported,
             bool isSchoolReferenceSupported,
@@ -31350,8 +31355,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsDisciplineIncidentReferenceSupported = isDisciplineIncidentReferenceSupported;
             IsEducationalEnvironmentDescriptorSupported = isEducationalEnvironmentDescriptorSupported;
             IsEventDateSupported = isEventDateSupported;
+            IsIncidentIdentifierSupported = isIncidentIdentifierSupported;
             IsRestraintEventProgramsSupported = isRestraintEventProgramsSupported;
             IsRestraintEventReasonsSupported = isRestraintEventReasonsSupported;
             IsSchoolReferenceSupported = isSchoolReferenceSupported;
@@ -31363,8 +31370,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsDisciplineIncidentReferenceSupported { get; }
         public bool IsEducationalEnvironmentDescriptorSupported { get; }
         public bool IsEventDateSupported { get; }
+        public bool IsIncidentIdentifierSupported { get; }
         public bool IsRestraintEventProgramsSupported { get; }
         public bool IsRestraintEventReasonsSupported { get; }
         public bool IsSchoolReferenceSupported { get; }
@@ -31378,10 +31387,14 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             switch (memberName)
             {
+                case "DisciplineIncidentReference":
+                    return IsDisciplineIncidentReferenceSupported;
                 case "EducationalEnvironmentDescriptor":
                     return IsEducationalEnvironmentDescriptorSupported;
                 case "EventDate":
                     return IsEventDateSupported;
+                case "IncidentIdentifier":
+                    return IsIncidentIdentifierSupported;
                 case "RestraintEventPrograms":
                     return IsRestraintEventProgramsSupported;
                 case "RestraintEventReasons":
@@ -45606,82 +45619,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         {
             return SupportedExtensions.Contains(name);    
         }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentParticipationCodeDescriptor model.
-    /// </summary>
-    public interface IStudentParticipationCodeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [AutoIncrement]
-        int StudentParticipationCodeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
-    /// between entities/resources during API request processing.
-    /// </summary>
-    public class StudentParticipationCodeDescriptorMappingContract : IMappingContract
-    {
-        public StudentParticipationCodeDescriptorMappingContract(
-            bool isCodeValueSupported,
-            bool isDescriptionSupported,
-            bool isEffectiveBeginDateSupported,
-            bool isEffectiveEndDateSupported,
-            bool isNamespaceSupported,
-            bool isShortDescriptionSupported
-            )
-        {
-            IsCodeValueSupported = isCodeValueSupported;
-            IsDescriptionSupported = isDescriptionSupported;
-            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
-            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
-            IsNamespaceSupported = isNamespaceSupported;
-            IsShortDescriptionSupported = isShortDescriptionSupported;
-        }
-
-        public bool IsCodeValueSupported { get; }
-        public bool IsDescriptionSupported { get; }
-        public bool IsEffectiveBeginDateSupported { get; }
-        public bool IsEffectiveEndDateSupported { get; }
-        public bool IsNamespaceSupported { get; }
-        public bool IsShortDescriptionSupported { get; }
-
-        bool IMappingContract.IsMemberSupported(string memberName)
-        {
-            switch (memberName)
-            {
-                case "CodeValue":
-                    return IsCodeValueSupported;
-                case "Description":
-                    return IsDescriptionSupported;
-                case "EffectiveBeginDate":
-                    return IsEffectiveBeginDateSupported;
-                case "EffectiveEndDate":
-                    return IsEffectiveEndDateSupported;
-                case "Namespace":
-                    return IsNamespaceSupported;
-                case "ShortDescription":
-                    return IsShortDescriptionSupported;
-                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
-                case "StudentParticipationCodeDescriptorId":
-                    return true;
-                default:
-                    throw new Exception($"Unknown member '{memberName}'.");
-            }
-        }
-
-        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
-
     }
 
     /// <summary>

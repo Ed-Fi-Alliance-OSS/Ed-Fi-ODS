@@ -3724,6 +3724,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.RestraintEvent ADD CONSTRAINT FK_3800be_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
+REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
+;
+
+CREATE INDEX FK_3800be_DisciplineIncident
+ON edfi.RestraintEvent (IncidentIdentifier ASC, SchoolId ASC);
+
 ALTER TABLE edfi.RestraintEvent ADD CONSTRAINT FK_3800be_EducationalEnvironmentDescriptor FOREIGN KEY (EducationalEnvironmentDescriptorId)
 REFERENCES edfi.EducationalEnvironmentDescriptor (EducationalEnvironmentDescriptorId)
 ;
@@ -6069,11 +6076,6 @@ ON edfi.StudentOtherName (OtherNameTypeDescriptorId ASC);
 
 ALTER TABLE edfi.StudentOtherName ADD CONSTRAINT FK_ae53d1_Student FOREIGN KEY (StudentUSI)
 REFERENCES edfi.Student (StudentUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.StudentParticipationCodeDescriptor ADD CONSTRAINT FK_aa25ae_Descriptor FOREIGN KEY (StudentParticipationCodeDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 

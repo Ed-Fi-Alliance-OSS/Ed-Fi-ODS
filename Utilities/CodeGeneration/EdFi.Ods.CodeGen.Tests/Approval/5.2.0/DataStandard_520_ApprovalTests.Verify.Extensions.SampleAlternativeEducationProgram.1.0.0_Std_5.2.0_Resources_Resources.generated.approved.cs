@@ -565,7 +565,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.
+        /// The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
@@ -787,7 +787,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year on which the student exited the program or stopped receiving services.
+        /// The month, day, and year on which the student exited the program or stopped receiving services.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]

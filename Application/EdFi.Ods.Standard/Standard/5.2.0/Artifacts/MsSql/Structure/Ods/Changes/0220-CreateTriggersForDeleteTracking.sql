@@ -5996,27 +5996,6 @@ ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ENABLE TRIGGER [edfi_Stu
 GO
 
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentParticipationCodeDescriptor_TR_DeleteTracking]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StudentParticipationCodeDescriptor_TR_DeleteTracking] ON [edfi].[StudentParticipationCodeDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
-    SELECT  d.StudentParticipationCodeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.StudentParticipationCodeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.StudentParticipationCodeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [edfi].[StudentParticipationCodeDescriptor] ENABLE TRIGGER [edfi_StudentParticipationCodeDescriptor_TR_DeleteTracking]
-GO
-
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentProgramAttendanceEvent_TR_DeleteTracking]
 GO
 
