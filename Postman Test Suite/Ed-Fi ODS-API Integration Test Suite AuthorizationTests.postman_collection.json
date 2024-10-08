@@ -3863,9 +3863,12 @@
 													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return no items\", () => {",
-													"  const responseItems = pm.response.json();",
-													"  pm.expect(responseItems.length).to.equals(0);",
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
 													"});",
 													""
 												],
@@ -3976,10 +3979,14 @@
 													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return no items\", () => {",
-													"  const responseItems = pm.response.json();",
-													"  pm.expect(responseItems.length).to.equal(0);",
-													"});"
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -4314,10 +4321,14 @@
 													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return no items\", () => {",
-													"  const responseItems = pm.response.json();",
-													"  pm.expect(responseItems.length).to.equal(0);",
-													"});"
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -4427,10 +4438,14 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return not items\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.equal(0);",
-													"});"
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -4532,7 +4547,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -4614,7 +4628,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -9073,7 +9086,7 @@
 										"type": "text/javascript",
 										"packages": {},
 										"exec": [
-											"// Only run if Composites are available\r",
+											"// Only run if Change Queries feature is available\r",
 											"if (!pm.environment.get('ChangeQueriesFeatureIsEnabled')) {\r",
 											"  console.log('Skipping request because Change Queries feature is not enabled...');\r",
 											"  pm.execution.skipRequest();\r",

@@ -13921,7 +13921,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"graduationPlanReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"graduationPlanTypeDescriptor\": \"uri://ed-fi.org/GraduationPlanTypeDescriptor#Minimum\",\r\n    \"schoolYear\": 2022\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"entryDate\": \"1999-12-31\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}",
+									"raw": "{\r\n  \"graduationPlanReference\": {\r\n    \"educationOrganizationId\": 255901001,\r\n    \"graduationPlanTypeDescriptor\": \"uri://ed-fi.org/GraduationPlanTypeDescriptor#Minimum\",\r\n    \"graduationSchoolYear\": 2022\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"entryDate\": \"1999-12-31\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

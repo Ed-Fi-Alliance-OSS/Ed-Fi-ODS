@@ -12710,7 +12710,7 @@
 													"if (pm.response.code == 404) {\r",
 													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
 													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
-													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
 													"} else {\r",
 													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
 													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
