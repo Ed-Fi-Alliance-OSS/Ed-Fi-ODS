@@ -53,7 +53,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
-                        new EdFiAuthorizationContext(
+                        new DataManagementRequestContext(
                             CreateApiClientContext(namespacePrefixes),
                             resource,
                             new[] { resourceUri },
@@ -193,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
                     Array.Empty<EdFiResourceClaim>(),
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -232,7 +232,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
                     Array.Empty<EdFiResourceClaim>(),
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -273,7 +273,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 Should.Throw<Exception>(
                         () => strategy.GetAuthorizationStrategyFiltering(
                             Array.Empty<EdFiResourceClaim>(),
-                            new EdFiAuthorizationContext(
+                            new DataManagementRequestContext(
                                 CreateApiClientContext(namespacePrefixes),
                                 resource,
                                 new[] { resourceUri },
@@ -307,7 +307,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
-                        new EdFiAuthorizationContext(
+                        new DataManagementRequestContext(
                             new ApiClientContext(),
                             resource,
                             new[] { resourceUri },
