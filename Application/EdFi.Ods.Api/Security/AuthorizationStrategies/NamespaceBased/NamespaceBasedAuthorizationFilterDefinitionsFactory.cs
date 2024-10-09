@@ -112,7 +112,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     }
     
     private InstanceAuthorizationResult AuthorizeInstance(
-        EdFiAuthorizationContext authorizationContext,
+        DataManagementRequestContext authorizationContext,
         AuthorizationFilterContext authorizationFilterContext,
         string authorizationStrategyName)
     {

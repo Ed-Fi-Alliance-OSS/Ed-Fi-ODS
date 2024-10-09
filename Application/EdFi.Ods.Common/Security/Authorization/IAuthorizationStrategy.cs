@@ -20,6 +20,6 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
         AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext);
+            DataManagementRequestContext authorizationContext);
     }
 }

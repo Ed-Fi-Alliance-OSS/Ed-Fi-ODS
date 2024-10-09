@@ -61,7 +61,7 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
         return $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw INNER JOIN @{RelationshipAuthorizationConventions.ClaimsParameterName} c ON authvw.{filterDefinition.ViewSourceEndpointName} = c.Id AND authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName}";
     }
 
-    public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
+    public void ApplyClaimsParametersToCommand(DbCommand cmd, DataManagementRequestContext authorizationContext)
     {
         // No parameters needed if less than 2,000 EdOrgIds present
         if (authorizationContext.ApiClientContext.EducationOrganizationIds.Count < SqlServerParameterCountThreshold)
