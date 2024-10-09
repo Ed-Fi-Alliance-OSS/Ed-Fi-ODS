@@ -9110,6 +9110,78 @@
 							"name": "Teardown",
 							"item": [
 								{
+									"name": "Delete DisciplineAction for 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:001:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"{{known:disciplineAction:001:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete DisciplineAction for 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:044:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"{{known:disciplineAction:044:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Delete studentDisciplineIncidentAssociation for 044",
 									"event": [
 										{
