@@ -12903,11 +12903,14 @@
 													"\r",
 													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
 													"    () => {\r",
-													"      pm.expect(Object.keys(profileEntity).filter(k => k[0] != '_').length).to.equal(profileRegularReferenceIncludeKeys.length + keys.length);\r",
+													"      const expectedCount = profileRegularReferenceIncludeKeys.length + profileRoleNamedReferenceIncludeKeys.length + keys.length;\r",
+													"\r",
+													"      pm.expect(Object.keys(profileEntity).filter(k => k[0] != '_').length).to.equal(expectedCount);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
