@@ -37,6 +37,7 @@ using Shouldly;
 using Test.Common;
 using Action = EdFi.Security.DataAccess.Models.Action;
 using Helper = EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.AuthorizationTestsHelper;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
@@ -48,17 +49,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     {
         public FakeRepositoryOperationAuthorizationDecorator(
             IAuthorizationContextProvider authorizationContextProvider,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
-                authorizationFilteringProvider,
-                authorizationBasisMetadataSelector,
-                apiClientContextProvider,
-                dataManagementResourceContextProvider,
                 entityAuthorizer)
         { }
 
@@ -72,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     {
         public static FakeRepositoryOperationAuthorizationDecorator<FakeEntity> CreateDecorator(
             IAuthorizationContextProvider authorizationContextProvider = null,
-            IAuthorizationFilteringProvider authorizationFilteringProvider = null,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory = null,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector = null,
             IApiClientContextProvider apiClientContextProvider = null,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider = null,
@@ -81,16 +74,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             return new FakeRepositoryOperationAuthorizationDecorator<FakeEntity>(
                 authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
-                authorizationFilteringProvider ?? A.Fake<IAuthorizationFilteringProvider>(),
-                authorizationBasisMetadataSelector ?? A.Fake<IAuthorizationBasisMetadataSelector>(),
-                apiClientContextProvider ?? A.Fake<IApiClientContextProvider>(),
-                dataManagementResourceContextProvider ?? A.Fake<IContextProvider<DataManagementResourceContext>>(),
                 entityAuthorizer ?? A.Fake<IEntityAuthorizer>());
         }
 
         public static EntityAuthorizer CreateEntityAuthorizer(
             IAuthorizationContextProvider authorizationContextProvider = null,
-            IAuthorizationFilteringProvider authorizationFilteringProvider = null,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory = null,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider = null,
             IExplicitObjectValidator[] explicitObjectValidators = null,
             IApiClientContextProvider apiClientContextProvider = null,
@@ -105,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         {
             return new EntityAuthorizer(
                 authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
-                authorizationFilteringProvider ?? A.Fake<IAuthorizationFilteringProvider>(),
+                dataManagementAuthorizationPlanFactory ?? A.Fake<IDataManagementAuthorizationPlanFactory>(),
                 authorizationFilterDefinitionProvider ?? A.Fake<IAuthorizationFilterDefinitionProvider>(),
                 explicitObjectValidators ?? A.CollectionOfFake<IExplicitObjectValidator>(0).ToArray(),
                 apiClientContextProvider ?? A.Fake<IApiClientContextProvider>(),
@@ -274,7 +263,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         // No authorization strategy name metadata here
         private class AuthorizationStrategyNotFollowingConventions : IAuthorizationStrategy
         {
-            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, DataManagementRequestContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
@@ -283,7 +272,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         [AuthorizationStrategyName("ConventionFollowing")]
         private class ConventionFollowingAuthorizationStrategy : IAuthorizationStrategy
         {
-            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, EdFiAuthorizationContext authorizationContext)
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(EdFiResourceClaim[] relevantClaims, DataManagementRequestContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
@@ -349,7 +338,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 EdFiResourceClaim[] relevantClaims,
-                EdFiAuthorizationContext authorizationContext)
+                DataManagementRequestContext authorizationContext)
             {
                 FilteringWasCalled = true;
 
@@ -412,7 +401,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected IClaimSetClaimsProvider ClaimSetClaimsProvider;
             protected IAuthorizationContextProvider AuthorizationContextProvider;
             protected IApiClientContextProvider ApiClientContextProvider;
-            protected AuthorizationFilteringProvider AuthorizationFilteringProvider;
+            protected IDataManagementAuthorizationPlanFactory DataManagementAuthorizationPlanFactory;
             protected IResourceAuthorizationMetadataProvider ResourceAuthorizationMetadataProvider;
             protected IAuthorizationBasisMetadataSelector AuthorizationBasisMetadataSelector;
             protected FakeRepositoryOperationAuthorizationDecorator<FakeEntity> RepositoryOperationAuthorizationDecorator;
@@ -433,7 +422,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 ApiClientContextProvider = Given_an_apiClientContextProvider();
 
-                AuthorizationFilteringProvider = new AuthorizationFilteringProvider();
+                DataManagementAuthorizationPlanFactory = A.Fake<IDataManagementAuthorizationPlanFactory>();
             }
 
             private IApiClientContextProvider Given_an_apiClientContextProvider()
@@ -582,14 +571,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 var entityAuthorizer = Helper.CreateEntityAuthorizer(
                     AuthorizationContextProvider,
-                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: DataManagementAuthorizationPlanFactory,
                     apiClientContextProvider: ApiClientContextProvider,
                     authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
                     securityRepository: SecurityRepository);
 
                 RepositoryOperationAuthorizationDecorator = Helper.CreateDecorator(
                     AuthorizationContextProvider,
-                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: DataManagementAuthorizationPlanFactory,
                     authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
                     apiClientContextProvider: ApiClientContextProvider,
                     entityAuthorizer: entityAuthorizer);
@@ -1144,7 +1133,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 var entityAuthorizer = Helper.CreateEntityAuthorizer(
                     AuthorizationContextProvider,
-                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: DataManagementAuthorizationPlanFactory,
                     explicitObjectValidators: new IExplicitObjectValidator[]
                     {
                             FakeExplicitObjectValidator1,
@@ -1156,7 +1145,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 RepositoryOperationAuthorizationDecorator = Helper.CreateDecorator(
                     AuthorizationContextProvider,
-                    authorizationFilteringProvider: AuthorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: DataManagementAuthorizationPlanFactory,
                     authorizationBasisMetadataSelector: AuthorizationBasisMetadataSelector,
                     apiClientContextProvider: ApiClientContextProvider,
                     entityAuthorizer: entityAuthorizer);
@@ -1878,7 +1867,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             private ISecurityRepository _securityRepository;
             private IClaimSetClaimsProvider _claimSetClaimsProvider;
             private IApiClientContextProvider _apiClientContextProvider;
-            private AuthorizationFilteringProvider _authorizationFilteringProvider;
+            private IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
 
             protected override void Arrange()
             {
@@ -1943,7 +1932,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                             ActionUri = "http://ed-fi.org/ods/actions/readChanges"
                         });
 
-                _authorizationFilteringProvider = new AuthorizationFilteringProvider();
+                _dataManagementAuthorizationPlanFactory = A.Fake<IDataManagementAuthorizationPlanFactory>();
 
                 _apiClientContextProvider = Stub<IApiClientContextProvider>();
 
@@ -1974,14 +1963,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var entityAuthorizer = Helper.CreateEntityAuthorizer(
                     _suppliedAuthorizationContextProvider,
-                    authorizationFilteringProvider: _authorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: _dataManagementAuthorizationPlanFactory,
                     apiClientContextProvider: _apiClientContextProvider,
                     authorizationBasisMetadataSelector: authorizationBasisMetadataSelector,
                     securityRepository: _securityRepository);
 
                 var decorator = Helper.CreateDecorator(
                     _suppliedAuthorizationContextProvider,
-                    authorizationFilteringProvider: _authorizationFilteringProvider,
+                    dataManagementAuthorizationPlanFactory: _dataManagementAuthorizationPlanFactory,
                     authorizationBasisMetadataSelector: authorizationBasisMetadataSelector,
                     apiClientContextProvider: _apiClientContextProvider,
                     entityAuthorizer: entityAuthorizer);

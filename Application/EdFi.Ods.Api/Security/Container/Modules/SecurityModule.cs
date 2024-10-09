@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -33,12 +32,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IAuthorizationContextProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<AuthorizationFilterContextProvider>()
-                .As<IAuthorizationFilterContextProvider>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<AuthorizationFilteringProvider>()
-                .As<IAuthorizationFilteringProvider>()
+            builder.RegisterType<DataManagementAuthorizationPlanFactory>()
+                .As<IDataManagementAuthorizationPlanFactory>()
                 .SingleInstance();
 
             builder.RegisterType<AuthorizationBasisMetadataSelector>()

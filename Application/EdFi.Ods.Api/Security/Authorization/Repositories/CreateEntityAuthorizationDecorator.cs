@@ -5,13 +5,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -33,26 +30,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
         /// <param name="securityRepository">Provides access to the repository where the claims/actions are stored.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
-        /// <param name="authorizationFilteringProvider"></param>
-        /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="apiClientContextProvider"></param>
-        /// <param name="dataManagementResourceContextProvider"></param>
         /// <param name="entityAuthorizer"></param>
         public CreateEntityAuthorizationDecorator(
             ICreateEntity<TEntity> next,
             ISecurityRepository securityRepository,
             IAuthorizationContextProvider authorizationContextProvider,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
-                authorizationFilteringProvider,
-                authorizationBasisMetadataSelector,
-                apiClientContextProvider,
-                dataManagementResourceContextProvider,
                 entityAuthorizer)
         {
             _next = next;

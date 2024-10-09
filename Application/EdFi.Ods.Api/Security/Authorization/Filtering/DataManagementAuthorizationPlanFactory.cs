@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
+
+namespace EdFi.Ods.Api.Security.Authorization.Filtering;
+
+/// <summary>
+/// Provides authorization filtering for the current authorization decision.
+/// </summary>
+public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizationPlanFactory
+{
+    private readonly IAuthorizationContextProvider _authorizationContextProvider;
+    private readonly IApiClientContextProvider _apiClientContextProvider;
+    private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+    private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
+    private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+
+    public DataManagementAuthorizationPlanFactory(
+        IAuthorizationContextProvider authorizationContextProvider,
+        IApiClientContextProvider apiClientContextProvider,
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+        IResourceClaimUriProvider resourceClaimUriProvider)
+    {
+        _authorizationContextProvider = authorizationContextProvider;
+        _apiClientContextProvider = apiClientContextProvider;
+        _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
+        _resourceClaimUriProvider = resourceClaimUriProvider;
+    }
+
+    public DataManagementAuthorizationPlan CreateAuthorizationPlan()
+    {
+        // Make sure action has been set before proceeding
+        _authorizationContextProvider.VerifyAuthorizationContextExists();
+
+        // Build the AuthorizationContext
+        var resource = _dataManagementResourceContextProvider.Get().Resource;
+        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
+        string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
+        string requestActionUri = _authorizationContextProvider.GetAction();
+
+        var dataManagementRequestContext = new DataManagementRequestContext(
+            apiClientContext,
+            resource,
+            resourceClaimUris,
+            requestActionUri,
+            (Type) (resource.Entity as dynamic).NHibernateEntityType);
+
+        // Get authorization filters
+        var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+            apiClientContext.ClaimSetName,
+            resourceClaimUris,
+            requestActionUri);
+        
+        var relevantClaims = new[] { authorizationBasisMetadata.RelevantClaim };
+
+        var authorizationFiltering = authorizationBasisMetadata.AuthorizationStrategies
+            .Distinct()
+            .Select(x => x.GetAuthorizationStrategyFiltering(relevantClaims, dataManagementRequestContext))
+            // Sort authorizations so that those that use system-assigned values are processed after others to avoid disclosing item existence to otherwise unauthorized clients
+            .OrderBy(x => x.UsesSystemAssignedValues)
+            .ToArray();
+
+        return new DataManagementAuthorizationPlan()
+        {
+            RequestContext = dataManagementRequestContext,
+            AuthorizationBasisMetadata = authorizationBasisMetadata,
+            Filtering = authorizationFiltering
+        };
+    }
+}
+
+public class DataManagementAuthorizationPlan
+{
+    public DataManagementRequestContext RequestContext { get; set; }
+
+    public AuthorizationBasisMetadata AuthorizationBasisMetadata { get; set; }
+
+    public IReadOnlyList<AuthorizationStrategyFiltering> Filtering { get; set; }
+}

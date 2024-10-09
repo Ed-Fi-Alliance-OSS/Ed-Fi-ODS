@@ -13,7 +13,6 @@ using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using NHibernate;
 
@@ -27,7 +26,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         : RepositoryOperationAuthorizationDecoratorBase<TEntity>, IGetEntitiesBySpecification<TEntity>
         where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
-        private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
+        private readonly IContextProvider<DataManagementAuthorizationPlan> _authorizationPlanContextProvider;
+        private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
         private readonly IGetEntitiesBySpecification<TEntity> _next;
         private readonly ISessionFactory _sessionFactory;
 
@@ -36,34 +36,25 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// </summary>
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
         /// <param name="sessionFactory">The NHibernate session factory used to manage session (database connection) context.</param>
-        /// <param name="authorizationFilterContextProvider">Applies authorization-related filters for the entity on the current NHiberate session.</param>
+        /// <param name="authorizationPlanContextProvider">Sets the authorization plan into context.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
-        /// <param name="authorizationFilteringProvider">The component capable of authorizing the request, given necessary context.</param>
-        /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="apiClientContextProvider"></param>
-        /// <param name="dataManagementResourceContextProvider"></param>
+        /// <param name="dataManagementAuthorizationPlanFactory">The component capable of authorizing the request, given necessary context.</param>
         /// <param name="entityAuthorizer"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
-            IAuthorizationFilterContextProvider authorizationFilterContextProvider,
+            IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
             IAuthorizationContextProvider authorizationContextProvider,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
             IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
-                authorizationFilteringProvider,
-                authorizationBasisMetadataSelector,
-                apiClientContextProvider,
-                dataManagementResourceContextProvider,
                 entityAuthorizer)
         {
             _next = next;
             _sessionFactory = sessionFactory;
-            _authorizationFilterContextProvider = authorizationFilterContextProvider;
+            _authorizationPlanContextProvider = authorizationPlanContextProvider;
+            _dataManagementAuthorizationPlanFactory = dataManagementAuthorizationPlanFactory;
         }
 
         /// <summary>
@@ -71,6 +62,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// </summary>
         /// <param name="specification">An entity instance that has all the primary key properties assigned with values.</param>
         /// <param name="queryParameters">The additional query parameter to apply the results (e.g. paging, sorting).</param>
+        /// <param name="additionalQueryParameters"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>A list of matching resources, or an empty result.</returns>
         public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
@@ -80,13 +72,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var authorizationFiltering = GetAuthorizationFiltering();
+            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))
             {
-                // Apply authorization filtering to the entity for the current session
-                _authorizationFilterContextProvider.SetFilterContext(authorizationFiltering);
+                // Set the authorization plan into context
+                _authorizationPlanContextProvider.Set(authorizationPlan);
 
                 // Pass call through to the repository operation implementation to execute the query
                 return await _next.GetBySpecificationAsync(
