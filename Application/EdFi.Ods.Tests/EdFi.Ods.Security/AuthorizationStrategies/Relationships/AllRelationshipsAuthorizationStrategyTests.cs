@@ -81,9 +81,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     [TestFixture]
     public class Feature_Authorizing_a_request
     {
-        private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiClientContext apiClientContext, object entity)
+        private static DataManagementRequestContext Given_an_authorization_context_with_entity_data(ApiClientContext apiClientContext, object entity)
         {
-            return new EdFiAuthorizationContext(
+            return new DataManagementRequestContext(
                 apiClientContext,
                 new Resource("Ignored"),
                 new[] { "resource" },
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 var authorizationFilters = SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[] { Supplied<EdFiResourceClaim>() },
-                    Supplied<EdFiAuthorizationContext>());
+                    Supplied<DataManagementRequestContext>());
             }
         }
 
@@ -160,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     {
                         Supplied<EdFiResourceClaim>()
                     },
-                    Supplied<EdFiAuthorizationContext>());
+                    Supplied<DataManagementRequestContext>());
             }
 
             [Assert]
@@ -231,7 +231,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     Supplied<EdFiResourceClaim[]>(),
-                    Supplied<EdFiAuthorizationContext>());
+                    Supplied<DataManagementRequestContext>());
             }
 
             [Assert]
@@ -335,7 +335,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[] { Supplied<EdFiResourceClaim>() },
-                    Supplied<EdFiAuthorizationContext>());
+                    Supplied<DataManagementRequestContext>());
             }
         }
     }
