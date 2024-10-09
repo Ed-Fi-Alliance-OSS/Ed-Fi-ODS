@@ -4,20 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -27,31 +23,24 @@ namespace EdFi.Ods.Features.Composites
 {
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
-        private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-        private readonly IApiClientContextProvider _apiClientContextProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
+        private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
 
-        private static readonly ConcurrentDictionary<string, Type> _entityTypeByName = new(StringComparer.OrdinalIgnoreCase);
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
-        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
+            _dataManagementAuthorizationPlanFactory = Preconditions.ThrowIfNull(dataManagementAuthorizationPlanFactory, nameof(dataManagementAuthorizationPlanFactory));
             _authorizationFilterDefinitionProvider = Preconditions.ThrowIfNull(authorizationFilterDefinitionProvider, nameof(authorizationFilterDefinitionProvider));
-            _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
-            _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
-            _apiClientContextProvider = apiClientContextProvider;
+            _authorizationContextProvider = authorizationContextProvider;
         }
 
         /// <summary>
@@ -75,33 +64,17 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             //   Determine inclusion
             // --------------------------
-            var entityType = GetEntityType(resource);
-
-            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
-            string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
-
-            var authorizationContext = new EdFiAuthorizationContext(
-                apiClientContext,
-                resource,
-                resourceClaimUris,
-                RequestActions.ReadActionUri,
-                entityType);
+            _authorizationContextProvider.SetAction(RequestActions.ReadActionUri);
 
             // Authorize and apply filtering
-            IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering;
+            DataManagementAuthorizationPlan authorizationPlan;
 
             try
             {
-                var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                    apiClientContext.ClaimSetName, resourceClaimUris, RequestActions.ReadActionUri);
-                
-                // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(
-                    authorizationContext,
-                    authorizationBasisMetadata);
-                
+                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
+
                 // Make sure that all applied filtering has HQL support 
-                if (!authorizationFiltering.All(
+                if (!authorizationPlan.Filtering.All(
                         filtering => filtering.Filters.All(
                             f => (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                                 f.FilterName,
@@ -144,7 +117,7 @@ namespace EdFi.Ods.Features.Composites
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryAuthorizationFiltering = authorizationFiltering;
+            builderContext.CurrentQueryAuthorizationFiltering = authorizationPlan.Filtering;
 
             return true;
         }
@@ -298,25 +271,6 @@ namespace EdFi.Ods.Features.Composites
         public HqlBuilderContext CreateFlattenedReferenceChildContext(HqlBuilderContext parentingBuilderContext)
         {
             return _next.CreateFlattenedReferenceChildContext(parentingBuilderContext);
-        }
-
-        private Type GetEntityType(ResourceClassBase currentResourceClass)
-        {
-            var assemblyName = currentResourceClass.IsEdFiStandardResource
-                ? Namespaces.Standard.BaseNamespace
-                : $"{Namespaces.Extensions.BaseNamespace}.{currentResourceClass.SchemaProperCaseName}";
-
-            return _entityTypeByName.GetOrAdd(
-                currentResourceClass.Name,
-                r =>
-                {
-                    string entityTypeAssemblyQualifiedName =
-                        $"{currentResourceClass.Entity.EntityTypeFullName(currentResourceClass.SchemaProperCaseName)}, {assemblyName}";
-
-                    Type type = Type.GetType(entityTypeAssemblyQualifiedName);
-
-                    return type;
-                });
         }
 
         private void ApplyFilters(

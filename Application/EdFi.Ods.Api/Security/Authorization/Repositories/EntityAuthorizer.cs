@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories;
 public class EntityAuthorizer : IEntityAuthorizer
 {
     private readonly IAuthorizationContextProvider _authorizationContextProvider;
-    private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
+    private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
     private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
     private readonly IExplicitObjectValidator[] _explicitObjectValidators;
     private readonly IApiClientContextProvider _apiClientContextProvider;
@@ -62,7 +62,7 @@ public class EntityAuthorizer : IEntityAuthorizer
 
     public EntityAuthorizer(
         IAuthorizationContextProvider authorizationContextProvider,
-        IAuthorizationFilteringProvider authorizationFilteringProvider,
+        IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
         IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
         IExplicitObjectValidator[] explicitObjectValidators,
         IApiClientContextProvider apiClientContextProvider,
@@ -75,7 +75,7 @@ public class EntityAuthorizer : IEntityAuthorizer
         IAuthorizationViewHintProvider[] authorizationViewHintProviders)
     {
         _authorizationContextProvider = authorizationContextProvider;
-        _authorizationFilteringProvider = authorizationFilteringProvider;
+        _dataManagementAuthorizationPlanFactory = dataManagementAuthorizationPlanFactory;
         _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
         _explicitObjectValidators = explicitObjectValidators;
         _apiClientContextProvider = apiClientContextProvider;
@@ -100,32 +100,12 @@ public class EntityAuthorizer : IEntityAuthorizer
     /// <inheritdoc cref="IEntityAuthorizer.AuthorizeEntityAsync" />
     public async Task AuthorizeEntityAsync(object entity, string actionUri, AuthorizationPhase authorizationPhase, CancellationToken cancellationToken)
     {
-        // Make sure Authorization context is present before proceeding
-        _authorizationContextProvider.VerifyAuthorizationContextExists();
-
-        // Build the AuthorizationContext
-        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
-        string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
-        var resource = _dataManagementResourceContextProvider.Get().Resource;
-
-        var authorizationContext = new EdFiAuthorizationContext(
-            apiClientContext,
-            resource,
-            resourceClaimUris,
-            actionUri,
-            entity,
-            authorizationPhase);
-
-        var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-            apiClientContext.ClaimSetName, resourceClaimUris, actionUri);
-
-        ExecuteAuthorizationValidationRules(authorizationBasisMetadata, authorizationContext.Action, authorizationContext.Data);
-
         // Get the authorization filtering information
-        var authorizationFiltering =
-            _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
+        var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
 
-        var andResults = PerformInstanceBasedAuthorization(authorizationFiltering, authorizationContext, FilterOperator.And);
+        ExecuteAuthorizationValidationRules();
+
+        var andResults = PerformInstanceBasedAuthorization(FilterOperator.And);
 
         // If any failures occurred with the AND strategies, throw the first exception now
         ThrowInstanceBasedFailureFromResults(andResults);
@@ -145,7 +125,7 @@ public class EntityAuthorizer : IEntityAuthorizer
                 })
             .ToArray();
             
-        var orResults = PerformInstanceBasedAuthorization(authorizationFiltering, authorizationContext, FilterOperator.Or);
+        var orResults = PerformInstanceBasedAuthorization(FilterOperator.Or);
 
         bool orConditionAlreadySatisfied = orResults
             .Any(r => r.FilterResults.All(f => f.Result.State == AuthorizationState.Success));
@@ -156,7 +136,7 @@ public class EntityAuthorizer : IEntityAuthorizer
             if (pendingAndStrategies.Any())
             {
                 // Execute SQL to determine AND results
-                await PerformViewBasedAuthorizationAsync(pendingAndStrategies, authorizationContext, cancellationToken);
+                await PerformViewBasedAuthorizationAsync(pendingAndStrategies, authorizationPlan.RequestContext, cancellationToken);
             }
 
             // We're authorized...
@@ -188,7 +168,7 @@ public class EntityAuthorizer : IEntityAuthorizer
             ThrowInstanceBasedFailureFromResults(orResults);
         }
 
-        await PerformViewBasedAuthorizationAsync(allPendingExistenceChecks, authorizationContext, cancellationToken);
+        await PerformViewBasedAuthorizationAsync(allPendingExistenceChecks, authorizationPlan.RequestContext, cancellationToken);
 
         bool IsCreateUpdateOrDelete(string requestAction)
         {
@@ -196,35 +176,29 @@ public class EntityAuthorizer : IEntityAuthorizer
                 & (Actions.Create | Actions.Update | Actions.Delete)) != 0;
         }
 
-        void ExecuteAuthorizationValidationRules(
-            AuthorizationBasisMetadata authorizationBasisMetadata1,
-            string requestAction,
-            object requestData)
+        void ExecuteAuthorizationValidationRules()
         {
             // If there are explicit object validators, and we're modifying data
-            if (_explicitObjectValidators.Any() && IsCreateUpdateOrDelete(requestAction))
+            if (_explicitObjectValidators.Any() && IsCreateUpdateOrDelete(authorizationPlan.RequestContext.Action))
             {
                 // Validate the object using explicit validation
                 var validationResults = _explicitObjectValidators.ValidateObject(
-                    requestData,
-                    authorizationBasisMetadata1.ValidationRuleSetName);
+                    authorizationPlan.RequestContext.Data,
+                    authorizationPlan.AuthorizationBasisMetadata.ValidationRuleSetName);
 
                 if (!validationResults.IsValid())
                 {
                     string validationResultsText = string.Join(".", validationResults.Select(vr => vr.ToString()));
 
                     throw new ValidationException(
-                        $"Validation of '{requestData.GetType().Name}' failed. {validationResultsText}");
+                        $"Validation of '{authorizationPlan.RequestContext.Data.GetType().Name}' failed. {validationResultsText}");
                 }
             }
         }
 
-        AuthorizationStrategyFilterResults[] PerformInstanceBasedAuthorization(
-            IReadOnlyList<AuthorizationStrategyFiltering> authorizationStrategyFilterings,
-            EdFiAuthorizationContext authorizationContext1,
-            FilterOperator filterOperator)
+        AuthorizationStrategyFilterResults[] PerformInstanceBasedAuthorization(FilterOperator filterOperator)
         {
-            var andResults = authorizationStrategyFilterings
+            var andResults = authorizationPlan.Filtering
                 .Where(asf => asf.Operator == filterOperator)
                 .Select(
                     s => new AuthorizationStrategyFilterResults
@@ -243,7 +217,7 @@ public class EntityAuthorizer : IEntityAuthorizer
                                 {
                                     FilterDefinition = x.FilterDefinition,
                                     FilterContext = x.FilterContext,
-                                    Result = x.FilterDefinition.AuthorizeInstance(authorizationContext1, x.FilterContext, s.AuthorizationStrategyName)
+                                    Result = x.FilterDefinition.AuthorizeInstance(authorizationPlan.RequestContext, x.FilterContext, s.AuthorizationStrategyName)
                                 })
                             .ToArray()
                     })
@@ -262,7 +236,7 @@ public class EntityAuthorizer : IEntityAuthorizer
     
     private async Task PerformViewBasedAuthorizationAsync(
         AuthorizationStrategyFilterResults[] resultsWithPendingExistenceChecks,
-        EdFiAuthorizationContext authorizationContext,
+        DataManagementRequestContext authorizationContext,
         CancellationToken cancellationToken)
     {
         // Before building and executing authorization SQL, check for null values on subject endpoints

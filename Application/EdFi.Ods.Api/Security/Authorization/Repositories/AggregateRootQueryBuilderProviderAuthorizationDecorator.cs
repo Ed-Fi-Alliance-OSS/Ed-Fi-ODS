@@ -9,6 +9,7 @@ using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Domain;
@@ -23,16 +24,16 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
         private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
-        private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
+        private readonly IContextProvider<DataManagementAuthorizationPlan> _authorizationPlanContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
         public AggregateRootQueryBuilderProviderAuthorizationDecorator(
             IAggregateRootQueryBuilderProvider decoratedInstance,
-            IAuthorizationFilterContextProvider authorizationFilterContextProvider,
+            IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
             _decoratedInstance = decoratedInstance;
-            _authorizationFilterContextProvider = authorizationFilterContextProvider;
+            _authorizationPlanContextProvider = authorizationPlanContextProvider;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
         }
 
@@ -56,7 +57,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 queryParameters,
                 additionalQueryParameters);
 
-            var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
+            var authorizationPlan = _authorizationPlanContextProvider.Get();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
@@ -75,7 +76,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             }
             else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
             {
-                if (authorizationFiltering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
+                if (authorizationPlan.Filtering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
                 {
                     // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
                     queryBuilder.Distinct();
@@ -90,7 +91,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             JoinType? DetermineRelationshipBasedAuthViewJoinType()
             {
                 // NOTE: Relationship-based authorization filters are combined using OR, while custom auth-view filters are combined using AND
-                var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
+                var countOfRelationshipBasedAuthorizationFilters = authorizationPlan.Filtering.Count(
                     af => af.Operator == FilterOperator.Or && af.Filters.Select(afd =>
                         {
                             if (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(afd.FilterName, out var filterDetails))
@@ -116,7 +117,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithAndLogic()
             {
-                var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
+                var andStrategies = authorizationPlan.Filtering.Where(x => x.Operator == FilterOperator.And).ToArray();
 
                 // Combine 'AND' strategies
                 foreach (var andStrategy in andStrategies)
@@ -131,7 +132,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
-                var orStrategies = authorizationFiltering
+                var orStrategies = authorizationPlan.Filtering
                     .Where(x => x.Operator == FilterOperator.Or)
                     .ToArray();
 

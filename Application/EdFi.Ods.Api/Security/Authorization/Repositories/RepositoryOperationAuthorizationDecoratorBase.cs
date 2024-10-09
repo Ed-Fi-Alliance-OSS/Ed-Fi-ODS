@@ -4,13 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -25,25 +21,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where TEntity : class
     {
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
-        private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-        private readonly IApiClientContextProvider _apiClientContextProvider;
-        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly IEntityAuthorizer _entityAuthorizer;
 
         protected RepositoryOperationAuthorizationDecoratorBase(
             IAuthorizationContextProvider authorizationContextProvider,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             IEntityAuthorizer entityAuthorizer)
         {
             _authorizationContextProvider = authorizationContextProvider;
-            _authorizationFilteringProvider = authorizationFilteringProvider;
-            _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
-            _apiClientContextProvider = apiClientContextProvider;
-            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _entityAuthorizer = entityAuthorizer;
         }
 
@@ -69,33 +53,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         protected async Task AuthorizeProposedSingleItemAsync(TEntity entity, string actionUri, CancellationToken cancellationToken)
         {
             await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ProposedData, cancellationToken);
-        }
-
-        protected IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering()
-        {
-            // Make sure Authorization context is present before proceeding
-            _authorizationContextProvider.VerifyAuthorizationContextExists();
-
-            // Build the AuthorizationContext
-            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
-            var resource = _dataManagementResourceContextProvider.Get().Resource;
-            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
-            string requestActionUri = _authorizationContextProvider.GetAction();
-
-            var authorizationContext = new EdFiAuthorizationContext(
-                apiClientContext,
-                resource,
-                resourceClaimUris,
-                requestActionUri,
-                typeof(TEntity));
-
-            // Get authorization filters
-            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                apiClientContext.ClaimSetName,
-                resourceClaimUris,
-                requestActionUri);
-
-            return _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
         }
     }
     

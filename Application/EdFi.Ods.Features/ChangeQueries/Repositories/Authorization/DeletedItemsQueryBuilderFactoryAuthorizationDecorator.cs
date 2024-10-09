@@ -3,15 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 
@@ -25,22 +22,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
         public DeletedItemsQueryBuilderFactoryAuthorizationDecorator(
             IDeletedItemsQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
-            IApiClientContextProvider apiClientContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
             : base(
                 authorizationContextProvider,
-                apiClientContextProvider,
                 domainModelProvider,
                 domainModelEnhancer,
-                authorizationFilteringProvider,
-                authorizationBasisMetadataSelector,
-                authorizationFilterDefinitionProvider,
-                dataManagementResourceContextProvider)
+                dataManagementAuthorizationPlanFactory,
+                authorizationFilterDefinitionProvider)
         {
             _next = next;
         }
