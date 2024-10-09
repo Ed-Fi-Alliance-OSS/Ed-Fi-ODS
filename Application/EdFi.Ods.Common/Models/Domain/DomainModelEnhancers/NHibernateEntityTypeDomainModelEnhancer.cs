@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Models.Domain.DomainModelEnhancers
     /// Implements a domain model enhancer that provides access to the <see cref="Type" /> of the NHibernate entity class
     /// that corresponds to the Entity in the API semantic model.
     /// </summary>
-    /// <remarks>This is used to provide the entity type when build the <see cref="EdFiAuthorizationContext" /> for
+    /// <remarks>This is used to provide the entity type when build the <see cref="DataManagementRequestContext" /> for
     /// Change Queries request authorization.</remarks>
     public class NHibernateEntityTypeDomainModelEnhancer : IDomainModelEnhancer
     {

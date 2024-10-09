@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
         AuthorizationStrategyFiltering IAuthorizationStrategy.GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            DataManagementRequestContext authorizationContext)
         {
             var ownershipTokens = authorizationContext.ApiClientContext.OwnershipTokenIds;
 

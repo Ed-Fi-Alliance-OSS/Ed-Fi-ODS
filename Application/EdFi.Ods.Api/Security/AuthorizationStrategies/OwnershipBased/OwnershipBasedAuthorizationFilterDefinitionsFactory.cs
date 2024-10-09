@@ -76,7 +76,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     }
 
     private InstanceAuthorizationResult AuthorizeInstance(
-        EdFiAuthorizationContext authorizationContext,
+        DataManagementRequestContext authorizationContext,
         AuthorizationFilterContext filterContext,
         string authorizationStrategyName)
     {

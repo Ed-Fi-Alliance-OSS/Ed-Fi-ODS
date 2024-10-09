@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewSourceEndpointName,
             string viewTargetEndpointName,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
-            Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
+            Func<DataManagementRequestContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewName,
             string[] viewTargetEndpointNames,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
-            Func<EdFiAuthorizationContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
+            Func<DataManagementRequestContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,

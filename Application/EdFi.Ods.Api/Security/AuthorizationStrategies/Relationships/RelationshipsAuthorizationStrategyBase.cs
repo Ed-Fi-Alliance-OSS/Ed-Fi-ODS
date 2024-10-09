@@ -43,7 +43,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            DataManagementRequestContext authorizationContext)
         {
             EnsurePropertyDependenciesInitialized();
 

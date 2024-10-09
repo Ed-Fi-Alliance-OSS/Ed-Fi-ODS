@@ -49,7 +49,7 @@ public class PostgresViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSi
             $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName} AND authvw.{filterDefinition.ViewSourceEndpointName} IN ({edOrgIdsList})";  
     }
 
-    public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
+    public void ApplyClaimsParametersToCommand(DbCommand cmd, DataManagementRequestContext authorizationContext)
     {
         // Nothing to do -- using inline IN clause
     }

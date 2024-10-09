@@ -28,6 +28,6 @@ public interface IViewBasedSingleItemAuthorizationQuerySupport
     /// Provides an opportunity for implementations to apply
     /// </summary>
     /// <param name="cmd">The <see cref="DbCommand" /> instance being prepared for execution of the authorization query.</param>
-    /// <param name="authorizationContext">The <see cref="EdFiAuthorizationContext" /> instance, providing access to API client details.</param>
-    void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext);
+    /// <param name="authorizationContext">The <see cref="DataManagementRequestContext" /> instance, providing access to API client details.</param>
+    void ApplyClaimsParametersToCommand(DbCommand cmd, DataManagementRequestContext authorizationContext);
 }

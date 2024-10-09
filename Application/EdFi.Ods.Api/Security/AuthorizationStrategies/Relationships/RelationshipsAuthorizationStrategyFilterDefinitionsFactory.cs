@@ -121,7 +121,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(
-            EdFiAuthorizationContext authorizationContext,
+            DataManagementRequestContext authorizationContext,
             AuthorizationFilterContext filterContext,
             string authorizationStrategyName)
         {

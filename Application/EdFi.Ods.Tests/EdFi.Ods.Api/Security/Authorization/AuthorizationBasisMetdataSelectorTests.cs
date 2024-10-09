@@ -254,7 +254,7 @@ public class AuthorizationBasisMetadataSelectorTests
     {
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            DataManagementRequestContext authorizationContext)
             => new();
     }
 
@@ -263,7 +263,7 @@ public class AuthorizationBasisMetadataSelectorTests
     {
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            DataManagementRequestContext authorizationContext)
             => new();
     }
 }

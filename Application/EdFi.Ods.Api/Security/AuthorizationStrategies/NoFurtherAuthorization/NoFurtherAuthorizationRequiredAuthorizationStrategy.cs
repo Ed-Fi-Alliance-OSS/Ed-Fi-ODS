@@ -4,10 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -29,7 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            DataManagementRequestContext authorizationContext)
         {
             // Note: all claim checks are done in the implementation of the IEdFiAuthorizationProvider.
             // Do nothing because the resource authorization metadata provider should have returned claims for the

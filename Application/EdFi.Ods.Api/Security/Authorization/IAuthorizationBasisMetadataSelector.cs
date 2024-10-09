@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Security.Authorization;
 public interface IAuthorizationBasisMetadataSelector
 {
     /// <summary>
-    /// Finds the authorization metadata appropriate for the current request based on the claims, resource, action and context data (if available) in the <see cref="EdFiAuthorizationContext.Data"/>.
+    /// Finds the authorization metadata appropriate for the current request based on the claims, resource, action and context data (if available) in the <see cref="DataManagementRequestContext.Data"/>.
     /// </summary>
     AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(
         string claimSetName,
