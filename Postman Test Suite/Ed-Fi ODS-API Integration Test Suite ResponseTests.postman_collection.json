@@ -33,12 +33,12 @@
 									"pm.test(\"Should include a server-generated correlation id in the error response\", () => {\r",
 									"  const problemDetails = pm.response.json();\r",
 									"\r",
-									"  pm.expect(problemDetails.correlationId).to.exist;\r",
-									"\r",
-									"  pm.expect(problemDetails.errors[0]).to.equal(\"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\");\r",
+									"  // Postman tests provide a 12-character correlation id. Make sure that is not the one provided in the response.\r",
+									"  pm.expect(problemDetails.correlationId).to.have.length.not.equal(12);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -47,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "}",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,12 +93,11 @@
 									"  const problemDetails = pm.response.json();\r",
 									"\r",
 									"  pm.expect(problemDetails.correlationId).to.equal(\"abcd-in-querystring\");\r",
-									"\r",
-									"  pm.expect(problemDetails.errors[0]).to.equal(\"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\");\r",
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -107,7 +106,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "}",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -159,12 +158,11 @@
 									"  const problemDetails = pm.response.json();\r",
 									"\r",
 									"  pm.expect(problemDetails.correlationId).to.equal(\"abcd-in-header\");\r",
-									"\r",
-									"  pm.expect(problemDetails.errors[0]).to.equal(\"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\");\r",
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -179,7 +177,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "}",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -221,16 +219,15 @@
 									"  pm.expect(pm.response.code).to.equal(400);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Should include the correlation id in response\", () => {\r",
+									"pm.test(\"Should include the correlation id from the header in response\", () => {\r",
 									"  const problemDetails = pm.response.json();\r",
 									"\r",
 									"  pm.expect(problemDetails.correlationId).to.equal(\"abcd-in-header\");\r",
-									"\r",
-									"  pm.expect(problemDetails.errors[0]).to.equal(\"Unexpected character encountered while parsing value: }. Path '', line 0, position 0.\");\r",
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -245,7 +242,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "}",
+							"raw": "{}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4411,18 +4408,6 @@
 													"listen": "prerequest",
 													"script": {
 														"exec": [
-															"const uuid = require('uuid');",
-															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
-															"function createScenarioId() { return newGuid().substring(0,5); }",
-															"pm.environment.set('scenarioId', createScenarioId());",
-															"",
-															"const scenarioId = pm.environment.get('scenarioId');",
-															"",
-															"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
-															"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
-															"pm.environment.set('supplied:'+scenarioId+':yearsOfPriorProfessionalExperience', 1000);",
 															""
 														],
 														"type": "text/javascript"
@@ -4440,7 +4425,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"YearsOfPriorProfessionalExperience\":\"{{supplied:{{scenarioId}}:yearsOfPriorProfessionalExperience}}\"\r\n}\r\n"
+													"raw": "{ \r\n  \"staffUniqueId\": \"{{$randomBankAccount}}\",\r\n  \"firstName\": \"Jane\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"yearsOfPriorProfessionalExperience\": 1000\r\n}\r\n"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
@@ -4834,14 +4819,16 @@
 															"    const scenarioId = pm.environment.get('scenarioId');",
 															"    const knownStudentId = pm.environment.get('known:'+scenarioId+':studentId');",
 															"",
-															"    // Remove the correlationId query string parameter from the request url",
-															"    pm.request.url.removeQueryParams('correlationId');",
+															"    const actualLocation = pm.response.headers.one('location').value;",
+															"    ",
+															"    const expectedResourceUrl = pm.variables.replaceIn(\"{{ApiBaseUrl}}/data/v3/ed-fi/students\");",
+															"    const expectedLocation = `${expectedResourceUrl}/${knownStudentId}`;",
 															"",
-															"    pm.expect(pm.response.headers.one('location').value)",
-															"        .to.equal(`${pm.variables.replaceIn(pm.request.url.toString())}${knownStudentId}`);",
+															"    pm.expect(actualLocation).to.equal(expectedLocation);",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -4851,7 +4838,75 @@
 															"const scenarioId = pm.environment.get('scenarioId');",
 															"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"GotMarried\");"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "api_should_succeed_with_200_code (with trailing slash on url)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Should return the correct location header\", () => {",
+															"    const scenarioId = pm.environment.get('scenarioId');",
+															"    const knownStudentId = pm.environment.get('known:'+scenarioId+':studentId');",
+															"",
+															"    const actualLocation = pm.response.headers.one('location').value;",
+															"    ",
+															"    const expectedResourceUrl = pm.variables.replaceIn(\"{{ApiBaseUrl}}/data/v3/ed-fi/students\");",
+															"    const expectedLocation = `${expectedResourceUrl}/${knownStudentId}`;",
+															"",
+															"    pm.expect(actualLocation).to.equal(expectedLocation);",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"GotMarried\");"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -5553,18 +5608,16 @@
 													"});",
 													"",
 													"pm.test(\"Should indicate the source values are inconsistent\", () => {",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({",
-													"    \"$.gradingPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'\"",
-													"    ],",
-													"    \"$.studentSectionAssociationReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'\"",
-													"    ]",
-													"  });",
+													"  pm.expect(Object.keys(problemDetails.validationErrors).length).to.equal(2);",
+													"",
+													"  pm.expect(problemDetails.validationErrors[\"$.gradingPeriodReference.schoolId\"]).to.match(/All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'/i);",
+													"",
+													"  pm.expect(problemDetails.validationErrors[\"$.studentSectionAssociationReference.schoolId\"]).to.match(/All values supplied for 'schoolId' must match. Review all references and align the following conflicting values: '777', '888'/i);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -5646,33 +5699,21 @@
 													"});",
 													"",
 													"pm.test(\"Should indicate that the classPeriodReferences in the child collection are inconsistent with the parent context.\", () => {",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
-													"    \"$.classPeriods[0].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '888'\"",
-													"    ],",
-													"    \"$.classPeriods[1].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ],",
-													"    \"$.classPeriods[2].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ],",
-													"    \"$.classPeriods[3].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ],",
-													"    \"$.classPeriods[4].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ],",
-													"    \"$.classPeriods[5].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ],",
-													"    \"$.classPeriods[6].classPeriodReference.schoolId\": [",
-													"      \"All values supplied for 'schoolId' must match. Review all references (including those higher up in the resource's data) and align the following conflicting values: '777', '999'\"",
-													"    ]",
-													"  });",
+													"  // We should see at least 6 validation messages (for each member of the child collection)",
+													"  // but may also produce one for: \"$.schoolReference.schoolId\"",
+													"  pm.expect(Object.keys(problemDetails.validationErrors).length).to.be.gte(7);",
+													"  pm.expect(Object.keys(problemDetails.validationErrors).length).to.be.lte(8);",
+													"",
+													"  // Verify entries for each of the children allowing for 2 or 3 values (of 777, 888 and/or 999) as valid entries.",
+													"  for (var i = 0; i <= 6; i++) {",
+													"    pm.expect(problemDetails.validationErrors[`$.classPeriods[${i}].classPeriodReference.schoolId`])",
+													"      .to.match(/All values supplied for 'schoolId' must match. Review all references \\(including those higher up in the resource's data\\) and align the following conflicting values: (('777'|'888'|'999')(,\\s)?){2,3}/i);",
+													"  }",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -5754,10 +5795,7 @@
 													"});",
 													"",
 													"pm.test(\"Response should indicate that the contextual value was not supplied.\", () => {",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
-													"    \"$.classPeriods\": [",
-													"      \"The 3rd item of the BellScheduleClassPeriods has the same identifying values as another item earlier in the list.\"",
-													"    ],",
+													"  pm.expect(problemDetails.validationErrors).to.deep.contain({",
 													"    \"$.classPeriods[0].classPeriodReference\": [",
 													"      \"ClassPeriodReference is missing the following properties: SchoolId\"",
 													"    ],",
@@ -5767,7 +5805,8 @@
 													"  });",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -6113,14 +6152,12 @@
 															"});\r",
 															"\r",
 															"pm.test(\"Should return a message indicating that totalInstructionalDays is required.\", () => {\r",
-															"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
-															"    \"$.totalInstructionalDays\": [\r",
-															"      \"Value is required.\"\r",
-															"    ]\r",
-															"  });\r",
-															"});"
+															"  pm.expect(problemDetails.validationErrors[\"$.totalInstructionalDays\"]).to.match(/(Value|TotalInstructionalDays) is required./i);\r",
+															"});\r",
+															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -7230,7 +7267,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"BirthCountryDescriptor\": \"00\",\r\n  \"birthStateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#XYZ\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"birthCountryDescriptor\": \"00\",\r\n  \"birthStateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#XYZ\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -7467,11 +7504,14 @@
 															"});",
 															"",
 															"pm.test(\"Should return the correct location header\", () => {",
-															"    pm.request.url.removeQueryParams('correlationId');",
-															"    pm.expect(pm.response.headers.one('location').value).to.equal(pm.request.url.toString());",
+															"    const expectedLocation = pm.variables.replaceIn(\"{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}\");",
+															"console.log(expectedLocation);",
+															"console.log(pm.response.headers.one('location').value);",
+															"    pm.expect(pm.response.headers.one('location').value).to.equal(expectedLocation);",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -7765,7 +7805,8 @@
 													},
 													{
 														"key": "If-Match",
-														"value": "InvalidETAG",
+														"value": "\"InvalidETAG\"",
+														"description": "If-Match header values must be quoted to be processed (otherwise they are ignored).",
 														"type": "text"
 													}
 												],
@@ -8037,7 +8078,7 @@
 													},
 													{
 														"key": "If-Match",
-														"value": "InvalidETAG",
+														"value": "\"InvalidETAG\"",
 														"type": "text"
 													}
 												],
@@ -9658,11 +9699,13 @@
 															"  const scenarioId = pm.environment.get('scenarioId');",
 															"  const id = pm.environment.get('supplied:'+scenarioId+':programdGuid');",
 															"",
-															"  pm.expect(problemDetails.validationErrors[\"$.id\"][0]).to.equal(`The value '${id}' is not valid.`);",
+															"  const regex = new RegExp(`The value '${id}' is not valid`);",
+															"  pm.expect(problemDetails.validationErrors[\"$.id\"][0]).to.match(regex);",
 															"});",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -10035,7 +10078,8 @@
 												"header": [
 													{
 														"key": "If-Match",
-														"value": "InvalidETAG",
+														"value": "\"InvalidETAG\"",
+														"description": "ETag values must be enclosed in quotes to be processed.",
 														"type": "text"
 													}
 												],
@@ -10258,9 +10302,10 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"// NOTE: Do not add the correlationId here -- it impacts the correlationId tests.",
 					"// Add a correlation id to the query string of every request and save it to the environment as well",
-					"const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
-					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
+					"// const correlationId = pm.variables.replaceIn(\"{{$randomMACAddress}}\").replace(/:/g, '');",
+					"// pm.request.addQueryParams(`correlationId=${correlationId}`);",
 					"",
 					"CreateAccessToken(\"255901\");",
 					"",

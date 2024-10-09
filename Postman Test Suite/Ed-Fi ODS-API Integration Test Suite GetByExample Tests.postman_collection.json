@@ -232,7 +232,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -303,7 +303,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -352,7 +352,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -401,7 +401,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+							"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -712,13 +712,16 @@
 											"const responseItems = pm.response.json();\r",
 											"const tpdm_namespace = pm.environment.get('supplied:tpdm_namespace');\r",
 											"const science_codeValue = pm.environment.get('supplied:codeValue');\r",
-											"const english_id = pm.environment.get('supplied:english_id');\r",
 											"\r",
 											"pm.environment.set('known:all_academicSubjectDescriptors', responseItems);\r",
 											"pm.environment.set('known:tpdm_academicSubjectDescriptors', _.filter(responseItems, x => _.startsWith(x.namespace, tpdm_namespace)));\r",
 											"pm.environment.set('known:science_descriptor', _.filter(responseItems, x => _.startsWith(x.codeValue, science_codeValue)));\r",
-											"pm.environment.set('known:english_descriptor', _.filter(responseItems, x => _.startsWith(x.id, english_id)));\r",
-											""
+											"\r",
+											"const englishDescriptor = _.filter(responseItems, x => x.codeValue == \"English\");\r",
+											"console.log(englishDescriptor);\r",
+											"\r",
+											"pm.environment.set('known:english_descriptor', englishDescriptor);\r",
+											"pm.environment.set('known:english_id', englishDescriptor[0].id);"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -731,7 +734,7 @@
 											"pm.environment.set('supplied:edfi_namespace', 'uri://ed-fi.org/AcademicSubjectDescriptor');\r",
 											"pm.environment.set('supplied:tpdm_namespace', 'uri://tpdm.ed-fi.org/AcademicSubjectDescriptor');\r",
 											"pm.environment.set('supplied:codeValue', 'Science');\r",
-											"pm.environment.set('supplied:english_id', 'b61860ad52da43fb98a6e4fda8747e9f');"
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -989,7 +992,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?id={{supplied:english_id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?id={{known:english_id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1002,7 +1005,7 @@
 									"query": [
 										{
 											"key": "id",
-											"value": "{{supplied:english_id}}"
+											"value": "{{known:english_id}}"
 										}
 									]
 								}
@@ -1120,12 +1123,14 @@
 					"// Set variables related to data standard specific contact/parent variablility ",
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
+					"let ParentOrContactUniqueIdPropertyName = ParentOrContactProperName[0].toLowerCase() + ParentOrContactProperName.substring(1) + \"UniqueId\";",
 					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
 					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
 					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
 					"",
 					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
 					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdPropertyName\", ParentOrContactUniqueIdPropertyName);",
 					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
 					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
 					"",
