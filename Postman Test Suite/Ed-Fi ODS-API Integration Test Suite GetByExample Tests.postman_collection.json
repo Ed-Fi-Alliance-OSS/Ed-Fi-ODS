@@ -19,11 +19,12 @@
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
 									"});",
-									"const __ = require('lodash');",
+									"const _ = require('lodash');",
 									"const responseItems = pm.response.json();",
-									"pm.environment.set('known:schoolId', __.first(responseItems).schoolId);"
+									"pm.environment.set('known:schoolId', _.first(responseItems).schoolId);"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -102,9 +103,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -160,9 +160,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -225,9 +224,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -296,9 +294,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -345,9 +342,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -394,9 +390,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -709,10 +704,11 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
+											"const _ = require('lodash');\r",
 											"const responseItems = pm.response.json();\r",
 											"\r",
 											"// Get a valid id for the english descriptor\r",
-											"englishDescriptor = _.filter(responseItems, x => _.startsWith(x.codeValue, 'English'));\r",
+											"englishDescriptor = _.find(responseItems, x => _.isEqual(x.codeValue, 'English'));\r",
 											"pm.environment.set('supplied:english_id', englishDescriptor.id);\r",
 											"\r",
 											"const tpdm_namespace = pm.environment.get('supplied:tpdm_namespace');\r",
@@ -722,11 +718,11 @@
 											"const other_shortDescription = pm.environment.get('supplied:shortDescription');\r",
 											"\r",
 											"pm.environment.set('known:all_academicSubjectDescriptors', responseItems);\r",
-											"pm.environment.set('known:tpdm_academicSubjectDescriptors', _.filter(responseItems, x => _.startsWith(x.namespace, tpdm_namespace)));\r",
-											"pm.environment.set('known:science_descriptor', _.filter(responseItems, x => _.startsWith(x.codeValue, science_codeValue)));\r",
-											"pm.environment.set('known:english_descriptor', _.filter(responseItems, x => _.startsWith(x.id, english_id)));\r",
-											"pm.environment.set('known:lifeAndPhysicalSciences_descriptor', _.filter(responseItems, x => _.startsWith(x.descriptor, lifeAndPhysicalSciences_description)));\r",
-											"pm.environment.set('known:other_descriptor', _.filter(responseItems, x => _.startsWith(x.shortDescription, other_shortDescription)));\r",
+											"pm.environment.set('known:tpdm_academicSubjectDescriptors', _.filter(responseItems, x => _.isEqual(x.namespace, tpdm_namespace)));\r",
+											"pm.environment.set('known:science_descriptor', _.filter(responseItems, x => _.isEqual(x.codeValue, science_codeValue)));\r",
+											"pm.environment.set('known:english_descriptor', _.filter(responseItems, x => _.isEqual(x.id, english_id)));\r",
+											"pm.environment.set('known:lifeAndPhysicalSciences_descriptor', _.filter(responseItems, x => _.isEqual(x.description, lifeAndPhysicalSciences_description)));\r",
+											"pm.environment.set('known:other_descriptor', _.filter(responseItems, x => _.isEqual(x.shortDescription, other_shortDescription)));\r",
 											""
 										],
 										"type": "text/javascript",
@@ -1283,7 +1279,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set('supplied:schoolId', '255901001');\r",
+											"pm.environment.set('supplied:schoolId', 255901001);\r",
 											"pm.environment.set('supplied:nameOfInstitution', 'Grand Bend Middle School');\r",
 											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');"
 										],
@@ -1300,14 +1296,14 @@
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
-											"\r",
+											"const _ = require('lodash');\r",
 											"const highSchool_schoolId = pm.environment.get('supplied:schoolId');\r",
 											"const middleSchool_nameOfInstitution = pm.environment.get('supplied:nameOfInstitution');\r",
 											"const elementarySchool_shortNameOfInstitution = pm.environment.get('supplied:shortNameOfInstitution');\r",
 											"\r",
-											"pm.environment.set('known:highSchool', _.filter(responseItems, x => _.startsWith(x.schoolId, highSchool_schoolId)));\r",
-											"pm.environment.set('known:middleSchool', _.filter(responseItems, x => _.startsWith(x.nameOfInstitution, middleSchool_nameOfInstitution)));\r",
-											"pm.environment.set('known:elementarySchool', _.filter(responseItems, x => _.startsWith(x.shortNameOfInstitution, elementarySchool_shortNameOfInstitution)));"
+											"pm.environment.set('known:highSchool', _.filter(responseItems, x => _.isEqual(x.schoolId, highSchool_schoolId)));\r",
+											"pm.environment.set('known:middleSchool', _.filter(responseItems, x => _.isEqual(x.nameOfInstitution, middleSchool_nameOfInstitution)));\r",
+											"pm.environment.set('known:elementarySchool', _.filter(responseItems, x => _.isEqual(x.shortNameOfInstitution, elementarySchool_shortNameOfInstitution)));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1339,7 +1335,12 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set('supplied:operationalStatusDescriptor', 'uri://ed-fi.org/OperationalStatusDescriptor#Active');"
+											"pm.environment.set('supplied:operationalStatusDescriptor', 'uri://ed-fi.org/OperationalStatusDescriptor#Active');\r",
+											"\r",
+											"var encodedDescriptor = encodeURIComponent(pm.environment.get(\"supplied:operationalStatusDescriptor\"));\r",
+											"\r",
+											"pm.environment.set('supplied:encodedOperationalStatusDescriptor', encodedDescriptor);\r",
+											"pm.environment.set('supplied:encodedNonExistentOperationalStatusDescriptor', encodeURIComponent('uri://ed-fi.org/OperationalStatusDescriptor#Non-existent'));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1354,10 +1355,10 @@
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
-											"\r",
+											"const _ = require('lodash');\r",
 											"const postSecondary_operationalStatusDescriptor = pm.environment.get('supplied:operationalStatusDescriptor');\r",
 											"\r",
-											"pm.environment.set('known:postSecondary', _.filter(responseItems, x => _.startsWith(x.operationalStatusDescriptor, postSecondary_operationalStatusDescriptor)));"
+											"pm.environment.set('known:postSecondary', _.filter(responseItems, x => _.isEqual(x.operationalStatusDescriptor, postSecondary_operationalStatusDescriptor)));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1404,6 +1405,7 @@
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
+											"const _ = require('lodash');\r",
 											"\r",
 											"const lea_webSite = pm.environment.get('supplied:webSite');\r",
 											"\r",
@@ -1512,7 +1514,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?schoolId=999999999",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?schoolId=999999999",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1520,7 +1522,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"academicSubjectDescriptors"
+										"schools"
 									],
 									"query": [
 										{
@@ -1550,7 +1552,7 @@
 											"\r",
 											"pm.test(\"Should return expected 'Middle School'\", () => {\r",
 											"    const responseItems = pm.response.json();\r",
-											"    const middleSchool = pm.environment.get('known:middleSchool_nameOfInstitution');\r",
+											"    const middleSchool = pm.environment.get('known:middleSchool');\r",
 											"\r",
 											"    pm.expect(responseItems).to.deep.equal(middleSchool);\r",
 											"});\r",
@@ -1612,7 +1614,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?nameOfInstitution=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?nameOfInstitution=non-existent",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1620,7 +1622,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"academicSubjectDescriptors"
+										"schools"
 									],
 									"query": [
 										{
@@ -1650,10 +1652,20 @@
 											"\r",
 											"pm.test(\"Should return expected 'Post Secondary Institution'\", () => {\r",
 											"    const responseItems = pm.response.json();\r",
-											"    const postSecondary = pm.environment.get('known:postSecondary_operationalStatusDescriptor');\r",
+											"    const postSecondary = pm.environment.get('known:postSecondary');\r",
 											"\r",
 											"    pm.expect(responseItems).to.deep.equal(postSecondary);\r",
 											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
 											""
 										],
 										"type": "text/javascript",
@@ -1665,7 +1677,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor={{supplied:operationalStatusDescriptor}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor={{supplied:encodedOperationalStatusDescriptor}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1678,7 +1690,7 @@
 									"query": [
 										{
 											"key": "operationalStatusDescriptor",
-											"value": "{{supplied:operationalStatusDescriptor}}"
+											"value": "{{supplied:encodedOperationalStatusDescriptor}}"
 										}
 									]
 								}
@@ -1712,7 +1724,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor={{supplied:encodedNonExistentOperationalStatusDescriptor}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1725,7 +1737,7 @@
 									"query": [
 										{
 											"key": "operationalStatusDescriptor",
-											"value": "non-existent"
+											"value": "{{supplied:encodedNonExistentOperationalStatusDescriptor}}"
 										}
 									]
 								}
@@ -1750,7 +1762,7 @@
 											"\r",
 											"pm.test(\"Should return expected 'Elementary School'\", () => {\r",
 											"    const responseItems = pm.response.json();\r",
-											"    const elementarySchool = pm.environment.get('known:elementarySchool_shortNameOfInstitution');\r",
+											"    const elementarySchool = pm.environment.get('known:elementarySchool');\r",
 											"\r",
 											"    pm.expect(responseItems).to.deep.equal(elementarySchool);\r",
 											"});\r",
@@ -1812,7 +1824,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?shortNameOfInstitution=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?shortNameOfInstitution=non-existent",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1820,7 +1832,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"academicSubjectDescriptors"
+										"schools"
 									],
 									"query": [
 										{
@@ -1850,7 +1862,7 @@
 											"\r",
 											"pm.test(\"Should return expected 'Local Education Agency'\", () => {\r",
 											"    const responseItems = pm.response.json();\r",
-											"    const lea = pm.environment.get('known:lea_webSite');\r",
+											"    const lea = pm.environment.get('known:lea');\r",
 											"\r",
 											"    pm.expect(responseItems).to.deep.equal(lea);\r",
 											"});\r",
@@ -1912,7 +1924,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?webSite=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?webSite=non-existent",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1920,7 +1932,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"academicSubjectDescriptors"
+										"localEducationAgencies"
 									],
 									"query": [
 										{
@@ -1949,8 +1961,13 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.environment.set('supplied:endDate', '255901001');\r",
-											"pm.environment.set('supplied:reasonExitedDescriptor', 'uri://ed-fi.org/ReasonExitedDescriptor#Unknown reason');"
+											"pm.environment.set('supplied:endDate', '2021-09-30');\r",
+											"pm.environment.set('supplied:reasonExitedDescriptor', 'uri://ed-fi.org/ReasonExitedDescriptor#Unknown reason');\r",
+											"\r",
+											"var encodedDescriptor = encodeURIComponent(pm.environment.get(\"supplied:reasonExitedDescriptor\"));\r",
+											"\r",
+											"pm.environment.set('supplied:encodedReasonExitedDescriptor', encodedDescriptor);\r",
+											"pm.environment.set('supplied:encodedNonExistentReasonExitedDescriptor', encodeURIComponent('uri://ed-fi.org/ReasonExitedDescriptor#Non-existent'));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1963,7 +1980,7 @@
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
-											"\r",
+											"const _ = require('lodash');\r",
 											"const responseItems = pm.response.json();\r",
 											"\r",
 											"const neglectedOrDelinquent_endDate = pm.environment.get('supplied:endDate');\r",
@@ -2015,7 +2032,7 @@
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
-											"\r",
+											"const _ = require('lodash');\r",
 											"const responseItems = pm.response.json();\r",
 											"\r",
 											"const studentProgramAssociation_servedOutsideOfRegularSession = pm.environment.get('supplied:servedOutsideOfRegularSession');\r",
@@ -2051,7 +2068,7 @@
 					"name": "When filtering by ServedOutsideOfRegularSession",
 					"item": [
 						{
-							"name": "When filtering by an existing servedOutsideOfRegularSession",
+							"name": "When filtering by true servedOutsideOfRegularSession",
 							"event": [
 								{
 									"listen": "test",
@@ -2099,7 +2116,7 @@
 							"response": []
 						},
 						{
-							"name": "When filtering by a non-existent servedOutsideOfRegularSession",
+							"name": "When filtering by a false servedOutsideOfRegularSession",
 							"event": [
 								{
 									"listen": "test",
@@ -2109,10 +2126,10 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return an empty response\", () => {\r",
+											"pm.test(\"Should return filtered programs\", () => {\r",
 											"    const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"    pm.expect(responseItems.count()).to.greaterThan(0);\r",
 											"});\r",
 											""
 										],
@@ -2125,7 +2142,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?servedOutsideOfRegularSession=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?servedOutsideOfRegularSession=false",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2138,7 +2155,7 @@
 									"query": [
 										{
 											"key": "servedOutsideOfRegularSession",
-											"value": "non-existent"
+											"value": "false"
 										}
 									]
 								}
@@ -2225,7 +2242,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?endDate=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?endDate=1999-09-30",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2238,7 +2255,7 @@
 									"query": [
 										{
 											"key": "endDate",
-											"value": "non-existent"
+											"value": "1999-09-30"
 										}
 									]
 								}
@@ -2278,7 +2295,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor={{supplied:reasonExitedDescriptor}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor={{supplied:encodedReasonExitedDescriptor}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2291,7 +2308,7 @@
 									"query": [
 										{
 											"key": "reasonExitedDescriptor",
-											"value": "{{supplied:reasonExitedDescriptor}}"
+											"value": "{{supplied:encodedReasonExitedDescriptor}}"
 										}
 									]
 								}
@@ -2325,7 +2342,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor=non-existent",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor={{supplied:encodedNonExistentReasonExitedDescriptor}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2338,7 +2355,7 @@
 									"query": [
 										{
 											"key": "reasonExitedDescriptor",
-											"value": "non-existent"
+											"value": "{{supplied:encodedNonExistentReasonExitedDescriptor}}"
 										}
 									]
 								}
@@ -2359,13 +2376,16 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"const _ = require('lodash');\r",
+									"\r",
 									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 									"_.chain(_.keys(pm.environment.toObject()))\r",
 									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
 									"  .each(k => pm.environment.unset(k)).value();\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
