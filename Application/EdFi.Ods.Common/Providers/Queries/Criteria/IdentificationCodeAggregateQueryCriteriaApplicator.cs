@@ -97,10 +97,10 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
             $"{entityIdentificationCodeProperty.Entity.Schema}.{entityIdentificationCodeProperty.Entity.TableName(_databaseEngine)}"
                 .Alias(IdentificationCodeTableAlias));
 
-        foreach (var idProperty in GetIdentificationCodeEntityTableJoinColumnNames(
+        foreach (var entityIdentificationCodePropertyColumnName in GetIdentificationCodeEntityTableJoinColumnNames(
                      entityIdentificationCodeProperty.Entity, _databaseEngine))
         {
-            join.On($"{alias}.{idProperty}", $"{IdentificationCodeTableAlias}.{idProperty}");
+            join.On($"{alias}.{entityIdentificationCodePropertyColumnName}", $"{IdentificationCodeTableAlias}.{entityIdentificationCodePropertyColumnName}");
         }
 
         return join;
