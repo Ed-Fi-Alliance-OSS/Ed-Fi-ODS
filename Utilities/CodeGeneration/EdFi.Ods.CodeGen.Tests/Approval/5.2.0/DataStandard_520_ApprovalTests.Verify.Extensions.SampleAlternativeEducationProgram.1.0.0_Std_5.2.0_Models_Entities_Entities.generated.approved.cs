@@ -449,6 +449,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
             {
                 { "AlternativeEducationEligibilityReasonDescriptor", new LookupColumnDetails { PropertyName = "AlternativeEducationEligibilityReasonDescriptorId", LookupTypeName = "AlternativeEducationEligibilityReasonDescriptor"} },
                 { "ProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "ProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+                { "ReasonExitedDescriptor", new LookupColumnDetails { PropertyName = "ReasonExitedDescriptorId", LookupTypeName = "ReasonExitedDescriptor"} },
             };
 
         Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty

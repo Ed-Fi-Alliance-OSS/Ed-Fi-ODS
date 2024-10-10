@@ -357,8 +357,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                             ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
                                                                             AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
                                                                         }),
-                        LookupProperties = entity.Properties
-                                                 .Where(p => p.IsDescriptorUsage 
+                        LookupProperties = entity.Properties.Union(entity.InheritedProperties)
+                                                 .Where(p => p.IsDescriptorUsage
                                                      // NOTE: This condition isn't necessarily correct, but is necessary for matching
                                                      // "approved" generated output after removing original convention-based IsLookup
                                                      // implementation for the model-driven IsDescriptorUsage implementation.
