@@ -35,7 +35,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
         IDictionary<string, string> additionalParameters)
     {
         if (additionalParameters == null || !additionalParameters.Any() || additionalParameters.All(
-                ap => AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(ap.Key, StringComparer.InvariantCultureIgnoreCase)))
+                ap => AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(ap.Key, StringComparer.OrdinalIgnoreCase)))
             return;
 
         var entityIdentificationCodeProperty = AggregateRootCriteriaProviderHelpers.FindIdentificationCodeProperty(entity);
@@ -118,7 +118,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
     {
         return entityIdentificationCodeProperty.Entity.Properties
             .Where(IsQueryableIdentificationCodeProperty)
-            .ToDictionary(GetParameterNameForIdentificationCodeProperty, StringComparer.InvariantCultureIgnoreCase);
+            .ToDictionary(GetParameterNameForIdentificationCodeProperty, StringComparer.OrdinalIgnoreCase);
 
         string GetParameterNameForIdentificationCodeProperty(EntityProperty property)
         {
