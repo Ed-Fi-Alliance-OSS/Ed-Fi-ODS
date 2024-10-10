@@ -92,8 +92,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                 _derivedResource = resourceModel.GetAllResources()
                     .First(r => r.IsDerived);
 
-                var baseKeyProperties = _derivedResource.Entity.InheritedAlternateIdentifiers
-                    .SelectMany(x => x.Properties);
+                var baseKeyProperties = _derivedResource.Entity.InheritedProperties;
 
                 _expectedResourceProperties = _derivedResource.AllProperties.Where(
                         p => ModelComparers.Entity.Equals(
