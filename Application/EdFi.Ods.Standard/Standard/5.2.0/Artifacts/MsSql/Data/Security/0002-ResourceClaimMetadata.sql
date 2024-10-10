@@ -15957,9 +15957,9 @@ BEGIN
     DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/identity'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/services/identity'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/domains/identity'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/services/identity'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -15975,7 +15975,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', @parentResourceClaimId)
+            VALUES ('identity', 'http://ed-fi.org/ods/identity/claims/services/identity', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -16075,7 +16075,7 @@ BEGIN
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 
 
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/identity
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/services/identity
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
     ----------------------------------------------------------------------------------------------------------------------------
