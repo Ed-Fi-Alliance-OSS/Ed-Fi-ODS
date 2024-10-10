@@ -56,11 +56,11 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
     }
 
     private void ApplyParameterValuesToQueryBuilder(QueryBuilder queryBuilder, IDictionary<string, string> additionalParameters,
-        IDictionary<string, EntityProperty> identificationCodeParameters)
+        IDictionary<string, EntityProperty> identificationCodePropertiesByParameter)
     {
         foreach (KeyValuePair<string, string> parameter in additionalParameters)
         {
-            if (identificationCodeParameters.TryGetValue(parameter.Key, out var property))
+            if (identificationCodePropertiesByParameter.TryGetValue(parameter.Key, out var property))
             {
                 var queryParameterValue = GetQueryParameterValueForProperty(property, parameter.Value);
 
