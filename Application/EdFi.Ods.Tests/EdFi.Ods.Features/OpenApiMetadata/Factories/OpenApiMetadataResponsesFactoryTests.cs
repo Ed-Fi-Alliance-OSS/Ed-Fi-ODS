@@ -21,7 +21,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _swaggerResponses = new OpenApiMetadataResponsesFactory().Create();
+                _swaggerResponses = new OpenApiMetadataResponsesFactory().Create(false);
+            }
+
+            [Assert]
+            public void Should_contain_200_RetrievedPartitions()
+            {
+                Assert.That(_swaggerResponses.Keys, Has.Member("Partitions"));
             }
 
             [Assert]
