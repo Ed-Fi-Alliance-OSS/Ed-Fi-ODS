@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Api.Controllers.Partitions.Controllers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 
@@ -30,8 +31,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         @in = "query",
                         type = "integer",
                         format = "int32",
-                        required = false,
-                        @default = 0
+                        required = false
                     }
                 },
                 {
@@ -45,8 +45,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         format = "int32",
                         minimum = 0,
                         maximum  = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit(),
-                        required = false,
-                        @default = 25
+                        required = false
                     }
                 },
                 {
@@ -115,11 +114,50 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     {
                         name = "totalCount",
                         description =
-                            "Indicates if the total number of items available should be returned in the 'Total-Count' header of the response.  If set to false, 'Total-Count' header will not be provided.",
+                            "Indicates if the total number of items available should be returned in the 'Total-Count' header of the response.  If set to false, 'Total-Count' header will not be provided. Must be false when using key set paging.",
                         @in = "query",
                         type = "boolean",
                         required = false,
                         @default = false
+                    }
+                );
+
+                parameters.Add(
+                    "pageToken", new Parameter
+                    {
+                        name = "pageToken",
+                        description = "Applicable when using key set paging. The token of the page to retrieve.",
+                        @in = "query",
+                        type = "string",
+                        required = false
+                    }
+                );
+
+                parameters.Add(
+                    "pageSize", new Parameter
+                    {
+                        name = "pageSize",
+                        description = "Applicable when using key set paging. The maximum number of records to retrieve in the page.",
+                        @in = "query",
+                        type = "integer",
+                        format = "int32",
+                        minimum = 0,
+                        required = false
+                    }
+                );
+
+                parameters.Add(
+                    "numberOfPartitions", new Parameter
+                    {
+                        name = "number",
+                        description = "The number of evenly distributed partitions to provide across the matching results.",
+                        @in = "query",
+                        type = "integer",
+                        format = "int32",
+                        minimum = PartitionsController.MinPartitions,
+                        maximum = PartitionsController.MaxPartitions,
+                        required = false,
+                        @default = 2
                     }
                 );
             }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
@@ -97,6 +98,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 });
                         }
 
+                        if (!isCompositeContext)
+                        {
+                            paths.Add(new
+                            {
+                                Path = $"{resourcePath}/partitions",
+                                PathItem = CreatePathItemForPartitionOperation(r)
+                            });
+                        }
+
                         return paths.Where(p => p != null);
                     })
                 .GroupBy(p => p.Path)
@@ -142,8 +152,27 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 get = CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
             };
 
+        private PathItem CreatePathItemForPartitionOperation(OpenApiMetadataPathsResource openApiMetadataResource)
+            => new PathItem
+            {
+                get = CreateGetPartitionsOperation(openApiMetadataResource)
+            };
+
         private Operation CreateGetOperation(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
         {
+            var responses = CreateReadResponses(openApiMetadataResource, true);
+
+            if (!isCompositeContext)
+            {
+                var okResponse = responses["200"];
+                okResponse.headers ??= new Dictionary<string, Header>();
+                okResponse.headers.Add(HeaderConstants.NextPageToken, new Header
+                {
+                    description = "Applicable when using key set paging. It specifies the next page's token; if it is not returned, there are no remaining records in the partition.", 
+                    type = "string"
+                });
+            }
+
             var operation = new Operation
             {
                 tags = new List<string>
@@ -160,8 +189,42 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 {
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
-                parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
-                responses = CreateReadResponses(openApiMetadataResource, true)
+                parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext, true),
+                responses = responses
+            };
+
+            return operation;
+        }
+
+        private Operation CreateGetPartitionsOperation(OpenApiMetadataPathsResource openApiMetadataResource)
+        {
+            var parameters = new Parameter[]
+            {
+                new() {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("numberOfPartitions")}
+            }
+            .Concat(CreateGetByExampleParameters(openApiMetadataResource, false, false));
+
+            var responses = OpenApiMetadataDocumentHelper.GetBaseResponses();
+            responses.Add("200", new Response {@ref = OpenApiMetadataDocumentHelper.GetResponseReference("Partitions")});
+
+            var operation = new Operation
+            {
+                tags = new List<string>
+                {
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
+                        .ToCamelCase()
+                },
+                summary = "Retrieves a set of page tokens to be used for key set paging in the \"Get All\" endpoint.",
+                description =
+                    "This operation returns a set of page tokens representing the first page of evenly distributed partitions across the matching results, meant to be used for key set paging in the \"Get All\" endpoint to retrieve large amounts of data in parallel.",
+                operationId = $"get{openApiMetadataResource.Resource.PluralName}Partitions",
+                deprecated = openApiMetadataResource.IsDeprecated,
+                produces = new[]
+                {
+                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
+                },
+                parameters = parameters.ToList(),
+                responses = responses
             };
 
             return operation;
@@ -215,8 +278,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource, bool isArray)
         {
+            var resourceName = _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable);
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                OpenApiMetadataDocumentHelper.GetDefinitionReference(resourceName),
                 isArray);
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
@@ -240,13 +304,27 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return responses;
         }
 
-        private IList<Parameter> CreateQueryParameters(bool isCompositeContext)
+        private IList<Parameter> CreateQueryParameters(bool isCompositeContext, bool includePagingParameters)
         {
-            var parameterList = new List<Parameter>
+            var parameterList = new List<Parameter>();
+
+            if (includePagingParameters)
             {
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")}
-            };
+                parameterList.Add(
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset") });
+
+                parameterList.Add(
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit") });
+
+                if (!isCompositeContext)
+                {
+                    parameterList.Add(
+                        new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("pageToken") });
+
+                    parameterList.Add(
+                        new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("pageSize") });
+                }
+            }
 
             if (_apiSettings.IsFeatureEnabled("ChangeQueries") && !isCompositeContext)
             {
@@ -257,7 +335,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")});
             }
 
-            if (_openApiMetadataPathsFactorySelectorStrategy.HasTotalCount)
+            if (includePagingParameters && _openApiMetadataPathsFactorySelectorStrategy.HasTotalCount)
             {
                 parameterList.Add(
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount")});
@@ -267,9 +345,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
 
         private IList<Parameter> CreateGetByExampleParameters(OpenApiMetadataPathsResource openApiMetadataResource,
-            bool isCompositeContext)
+            bool isCompositeContext, bool includePagingParameters)
         {
-            var parameterList = CreateQueryParameters(isCompositeContext)
+            var parameterList = CreateQueryParameters(isCompositeContext, includePagingParameters)
                 .Concat(
                     openApiMetadataResource.DefaultGetByExampleParameters.Select(
                         p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
@@ -412,9 +490,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreateTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
-                true, true);
+            var resourceName = _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable);
+            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(OpenApiMetadataDocumentHelper.GetDefinitionReference($"trackedChanges_{resourceName}Delete"), true);
 
             var parameters = new List<Parameter>
             {
@@ -474,9 +551,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreateTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
-                true, false, true);
+            var resourceName = _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable);
+            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(OpenApiMetadataDocumentHelper.GetDefinitionReference($"trackedChanges_{resourceName}KeyChange"), true);
 
             var parameters = new List<Parameter>
             {
