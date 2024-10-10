@@ -710,14 +710,23 @@
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
+											"\r",
+											"// Get a valid id for the english descriptor\r",
+											"englishDescriptor = _.filter(responseItems, x => _.startsWith(x.codeValue, 'English'));\r",
+											"pm.environment.set('supplied:english_id', englishDescriptor.id);\r",
+											"\r",
 											"const tpdm_namespace = pm.environment.get('supplied:tpdm_namespace');\r",
 											"const science_codeValue = pm.environment.get('supplied:codeValue');\r",
 											"const english_id = pm.environment.get('supplied:english_id');\r",
+											"const lifeAndPhysicalSciences_description = pm.environment.get('supplied:description');\r",
+											"const other_shortDescription = pm.environment.get('supplied:shortDescription');\r",
 											"\r",
 											"pm.environment.set('known:all_academicSubjectDescriptors', responseItems);\r",
 											"pm.environment.set('known:tpdm_academicSubjectDescriptors', _.filter(responseItems, x => _.startsWith(x.namespace, tpdm_namespace)));\r",
 											"pm.environment.set('known:science_descriptor', _.filter(responseItems, x => _.startsWith(x.codeValue, science_codeValue)));\r",
 											"pm.environment.set('known:english_descriptor', _.filter(responseItems, x => _.startsWith(x.id, english_id)));\r",
+											"pm.environment.set('known:lifeAndPhysicalSciences_descriptor', _.filter(responseItems, x => _.startsWith(x.descriptor, lifeAndPhysicalSciences_description)));\r",
+											"pm.environment.set('known:other_descriptor', _.filter(responseItems, x => _.startsWith(x.shortDescription, other_shortDescription)));\r",
 											""
 										],
 										"type": "text/javascript",
@@ -731,7 +740,8 @@
 											"pm.environment.set('supplied:edfi_namespace', 'uri://ed-fi.org/AcademicSubjectDescriptor');\r",
 											"pm.environment.set('supplied:tpdm_namespace', 'uri://tpdm.ed-fi.org/AcademicSubjectDescriptor');\r",
 											"pm.environment.set('supplied:codeValue', 'Science');\r",
-											"pm.environment.set('supplied:english_id', 'b61860ad52da43fb98a6e4fda8747e9f');"
+											"pm.environment.set('supplied:description', 'Life and Physical Sciences');\r",
+											"pm.environment.set('supplied:shortDescription', 'Other');"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1050,6 +1060,1285 @@
 										{
 											"key": "id",
 											"value": "b61860ad52da43fb98a6e4fda8747e00"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by description",
+					"item": [
+						{
+							"name": "When  filtering by an existing description",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return 'Life And Physical Sciences' descriptor\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const lifeAndPhysicalSciences_descriptor = pm.environment.get('known:lifeAndPhysicalSciences_descriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(lifeAndPhysicalSciences_descriptor);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?description={{supplied:description}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "description",
+											"value": "{{supplied:description}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When  filtering by a non-existent description",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?description=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "description",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by shortDescription",
+					"item": [
+						{
+							"name": "When  filtering by an existing shortDescription",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return 'Other' descriptor\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const other_descriptor = pm.environment.get('known:other_descriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(other_descriptor);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?shortDescription={{supplied:shortDescription}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "shortDescription",
+											"value": "{{supplied:shortDescription}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When  filtering by a non-existent shortDescription",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?shortDescription=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "shortDescription",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "EducationOrganization Derived Resource Tests",
+			"item": [
+				{
+					"name": "Initialize",
+					"item": [
+						{
+							"name": "Initialize Schools",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:schoolId', '255901001');\r",
+											"pm.environment.set('supplied:nameOfInstitution', 'Grand Bend Middle School');\r",
+											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const highSchool_schoolId = pm.environment.get('supplied:schoolId');\r",
+											"const middleSchool_nameOfInstitution = pm.environment.get('supplied:nameOfInstitution');\r",
+											"const elementarySchool_shortNameOfInstitution = pm.environment.get('supplied:shortNameOfInstitution');\r",
+											"\r",
+											"pm.environment.set('known:highSchool', _.filter(responseItems, x => _.startsWith(x.schoolId, highSchool_schoolId)));\r",
+											"pm.environment.set('known:middleSchool', _.filter(responseItems, x => _.startsWith(x.nameOfInstitution, middleSchool_nameOfInstitution)));\r",
+											"pm.environment.set('known:elementarySchool', _.filter(responseItems, x => _.startsWith(x.shortNameOfInstitution, elementarySchool_shortNameOfInstitution)));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize PostSecondaryInstitutions",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:operationalStatusDescriptor', 'uri://ed-fi.org/OperationalStatusDescriptor#Active');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const postSecondary_operationalStatusDescriptor = pm.environment.get('supplied:operationalStatusDescriptor');\r",
+											"\r",
+											"pm.environment.set('known:postSecondary', _.filter(responseItems, x => _.startsWith(x.operationalStatusDescriptor, postSecondary_operationalStatusDescriptor)));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"postSecondaryInstitutions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize LocalEducationAgencies",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:webSite', 'http://www.GBISD.edu/');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const lea_webSite = pm.environment.get('supplied:webSite');\r",
+											"\r",
+											"pm.environment.set('known:lea', _.filter(responseItems, x => _.startsWith(x.webSite, lea_webSite)));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by SchoolId",
+					"item": [
+						{
+							"name": "When filtering by an existing schoolId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected 'High School'\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const highSchool = pm.environment.get('known:highSchool');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(highSchool);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?schoolId={{supplied:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "{{supplied:schoolId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent schoolId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?schoolId=999999999",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "999999999"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by NameOfInstitution",
+					"item": [
+						{
+							"name": "When filtering by an existing nameOfInstitution",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected 'Middle School'\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const middleSchool = pm.environment.get('known:middleSchool_nameOfInstitution');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(middleSchool);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?nameOfInstitution={{supplied:nameOfInstitution}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									],
+									"query": [
+										{
+											"key": "nameOfInstitution",
+											"value": "{{supplied:nameOfInstitution}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent nameOfInstitution",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?nameOfInstitution=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "nameOfInstitution",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by OperationalStatusDescriptor",
+					"item": [
+						{
+							"name": "When filtering by an existing operationalStatusDescriptor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected 'Post Secondary Institution'\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const postSecondary = pm.environment.get('known:postSecondary_operationalStatusDescriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(postSecondary);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor={{supplied:operationalStatusDescriptor}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"postSecondaryInstitutions"
+									],
+									"query": [
+										{
+											"key": "operationalStatusDescriptor",
+											"value": "{{supplied:operationalStatusDescriptor}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent operationalStatusDescriptor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/postSecondaryInstitutions?operationalStatusDescriptor=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"postSecondaryInstitutions"
+									],
+									"query": [
+										{
+											"key": "operationalStatusDescriptor",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by ShortNameOfInstitution",
+					"item": [
+						{
+							"name": "When filtering by an existing shortNameOfInstitution",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected 'Elementary School'\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const elementarySchool = pm.environment.get('known:elementarySchool_shortNameOfInstitution');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(elementarySchool);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?shortNameOfInstitution={{supplied:shortNameOfInstitution}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									],
+									"query": [
+										{
+											"key": "shortNameOfInstitution",
+											"value": "{{supplied:shortNameOfInstitution}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent shortNameOfInstitution",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?shortNameOfInstitution=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "shortNameOfInstitution",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by WebSite",
+					"item": [
+						{
+							"name": "When filtering by an existing webSite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected 'Local Education Agency'\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const lea = pm.environment.get('known:lea_webSite');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(lea);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?webSite={{supplied:webSite}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies"
+									],
+									"query": [
+										{
+											"key": "webSite",
+											"value": "{{supplied:webSite}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent webSite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicSubjectDescriptors?webSite=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"academicSubjectDescriptors"
+									],
+									"query": [
+										{
+											"key": "webSite",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GeneralStudentProgramAssociation Derived Resource Tests",
+			"item": [
+				{
+					"name": "Initialize",
+					"item": [
+						{
+							"name": "Initialize StudentNeglectedOrDelinquentProgramAssociations",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:endDate', '255901001');\r",
+											"pm.environment.set('supplied:reasonExitedDescriptor', 'uri://ed-fi.org/ReasonExitedDescriptor#Unknown reason');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const neglectedOrDelinquent_endDate = pm.environment.get('supplied:endDate');\r",
+											"const neglectedOrDelinquent_reasonExitedDescriptor = pm.environment.get('supplied:reasonExitedDescriptor');\r",
+											"\r",
+											"pm.environment.set('known:neglectedOrDelinquent_endDate', _.filter(responseItems, x => _.startsWith(x.endDate, neglectedOrDelinquent_endDate)));\r",
+											"pm.environment.set('known:neglectedOrDelinquent_reasonExitedDescriptor', _.filter(responseItems, x => _.startsWith(x.reasonExitedDescriptor, neglectedOrDelinquent_reasonExitedDescriptor)));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentNeglectedOrDelinquentProgramAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentProgramAssociations",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:servedOutsideOfRegularSession', 'true');"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const responseItems = pm.response.json();\r",
+											"\r",
+											"const studentProgramAssociation_servedOutsideOfRegularSession = pm.environment.get('supplied:servedOutsideOfRegularSession');\r",
+											"\r",
+											"pm.environment.set('known:studentProgramAssociation_servedOutsideOfRegularSession', _.filter(responseItems, x => _.startsWith(x.servedOutsideOfRegularSession, studentProgramAssociation_servedOutsideOfRegularSession)));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by ServedOutsideOfRegularSession",
+					"item": [
+						{
+							"name": "When filtering by an existing servedOutsideOfRegularSession",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected Program Association\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const studentProgramAssociation = pm.environment.get('known:studentProgramAssociation_servedOutsideOfRegularSession');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(studentProgramAssociation);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?servedOutsideOfRegularSession={{supplied:servedOutsideOfRegularSession}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "servedOutsideOfRegularSession",
+											"value": "{{supplied:servedOutsideOfRegularSession}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent servedOutsideOfRegularSession",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?servedOutsideOfRegularSession=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "servedOutsideOfRegularSession",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by EndDate",
+					"item": [
+						{
+							"name": "When filtering by an existing endDate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected Program Association\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const neglectedOrDelinquent = pm.environment.get('known:neglectedOrDelinquent_endDate');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(neglectedOrDelinquent);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?endDate={{supplied:endDate}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentNeglectedOrDelinquentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "endDate",
+											"value": "{{supplied:endDate}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent endDate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?endDate=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentNeglectedOrDelinquentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "endDate",
+											"value": "non-existent"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by ReasonExitedDescriptor",
+					"item": [
+						{
+							"name": "When filtering by an existing reasonExitedDescriptor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return expected Program Association\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"    const neglectedOrDelinquent = pm.environment.get('known:neglectedOrDelinquent_reasonExitedDescriptor');\r",
+											"\r",
+											"    pm.expect(responseItems).to.deep.equal(neglectedOrDelinquent);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor={{supplied:reasonExitedDescriptor}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentNeglectedOrDelinquentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "reasonExitedDescriptor",
+											"value": "{{supplied:reasonExitedDescriptor}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "When filtering by a non-existent reasonExitedDescriptor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return an empty response\", () => {\r",
+											"    const responseItems = pm.response.json();\r",
+											"\r",
+											"    pm.expect(responseItems.count()).to.equal(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentNeglectedOrDelinquentProgramAssociations?reasonExitedDescriptor=non-existent",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentNeglectedOrDelinquentProgramAssociations"
+									],
+									"query": [
+										{
+											"key": "reasonExitedDescriptor",
+											"value": "non-existent"
 										}
 									]
 								}
