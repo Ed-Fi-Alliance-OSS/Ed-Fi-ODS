@@ -296,7 +296,6 @@
 <node id="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <node id="/ed-fi/studentMigrantEducationProgramAssociations"/>
 <node id="/ed-fi/studentNeglectedOrDelinquentProgramAssociations"/>
-<node id="/ed-fi/studentParticipationCodeDescriptors"/>
 <node id="/ed-fi/studentProgramAssociations"/>
 <node id="/ed-fi/studentProgramAttendanceEvents"/>
 <node id="/ed-fi/studentProgramEvaluations"/>
@@ -596,6 +595,7 @@
 <edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/staffDisciplineIncidentAssociations"/>
 <edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
 <edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
+<edge source="/ed-fi/disciplineIncidents" target="/ed-fi/restraintEvents"/>
 <edge source="/ed-fi/disciplineIncidents" target="/ed-fi/staffDisciplineIncidentAssociations"/>
 <edge source="/ed-fi/disciplineIncidents" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
 <edge source="/ed-fi/disciplineIncidents" target="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
