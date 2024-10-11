@@ -35,7 +35,7 @@ SELECT @assessmentMetadataResourceClaimId = (SELECT [ResourceClaimId] FROM [dbo]
  WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata');
 
 SELECT @identityResourceClaimId = (SELECT [ResourceClaimId] FROM [dbo].[ResourceClaims]
- WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/identity');
+ WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/services/identity');
 
 SELECT @educationStandardsResourceClaimId = (SELECT [ResourceClaimId] FROM [dbo].[ResourceClaims]
  WHERE [ClaimName] = 'http://ed-fi.org/ods/identity/claims/domains/educationStandards');

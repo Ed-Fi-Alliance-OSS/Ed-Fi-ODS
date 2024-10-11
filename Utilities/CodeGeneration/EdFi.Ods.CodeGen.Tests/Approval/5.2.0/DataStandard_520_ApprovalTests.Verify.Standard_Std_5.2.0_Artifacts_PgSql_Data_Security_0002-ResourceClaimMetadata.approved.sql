@@ -14034,9 +14034,9 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/identity'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/services/identity'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/identity';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/services/identity';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -14049,7 +14049,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', parent_resource_claim_id)
+        VALUES ('identity', 'http://ed-fi.org/ods/identity/claims/services/identity', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -14141,7 +14141,7 @@ BEGIN
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/identity
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/services/identity
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
     ----------------------------------------------------------------------------------------------------------------------------
