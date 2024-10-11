@@ -18,50 +18,44 @@ namespace EdFi.Ods.Api.Security.Authorization.Filtering;
 /// </summary>
 public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizationPlanFactory
 {
-    private readonly IAuthorizationContextProvider _authorizationContextProvider;
     private readonly IApiClientContextProvider _apiClientContextProvider;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
     private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
 
     public DataManagementAuthorizationPlanFactory(
-        IAuthorizationContextProvider authorizationContextProvider,
         IApiClientContextProvider apiClientContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
         IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
         IResourceClaimUriProvider resourceClaimUriProvider)
     {
-        _authorizationContextProvider = authorizationContextProvider;
+        // _authorizationContextProvider = authorizationContextProvider;
         _apiClientContextProvider = apiClientContextProvider;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
         _resourceClaimUriProvider = resourceClaimUriProvider;
     }
 
-    public DataManagementAuthorizationPlan CreateAuthorizationPlan()
+    public DataManagementAuthorizationPlan CreateAuthorizationPlan(string actionUri)
     {
-        // Make sure action has been set before proceeding
-        _authorizationContextProvider.VerifyAuthorizationContextExists();
-
-        // Build the AuthorizationContext
+        // Build the request context
         var resource = _dataManagementResourceContextProvider.Get().Resource;
-        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
         string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
-        string requestActionUri = _authorizationContextProvider.GetAction();
+        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
 
         var dataManagementRequestContext = new DataManagementRequestContext(
             apiClientContext,
             resource,
             resourceClaimUris,
-            requestActionUri,
+            actionUri,
             (Type) (resource.Entity as dynamic).NHibernateEntityType);
 
         // Get authorization filters
         var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
             apiClientContext.ClaimSetName,
             resourceClaimUris,
-            requestActionUri);
-        
+            actionUri);
+
         var relevantClaims = new[] { authorizationBasisMetadata.RelevantClaim };
 
         var authorizationFiltering = authorizationBasisMetadata.AuthorizationStrategies

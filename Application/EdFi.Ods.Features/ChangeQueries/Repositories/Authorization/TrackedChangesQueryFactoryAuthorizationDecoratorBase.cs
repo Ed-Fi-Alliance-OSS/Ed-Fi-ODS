@@ -49,7 +49,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     $"Unable to perform authorization because entity type for '{resource.Entity.FullName}' could not be identified.");
             }
 
-            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
+            string actionUri = "XXXXX";
+
+            // TODO: Get ReadChanges URI here.
+            // -----------------------------------------------------------------
+            if (actionUri == new string('X', 5))
+            {
+                throw new NotImplementedException();
+            }
+            // -----------------------------------------------------------------
+            
+            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(actionUri);
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 

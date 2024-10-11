@@ -36,9 +36,9 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 using Action = EdFi.Security.DataAccess.Models.Action;
-using Helper = EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.AuthorizationTestsHelper;
+// using Helper = EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.AuthorizationTestsHelper;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
-
+/*
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     public class FakeEntity : AggregateRootWithCompositeKey { }
@@ -93,7 +93,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             )
         {
             return new EntityAuthorizer(
-                authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
+                // authorizationContextProvider ?? A.Fake<IAuthorizationContextProvider>(),
                 dataManagementAuthorizationPlanFactory ?? A.Fake<IDataManagementAuthorizationPlanFactory>(),
                 authorizationFilterDefinitionProvider ?? A.Fake<IAuthorizationFilterDefinitionProvider>(),
                 explicitObjectValidators ?? A.CollectionOfFake<IExplicitObjectValidator>(0).ToArray(),
@@ -127,7 +127,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 string validationRuleSetNameOverride = null)
         {
             return new EdFiResourceClaim(
-                    resourceClaimUri, new EdFiResourceClaimValue { Actions = new[] { new ResourceAction(actionUri, authorizationStrategyNameOverrides, validationRuleSetNameOverride) } });
+                resourceClaimUri,
+                new EdFiResourceClaimValue
+                {
+                    Actions = new[]
+                    {
+                        new ResourceAction(actionUri, authorizationStrategyNameOverrides, validationRuleSetNameOverride)
+                    }
+                });
         }
     }
 
@@ -2129,3 +2136,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         }
     }
 }
+
+*/

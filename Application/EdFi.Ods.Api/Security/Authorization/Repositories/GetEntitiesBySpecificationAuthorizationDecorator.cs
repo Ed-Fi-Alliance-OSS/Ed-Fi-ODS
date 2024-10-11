@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -30,6 +31,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
         private readonly IGetEntitiesBySpecification<TEntity> _next;
         private readonly ISessionFactory _sessionFactory;
+        private readonly Lazy<string> _readActionUri;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEntityByKeyAuthorizationDecorator{T}"/> class.
@@ -40,13 +42,15 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
         /// <param name="dataManagementAuthorizationPlanFactory">The component capable of authorizing the request, given necessary context.</param>
         /// <param name="entityAuthorizer"></param>
+        /// <param name="securityRepository"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
             IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
             IAuthorizationContextProvider authorizationContextProvider,
             IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
-            IEntityAuthorizer entityAuthorizer)
+            IEntityAuthorizer entityAuthorizer,
+            ISecurityRepository securityRepository)
             : base(
                 authorizationContextProvider,
                 entityAuthorizer)
@@ -55,6 +59,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _sessionFactory = sessionFactory;
             _authorizationPlanContextProvider = authorizationPlanContextProvider;
             _dataManagementAuthorizationPlanFactory = dataManagementAuthorizationPlanFactory;
+
+            _readActionUri = new Lazy<string>(() => securityRepository.GetActionByName("Read").ActionUri);
         }
 
         /// <summary>
@@ -72,7 +78,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
+            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(_readActionUri.Value);
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))

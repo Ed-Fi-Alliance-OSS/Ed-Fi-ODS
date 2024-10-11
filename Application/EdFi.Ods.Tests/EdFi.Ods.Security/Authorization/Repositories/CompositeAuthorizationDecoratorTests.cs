@@ -165,13 +165,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
                 Resource resource = CreateStudentResource();
 
-                Given<IDataManagementAuthorizationPlanFactory>(
-                    new DataManagementAuthorizationPlanFactory(
-                        authorizationContextProvider,
-                        A.Fake<IApiClientContextProvider>(),
-                        A.Fake<IContextProvider<DataManagementResourceContext>>(),
-                        A.Fake<IAuthorizationBasisMetadataSelector>(),
-                        A.Fake<IResourceClaimUriProvider>()));
+                throw new NotImplementedException();
+
+                // Given<IDataManagementAuthorizationPlanFactory>(
+                //     new DataManagementAuthorizationPlanFactory(
+                //         authorizationContextProvider,
+                //         A.Fake<IApiClientContextProvider>(),
+                //         A.Fake<IContextProvider<DataManagementResourceContext>>(),
+                //         A.Fake<IAuthorizationBasisMetadataSelector>(),
+                //         A.Fake<IResourceClaimUriProvider>()));
 
                 // Create the builder context
                 _hqlBuilderContext = new HqlBuilderContext(
@@ -271,10 +273,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             /// </summary>
             protected override void Arrange()
             {
-                A.CallTo(() =>
-                        Given<IDataManagementAuthorizationPlanFactory>()
-                            .CreateAuthorizationPlan())
-                    .Throws(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail,"Test exception"));
+                throw new NotImplementedException();
+                // A.CallTo(() =>
+                //         Given<IDataManagementAuthorizationPlanFactory>()
+                //             .CreateAuthorizationPlan())
+                //     .Throws(new SecurityAuthorizationException(SecurityAuthorizationException.DefaultDetail,"Test exception"));
             }
 
             /// <summary>

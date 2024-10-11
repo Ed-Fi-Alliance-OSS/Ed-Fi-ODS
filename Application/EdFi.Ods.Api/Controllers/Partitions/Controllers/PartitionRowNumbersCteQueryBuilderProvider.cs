@@ -112,10 +112,12 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
     {
         // Establish the authorization context -- currently done in SetAuthorizationContext pipeline step, but not accessible here
         _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(aggregateRootEntity));
-        _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("Read").ActionUri);
+
+        string actionUri = _securityRepository.GetActionByName("Read").ActionUri;
+        _authorizationContextProvider.SetAction(actionUri); // TODO: This may not be needed as action is passed.
 
         // Establish the authorization plan
-        var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
+        var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(actionUri);
         _authorizationPlanContextProvider.Set(authorizationPlan);
     }
 }

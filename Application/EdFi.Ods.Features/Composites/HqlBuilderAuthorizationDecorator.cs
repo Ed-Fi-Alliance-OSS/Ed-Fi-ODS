@@ -64,6 +64,7 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             //   Determine inclusion
             // --------------------------
+            // TODO: This may not be neede since URI is passed to create authorization plan
             _authorizationContextProvider.SetAction(RequestActions.ReadActionUri);
 
             // Authorize and apply filtering
@@ -71,7 +72,7 @@ namespace EdFi.Ods.Features.Composites
 
             try
             {
-                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan();
+                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri);
 
                 // Make sure that all applied filtering has HQL support 
                 if (!authorizationPlan.Filtering.All(

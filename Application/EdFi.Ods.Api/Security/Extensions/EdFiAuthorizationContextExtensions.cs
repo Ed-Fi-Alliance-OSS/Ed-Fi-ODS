@@ -25,4 +25,21 @@ public static class EdFiAuthorizationContextExtensions
             ? existingDataText
             : proposedDataText;
     }
+
+    /// <summary>
+    /// Gets one of two possible strings supplied corresponding to the authorization phase of the authorization context.
+    /// </summary>
+    /// <param name="authorizationPhase">The current authorization phase.</param>
+    /// <param name="existingDataText">The text to return if the phase is <see cref="AuthorizationPhase.ExistingData"/></param>
+    /// <param name="proposedDataText">The text to return if the phase is <see cref="AuthorizationPhase.ProposedData"/></param>
+    /// <returns>The appropriate supplied string.</returns>
+    public static string GetPhaseText(
+        this AuthorizationPhase authorizationPhase,
+        string existingDataText = null,
+        string proposedDataText = null)
+    {
+        return authorizationPhase == AuthorizationPhase.ExistingData
+            ? existingDataText
+            : proposedDataText;
+    }
 }

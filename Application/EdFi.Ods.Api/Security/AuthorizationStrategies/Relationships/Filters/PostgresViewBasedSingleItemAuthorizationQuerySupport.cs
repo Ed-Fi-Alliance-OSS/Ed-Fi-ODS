@@ -3,17 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
 public class PostgresViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSingleItemAuthorizationQuerySupport
 {
-    public string GetItemExistenceCheckSql(ViewBasedAuthorizationFilterDefinition filterDefinition, AuthorizationFilterContext filterContext)
+    public string GetItemExistenceCheckSql(
+        ViewBasedAuthorizationFilterDefinition filterDefinition,
+        AuthorizationFilterContext filterContext)
     {
         // If we are processing a view-based authorization with no claim values to be applied
         if (filterContext.ClaimParameterName == null)
@@ -49,7 +51,7 @@ public class PostgresViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSi
             $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName} AND authvw.{filterDefinition.ViewSourceEndpointName} IN ({edOrgIdsList})";  
     }
 
-    public void ApplyClaimsParametersToCommand(DbCommand cmd, DataManagementRequestContext authorizationContext)
+    public void ApplyEducationOrganizationIdClaimsToCommand(DbCommand cmd, IList<long> claimEducationOrganizationIds)
     {
         // Nothing to do -- using inline IN clause
     }

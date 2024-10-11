@@ -15,6 +15,7 @@ public interface IDataManagementAuthorizationPlanFactory
     /// <summary>
     /// Authorizes a multiple-item read request using the claims, resource, action and entity instance supplied in the <see cref="DataManagementRequestContext"/>.
     /// </summary>
+    /// <param name="actionUri">The URI representation of the action being performed by the current request.</param>
     /// <returns>A plan containing relevant context for authorization and the filters to be applied to the query.</returns>
-    DataManagementAuthorizationPlan CreateAuthorizationPlan();
+    DataManagementAuthorizationPlan CreateAuthorizationPlan(string actionUri);
 }

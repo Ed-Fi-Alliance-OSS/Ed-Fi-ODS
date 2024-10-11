@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Data.Common;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
@@ -28,6 +28,6 @@ public interface IViewBasedSingleItemAuthorizationQuerySupport
     /// Provides an opportunity for implementations to apply
     /// </summary>
     /// <param name="cmd">The <see cref="DbCommand" /> instance being prepared for execution of the authorization query.</param>
-    /// <param name="authorizationContext">The <see cref="DataManagementRequestContext" /> instance, providing access to API client details.</param>
-    void ApplyClaimsParametersToCommand(DbCommand cmd, DataManagementRequestContext authorizationContext);
+    /// <param name="claimEducationOrganizationIds">A list of Education Organization Ids associated with the API client.</param>
+    void ApplyEducationOrganizationIdClaimsToCommand(DbCommand cmd, IList<long> claimEducationOrganizationIds);
 }

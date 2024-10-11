@@ -25,7 +25,6 @@ public class AuthorizationBasisMetadataSelectorTests
 {
     private IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
     private ISecurityRepository _securityRepository;
-    private IAuthorizationStrategy[] _suppliedAuthorizationStrategies;
     private IClaimSetClaimsProvider _claimSetClaimsProvider;
     private AuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
     
