@@ -1291,19 +1291,21 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
-											"const __ = require('lodash');\r",
+											"\r",
 											"const highSchool_schoolId = pm.environment.get('supplied:schoolId');\r",
 											"const middleSchool_nameOfInstitution = pm.environment.get('supplied:nameOfInstitution');\r",
 											"const elementarySchool_shortNameOfInstitution = pm.environment.get('supplied:shortNameOfInstitution');\r",
 											"\r",
-											"pm.environment.set('known:highSchool', __.filter(responseItems, x => __.isEqual(x.schoolId, highSchool_schoolId)));\r",
-											"pm.environment.set('known:middleSchool', __.filter(responseItems, x => __.isEqual(x.nameOfInstitution, middleSchool_nameOfInstitution)));\r",
-											"pm.environment.set('known:elementarySchool', __.filter(responseItems, x => __.isEqual(x.shortNameOfInstitution, elementarySchool_shortNameOfInstitution)));"
+											"pm.environment.set('known:highSchool_id', __.find(responseItems, x => __.isEqual(x.schoolId, highSchool_schoolId)).id);\r",
+											"pm.environment.set('known:middleSchool_id', __.find(responseItems, x => __.isEqual(x.nameOfInstitution, middleSchool_nameOfInstitution)).id);\r",
+											"pm.environment.set('known:elementarySchool_id', __.find(responseItems, x => __.isEqual(x.shortNameOfInstitution, elementarySchool_shortNameOfInstitution)).id);"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1350,15 +1352,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
-											"const __ = require('lodash');\r",
+											"\r",
 											"const postSecondary_operationalStatusDescriptor = pm.environment.get('supplied:operationalStatusDescriptor');\r",
 											"\r",
-											"pm.environment.set('known:postSecondary', __.filter(responseItems, x => __.isEqual(x.operationalStatusDescriptor, postSecondary_operationalStatusDescriptor)));"
+											"pm.environment.set('known:postSecondary_id', __.find(responseItems, x => __.isEqual(x.operationalStatusDescriptor, postSecondary_operationalStatusDescriptor)).id);"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1400,16 +1404,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const responseItems = pm.response.json();\r",
-											"const __ = require('lodash');\r",
 											"\r",
 											"const lea_webSite = pm.environment.get('supplied:webSite');\r",
 											"\r",
-											"pm.environment.set('known:lea', __.filter(responseItems, x => __.startsWith(x.webSite, lea_webSite)));"
+											"pm.environment.set('known:lea_id', __.find(responseItems, x => __.startsWith(x.webSite, lea_webSite)).id);"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1450,13 +1455,13 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return expected 'High School'\", () => {\r",
-											"    const responseItems = pm.response.json();\r",
-											"    const highSchool = pm.environment.get('known:highSchool');\r",
+											"const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(highSchool);\r",
-											"});\r",
-											""
+											"pm.test(\"Should return one expected resouce\", () => {\r",
+											"    pm.expect(responseItems.count()).to.equal(1);\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:highSchool_id'));\r",
+											"    pm.expect(responseItems[0].schoolId).to.equals(pm.environment.get('supplied:schoolId'));\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1550,13 +1555,13 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return expected 'Middle School'\", () => {\r",
-											"    const responseItems = pm.response.json();\r",
-											"    const middleSchool = pm.environment.get('known:middleSchool');\r",
+											"const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(middleSchool);\r",
-											"});\r",
-											""
+											"pm.test(\"Should return one expected resouce\", () => {\r",
+											"    pm.expect(responseItems.count()).to.equal(1);\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:middleSchool_id'));\r",
+											"    pm.expect(responseItems[0].nameOfInstitution).to.equals(pm.environment.get('supplied:nameOfInstitution'));\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1650,13 +1655,13 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return expected 'Post Secondary Institution'\", () => {\r",
-											"    const responseItems = pm.response.json();\r",
-											"    const postSecondary = pm.environment.get('known:postSecondary');\r",
+											"const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(postSecondary);\r",
-											"});\r",
-											""
+											"pm.test(\"Should return one expected resouce\", () => {\r",
+											"    pm.expect(responseItems.count()).to.equal(1);\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:postSecondary_id'));\r",
+											"    pm.expect(responseItems[0].operationalStatusDescriptor).to.equals(pm.environment.get('supplied:operationalStatusDescriptor'));\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1760,13 +1765,13 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return expected 'Elementary School'\", () => {\r",
-											"    const responseItems = pm.response.json();\r",
-											"    const elementarySchool = pm.environment.get('known:elementarySchool');\r",
+											"const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(elementarySchool);\r",
-											"});\r",
-											""
+											"pm.test(\"Should return one expected resouce\", () => {\r",
+											"    pm.expect(responseItems.count()).to.equal(1);\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:elementarySchool_id'));\r",
+											"    pm.expect(responseItems[0].shortNameOfInstitution).to.equals(pm.environment.get('supplied:shortNameOfInstitution'));\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1860,13 +1865,13 @@
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return expected 'Local Education Agency'\", () => {\r",
-											"    const responseItems = pm.response.json();\r",
-											"    const lea = pm.environment.get('known:lea');\r",
+											"const responseItems = pm.response.json();\r",
 											"\r",
-											"    pm.expect(responseItems).to.deep.equal(lea);\r",
-											"});\r",
-											""
+											"pm.test(\"Should return one expected resouce\", () => {\r",
+											"    pm.expect(responseItems.count()).to.equal(1);\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:lea_id'));\r",
+											"    pm.expect(responseItems[0].webSite).to.equals(pm.environment.get('supplied:webSite'));\r",
+											"});"
 										],
 										"type": "text/javascript",
 										"packages": {}
