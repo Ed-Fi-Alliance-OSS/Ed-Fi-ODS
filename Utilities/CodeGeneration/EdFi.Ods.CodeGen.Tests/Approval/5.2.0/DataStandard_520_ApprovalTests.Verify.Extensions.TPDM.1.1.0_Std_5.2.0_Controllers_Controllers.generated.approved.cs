@@ -724,6 +724,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.ActualDuration = request.ActualDuration;
+            specification.Comments = request.Comments;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;

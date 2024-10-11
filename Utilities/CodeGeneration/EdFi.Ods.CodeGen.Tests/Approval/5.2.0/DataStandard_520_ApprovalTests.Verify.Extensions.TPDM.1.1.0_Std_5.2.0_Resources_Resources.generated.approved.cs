@@ -1026,7 +1026,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The sex of the candidate.
         /// </summary>
         // NOT in a reference, IS a lookup column 
-        [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="sexDescriptor")][DescriptorExists("SexDescriptor")]
         public string SexDescriptor { get; set; }
@@ -2262,7 +2261,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         /// <summary>
-        /// The month, day, and year for the start of the period.
+        /// The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
@@ -2333,7 +2332,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year for the end of the period.
+        /// The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -5147,7 +5146,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The begin date for the association.
+        /// The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
@@ -5340,7 +5339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The end date for the association.
+        /// The end date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -6111,7 +6110,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year on which the Teacher Candidate exited the declared specialization.
+        /// The month, day, and year on which the Teacher Candidate exited the declared specialization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -16912,6 +16911,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
 
         /// <summary>
+        /// The actual or estimated number of clock minutes during which the evaluation was conducted.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
+        [DataMember(Name="actualDuration")]
+        public int? ActualDuration { get; set; }
+
+        /// <summary>
+        /// Any comments about the evaluation to be captured.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
+        [DataMember(Name="comments")]
+        public string Comments { get; set; }
+
+        /// <summary>
         /// The rating level achieved based upon the rating or score.
         /// </summary>
         // NOT in a reference, IS a lookup column 
@@ -19493,7 +19508,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         public string AidTypeDescriptor { get; set; }
 
         /// <summary>
-        /// The date the award was designated.
+        /// The date the award was designated.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
@@ -19616,7 +19631,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         public string AidConditionDescription { get; set; }
 
         /// <summary>
-        /// The date the award was removed.
+        /// The date the award was removed.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]

@@ -3392,6 +3392,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string TermDescriptor { get; set; }
 
         // Non-PK properties
+        int? ActualDuration { get; set; }
+        string Comments { get; set; }
         string EvaluationRatingLevelDescriptor { get; set; }
         string EvaluationRatingStatusDescriptor { get; set; }
         string LocalCourseCode { get; set; }
@@ -3421,6 +3423,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     public class EvaluationRatingMappingContract : IMappingContract
     {
         public EvaluationRatingMappingContract(
+            bool isActualDurationSupported,
+            bool isCommentsSupported,
             bool isEvaluationRatingLevelDescriptorSupported,
             bool isEvaluationRatingResultsSupported,
             bool isEvaluationRatingReviewersSupported,
@@ -3438,6 +3442,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             Func<IEvaluationRatingReviewer, bool> isEvaluationRatingReviewerIncluded
             )
         {
+            IsActualDurationSupported = isActualDurationSupported;
+            IsCommentsSupported = isCommentsSupported;
             IsEvaluationRatingLevelDescriptorSupported = isEvaluationRatingLevelDescriptorSupported;
             IsEvaluationRatingResultsSupported = isEvaluationRatingResultsSupported;
             IsEvaluationRatingReviewersSupported = isEvaluationRatingReviewersSupported;
@@ -3455,6 +3461,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
             IsEvaluationRatingReviewerIncluded = isEvaluationRatingReviewerIncluded;
         }
 
+        public bool IsActualDurationSupported { get; }
+        public bool IsCommentsSupported { get; }
         public bool IsEvaluationRatingLevelDescriptorSupported { get; }
         public bool IsEvaluationRatingResultsSupported { get; }
         public bool IsEvaluationRatingReviewersSupported { get; }
@@ -3475,6 +3483,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
         {
             switch (memberName)
             {
+                case "ActualDuration":
+                    return IsActualDurationSupported;
+                case "Comments":
+                    return IsCommentsSupported;
                 case "EvaluationRatingLevelDescriptor":
                     return IsEvaluationRatingLevelDescriptorSupported;
                 case "EvaluationRatingResults":

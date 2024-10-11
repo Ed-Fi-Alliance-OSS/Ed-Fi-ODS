@@ -11669,6 +11669,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RestraintEvents.EdFi
         public string EducationalEnvironmentDescriptor { get; set; }
         public DateTime EventDate { get; set; }
         public Guid Id { get; set; }
+        public string IncidentIdentifier { get; set; }
         public string RestraintEventIdentifier { get; set; }
         public long SchoolId { get; set; }
         public string StudentUniqueId { get; set; }
@@ -14974,55 +14975,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgra
         public StudentNeglectedOrDelinquentProgramAssociationDelete() { }
 
         public StudentNeglectedOrDelinquentProgramAssociationDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorGetByExample
-    {
-        public string CodeValue { get; set; }
-        public Guid Id { get; set; }
-        public string Namespace { get; set; }
-        public int StudentParticipationCodeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public StudentParticipationCodeDescriptorGetByIds() { }
-
-        public StudentParticipationCodeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorPost : Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorPut : Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorDelete : IHasIdentifier
-    {
-        public StudentParticipationCodeDescriptorDelete() { }
-
-        public StudentParticipationCodeDescriptorDelete(Guid id)
         {
             Id = id;
         }

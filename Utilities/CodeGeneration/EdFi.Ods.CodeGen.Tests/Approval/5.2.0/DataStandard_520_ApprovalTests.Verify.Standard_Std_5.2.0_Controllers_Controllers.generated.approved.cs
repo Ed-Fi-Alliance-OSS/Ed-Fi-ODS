@@ -7992,6 +7992,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
             specification.EducationalEnvironmentDescriptor = request.EducationalEnvironmentDescriptor;
             specification.EventDate = request.EventDate;
             specification.Id = request.Id;
+            specification.IncidentIdentifier = request.IncidentIdentifier;
             specification.RestraintEventIdentifier = request.RestraintEventIdentifier;
             specification.SchoolId = request.SchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
@@ -10274,39 +10275,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [ApplyOdsRouteRootTemplate, Route($"{RouteConstants.DataManagementRoutePrefix}/ed-fi/studentParticipationCodeDescriptors")]
-    public partial class StudentParticipationCodeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor,
-        Entities.Common.EdFi.IStudentParticipationCodeDescriptor,
-        Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor,
-        Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorPut,
-        Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorPost,
-        Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorDelete,
-        Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample>
-    {
-        public StudentParticipationCodeDescriptorsController(IPipelineFactory pipelineFactory, IEdFiProblemDetailsProvider problemDetailsProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider, IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider, ILogContextAccessor logContextAccessor)
-            : base(pipelineFactory, problemDetailsProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider, dataManagementResourceContextProvider, logContextAccessor)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample request, Entities.Common.EdFi.IStudentParticipationCodeDescriptor specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.CodeValue = request.CodeValue;
-            specification.Id = request.Id;
-            specification.Namespace = request.Namespace;
-            specification.StudentParticipationCodeDescriptorId = request.StudentParticipationCodeDescriptorId;
         }
     }
 }

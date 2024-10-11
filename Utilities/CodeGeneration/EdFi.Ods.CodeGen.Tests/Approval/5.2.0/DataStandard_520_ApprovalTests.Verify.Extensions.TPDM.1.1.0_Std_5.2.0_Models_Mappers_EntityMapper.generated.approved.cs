@@ -5178,6 +5178,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
+            if ((mappingContract?.IsActualDurationSupported != false)
+                && target.ActualDuration != source.ActualDuration)
+            {
+                target.ActualDuration = source.ActualDuration;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsCommentsSupported != false)
+                && target.Comments != source.Comments)
+            {
+                target.Comments = source.Comments;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsEvaluationRatingLevelDescriptorSupported != false)
                 && target.EvaluationRatingLevelDescriptor != source.EvaluationRatingLevelDescriptor)
             {
@@ -5275,6 +5289,12 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             target.TermDescriptor = source.TermDescriptor;
 
             // Copy non-PK properties
+
+            if (mappingContract?.IsActualDurationSupported != false)
+                target.ActualDuration = source.ActualDuration;
+
+            if (mappingContract?.IsCommentsSupported != false)
+                target.Comments = source.Comments;
 
             if (mappingContract?.IsEvaluationRatingLevelDescriptorSupported != false)
                 target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;

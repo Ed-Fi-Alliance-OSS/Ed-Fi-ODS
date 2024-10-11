@@ -26,12 +26,12 @@
 
       <!-- Direct copy template files -->
       <ProjectItem>assemblyMetadata.json</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ApiModel-EXTENSION.json">Versions\1.0.0\Standard\5.1.0\Artifacts\Metadata\ApiModel-EXTENSION.json</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist1.sql">Versions\1.0.0\Standard\5.1.0\Artifacts\MsSql\Data\ThisFileMustExist1.sql</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist2.sql">Versions\1.0.0\Standard\5.1.0\Artifacts\MsSql\Structure\ThisFileMustExist2.sql</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist3.sql">Versions\1.0.0\Standard\5.1.0\Artifacts\PgSql\Data\ThisFileMustExist3.sql</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist4.sql">Versions\1.0.0\Standard\5.1.0\Artifacts\PgSql\Structure\ThisFileMustExist4.sql</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist5.xsd">Versions\1.0.0\Standard\5.1.0\Artifacts\Schemas\ThisFileMustExist5.xsd</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ApiModel-EXTENSION.json">Versions\1.0.0\Standard\5.2.0\Artifacts\Metadata\ApiModel-EXTENSION.json</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist1.sql">Versions\1.0.0\Standard\5.2.0\Artifacts\MsSql\Data\ThisFileMustExist1.sql</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist2.sql">Versions\1.0.0\Standard\5.2.0\Artifacts\MsSql\Structure\ThisFileMustExist2.sql</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist3.sql">Versions\1.0.0\Standard\5.2.0\Artifacts\PgSql\Data\ThisFileMustExist3.sql</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist4.sql">Versions\1.0.0\Standard\5.2.0\Artifacts\PgSql\Structure\ThisFileMustExist4.sql</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="ThisFileMustExist5.xsd">Versions\1.0.0\Standard\5.2.0\Artifacts\Schemas\ThisFileMustExist5.xsd</ProjectItem>
 
 		<!--Generated Files-->
 
