@@ -67,8 +67,8 @@ COMMENT ON COLUMN tpdm.CandidateAddressPeriod.City IS 'The name of the city in w
 COMMENT ON COLUMN tpdm.CandidateAddressPeriod.PostalCode IS 'The five or nine digit zip code or overseas postal code portion of an address.';
 COMMENT ON COLUMN tpdm.CandidateAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
 COMMENT ON COLUMN tpdm.CandidateAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
-COMMENT ON COLUMN tpdm.CandidateAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.';
-COMMENT ON COLUMN tpdm.CandidateAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
+COMMENT ON COLUMN tpdm.CandidateAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN tpdm.CandidateAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [tpdm].[CandidateDisability] --
 COMMENT ON TABLE tpdm.CandidateDisability IS 'The disability condition(s) that best describes an individual''s impairment.';
@@ -86,18 +86,18 @@ COMMENT ON COLUMN tpdm.CandidateDisabilityDesignation.DisabilityDesignationDescr
 
 -- Extended Properties [tpdm].[CandidateEducatorPreparationProgramAssociation] --
 COMMENT ON TABLE tpdm.CandidateEducatorPreparationProgramAssociation IS 'Information about the association between the Teacher Candidate and the EducatorPreparationProgram';
-COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.BeginDate IS 'The begin date for the association.';
+COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.BeginDate IS 'The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.ProgramName IS 'The name of the Educator Preparation Program.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.EndDate IS 'The end date for the association.';
+COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.EndDate IS 'The end date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.EPPProgramPathwayDescriptorId IS 'The program pathway the candidate is following; for example: Residency, Internship, Traditional';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociation.ReasonExitedDescriptorId IS 'Reason exited for the association.';
 
 -- Extended Properties [tpdm].[CandidateEducatorPreparationProgramAssociationCohortYear] --
 COMMENT ON TABLE tpdm.CandidateEducatorPreparationProgramAssociationCohortYear IS 'The type and year of a cohort the student belongs to as determined by the year that student entered a specific grade.';
-COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.BeginDate IS 'The begin date for the association.';
+COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.BeginDate IS 'The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.ProgramName IS 'The name of the Educator Preparation Program.';
@@ -108,13 +108,13 @@ COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationCohortYear.
 
 -- Extended Properties [tpdm].[CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4] --
 COMMENT ON TABLE tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 IS 'Information around the area(s) of specialization for an individual.';
-COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.BeginDate IS 'The begin date for the association.';
+COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.BeginDate IS 'The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.CandidateIdentifier IS 'A unique alphanumeric code assigned to a candidate.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.ProgramName IS 'The name of the Educator Preparation Program.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
-COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.EndDate IS 'The month, day, and year on which the Teacher Candidate exited the declared specialization.';
+COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.EndDate IS 'The month, day, and year on which the Teacher Candidate exited the declared specialization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4.MinorSpecialization IS 'The minor area for a degree or area of specialization for a certificate.';
 
 -- Extended Properties [tpdm].[CandidateElectronicMail] --
@@ -399,6 +399,8 @@ COMMENT ON COLUMN tpdm.EvaluationRating.PersonId IS 'A unique alphanumeric code 
 COMMENT ON COLUMN tpdm.EvaluationRating.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN tpdm.EvaluationRating.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN tpdm.EvaluationRating.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRating.ActualDuration IS 'The actual or estimated number of clock minutes during which the evaluation was conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRating.Comments IS 'Any comments about the evaluation to be captured.';
 COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
 COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingStatusDescriptorId IS 'The Status of the poerformance evaluation.';
 COMMENT ON COLUMN tpdm.EvaluationRating.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
@@ -484,11 +486,11 @@ COMMENT ON COLUMN tpdm.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A
 -- Extended Properties [tpdm].[FinancialAid] --
 COMMENT ON TABLE tpdm.FinancialAid IS 'This entity represents the financial aid a person is awarded.';
 COMMENT ON COLUMN tpdm.FinancialAid.AidTypeDescriptorId IS 'The classification of financial aid awarded to a person for the academic term/year.';
-COMMENT ON COLUMN tpdm.FinancialAid.BeginDate IS 'The date the award was designated.';
+COMMENT ON COLUMN tpdm.FinancialAid.BeginDate IS 'The date the award was designated.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.FinancialAid.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN tpdm.FinancialAid.AidAmount IS 'The amount of financial aid awarded to a person for the term/year.';
 COMMENT ON COLUMN tpdm.FinancialAid.AidConditionDescription IS 'The description of the condition (e.g., placement in a high need school) under which the aid was given.';
-COMMENT ON COLUMN tpdm.FinancialAid.EndDate IS 'The date the award was removed.';
+COMMENT ON COLUMN tpdm.FinancialAid.EndDate IS 'The date the award was removed.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN tpdm.FinancialAid.PellGrantRecipient IS 'Indicates a person who receives Pell Grant aid.';
 
 -- Extended Properties [tpdm].[GenderDescriptor] --

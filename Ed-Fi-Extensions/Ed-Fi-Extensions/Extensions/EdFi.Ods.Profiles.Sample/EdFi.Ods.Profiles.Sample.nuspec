@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 <metadata>
 <id>EdFi.Suite3.Ods.Profiles.Sample</id>
-<version>5.1.0</version>
+<version>5.2.0</version>
 <authors>Ed-Fi Alliance</authors>
 <owners>Ed-Fi Alliance</owners>
 <copyright>$copyright$</copyright>

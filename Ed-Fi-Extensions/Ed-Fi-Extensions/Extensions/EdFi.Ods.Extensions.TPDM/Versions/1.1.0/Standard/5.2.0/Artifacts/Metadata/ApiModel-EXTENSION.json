@@ -1250,7 +1250,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The month, day, and year for the start of the period.",
+          "description": "The month, day, and year for the start of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -1285,7 +1285,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The month, day, and year for the end of the period.",
+          "description": "The month, day, and year for the end of the period.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1459,7 +1459,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The begin date for the association.",
+          "description": "The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -1494,7 +1494,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The end date for the association.",
+          "description": "The end date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1654,7 +1654,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The month, day, and year on which the Teacher Candidate exited the declared specialization.",
+          "description": "The month, day, and year on which the Teacher Candidate exited the declared specialization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -4021,6 +4021,42 @@
       "name": "EvaluationRating",
       "locallyDefinedProperties": [
         {
+          "propertyName": "ActualDuration",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true,
+            "minValue": 1
+          },
+          "description": "The actual or estimated number of clock minutes during which the evaluation was conducted.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ActualDuration",
+            "postgreSql": "ActualDuration"
+          }
+        },
+        {
+          "propertyName": "Comments",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 1024,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Any comments about the evaluation to be captured.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Comments",
+            "postgreSql": "Comments"
+          }
+        },
+        {
           "propertyName": "CreateDate",
           "propertyType": {
             "dbType": "DateTime2",
@@ -4608,7 +4644,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The date the award was designated.",
+          "description": "The date the award was designated.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -4643,7 +4679,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The date the award was removed.",
+          "description": "The date the award was removed.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -6516,7 +6552,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "The sex of the candidate.",
           "isIdentifying": false,
@@ -6528,7 +6564,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_Candidate_SexDescriptor",
         "postgreSql": "FK_b2452d_SexDescriptor"
@@ -7806,7 +7842,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The begin date for the association.",
+          "description": "The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7900,7 +7936,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The begin date for the association.",
+          "description": "The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8188,7 +8224,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The begin date for the association.",
+          "description": "The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8282,7 +8318,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The begin date for the association.",
+          "description": "The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -22069,5 +22105,5 @@
       "potentiallyLogical": false
     }
   ],
-  "edFiVersion": "5.1.0"
+  "edFiVersion": "5.2.0"
 }

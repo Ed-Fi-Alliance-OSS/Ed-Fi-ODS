@@ -36,11 +36,11 @@ CREATE TABLE [samplestudenttranscript].[PostSecondaryOrganization] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [samplestudenttranscript].[SpecialEducationGraduationStatusDescriptor] --
@@ -68,7 +68,7 @@ CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtensi
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] ADD CONSTRAINT [StudentAcademicRecordClassRankingExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] ADD CONSTRAINT [StudentAcademicRecordClassRankingExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [samplestudenttranscript].[StudentAcademicRecordExtension] --
@@ -88,7 +88,7 @@ CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] ADD CONSTRAINT [StudentAcademicRecordExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] ADD CONSTRAINT [StudentAcademicRecordExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [samplestudenttranscript].[SubmissionCertificationDescriptor] --

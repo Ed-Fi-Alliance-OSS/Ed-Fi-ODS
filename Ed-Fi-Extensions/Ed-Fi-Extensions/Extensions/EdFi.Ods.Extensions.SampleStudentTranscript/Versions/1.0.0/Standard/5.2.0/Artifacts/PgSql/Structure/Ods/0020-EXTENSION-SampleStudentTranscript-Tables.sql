@@ -27,9 +27,9 @@ CREATE TABLE samplestudenttranscript.PostSecondaryOrganization (
     Id UUID NOT NULL,
     CONSTRAINT PostSecondaryOrganization_PK PRIMARY KEY (NameOfInstitution)
 );
-ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table samplestudenttranscript.SpecialEducationGraduationStatusDescriptor --
 CREATE TABLE samplestudenttranscript.SpecialEducationGraduationStatusDescriptor (
@@ -47,7 +47,7 @@ CREATE TABLE samplestudenttranscript.StudentAcademicRecordClassRankingExtension 
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAcademicRecordClassRankingExtension_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
 );
-ALTER TABLE samplestudenttranscript.StudentAcademicRecordClassRankingExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE samplestudenttranscript.StudentAcademicRecordClassRankingExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table samplestudenttranscript.StudentAcademicRecordExtension --
 CREATE TABLE samplestudenttranscript.StudentAcademicRecordExtension (
@@ -60,7 +60,7 @@ CREATE TABLE samplestudenttranscript.StudentAcademicRecordExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAcademicRecordExtension_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
 );
-ALTER TABLE samplestudenttranscript.StudentAcademicRecordExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE samplestudenttranscript.StudentAcademicRecordExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table samplestudenttranscript.SubmissionCertificationDescriptor --
 CREATE TABLE samplestudenttranscript.SubmissionCertificationDescriptor (

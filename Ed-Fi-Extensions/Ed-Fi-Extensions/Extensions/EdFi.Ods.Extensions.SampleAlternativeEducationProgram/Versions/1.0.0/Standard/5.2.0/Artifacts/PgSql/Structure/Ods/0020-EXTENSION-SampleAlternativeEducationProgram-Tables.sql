@@ -34,5 +34,5 @@ CREATE TABLE samplealternativeeducationprogram.StudentAlternativeEducationProgra
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAlternativeEducationProgramAssociationMeetingTime_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, EndTime, StartTime)
 );
-ALTER TABLE samplealternativeeducationprogram.StudentAlternativeEducationProgramAssociationMeetingTime ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE samplealternativeeducationprogram.StudentAlternativeEducationProgramAssociationMeetingTime ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 

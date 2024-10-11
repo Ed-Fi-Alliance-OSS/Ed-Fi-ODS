@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/5.1.0" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/5.1.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/5.2.0" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/5.2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 5.1.0 Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 5.2.0 Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -32,7 +32,7 @@
               <xs:documentation>Other names (e.g., alias, nickname, previous legal name) associated with a person.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Sex" type="SexDescriptorReferenceType">
+          <xs:element name="Sex" type="SexDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The sex of the candidate.</xs:documentation>
               <xs:appinfo>
@@ -568,6 +568,16 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Comments" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Any comments about the evaluation to be captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ActualDuration" type="Duration" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The actual or estimated number of clock minutes during which the evaluation was conducted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -589,12 +599,12 @@
           </xs:element>
           <xs:element name="BeginDate" type="xs:date">
             <xs:annotation>
-              <xs:documentation>The date the award was designated.</xs:documentation>
+              <xs:documentation>The date the award was designated.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EndDate" type="xs:date" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The date the award was removed.</xs:documentation>
+              <xs:documentation>The date the award was removed.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="AidConditionDescription" type="Description" minOccurs="0">
@@ -1089,12 +1099,12 @@
           </xs:element>
           <xs:element name="BeginDate" type="xs:date">
             <xs:annotation>
-              <xs:documentation>The begin date for the association.</xs:documentation>
+              <xs:documentation>The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EndDate" type="xs:date" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The end date for the association.</xs:documentation>
+              <xs:documentation>The end date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ReasonExited" type="ReasonExitedDescriptorReferenceType" minOccurs="0">
@@ -1198,7 +1208,7 @@
       </xs:element>
       <xs:element name="BeginDate" type="xs:date">
         <xs:annotation>
-          <xs:documentation>The begin date for the association.</xs:documentation>
+          <xs:documentation>The begin date for the association.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -1557,7 +1567,7 @@
       </xs:element>
       <xs:element name="BeginDate" type="xs:date">
         <xs:annotation>
-          <xs:documentation>The date the award was designated.</xs:documentation>
+          <xs:documentation>The date the award was designated.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="AidType" type="EXTENSION-AidTypeDescriptorReferenceType">
@@ -2001,12 +2011,12 @@
       </xs:element>
       <xs:element name="BeginDate" type="xs:date">
         <xs:annotation>
-          <xs:documentation>The month, day, and year on which the Teacher Candidate first declared specialization.</xs:documentation>
+          <xs:documentation>The month, day, and year on which the Teacher Candidate first declared specialization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="EndDate" type="xs:date" minOccurs="0">
         <xs:annotation>
-          <xs:documentation>The month, day, and year on which the Teacher Candidate exited the declared specialization.</xs:documentation>
+          <xs:documentation>The month, day, and year on which the Teacher Candidate exited the declared specialization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>

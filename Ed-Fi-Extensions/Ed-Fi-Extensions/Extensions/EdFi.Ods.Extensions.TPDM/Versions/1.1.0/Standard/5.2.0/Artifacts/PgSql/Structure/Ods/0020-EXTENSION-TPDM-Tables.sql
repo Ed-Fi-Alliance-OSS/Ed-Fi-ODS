@@ -42,7 +42,7 @@ CREATE TABLE tpdm.Candidate (
     PersonId VARCHAR(32) NULL,
     PreferredFirstName VARCHAR(75) NULL,
     PreferredLastSurname VARCHAR(75) NULL,
-    SexDescriptorId INT NOT NULL,
+    SexDescriptorId INT NULL,
     SourceSystemDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -50,9 +50,9 @@ CREATE TABLE tpdm.Candidate (
     Id UUID NOT NULL,
     CONSTRAINT Candidate_PK PRIMARY KEY (CandidateIdentifier)
 );
-ALTER TABLE tpdm.Candidate ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Candidate ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.Candidate ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.Candidate ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Candidate ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateAddress --
 CREATE TABLE tpdm.CandidateAddress (
@@ -74,7 +74,7 @@ CREATE TABLE tpdm.CandidateAddress (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateAddress_PK PRIMARY KEY (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 );
-ALTER TABLE tpdm.CandidateAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateAddress ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateAddressPeriod --
 CREATE TABLE tpdm.CandidateAddressPeriod (
@@ -89,7 +89,7 @@ CREATE TABLE tpdm.CandidateAddressPeriod (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateAddressPeriod_PK PRIMARY KEY (CandidateIdentifier, AddressTypeDescriptorId, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, BeginDate)
 );
-ALTER TABLE tpdm.CandidateAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateDisability --
 CREATE TABLE tpdm.CandidateDisability (
@@ -101,7 +101,7 @@ CREATE TABLE tpdm.CandidateDisability (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateDisability_PK PRIMARY KEY (CandidateIdentifier, DisabilityDescriptorId)
 );
-ALTER TABLE tpdm.CandidateDisability ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateDisability ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateDisabilityDesignation --
 CREATE TABLE tpdm.CandidateDisabilityDesignation (
@@ -111,7 +111,7 @@ CREATE TABLE tpdm.CandidateDisabilityDesignation (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateDisabilityDesignation_PK PRIMARY KEY (CandidateIdentifier, DisabilityDescriptorId, DisabilityDesignationDescriptorId)
 );
-ALTER TABLE tpdm.CandidateDisabilityDesignation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateDisabilityDesignation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateEducatorPreparationProgramAssociation --
 CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociation (
@@ -129,9 +129,9 @@ CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociation (
     Id UUID NOT NULL,
     CONSTRAINT CandidateEducatorPreparationProgramAssociation_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
 );
-ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateEducatorPreparationProgramAssociationCohortYear --
 CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociationCohortYear (
@@ -146,7 +146,7 @@ CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociationCohortYear (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateEducatorPreparationProgramAssociationCohortYear_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, CohortYearTypeDescriptorId, SchoolYear)
 );
-ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociationCohortYear ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociationCohortYear ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 --
 CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 (
@@ -161,7 +161,7 @@ CREATE TABLE tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateEducatorPreparationProgramAssociationDegr_2501c4_PK PRIMARY KEY (BeginDate, CandidateIdentifier, EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, MajorSpecialization)
 );
-ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4 ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateElectronicMail --
 CREATE TABLE tpdm.CandidateElectronicMail (
@@ -173,7 +173,7 @@ CREATE TABLE tpdm.CandidateElectronicMail (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateElectronicMail_PK PRIMARY KEY (CandidateIdentifier, ElectronicMailAddress, ElectronicMailTypeDescriptorId)
 );
-ALTER TABLE tpdm.CandidateElectronicMail ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateElectronicMail ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateLanguage --
 CREATE TABLE tpdm.CandidateLanguage (
@@ -182,7 +182,7 @@ CREATE TABLE tpdm.CandidateLanguage (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateLanguage_PK PRIMARY KEY (CandidateIdentifier, LanguageDescriptorId)
 );
-ALTER TABLE tpdm.CandidateLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateLanguageUse --
 CREATE TABLE tpdm.CandidateLanguageUse (
@@ -192,7 +192,7 @@ CREATE TABLE tpdm.CandidateLanguageUse (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateLanguageUse_PK PRIMARY KEY (CandidateIdentifier, LanguageDescriptorId, LanguageUseDescriptorId)
 );
-ALTER TABLE tpdm.CandidateLanguageUse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateLanguageUse ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateOtherName --
 CREATE TABLE tpdm.CandidateOtherName (
@@ -206,7 +206,7 @@ CREATE TABLE tpdm.CandidateOtherName (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateOtherName_PK PRIMARY KEY (CandidateIdentifier, OtherNameTypeDescriptorId)
 );
-ALTER TABLE tpdm.CandidateOtherName ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateOtherName ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidatePersonalIdentificationDocument --
 CREATE TABLE tpdm.CandidatePersonalIdentificationDocument (
@@ -221,7 +221,7 @@ CREATE TABLE tpdm.CandidatePersonalIdentificationDocument (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidatePersonalIdentificationDocument_PK PRIMARY KEY (CandidateIdentifier, IdentificationDocumentUseDescriptorId, PersonalInformationVerificationDescriptorId)
 );
-ALTER TABLE tpdm.CandidatePersonalIdentificationDocument ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidatePersonalIdentificationDocument ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateRace --
 CREATE TABLE tpdm.CandidateRace (
@@ -230,7 +230,7 @@ CREATE TABLE tpdm.CandidateRace (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateRace_PK PRIMARY KEY (CandidateIdentifier, RaceDescriptorId)
 );
-ALTER TABLE tpdm.CandidateRace ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateRace ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CandidateTelephone --
 CREATE TABLE tpdm.CandidateTelephone (
@@ -243,7 +243,7 @@ CREATE TABLE tpdm.CandidateTelephone (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CandidateTelephone_PK PRIMARY KEY (CandidateIdentifier, TelephoneNumber, TelephoneNumberTypeDescriptorId)
 );
-ALTER TABLE tpdm.CandidateTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CandidateTelephone ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CertificationRouteDescriptor --
 CREATE TABLE tpdm.CertificationRouteDescriptor (
@@ -272,7 +272,7 @@ CREATE TABLE tpdm.CredentialExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CredentialExtension_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 );
-ALTER TABLE tpdm.CredentialExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CredentialExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.CredentialStatusDescriptor --
 CREATE TABLE tpdm.CredentialStatusDescriptor (
@@ -291,7 +291,7 @@ CREATE TABLE tpdm.CredentialStudentAcademicRecord (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CredentialStudentAcademicRecord_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
 );
-ALTER TABLE tpdm.CredentialStudentAcademicRecord ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CredentialStudentAcademicRecord ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EducatorPreparationProgram --
 CREATE TABLE tpdm.EducatorPreparationProgram (
@@ -306,9 +306,9 @@ CREATE TABLE tpdm.EducatorPreparationProgram (
     Id UUID NOT NULL,
     CONSTRAINT EducatorPreparationProgram_PK PRIMARY KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
 );
-ALTER TABLE tpdm.EducatorPreparationProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EducatorPreparationProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EducatorPreparationProgram ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducatorPreparationProgram ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EducatorPreparationProgram ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EducatorPreparationProgramGradeLevel --
 CREATE TABLE tpdm.EducatorPreparationProgramGradeLevel (
@@ -319,7 +319,7 @@ CREATE TABLE tpdm.EducatorPreparationProgramGradeLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EducatorPreparationProgramGradeLevel_PK PRIMARY KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId, GradeLevelDescriptorId)
 );
-ALTER TABLE tpdm.EducatorPreparationProgramGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EducatorPreparationProgramGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EducatorRoleDescriptor --
 CREATE TABLE tpdm.EducatorRoleDescriptor (
@@ -359,9 +359,9 @@ CREATE TABLE tpdm.Evaluation (
     Id UUID NOT NULL,
     CONSTRAINT Evaluation_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 );
-ALTER TABLE tpdm.Evaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Evaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.Evaluation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.Evaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Evaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationElement --
 CREATE TABLE tpdm.EvaluationElement (
@@ -384,9 +384,9 @@ CREATE TABLE tpdm.EvaluationElement (
     Id UUID NOT NULL,
     CONSTRAINT EvaluationElement_PK PRIMARY KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationElement ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElement ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EvaluationElement ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationElementRating --
 CREATE TABLE tpdm.EvaluationElementRating (
@@ -413,9 +413,9 @@ CREATE TABLE tpdm.EvaluationElementRating (
     Id UUID NOT NULL,
     CONSTRAINT EvaluationElementRating_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationElementRatingLevel --
 CREATE TABLE tpdm.EvaluationElementRatingLevel (
@@ -434,7 +434,7 @@ CREATE TABLE tpdm.EvaluationElementRatingLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationElementRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId, EvaluationRatingLevelDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationElementRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElementRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationElementRatingLevelDescriptor --
 CREATE TABLE tpdm.EvaluationElementRatingLevelDescriptor (
@@ -462,7 +462,7 @@ CREATE TABLE tpdm.EvaluationElementRatingResult (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationElementRatingResult_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, Rating, RatingResultTitle)
 );
-ALTER TABLE tpdm.EvaluationElementRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElementRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationObjective --
 CREATE TABLE tpdm.EvaluationObjective (
@@ -485,9 +485,9 @@ CREATE TABLE tpdm.EvaluationObjective (
     Id UUID NOT NULL,
     CONSTRAINT EvaluationObjective_PK PRIMARY KEY (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationObjectiveRating --
 CREATE TABLE tpdm.EvaluationObjectiveRating (
@@ -510,9 +510,9 @@ CREATE TABLE tpdm.EvaluationObjectiveRating (
     Id UUID NOT NULL,
     CONSTRAINT EvaluationObjectiveRating_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationObjectiveRatingLevel --
 CREATE TABLE tpdm.EvaluationObjectiveRatingLevel (
@@ -530,7 +530,7 @@ CREATE TABLE tpdm.EvaluationObjectiveRatingLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationObjectiveRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId, EvaluationRatingLevelDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationObjectiveRatingResult --
 CREATE TABLE tpdm.EvaluationObjectiveRatingResult (
@@ -551,7 +551,7 @@ CREATE TABLE tpdm.EvaluationObjectiveRatingResult (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationObjectiveRatingResult_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, Rating, RatingResultTitle)
 );
-ALTER TABLE tpdm.EvaluationObjectiveRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjectiveRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationPeriodDescriptor --
 CREATE TABLE tpdm.EvaluationPeriodDescriptor (
@@ -571,6 +571,8 @@ CREATE TABLE tpdm.EvaluationRating (
     SchoolYear SMALLINT NOT NULL,
     SourceSystemDescriptorId INT NOT NULL,
     TermDescriptorId INT NOT NULL,
+    ActualDuration INT NULL,
+    Comments VARCHAR(1024) NULL,
     EvaluationRatingLevelDescriptorId INT NULL,
     EvaluationRatingStatusDescriptorId INT NULL,
     LocalCourseCode VARCHAR(60) NULL,
@@ -583,9 +585,9 @@ CREATE TABLE tpdm.EvaluationRating (
     Id UUID NOT NULL,
     CONSTRAINT EvaluationRating_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.EvaluationRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationRatingLevel --
 CREATE TABLE tpdm.EvaluationRatingLevel (
@@ -602,7 +604,7 @@ CREATE TABLE tpdm.EvaluationRatingLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId, EvaluationRatingLevelDescriptorId)
 );
-ALTER TABLE tpdm.EvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationRatingLevelDescriptor --
 CREATE TABLE tpdm.EvaluationRatingLevelDescriptor (
@@ -628,7 +630,7 @@ CREATE TABLE tpdm.EvaluationRatingResult (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationRatingResult_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, Rating, RatingResultTitle)
 );
-ALTER TABLE tpdm.EvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationRatingReviewer --
 CREATE TABLE tpdm.EvaluationRatingReviewer (
@@ -649,7 +651,7 @@ CREATE TABLE tpdm.EvaluationRatingReviewer (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationRatingReviewer_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, FirstName, LastSurname)
 );
-ALTER TABLE tpdm.EvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationRatingReviewerReceivedTraining --
 CREATE TABLE tpdm.EvaluationRatingReviewerReceivedTraining (
@@ -670,7 +672,7 @@ CREATE TABLE tpdm.EvaluationRatingReviewerReceivedTraining (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationRatingReviewerReceivedTraining_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, FirstName, LastSurname)
 );
-ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.EvaluationRatingStatusDescriptor --
 CREATE TABLE tpdm.EvaluationRatingStatusDescriptor (
@@ -699,9 +701,9 @@ CREATE TABLE tpdm.FinancialAid (
     Id UUID NOT NULL,
     CONSTRAINT FinancialAid_PK PRIMARY KEY (AidTypeDescriptorId, BeginDate, StudentUSI)
 );
-ALTER TABLE tpdm.FinancialAid ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.FinancialAid ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.FinancialAid ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.FinancialAid ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.FinancialAid ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.GenderDescriptor --
 CREATE TABLE tpdm.GenderDescriptor (
@@ -731,9 +733,9 @@ CREATE TABLE tpdm.PerformanceEvaluation (
     Id UUID NOT NULL,
     CONSTRAINT PerformanceEvaluation_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 );
-ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationGradeLevel --
 CREATE TABLE tpdm.PerformanceEvaluationGradeLevel (
@@ -747,7 +749,7 @@ CREATE TABLE tpdm.PerformanceEvaluationGradeLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationGradeLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId, GradeLevelDescriptorId)
 );
-ALTER TABLE tpdm.PerformanceEvaluationGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationRating --
 CREATE TABLE tpdm.PerformanceEvaluationRating (
@@ -773,9 +775,9 @@ CREATE TABLE tpdm.PerformanceEvaluationRating (
     Id UUID NOT NULL,
     CONSTRAINT PerformanceEvaluationRating_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 );
-ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationRatingLevel --
 CREATE TABLE tpdm.PerformanceEvaluationRatingLevel (
@@ -791,7 +793,7 @@ CREATE TABLE tpdm.PerformanceEvaluationRatingLevel (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId, EvaluationRatingLevelDescriptorId)
 );
-ALTER TABLE tpdm.PerformanceEvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationRatingLevelDescriptor --
 CREATE TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor (
@@ -815,7 +817,7 @@ CREATE TABLE tpdm.PerformanceEvaluationRatingResult (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationRatingResult_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, Rating, RatingResultTitle)
 );
-ALTER TABLE tpdm.PerformanceEvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationRatingReviewer --
 CREATE TABLE tpdm.PerformanceEvaluationRatingReviewer (
@@ -834,7 +836,7 @@ CREATE TABLE tpdm.PerformanceEvaluationRatingReviewer (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationRatingReviewer_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, FirstName, LastSurname)
 );
-ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationRatingReviewerReceivedTraining --
 CREATE TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining (
@@ -853,7 +855,7 @@ CREATE TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationRatingReviewerReceivedTraining_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId, FirstName, LastSurname)
 );
-ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.PerformanceEvaluationTypeDescriptor --
 CREATE TABLE tpdm.PerformanceEvaluationTypeDescriptor (
@@ -882,9 +884,9 @@ CREATE TABLE tpdm.RubricDimension (
     Id UUID NOT NULL,
     CONSTRAINT RubricDimension_PK PRIMARY KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, RubricRating, SchoolYear, TermDescriptorId)
 );
-ALTER TABLE tpdm.RubricDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.RubricDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.RubricDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.RubricDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.RubricDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.RubricRatingLevelDescriptor --
 CREATE TABLE tpdm.RubricRatingLevelDescriptor (
@@ -899,7 +901,7 @@ CREATE TABLE tpdm.SchoolExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolExtension_PK PRIMARY KEY (SchoolId)
 );
-ALTER TABLE tpdm.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.SurveyResponseExtension --
 CREATE TABLE tpdm.SurveyResponseExtension (
@@ -911,7 +913,7 @@ CREATE TABLE tpdm.SurveyResponseExtension (
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SurveyResponseExtension_PK PRIMARY KEY (Namespace, SurveyIdentifier, SurveyResponseIdentifier)
 );
-ALTER TABLE tpdm.SurveyResponseExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveyResponseExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.SurveyResponsePersonTargetAssociation --
 CREATE TABLE tpdm.SurveyResponsePersonTargetAssociation (
@@ -926,9 +928,9 @@ CREATE TABLE tpdm.SurveyResponsePersonTargetAssociation (
     Id UUID NOT NULL,
     CONSTRAINT SurveyResponsePersonTargetAssociation_PK PRIMARY KEY (Namespace, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveyResponseIdentifier)
 );
-ALTER TABLE tpdm.SurveyResponsePersonTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveyResponsePersonTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.SurveyResponsePersonTargetAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SurveyResponsePersonTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveyResponsePersonTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table tpdm.SurveySectionResponsePersonTargetAssociation --
 CREATE TABLE tpdm.SurveySectionResponsePersonTargetAssociation (
@@ -944,7 +946,7 @@ CREATE TABLE tpdm.SurveySectionResponsePersonTargetAssociation (
     Id UUID NOT NULL,
     CONSTRAINT SurveySectionResponsePersonTargetAssociation_PK PRIMARY KEY (Namespace, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveyResponseIdentifier, SurveySectionTitle)
 );
-ALTER TABLE tpdm.SurveySectionResponsePersonTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveySectionResponsePersonTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 ALTER TABLE tpdm.SurveySectionResponsePersonTargetAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SurveySectionResponsePersonTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveySectionResponsePersonTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 

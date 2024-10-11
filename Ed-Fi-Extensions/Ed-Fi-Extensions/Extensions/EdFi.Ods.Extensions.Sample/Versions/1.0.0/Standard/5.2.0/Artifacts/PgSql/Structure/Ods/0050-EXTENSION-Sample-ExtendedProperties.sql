@@ -15,7 +15,7 @@ COMMENT ON COLUMN sample.Bus.BusId IS 'The unique identifier for the bus.';
 COMMENT ON TABLE sample.BusRoute IS 'This is an example of a new domain entity.';
 COMMENT ON COLUMN sample.BusRoute.BusId IS 'The unique identifier for the bus assigned to the bus route.';
 COMMENT ON COLUMN sample.BusRoute.BusRouteNumber IS 'A unique identifier for the bus route.';
-COMMENT ON COLUMN sample.BusRoute.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.';
+COMMENT ON COLUMN sample.BusRoute.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.BusRoute.BusRouteDirection IS 'The direction of the bus route.';
 COMMENT ON COLUMN sample.BusRoute.BusRouteDuration IS 'The number of minutes per week in which the bus route is operational.';
 COMMENT ON COLUMN sample.BusRoute.Daily IS 'An indication as to whether the bus route operates every weekday.';
@@ -113,8 +113,8 @@ COMMENT ON COLUMN sample.ContactCTEProgramService.ContactUSI IS 'A unique alphan
 COMMENT ON COLUMN sample.ContactCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
 COMMENT ON COLUMN sample.ContactCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
 COMMENT ON COLUMN sample.ContactCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN sample.ContactCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
-COMMENT ON COLUMN sample.ContactCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.ContactCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN sample.ContactCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [sample].[ContactEducationContent] --
 COMMENT ON TABLE sample.ContactEducationContent IS 'Education content to which the contact has been referred.';
@@ -144,7 +144,7 @@ COMMENT ON COLUMN sample.ContactFavoriteBookTitle.FavoriteBookTitle IS 'The titl
 -- Extended Properties [sample].[ContactStudentProgramAssociation] --
 COMMENT ON TABLE sample.ContactStudentProgramAssociation IS 'Programs the contact''s child or children are enrolled in for which the contact provides volunteer services.';
 COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
-COMMENT ON COLUMN sample.ContactStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.ContactStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.ContactStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.ContactStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -172,8 +172,8 @@ COMMENT ON COLUMN sample.SchoolCTEProgramService.SchoolId IS 'The identifier ass
 COMMENT ON COLUMN sample.SchoolCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
 COMMENT ON COLUMN sample.SchoolCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
 COMMENT ON COLUMN sample.SchoolCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
-COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN sample.SchoolCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [sample].[SchoolDirectlyOwnedBus] --
 COMMENT ON TABLE sample.SchoolDirectlyOwnedBus IS 'Buses owned by the School directly.';
@@ -211,7 +211,7 @@ COMMENT ON COLUMN sample.StudentAquaticPet.IsFixed IS 'An indication as to wheth
 
 -- Extended Properties [sample].[StudentArtProgramAssociation] --
 COMMENT ON TABLE sample.StudentArtProgramAssociation IS 'This is an example of a subclass of an association.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -231,7 +231,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramFees IS 'Required p
 
 -- Extended Properties [sample].[StudentArtProgramAssociationArtMedium] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationArtMedium IS 'The art mediums used in the program (i.e., paint, pencils, clay, etc.).';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -241,7 +241,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ArtMediumDescript
 
 -- Extended Properties [sample].[StudentArtProgramAssociationFavoriteBook] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationFavoriteBook IS 'The student''s favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -252,7 +252,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBook.FavoriteBookCa
 
 -- Extended Properties [sample].[StudentArtProgramAssociationFavoriteBookArtMedium] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationFavoriteBookArtMedium IS 'This is documentation.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -263,7 +263,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationFavoriteBookArtMedium.ArtPi
 
 -- Extended Properties [sample].[StudentArtProgramAssociationPortfolioYears] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationPortfolioYears IS 'The of year(s) of work included in the student''s portfolio.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -273,7 +273,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.PortfolioYea
 
 -- Extended Properties [sample].[StudentArtProgramAssociationService] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationService IS 'Indicates the Service(s) being provided to the Student by the Program.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -281,12 +281,12 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramTypeDescript
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceDescriptorId IS 'Indicates the service being provided to the student by the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [sample].[StudentArtProgramAssociationStyle] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationStyle IS 'The art style(s) exhibited by the student in the program.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -342,7 +342,7 @@ COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmpl
 COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
-COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
+COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.HireDate IS 'The month, day, and year on which an individual was hired for a position.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentContactAssociationStaffEducationOrganizationEmplo_a92b1d.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [sample].[StudentContactAssociationTelephone] --
@@ -357,7 +357,7 @@ COMMENT ON COLUMN sample.StudentContactAssociationTelephone.TextMessageCapabilit
 
 -- Extended Properties [sample].[StudentCTEProgramAssociationExtension] --
 COMMENT ON TABLE sample.StudentCTEProgramAssociationExtension IS '';
-COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -470,8 +470,8 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.Stude
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationDescription] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationDescription IS 'A description of the graduation plan.';
@@ -527,21 +527,21 @@ COMMENT ON COLUMN sample.StudentPetPreference.MinimumWeight IS 'The preferred mi
 
 -- Extended Properties [sample].[StudentSchoolAssociationExtension] --
 COMMENT ON TABLE sample.StudentSchoolAssociationExtension IS '';
-COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school.';
+COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school for each school year. The EntryDate value should be the date the student enrolled, or when the student''s enrollment materially changed, such as with a grade promotion.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.MembershipTypeDescriptorId IS 'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.';
 
 -- Extended Properties [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02] --
 COMMENT ON TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 IS 'Programs which this student is participating in that is supported by this coursework.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedBeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedBeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
