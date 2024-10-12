@@ -40,6 +40,7 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
         int? numberOfPartitions,
         Entity aggregateRootEntity,
         AggregateRootWithCompositeKey specification,
+        QueryParameters queryParameters,
         IDictionary<string, string> additionalParameters)
     {
         // Get the CTE "row numbers" query
@@ -67,8 +68,10 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
             var cteQueryBuilder1 = _partitionRowNumbersCteQueryBuilderProvider.GetQueryBuilder(
                 aggregateRootEntity,
                 specification,
-                QueryParameters.Empty,
+                queryParameters,
                 additionalParameters);
+
+        cteQueryBuilder.ApplyChangeVersionCriteria(queryParameters);
 
             return cteQueryBuilder1;
         }

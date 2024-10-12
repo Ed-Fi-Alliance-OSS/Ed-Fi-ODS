@@ -24,6 +24,7 @@ using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Specifications;
@@ -81,6 +82,7 @@ public class PartitionsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(
         [FromQuery] int? number,
+        [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest = default,
         [FromQuery] Dictionary<string, string> additionalParameters)
     {
         // Store alternative auth approach decision into call context
@@ -100,6 +102,11 @@ public class PartitionsController : ControllerBase
 
             return BadRequest(problemDetails);
         }
+
+        var  queryParameters = 
+            urlQueryParametersRequest == null 
+            ? null
+            : new QueryParameters(urlQueryParametersRequest);
 
         // Bind the request to the corresponding resource class model
         Resource resource = _dataManagementResourceContextProvider.Get()?.Resource;
@@ -220,7 +227,14 @@ public class PartitionsController : ControllerBase
         {
             // Build the query
             var entity = resource.Entity;
-            var queryBuilder = _partitionsQueryBuilderProvider.GetQueryBuilder(number, entity, entityInstance, additionalParameters);
+
+            var queryBuilder = _partitionsQueryBuilderProvider.GetQueryBuilder(
+                number,
+                entity,
+                entityInstance,
+                queryParameters,
+                additionalParameters);
+
             var template = queryBuilder.BuildTemplate();
 
             // Open the connection
