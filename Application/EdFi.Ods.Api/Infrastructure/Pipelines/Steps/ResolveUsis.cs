@@ -17,23 +17,15 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 /// </summary>
 public class ResolveUsis<TContext, TResult, TResourceModel, TEntityModel> : IStep<TContext, TResult>
 {
-    private readonly IPersonEntitySpecification _personEntitySpecification;
-    private readonly IContextProvider<UsiLookupsByUniqueIdContext> _lookupContextProvider;
-    private readonly IPersonUsiResolver _personUsiResolver;
+    private readonly IContextualPersonUsisResolver _contextualPersonUsisResolver;
 
-    public ResolveUsis(
-        IPersonEntitySpecification personEntitySpecification,
-        IContextProvider<UsiLookupsByUniqueIdContext> lookupContextProvider,
-        IPersonUsiResolver personUsiResolver)
+    public ResolveUsis(IContextualPersonUsisResolver contextualPersonUsisResolver)
     {
-        _personEntitySpecification = personEntitySpecification;
-        _lookupContextProvider = lookupContextProvider;
-        _personUsiResolver = personUsiResolver;
+        _contextualPersonUsisResolver = contextualPersonUsisResolver;
     }
 
     public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
     {
-        var usiLookupsByUniqueIdContext = _lookupContextProvider.Get();
-        await usiLookupsByUniqueIdContext.ResolveAllUsis(_personUsiResolver);
+        await _contextualPersonUsisResolver.ResolveAllUsis();
     }
 }

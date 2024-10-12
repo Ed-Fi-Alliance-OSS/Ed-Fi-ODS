@@ -4,16 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Helpers;
-using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
@@ -24,6 +26,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Specifications;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +50,10 @@ public class PartitionsController : ControllerBase
     private readonly ILog _logger = LogManager.GetLogger(typeof(PartitionsController));
     private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
     private readonly IPartitionsQueryBuilderProvider _partitionsQueryBuilderProvider;
+    private readonly IContextProvider<UsiLookupsByUniqueIdContext> _usiLookupsByUniqueIdContextProvider;
+    private readonly IContextualPersonUsisResolver _personUsisResolver;
+    private readonly (string UniqueId, string PersonType)[] _personUniqueIds;
+    private readonly ConcurrentDictionary<Type, PropertyInfo[]> _uniqueIdPropertiesByModelInterfaceType = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
     private static readonly IContextStorage _contextStorage = new CallContextStorage();
 
@@ -55,13 +62,20 @@ public class PartitionsController : ControllerBase
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
         IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
         ILogContextAccessor logContextAccessor,
-        IPartitionsQueryBuilderProvider partitionsQueryBuilderProvider)
+        IPartitionsQueryBuilderProvider partitionsQueryBuilderProvider,
+        IPersonTypesProvider personTypesProvider,
+        IContextProvider<UsiLookupsByUniqueIdContext> usiLookupsByUniqueIdContextProvider,
+        IContextualPersonUsisResolver personUsisesResolver)
     {
         _dbProviderFactory = dbProviderFactory;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
         _logContextAccessor = logContextAccessor;
         _partitionsQueryBuilderProvider = partitionsQueryBuilderProvider;
+        _usiLookupsByUniqueIdContextProvider = usiLookupsByUniqueIdContextProvider;
+        _personUsisResolver = personUsisesResolver;
+
+        _personUniqueIds = personTypesProvider.PersonTypes.Select(pt => (UniqueId: $"{pt}UniqueId", PersonType: pt)).ToArray();
     }
 
     [HttpGet]
@@ -163,17 +177,43 @@ public class PartitionsController : ControllerBase
             // Identify the interface for the entity/resource model mapping
             var mappingInterfaceType = resourceModelType.GetInterfaces().Single(t => t.Name == $"I{resource.Name}");
 
-            // Map the request model to the resource model
-            var resourceInstance = (IMappable)DynamicMapper.MapToTarget(
+            ResolveUniqueIdsInRequestSpecification();
+
+            // Map the request model directly to the entity model
+            var aggregateRootInstance = (IMappable) DynamicMapper.MapToTarget(
                 requestModel,
-                Activator.CreateInstance(resourceModelType),
+                Activator.CreateInstance(entityType),
                 mappingInterfaceType);
 
-            // Create the entity instance and map the resource to the entity
-            var aggregateRootWithCompositeKey = (AggregateRootWithCompositeKey) Activator.CreateInstance(entityType);
-            resourceInstance.Map(aggregateRootWithCompositeKey);
+            return (AggregateRootWithCompositeKey) aggregateRootInstance;
 
-            return aggregateRootWithCompositeKey;
+            void ResolveUniqueIdsInRequestSpecification()
+            {
+                // Get the uniqueId properties for this interface
+                var uniqueIdProperties = _uniqueIdPropertiesByModelInterfaceType.GetOrAdd(
+                    requestModelType,
+                    t => t.GetProperties().Where(p => p.Name.EndsWith("UniqueId")).ToArray());
+
+                UsiLookupsByUniqueIdContext usiLookupsByUniqueIdContext = null;
+                
+                // Iterate through the properties, marking them for cache resolution in batch
+                foreach (var uniqueIdProperty in uniqueIdProperties)
+                {
+                    var uniqueId = (string) uniqueIdProperty.GetValue(requestModel);
+
+                    if (uniqueId != null)
+                    {
+                        var personType = _personUniqueIds.First(x => uniqueIdProperty.Name.EndsWith(x.UniqueId)).PersonType;
+                        usiLookupsByUniqueIdContext ??= _usiLookupsByUniqueIdContextProvider.Get();
+                        usiLookupsByUniqueIdContext.AddLookup(personType, uniqueId);
+                    }
+                }
+
+                if (usiLookupsByUniqueIdContext != null)
+                {
+                    _personUsisResolver.ResolveAllUsis();
+                }
+            }
         }
 
         async Task<int[]> GetPartitionStartingAggregateIds()

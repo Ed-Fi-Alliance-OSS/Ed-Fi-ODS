@@ -6,7 +6,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
@@ -20,20 +19,15 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 /// <typeparam name="TEntityModel"></typeparam>
 public class ResolveUniqueIds<TContext, TResult, TResourceModel, TEntityModel> : IStep<TContext, TResult>
 {
-    private readonly IContextProvider<UniqueIdLookupsByUsiContext> _lookupContextProvider;
-    private readonly IPersonUniqueIdResolver _personUniqueIdResolver;
+    private readonly IContextualPersonUniqueIdsResolver _contextualPersonUniqueIdsResolver;
 
-    public ResolveUniqueIds(
-        IContextProvider<UniqueIdLookupsByUsiContext> lookupContextProvider,
-        IPersonUniqueIdResolver personUniqueIdResolver)
+    public ResolveUniqueIds(IContextualPersonUniqueIdsResolver contextualPersonUniqueIdsResolver)
     {
-        _lookupContextProvider = lookupContextProvider;
-        _personUniqueIdResolver = personUniqueIdResolver;
+        _contextualPersonUniqueIdsResolver = contextualPersonUniqueIdsResolver;
     }
 
     public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
     {
-        var uniqueIdLookupsByUsiContext = _lookupContextProvider.Get();
-        await uniqueIdLookupsByUsiContext.ResolveAllUniqueIds(_personUniqueIdResolver);
+        await _contextualPersonUniqueIdsResolver.ResolveAllUniqueIdsAsync();
     }
 }
