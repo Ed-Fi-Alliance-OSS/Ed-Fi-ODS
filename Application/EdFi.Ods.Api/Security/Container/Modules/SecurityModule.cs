@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.CustomViewBased;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
@@ -50,6 +51,29 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IEntityAuthorizer>()
                 .SingleInstance();
 
+            builder.RegisterType<EntityAuthorizationQueryExecutor>()
+                .As<IEntityAuthorizationQueryExecutor>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityAuthorizationSqlBuilder>()
+                .As<IEntityAuthorizationSqlBuilder>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceAuthorizationValidator>()
+                .As<IEntityInstanceAuthorizationValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceDelegateFilterAuthorizer>()
+                .As<IEntityInstanceDelegateFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceViewBasedFilterAuthorizer>()
+                .As<IEntityInstanceViewBasedFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<RedundantAuthorizationContextManager>()
+                .As<IRedundantAuthorizationContextManager>()
+                .SingleInstance();
 
             builder.RegisterType<NamedAuthorizationStrategyProvider>()
                 .As<IAuthorizationStrategyProvider>()

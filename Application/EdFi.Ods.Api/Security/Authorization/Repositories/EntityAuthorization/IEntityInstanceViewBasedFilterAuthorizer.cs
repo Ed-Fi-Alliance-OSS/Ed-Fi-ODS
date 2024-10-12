@@ -156,7 +156,7 @@ public class EntityInstanceViewBasedFilterAuthorizer : IEntityInstanceViewBasedF
                     {
                         return "none";
                     }
-            
+
                     var claimEndpointValuesForDisplayText = claimEndpointValuesAsStrings?.Take(maximumEdOrgClaimValuesToDisplay).ToList();
 
                     if (claimEndpointValuesAsStrings.Length > maximumEdOrgClaimValuesToDisplay)

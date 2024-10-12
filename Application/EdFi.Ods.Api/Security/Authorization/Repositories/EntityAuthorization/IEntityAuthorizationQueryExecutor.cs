@@ -15,6 +15,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 
 public interface IEntityAuthorizationQueryExecutor
 {
+    /// <summary>
+    /// Executes the single-item authorization SQL statement to determine whether the authorization is granted or denied.
+    /// </summary>
+    /// <param name="sql">The SQL statement to execute.</param>
+    /// <param name="parameterDetails">The parameter name/value pairs.</param>
+    /// <param name="resultsWithPendingExistenceChecks">Results with unresolved authorization checks to be performed.</param>
+    /// <param name="claimEducationOrganizationIds">The list of education organization ids associated with the API client.</param>
+    /// <returns>0 if authorization should be denied; 1 if authorization should be granted; or <b>null</b> if the authorization is redundant in the current call context.</returns>
     Task<int?> ExecuteAsync(
         string sql,
         KeyValuePair<string, object>[] parameterDetails,
@@ -51,7 +59,6 @@ public class EntityAuthorizationQueryExecutor : IEntityAuthorizationQueryExecuto
         using var sessionScope = new SessionScope(_sessionFactory);
 
         await using var cmd = sessionScope.Session.Connection.CreateCommand();
-        sessionScope.Session.GetCurrentTransaction()?.Enlist(cmd);
 
         // Assign the command text
         cmd.CommandText = sql;
@@ -88,6 +95,9 @@ public class EntityAuthorizationQueryExecutor : IEntityAuthorizationQueryExecuto
         {
             _logger.Debug($"Single Item SQL: {sql}");
         }
+
+        // Join the current transaction, if one exists
+        sessionScope.Session.GetCurrentTransaction()?.Enlist(cmd);
 
         // Process the pending AND SQL checks to get a result (0 for failure, 1 for success)
         int validationResult = (int?) await cmd.ExecuteScalarAsync() ?? 0;
