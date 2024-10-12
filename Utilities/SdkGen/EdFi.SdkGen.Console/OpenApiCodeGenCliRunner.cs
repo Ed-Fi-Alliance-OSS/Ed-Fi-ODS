@@ -67,7 +67,7 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-                    $"-Xms3g -jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
+                    $"-Xmx4g -jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
                     $"--additional-properties packageName={_options.Namespace},targetFramework=net8.0,netCoreProjectFile=true",
                     "--global-property modelTests=false --global-property apiTests=false --global-property apiDocs=false --global-property modelDocs=false --skip-validate-spec"
