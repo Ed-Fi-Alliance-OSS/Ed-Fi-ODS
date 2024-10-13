@@ -7,10 +7,11 @@ using System;
 using System.Linq;
 using System.Text;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Security.Authorization;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public interface IEntityAuthorizationSqlBuilder
 {

@@ -12,7 +12,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Validation;
 using EdFi.Security.DataAccess.Repositories;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public interface IEntityInstanceAuthorizationValidator
 {

@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Common;
 using EdFi.Security.DataAccess.Repositories;
 using FakeItEasy;
@@ -14,7 +14,7 @@ using NUnit.Framework;
 using Shouldly;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 [TestFixture]
 public class EntityInstanceAuthorizationValidatorTests

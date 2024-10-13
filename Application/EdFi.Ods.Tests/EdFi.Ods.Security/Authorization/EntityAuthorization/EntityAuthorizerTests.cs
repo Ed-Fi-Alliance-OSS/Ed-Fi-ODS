@@ -5,13 +5,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
@@ -21,7 +20,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories;
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 [TestFixture]
 public class EntityAuthorizerTests

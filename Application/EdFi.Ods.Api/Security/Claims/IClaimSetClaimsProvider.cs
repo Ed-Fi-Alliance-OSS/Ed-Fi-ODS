@@ -13,5 +13,10 @@ namespace EdFi.Ods.Api.Security.Claims;
 [Intercept(InterceptorCacheKeys.Security)]
 public interface IClaimSetClaimsProvider
 {
-    IList<EdFiResourceClaim> GetClaims(string claimSetName);
+    /// <summary>
+    /// Gets unordered resource claim metadata for the specified claim set.
+    /// </summary>
+    /// <param name="claimSetName">The name of the claim set for which security metadata is to be returned.</param>
+    /// <returns>All resource claims metadata for the claim set.</returns>
+    IList<ClaimSetResourceClaimMetadata> GetClaims(string claimSetName);
 }

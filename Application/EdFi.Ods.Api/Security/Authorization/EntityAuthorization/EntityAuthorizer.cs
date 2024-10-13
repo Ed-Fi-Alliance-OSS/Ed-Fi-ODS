@@ -8,12 +8,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public class EntityAuthorizer : IEntityAuthorizer
 {

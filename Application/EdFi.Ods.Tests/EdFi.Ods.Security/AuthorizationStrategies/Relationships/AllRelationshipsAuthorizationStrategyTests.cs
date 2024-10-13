@@ -119,7 +119,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 var authorizationFilters = SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<EdFiResourceClaim>() },
+                    new[] { Supplied<ClaimSetResourceClaimMetadata>() },
                     Supplied<DataManagementRequestContext>());
             }
         }
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[]
                     {
-                        Supplied<EdFiResourceClaim>()
+                        Supplied<ClaimSetResourceClaimMetadata>()
                     },
                     Supplied<DataManagementRequestContext>());
             }
@@ -221,7 +221,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
 
-                Supplied(Array.Empty<EdFiResourceClaim>());
+                Supplied(Array.Empty<ClaimSetResourceClaimMetadata>());
 
                 var domainModel = CreateValidDomainModel().Build();
                 Given<IDomainModelProvider>().that_always_returns(domainModel);
@@ -230,7 +230,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    Supplied<EdFiResourceClaim[]>(),
+                    Supplied<ClaimSetResourceClaimMetadata[]>(),
                     Supplied<DataManagementRequestContext>());
             }
 
@@ -334,7 +334,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<EdFiResourceClaim>() },
+                    new[] { Supplied<ClaimSetResourceClaimMetadata>() },
                     Supplied<DataManagementRequestContext>());
             }
         }

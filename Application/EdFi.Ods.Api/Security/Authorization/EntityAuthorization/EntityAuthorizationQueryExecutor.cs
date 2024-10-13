@@ -6,12 +6,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure;
 using log4net;
 using NHibernate;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public interface IEntityAuthorizationQueryExecutor
 {

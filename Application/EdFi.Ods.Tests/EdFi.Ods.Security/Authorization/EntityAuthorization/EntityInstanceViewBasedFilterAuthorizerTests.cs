@@ -3,12 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Common.Exceptions;
@@ -18,7 +17,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 [TestFixture]
 public class EntityInstanceViewBasedFilterAuthorizerTests

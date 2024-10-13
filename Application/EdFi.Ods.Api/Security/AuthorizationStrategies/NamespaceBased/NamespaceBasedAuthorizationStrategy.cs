@@ -25,7 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-            EdFiResourceClaim[] relevantClaims,
+            ClaimSetResourceClaimMetadata[] relevantClaims,
             DataManagementRequestContext authorizationContext)
         {
             var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext, AuthorizationStrategyName);

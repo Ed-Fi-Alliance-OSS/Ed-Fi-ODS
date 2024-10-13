@@ -4,14 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Data.Common;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 using EdFi.Ods.Common.Context;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 [TestFixture]
 public class RedundantAuthorizationContextManagerTests

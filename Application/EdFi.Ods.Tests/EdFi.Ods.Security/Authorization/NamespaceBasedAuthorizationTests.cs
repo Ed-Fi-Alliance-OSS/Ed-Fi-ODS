@@ -19,6 +19,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
+// NOTE: Do not modify this namespace -- embedded resource domain models for testing depend on it
 namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {
     [TestFixture]
@@ -149,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
-                        Array.Empty<EdFiResourceClaim>(),
+                        Array.Empty<ClaimSetResourceClaimMetadata>(),
                         new DataManagementRequestContext(
                             CreateApiClientContext(namespacePrefixes),
                             resource,
@@ -192,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    Array.Empty<EdFiResourceClaim>(),
+                    Array.Empty<ClaimSetResourceClaimMetadata>(),
                     new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
@@ -231,7 +232,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    Array.Empty<EdFiResourceClaim>(),
+                    Array.Empty<ClaimSetResourceClaimMetadata>(),
                     new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
@@ -272,7 +273,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 Should.Throw<Exception>(
                         () => strategy.GetAuthorizationStrategyFiltering(
-                            Array.Empty<EdFiResourceClaim>(),
+                            Array.Empty<ClaimSetResourceClaimMetadata>(),
                             new DataManagementRequestContext(
                                 CreateApiClientContext(namespacePrefixes),
                                 resource,
@@ -306,7 +307,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
-                        Array.Empty<EdFiResourceClaim>(),
+                        Array.Empty<ClaimSetResourceClaimMetadata>(),
                         new DataManagementRequestContext(
                             new ApiClientContext(),
                             resource,

@@ -5,11 +5,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public interface IEntityInstanceDelegateFilterAuthorizer
 {

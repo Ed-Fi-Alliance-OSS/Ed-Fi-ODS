@@ -8,17 +8,6 @@ using System.Collections.Generic;
 namespace EdFi.Ods.Common.Security.Claims
 {
     /// <summary>
-    /// Provides a concrete model for creating and accessing the serialized JSON of the Ed-Fi resource claim values.
-    /// </summary>
-    public class EdFiResourceClaimValue
-    {
-        /// <summary>
-        /// Gets or sets the actions that can be performed by the claim on the resource.
-        /// </summary>
-        public ResourceAction[] Actions { get; set; }
-    }
-
-    /// <summary>
     /// Defines properties for identifying the action and (possibly) authorization strategy name override.
     /// </summary>
     public class ResourceAction

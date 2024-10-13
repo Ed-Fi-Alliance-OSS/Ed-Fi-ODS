@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.TokenInfo
         IClaimSetClaimsProvider claimSetClaimsProvider,
         IResourceClaimUriProvider resourceClaimUriProvider,
         ISecurityRepository securityRepository,
-        IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector)
+        IClaimSetRequestEvaluator claimSetRequestEvaluator)
         : ITokenInfoProvider
     {
         public async Task<TokenInfo> GetTokenInfoAsync(ApiClientContext apiContext)
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Features.TokenInfo
                         {
                             try
                             {
-                                return authorizationBasisMetadataSelector.PerformClaimCheck(
+                                return claimSetRequestEvaluator.EvaluateRequest(
                                     apiContext.ClaimSetName, claimUris, action.ActionUri).Success;
                             }
                             catch (AuthorizationContextException)
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.TokenInfo
                 .Select(c => new TokenInfoService
                 {
                     Service = c.ClaimName[EdFiOdsApiClaimTypes.ServicesPrefix.Length..],
-                    Operations = c.ClaimValue.Actions
+                    Operations = c.Actions
                         .Select(a => securityRepository.GetActionByUri(a.Name).ActionName)
                         .ToList()
                 })

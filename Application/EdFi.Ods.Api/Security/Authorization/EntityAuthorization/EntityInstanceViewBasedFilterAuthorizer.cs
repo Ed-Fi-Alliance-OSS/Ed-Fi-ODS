@@ -9,13 +9,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters.Hints;
 using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
 
-namespace EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
+namespace EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 
 public interface IEntityInstanceViewBasedFilterAuthorizer
 {

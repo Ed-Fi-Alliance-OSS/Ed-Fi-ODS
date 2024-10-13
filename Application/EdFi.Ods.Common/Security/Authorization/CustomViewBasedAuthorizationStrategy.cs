@@ -32,7 +32,7 @@ public class CustomViewBasedAuthorizationStrategy : IAuthorizationStrategy
     }
 
     public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-        EdFiResourceClaim[] relevantClaims,
+        ClaimSetResourceClaimMetadata[] relevantClaims,
         DataManagementRequestContext authorizationContext)
     {
         var subjectEntity = GetAuthorizationSubjectEntity();

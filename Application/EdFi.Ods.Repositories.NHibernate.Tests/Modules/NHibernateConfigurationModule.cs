@@ -9,8 +9,8 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Providers;
 using NHibernate;
 using System;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.Authorization.Repositories.EntityAuthorization;
 using EdFi.Ods.Common.Security.Authorization;
 using NHibernate.Cfg;
 
