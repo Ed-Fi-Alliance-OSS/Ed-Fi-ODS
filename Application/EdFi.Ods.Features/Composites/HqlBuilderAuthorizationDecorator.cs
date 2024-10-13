@@ -64,9 +64,6 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             //   Determine inclusion
             // --------------------------
-            // TODO: This may not be neede since URI is passed to create authorization plan
-            _authorizationContextProvider.SetAction(RequestActions.ReadActionUri);
-
             // Authorize and apply filtering
             DataManagementAuthorizationPlan authorizationPlan;
 
@@ -79,8 +76,8 @@ namespace EdFi.Ods.Features.Composites
                         filtering => filtering.Filters.All(
                             f => (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                                 f.FilterName,
-                                out var filterApplicationDetails)
-                            && filterApplicationDetails.HqlConditionFormatString != null))))
+                                out var authorizationFilterDefinition)
+                            && authorizationFilterDefinition.HqlConditionFormatString != null))))
                 {
                     throw new SecurityConfigurationException(
                         SecurityConfigurationException.DefaultDetail,
