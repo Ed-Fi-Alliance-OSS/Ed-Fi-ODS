@@ -60,7 +60,15 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IClaimSetRequestEvaluator>()
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
-            
+
+            builder.RegisterType<RequestEvaluationStrategiesSelector>()
+                .As<IRequestEvaluationStrategiesSelector>()
+                .SingleInstance();
+
+            builder.RegisterType<RequestEvaluationValidationRuleSetSelector>()
+                .As<IRequestEvaluationValidationRuleSetSelector>()
+                .SingleInstance();
+
             builder.RegisterType<ResourceClaimAuthorizationMetadataLineageProvider>()
                 .As<IResourceClaimAuthorizationMetadataLineageProvider>()
                 .EnableInterfaceInterceptors()
