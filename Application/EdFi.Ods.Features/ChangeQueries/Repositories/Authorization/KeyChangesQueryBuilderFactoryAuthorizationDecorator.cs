@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
@@ -21,17 +22,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
         public KeyChangesQueryBuilderFactoryAuthorizationDecorator(
             IKeyChangesQueryBuilderFactory next,
-            IAuthorizationContextProvider authorizationContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            ISecurityRepository securityRepository)
             : base(
-                authorizationContextProvider,
                 domainModelProvider,
                 domainModelEnhancer,
                 dataManagementAuthorizationPlanFactory,
-                authorizationFilterDefinitionProvider)
+                authorizationFilterDefinitionProvider,
+                securityRepository)
         {
             _next = next;
         }

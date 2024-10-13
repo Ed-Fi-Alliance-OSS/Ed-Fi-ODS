@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
@@ -16,25 +17,27 @@ using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
     public class TrackedChangesQueryFactoryAuthorizationDecoratorBase
     {
-        private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
+        private readonly string _readChangesActionUri;
 
         protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
-            IAuthorizationContextProvider authorizationContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            ISecurityRepository securityRepository)
         {
-            _authorizationContextProvider = authorizationContextProvider;
             _dataManagementAuthorizationPlanFactory = dataManagementAuthorizationPlanFactory;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
+
+            _readChangesActionUri = securityRepository.GetActionByName("ReadChanges").ActionUri;
 
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
@@ -49,17 +52,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     $"Unable to perform authorization because entity type for '{resource.Entity.FullName}' could not be identified.");
             }
 
-            string actionUri = "XXXXX";
-
-            // TODO: Get ReadChanges URI here.
-            // -----------------------------------------------------------------
-            if (actionUri == new string('X', 5))
-            {
-                throw new NotImplementedException();
-            }
-            // -----------------------------------------------------------------
-            
-            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(actionUri);
+            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(_readChangesActionUri);
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 

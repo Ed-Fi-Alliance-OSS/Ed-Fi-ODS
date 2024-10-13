@@ -37,32 +37,23 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Route($"{RouteConstants.DataManagementRoutePrefix}/{{schema}}/{{resource}}/keyChanges")]
     public class KeyChangesController : ControllerBase
     {
-        private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly int _defaultPageLimitSize;
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly bool _isEnabled;
         private readonly IKeyChangesResourceDataProvider _keyChangesResourceDataProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesController));
-        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private readonly ISecurityRepository _securityRepository;
         private readonly ILogContextAccessor _logContextAccessor;
 
         public KeyChangesController(
             IDomainModelProvider domainModelProvider,
             IKeyChangesResourceDataProvider keyChangesResourceDataProvider,
-            IAuthorizationContextProvider authorizationContextProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider,
-            ISecurityRepository securityRepository,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _domainModelProvider = domainModelProvider;
             _keyChangesResourceDataProvider = keyChangesResourceDataProvider;
-            _authorizationContextProvider = authorizationContextProvider;
-            _resourceClaimUriProvider = resourceClaimUriProvider;
-            _securityRepository = securityRepository;
             _logContextAccessor = logContextAccessor;
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
@@ -104,9 +95,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
-            // Set authorization context (should this be moved to an authorization component?)
-            _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
-            _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
+            // TODO: ODS-6510 - Set authorization context (should this be moved/removed?)
+            // _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
+            // _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
             var keyChangesResponse = await _keyChangesResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameters);
 
