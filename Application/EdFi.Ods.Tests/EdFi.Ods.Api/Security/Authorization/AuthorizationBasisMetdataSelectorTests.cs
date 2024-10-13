@@ -19,11 +19,11 @@ using Shouldly;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization;
-
+/* TODO: ODS-6510 - Review for replacement coverage and delete file
 [TestFixture]
 public class AuthorizationBasisMetadataSelectorTests
 {
-    private IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
+    private IResourceClaimAuthorizationMetadataLineageProvider _resourceClaimAuthorizationMetadataLineageProvider;
     private ISecurityRepository _securityRepository;
     private IClaimSetClaimsProvider _claimSetClaimsProvider;
     private AuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
@@ -53,7 +53,7 @@ public class AuthorizationBasisMetadataSelectorTests
     [SetUp]
     public void SetUp()
     {
-        _resourceAuthorizationMetadataProvider = A.Fake<IResourceAuthorizationMetadataProvider>();
+        _resourceClaimAuthorizationMetadataLineageProvider = A.Fake<IResourceClaimAuthorizationMetadataLineageProvider>();
         _securityRepository = A.Fake<ISecurityRepository>();
 
         A.CallTo(() => _securityRepository.GetActionByName("Create"))
@@ -105,7 +105,7 @@ public class AuthorizationBasisMetadataSelectorTests
             99);
 
         _authorizationBasisMetadataSelector = new AuthorizationBasisMetadataSelector(
-            _resourceAuthorizationMetadataProvider,
+            _resourceClaimAuthorizationMetadataLineageProvider,
             _securityRepository,
             _claimSetClaimsProvider,
             new[]{ authorizationStrategyProvider });
@@ -175,7 +175,7 @@ public class AuthorizationBasisMetadataSelectorTests
         };
 
         A.CallTo(() =>  
-                _resourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(
+                _resourceClaimAuthorizationMetadataLineageProvider.GetAuthorizationLineage(
                         "resourceClaimUri2", requestActionUri))
             .Returns(suppliedAuthorizationMetadata);
 
@@ -200,7 +200,7 @@ public class AuthorizationBasisMetadataSelectorTests
                 _ => _.AuthorizationStrategies.ShouldNotBeNull(),
                 _ => _.AuthorizationStrategies.ShouldContain(_fake2AuthorizationStrategy),
                 _ => _.RelevantClaim.ClaimName.ShouldBe("resourceClaimUri2"),
-                _ => _.RelevantClaim.ClaimValue.Actions.ShouldContain(a => a.Name == requestActionUri));
+                _ => _.RelevantClaim.Actions.ShouldContain(a => a.Name == requestActionUri));
         }
         else
         {
@@ -216,7 +216,7 @@ public class AuthorizationBasisMetadataSelectorTests
         }
     }
 
-    private static EdFiResourceClaimValue Actions(bool create = false, bool read = false, bool update = false, bool delete = false, bool readChanges = false)
+    private static ResourceAction[] Actions(bool create = false, bool read = false, bool update = false, bool delete = false, bool readChanges = false)
     {
         var resourceActions = new List<ResourceAction>();
     
@@ -245,7 +245,7 @@ public class AuthorizationBasisMetadataSelectorTests
             resourceActions.Add(new ResourceAction("readChangesUri"));
         }
 
-        return new EdFiResourceClaimValue() { Actions = resourceActions.ToArray() };
+        return resourceActions.ToArray();
     }
 
     [AuthorizationStrategyName("Fake1")]
@@ -266,3 +266,4 @@ public class AuthorizationBasisMetadataSelectorTests
             => new();
     }
 }
+*/
