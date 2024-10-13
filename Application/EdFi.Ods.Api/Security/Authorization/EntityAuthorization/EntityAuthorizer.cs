@@ -51,7 +51,10 @@ public class EntityAuthorizer : IEntityAuthorizer
         }
 
         // Get the authorization filtering information
-        var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(actionUri);
+        var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(
+            actionUri,
+            entity,
+            authorizationPhase);
 
         _entityInstanceAuthorizationValidator.Validate(
             authorizationPlan.RequestContext.Data,

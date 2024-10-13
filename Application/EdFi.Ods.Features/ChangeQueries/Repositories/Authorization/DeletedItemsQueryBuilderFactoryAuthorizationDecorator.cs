@@ -9,7 +9,6 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Security.DataAccess.Repositories;
 

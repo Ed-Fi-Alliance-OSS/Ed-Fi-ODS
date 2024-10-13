@@ -63,19 +63,20 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
-        var authorizationPlan = new DataManagementAuthorizationPlan();
+        var authorizationPhase = AuthorizationPhase.ExistingData;
 
+        var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
         
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         // Act
         await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ExistingData, CancellationToken.None);
 
         // Assert
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .MustHaveHappenedOnceExactly();
     }
 
@@ -93,13 +94,13 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
-        var authorizationPlan = new DataManagementAuthorizationPlan();
         var authorizationPhase = AuthorizationPhase.ExistingData;
 
+        var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         // Act
@@ -119,8 +120,9 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
-        var authorizationPlan = new DataManagementAuthorizationPlan();
+        var authorizationPhase = AuthorizationPhase.ExistingData;
 
+        var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
 
@@ -137,7 +139,7 @@ public class EntityAuthorizerTests
 
         authorizationPlan.Filtering = new[] { A.Fake<AuthorizationStrategyFiltering>() };
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.And, authorizationPlan.Filtering, authorizationPlan.RequestContext))
@@ -156,7 +158,8 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
-        
+        var authorizationPhase = AuthorizationPhase.ExistingData;
+
         var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
@@ -174,7 +177,7 @@ public class EntityAuthorizerTests
 
         authorizationPlan.Filtering = new[] { new AuthorizationStrategyFiltering() };
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.And, authorizationPlan.Filtering, authorizationPlan.RequestContext))
@@ -197,6 +200,8 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
+        var authorizationPhase = AuthorizationPhase.ExistingData;
+
         var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
@@ -215,14 +220,14 @@ public class EntityAuthorizerTests
         authorizationPlan.Filtering = new[] { A.Fake<AuthorizationStrategyFiltering>() };
         authorizationPlan.RequestContext = A.Fake<DataManagementRequestContext>();
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.Or, authorizationPlan.Filtering, authorizationPlan.RequestContext))
             .Returns(new[] { orConditionResult });
 
         // Act
-        await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ExistingData, CancellationToken.None);
+        await _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, authorizationPhase, CancellationToken.None);
 
         // Assert
         A.CallTo(() => _viewBasedFilterAuthorizer.PerformViewBasedAuthorizationAsync(A<AuthorizationStrategyFilterResults[]>.Ignored,
@@ -237,7 +242,8 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
-     
+        var authorizationPhase = AuthorizationPhase.ExistingData;
+
         var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
         authorizationPlan.AuthorizationBasisMetadata = new AuthorizationBasisMetadata(null, null, "validation-rule-set");
@@ -268,7 +274,7 @@ public class EntityAuthorizerTests
         };
 
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.And, authorizationPlan.Filtering, authorizationPlan.RequestContext))
@@ -294,6 +300,7 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
+        var authorizationPhase = AuthorizationPhase.ExistingData;
 
         var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
@@ -311,7 +318,7 @@ public class EntityAuthorizerTests
             }
         };
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.And, authorizationPlan.Filtering, authorizationPlan.RequestContext))
@@ -333,6 +340,7 @@ public class EntityAuthorizerTests
         // Arrange
         var actionUri = "some-action-uri";
         var entity = new object();
+        var authorizationPhase = AuthorizationPhase.ExistingData;
 
         var authorizationPlan = new DataManagementAuthorizationPlan();
         authorizationPlan.RequestContext = CreateAuthorizationPlanRequestContext(actionUri, entity);
@@ -361,7 +369,7 @@ public class EntityAuthorizerTests
             }
         };
 
-        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri))
+        A.CallTo(() => _authorizationPlanFactory.CreateAuthorizationPlan(actionUri, entity, authorizationPhase))
             .Returns(authorizationPlan);
 
         A.CallTo(() => _delegateFilterAuthorizer.PerformInstanceBasedAuthorization(FilterOperator.And, authorizationPlan.Filtering, authorizationPlan.RequestContext))

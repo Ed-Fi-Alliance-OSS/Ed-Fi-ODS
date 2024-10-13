@@ -38,6 +38,7 @@ public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizati
         _resourceClaimUriProvider = resourceClaimUriProvider;
     }
 
+    /// <inheritdoc cref="IDataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(string)" />
     public DataManagementAuthorizationPlan CreateAuthorizationPlan(string actionUri)
     {
         // Build the request context
@@ -46,26 +47,38 @@ public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizati
         return CreateAuthorizationPlan(resource, actionUri);
     }
 
+    /// <inheritdoc cref="IDataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(EdFi.Ods.Common.Models.Resource.Resource,string)" />
     public DataManagementAuthorizationPlan CreateAuthorizationPlan(Resource resource, string actionUri)
     {
-        string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
-        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
+        var dataManagementRequestContext = CreateDataManagementRequestContext(resource, actionUri);
 
-        var dataManagementRequestContext = new DataManagementRequestContext(
-            apiClientContext,
-            resource,
-            resourceClaimUris,
-            actionUri,
-            (Type) (resource.Entity as dynamic).NHibernateEntityType);
+        return CreateAuthorizationPlan(dataManagementRequestContext);
+    }
 
-        // Get authorization filters
+    /// <inheritdoc cref="IDataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(string,object,EdFi.Ods.Common.Security.Claims.AuthorizationPhase)" />
+    public DataManagementAuthorizationPlan CreateAuthorizationPlan(
+        string actionUri,
+        object entity,
+        AuthorizationPhase authorizationPhase)
+    {
+        // Build the request context
+        var resource = _dataManagementResourceContextProvider.Get().Resource;
+
+        var dataManagementRequestContext = CreateDataManagementRequestContext(resource, actionUri, entity, authorizationPhase);
+
+        return CreateAuthorizationPlan(dataManagementRequestContext);
+    }
+
+    private DataManagementAuthorizationPlan CreateAuthorizationPlan(DataManagementRequestContext dataManagementRequestContext)
+    {
         var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-            apiClientContext.ClaimSetName,
-            resourceClaimUris,
-            actionUri);
+            dataManagementRequestContext.ApiClientContext.ClaimSetName,
+            dataManagementRequestContext.ResourceClaimUris,
+            dataManagementRequestContext.Action);
 
         var relevantClaims = new[] { authorizationBasisMetadata.RelevantClaim };
 
+        // Get authorization filters
         var authorizationFiltering = authorizationBasisMetadata.AuthorizationStrategies
             .Distinct()
             .Select(x => x.GetAuthorizationStrategyFiltering(relevantClaims, dataManagementRequestContext))
@@ -79,6 +92,37 @@ public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizati
             AuthorizationBasisMetadata = authorizationBasisMetadata,
             Filtering = authorizationFiltering
         };
+    }
+
+    private DataManagementRequestContext CreateDataManagementRequestContext(Resource resource, string actionUri)
+    {
+        string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
+        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
+
+        return new DataManagementRequestContext(
+            apiClientContext,
+            resource,
+            resourceClaimUris,
+            actionUri,
+            (Type)(resource.Entity as dynamic).NHibernateEntityType);
+    }
+    
+    private DataManagementRequestContext CreateDataManagementRequestContext(
+        Resource resource,
+        string actionUri,
+        object entity,
+        AuthorizationPhase authorizationPhase)
+    {
+        string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
+        var apiClientContext = _apiClientContextProvider.GetApiClientContext();
+
+        return  new DataManagementRequestContext(
+            apiClientContext,
+            resource,
+            resourceClaimUris,
+            actionUri,
+            entity,
+            authorizationPhase);
     }
 }
 
