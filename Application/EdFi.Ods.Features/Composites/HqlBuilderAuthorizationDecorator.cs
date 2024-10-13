@@ -53,13 +53,11 @@ namespace EdFi.Ods.Features.Composites
         {
             var resourceClass = processorContext.CurrentResourceClass;
 
-            if (!(resourceClass is Resource))
+            if (resourceClass is not Resource resource)
             {
                 throw new InvalidOperationException(
                     $"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
             }
-
-            var resource = (Resource) resourceClass;
 
             // --------------------------
             //   Determine inclusion
@@ -69,7 +67,7 @@ namespace EdFi.Ods.Features.Composites
 
             try
             {
-                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri);
+                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri);
 
                 // Make sure that all applied filtering has HQL support 
                 if (!authorizationPlan.Filtering.All(

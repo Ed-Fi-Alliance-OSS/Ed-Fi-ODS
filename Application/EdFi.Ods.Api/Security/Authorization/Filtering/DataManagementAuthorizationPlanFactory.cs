@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -41,6 +42,12 @@ public class DataManagementAuthorizationPlanFactory : IDataManagementAuthorizati
     {
         // Build the request context
         var resource = _dataManagementResourceContextProvider.Get().Resource;
+
+        return CreateAuthorizationPlan(resource, actionUri);
+    }
+
+    public DataManagementAuthorizationPlan CreateAuthorizationPlan(Resource resource, string actionUri)
+    {
         string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
         var apiClientContext = _apiClientContextProvider.GetApiClientContext();
 
