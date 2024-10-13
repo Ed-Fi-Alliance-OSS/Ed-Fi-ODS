@@ -62,20 +62,38 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             //   Determine inclusion
             // --------------------------
+
+            // In the case where we have an abstract class and it has no claim, eg EducationOrganization, we will allow the join if the subtype has been included.
+            if (processorContext.IsAbstract())
+            {
+                if (processorContext.ShouldIncludeResourceSubtype())
+                {
+                    Logger.DebugFormat(
+                        "Resource is abstract and so target resource '{0}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.",
+                        processorContext.CurrentResourceClass.Name);
+
+                    return true;
+                }
+
+                Logger.DebugFormat("Resource '{0}' has been excluded from the response because it is abstract and only concrete types can be authorized. To include this referenced resource, use the 'includeResourceSubtype' attribute on the 'ReferencedResource' element in the composite definition.", processorContext.CurrentResourceClass.Name);
+                return false;
+            }
+
             // Authorize and apply filtering
             DataManagementAuthorizationPlan authorizationPlan;
 
             try
             {
-                authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri);
+                authorizationPlan =
+                    _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri);
 
                 // Make sure that all applied filtering has HQL support 
                 if (!authorizationPlan.Filtering.All(
                         filtering => filtering.Filters.All(
                             f => (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
-                                f.FilterName,
-                                out var authorizationFilterDefinition)
-                            && authorizationFilterDefinition.HqlConditionFormatString != null))))
+                                    f.FilterName,
+                                    out var authorizationFilterDefinition)
+                                && authorizationFilterDefinition.HqlConditionFormatString != null))))
                 {
                     throw new SecurityConfigurationException(
                         SecurityConfigurationException.DefaultDetail,
@@ -87,27 +105,13 @@ namespace EdFi.Ods.Features.Composites
                 // If this is the base resource, rethrow the exception to achieve a 401 response
                 if (processorContext.IsBaseResource())
                 {
-                    Logger.Debug($"BaseResource: {processorContext.CurrentResourceClass.Name} could not be authorized.");
+                    Logger.DebugFormat("BaseResource: {0} could not be authorized.", processorContext.CurrentResourceClass.Name);
+
                     throw;
                 }
 
-                // In the case where we have an abstract class and it has no claim, eg EducationOrganization, we will allow
-                // the join if the subtype has been included.
-                if (processorContext.IsAbstract())
-                {
-                    Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} has no claim.");
-
-                    if (processorContext.ShouldIncludeResourceSubtype())
-                    {
-                        Logger.Debug(
-                            $"Resource is abstract and so target resource '{processorContext.CurrentResourceClass.Name}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.");
-
-                        return true;
-                    }
-                }
-
-                Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} is excluded from the request.");
-                Logger.Debug($"Security Exception Message: {ex.Message}.");
+                Logger.DebugFormat("Resource {0} is excluded from the request.", processorContext.CurrentResourceClass.Name);
+                Logger.DebugFormat("AuthorizationException Message: {0}.", ex.Message);
 
                 return false;
             }

@@ -60,10 +60,11 @@ public class HqlBuilderAuthorizationDecoratorTests
     public void TryIncludeResource_WithAuthorizationFailureOnBaseResource_ThrowsException()
     {
         var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass).Returns(CreateStudentResource());
+        var resource = CreateStudentResource();
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(resource);
         A.CallTo(() => processorContext.IsBaseResource()).Returns(true);
 
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri))
+        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri))
             .Throws(new SecurityAuthorizationException("detail", "error"));
 
         Should.Throw<SecurityAuthorizationException>(
@@ -74,11 +75,12 @@ public class HqlBuilderAuthorizationDecoratorTests
     public void TryIncludeResource_WithAbstractResourceAndSubtypeIncluded_ReturnsTrue()
     {
         var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("xyz"));
+        var resource = new Resource("xyz");
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(resource);
         A.CallTo(() => processorContext.IsAbstract()).Returns(true);
         A.CallTo(() => processorContext.ShouldIncludeResourceSubtype()).Returns(true);
 
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri))
+        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri))
             .Throws(new SecurityAuthorizationException("detail", "error"));
 
         var result = _decorator.TryIncludeResource(processorContext, CreateMinimalBuilderContext());
@@ -87,14 +89,15 @@ public class HqlBuilderAuthorizationDecoratorTests
     }
 
     [Test]
-    public void TryIncludeResource_WithAbstractResourceAndSubtypeNotIncluded_ReturnsTrue()
+    public void TryIncludeResource_WithAbstractResourceAndSubtypeNotIncluded_ReturnsFalse()
     {
         var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("xyz"));
+        var resource = new Resource("xyz");
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(resource);
         A.CallTo(() => processorContext.IsAbstract()).Returns(true);
         A.CallTo(() => processorContext.ShouldIncludeResourceSubtype()).Returns(false);
 
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri))
+        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri))
             .Throws(new SecurityAuthorizationException("detail", "error"));
 
         var result = _decorator.TryIncludeResource(processorContext, CreateMinimalBuilderContext());
@@ -137,7 +140,7 @@ public class HqlBuilderAuthorizationDecoratorTests
             RequestContext = null,
         };
         
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri))
+        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri))
             .Returns(dataManagementAuthorizationPlan);
         
         // Act / Assert
@@ -151,7 +154,8 @@ public class HqlBuilderAuthorizationDecoratorTests
     public void TryIncludeResource_WithAuthorizedResource_SetsFiltering()
     {
         var processorContext = A.Fake<CompositeDefinitionProcessorContext>();
-        A.CallTo(() => processorContext.CurrentResourceClass).Returns(new Resource("xyz"));
+        var resource = new Resource("xyz");
+        A.CallTo(() => processorContext.CurrentResourceClass).Returns(resource);
 
         var filter1Definition = new AuthorizationFilterDefinition("filter1", "some-hql", null, null, null);
         A.CallTo(() => _filterDefProvider.TryGetAuthorizationFilterDefinition("filter1", out filter1Definition));
@@ -173,7 +177,7 @@ public class HqlBuilderAuthorizationDecoratorTests
             RequestContext = null,
         };
 
-        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(RequestActions.ReadActionUri)).Returns(authorizationPlan);
+        A.CallTo(() => _authPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri)).Returns(authorizationPlan);
 
         A.CallTo(() => _filterDefProvider.TryGetAuthorizationFilterDefinition("filter1", out filter1Definition))
             .Returns(true);
