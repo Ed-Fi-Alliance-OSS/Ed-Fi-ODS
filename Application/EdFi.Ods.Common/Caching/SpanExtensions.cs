@@ -80,7 +80,8 @@ public static class SpanExtensions
 
     public static void CopyTo(this IList<string> value, Span<byte> buffer)
     {
-        var totalByteLength = value.Sum(v => string.IsNullOrEmpty(v) ? _nullBytes.Length : v.GetByteLength());
+        var totalByteLength = value.Sum(v => string.IsNullOrEmpty(v) ? _nullBytes.Length : v.GetByteLength())
+            + value.Count * _enumerableItemDelimiter.Length;
 
         var stringsBuffer = ArrayPool<byte>.Shared.Rent(totalByteLength);
 
@@ -90,7 +91,7 @@ public static class SpanExtensions
         
             foreach (var item in value)
             {
-                int sourceSpanLength = string.IsNullOrEmpty(item) ? 1 : item.GetByteLength();
+                int sourceSpanLength = string.IsNullOrEmpty(item) ? _nullBytes.Length : item.GetByteLength();
                 var targetSpan = stringsBuffer.AsSpan(offset, sourceSpanLength);
 
                 if (string.IsNullOrEmpty(item))
@@ -101,8 +102,13 @@ public static class SpanExtensions
                 {
                     item.CopyTo(targetSpan);
                 }
-                
+
                 offset += sourceSpanLength;
+
+                // Add the item delimiter
+                var delimiterTargetSpan = stringsBuffer.AsSpan(offset, _enumerableItemDelimiter.Length);
+                _enumerableItemDelimiter.CopyTo(delimiterTargetSpan);
+                offset++;
             }
 
             // We cannot return these bytes because they are part of shared pool, so reduce the list to a single hash value, then return the ulong result as bytes
