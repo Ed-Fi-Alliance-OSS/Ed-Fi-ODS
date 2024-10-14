@@ -8,6 +8,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using EdFi.Ods.Common.Models.Resource;
 using Standart.Hash.xxHash;
 using BitConverter = System.BitConverter;
 using DateTime = System.DateTime;
@@ -182,6 +183,7 @@ public static class SpanExtensions
         if (value == null)
         {
             _nullBytes.CopyTo(buffer);
+            return;
         }
 
         if (value is int intValue)
@@ -238,6 +240,12 @@ public static class SpanExtensions
             return;
         }
 
+        if (value is Resource resource)
+        {
+            resource.FullName.ToString().CopyTo(buffer);
+            return;
+        }
+
         throw new NotImplementedException($"Support for copying bytes from type '{typeof(T)}' to a buffer has not been implemented.");
     }
     
@@ -291,6 +299,11 @@ public static class SpanExtensions
         if (value is TimeSpan timeSpanValue)
         {
             return timeSpanValue.GetByteLength();
+        }
+
+        if (value is Resource resource)
+        {
+            return resource.FullName.ToString().GetByteLength();
         }
 
         throw new NotImplementedException($"Support for determining byte length for type '{typeof(T)}' has not been implemented.");
