@@ -12,9 +12,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Institutio
     public class InstitutionControlDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InstitutionControlDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -61,9 +65,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Institutio
     public class InstitutionLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InstitutionLevelDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -160,8 +168,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.SpecialEdu
     public class SpecialEducationGraduationStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SpecialEducationGraduationStatusDescriptorId { get; set; }
     }
 
@@ -209,8 +221,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleStudentTranscript.Submission
     public class SubmissionCertificationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SubmissionCertificationDescriptorId { get; set; }
     }
 
