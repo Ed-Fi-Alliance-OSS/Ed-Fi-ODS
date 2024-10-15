@@ -56,7 +56,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
             return;
 
         var identificationCodeTableJoin =
-            GetIdentificationCodeEntityTableJoin(identificationCodePropertiesByParameterName.Values.First().Entity);
+            GetIdentificationCodeEntityTableJoin(entity, identificationCodePropertiesByParameterName.Values.First().Entity);
 
         queryBuilder.Join(identificationCodeTableJoin.TableName, _ => identificationCodeTableJoin);
 
@@ -105,12 +105,12 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
         }
     }
 
-    private Join GetIdentificationCodeEntityTableJoin(Entity identificationCodeEntity)
+    private Join GetIdentificationCodeEntityTableJoin(Entity rootEntity, Entity identificationCodeEntity)
     {
         return _identificationCodeTableJoinByRootEntityName.GetOrAdd(
-            identificationCodeEntity.FullName, _ =>
+            rootEntity.FullName, _ =>
             {
-                string alias = identificationCodeEntity.IsDerived
+                string alias = rootEntity.IsDerived
                     ? "b"
                     : "r";
 
@@ -119,7 +119,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
                         .Alias(IdentificationCodeTableAlias));
 
                 foreach (var entityIdentificationCodePropertyColumnName in GetIdentificationCodeEntityTableJoinColumnNames(
-                             identificationCodeEntity, _databaseEngine))
+                             identificationCodeEntity))
                 {
                     join.On(
                         $"{alias}.{entityIdentificationCodePropertyColumnName}",
@@ -129,12 +129,11 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
                 return join;
             });
 
-        IEnumerable<string> GetIdentificationCodeEntityTableJoinColumnNames(Entity identificationCodeEntity,
-            DatabaseEngine databaseEngine)
+        IEnumerable<string> GetIdentificationCodeEntityTableJoinColumnNames(Entity identificationCodeEntity)
         {
             return identificationCodeEntity.Identifier.Properties
                 .Where(p => p.IsFromParent && p.IsIdentifying)
-                .Select(p => p.ColumnName(databaseEngine, p.PropertyName));
+                .Select(p => p.ColumnName(_databaseEngine, p.PropertyName)).ToArray();
         }
     }
 }

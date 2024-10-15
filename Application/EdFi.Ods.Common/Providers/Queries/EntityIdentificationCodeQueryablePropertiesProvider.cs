@@ -14,11 +14,12 @@ namespace EdFi.Ods.Common.Providers.Queries;
 public class EntityIdentificationCodeQueryablePropertiesProvider : IEntityIdentificationCodeQueryablePropertiesProvider
 {
     private readonly ConcurrentDictionary<FullName, Dictionary<string, EntityProperty>>
-        _identificationCodeParameterDictByEntityFullName = new();
+        _identificationCodeParameterDictsByEntityFullName = new();
 
     public bool TryGetIdentificationCodePropertiesByParameterName(Entity entity,
         out Dictionary<string, EntityProperty> identificationCodePropertiesByParameterName) {
-        identificationCodePropertiesByParameterName = _identificationCodeParameterDictByEntityFullName.GetOrAdd(entity.FullName, _ => 
+        
+        identificationCodePropertiesByParameterName = _identificationCodeParameterDictsByEntityFullName.GetOrAdd(entity.FullName, _ => 
         {
             if (TryFindIdentificationCodeProperty(entity, out EntityProperty identificationCodeProperty))
             {
@@ -30,7 +31,7 @@ public class EntityIdentificationCodeQueryablePropertiesProvider : IEntityIdenti
             return null;
         });
         
-        return identificationCodePropertiesByParameterName.Count > 0;
+        return identificationCodePropertiesByParameterName?.Count > 0;
         
         string GetParameterNameForIdentificationCodeProperty(EntityProperty property)
         {
