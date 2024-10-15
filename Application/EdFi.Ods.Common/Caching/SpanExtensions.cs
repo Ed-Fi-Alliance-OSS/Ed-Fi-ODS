@@ -80,17 +80,32 @@ public static class SpanExtensions
 
     public static void CopyTo(this IList<string> value, Span<byte> buffer)
     {
-        var totalByteLength = value.Sum(v => string.IsNullOrEmpty(v) ? _nullBytes.Length : v.GetByteLength())
-            + value.Count * _enumerableItemDelimiter.Length;
+        var totalByteLength = 0;
+        for (int i = 0; i < value.Count; i++)
+        {
+            var v = value[i];
+            if (string.IsNullOrEmpty(v))
+            {
+                totalByteLength += _nullBytes.Length;
+            }
+            else
+            {
+                totalByteLength += v.GetByteLength();
+            }
+        }
+
+        totalByteLength += value.Count * _enumerableItemDelimiter.Length;
 
         var stringsBuffer = ArrayPool<byte>.Shared.Rent(totalByteLength);
 
         try
         {
             int offset = 0;
-        
-            foreach (var item in value)
+
+            for (int i = 0; i < value.Count; i++)
             {
+                var item = value[i];
+
                 int sourceSpanLength = string.IsNullOrEmpty(item) ? _nullBytes.Length : item.GetByteLength();
                 var targetSpan = stringsBuffer.AsSpan(offset, sourceSpanLength);
 
