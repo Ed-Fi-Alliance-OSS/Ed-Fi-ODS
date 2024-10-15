@@ -2935,7 +2935,7 @@
 											"});",
 											"",
 											"const items = pm.response.json();",
-											"const item = items[0];",
+											"const item = items.find(i => i.contentStandard);",
 											"",
 											"pm.environment.set('known:assessment:id', item.id);",
 											"pm.environment.set('known:assessment:assessmentIdentifier', item.assessmentIdentifier);",

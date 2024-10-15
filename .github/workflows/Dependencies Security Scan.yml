@@ -27,7 +27,7 @@ jobs:
 
   analyze-code:
     name: Analyze Code Dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       actions: read
       contents: read
