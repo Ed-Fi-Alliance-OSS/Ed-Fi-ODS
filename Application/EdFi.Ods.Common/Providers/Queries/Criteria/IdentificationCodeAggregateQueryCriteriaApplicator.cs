@@ -3,14 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Configuration;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Providers.Criteria;
 
 namespace EdFi.Ods.Common.Providers.Queries.Criteria;
 
@@ -20,62 +20,76 @@ namespace EdFi.Ods.Common.Providers.Queries.Criteria;
 public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRootQueryCriteriaApplicator
 {
     private readonly IDescriptorResolver _descriptorResolver;
+    private readonly IEntityIdentificationCodeQueryablePropertiesProvider _entityIdentificationCodeQueryablePropertiesProvider;
     private readonly DatabaseEngine _databaseEngine;
+
     private const string IdentificationCodeTableAlias = "idct";
+    private readonly ConcurrentDictionary<FullName, Join> _identificationCodeTableJoinByRootEntityName = new();
 
     public IdentificationCodeAggregateQueryCriteriaApplicator(
         IDescriptorResolver descriptorResolver,
+        IEntityIdentificationCodeQueryablePropertiesProvider entityIdentificationCodeQueryablePropertiesProvider,
         DatabaseEngine databaseEngine)
     {
         _descriptorResolver = descriptorResolver;
+        _entityIdentificationCodeQueryablePropertiesProvider = entityIdentificationCodeQueryablePropertiesProvider;
         _databaseEngine = databaseEngine;
     }
 
     public void ApplyAdditionalParameters(QueryBuilder queryBuilder, Entity entity, AggregateRootWithCompositeKey specification,
         IDictionary<string, string> additionalParameters)
     {
-        if (additionalParameters == null || !additionalParameters.Any() || additionalParameters.All(
-                ap => AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(ap.Key, StringComparer.OrdinalIgnoreCase)))
+        if (additionalParameters == null || !additionalParameters.Any())
             return;
 
-        var entityIdentificationCodeProperty = AggregateRootCriteriaProviderHelpers.FindIdentificationCodeProperty(entity);
-
-        //If the entity does not have an identificationCodes collection, return
-        if (entityIdentificationCodeProperty == null)
+        // If the entity does not have an identificationCodes collection with queryable properties, return
+        if (!_entityIdentificationCodeQueryablePropertiesProvider.TryGetIdentificationCodePropertiesByParameterName(
+                entity, out Dictionary<string, EntityProperty> identificationCodePropertiesByParameterName))
             return;
 
-        string alias = entity.IsDerived
-            ? "b"
-            : "r";
+        // Find any supplied additionalParameters with a non-default value and name matching that of a queryable identificationCode property, if none then return
+        var applicableAdditionalParameters = additionalParameters
+            .Where(x => !x.Value.IsDefaultValue() && identificationCodePropertiesByParameterName.ContainsKey(x.Key))
+            .ToArray();
 
-        var identificationCodeTableJoin = CreateIdentificationCodeTableJoin(entityIdentificationCodeProperty, alias);
-        queryBuilder.Join(identificationCodeTableJoin.TableName, _ => identificationCodeTableJoin, JoinType.LeftOuterJoin);
+        if (applicableAdditionalParameters.Length == 0)
+            return;
+
+        var identificationCodeTableJoin =
+            GetIdentificationCodeEntityTableJoin(identificationCodePropertiesByParameterName.Values.First().Entity);
+
+        queryBuilder.Join(identificationCodeTableJoin.TableName, _ => identificationCodeTableJoin);
 
         ApplyParameterValuesToQueryBuilder(
-            queryBuilder, additionalParameters, GetIdentificationCodeParameters(entityIdentificationCodeProperty));
+            queryBuilder, applicableAdditionalParameters, identificationCodePropertiesByParameterName);
     }
 
-    private void ApplyParameterValuesToQueryBuilder(QueryBuilder queryBuilder, IDictionary<string, string> additionalParameters,
+    private void ApplyParameterValuesToQueryBuilder(QueryBuilder queryBuilder,
+        IEnumerable<KeyValuePair<string, string>> parameterValuesByName,
         IDictionary<string, EntityProperty> identificationCodePropertiesByParameter)
     {
-        foreach (KeyValuePair<string, string> parameter in additionalParameters)
+        foreach (KeyValuePair<string, string> parameterKeyValuePair in parameterValuesByName)
         {
-            if (identificationCodePropertiesByParameter.TryGetValue(parameter.Key, out var property))
+            if (!identificationCodePropertiesByParameter.TryGetValue(parameterKeyValuePair.Key, out var property))
             {
-                var queryParameterValue = GetQueryParameterValueForProperty(property, parameter.Value);
-
-                if (property.IsDescriptorUsage && queryParameterValue == null)
-                {
-                    // Descriptor did not match any value -- criteria should exclude all entries
-                    // Since no additional criteria need to be applied, exit the loop
-                    queryBuilder.WhereRaw("1 = 0");
-                    break;
-                }
-
-                queryBuilder.Where($"{IdentificationCodeTableAlias}.{property.PropertyName}", queryParameterValue);
+                continue;
             }
+
+            var queryParameterValue = GetQueryParameterValueForProperty(property, parameterKeyValuePair.Value);
+
+            if (property.IsDescriptorUsage && queryParameterValue == null)
+            {
+                // Descriptor did not match any value -- criteria should exclude all entries
+                // Since no additional criteria need to be applied, exit the loop
+                queryBuilder.WhereRaw("1 = 0");
+                break;
+            }
+
+            queryBuilder.Where($"{IdentificationCodeTableAlias}.{property.PropertyName}", queryParameterValue);
         }
-        
+
+        return;
+
         object GetQueryParameterValueForProperty(EntityProperty property, string parameterValue)
         {
             if (!property.IsDescriptorUsage)
@@ -91,19 +105,29 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
         }
     }
 
-    private Join CreateIdentificationCodeTableJoin(EntityProperty entityIdentificationCodeProperty, string alias)
+    private Join GetIdentificationCodeEntityTableJoin(Entity identificationCodeEntity)
     {
-        var join = new Join(
-            $"{entityIdentificationCodeProperty.Entity.Schema}.{entityIdentificationCodeProperty.Entity.TableName(_databaseEngine)}"
-                .Alias(IdentificationCodeTableAlias));
+        return _identificationCodeTableJoinByRootEntityName.GetOrAdd(
+            identificationCodeEntity.FullName, _ =>
+            {
+                string alias = identificationCodeEntity.IsDerived
+                    ? "b"
+                    : "r";
 
-        foreach (var entityIdentificationCodePropertyColumnName in GetIdentificationCodeEntityTableJoinColumnNames(
-                     entityIdentificationCodeProperty.Entity, _databaseEngine))
-        {
-            join.On($"{alias}.{entityIdentificationCodePropertyColumnName}", $"{IdentificationCodeTableAlias}.{entityIdentificationCodePropertyColumnName}");
-        }
+                var join = new Join(
+                    $"{identificationCodeEntity.Schema}.{identificationCodeEntity.TableName(_databaseEngine)}"
+                        .Alias(IdentificationCodeTableAlias));
 
-        return join;
+                foreach (var entityIdentificationCodePropertyColumnName in GetIdentificationCodeEntityTableJoinColumnNames(
+                             identificationCodeEntity, _databaseEngine))
+                {
+                    join.On(
+                        $"{alias}.{entityIdentificationCodePropertyColumnName}",
+                        $"{IdentificationCodeTableAlias}.{entityIdentificationCodePropertyColumnName}");
+                }
+
+                return join;
+            });
 
         IEnumerable<string> GetIdentificationCodeEntityTableJoinColumnNames(Entity identificationCodeEntity,
             DatabaseEngine databaseEngine)
@@ -111,24 +135,6 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
             return identificationCodeEntity.Identifier.Properties
                 .Where(p => p.IsFromParent && p.IsIdentifying)
                 .Select(p => p.ColumnName(databaseEngine, p.PropertyName));
-        }
-    }
-
-    private IDictionary<string, EntityProperty> GetIdentificationCodeParameters(EntityProperty entityIdentificationCodeProperty)
-    {
-        return entityIdentificationCodeProperty.Entity.Properties
-            .Where(IsQueryableIdentificationCodeProperty)
-            .ToDictionary(GetParameterNameForIdentificationCodeProperty, StringComparer.OrdinalIgnoreCase);
-
-        string GetParameterNameForIdentificationCodeProperty(EntityProperty property)
-        {
-            return property.DescriptorEntity?.Name ?? property.PropertyName;
-        }
-        
-        bool IsQueryableIdentificationCodeProperty(EntityProperty property)
-        {
-            return property.PropertyName.Equals("IdentificationCode") ||
-                   !(property.IsFromParent || property.IsAlreadyDefinedInCSharpEntityBaseClasses());
         }
     }
 }
