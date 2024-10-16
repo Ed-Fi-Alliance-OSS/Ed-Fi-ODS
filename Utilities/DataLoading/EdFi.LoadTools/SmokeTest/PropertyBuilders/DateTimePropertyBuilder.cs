@@ -23,7 +23,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            if (!IsTypeMatch<DateTime>(propertyInfo))
+            if (!IsTypeMatch<DateTime>(propertyInfo) && !IsTypeMatch<DateOnly>(propertyInfo))
             {
                 return false;
             }
@@ -34,7 +34,10 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                     ? DateTime.Today.AddDays(-Random.Next(5 * 365, 99 * 365))
                     : DateTime.Today.AddDays(Random.Next(100));
 
-                propertyInfo.SetValue(obj, randomDate);
+                propertyInfo.SetValue(
+                    obj, IsTypeMatch<DateOnly>(propertyInfo)
+                        ? DateOnly.FromDateTime(randomDate)
+                        : randomDate);
             }
 
             return true;
