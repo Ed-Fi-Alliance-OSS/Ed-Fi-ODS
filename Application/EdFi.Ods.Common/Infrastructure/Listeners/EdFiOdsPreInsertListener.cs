@@ -6,80 +6,76 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Compression;
 using EdFi.Ods.Common.Models.Domain;
+using log4net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NHibernate.Event;
-using NHibernate.Persister.Entity;
 
 namespace EdFi.Ods.Common.Infrastructure.Listeners
 {
     public class EdFiOdsPreInsertListener : IPreInsertEventListener
     {
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsPreInsertListener));
+
+        public EdFiOdsPreInsertListener(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+        {
+            _jsonSerializerSettings = new JsonSerializerSettings(jsonOptions.Value.SerializerSettings);
+            _jsonSerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+
         public Task<bool> OnPreInsertAsync(PreInsertEvent @event, CancellationToken cancellationToken)
         {
-            return Task.Run(() => OnPreInsert(@event), cancellationToken);
+            var result = OnPreInsert(@event);
+
+            return Task.FromResult(result);
         }
 
         public bool OnPreInsert(PreInsertEvent @event)
         {
-            Set(@event.Persister, @event.State, "CreateDate", DateTime.UtcNow);
+            var persister = @event.Persister;
 
-            int idIndex = GetPropertyIndex(@event.Persister, "Id");
+            persister.Set(@event.State, "CreateDate", DateTime.UtcNow);
 
-            if (idIndex >= 0 && @event.Persister.GetPropertyType("Id")
-                                      .ReturnedClass == typeof(Guid))
+            if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
+                int idIndex = persister.GetPropertyIndex("Id");
+
                 // Create a new Guid if one was not assigned by client
-                if (Get<Guid>(@event.Persister, @event.State, "Id") == default(Guid))
+                Guid assignedId = (Guid)@event.State[idIndex];
+
+                if (assignedId == default)
                 {
                     Guid newGuid = Guid.NewGuid();
-                    Set(@event.Persister, @event.State, "Id", newGuid);
+                    @event.State[idIndex] = newGuid;
 
                     // TODO: Need to be verified that this step provides the aggregate's Id
                     // to derived classes that about to be inserted (e.g. EdOrg -> School).
                     // The derived class should have the same Id value in the table.
-                    var aggregateRoot = @event.Entity as AggregateRootWithCompositeKey;
+                    aggregateRoot.Id = newGuid;
+                }
 
-                    if (aggregateRoot != null)
-                    {
-                        aggregateRoot.Id = newGuid;
-                    }
+                var lastModifiedDate = persister.Get<DateTime>(@event.State, "LastModifiedDate");
+                aggregateRoot.LastModifiedDate = lastModifiedDate;
+
+                // Produce the JSON
+                var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
+                aggregateRoot.Json = resourceData;
+
+                // Update the state
+                persister.Set(@event.State, "Json", aggregateRoot.Json);
+
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressByteArray(resourceData)}");
                 }
             }
 
             return false;
-        }
-
-        private int GetPropertyIndex(IEntityPersister persister, string propertyName)
-        {
-            return Array.IndexOf(persister.PropertyNames, propertyName);
-        }
-
-        private void Set(object[] state, int propertyIndex, object value)
-        {
-            if (propertyIndex == -1)
-            {
-                return;
-            }
-
-            state[propertyIndex] = value;
-        }
-
-        private void Set(IEntityPersister persister, object[] state, string propertyName, object value)
-        {
-            var propertyIndex = Array.IndexOf(persister.PropertyNames, propertyName);
-            Set(state, propertyIndex, value);
-        }
-
-        private T Get<T>(IEntityPersister persister, object[] state, string propertyName)
-        {
-            var index = Array.IndexOf(persister.PropertyNames, propertyName);
-
-            if (index == -1)
-            {
-                return default(T);
-            }
-
-            return (T) state[index];
         }
     }
 }

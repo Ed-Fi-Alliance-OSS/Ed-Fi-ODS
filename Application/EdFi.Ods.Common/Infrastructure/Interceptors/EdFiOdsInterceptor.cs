@@ -15,6 +15,7 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
 {
     public class EdFiOdsInterceptor : EmptyInterceptor
     {
+        /*
         private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsInterceptor));
 
         private const string SpaceLiteral = " ";
@@ -22,6 +23,7 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
         private static readonly Regex regex = new(
             @$"(?<join>inner join\s+)\(?(?<basisEntity>\w+\.\w+) (?<alias>(?<aliasPrefix>{CustomViewHelpers.CustomViewAliasPrefixBase}[a-f\d]{{4}}_).*?\d_).*?(?<onClause>on[\s\(]+this_)",
             RegexOptions.Compiled);
+        */
 
         public override bool? IsTransient(object entity)
         {
@@ -38,6 +40,7 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
             return base.IsTransient(entity);
         }
 
+        /*
         public override SqlString OnPrepareStatement(SqlString sql)
         {
             // Determine if we need to perform custom authorization view SQL manipulation
@@ -73,5 +76,6 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
 
             return sql;
         }
+        */
     }
 }

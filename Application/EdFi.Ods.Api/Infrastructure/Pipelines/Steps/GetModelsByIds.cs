@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
@@ -52,7 +53,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                     return;
                 }
 
-                context.PersistentModels = models;
+                context.PersistentModels = models.Select(e => new ResultItem<TEntityModel>(e)).ToArray();;
             }
             catch (Exception ex)
             {
