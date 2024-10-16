@@ -20,6 +20,8 @@ using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NHibernate.Mapping;
 using NUnit.Framework;
 
@@ -46,6 +48,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                 var configurationActivities = A.Fake<IEnumerable<INHibernateConfigurationActivity>>();
                 var entityAuthorizer = A.Fake<IEntityAuthorizer>();
                 var authorizationContextProvider = A.Fake<IAuthorizationContextProvider>();
+                var options = A.Fake<IOptions<MvcNewtonsoftJsonOptions>>();
+
+                A.CallTo(() => options.Value).Returns(new MvcNewtonsoftJsonOptions());
 
                 var assembliesProvider = A.Fake<AssembliesProvider>();
                 DatabaseEngine engine = DatabaseEngine.SqlServer;
@@ -57,7 +62,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     configurationActivities,
                     ormMappingFileDataProvider,
                     () => entityAuthorizer,
-                    authorizationContextProvider);
+                    authorizationContextProvider,
+                    options);
 
                 _configuration = nHibernateConfigurator.Configure();
 

@@ -5,12 +5,13 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface IHasPersistentModels<TEntityModel>
         where TEntityModel : class, IMappable
     {
-        IList<TEntityModel> PersistentModels { get; set; }
+        IList<ResultItem<TEntityModel>> PersistentModels { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -30,6 +30,7 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Common.Validation;
 using log4net;
@@ -73,6 +74,11 @@ namespace EdFi.Ods.Api.Controllers
         protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
 
         private static readonly IContextStorage _contextStorage = new CallContextStorage();
+
+        static DataManagementControllerBase()
+        {
+            ResourceEntityTypeMap.SetTypes(typeof(TAggregateRoot), typeof(TResourceModel));
+        }
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
@@ -118,7 +124,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private IActionResult CreateActionResultFromException(Exception exception)
         {
-            HttpContext.Items.Add("Exception", exception);
+            HttpContext.Items.TryAdd("Exception", exception);
 
             // Process translations to Problem Details
             var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
