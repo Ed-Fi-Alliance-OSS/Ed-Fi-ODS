@@ -26,6 +26,13 @@ public static class BytesExtensions
         return bytesValue;
     }
     
+    public static byte[] GetBytes(this DateTime value)
+    {
+        // Convert DateTime.Ticks to a byte array
+        long binary = value.ToBinary(); // Use ToBinary() to include the kind (UTC/local)
+        return BitConverter.GetBytes(binary);
+    }
+
     public static byte[] GetBytes<T>(this T value)
     {
         if (value is int intValue)
