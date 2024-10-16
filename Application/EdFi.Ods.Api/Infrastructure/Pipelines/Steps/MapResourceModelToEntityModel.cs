@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         where TContext : IHasPersistentModel<TEntityModel>, IHasResource<TResourceModel>
         where TResult : PipelineResultBase
         where TResourceModel : class, IMappable, IHasETag
-        where TEntityModel : class, new()
+        where TEntityModel : class, IMappable, new()
     {
         public void Execute(TContext context, TResult result)
         {

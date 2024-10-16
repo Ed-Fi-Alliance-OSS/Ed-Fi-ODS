@@ -10,7 +10,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Put
 {
     public class PutPipeline<TResourceModel, TEntityModel> : PipelineBase<PutContext<TResourceModel, TEntityModel>, PutResult>
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifier
+        where TEntityModel : class, IHasIdentifier, IMappable
     {
         public PutPipeline(IStep<PutContext<TResourceModel, TEntityModel>, PutResult>[] steps)
             : base(steps) { }

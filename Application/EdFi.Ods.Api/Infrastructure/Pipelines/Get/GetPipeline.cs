@@ -11,7 +11,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Get
 {
     public class GetPipeline<TResourceModel, TEntityModel> : PipelineBase<GetContext<TEntityModel>, GetResult<TResourceModel>>
         where TResourceModel : IHasETag
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         public GetPipeline(IStep<GetContext<TEntityModel>, GetResult<TResourceModel>>[] steps, ISessionFactory sessionFactory)
             : base(steps, sessionFactory) { }

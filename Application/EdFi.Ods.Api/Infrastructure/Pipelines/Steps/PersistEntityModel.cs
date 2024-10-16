@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         : IStep<TContext, TResult>
         where TContext : PutContext<TResourceModel, TEntityModel> // TODO: Is there a PersistenceContext? Maybe only when supporting PUT creational semantics?
         where TResult : PutResult
-        where TEntityModel : class, IHasIdentifier, IDateVersionedEntity
+        where TEntityModel : class, IHasIdentifier, IDateVersionedEntity, IMappable
         where TResourceModel : IHasETag
     {
         private readonly IETagProvider _etagProvider;

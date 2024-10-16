@@ -12,7 +12,7 @@ namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
         : IHasPersistentModel<TEntityModel>, IHasPersistentModels<TEntityModel>,
             IHasResource<TResourceModel> 
         where TResourceModel : IHasETag
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         public GetManyContext(
             TResourceModel resourceSpecification,
