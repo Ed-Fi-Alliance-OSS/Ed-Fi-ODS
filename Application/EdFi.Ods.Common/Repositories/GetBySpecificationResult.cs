@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace EdFi.Ods.Common.Repositories
 {
     public class GetBySpecificationResult<TEntity>
-        where TEntity : IHasIdentifier
+        where TEntity : IHasIdentifier, IMappable
     {
         public IList<TEntity> Results { get; set; }
 

@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 
         public GetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class
+            where TEntityModel : class, IMappable
         {
             var stepTypes = _getPipelineStepsProvider.GetSteps();
 
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 
         public GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class
+            where TEntityModel : class, IMappable
         {
             var stepTypes = _getBySpecificationPipelineStepsProvider.GetSteps();
 
@@ -71,7 +71,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         }
 
         public PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
-            where TEntityModel : class, IHasIdentifier, new()
+            where TEntityModel : class, IHasIdentifier, IMappable, new()
             where TResourceModel : IHasETag
         {
             var stepTypes = _upsertPipelineStepsProvider.GetSteps();

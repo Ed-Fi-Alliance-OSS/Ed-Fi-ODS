@@ -23,7 +23,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
     public class GetEntitiesBySpecification<TEntity>
         : NHibernateRepositoryOperationBase, IGetEntitiesBySpecification<TEntity>
-        where TEntity : AggregateRootWithCompositeKey
+        where TEntity : AggregateRootWithCompositeKey, IMappable
     {
         private const string ChangeVersion = "ChangeVersion";
         public const string _Id = "Id";

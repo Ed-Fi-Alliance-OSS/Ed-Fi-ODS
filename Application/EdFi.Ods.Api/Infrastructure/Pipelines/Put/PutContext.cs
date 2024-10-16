@@ -10,7 +10,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Put
 {
     public class PutContext<TResourceModel, TEntityModel> : IHasPersistentModel<TEntityModel>, IHasResource<TResourceModel>, IHasIdentifier
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifier
+        where TEntityModel : class, IHasIdentifier, IMappable
     {
         private readonly ValidationState validationState;
 

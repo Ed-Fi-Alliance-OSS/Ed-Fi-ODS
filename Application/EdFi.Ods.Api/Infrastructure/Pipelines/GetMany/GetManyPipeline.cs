@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.GetMany
     public class GetManyPipeline<TResourceModel, TEntityModel>
         : PipelineBase<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>>
         where TResourceModel : IHasETag
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         public GetManyPipeline(
             IStep<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>>[] steps,

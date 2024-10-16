@@ -15,14 +15,14 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
     {
         GetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class;
+            where TEntityModel : class, IMappable;
 
         GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class;
+            where TEntityModel : class, IMappable;
 
         PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
-            where TEntityModel : class, IHasIdentifier, new()
+            where TEntityModel : class, IHasIdentifier, IMappable, new()
             where TResourceModel : IHasETag;
 
         DeletePipeline CreateDeletePipeline<TResourceModel, TEntityModel>();

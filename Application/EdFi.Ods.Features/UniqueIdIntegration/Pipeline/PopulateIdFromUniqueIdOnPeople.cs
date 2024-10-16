@@ -18,7 +18,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
         : IStep<TContext, TResult>
         where TContext : IHasPersistentModel<TEntityModel>, IHasResource<TResourceModel>
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifierSource
+        where TEntityModel : class, IHasIdentifierSource, IMappable
         where TResult : PipelineResultBase
     {
         private readonly IPersonUniqueIdToIdCache _personUniqueIdToIdCache;

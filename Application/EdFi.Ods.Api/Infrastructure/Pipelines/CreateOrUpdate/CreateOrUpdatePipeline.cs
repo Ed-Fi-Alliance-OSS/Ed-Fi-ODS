@@ -14,7 +14,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.CreateOrUpdate
     public abstract class
         CreateOrUpdatePipeline<TResourceModel, TEntityModel> : ICreateOrUpdatePipeline<TResourceModel, TEntityModel>
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifier, new()
+        where TEntityModel : class, IHasIdentifier, IMappable, new()
     {
         private readonly PutPipeline<TResourceModel, TEntityModel> _pipeline;
 

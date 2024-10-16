@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.Controllers
         : ControllerBase
         where TResourceModel : IHasIdentifier, IHasETag, new()
         where TEntityInterface : class
-        where TAggregateRoot : class, IHasIdentifier, new()
+        where TAggregateRoot : class, IHasIdentifier, IMappable, new()
         where TPutRequest : TResourceModel
         where TPostRequest : TResourceModel
         where TDeleteRequest : IHasIdentifier

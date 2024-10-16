@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
     public class DetectUnmodifiedEntityModel<TContext, TResult, TResourceModel, TEntityModel> : IStep<TContext, TResult>
         where TContext : IHasPersistentModel<TEntityModel>, IHasETag
         where TResult : PipelineResultBase
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         private readonly IETagProvider _etagProvider;
 
