@@ -3803,24 +3803,77 @@
 							"name": "GetAll_Assessment_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_Assessment_ShouldUseNHibernateFilters",
+									"name": "Get Assessments (default client)",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
 													"pm.test(\"Should return some rows of assessment\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});",
-													"",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Assessments (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -3834,6 +3887,16 @@
 										}
 									],
 									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -3857,22 +3920,23 @@
 							"name": "GetAll_AssessmentItem_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_AssessmentItem_ShouldUseNHibernateFilters",
+									"name": "Get AssessmentItems (default client)",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
 													"pm.test(\"Should return some rows of assessmentitems\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -3881,11 +3945,75 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
 									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessmentitems",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessmentitems"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AssessmentItems (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -3909,23 +4037,24 @@
 							"name": "GetAll_Descriptors_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_Descriptors_ShouldUseNHibernateFilters",
+									"name": "Get descriptors (default client)",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
-													"     ",
+													"// There are no restrictions on reading descriptors",
+													"pm.test(\"Should return some items\", () => {",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -3955,6 +4084,66 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Get descriptors (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"// There are no restrictions on reading descriptors",
+													"pm.test(\"Should return some items\", () => {",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicsubjectdescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"academicsubjectdescriptors"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -3962,22 +4151,23 @@
 							"name": "GetAll_GradebookEntry_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_GradebookEntry_ShouldUseNHibernateFilters",
+									"name": "Get GradebookEntries (default client)",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return some rows of gradebookentries\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"pm.test(\"Should return some rows\", () => {",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4007,6 +4197,65 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Get GradebookEntries (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return no rows\", () => {",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.equal(0);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookentries",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradebookentries"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -4014,22 +4263,23 @@
 							"name": "GetAll_ObjectiveAssessment_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_ObjectiveAssessment_ShouldUseNHibernateFilters",
+									"name": "Get ObjectiveAssessments (default client)",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"    pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
-													"    const responseItems = pm.response.json();",
-													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"pm.test(\"Should return some items\", () => {",
+													"  const responseItems = pm.response.json();",
+													"  pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4059,6 +4309,69 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Get ObjectiveAssessments (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/objectiveassessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"objectiveassessments"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -4066,7 +4379,7 @@
 							"name": "GetAll_StudentAssessment_ShouldUseNHibernateFilters",
 							"item": [
 								{
-									"name": "GetAll_StudentAssessment_ShouldUseNHibernateFilters",
+									"name": "Get StudentAssessments (default client)",
 									"event": [
 										{
 											"listen": "test",
@@ -4076,12 +4389,13 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"pm.test(\"Should return some items\", () => {",
 													"    const responseItems = pm.response.json();",
 													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -4090,11 +4404,75 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
 									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentassessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentassessments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get StudentAssessments (other namespace client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"All items returned should have namespace starting with 'uri://other.org/'\", () => {",
+													"  const items = pm.response.json();",
+													"",
+													"  items.forEach((item) => {",
+													"    pm.expect(item.assessmentReference.namespace.startsWith(\"uri://other.org/\")).to.be.true;",
+													"  });",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_Other_Namespace}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [],
 										"url": {
@@ -4169,7 +4547,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -4251,7 +4628,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -4487,7 +4863,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4607,7 +4983,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4833,7 +5209,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4891,7 +5267,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4953,7 +5329,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5179,7 +5555,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5237,7 +5613,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactName}}Reference\": {\r\n    \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5378,7 +5754,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5496,7 +5872,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5575,7 +5951,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}"
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}",
@@ -5645,7 +6021,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"{{ParentOrContactUniqueIdName}}\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n }\r\n"
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"{{ParentOrContactUniqueIdPropertyName}}\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n }\r\n"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/{{ParentOrContactCollectionName}}/{{known:{{scenarioId}}:parentGuid}}",
@@ -5724,7 +6100,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7599,7 +7975,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -7663,7 +8054,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -7797,7 +8203,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -7865,7 +8286,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -7999,7 +8435,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8057,7 +8508,22 @@
 															"});\r",
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Only run if Composites are available\r",
+															"if (!pm.environment.get('CompositesFeatureIsEnabled')) {\r",
+															"  console.log('Skipping request because Composites feature is not enabled...');\r",
+															"  pm.execution.skipRequest();\r",
+															"}"
+														],
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -8612,11 +9078,109 @@
 									},
 									"response": []
 								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											"// Only run if Change Queries feature is available\r",
+											"if (!pm.environment.get('ChangeQueriesFeatureIsEnabled')) {\r",
+											"  console.log('Skipping request because Change Queries feature is not enabled...');\r",
+											"  pm.execution.skipRequest();\r",
+											"}"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
 							]
 						},
 						{
 							"name": "Teardown",
 							"item": [
+								{
+									"name": "Delete DisciplineAction for 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:001:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"{{known:disciplineAction:001:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete DisciplineAction for 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:044:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"{{known:disciplineAction:044:id}}"
+											]
+										}
+									},
+									"response": []
+								},
 								{
 									"name": "Delete studentDisciplineIncidentAssociation for 044",
 									"event": [
@@ -8963,7 +9527,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourcesectionidentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourceSectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -9007,7 +9571,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourcesectionidentifier\": \"{{known:sectionReference:sectionIdentifier}}\",  \r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourceSectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",  \r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -9049,7 +9613,7 @@
 															"  const problemDetails = pm.response.json();\r",
 															"\r",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-															"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
+															"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The (proposed )?'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
 															"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 															"});\r",
 															""
@@ -9064,7 +9628,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"sourceSectionIdentifier\": \"{{$randomBankAccount}}\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"sourceSectionIdentifier\": \"{{$randomBankAccount}}\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -9118,7 +9682,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  },\r\n  \"sourceSectionIdentifier\": \"{{$randomBankAccount}}\"\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  },\r\n  \"sourceSectionIdentifier\": \"{{$randomBankAccount}}\"\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -9500,7 +10064,9 @@
 																	"  const problemDetails = pm.response.json();\r",
 																	"\r",
 																	"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");\r",
-																	"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
+																	"\r",
+																	"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The (proposed )?'Namespace' value of the data does not start with any of the caller's associated namespace prefixes/);\r",
+																	"\r",
 																	"  pm.expect(problemDetails.errors).to.be.undefined;\r",
 																	"});"
 																],
@@ -12869,11 +13435,13 @@
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
 					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
+					"let ParentOrContactUniqueIdPropertyName = ParentOrContactProperName[0].toLowerCase() + ParentOrContactProperName.substring(1) + \"UniqueId\";",
 					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
 					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
 					"",
 					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
 					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdPropertyName\", ParentOrContactUniqueIdPropertyName);",
 					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
 					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
 					"",

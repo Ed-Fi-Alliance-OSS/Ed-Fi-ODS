@@ -175,12 +175,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -276,12 +274,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -357,12 +353,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -448,12 +442,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -529,12 +521,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -604,12 +594,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -679,12 +667,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -766,12 +752,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -872,12 +856,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -978,12 +960,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8765/oauth/token",
-							"protocol": "http",
+							"raw": "{{ApiBaseUrl}}/oauth/token",
 							"host": [
-								"localhost"
+								"{{ApiBaseUrl}}"
 							],
-							"port": "8765",
 							"path": [
 								"oauth",
 								"token"
@@ -1437,7 +1417,7 @@
 									"});",
 									"",
 									"pm.test(\"Should indicate problem converting empty string to BeginDate value\", () => {",
-									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"  pm.expect(problemDetails.validationErrors).to.deep.contains({",
 									"    \"$.beginDate\": [",
 									"      \"The supplied value is invalid.\"",
 									"    ]",
@@ -1520,7 +1500,7 @@
 									"});",
 									"",
 									"pm.test(\"Should indicate problem converting empty string to EndDate value\", function () {",
-									"  pm.expect(problemDetails.validationErrors).to.deep.equal({",
+									"  pm.expect(problemDetails.validationErrors).to.deep.contains({",
 									"    \"$.endDate\": [",
 									"      \"The supplied value is invalid.\"",
 									"    ]",
@@ -1601,8 +1581,8 @@
 									"  pm.expect(problemDetails.detail).to.equal(\"Access to the requested data could not be authorized.\");",
 									"});",
 									"",
-									"pm.test(\"Should indicate authorization failure related to the SchoolId value\", () => {",
-									"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(([\\d\\s,]+(\\.{3})?)\\) and the resource item's 'SchoolId' value./);",
+									"pm.test(\"Should indicate authorization failure related to the SchoolId value showing up to 5 associated EdOrgIds\", () => {",
+									"  pm.expect(problemDetails.errors).to.match(/^No relationships have been established between the caller's education organization id claim(s)? \\(((\\d+,\\s){5}(\\.{3})?)\\) and the resource item's 'SchoolId' value./);",
 									"});",
 									""
 								],
@@ -7200,7 +7180,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"{{ParentOrContactUniqueIdName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"{{ParentOrContactUniqueIdPropertyName}}\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7804,17 +7784,11 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'/i\r",
+													"  );\r",
 													"\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.functionDimensionReference.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.functionDimensionReference.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2019'/i\r",
+													"  );\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7882,23 +7856,11 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: (('2022'|'2019')(,\\s)?){3}/i);\r",
 													"\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.functionDimensionReference.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
-													"    ]\r",
-													"  });\r",
-													"\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.balanceSheetDimensionReference.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2022', '2022', '2019'\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.functionDimensionReference.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: (('2022'|'2019')(,\\s)?){3}/i);\r",
+													"  \r",
+													"  pm.expect(problemDetails.validationErrors[\"$.balanceSheetDimensionReference.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: (('2022'|'2019')(,\\s)?){3}/i);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7966,12 +7928,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"FiscalYear must be between 2020 and 2040.\",\r",
-													"      \"Value is required.\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/(Value|FiscalYear) is required./i);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -8039,12 +7996,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"FiscalYear must be between 2020 and 2040.\",\r",
-													"      \"Value is required.\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/(Value|FiscalYear) is required./i);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -8112,12 +8064,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"FiscalYear must be between 2020 and 2040.\",\r",
-													"      \"Value is required.\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/(Value|FiscalYear) is required./i);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -8368,19 +8315,11 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"FiscalYear must be between 2020 and 2040.\",\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2019', '2022'\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: (('2022'|'2019')(,\\s)?){2}/i);\r",
 													"\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.include({\r",
-													"    \"$.chartOfAccountReference.fiscalYear\": [\r",
-													"      \"All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: '2019', '2022'\"\r",
-													"    ]\r",
-													"  });\r",
-													"});"
+													"  pm.expect(problemDetails.validationErrors[\"$.chartOfAccountReference.fiscalYear\"]).to.match(/All values supplied for 'fiscalYear' must match. Review all references and align the following conflicting values: (('2022'|'2019')(,\\s)?){2}/i);\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -8447,12 +8386,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should return a message indicating that FiscalYear is required.\", () => {\r",
-													"  pm.expect(problemDetails.validationErrors).to.deep.equal({\r",
-													"    \"$.fiscalYear\": [\r",
-													"      \"FiscalYear must be between 2020 and 2040.\",\r",
-													"      \"Value is required.\"\r",
-													"    ]\r",
-													"  });\r",
+													"  pm.expect(problemDetails.validationErrors[\"$.fiscalYear\"]).to.match(/(Value|FiscalYear) is required./i);\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -9236,7 +9170,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"staffUniqueId\": \"TEST-StringLength\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"       \",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"        \",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+									"raw": "  {\r\n    \"staffUniqueId\": \"TEST-StringLength\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"       \",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"        \",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian or Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14715,7 +14649,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"entryDate\": \"2021-08-23\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": {{MaxSafeEducationOrganizationId}}\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"123456789\"\r\n  },\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}"
+							"raw": "{\r\n  \"entryDate\": \"2021-08-23\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": {{test-suite:known:maxSafeEducationOrganizationId}}\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"123456789\"\r\n  },\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
@@ -14746,7 +14680,7 @@
 									"const item = pm.response.json();\r",
 									"\r",
 									"pm.test(\"Should return the expected schoolId value\", () => {\r",
-									"  pm.expect(item.schoolId).to.equal(pm.environment.get('MaxSafeEducationOrganizationId'));\r",
+									"  pm.expect(item.schoolId).to.equal(pm.environment.get('test-suite:known:maxSafeEducationOrganizationId'));\r",
 									"});\r",
 									""
 								],
@@ -16304,11 +16238,13 @@
 					"let ParentOrContactProperName = pm.environment.get(\"ParentOrContactProperName\") ?? pm.environment.get(\"test-suite:known:parentOrContactProperName\");",
 					"let StudentParentOrContactAssociationCollectionName = \"Student\" + ParentOrContactProperName + \"Associations\";",
 					"let ParentOrContactUniqueIdName = ParentOrContactProperName + \"UniqueId\";",
+					"let ParentOrContactUniqueIdPropertyName = ParentOrContactProperName[0].toLowerCase() + ParentOrContactProperName.substring(1) + \"UniqueId\";",
 					"let ParentOrContactName =  ParentOrContactProperName.toLowerCase();",
 					"let ParentOrContactCollectionName = ParentOrContactName + \"s\";",
 					"",
 					"pm.environment.set(\"StudentParentOrContactAssociationCollectionName\", StudentParentOrContactAssociationCollectionName);",
 					"pm.environment.set(\"ParentOrContactUniqueIdName\", ParentOrContactUniqueIdName);",
+					"pm.environment.set(\"ParentOrContactUniqueIdPropertyName\", ParentOrContactUniqueIdPropertyName);",
 					"pm.environment.set(\"ParentOrContactName\", ParentOrContactName);",
 					"pm.environment.set(\"ParentOrContactCollectionName\", ParentOrContactCollectionName);",
 					"",

@@ -881,7 +881,7 @@
 													"pm.test(\"Should return a problem details result\", () => {",
 													"  pm.expect(pm.response.code).equal(problemDetails.status);",
 													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:security:authorization:namespace:access-denied:namespace-mismatch\");",
-													"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The 'Namespace' value of the data does not start with any of the caller's associated namespace prefixes \\('(.*)'\\)\\./);",
+													"  pm.expect(problemDetails.detail).to.match(/^Access to the requested data could not be authorized. The (proposed )?'Namespace' value of the data does not start with any of the caller's associated namespace prefixes \\('(.*)'\\)\\./);",
 													"});",
 													"",
 													"pm.test(\"Should not return errors.\", () => {",
