@@ -25,8 +25,7 @@ public static class CustomViewHelpers
             viewName,
             vn =>
             {
-                var bytes = viewName.GetBytes();
-                uint hash = xxHash32.ComputeHash(bytes, bytes.Length);
+                uint hash = xxHash32.ComputeHash(viewName);
 
                 uint hashShort = (ushort)(hash & 0xFFFF);
                 string prefix = $"{CustomViewAliasPrefixBase}{hashShort:x}_";
