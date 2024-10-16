@@ -142,6 +142,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As(typeof(IGetEntitiesByIds<>))
                 .SingleInstance();
 
+            builder.RegisterGeneric(typeof(GetEntitiesByAggregateIds<>))
+                .As(typeof(IGetEntitiesByAggregateIds<>))
+                .SingleInstance();
+
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
                 .WithAttributeFiltering()
