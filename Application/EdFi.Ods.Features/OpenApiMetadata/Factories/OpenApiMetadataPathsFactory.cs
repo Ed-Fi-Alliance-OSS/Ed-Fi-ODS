@@ -10,6 +10,8 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
@@ -28,18 +30,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
+        private readonly IResourceIdentificationCodeQueryablePropertiesProvider
+            _resourceIdentificationCodeQueryablePropertiesProvider;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
             IOpenApiMetadataPathsFactoryContentTypeStrategy contentTypeStrategy,
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
             IOpenApiIdentityProvider openApiIdentityProvider,
+            IResourceIdentificationCodeQueryablePropertiesProvider resourceIdentificationCodeQueryablePropertiesProvider,
             ApiSettings apiSettings)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
             _openApiIdentityProvider = openApiIdentityProvider;
+            _resourceIdentificationCodeQueryablePropertiesProvider = resourceIdentificationCodeQueryablePropertiesProvider;
             _apiSettings = apiSettings;
         }
 
@@ -131,16 +137,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
 
         private PathItem CreatePathItemForTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
-            => new PathItem
-            {
-                get = CreateTrackedChangesDeleteOperation(openApiMetadataResource)
-            };
+            => new PathItem { get = CreateTrackedChangesDeleteOperation(openApiMetadataResource) };
 
         private PathItem CreatePathItemForTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
-            => new PathItem
-            {
-                get = CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
-            };
+            => new PathItem { get = CreateTrackedChangesKeyChangeOperation(openApiMetadataResource) };
 
         private Operation CreateGetOperation(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
         {
@@ -173,24 +173,24 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 {
                     // Path parameters need to be inline in the operation, and not referenced.
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match")}
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match") }
                 }.Concat(
                     openApiMetadataResource.DefaultGetByIdParameters
-                        .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
+                        .Select(p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
-                parameters.Add(new Parameter
-                {
-                    name = "Use-Snapshot",
-                    @in = "header",
-                    description = "Indicates if the configured Snapshot should be used.",
-                    type = "boolean",
-                    required = false,
-                    @default = false
-
-                });
+                parameters.Add(
+                    new Parameter
+                    {
+                        name = "Use-Snapshot",
+                        @in = "header",
+                        description = "Indicates if the configured Snapshot should be used.",
+                        type = "boolean",
+                        required = false,
+                        @default = false
+                    });
             }
 
             return new Operation
@@ -213,7 +213,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource, bool isArray)
+        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource,
+            bool isArray)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
@@ -228,12 +229,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 else
                 {
                     responses.Add(
-                    "404",
-                    new Response
-                    {
-                        description =
-                            "Not Found. An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
-                    });
+                        "404",
+                        new Response
+                        {
+                            description =
+                                "Not Found. An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                        });
                 }
             }
 
@@ -244,23 +245,23 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var parameterList = new List<Parameter>
             {
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")}
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit") }
             };
 
             if (_apiSettings.IsFeatureEnabled("ChangeQueries") && !isCompositeContext)
             {
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion") });
 
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion") });
             }
 
             if (_openApiMetadataPathsFactorySelectorStrategy.HasTotalCount)
             {
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") });
             }
 
             return parameterList;
@@ -272,7 +273,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             var parameterList = CreateQueryParameters(isCompositeContext)
                 .Concat(
                     openApiMetadataResource.DefaultGetByExampleParameters.Select(
-                        p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
+                        p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
             IEnumerableExtensions.ForEach(
@@ -298,15 +299,39 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
-                parameterList.Add(new Parameter
-                {
-                    name = "Use-Snapshot",
-                    @in = "header",
-                    description = "Indicates if the configured Snapshot should be used.",
-                    type = "boolean",
-                    required = false,
-                    @default = false
-                });
+                parameterList.Add(
+                    new Parameter
+                    {
+                        name = "Use-Snapshot",
+                        @in = "header",
+                        description = "Indicates if the configured Snapshot should be used.",
+                        type = "boolean",
+                        required = false,
+                        @default = false
+                    });
+            }
+
+            if (_resourceIdentificationCodeQueryablePropertiesProvider.TryGetIdentificationCodeProperties(
+                    openApiMetadataResource.Resource, out List<ResourceProperty> queryableIdentificationCodeProperties))
+            {
+                IEnumerableExtensions.ForEach(
+                    queryableIdentificationCodeProperties, x =>
+                    {
+                        parameterList.Add(
+                            new Parameter
+                            {
+                                name = (x.DescriptorName ?? x.PropertyName).ToCamelCase(),
+                                @in = "query",
+                                description = x.Description,
+                                type = OpenApiMetadataDocumentHelper.PropertyType(x),
+                                format = x.PropertyType.ToOpenApiFormat(),
+                                required = openApiMetadataResource.IsPathParameter(x),
+                                isIdentity = OpenApiMetadataDocumentHelper.GetIsIdentity(x, _openApiIdentityProvider),
+                                maxLength = OpenApiMetadataDocumentHelper.GetMaxLength(x),
+                                isDeprecated = OpenApiMetadataDocumentHelper.GetIsDeprecated(x),
+                                deprecatedReasons = OpenApiMetadataDocumentHelper.GetDeprecatedReasons(x)
+                            });
+                    });
             }
 
             return parameterList;
@@ -356,7 +381,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
 
         private bool? GetIsUpdatableCustomMetadataValue(OpenApiMetadataPathsResource openApiMetadataResource)
-            => openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable ? (bool?) true : null;
+            => openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable
+                ? (bool?)true
+                : null;
 
         private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
@@ -413,16 +440,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(
+                    openApiMetadataResource, openApiMetadataResource.Writable
+                        ? ContentTypeUsage.Writable
+                        : ContentTypeUsage.Readable),
                 true, true);
 
             var parameters = new List<Parameter>
             {
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount")}
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") }
             };
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
@@ -434,22 +464,24 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 else
                 {
                     responses.Add(
-                    "404",
-                    new Response
-                    {
-                        description =
-                            "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
-                    });
+                        "404",
+                        new Response
+                        {
+                            description =
+                                "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                        });
                 }
 
-                parameters.Add(new Parameter {
-                    name = "Use-Snapshot",
-                    @in = "header",
-                    description = "Indicates if the configured Snapshot should be used.",
-                    type = "boolean",
-                    required = false,
-                    @default = false
-                });
+                parameters.Add(
+                    new Parameter
+                    {
+                        name = "Use-Snapshot",
+                        @in = "header",
+                        description = "Indicates if the configured Snapshot should be used.",
+                        type = "boolean",
+                        required = false,
+                        @default = false
+                    });
             }
 
             return new Operation
@@ -460,13 +492,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .ToCamelCase()
                 },
                 summary = "Retrieves deleted resources based on change version.",
-                description = "This operation is used to retrieve identifying information about resources that have been deleted.",
+                description =
+                    "This operation is used to retrieve identifying information about resources that have been deleted.",
                 operationId = $"deletes{openApiMetadataResource.Resource.PluralName}",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                consumes = new[]
-                {
-                    "application/json"
-                },
+                consumes = new[] { "application/json" },
                 parameters = parameters,
                 responses = responses
             };
@@ -475,16 +505,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(
+                    openApiMetadataResource, openApiMetadataResource.Writable
+                        ? ContentTypeUsage.Writable
+                        : ContentTypeUsage.Readable),
                 true, false, true);
 
             var parameters = new List<Parameter>
             {
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")},
-                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount")}
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion") },
+                new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") }
             };
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
@@ -496,23 +529,24 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 else
                 {
                     responses.Add(
-                    "404",
-                    new Response
-                    {
-                        description =
-                            "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
-                    });
+                        "404",
+                        new Response
+                        {
+                            description =
+                                "Not Found.  An attempt to connect to the database snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
+                        });
                 }
 
-                parameters.Add(new Parameter
-                {
-                    name = "Use-Snapshot",
-                    @in = "header",
-                    description = "Indicates if the configured Snapshot should be used.",
-                    type = "boolean",
-                    required = false,
-                    @default = false
-                });
+                parameters.Add(
+                    new Parameter
+                    {
+                        name = "Use-Snapshot",
+                        @in = "header",
+                        description = "Indicates if the configured Snapshot should be used.",
+                        type = "boolean",
+                        required = false,
+                        @default = false
+                    });
             }
 
             return new Operation
@@ -523,13 +557,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .ToCamelCase()
                 },
                 summary = "Retrieves resources key changes based on change version.",
-                description = "This operation is used to retrieve identifying information about resources whose key values have been changed.",
+                description =
+                    "This operation is used to retrieve identifying information about resources whose key values have been changed.",
                 operationId = $"keyChanges{openApiMetadataResource.Resource.PluralName}",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                consumes = new[]
-                {
-                    "application/json"
-                },
+                consumes = new[] { "application/json" },
                 parameters = parameters,
                 responses = responses
             };
@@ -567,13 +599,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePostParameters(openApiMetadataResource),
-                responses =  responses
+                responses = responses
             };
         }
 
         private IList<Parameter> CreatePostParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            return new List<Parameter> {CreateBodyParameter(openApiMetadataResource)};
+            return new List<Parameter> { CreateBodyParameter(openApiMetadataResource) };
         }
 
         private Parameter CreateIfMatchParameter(string operationText)
@@ -600,7 +632,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     $"The JSON representation of the \"{camelCaseName}\" resource to be created or updated.",
                 @in = "body",
                 required = true,
-                schema = new Schema {@ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName)}
+                schema = new Schema { @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName) }
             };
         }
     }
