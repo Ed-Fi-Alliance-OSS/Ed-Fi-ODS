@@ -106,7 +106,9 @@ namespace EdFi.Ods.Common.Providers.Queries
                     idQueryBuilder
                         .From(schemaTableName.Alias("r"))
                         .Select($"{rootTableAlias}.Id")
-                        .Select($"{rootTableAlias}.AggregateId");
+                        .Select($"{rootTableAlias}.AggregateId")
+                        .Select($"{rootTableAlias}.Json")
+                        .Select($"{rootTableAlias}.LastModifiedDate");
 
                     // NOTE: Optimization opportunity - th ederived entity may not be needed unless there is criteria to be applied that uses the derived type.
                     // This would eliminate a join with every page. Will need to include Discriminator value in join in lieu of join to base.
