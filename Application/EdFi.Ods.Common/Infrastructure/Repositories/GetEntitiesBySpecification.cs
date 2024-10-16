@@ -27,7 +27,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     {
         private const string ChangeVersion = "ChangeVersion";
         public const string _Id = "Id";
-        private static IList<TEntity> EmptyList = new List<TEntity>();
+        private static readonly IList<ResultItem<TEntity>> _emptyList = new List<ResultItem<TEntity>>();
 
         private readonly IAggregateRootQueryBuilderProvider _pagedAggregateIdsCriteriaProvider;
         private readonly IDomainModelProvider _domainModelProvider;
@@ -66,11 +66,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // This approach yields all the data in 2 trips to the database (one for the Ids, and a second for all the aggregates)
                 var specificationResult = await GetPagedAggregateIdsAsync();
 
-                if (specificationResult.Ids.Count == 0)
+                if (specificationResult.ItemData.Count == 0)
                 {
                     return new GetBySpecificationResult<TEntity>
                     {
-                        Results = EmptyList,
+                        Results = _emptyList,
                         ResultMetadata = new ResultMetadata
                         {
                             TotalCount = specificationResult.TotalCount,
@@ -80,21 +80,42 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Get the full results
-                var ids = specificationResult.Ids.Select(x => x.Id).ToList();
+                
+                // Get only the results from the ODS for the items without JSON 
+                Guid[] idsToLoad = specificationResult.ItemData
+                    .Where(x => x.Json == null || x.LastModifiedDate != GetLastModifiedDate(x.Json))
+                    .Select(x => x.Id).ToArray();
 
-                var result = await _getEntitiesByIds.GetByIdsAsync(ids, cancellationToken);
+                List<ResultItem<TEntity>> resultWithOriginalOrder;
 
-                // Restore original order of the result rows (GetByIds sorts by Id)
-                var resultWithOriginalOrder = ids
-                    .Join(result, id => id, r => r.Id, (id, r) => r)
-                    .ToList();
+                if (idsToLoad.Length > 0)
+                {
+                    var entityResults = await _getEntitiesByIds.GetByIdsAsync(
+                        idsToLoad,
+                        cancellationToken);
+                    
+                    // Order results using original order (GetByIds sorts by Id)
+                    resultWithOriginalOrder = specificationResult.ItemData
+                        .GroupJoin(
+                            entityResults, 
+                            itemData => itemData.Id, 
+                            entity => entity.Id, 
+                            (itemData, entities) => new ResultItem<TEntity>(entities.SingleOrDefault(), itemData.Json))
+                        .ToList();
+                }
+                else
+                {
+                    resultWithOriginalOrder = specificationResult.ItemData
+                        .Select(i => new ResultItem<TEntity>(null, i.Json))
+                        .ToList();
+                }
 
                 string nextPageToken = null;
 
                 if (queryParameters.MinAggregateId != null)
                 {
                     nextPageToken = PagingHelpers.GetPageToken(
-                        specificationResult.Ids[^1].AggregateId + 1,
+                        specificationResult.ItemData[^1].AggregateId + 1,
                         queryParameters.MaxAggregateId!.Value);
                 }
 
@@ -109,12 +130,25 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 };
             }
 
+            DateTime GetLastModifiedDate(byte[] json)
+            {
+                // Convert the first 8 bytes to a long
+                // long binary = BitConverter.ToInt64(json.AsSpan(0, 8)); //, 0);
+                long binary = BitConverter.ToInt64(json, 0);
+
+                // Deserialize the DateTime
+                return DateTime.FromBinary(binary);
+            }
+
             async Task<SpecificationResult> GetPagedAggregateIdsAsync()
             {
                 // Short circuit any work if no items requested, and no count to perform. 
                 if (!ItemsRequested() && !CountRequested())
                 {
-                    return new SpecificationResult { Ids = Array.Empty<PageIds>() };
+                    return new SpecificationResult
+                    {
+                        ItemData = Array.Empty<ItemData>()
+                    };
                 }
 
                 // If any items requested, get the requested page of Ids
@@ -153,24 +187,25 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     parameters.AddDynamicParams(idsTemplate.Parameters);
 
                     await using var multi = await Session.Connection.QueryMultipleAsync(combinedSql, parameters);
-
-                    var ids = (await multi.ReadAsync<PageIds>()).ToList();
+                    
+                    var itemDataResults = (await multi.ReadAsync<ItemData>()).ToArray();
                     var totalCount = await multi.ReadSingleAsync<int>();
 
                     return new SpecificationResult
                     {
-                        Ids = ids, 
+                        ItemData = itemDataResults, 
                         TotalCount = totalCount
                     };
                 }
 
                 if (idsTemplate != null)
                 {
-                    var idsResults = await Session.Connection.QueryAsync<PageIds>(idsTemplate.RawSql, idsTemplate.Parameters);
-                    
+                    var itemDataResults =
+                        (await Session.Connection.QueryAsync<ItemData>(idsTemplate.RawSql, idsTemplate.Parameters)).ToArray();
+
                     return new SpecificationResult
                     {
-                        Ids = idsResults.ToArray() 
+                        ItemData = itemDataResults,
                     };
                 }
 
@@ -178,7 +213,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 return new SpecificationResult
                 {
-                    Ids = Array.Empty<PageIds>(),
+                    ItemData = Array.Empty<ItemData>(),
                     TotalCount = countResult 
                 };
                 
@@ -190,11 +225,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         queryParameters,
                         additionalParameters);
 
-                    SetChangeQueriesCriteria(idsQueryBuilder);
+                    ApplyChangeQueriesCriteria(idsQueryBuilder);
 
                     return idsQueryBuilder;
 
-                    void SetChangeQueriesCriteria(QueryBuilder queryBuilder)
+                    void ApplyChangeQueriesCriteria(QueryBuilder queryBuilder)
                     {
                         if (queryParameters.MinChangeVersion.HasValue)
                         {
@@ -214,16 +249,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             bool CountRequested() => queryParameters.TotalCount;
         }
 
-        private class PageIds
+        private class SpecificationResult
+        {
+            public IList<ItemData> ItemData { get; set; }
+            public int TotalCount { get; set; }
+        }
+        
+        private class ItemData
         {
             public Guid Id { get; set; }
             public int AggregateId { get; set; }
-        }
 
-        private class SpecificationResult
-        {
-            public IList<PageIds> Ids { get; set; }
-            public int TotalCount { get; set; }
+            public byte[] Json { get; set; }
+            public DateTime LastModifiedDate { get; set; }
         }
     }
 }
