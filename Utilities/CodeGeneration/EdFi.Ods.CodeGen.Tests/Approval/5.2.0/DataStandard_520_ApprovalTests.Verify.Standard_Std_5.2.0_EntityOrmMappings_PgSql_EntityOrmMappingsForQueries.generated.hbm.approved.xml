@@ -20,6 +20,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -68,6 +69,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -111,6 +113,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -669,6 +672,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -809,6 +813,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -896,6 +901,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -974,6 +980,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1121,6 +1128,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1231,6 +1239,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1320,6 +1329,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1449,6 +1459,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1544,6 +1555,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1658,6 +1670,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1709,6 +1722,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -1758,6 +1772,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -2201,6 +2216,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -2521,6 +2537,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -2705,6 +2722,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -3130,6 +3148,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -3313,6 +3332,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -3358,6 +3378,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -9591,6 +9612,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -9665,6 +9687,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -9836,6 +9859,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -10028,6 +10052,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -10344,6 +10369,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11476,6 +11502,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11518,6 +11545,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11559,6 +11587,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11604,6 +11633,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11653,6 +11683,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11694,6 +11725,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11772,6 +11804,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -11854,6 +11887,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -12425,6 +12459,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -12564,6 +12599,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -12674,6 +12710,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -12771,6 +12808,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -13146,6 +13184,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -13565,6 +13604,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -13882,6 +13922,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14226,6 +14267,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14520,6 +14562,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14566,6 +14609,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14696,6 +14740,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14741,6 +14786,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14787,6 +14833,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14902,6 +14949,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14948,6 +14996,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -14994,6 +15043,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15040,6 +15090,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15119,6 +15170,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15359,6 +15411,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15486,6 +15539,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15564,6 +15618,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15625,6 +15680,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15696,6 +15752,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -15958,6 +16015,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16040,6 +16098,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16174,6 +16233,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16308,6 +16368,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16427,6 +16488,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16509,6 +16571,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16730,6 +16793,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -16910,6 +16974,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="CurrentSchoolYear" column="CurrentSchoolYear" type="bool" not-null="true" />
@@ -17065,6 +17130,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -17461,6 +17527,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -17513,6 +17580,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -17667,6 +17735,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -17743,6 +17812,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -18639,6 +18709,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -18682,6 +18753,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -18725,6 +18797,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -18805,6 +18878,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -18867,6 +18941,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19042,6 +19117,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19115,6 +19191,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19160,6 +19237,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19204,6 +19282,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19337,6 +19416,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19439,6 +19519,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -19864,6 +19945,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -20240,6 +20322,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -20695,6 +20778,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -20746,6 +20830,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -20841,6 +20926,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -21023,6 +21109,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -21110,6 +21197,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -21205,6 +21293,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -21283,6 +21372,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22123,6 +22213,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22167,6 +22258,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22225,6 +22317,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22447,6 +22540,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22549,6 +22643,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22792,6 +22887,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -22852,6 +22948,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23075,6 +23172,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23264,6 +23362,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23360,6 +23459,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23496,6 +23596,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23802,6 +23903,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -23908,6 +24010,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24061,6 +24164,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24165,6 +24269,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24209,6 +24314,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24252,6 +24358,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24385,6 +24492,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24512,6 +24620,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24642,6 +24751,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24685,6 +24795,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24727,6 +24838,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24787,6 +24899,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24833,6 +24946,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24900,6 +25014,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
@@ -24945,6 +25060,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
