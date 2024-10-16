@@ -392,8 +392,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IEdFiOdsConnectionStringWriter>()
                 .SingleInstance();
             
-            builder.RegisterType<EntityIdentificationCodeQueryablePropertiesProvider>()
-                .As<IEntityIdentificationCodeQueryablePropertiesProvider>()
+            builder.RegisterType<ResourceIdentificationCodePropertiesProvider>()
+                .As<IResourceIdentificationCodeQueryablePropertiesProvider>()
                 .SingleInstance();
 
             builder.RegisterInstance(TimeProvider.System)
