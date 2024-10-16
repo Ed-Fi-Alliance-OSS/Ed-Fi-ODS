@@ -13,8 +13,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleAlternativeEducationProgram.
     {
         public int AlternativeEducationEligibilityReasonDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -63,10 +67,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SampleAlternativeEducationProgram.
         public string AlternativeEducationEligibilityReasonDescriptor { get; set; }
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 

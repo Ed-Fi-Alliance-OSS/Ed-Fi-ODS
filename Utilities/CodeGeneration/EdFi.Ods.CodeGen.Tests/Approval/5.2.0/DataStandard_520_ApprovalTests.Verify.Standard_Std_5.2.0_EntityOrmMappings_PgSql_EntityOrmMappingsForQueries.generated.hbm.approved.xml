@@ -9080,22 +9080,6 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptorQ" lazy="false" discriminator-value="edfi.StudentParticipationCodeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
-      <join table="StudentParticipationCodeDescriptor" >
-          <key>
-            <column name="StudentParticipationCodeDescriptorId" />
-          </key>
-
-          <!-- PK properties -->
-          <property name="StudentParticipationCodeDescriptorId" column="StudentParticipationCodeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
-
-          <!-- Properties -->
-
-          <!-- Aggregate references -->
-
-          <!-- Collections -->
-      </join>
-    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptorQ" lazy="false" discriminator-value="edfi.SubmissionStatusDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="SubmissionStatusDescriptor" >
           <key>
@@ -9902,6 +9886,14 @@
         <column name="SchoolId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentWeaponQ" />
+    </set>
+
+    <set name="RestraintEvents" cascade="none" lazy="true">
+      <key>
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventQ" />
     </set>
 
     <set name="StaffDisciplineIncidentAssociations" cascade="none" lazy="true">
@@ -16744,10 +16736,15 @@
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
     <property name="EducationalEnvironmentDescriptorId" column="EducationalEnvironmentDescriptorId" type="int" />
     <property name="EventDate" column="EventDate" type="date" not-null="true" />
+    <property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="36" />
 
     <!-- Aggregate references -->
 
     <!-- Back references -->
+    <many-to-one name="DisciplineIncident" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+    </many-to-one>
     <many-to-one name="EducationalEnvironmentDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EducationalEnvironmentDescriptorId" />
     </many-to-one>

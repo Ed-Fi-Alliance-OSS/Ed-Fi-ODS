@@ -28,7 +28,12 @@ public class TenantConfiguration : IContextHashBytesSource
         _hashBytes = new Lazy<byte[]>(GetHashIdBytes);
     }
 
-    private byte[] GetHashIdBytes() => _tenantHashId.Value.GetBytes();
+    private byte[] GetHashIdBytes()
+    {
+        var buffer = new byte[8];
+        BitConverter.TryWriteBytes(buffer, _tenantHashId.Value);
+        return buffer;
+    }
 
     private ulong ComputeHashId()
     {

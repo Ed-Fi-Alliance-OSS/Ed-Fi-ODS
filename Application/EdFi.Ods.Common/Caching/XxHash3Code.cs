@@ -5,6 +5,7 @@
 
 using System;
 using System.Buffers;
+using System.Linq.Expressions;
 using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Common.Caching;
@@ -17,26 +18,32 @@ public static class XxHash3Code
 {
     public static ulong Combine<T1>(T1 value1)
     {
-        var value1Bytes = value1.GetBytes();
+        int value1Length = value1.GetByteLength();
 
-        return xxHash3.ComputeHash(value1Bytes, value1Bytes.Length);
+        var buffer = ArrayPool<byte>.Shared.Rent(value1Length);
+        value1.CopyTo(buffer);
+
+        return xxHash3.ComputeHash(buffer, value1Length);
     }
 
     public static ulong Combine<T1, T2>(T1 value1, T2 value2)
     {
-        var value1Bytes = value1.GetBytes();
-        var value2Bytes = value2.GetBytes();
+        int value1Length = value1.GetByteLength();
+        int value2Length = value2.GetByteLength();
 
-        int bufferLength = value1Bytes.Length + value2Bytes.Length;
+        int bufferLength = value1Length + value2Length;
 
         var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+        int offset = 0;
 
         try
         {
-            value1Bytes.AsSpan().CopyTo(buffer);
-            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
+            value1.CopyTo(buffer.AsSpan(offset, value1Length));
+            offset += value1Length;
 
-            return xxHash3.ComputeHash(buffer, value1Bytes.Length + value2Bytes.Length);
+            value2.CopyTo(buffer.AsSpan(offset, value2Length));
+
+            return xxHash3.ComputeHash(buffer, value1Length + value2Length);
         }
         finally
         {
@@ -46,19 +53,24 @@ public static class XxHash3Code
 
     public static ulong Combine<T1, T2, T3>(T1 value1, T2 value2, T3 value3)
     {
-        var value1Bytes = value1.GetBytes();
-        var value2Bytes = value2.GetBytes();
-        var value3Bytes = value3.GetBytes();
+        int value1Length = value1.GetByteLength();
+        int value2Length = value2.GetByteLength();
+        int value3Length = value3.GetByteLength();
 
-        int bufferLength = value1Bytes.Length + value2Bytes.Length + value3Bytes.Length;
+        int bufferLength = value1Length + value2Length + value3Length;
         
         var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+        int offset = 0;
 
         try
         {
-            value1Bytes.AsSpan().CopyTo(buffer);
-            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
-            value3Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length));
+            value1.CopyTo(buffer.AsSpan(offset, value1Length));
+            offset += value1Length;
+
+            value2.CopyTo(buffer.AsSpan(offset, value2Length));
+            offset += value2Length;
+
+            value3.CopyTo(buffer.AsSpan(offset, value3Length));
 
             return xxHash3.ComputeHash(buffer, bufferLength);
         }
@@ -67,24 +79,31 @@ public static class XxHash3Code
             ArrayPool<byte>.Shared.Return(buffer);
         }
     }
-    
+
     public static ulong Combine<T1, T2, T3, T4>(T1 value1, T2 value2, T3 value3, T4 value4)
     {
-        var value1Bytes = value1.GetBytes();
-        var value2Bytes = value2.GetBytes();
-        var value3Bytes = value3.GetBytes();
-        var value4Bytes = value4.GetBytes();
+        int value1Length = value1.GetByteLength();
+        int value2Length = value2.GetByteLength();
+        int value3Length = value3.GetByteLength();
+        int value4Length = value4.GetByteLength();
 
-        int bufferLength = value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length;
+        int bufferLength = value1Length + value2Length + value3Length + value4Length;
         
         var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+        int offset = 0;
 
         try
         {
-            value1Bytes.AsSpan().CopyTo(buffer);
-            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
-            value3Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length));
-            value4Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length));
+            value1.CopyTo(buffer.AsSpan(offset, value1Length));
+            offset += value1Length;
+
+            value2.CopyTo(buffer.AsSpan(offset, value2Length));
+            offset += value2Length;
+
+            value3.CopyTo(buffer.AsSpan(offset, value3Length));
+            offset += value3Length;
+
+            value4.CopyTo(buffer.AsSpan(offset, value4Length));
 
             return xxHash3.ComputeHash(buffer, bufferLength);
         }
@@ -96,23 +115,32 @@ public static class XxHash3Code
     
     public static ulong Combine<T1, T2, T3, T4, T5>(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
     {
-        var value1Bytes = value1.GetBytes();
-        var value2Bytes = value2.GetBytes();
-        var value3Bytes = value3.GetBytes();
-        var value4Bytes = value4.GetBytes();
-        var value5Bytes = value5.GetBytes();
+        int value1Length = value1.GetByteLength();
+        int value2Length = value2.GetByteLength();
+        int value3Length = value3.GetByteLength();
+        int value4Length = value4.GetByteLength();
+        int value5Length = value5.GetByteLength();
 
-        int bufferLength = value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length + value5Bytes.Length;
+        int bufferLength = value1Length + value2Length + value3Length + value4Length + value5Length;
         
         var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+        int offset = 0;
 
         try
         {
-            value1Bytes.AsSpan().CopyTo(buffer);
-            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
-            value3Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length));
-            value4Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length));
-            value5Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length));
+            value1.CopyTo(buffer.AsSpan(offset, value1Length));
+            offset += value1Length;
+
+            value2.CopyTo(buffer.AsSpan(offset, value2Length));
+            offset += value2Length;
+
+            value3.CopyTo(buffer.AsSpan(offset, value3Length));
+            offset += value3Length;
+
+            value4.CopyTo(buffer.AsSpan(offset, value4Length));
+            offset += value4Length;
+
+            value5.CopyTo(buffer.AsSpan(offset, value5Length));
 
             return xxHash3.ComputeHash(buffer, bufferLength);
         }
@@ -121,33 +149,44 @@ public static class XxHash3Code
             ArrayPool<byte>.Shared.Return(buffer);
         }
     }
-    
+
     public static ulong Combine<T1, T2, T3, T4, T5, T6>(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
     {
-        var value1Bytes = value1.GetBytes();
-        var value2Bytes = value2.GetBytes();
-        var value3Bytes = value3.GetBytes();
-        var value4Bytes = value4.GetBytes();
-        var value5Bytes = value5.GetBytes();
-        var value6Bytes = value6.GetBytes();
+        int value1Length = value1.GetByteLength();
+        int value2Length = value2.GetByteLength();
+        int value3Length = value3.GetByteLength();
+        int value4Length = value4.GetByteLength();
+        int value5Length = value5.GetByteLength();
+        int value6Length = value6.GetByteLength();
 
-        int bufferLength = value1Bytes.Length
-            + value2Bytes.Length
-            + value3Bytes.Length
-            + value4Bytes.Length
-            + value5Bytes.Length
-            + value6Bytes.Length;
-        
+        int bufferLength = value1Length
+            + value2Length
+            + value3Length
+            + value4Length
+            + value5Length
+            + value6Length;
+
         var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+        int offset = 0;
 
         try
         {
-            value1Bytes.AsSpan().CopyTo(buffer);
-            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
-            value3Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length));
-            value4Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length));
-            value5Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length));
-            value6Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length + value5Bytes.Length));
+            value1.CopyTo(buffer.AsSpan(offset, value1Length));
+            offset += value1Length;
+
+            value2.CopyTo(buffer.AsSpan(offset, value2Length));
+            offset += value2Length;
+
+            value3.CopyTo(buffer.AsSpan(offset, value3Length));
+            offset += value3Length;
+
+            value4.CopyTo(buffer.AsSpan(offset, value4Length));
+            offset += value4Length;
+
+            value5.CopyTo(buffer.AsSpan(offset, value5Length));
+            offset += value5Length;
+
+            value6.CopyTo(buffer.AsSpan(offset, value6Length));
 
             return xxHash3.ComputeHash(buffer, bufferLength);
         }

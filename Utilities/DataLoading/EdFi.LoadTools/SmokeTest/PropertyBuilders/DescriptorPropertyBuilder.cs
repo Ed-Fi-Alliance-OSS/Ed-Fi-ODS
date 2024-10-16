@@ -60,7 +60,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 .GetValue(lookup).ToString();
 
             var uri = lookup.GetType()
-                .GetProperty($"Var{EdFiConstants.Namespace}")
+                .GetProperty(EdFiConstants.Namespace)
                 .GetValue(lookup);
 
             var descriptorValue = uri != null &&  !string.IsNullOrEmpty(uri.ToString())

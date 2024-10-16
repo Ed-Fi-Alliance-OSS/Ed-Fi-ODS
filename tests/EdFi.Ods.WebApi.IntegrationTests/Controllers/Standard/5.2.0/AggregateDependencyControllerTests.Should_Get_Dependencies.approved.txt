@@ -1512,14 +1512,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/studentParticipationCodeDescriptors",
-    "order": 1,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/submissionStatusDescriptors",
     "order": 1,
     "operations": [

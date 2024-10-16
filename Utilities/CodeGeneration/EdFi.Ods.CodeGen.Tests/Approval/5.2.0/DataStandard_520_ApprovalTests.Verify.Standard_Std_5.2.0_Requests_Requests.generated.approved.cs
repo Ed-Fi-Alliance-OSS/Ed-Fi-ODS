@@ -13,8 +13,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AbsenceEventCategoryDescriptors.Ed
     {
         public int AbsenceEventCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -62,8 +66,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AcademicHonorCategoryDescriptors.E
     {
         public int AcademicHonorCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -111,8 +119,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AcademicSubjectDescriptors.EdFi
     {
         public int AcademicSubjectDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -211,8 +223,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AccommodationDescriptors.EdFi
     {
         public int AccommodationDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -313,8 +329,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AccountTypeDescriptors.EdFi
     {
         public int AccountTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -362,8 +382,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AchievementCategoryDescriptors.EdF
     {
         public int AchievementCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -411,8 +435,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AdditionalCreditTypeDescriptors.Ed
     {
         public int AdditionalCreditTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -460,8 +488,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AddressTypeDescriptors.EdFi
     {
         public int AddressTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -509,8 +541,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AdministrationEnvironmentDescripto
     {
         public int AdministrationEnvironmentDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -558,8 +594,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AdministrativeFundingControlDescri
     {
         public int AdministrativeFundingControlDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -607,8 +647,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.Ed
     {
         public int AncestryEthnicOriginDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -714,8 +758,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentCategoryDescriptors.EdFi
     {
         public int AssessmentCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -763,8 +811,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentIdentificationSystemDesc
     {
         public int AssessmentIdentificationSystemDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -867,8 +919,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentItemCategoryDescriptors.
     {
         public int AssessmentItemCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -916,8 +972,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentItemResultDescriptors.Ed
     {
         public int AssessmentItemResultDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -965,8 +1025,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentPeriodDescriptors.EdFi
     {
         public int AssessmentPeriodDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1014,8 +1078,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentReportingMethodDescripto
     {
         public int AssessmentReportingMethodDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1116,8 +1184,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssignmentLateStatusDescriptors.Ed
     {
         public int AssignmentLateStatusDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1165,8 +1237,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AttemptStatusDescriptors.EdFi
     {
         public int AttemptStatusDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1214,8 +1290,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AttendanceEventCategoryDescriptors
     {
         public int AttendanceEventCategoryDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1312,8 +1392,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.BarrierToInternetAccessInResidence
     {
         public int BarrierToInternetAccessInResidenceDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1361,8 +1445,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.BehaviorDescriptors.EdFi
     {
         public int BehaviorDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1462,8 +1550,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.BusRouteDescriptors.EdFi
     {
         public int BusRouteDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1611,8 +1703,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CalendarEventDescriptors.EdFi
     {
         public int CalendarEventDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1660,8 +1756,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CalendarTypeDescriptors.EdFi
     {
         public int CalendarTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1709,8 +1809,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CareerPathwayDescriptors.EdFi
     {
         public int CareerPathwayDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1758,8 +1862,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CharterApprovalAgencyTypeDescripto
     {
         public int CharterApprovalAgencyTypeDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1807,8 +1915,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CharterStatusDescriptors.EdFi
     {
         public int CharterStatusDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1915,8 +2027,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CitizenshipStatusDescriptors.EdFi
     {
         public int CitizenshipStatusDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2013,8 +2129,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ClassroomPositionDescriptors.EdFi
     {
         public int ClassroomPositionDescriptorId { get; set; }
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2114,8 +2234,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CohortScopeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CohortScopeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2163,8 +2287,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CohortTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CohortTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2212,8 +2340,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CohortYearTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CohortYearTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2261,6 +2393,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CommunityOrganizations.EdFi
     {
         public long CommunityOrganizationId { get; set; }
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2310,10 +2446,14 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CommunityProviders.EdFi
         public long CommunityProviderId { get; set; }
         public Guid Id { get; set; }
         public bool LicenseExemptIndicator { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
         public string ProviderCategoryDescriptor { get; set; }
         public string ProviderProfitabilityDescriptor { get; set; }
         public string ProviderStatusDescriptor { get; set; }
         public bool SchoolIndicator { get; set; }
+        public string ShortNameOfInstitution { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2418,8 +2558,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CompetencyLevelDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CompetencyLevelDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2580,8 +2724,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContactTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int ContactTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2629,8 +2777,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContentClassDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int ContentClassDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2678,8 +2830,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContinuationOfServicesReasonDescri
     {
         public string CodeValue { get; set; }
         public int ContinuationOfServicesReasonDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2727,8 +2883,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CostRateDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CostRateDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2776,8 +2936,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CountryDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CountryDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2889,8 +3053,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseAttemptResultDescriptors.EdF
     {
         public string CodeValue { get; set; }
         public int CourseAttemptResultDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2938,8 +3106,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseDefinedByDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CourseDefinedByDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -2987,8 +3159,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseGPAApplicabilityDescriptors.
     {
         public string CodeValue { get; set; }
         public int CourseGPAApplicabilityDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3036,8 +3212,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseIdentificationSystemDescript
     {
         public string CodeValue { get; set; }
         public int CourseIdentificationSystemDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3085,8 +3265,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseLevelCharacteristicDescripto
     {
         public string CodeValue { get; set; }
         public int CourseLevelCharacteristicDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3188,8 +3372,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseRepeatCodeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CourseRepeatCodeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3364,8 +3552,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CredentialFieldDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CredentialFieldDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3413,8 +3605,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CredentialTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CredentialTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3462,8 +3658,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CreditCategoryDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CreditCategoryDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3511,8 +3711,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CreditTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CreditTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3611,8 +3815,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CrisisTypeDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CrisisTypeDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3660,8 +3868,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CTEProgramServiceDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CTEProgramServiceDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3709,8 +3921,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CurriculumUsedDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int CurriculumUsedDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3758,8 +3974,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi
     {
         public string CodeValue { get; set; }
         public int DeliveryMethodDescriptorId { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3856,9 +4076,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DiagnosisDescriptors.EdFi
     public class DiagnosisDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DiagnosisDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3905,9 +4129,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DiplomaLevelDescriptors.EdFi
     public class DiplomaLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DiplomaLevelDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -3954,9 +4182,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DiplomaTypeDescriptors.EdFi
     public class DiplomaTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DiplomaTypeDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4003,9 +4235,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisabilityDescriptors.EdFi
     public class DisabilityDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisabilityDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4052,9 +4288,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisabilityDesignationDescriptors.E
     public class DisabilityDesignationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisabilityDesignationDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4101,9 +4341,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisabilityDeterminationSourceTypeD
     public class DisabilityDeterminationSourceTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisabilityDeterminationSourceTypeDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4206,9 +4450,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisciplineActionLengthDifferenceRe
     public class DisciplineActionLengthDifferenceReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisciplineActionLengthDifferenceReasonDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4255,9 +4503,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisciplineDescriptors.EdFi
     public class DisciplineDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisciplineDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4361,9 +4613,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisciplineIncidentParticipationCod
     public class DisciplineIncidentParticipationCodeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisciplineIncidentParticipationCodeDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4410,9 +4666,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DisplacedStudentStatusDescriptors.
     public class DisplacedStudentStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int DisplacedStudentStatusDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4459,9 +4719,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationalEnvironmentDescriptors.
     public class EducationalEnvironmentDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducationalEnvironmentDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4571,9 +4835,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationAssociationTy
     public class EducationOrganizationAssociationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducationOrganizationAssociationTypeDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4620,9 +4888,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationCategoryDescr
     public class EducationOrganizationCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducationOrganizationCategoryDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4669,9 +4941,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationIdentificatio
     public class EducationOrganizationIdentificationSystemDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducationOrganizationIdentificationSystemDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4770,7 +5046,11 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationNetworks.EdFi
     {
         public long EducationOrganizationNetworkId { get; set; }
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
         public string NetworkPurposeDescriptor { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4915,9 +5195,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationPlanDescriptors.EdFi
     public class EducationPlanDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
         public int EducationPlanDescriptorId { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -4965,7 +5249,11 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationServiceCenters.EdFi
     {
         public long EducationServiceCenterId { get; set; }
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
         public long StateEducationAgencyId { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5012,9 +5300,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ElectronicMailTypeDescriptors.EdFi
     public class ElectronicMailTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int ElectronicMailTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5061,9 +5353,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EligibilityDelayReasonDescriptors.
     public class EligibilityDelayReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EligibilityDelayReasonDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5110,9 +5406,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EligibilityEvaluationTypeDescripto
     public class EligibilityEvaluationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EligibilityEvaluationTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5159,9 +5459,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EmploymentStatusDescriptors.EdFi
     public class EmploymentStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EmploymentStatusDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5208,9 +5512,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EnrollmentTypeDescriptors.EdFi
     public class EnrollmentTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EnrollmentTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5257,9 +5565,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EntryGradeLevelReasonDescriptors.E
     public class EntryGradeLevelReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EntryGradeLevelReasonDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5306,9 +5618,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EntryTypeDescriptors.EdFi
     public class EntryTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EntryTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5355,9 +5671,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EvaluationDelayReasonDescriptors.E
     public class EvaluationDelayReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EvaluationDelayReasonDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5461,9 +5781,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EventCircumstanceDescriptors.EdFi
     public class EventCircumstanceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int EventCircumstanceDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5510,9 +5834,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ExitWithdrawTypeDescriptors.EdFi
     public class ExitWithdrawTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int ExitWithdrawTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5610,9 +5938,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.FinancialCollectionDescriptors.EdF
     public class FinancialCollectionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int FinancialCollectionDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5884,9 +6216,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradebookEntryTypeDescriptors.EdFi
     public class GradebookEntryTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GradebookEntryTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5933,9 +6269,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradeLevelDescriptors.EdFi
     public class GradeLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GradeLevelDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5982,9 +6322,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradePointAverageTypeDescriptors.E
     public class GradePointAverageTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GradePointAverageTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6031,9 +6375,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradeTypeDescriptors.EdFi
     public class GradeTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GradeTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6134,9 +6482,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradingPeriodDescriptors.EdFi
     public class GradingPeriodDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GradingPeriodDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6236,9 +6588,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GraduationPlanTypeDescriptors.EdFi
     public class GraduationPlanTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GraduationPlanTypeDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6285,9 +6641,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GunFreeSchoolsActReportingStatusDe
     public class GunFreeSchoolsActReportingStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int GunFreeSchoolsActReportingStatusDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6334,9 +6694,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.HomelessPrimaryNighttimeResidenceD
     public class HomelessPrimaryNighttimeResidenceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int HomelessPrimaryNighttimeResidenceDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6383,9 +6747,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.HomelessProgramServiceDescriptors.
     public class HomelessProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public int HomelessProgramServiceDescriptorId { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6432,9 +6800,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IDEAPartDescriptors.EdFi
     public class IDEAPartDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IDEAPartDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6481,9 +6853,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IdentificationDocumentUseDescripto
     public class IdentificationDocumentUseDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IdentificationDocumentUseDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6530,9 +6906,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ImmunizationTypeDescriptors.EdFi
     public class ImmunizationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int ImmunizationTypeDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6579,9 +6959,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IncidentLocationDescriptors.EdFi
     public class IncidentLocationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IncidentLocationDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6628,9 +7012,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IndicatorDescriptors.EdFi
     public class IndicatorDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IndicatorDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6677,9 +7065,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IndicatorGroupDescriptors.EdFi
     public class IndicatorGroupDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IndicatorGroupDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6726,9 +7118,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.IndicatorLevelDescriptors.EdFi
     public class IndicatorLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int IndicatorLevelDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6775,9 +7171,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InstitutionTelephoneNumberTypeDesc
     public class InstitutionTelephoneNumberTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InstitutionTelephoneNumberTypeDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6824,9 +7224,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InteractivityStyleDescriptors.EdFi
     public class InteractivityStyleDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InteractivityStyleDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6873,9 +7277,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InternetAccessDescriptors.EdFi
     public class InternetAccessDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InternetAccessDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6922,9 +7330,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InternetAccessTypeInResidenceDescr
     public class InternetAccessTypeInResidenceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InternetAccessTypeInResidenceDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6971,9 +7383,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InternetPerformanceInResidenceDesc
     public class InternetPerformanceInResidenceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InternetPerformanceInResidenceDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7075,9 +7491,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InterventionClassDescriptors.EdFi
     public class InterventionClassDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InterventionClassDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7124,9 +7544,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InterventionEffectivenessRatingDes
     public class InterventionEffectivenessRatingDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int InterventionEffectivenessRatingDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7279,9 +7703,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LanguageDescriptors.EdFi
     public class LanguageDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LanguageDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7328,9 +7756,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LanguageInstructionProgramServiceD
     public class LanguageInstructionProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LanguageInstructionProgramServiceDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7377,9 +7809,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LanguageUseDescriptors.EdFi
     public class LanguageUseDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LanguageUseDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7482,9 +7918,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LearningStandardCategoryDescriptor
     public class LearningStandardCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LearningStandardCategoryDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7583,9 +8023,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LearningStandardEquivalenceStrengt
     public class LearningStandardEquivalenceStrengthDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LearningStandardEquivalenceStrengthDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7632,9 +8076,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LearningStandardScopeDescriptors.E
     public class LearningStandardScopeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LearningStandardScopeDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7681,9 +8129,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LevelOfEducationDescriptors.EdFi
     public class LevelOfEducationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LevelOfEducationDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7730,9 +8182,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LicenseStatusDescriptors.EdFi
     public class LicenseStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LicenseStatusDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7779,9 +8235,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LicenseTypeDescriptors.EdFi
     public class LicenseTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LicenseTypeDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7828,9 +8288,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LimitedEnglishProficiencyDescripto
     public class LimitedEnglishProficiencyDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LimitedEnglishProficiencyDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8086,9 +8550,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LocaleDescriptors.EdFi
     public class LocaleDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LocaleDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8139,8 +8607,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LocalEducationAgencies.EdFi
         public Guid Id { get; set; }
         public string LocalEducationAgencyCategoryDescriptor { get; set; }
         public long LocalEducationAgencyId { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
         public long ParentLocalEducationAgencyId { get; set; }
+        public string ShortNameOfInstitution { get; set; }
         public long StateEducationAgencyId { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8187,9 +8659,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LocalEducationAgencyCategoryDescri
     public class LocalEducationAgencyCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int LocalEducationAgencyCategoryDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8391,9 +8867,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MagnetSpecialProgramEmphasisSchool
     public class MagnetSpecialProgramEmphasisSchoolDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MagnetSpecialProgramEmphasisSchoolDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8440,9 +8920,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MediumOfInstructionDescriptors.EdF
     public class MediumOfInstructionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MediumOfInstructionDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8489,9 +8973,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MethodCreditEarnedDescriptors.EdFi
     public class MethodCreditEarnedDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MethodCreditEarnedDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8538,9 +9026,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MigrantEducationProgramServiceDesc
     public class MigrantEducationProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MigrantEducationProgramServiceDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8587,9 +9079,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ModelEntityDescriptors.EdFi
     public class ModelEntityDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int ModelEntityDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8636,9 +9132,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MonitoredDescriptors.EdFi
     public class MonitoredDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public int MonitoredDescriptorId { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8685,9 +9185,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NeglectedOrDelinquentProgramDescri
     public class NeglectedOrDelinquentProgramDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int NeglectedOrDelinquentProgramDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8734,9 +9238,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NeglectedOrDelinquentProgramServic
     public class NeglectedOrDelinquentProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int NeglectedOrDelinquentProgramServiceDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8783,9 +9291,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi
     public class NetworkPurposeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int NetworkPurposeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -8832,9 +9344,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NonMedicalImmunizationExemptionDes
     public class NonMedicalImmunizationExemptionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int NonMedicalImmunizationExemptionDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9040,9 +9556,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi
     public class OperationalStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int OperationalStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9139,8 +9659,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.OrganizationDepartments.EdFi
     {
         public string AcademicSubjectDescriptor { get; set; }
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
         public long OrganizationDepartmentId { get; set; }
         public long ParentEducationOrganizationId { get; set; }
+        public string ShortNameOfInstitution { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9187,9 +9711,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.OtherNameTypeDescriptors.EdFi
     public class OtherNameTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int OtherNameTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9236,9 +9764,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ParticipationDescriptors.EdFi
     public class ParticipationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ParticipationDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9285,9 +9817,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ParticipationStatusDescriptors.EdF
     public class ParticipationStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ParticipationStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9334,9 +9870,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PerformanceBaseConversionDescripto
     public class PerformanceBaseConversionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PerformanceBaseConversionDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9383,9 +9923,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PerformanceLevelDescriptors.EdFi
     public class PerformanceLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PerformanceLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9480,9 +10024,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PersonalInformationVerificationDes
     public class PersonalInformationVerificationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PersonalInformationVerificationDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9529,9 +10077,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PlatformTypeDescriptors.EdFi
     public class PlatformTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PlatformTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9578,9 +10130,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PopulationServedDescriptors.EdFi
     public class PopulationServedDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PopulationServedDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9627,9 +10183,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PostingResultDescriptors.EdFi
     public class PostingResultDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PostingResultDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9726,9 +10286,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PostSecondaryEventCategoryDescript
     public class PostSecondaryEventCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PostSecondaryEventCategoryDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9776,8 +10340,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PostSecondaryInstitutions.EdFi
     {
         public string AdministrativeFundingControlDescriptor { get; set; }
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
         public long PostSecondaryInstitutionId { get; set; }
         public string PostSecondaryInstitutionLevelDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9824,9 +10392,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescr
     public class PostSecondaryInstitutionLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PostSecondaryInstitutionLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9873,9 +10445,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescrip
     public class PrimaryLearningDeviceAccessDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PrimaryLearningDeviceAccessDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9922,9 +10498,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoo
     public class PrimaryLearningDeviceAwayFromSchoolDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PrimaryLearningDeviceAwayFromSchoolDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -9971,9 +10551,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescr
     public class PrimaryLearningDeviceProviderDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PrimaryLearningDeviceProviderDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10020,9 +10604,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProficiencyDescriptors.EdFi
     public class ProficiencyDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProficiencyDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10119,9 +10707,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramAssignmentDescriptors.EdFi
     public class ProgramAssignmentDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramAssignmentDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10168,9 +10760,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramCharacteristicDescriptors.E
     public class ProgramCharacteristicDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramCharacteristicDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10436,9 +11032,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationPeriodDescriptors
     public class ProgramEvaluationPeriodDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramEvaluationPeriodDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10485,9 +11085,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramEvaluationTypeDescriptors.E
     public class ProgramEvaluationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramEvaluationTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10534,9 +11138,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi
     public class ProgramSponsorDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramSponsorDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10583,9 +11191,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramTypeDescriptors.EdFi
     public class ProgramTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgramTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10632,9 +11244,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgressDescriptors.EdFi
     public class ProgressDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgressDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10681,9 +11297,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi
     public class ProgressLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProgressLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10779,9 +11399,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProviderCategoryDescriptors.EdFi
     public class ProviderCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProviderCategoryDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10828,9 +11452,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProviderProfitabilityDescriptors.E
     public class ProviderProfitabilityDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProviderProfitabilityDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10877,9 +11505,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProviderStatusDescriptors.EdFi
     public class ProviderStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ProviderStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10926,9 +11558,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PublicationStatusDescriptors.EdFi
     public class PublicationStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int PublicationStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -10975,9 +11611,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.QuestionFormDescriptors.EdFi
     public class QuestionFormDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int QuestionFormDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11024,9 +11664,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RaceDescriptors.EdFi
     public class RaceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RaceDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11073,9 +11717,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RatingLevelDescriptors.EdFi
     public class RatingLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RatingLevelDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11122,9 +11770,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReasonExitedDescriptors.EdFi
     public class ReasonExitedDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ReasonExitedDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11171,9 +11823,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReasonNotTestedDescriptors.EdFi
     public class ReasonNotTestedDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ReasonNotTestedDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11220,9 +11876,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RecognitionTypeDescriptors.EdFi
     public class RecognitionTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RecognitionTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11269,9 +11929,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RelationDescriptors.EdFi
     public class RelationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RelationDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11318,9 +11982,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RepeatIdentifierDescriptors.EdFi
     public class RepeatIdentifierDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RepeatIdentifierDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11422,9 +12090,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdF
     public class ReporterDescriptionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ReporterDescriptionDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11471,9 +12143,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReportingTagDescriptors.EdFi
     public class ReportingTagDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ReportingTagDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11520,9 +12196,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ResidencyStatusDescriptors.EdFi
     public class ResidencyStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ResidencyStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11569,9 +12249,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ResponseIndicatorDescriptors.EdFi
     public class ResponseIndicatorDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ResponseIndicatorDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11618,9 +12302,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ResponsibilityDescriptors.EdFi
     public class ResponsibilityDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ResponsibilityDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11669,6 +12357,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RestraintEvents.EdFi
         public string EducationalEnvironmentDescriptor { get; set; }
         public DateTime EventDate { get; set; }
         public Guid Id { get; set; }
+        public string IncidentIdentifier { get; set; }
         public string RestraintEventIdentifier { get; set; }
         public long SchoolId { get; set; }
         public string StudentUniqueId { get; set; }
@@ -11718,9 +12407,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RestraintEventReasonDescriptors.Ed
     public class RestraintEventReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RestraintEventReasonDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11767,9 +12460,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ResultDatatypeTypeDescriptors.EdFi
     public class ResultDatatypeTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ResultDatatypeTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11816,9 +12513,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.RetestIndicatorDescriptors.EdFi
     public class RetestIndicatorDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int RetestIndicatorDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11872,9 +12573,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi
         public string InternetAccessDescriptor { get; set; }
         public long LocalEducationAgencyId { get; set; }
         public string MagnetSpecialProgramEmphasisSchoolDescriptor { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
         public long SchoolId { get; set; }
         public string SchoolTypeDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
         public string TitleIPartASchoolDesignationDescriptor { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11921,9 +12626,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SchoolCategoryDescriptors.EdFi
     public class SchoolCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SchoolCategoryDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -11970,9 +12679,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SchoolChoiceBasisDescriptors.EdFi
     public class SchoolChoiceBasisDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SchoolChoiceBasisDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12019,9 +12732,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SchoolChoiceImplementStatusDescrip
     public class SchoolChoiceImplementStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SchoolChoiceImplementStatusDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12068,9 +12785,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SchoolFoodServiceProgramServiceDes
     public class SchoolFoodServiceProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SchoolFoodServiceProgramServiceDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12117,9 +12838,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SchoolTypeDescriptors.EdFi
     public class SchoolTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SchoolTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12334,9 +13059,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SectionCharacteristicDescriptors.E
     public class SectionCharacteristicDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SectionCharacteristicDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12383,9 +13112,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SectionTypeDescriptors.EdFi
     public class SectionTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SectionTypeDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12432,9 +13165,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SeparationDescriptors.EdFi
     public class SeparationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SeparationDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12481,9 +13218,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SeparationReasonDescriptors.EdFi
     public class SeparationReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SeparationReasonDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12530,9 +13271,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ServiceDescriptors.EdFi
     public class ServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int ServiceDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12632,9 +13377,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SexDescriptors.EdFi
     public class SexDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public int SexDescriptorId { get; set; }
+        public string ShortDescription { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12730,8 +13479,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SourceSystemDescriptors.EdFi
     public class SourceSystemDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SourceSystemDescriptorId { get; set; }
     }
 
@@ -12779,8 +13532,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SpecialEducationExitReasonDescript
     public class SpecialEducationExitReasonDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SpecialEducationExitReasonDescriptorId { get; set; }
     }
 
@@ -12828,8 +13585,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SpecialEducationProgramServiceDesc
     public class SpecialEducationProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SpecialEducationProgramServiceDescriptorId { get; set; }
     }
 
@@ -12877,8 +13638,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SpecialEducationSettingDescriptors
     public class SpecialEducationSettingDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SpecialEducationSettingDescriptorId { get; set; }
     }
 
@@ -13044,8 +13809,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffClassificationDescriptors.EdF
     public class StaffClassificationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StaffClassificationDescriptorId { get; set; }
     }
 
@@ -13364,8 +14133,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffIdentificationSystemDescripto
     public class StaffIdentificationSystemDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StaffIdentificationSystemDescriptorId { get; set; }
     }
 
@@ -13465,8 +14238,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffLeaveEventCategoryDescriptors
     public class StaffLeaveEventCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StaffLeaveEventCategoryDescriptorId { get; set; }
     }
 
@@ -13676,8 +14453,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StateAbbreviationDescriptors.EdFi
     public class StateAbbreviationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StateAbbreviationDescriptorId { get; set; }
     }
 
@@ -13725,7 +14506,11 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StateEducationAgencies.EdFi
     public class StateEducationAgencyGetByExample
     {
         public Guid Id { get; set; }
+        public string NameOfInstitution { get; set; }
+        public string OperationalStatusDescriptor { get; set; }
+        public string ShortNameOfInstitution { get; set; }
         public long StateEducationAgencyId { get; set; }
+        public string WebSite { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -14019,8 +14804,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentCharacteristicDescriptors.E
     public class StudentCharacteristicDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StudentCharacteristicDescriptorId { get; set; }
     }
 
@@ -14231,12 +15020,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi
     {
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public bool NonTraditionalGenderStatus { get; set; }
         public bool PrivateCTEProgram { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
         public string TechnicalSkillsAssessmentDescriptor { get; set; }
     }
@@ -14609,12 +15401,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentHomelessProgramAssociations
         public bool AwaitingFosterCare { get; set; }
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public string HomelessPrimaryNighttimeResidenceDescriptor { get; set; }
         public bool HomelessUnaccompaniedYouth { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -14662,8 +15457,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentIdentificationSystemDescrip
     public class StudentIdentificationSystemDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int StudentIdentificationSystemDescriptorId { get; set; }
     }
 
@@ -14821,11 +15620,14 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentLanguageInstructionProgramA
         public DateTime BeginDate { get; set; }
         public int Dosage { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public bool EnglishLearnerParticipation { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -14876,6 +15678,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentMigrantEducationProgramAsso
         public string ContinuationOfServicesReasonDescriptor { get; set; }
         public long EducationOrganizationId { get; set; }
         public DateTime EligibilityExpirationDate { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public DateTime LastQualifyingMove { get; set; }
         public bool PriorityForServices { get; set; }
@@ -14883,6 +15686,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentMigrantEducationProgramAsso
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
         public DateTime QualifyingArrivalDate { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public DateTime StateResidencyDate { get; set; }
         public string StudentUniqueId { get; set; }
         public DateTime USInitialEntry { get; set; }
@@ -14936,12 +15741,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgra
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
         public string ELAProgressLevelDescriptor { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public string MathematicsProgressLevelDescriptor { get; set; }
         public string NeglectedOrDelinquentProgramDescriptor { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -14982,55 +15790,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgra
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorGetByExample
-    {
-        public string CodeValue { get; set; }
-        public Guid Id { get; set; }
-        public string Namespace { get; set; }
-        public int StudentParticipationCodeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public StudentParticipationCodeDescriptorGetByIds() { }
-
-        public StudentParticipationCodeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorPost : Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorPut : Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentParticipationCodeDescriptorDelete : IHasIdentifier
-    {
-        public StudentParticipationCodeDescriptorDelete() { }
-
-        public StudentParticipationCodeDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.StudentProgramAssociations.EdFi
 {
 
@@ -15039,10 +15798,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentProgramAssociations.EdFi
     {
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -15339,10 +16101,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolFoodServiceProgramAss
         public DateTime BeginDate { get; set; }
         public bool DirectCertification { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -15509,6 +16274,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAsso
     {
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public bool IdeaEligibility { get; set; }
         public DateTime IEPBeginDate { get; set; }
@@ -15520,7 +16286,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAsso
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
         public decimal SchoolHoursPerWeek { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public DateTime SpecialEducationExitDate { get; set; }
         public string SpecialEducationExitExplained { get; set; }
         public string SpecialEducationExitReasonDescriptor { get; set; }
@@ -15640,10 +16408,13 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentTitleIPartAProgramAssociati
     {
         public DateTime BeginDate { get; set; }
         public long EducationOrganizationId { get; set; }
+        public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public long ProgramEducationOrganizationId { get; set; }
         public string ProgramName { get; set; }
         public string ProgramTypeDescriptor { get; set; }
+        public string ReasonExitedDescriptor { get; set; }
+        public bool ServedOutsideOfRegularSession { get; set; }
         public string StudentUniqueId { get; set; }
         public string TitleIPartAParticipantDescriptor { get; set; }
     }
@@ -15743,8 +16514,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi
     public class SubmissionStatusDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SubmissionStatusDescriptorId { get; set; }
     }
 
@@ -15792,8 +16567,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SupporterMilitaryConnectionDescrip
     public class SupporterMilitaryConnectionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SupporterMilitaryConnectionDescriptorId { get; set; }
     }
 
@@ -15896,8 +16675,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SurveyCategoryDescriptors.EdFi
     public class SurveyCategoryDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SurveyCategoryDescriptorId { get; set; }
     }
 
@@ -15995,8 +16778,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SurveyLevelDescriptors.EdFi
     public class SurveyLevelDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int SurveyLevelDescriptorId { get; set; }
     }
 
@@ -16611,8 +17398,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TeachingCredentialBasisDescriptors
     public class TeachingCredentialBasisDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TeachingCredentialBasisDescriptorId { get; set; }
     }
 
@@ -16660,8 +17451,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TeachingCredentialDescriptors.EdFi
     public class TeachingCredentialDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TeachingCredentialDescriptorId { get; set; }
     }
 
@@ -16709,8 +17504,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TechnicalSkillsAssessmentDescripto
     public class TechnicalSkillsAssessmentDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TechnicalSkillsAssessmentDescriptorId { get; set; }
     }
 
@@ -16758,8 +17557,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TelephoneNumberTypeDescriptors.EdF
     public class TelephoneNumberTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TelephoneNumberTypeDescriptorId { get; set; }
     }
 
@@ -16807,8 +17610,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TermDescriptors.EdFi
     public class TermDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TermDescriptorId { get; set; }
     }
 
@@ -16856,8 +17663,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TitleIPartAParticipantDescriptors.
     public class TitleIPartAParticipantDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TitleIPartAParticipantDescriptorId { get; set; }
     }
 
@@ -16905,8 +17716,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TitleIPartAProgramServiceDescripto
     public class TitleIPartAProgramServiceDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TitleIPartAProgramServiceDescriptorId { get; set; }
     }
 
@@ -16954,8 +17769,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TitleIPartASchoolDesignationDescri
     public class TitleIPartASchoolDesignationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TitleIPartASchoolDesignationDescriptorId { get; set; }
     }
 
@@ -17003,8 +17822,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TransportationPublicExpenseEligibi
     public class TransportationPublicExpenseEligibilityTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TransportationPublicExpenseEligibilityTypeDescriptorId { get; set; }
     }
 
@@ -17052,8 +17875,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TransportationTypeDescriptors.EdFi
     public class TransportationTypeDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TransportationTypeDescriptorId { get; set; }
     }
 
@@ -17101,8 +17928,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TravelDayofWeekDescriptors.EdFi
     public class TravelDayofWeekDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TravelDayofWeekDescriptorId { get; set; }
     }
 
@@ -17150,8 +17981,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TravelDirectionDescriptors.EdFi
     public class TravelDirectionDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TravelDirectionDescriptorId { get; set; }
     }
 
@@ -17199,8 +18034,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TribalAffiliationDescriptors.EdFi
     public class TribalAffiliationDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int TribalAffiliationDescriptorId { get; set; }
     }
 
@@ -17248,8 +18087,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.VisaDescriptors.EdFi
     public class VisaDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int VisaDescriptorId { get; set; }
     }
 
@@ -17297,8 +18140,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.WeaponDescriptors.EdFi
     public class WeaponDescriptorGetByExample
     {
         public string CodeValue { get; set; }
+        public string Description { get; set; }
+        public DateTime EffectiveBeginDate { get; set; }
+        public DateTime EffectiveEndDate { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
+        public string ShortDescription { get; set; }
         public int WeaponDescriptorId { get; set; }
     }
 

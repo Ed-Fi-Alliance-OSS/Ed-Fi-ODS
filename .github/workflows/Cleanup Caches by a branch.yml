@@ -17,7 +17,7 @@ env:
 
 jobs:
   cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Check for Repo Dispatch Token
         if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.GH_TOKEN == '' }}

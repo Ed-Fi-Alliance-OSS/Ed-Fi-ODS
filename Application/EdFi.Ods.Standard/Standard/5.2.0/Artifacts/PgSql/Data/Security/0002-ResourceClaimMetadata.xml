@@ -1090,7 +1090,7 @@
 				<Claim claimId="287" name="http://ed-fi.org/ods/identity/claims/studentAssessment" />
 			</Claims>
 		</Claim>
-		<Claim name="http://ed-fi.org/ods/identity/claims/domains/identity">
+		<Claim name="http://ed-fi.org/ods/identity/claims/services/identity">
 			<DefaultAuthorization>
 				<Action name="Create">
 					<AuthorizationStrategies>

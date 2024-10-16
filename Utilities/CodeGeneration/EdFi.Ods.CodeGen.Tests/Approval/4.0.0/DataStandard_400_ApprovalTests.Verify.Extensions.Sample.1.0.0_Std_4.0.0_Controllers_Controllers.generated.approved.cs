@@ -48,8 +48,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.ArtMediumDescriptorId = request.ArtMediumDescriptorId;
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -157,9 +161,13 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.FavoriteBookCategoryDescriptorId = request.FavoriteBookCategoryDescriptorId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -190,9 +198,13 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CodeValue = request.CodeValue;
+            specification.Description = request.Description;
+            specification.EffectiveBeginDate = request.EffectiveBeginDate;
+            specification.EffectiveEndDate = request.EffectiveEndDate;
             specification.Id = request.Id;
             specification.MembershipTypeDescriptorId = request.MembershipTypeDescriptorId;
             specification.Namespace = request.Namespace;
+            specification.ShortDescription = request.ShortDescription;
         }
     }
 }
@@ -225,6 +237,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             specification.ArtPieces = request.ArtPieces;
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EndDate = request.EndDate;
             specification.ExhibitDate = request.ExhibitDate;
             specification.HoursPerDay = request.HoursPerDay;
             specification.Id = request.Id;
@@ -239,6 +252,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             specification.ProgramFees = request.ProgramFees;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
+            specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
+            specification.ServedOutsideOfRegularSession = request.ServedOutsideOfRegularSession;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
     }

@@ -57,7 +57,7 @@ jobs:
           --health-retries 3
           --name mssql
           --user root
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}

@@ -3,15 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-/* Generated with SSMS using:
-------------------------------------------------
-	SELECT 'CREATE SEQUENCE [' + c.TABLE_SCHEMA + '].[' + c.TABLE_NAME + '_AggSeq] START WITH -2147483648 INCREMENT BY 1; ALTER TABLE [' + c.TABLE_SCHEMA + '].[' + c.TABLE_NAME + '] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [' + c.TABLE_SCHEMA + '].[' + c.TABLE_NAME + '_AggSeq]; CREATE INDEX [IX_' + c.TABLE_NAME + '_AggregateId] ON [' + c.TABLE_SCHEMA + '].[' + c.TABLE_NAME + '] (AggregateId);' AS SqlServer
-	FROM INFORMATION_SCHEMA.COLUMNS c
-	WHERE c.COLUMN_NAME = 'Id' and c.TABLE_SCHEMA = @schema
-	ORDER BY c.TABLE_SCHEMA, c.TABLE_NAME
-------------------------------------------------
-*/
-
 CREATE SEQUENCE [edfi].[AcademicWeek_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[AcademicWeek] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AcademicWeek_AggSeq];
 CREATE INDEX [IX_AcademicWeek_AggregateId] ON [edfi].[AcademicWeek] (AggregateId);
@@ -475,3 +466,4 @@ CREATE INDEX [IX_SurveySectionResponseEducationOrganizationTargetAssociation_Agg
 CREATE SEQUENCE [edfi].[SurveySectionResponseStaffTargetAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[SurveySectionResponseStaffTargetAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[SurveySectionResponseStaffTargetAssociation_AggSeq];
 CREATE INDEX [IX_SurveySectionResponseStaffTargetAssociation_AggregateId] ON [edfi].[SurveySectionResponseStaffTargetAssociation] (AggregateId);
+
