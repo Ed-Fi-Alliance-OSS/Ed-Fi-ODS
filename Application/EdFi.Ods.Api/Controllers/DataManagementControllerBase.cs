@@ -30,6 +30,7 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Common.Validation;
 using log4net;
@@ -71,6 +72,11 @@ namespace EdFi.Ods.Api.Controllers
         protected Lazy<GetPipeline<TResourceModel, TAggregateRoot>> GetByIdPipeline;
         protected Lazy<GetManyPipeline<TResourceModel, TAggregateRoot>> GetManyPipeline;
         protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
+
+        static DataManagementControllerBase()
+        {
+            ResourceEntityTypeMap.SetTypes(typeof(TAggregateRoot), typeof(TResourceModel));
+        }
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
@@ -116,7 +122,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private IActionResult CreateActionResultFromException(Exception exception)
         {
-            HttpContext.Items.Add("Exception", exception);
+            HttpContext.Items.TryAdd("Exception", exception);
 
             // Process translations to Problem Details
             var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
