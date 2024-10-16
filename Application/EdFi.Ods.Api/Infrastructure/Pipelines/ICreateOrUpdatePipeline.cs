@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface ICreateOrUpdatePipeline<TResourceModel, TEntityModel>
         where TResourceModel : IHasETag
-        where TEntityModel : class, IHasIdentifier
+        where TEntityModel : class, IHasIdentifier, IMappable
     {
         Task<PutResult> ProcessAsync(PutContext<TResourceModel, TEntityModel> context, CancellationToken cancellationToken);
     }
