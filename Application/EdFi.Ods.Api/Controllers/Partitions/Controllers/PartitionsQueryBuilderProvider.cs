@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using Autofac.Features.AttributeFilters;
 using Dapper;
@@ -47,20 +48,16 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
         // Build the count query
         var cteCountQueryBuilder = BuildCountCte();
 
-        // Build the PartitionSettings query
-        var ctePartitionSettingsQueryBuilder = BuildPartitionSettingsCte();
-
-        // Build the PartitionCounts query
-        var ctePartitionCountsQueryBuilder = BuildPartitionCountsCte();
+        // Build the PartitionSizes query
+        var ctePartitionSizeQueryBuilder = BuildPartitionSizeCte();
 
         // Build the final query
         var queryBuilder = new QueryBuilder(_dialect).With("Numbered", cteQueryBuilder)
             .With("Counts", cteCountQueryBuilder)
-            .With("PartitionSettings", ctePartitionSettingsQueryBuilder)
-            .With("PartitionCounts", ctePartitionCountsQueryBuilder)
-            .From("Numbered, PartitionCounts")
+            .With("PartitionSizes", ctePartitionSizeQueryBuilder)
+            .From("Numbered, PartitionSizes")
             .Select("AggregateId")
-            .WhereRaw($"(RowNumber - 1) % (CASE WHEN CountOfRows < PartitionCount THEN 1 ELSE CountOfRows / PartitionCount END) = 0")
+            .WhereRaw($"(RowNumber - 1) % PartitionSize = 0")
             .OrderBy("AggregateId");
 
         return queryBuilder;
@@ -87,29 +84,30 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
             return cteCountQueryBuilder1;
         }
 
-        QueryBuilder BuildPartitionSettingsCte()
+        QueryBuilder BuildPartitionSizeCte()
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@defaultPartitionCount", numberOfPartitions ?? _defaultPartitionCount);
+            parameters.Add("@numberOfPartitions", numberOfPartitions ?? _defaultPartitionCount);
             parameters.Add("@maxPageSize", _maxPageLimit);
-        
-            var ctePartitionSettingsQueryBuilder1 = new QueryBuilder(_dialect)
+
+            string partitionSizeSql;
+
+            if (additionalParameters.TryGetValue("allowSmallPartitions", out string value) && Convert.ToBoolean(value))
+            {
+                partitionSizeSql = "CAST(GREATEST(1, CEILING(CountOfRows / @numberOfPartitions)) AS BIGINT) AS PartitionSize";
+            }
+            else
+            {
+                partitionSizeSql = "CAST(GREATEST(CEILING(CountOfRows / @numberOfPartitions), 5 * @maxPageSize) AS BIGINT) AS PartitionSize";
+            }
+
+            var ctePartitionSizesQueryBuilder1 = new QueryBuilder(_dialect)
                 .From("Counts")
                 .Select("CountOfRows")
-                .Select("GREATEST(CEILING(CountOfRows / @defaultPartitionCount), 5 * @maxPageSize) AS PartitionSize")
+                .Select(partitionSizeSql)
                 .AddParameters(parameters);
 
-            return ctePartitionSettingsQueryBuilder1;
-        }
-
-        QueryBuilder BuildPartitionCountsCte()
-        {
-            var ctePartitionCountsQueryBuilder1 = new QueryBuilder(_dialect)
-                .From("PartitionSettings")
-                .Select("CountOfRows", "PartitionSize")
-                .SelectRaw("CAST(FLOOR(CAST(CountOfRows AS FLOAT) / PartitionSize) AS BIGINT) AS PartitionCount");
-
-            return ctePartitionCountsQueryBuilder1;
+            return ctePartitionSizesQueryBuilder1;
         }
     }
 }
