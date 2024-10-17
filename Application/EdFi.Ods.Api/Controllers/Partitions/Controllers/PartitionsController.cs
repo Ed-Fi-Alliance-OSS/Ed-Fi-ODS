@@ -48,6 +48,8 @@ public class PartitionsController : ControllerBase
     private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
     private readonly IPartitionsQueryBuilderProvider _partitionsQueryBuilderProvider;
 
+    private static readonly IContextStorage _contextStorage = new CallContextStorage();
+
     public PartitionsController(
         DbProviderFactory dbProviderFactory,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -67,6 +69,12 @@ public class PartitionsController : ControllerBase
         [FromQuery] int number = 1,
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
+        // Store alternative auth approach decision into call context
+        if (additionalParameters?.TryGetValue("useCteAuth", out string useCteAuth) == true)
+        {
+            _contextStorage.SetValue("UseCteAuth", Convert.ToBoolean(useCteAuth));
+        }
+
         if (number is < 1 or > 200)
         {
             var problemDetails = new BadRequestParameterException(

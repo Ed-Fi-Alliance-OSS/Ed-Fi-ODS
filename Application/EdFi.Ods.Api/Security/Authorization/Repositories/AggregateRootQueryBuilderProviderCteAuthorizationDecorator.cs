@@ -9,7 +9,6 @@ using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Domain;
@@ -21,19 +20,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <summary>
     /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
-    public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
+    public class AggregateRootQueryBuilderProviderCteAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
         private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
-        private readonly IContextProvider<DataManagementAuthorizationPlan> _authorizationPlanContextProvider;
+        private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        public AggregateRootQueryBuilderProviderAuthorizationDecorator(
+        public AggregateRootQueryBuilderProviderCteAuthorizationDecorator(
             IAggregateRootQueryBuilderProvider decoratedInstance,
-            IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
+            IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
             _decoratedInstance = decoratedInstance;
-            _authorizationPlanContextProvider = authorizationPlanContextProvider;
+            _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
         }
 
@@ -57,40 +56,21 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 queryParameters,
                 additionalQueryParameters);
 
-            var authorizationPlan = _authorizationPlanContextProvider.Get();
-
-            // Do not process if CTE auth has been indicated
+            // Only process if CTE auth has been indicated
             bool shouldUseCteAuth = additionalQueryParameters?.TryGetValue("UseCteAuth", out string useCteAuth) == true
                 && Convert.ToBoolean(useCteAuth);
 
-            if (shouldUseCteAuth)
+            if (!shouldUseCteAuth)
             {
                 return queryBuilder;
             }
+
+            var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
             // If there are multiple relationship-based authorization strategies with views (that are combined with OR), we must use left outer joins and null/not null checks
             var relationshipBasedAuthViewJoinType = DetermineRelationshipBasedAuthViewJoinType();
-
-            // We ONLY need to use DISTINCT (which comes with a performance cost) if there are multiple OR strategies being applied
-            // resulting in LEFT JOINs, or if there are multiple EdOrgIds applied to the API client. Also wrapped up in this are
-            // some assumptions:
-            //    1) That the only type of OR authorization strategies are relationship-based authorization
-            //    2) That because of #1, the only type of claim values that would be present in ClaimParameterValues are EdOrgIds
-            if (relationshipBasedAuthViewJoinType == JoinType.LeftOuterJoin)
-            {
-                // Authorization could introduce duplicates items, so we must apply DISTINCT
-                queryBuilder.Distinct();
-            }
-            else if (relationshipBasedAuthViewJoinType == JoinType.InnerJoin)
-            {
-                if (authorizationPlan.Filtering.Any(f => f.Filters.Any(ctx => ctx.ClaimParameterValues?.Length > 1)))
-                {
-                    // Authorization with multiple claim values could introduce duplicates items, so we must apply DISTINCT
-                    queryBuilder.Distinct();
-                }
-            }
 
             ApplyAuthorizationStrategiesCombinedWithAndLogic();
             ApplyAuthorizationStrategiesCombinedWithOrLogic();
@@ -100,7 +80,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             JoinType? DetermineRelationshipBasedAuthViewJoinType()
             {
                 // NOTE: Relationship-based authorization filters are combined using OR, while custom auth-view filters are combined using AND
-                var countOfRelationshipBasedAuthorizationFilters = authorizationPlan.Filtering.Count(
+                var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
                     af => af.Operator == FilterOperator.Or && af.Filters.Select(afd =>
                         {
                             if (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(afd.FilterName, out var filterDetails))
@@ -126,7 +106,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithAndLogic()
             {
-                var andStrategies = authorizationPlan.Filtering.Where(x => x.Operator == FilterOperator.And).ToArray();
+                var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
 
                 // Combine 'AND' strategies
                 foreach (var andStrategy in andStrategies)
@@ -141,7 +121,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
-                var orStrategies = authorizationPlan.Filtering
+                var orStrategies = authorizationFiltering
                     .Where(x => x.Operator == FilterOperator.Or)
                     .ToArray();
 
