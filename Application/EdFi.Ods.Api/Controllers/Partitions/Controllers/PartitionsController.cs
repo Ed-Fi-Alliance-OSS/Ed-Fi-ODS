@@ -70,9 +70,9 @@ public class PartitionsController : ControllerBase
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
         // Store alternative auth approach decision into call context
-        if (additionalParameters?.TryGetValue("useCteAuth", out string useCteAuth) == true)
+        if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
         {
-            _contextStorage.SetValue("UseCteAuth", Convert.ToBoolean(useCteAuth));
+            _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
         }
 
         if (number is < 1 or > 200)

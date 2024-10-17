@@ -152,9 +152,9 @@ namespace EdFi.Ods.Api.Controllers
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
 
             // Store alternative auth approach decision into call context
-            if (additionalParameters?.TryGetValue("useCteAuth", out string useCteAuth) == true)
+            if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
             {
-                _contextStorage.SetValue("UseCteAuth", Convert.ToBoolean(useCteAuth));
+                _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
             }
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
