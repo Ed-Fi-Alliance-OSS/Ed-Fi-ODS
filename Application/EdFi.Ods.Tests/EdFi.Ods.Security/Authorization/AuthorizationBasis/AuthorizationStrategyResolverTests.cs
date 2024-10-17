@@ -75,7 +75,7 @@ public class AuthorizationStrategyResolverTests
         var ex = Should.Throw<SecurityConfigurationException>(() => _resolver.GetAuthorizationStrategies(strategyNames));
 
         ex.Message.ShouldContain(
-            "Could not find an authorization strategy implementation for strategy name 'NonExistentStrategy'.");
+            "Could not find authorization strategy implementations for the following strategy names: 'NonExistentStrategy'.");
     }
 
     [Test]
@@ -131,7 +131,37 @@ public class AuthorizationStrategyResolverTests
 
         // Act & Assert
         var ex = Should.Throw<SecurityConfigurationException>(() => _resolver.GetAuthorizationStrategies(strategyNames));
-        ex.Message.ShouldContain("Could not find an authorization strategy implementation for strategy name 'MissingStrategy'.");
+        ex.Message.ShouldContain("Could not find authorization strategy implementations for the following strategy names: 'MissingStrategy'.");
+    }
+
+    [Test]
+    public void GetAuthorizationStrategies_ShouldThrowExceptionWithAllUnmatchedStrategies_WhenMultipleStrategiesAreNotFound()
+    {
+        // Arrange
+        var strategyNames = new List<string>
+        {
+            "Strategy1",
+            "MissingStrategy",
+            "Strategy2",
+            "MissingStrategy2",
+        };
+
+        var strategy1 = A.Fake<IAuthorizationStrategy>();
+        var strategy2 = A.Fake<IAuthorizationStrategy>();
+
+        A.CallTo(() => _strategyProvider1.GetByName("Strategy1")).Returns(strategy1);
+        A.CallTo(() => _strategyProvider1.GetByName("Strategy2")).Returns(null);
+        A.CallTo(() => _strategyProvider1.GetByName("MissingStrategy")).Returns(null);
+        A.CallTo(() => _strategyProvider1.GetByName("MissingStrategy2")).Returns(null);
+
+        A.CallTo(() => _strategyProvider2.GetByName("Strategy1")).Returns(null);
+        A.CallTo(() => _strategyProvider2.GetByName("Strategy2")).Returns(strategy2);
+        A.CallTo(() => _strategyProvider2.GetByName("MissingStrategy")).Returns(null);
+        A.CallTo(() => _strategyProvider2.GetByName("MissingStrategy2")).Returns(null);
+
+        // Act & Assert
+        var ex = Should.Throw<SecurityConfigurationException>(() => _resolver.GetAuthorizationStrategies(strategyNames));
+        ex.Message.ShouldContain("Could not find authorization strategy implementations for the following strategy names: 'MissingStrategy', 'MissingStrategy2'.");
     }
 
     [Test]

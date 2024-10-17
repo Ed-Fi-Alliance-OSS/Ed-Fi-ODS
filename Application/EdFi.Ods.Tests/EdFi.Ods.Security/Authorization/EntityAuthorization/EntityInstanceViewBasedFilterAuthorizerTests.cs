@@ -387,8 +387,6 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
                             SubjectEndpointNames = new[] { "TestParam" },
                             SubjectEndpointValues = new object[] { 456 },
                             // Custom view-based authorization will have no claim values
-                            // ClaimParameterName = "ClaimParam",
-                            // ClaimEndpointValues = [123]
                         },
                         FilterDefinition = new ViewBasedAuthorizationFilterDefinition(
                             "filter-name",
@@ -445,8 +443,6 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
                             SubjectEndpointNames = new[] { "TestParam" },
                             SubjectEndpointValues = new object[] { 456 },
                             // Custom view-based authorization will have no claim values
-                            // ClaimParameterName = "ClaimParam",
-                            // ClaimEndpointValues = [123]
                         },
                         FilterDefinition = new ViewBasedAuthorizationFilterDefinition(
                             "filter-name",
@@ -504,8 +500,6 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
                             SubjectEndpointNames = new[] { "TestParam" },
                             SubjectEndpointValues = new object[] { 456 },
                             // Custom view-based authorization will have no claim values
-                            // ClaimParameterName = "ClaimParam",
-                            // ClaimEndpointValues = [123]
                         },
                         FilterDefinition = new ViewBasedAuthorizationFilterDefinition(
                             "filter-name",
@@ -521,8 +515,6 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
                             SubjectEndpointNames = new[] { "TestParam2" },
                             SubjectEndpointValues = new object[] { 567 },
                             // Custom view-based authorization will have no claim values
-                            // ClaimParameterName = "ClaimParam",
-                            // ClaimEndpointValues = [123]
                         },
                         FilterDefinition = new ViewBasedAuthorizationFilterDefinition(
                             "filter-name-2",

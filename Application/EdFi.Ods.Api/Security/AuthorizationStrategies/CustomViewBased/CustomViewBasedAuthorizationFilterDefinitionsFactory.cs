@@ -81,13 +81,13 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
             {
                 if (!authorizationFilterContext.SubjectEndpointNames[i].EndsWith("USI"))
                 {
-                    string existingLiteral = dataManagementRequestContext.GetPhaseText("existing ");
+                    string existingLiteral = dataManagementRequestContext.AuthorizationPhase.GetPhaseText("existing ");
 
                     string subjectEndpointName = authorizationFilterContext.SubjectEndpointNames[i].ReplaceSuffix("DescriptorId", "Descriptor");
 
                     throw new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{subjectEndpointName}' value is required for authorization purposes.",
-                        dataManagementRequestContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
+                        dataManagementRequestContext.AuthorizationPhase.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
                         InstanceTypeParts = dataManagementRequestContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data

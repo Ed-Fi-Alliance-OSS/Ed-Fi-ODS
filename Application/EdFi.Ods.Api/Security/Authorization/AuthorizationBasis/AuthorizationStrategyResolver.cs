@@ -30,7 +30,9 @@ public class AuthorizationStrategyResolver : IAuthorizationStrategyResolver
 
     public IReadOnlyList<IAuthorizationStrategy> GetAuthorizationStrategies(IReadOnlyList<string> strategyNames)
     {
-        return strategyNames.Select(
+        List<string> strategiesMissingImplementations = null;
+
+        var authorizationStrategies = strategyNames.Select(
                 strategyName =>
                 {
                     foreach (var authorizationStrategyProvider in _authorizationStrategyProviders)
@@ -43,10 +45,21 @@ public class AuthorizationStrategyResolver : IAuthorizationStrategyResolver
                         }
                     }
 
-                    throw new SecurityConfigurationException(
-                        SecurityConfigurationException.DefaultDetail,
-                        $"Could not find an authorization strategy implementation for strategy name '{strategyName}'.");
+                    // Initialize list if necessary and add the missing strategy name
+                    strategiesMissingImplementations ??= new List<string>();
+                    strategiesMissingImplementations.Add(strategyName);
+
+                    return null;
                 })
             .ToArray();
+
+        if (strategiesMissingImplementations != null)
+        {
+            throw new SecurityConfigurationException(
+                SecurityConfigurationException.DefaultDetail,
+                $"Could not find authorization strategy implementations for the following strategy names: '{string.Join("', '", strategiesMissingImplementations)}'.");
+        }
+
+        return authorizationStrategies;
     }
 }

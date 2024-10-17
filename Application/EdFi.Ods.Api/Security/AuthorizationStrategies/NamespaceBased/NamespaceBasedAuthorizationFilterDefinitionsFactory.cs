@@ -131,12 +131,12 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
-                string existingLiteral = authorizationContext.GetPhaseText("existing ");
+                string existingLiteral = authorizationContext.AuthorizationPhase.GetPhaseText("existing ");
 
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
+                        authorizationContext.AuthorizationPhase.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data
@@ -150,7 +150,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
             if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
             {
-                string existingLiteral = authorizationContext.GetPhaseText("existing ");
+                string existingLiteral = authorizationContext.AuthorizationPhase.GetPhaseText("existing ");
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
                 return InstanceAuthorizationResult.Failed(

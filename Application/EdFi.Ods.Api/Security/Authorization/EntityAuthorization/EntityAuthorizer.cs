@@ -23,8 +23,6 @@ public class EntityAuthorizer : IEntityAuthorizer
     private readonly IEntityInstanceAuthorizationValidator _entityInstanceAuthorizationValidator;
     private readonly IEntityInstanceViewBasedFilterAuthorizer _entityInstanceViewBasedFilterAuthorizer;
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(EntityAuthorizer));
-
     public EntityAuthorizer(
         IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
         IEntityInstanceDelegateFilterAuthorizer entityInstanceDelegateFilterAuthorizer,

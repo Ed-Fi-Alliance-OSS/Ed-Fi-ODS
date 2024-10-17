@@ -185,7 +185,7 @@ public class RequestEvaluationStrategiesSelectorTests
     }
 
     [Test]
-    public void TryGetAuthorizationStrategyNames_ShouldReturnEmpty_WhenAllStrategiesAreEmpty()
+    public void TryGetAuthorizationStrategyNames_ShouldReturnFalseAndNull_WhenAllStrategiesAreEmpty()
     {
         // Arrange
         var action = "Read";
