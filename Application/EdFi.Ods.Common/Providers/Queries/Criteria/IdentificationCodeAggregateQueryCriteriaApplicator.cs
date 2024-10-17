@@ -25,7 +25,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
 {
     private readonly IDescriptorResolver _descriptorResolver;
     private readonly IResourceModelProvider _resourceModelProvider;
-    private readonly IResourceIdentificationCodeQueryablePropertiesProvider _resourceIdentificationCodeQueryablePropertiesProvider;
+    private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
     private readonly DatabaseEngine _databaseEngine;
 
     private const string IdentificationCodeTableAlias = "idct";
@@ -34,11 +34,11 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
     public IdentificationCodeAggregateQueryCriteriaApplicator(
         IDescriptorResolver descriptorResolver,
         IResourceModelProvider resourceModelProvider,
-        IResourceIdentificationCodeQueryablePropertiesProvider resourceIdentificationCodeQueryablePropertiesProvider,
+        IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
         DatabaseEngine databaseEngine)
     {
         _descriptorResolver = descriptorResolver;
-        _resourceIdentificationCodeQueryablePropertiesProvider = resourceIdentificationCodeQueryablePropertiesProvider;
+        _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
         _resourceModelProvider = resourceModelProvider;
         _databaseEngine = databaseEngine;
     }
@@ -53,7 +53,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
         var resource = _resourceModelProvider.GetResourceModel().GetResourceByFullName(entity.FullName);
 
         // If the entity does not have an identificationCodes collection with queryable properties, return
-        if (!_resourceIdentificationCodeQueryablePropertiesProvider.TryGetIdentificationCodeProperties(
+        if (!_resourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
                 resource, out List<ResourceProperty> identificationCodeProperties))
             return;
 

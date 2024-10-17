@@ -31,22 +31,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
-        private readonly IResourceIdentificationCodeQueryablePropertiesProvider
-            _resourceIdentificationCodeQueryablePropertiesProvider;
+        private readonly IResourceIdentificationCodePropertiesProvider
+            _resourceIdentificationCodePropertiesProvider;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
             IOpenApiMetadataPathsFactoryContentTypeStrategy contentTypeStrategy,
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
             IOpenApiIdentityProvider openApiIdentityProvider,
-            IResourceIdentificationCodeQueryablePropertiesProvider resourceIdentificationCodeQueryablePropertiesProvider,
+            IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
             ApiSettings apiSettings)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
             _openApiIdentityProvider = openApiIdentityProvider;
-            _resourceIdentificationCodeQueryablePropertiesProvider = resourceIdentificationCodeQueryablePropertiesProvider;
+            _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
             _apiSettings = apiSettings;
         }
 
@@ -389,9 +389,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     });
             }
 
-            if (_resourceIdentificationCodeQueryablePropertiesProvider.TryGetIdentificationCodeProperties(
+            // Try to get any queryable identification code properties for the resource 
+            // Use the unfiltered root resource (if applicable) to avoid populating the IdentificationCodePropertiesProvider's cache with results based on a filtered resource.
+            if (_resourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
+                    openApiMetadataResource.Resource.FilterContext.UnfilteredResourceClass?.ResourceRoot ??
                     openApiMetadataResource.Resource, out List<ResourceProperty> queryableIdentificationCodeProperties))
             {
+                //If this is a profile resource, do not include IdentificationCode query parameters unless the IdentificationCode collection is included in the filtered resource
+                if (openApiMetadataResource.IsProfileResource)
+                {
+                    queryableIdentificationCodeProperties = queryableIdentificationCodeProperties.Where(
+                        p => openApiMetadataResource.Resource.Collections.Select(c => c.ItemType.FullName)
+                            .Contains(p.Parent.FullName)).ToList();
+                }
+                
                 IEnumerableExtensions.ForEach(
                     queryableIdentificationCodeProperties, x =>
                     {
@@ -403,8 +414,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 description = x.Description,
                                 type = OpenApiMetadataDocumentHelper.PropertyType(x),
                                 format = x.PropertyType.ToOpenApiFormat(),
-                                required = openApiMetadataResource.IsPathParameter(x),
-                                isIdentity = OpenApiMetadataDocumentHelper.GetIsIdentity(x, _openApiIdentityProvider),
+                                required = false,
+                                isIdentity = null,
                                 maxLength = OpenApiMetadataDocumentHelper.GetMaxLength(x),
                                 isDeprecated = OpenApiMetadataDocumentHelper.GetIsDeprecated(x),
                                 deprecatedReasons = OpenApiMetadataDocumentHelper.GetDeprecatedReasons(x)

@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
 using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Composites.Test;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
@@ -147,6 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -247,6 +249,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -322,6 +325,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
@@ -430,6 +434,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -530,6 +535,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -651,6 +657,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -736,6 +743,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    new ResourceIdentificationCodePropertiesProvider(),
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();

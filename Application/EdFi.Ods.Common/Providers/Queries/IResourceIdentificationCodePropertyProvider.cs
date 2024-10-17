@@ -11,7 +11,7 @@ namespace EdFi.Ods.Common.Providers.Queries;
 /// <summary>
 /// Provides an interface for retrieving the queryable properties of the identificationCode collection of a resource
 /// </summary>
-public interface IResourceIdentificationCodeQueryablePropertiesProvider
+public interface IResourceIdentificationCodePropertiesProvider
 {
     /// <summary>
     /// Attempts to get the queryable properties of an resource's identificationCode collection.
