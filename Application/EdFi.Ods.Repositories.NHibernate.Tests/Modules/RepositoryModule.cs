@@ -31,6 +31,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                 .As(typeof(IGetEntitiesByIds<>))
                 .SingleInstance();
 
+            builder.RegisterGeneric(typeof(GetEntitiesByAggregateIds<>))
+                .As(typeof(IGetEntitiesByAggregateIds<>))
+                .SingleInstance();
+
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
                 .As(typeof(IGetEntitiesBySpecification<>))
                 .WithAttributeFiltering()
