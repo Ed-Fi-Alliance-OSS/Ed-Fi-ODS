@@ -64,7 +64,7 @@ public class PartitionsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> Get(
-        [FromQuery] int number = 1,
+        [FromQuery] int? number,
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
         if (number is < 1 or > 200)
