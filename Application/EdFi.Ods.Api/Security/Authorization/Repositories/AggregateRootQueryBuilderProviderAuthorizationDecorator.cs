@@ -59,11 +59,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationPlan = _authorizationPlanContextProvider.Get();
 
-            // Do not process if CTE auth has been indicated
-            bool shouldUseCteAuth = additionalQueryParameters?.TryGetValue("UseCteAuth", out string useCteAuth) == true
-                && Convert.ToBoolean(useCteAuth);
+            // Process if join-based auth has been indicated
+            bool shouldUseJoinAuth = additionalQueryParameters?.TryGetValue("UseJoinAuth", out string useJoinAuth) == true
+                && Convert.ToBoolean(useJoinAuth);
 
-            if (shouldUseCteAuth)
+            if (!shouldUseJoinAuth)
             {
                 return queryBuilder;
             }
