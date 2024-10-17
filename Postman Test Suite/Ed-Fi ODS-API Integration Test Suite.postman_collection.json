@@ -3969,7 +3969,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?schoolId=255901107&number=2",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?schoolId=255901107&number=2&allowSmallPartitions=true",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -3988,6 +3988,10 @@
 												{
 													"key": "number",
 													"value": "2"
+												},
+												{
+													"key": "allowSmallPartitions",
+													"value": "true"
 												}
 											]
 										}
@@ -4943,7 +4947,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/partitions?number=200",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/partitions?number=200&allowSmallPartitions=true",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -4958,6 +4962,10 @@
 														{
 															"key": "number",
 															"value": "200"
+														},
+														{
+															"key": "allowSmallPartitions",
+															"value": "true"
 														}
 													]
 												}
@@ -5140,6 +5148,9 @@
 															"  const totalCount = pm.environment.get(\"known:gradingPeriods:length\");\r",
 															"  pm.expect(partitioning.pageTokens.length).to.equal(totalCount);\r",
 															"});\r",
+															"\r",
+															"pm.environment.set('known:gradingPeriods:partition:first', partitioning.pageTokens[0]);\r",
+															"pm.environment.set('known:gradingPeriods:partition:last', partitioning.pageTokens[partitioning.pageTokens.length - 1]);\r",
 															""
 														],
 														"type": "text/javascript",
@@ -5151,7 +5162,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?number=200&schoolId=255901107",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods/partitions?number=200&schoolId=255901107&allowSmallPartitions=true",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -5170,6 +5181,394 @@
 														{
 															"key": "schoolId",
 															"value": "255901107"
+														},
+														{
+															"key": "allowSmallPartitions",
+															"value": "true"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Partitions, first partition returns exactly 1 item",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const items = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should have only one item in the partition.\", () => {\r",
+															"  const totalCount = pm.environment.get(\"known:gradingPeriods:length\");\r",
+															"  pm.expect(items.length).to.equal(1);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageSize=50&pageToken={{known:gradingPeriods:partition:first}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradingPeriods"
+													],
+													"query": [
+														{
+															"key": "schoolId",
+															"value": "255901107"
+														},
+														{
+															"key": "pageSize",
+															"value": "50"
+														},
+														{
+															"key": "pageToken",
+															"value": "{{known:gradingPeriods:partition:first}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Partitions, last partition returns exactly 1 item",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const items = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should have only one item in the partition.\", () => {\r",
+															"  const totalCount = pm.environment.get(\"known:gradingPeriods:length\");\r",
+															"  pm.expect(items.length).to.equal(1);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?schoolId=255901107&pageSize=50&pageToken={{known:gradingPeriods:partition:last}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradingPeriods"
+													],
+													"query": [
+														{
+															"key": "schoolId",
+															"value": "255901107"
+														},
+														{
+															"key": "pageSize",
+															"value": "50"
+														},
+														{
+															"key": "pageToken",
+															"value": "{{known:gradingPeriods:partition:last}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Default Partitions",
+									"item": [
+										{
+											"name": "Large set, partition number matches default (10 assumed)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const pageTokens = pm.response.json().pageTokens;\r",
+															"\r",
+															"pm.environment.set(\"known:largeSetPartitions\", pageTokens);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/grades/partitions?number=10",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"grades",
+														"partitions"
+													],
+													"query": [
+														{
+															"key": "number",
+															"value": "10"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Large set, partition number unspecified (default of 10 assumed)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const pageTokens = pm.response.json().pageTokens;\r",
+															"\r",
+															"const knownPageTokens = pm.environment.get(\"known:largeSetPartitions\");\r",
+															"\r",
+															"pm.test(\"Default page tokens match tokens returned with explicit number matching default partition count\", () => {\r",
+															"  pm.expect(pageTokens).to.deep.equals(knownPageTokens);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/grades/partitions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"grades",
+														"partitions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Medium set, get total count",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set(\"known:mediumSet:totalCount\", Number(pm.response.headers.get('Total-Count')));\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards?limit=0&totalCount=true",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"learningStandards"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "0"
+														},
+														{
+															"key": "totalCount",
+															"value": "true"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Medium set, partition number unspecified",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const pageTokenCount = pm.response.json().pageTokens.length;\r",
+															"\r",
+															"const totalItemCount = pm.environment.get(\"known:mediumSet:totalCount\");\r",
+															"\r",
+															"pm.expect(\"Should get partitions with minimum size of MaxPageLimit x 5\", () => {\r",
+															"  const assumedDefaultPageLimit = 500;\r",
+															"  const assumedMinimumPartitionSize = 5 * assumedDefaultPageLimit;\r",
+															"\r",
+															"  const expectedNumberOfPartitions = Math.ceil(totalItemCount / assumedMinimumPartitionSize);\r",
+															"\r",
+															"  pm.expect(pageTokenCount).to.be(expectedNumberOfPartitions);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards/partitions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"learningStandards",
+														"partitions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Small set, partition number unspecified",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(200);\r",
+															"});\r",
+															"\r",
+															"const pageTokenCount = pm.response.json().pageTokens.length;\r",
+															"\r",
+															"const totalItemCount = pm.environment.get(\"known:mediumSet:totalCount\");\r",
+															"\r",
+															"pm.expect(\"Should get partitions with minimum size of MaxPageLimit x 5\", () => {\r",
+															"  const assumedDefaultPageLimit = 500;\r",
+															"  const assumedMinimumPartitionSize = 5 * assumedDefaultPageLimit;\r",
+															"\r",
+															"  const expectedNumberOfPartitions = Math.ceil(totalItemCount / assumedMinimumPartitionSize);\r",
+															"\r",
+															"  pm.expect(pageTokenCount).to.be(expectedNumberOfPartitions);\r",
+															"});\r",
+															"\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/partitions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"staffs",
+														"partitions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Partitions, At Most 10",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/grades?limit=0&totalCount=true",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"grades"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "0"
+														},
+														{
+															"key": "totalCount",
+															"value": "true"
 														}
 													]
 												}

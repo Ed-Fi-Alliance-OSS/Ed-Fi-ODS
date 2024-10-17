@@ -228,7 +228,7 @@ public class PartitionsController : ControllerBase
             }
 
             // Add the final range only if we haven't reached the limit
-            if (rangeMin != null && list.Count < number)
+            if (rangeMin != null && list.Count < (number ?? int.MaxValue))
             {
                 string finalPageToken = PagingHelpers.GetPageToken(rangeMin.Value, int.MaxValue);
                 list.Add(finalPageToken);
