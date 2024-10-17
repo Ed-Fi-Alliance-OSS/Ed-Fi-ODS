@@ -20,6 +20,12 @@ public class ResourceIdentificationCodePropertiesProvider : IResourceIdentificat
     public bool TryGetIdentificationCodeProperties(Resource resource,
         out List<ResourceProperty> identificationCodeProperties)
     {
+        if (resource.Entity == null)
+        {
+            identificationCodeProperties = null;
+            return false;
+        }
+
         identificationCodeProperties = _identificationCodePropertiesByRootResourceFullName.GetOrAdd(
             resource.Entity.FullName, _ =>
             {
