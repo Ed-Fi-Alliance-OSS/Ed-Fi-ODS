@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using Autofac.Core;
 using Autofac.Features.AttributeFilters;
 using EdFi.Ods.Api.Controllers.Partitions.Controllers;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Providers.Queries;
 
 namespace EdFi.Ods.Api.Container.Modules;
@@ -15,6 +17,10 @@ public class KeySetPagingModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<PartitionsQueryBuilderProvider>()
+            .WithParameter(
+                new ResolvedParameter(
+                    (p, c) => p.ParameterType == typeof(int) && p.Name == "defaultPartitionCount",
+                    (p, c) => c.Resolve<ApiSettings>().DefaultPartitionCount))
             .As<IPartitionsQueryBuilderProvider>()
             .SingleInstance()
             .WithAttributeFiltering();

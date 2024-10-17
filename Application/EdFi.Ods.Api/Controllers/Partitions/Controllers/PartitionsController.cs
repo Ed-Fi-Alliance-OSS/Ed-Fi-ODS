@@ -66,7 +66,7 @@ public class PartitionsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> Get(
-        [FromQuery] int number = 1,
+        [FromQuery] int? number,
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
         // Store alternative auth approach decision into call context
