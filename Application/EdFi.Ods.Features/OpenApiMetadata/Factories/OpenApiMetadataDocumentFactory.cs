@@ -98,7 +98,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     paths = pathsFactory.Create(resources, documentContext.IsCompositeContext),
                     definitions = definitionsFactory.Create(resources),
                     parameters = parametersFactory.Create(documentContext.IsCompositeContext),
-                    responses = responsesFactory.Create()
+                    responses = responsesFactory.Create(documentContext.IsCompositeContext)
                 };
                 var jsonString = JsonConvert.SerializeObject(
                     openApiMetadataDocument,
