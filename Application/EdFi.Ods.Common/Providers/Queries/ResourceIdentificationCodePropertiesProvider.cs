@@ -12,15 +12,8 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Providers.Queries;
 
-public class ResourceIdentificationCodePropertiesProvider : IResourceIdentificationCodeQueryablePropertiesProvider
+public class ResourceIdentificationCodePropertiesProvider : IResourceIdentificationCodePropertiesProvider
 {
-    private readonly IResourceModelProvider _resourceModelProvider;
-
-    public ResourceIdentificationCodePropertiesProvider(IResourceModelProvider resourceModelProvider)
-    {
-        _resourceModelProvider = resourceModelProvider;
-    }
-
     private readonly ConcurrentDictionary<FullName, List<ResourceProperty>>
         _identificationCodePropertiesByRootResourceFullName = new();
 

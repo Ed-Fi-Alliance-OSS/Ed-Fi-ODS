@@ -11,6 +11,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -102,6 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     upconversionProvider,
+                    Stub<IResourceIdentificationCodePropertiesProvider>(),
                     new FakeOpenApiIdentityProvider());
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
@@ -218,6 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     upconversionProvider,
+                    Stub<IResourceIdentificationCodePropertiesProvider>(),
                     new FakeOpenApiIdentityProvider());
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
