@@ -393,7 +393,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
             
             builder.RegisterType<ResourceIdentificationCodePropertiesProvider>()
-                .As<IResourceIdentificationCodeQueryablePropertiesProvider>()
+                .As<IResourceIdentificationCodePropertiesProvider>()
                 .SingleInstance();
 
             builder.RegisterInstance(TimeProvider.System)
