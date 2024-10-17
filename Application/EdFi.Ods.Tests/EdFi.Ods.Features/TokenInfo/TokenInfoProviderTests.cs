@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Security;
@@ -123,7 +124,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 A.Fake<IClaimSetClaimsProvider>(), 
                 A.Fake<IResourceClaimUriProvider>(), 
                 A.Fake<ISecurityRepository>(), 
-                A.Fake<IAuthorizationBasisMetadataSelector>());
+                A.Fake<IClaimSetRequestEvaluator>());
 
             var results = await tokenInfoProvider.GetTokenInfoAsync(CreateApiContext());
 

@@ -16,6 +16,8 @@ namespace EdFi.Ods.Features.Composites
 {
     public class CompositeDefinitionProcessorContext
     {
+        protected CompositeDefinitionProcessorContext() { }
+
         public CompositeDefinitionProcessorContext(
             XElement compositeDefinitionElement,
             IResourceModel resourceModel,
@@ -38,43 +40,43 @@ namespace EdFi.Ods.Features.Composites
             MemberDisplayName = memberDisplayName;
         }
 
-        public XElement CompositeDefinitionElement { get; }
+        public virtual XElement CompositeDefinitionElement { get; }
 
-        public IResourceModel ResourceModel { get; }
+        public virtual IResourceModel ResourceModel { get; }
 
-        public XElement CurrentElement { get; }
+        public virtual XElement CurrentElement { get; }
 
-        public ResourceClassBase CurrentResourceClass { get; }
+        public virtual ResourceClassBase CurrentResourceClass { get; }
 
-        public ResourceMemberBase CurrentResourceMember { get; set; }
+        public virtual ResourceMemberBase CurrentResourceMember { get; set; }
 
-        public AssociationView JoinAssociation { get; }
+        public virtual AssociationView JoinAssociation { get; }
 
-        public string EntityMemberName { get; }
+        public virtual string EntityMemberName { get; }
 
-        public string MemberDisplayName { get; }
+        public virtual string MemberDisplayName { get; }
 
-        public int ChildIndex { get; }
+        public virtual int ChildIndex { get; }
 
-        public bool IsBaseResource() => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.BaseResource);
+        public virtual bool IsBaseResource() => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.BaseResource);
 
-        public bool IsReferenceResource()
+        public virtual bool IsReferenceResource()
             => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.ReferencedResource);
 
-        public bool IsEmbeddedObject()
+        public virtual bool IsEmbeddedObject()
             => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.ReferencedResource);
 
-        public bool IsAbstract() => CurrentResourceClass.IsAbstract();
+        public virtual bool IsAbstract() => CurrentResourceClass.IsAbstract();
 
-        public bool ShouldFlatten() => AttributeValueAsBool(CompositeDefinitionHelper.Flatten);
+        public virtual bool ShouldFlatten() => AttributeValueAsBool(CompositeDefinitionHelper.Flatten);
 
-        public bool ShouldIncludeResourceSubtype() => AttributeValueAsBool(CompositeDefinitionHelper.IncludeResourceSubtype);
+        public virtual bool ShouldIncludeResourceSubtype() => AttributeValueAsBool(CompositeDefinitionHelper.IncludeResourceSubtype);
 
-        public string AttributeValue(string attributeName) => CurrentElement.AttributeValue(attributeName);
+        public virtual string AttributeValue(string attributeName) => CurrentElement.AttributeValue(attributeName);
 
-        public IEnumerable<XElement> PropertyElements() => CurrentElement.Elements(CompositeDefinitionHelper.Property);
+        public virtual IEnumerable<XElement> PropertyElements() => CurrentElement.Elements(CompositeDefinitionHelper.Property);
 
-        public List<EntityProperty> NonIncomingIdentifyingProperties()
+        public virtual List<EntityProperty> NonIncomingIdentifyingProperties()
         {
             var joinProperties = JoinAssociation == null
                 ? Array.Empty<EntityProperty>()

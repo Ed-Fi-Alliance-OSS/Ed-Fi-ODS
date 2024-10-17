@@ -15,31 +15,25 @@ using EdFi.Security.DataAccess.Repositories;
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 {
     /// <summary>
-    /// Implements the <see cref="IResourceAuthorizationMetadataProvider"/> interface using the security repository
+    /// Implements the <see cref="IResourceClaimAuthorizationMetadataLineageProvider"/> interface using the security repository
     /// for access to the authorization metadata.
     /// </summary>
-    public class ResourceAuthorizationMetadataProvider : IResourceAuthorizationMetadataProvider
+    public class ResourceClaimAuthorizationMetadataLineageProvider : IResourceClaimAuthorizationMetadataLineageProvider
     {
         private readonly ISecurityRepository _securityRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResourceAuthorizationMetadataProvider"/> class.
+        /// Initializes a new instance of the <see cref="ResourceClaimAuthorizationMetadataLineageProvider"/> class.
         /// </summary>
         /// <param name="securityRepository"></param>
-        public ResourceAuthorizationMetadataProvider(
+        public ResourceClaimAuthorizationMetadataLineageProvider(
             ISecurityRepository securityRepository)
         {
             _securityRepository = securityRepository;
         }
 
-        /// <summary>
-        /// Gets the lineage of all resource claims (going up the resource claims taxonomy) that can be used to authorize the
-        /// request for specified resource and action, including the explicitly assigned authorization strategy (if applicable).
-        /// </summary>
-        /// <param name="resourceClaimUri">The URI representation of the resource claim associated with the request.</param>
-        /// <param name="action">The action associated with the request.</param>
-        /// <returns>The lineage of resource claims.</returns>
-        public IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadata(
+        /// <inheritdoc cref="IResourceClaimAuthorizationMetadataLineageProvider.GetAuthorizationLineage" />
+        public IEnumerable<DefaultResourceClaimMetadata> GetAuthorizationLineage(
             string resourceClaimUri,
             string action)
         {
@@ -64,7 +58,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 
             if (!resourceClaimNameLineage.Any())
             {
-                return Enumerable.Empty<ResourceClaimAuthorizationMetadata>();
+                return Enumerable.Empty<DefaultResourceClaimMetadata>();
             }
 
             var resourceClaimLineageWithMetadata =
@@ -74,7 +68,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 
             var resourceClaimsLineage =
                 from c in resourceClaimNameLineage
-                select new ResourceClaimAuthorizationMetadata
+                select new DefaultResourceClaimMetadata
                 {
                     ClaimName = c,
                     AuthorizationStrategies =

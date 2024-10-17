@@ -19,6 +19,7 @@ using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
+// NOTE: Do not modify this namespace -- embedded resource domain models for testing depend on it
 namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {
     [TestFixture]
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -106,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var filterDefinition = filterDefinitionsFactory.CreatePredefinedAuthorizationFilterDefinitions().Single();
 
                 var result = filterDefinition.AuthorizeInstance(
-                    new EdFiAuthorizationContext(
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -149,8 +150,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
-                        Array.Empty<EdFiResourceClaim>(),
-                        new EdFiAuthorizationContext(
+                        Array.Empty<ClaimSetResourceClaimMetadata>(),
+                        new DataManagementRequestContext(
                             CreateApiClientContext(namespacePrefixes),
                             resource,
                             new[] { resourceUri },
@@ -192,8 +193,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    Array.Empty<EdFiResourceClaim>(),
-                    new EdFiAuthorizationContext(
+                    Array.Empty<ClaimSetResourceClaimMetadata>(),
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -231,8 +232,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 //Act
                 strategy.GetAuthorizationStrategyFiltering(
-                    Array.Empty<EdFiResourceClaim>(),
-                    new EdFiAuthorizationContext(
+                    Array.Empty<ClaimSetResourceClaimMetadata>(),
+                    new DataManagementRequestContext(
                         CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
@@ -272,8 +273,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 //Act
                 Should.Throw<Exception>(
                         () => strategy.GetAuthorizationStrategyFiltering(
-                            Array.Empty<EdFiResourceClaim>(),
-                            new EdFiAuthorizationContext(
+                            Array.Empty<ClaimSetResourceClaimMetadata>(),
+                            new DataManagementRequestContext(
                                 CreateApiClientContext(namespacePrefixes),
                                 resource,
                                 new[] { resourceUri },
@@ -306,8 +307,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var exception = Assert.Throws<SecurityAuthorizationException>(
                     () => strategy.GetAuthorizationStrategyFiltering(
-                        Array.Empty<EdFiResourceClaim>(),
-                        new EdFiAuthorizationContext(
+                        Array.Empty<ClaimSetResourceClaimMetadata>(),
+                        new DataManagementRequestContext(
                             new ApiClientContext(),
                             resource,
                             new[] { resourceUri },

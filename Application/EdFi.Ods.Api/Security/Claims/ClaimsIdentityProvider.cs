@@ -64,14 +64,13 @@ namespace EdFi.Ods.Api.Security.Claims
 
                 // Create a list of service claims to be issued.
                 var serviceClaims = servicesResourceClaimsByClaimName.Select(
-                        g => new EdFiResourceClaim(g.Key,
-                            new EdFiResourceClaimValue
-                            {
-                                Actions = g
-                                    .Select(x => new ResourceAction(x.Action.ActionUri))
-                                    .ToArray()
-                            }))
-                    .Select(x => new Claim(x.ClaimName, string.Join(",", x.ClaimValue.Actions.Select(a => a.Name))))
+                        g => 
+                            new ClaimSetResourceClaimMetadata(g.Key,
+                                g
+                                .Select(x => new ResourceAction(x.Action.ActionUri))
+                                .ToArray()
+                            ))
+                    .Select(x => new Claim(x.ClaimName, string.Join(",", x.Actions.Select(a => a.Name))))
                     .ToList();
                 
                 _claimsByResourceClaimActions.SetCachedObject(resourceClaimsActions, serviceClaims);

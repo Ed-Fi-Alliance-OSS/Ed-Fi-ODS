@@ -8,17 +8,17 @@ using System.Linq;
 
 namespace EdFi.Ods.Common.Security.Claims;
 
-public static class EdFiResourceClaimValueExtensions
+public static class EdFiResourceClaimExtensions
 {
     /// <summary>
     /// Gets the names of authorization strategy overrides for the specified action, if present.
     /// </summary>
-    /// <param name="claimValue"></param>
+    /// <param name="claim"></param>
     /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-    /// <returns>The authorization strategy override for the specified action; otherwise <b>null</b>.</returns>
-    public static IReadOnlyList<string> GetAuthorizationStrategyNameOverrides(this EdFiResourceClaimValue claimValue, string action)
+    /// <returns>The authorization strategy overrides for the specified action; otherwise <b>null</b>.</returns>
+    public static IReadOnlyList<string> GetAuthorizationStrategyNameOverrides(this ClaimSetResourceClaimMetadata claim, string action)
     {
-        return claimValue.Actions
+        return claim.Actions
             .FirstOrDefault(x => x.Name == action)
             ?.AuthorizationStrategyNameOverrides;
     }
@@ -26,12 +26,12 @@ public static class EdFiResourceClaimValueExtensions
     /// <summary>
     /// Gets the names of the authorization strategy overrides for the specified action, if present.
     /// </summary>
-    /// <param name="claimValue"></param>
+    /// <param name="claim"></param>
     /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
     /// <returns>The authorization validation rule set name override for the specified action; otherwise <b>null</b>.</returns>
-    public static string GetAuthorizationValidationRuleSetNameOverride(this EdFiResourceClaimValue claimValue, string action)
+    public static string GetAuthorizationValidationRuleSetNameOverride(this ClaimSetResourceClaimMetadata claim, string action)
     {
-        return claimValue.Actions
+        return claim.Actions
             .Where(x => x.Name == action)
             .Select(x => x.ValidationRuleSetNameOverride)
             .FirstOrDefault();

@@ -71,7 +71,7 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
     }
 
     private InstanceAuthorizationResult AuthorizeInstance(
-        EdFiAuthorizationContext authorizationContext,
+        DataManagementRequestContext dataManagementRequestContext,
         AuthorizationFilterContext authorizationFilterContext,
         string authorizationStrategyName)
     {
@@ -81,15 +81,15 @@ public class CustomViewBasedAuthorizationFilterDefinitionsFactory : IAuthorizati
             {
                 if (!authorizationFilterContext.SubjectEndpointNames[i].EndsWith("USI"))
                 {
-                    string existingLiteral = authorizationContext.GetPhaseText("existing ");
+                    string existingLiteral = dataManagementRequestContext.AuthorizationPhase.GetPhaseText("existing ");
 
                     string subjectEndpointName = authorizationFilterContext.SubjectEndpointNames[i].ReplaceSuffix("DescriptorId", "Descriptor");
 
                     throw new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{subjectEndpointName}' value is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
+                        dataManagementRequestContext.AuthorizationPhase.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
-                        InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
+                        InstanceTypeParts = dataManagementRequestContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data
                             ? ["custom-view", "access-denied", "element-required"]
                             // On existing data

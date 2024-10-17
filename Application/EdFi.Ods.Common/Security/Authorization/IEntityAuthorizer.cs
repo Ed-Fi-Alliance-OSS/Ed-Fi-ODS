@@ -17,5 +17,9 @@ public interface IEntityAuthorizer
     /// <param name="authorizationPhase">The phase of authorization of the entity (either existing or proposed).</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task AuthorizeEntityAsync(object entity, string actionUri, AuthorizationPhase authorizationPhase, CancellationToken cancellationToken);
+    Task AuthorizeEntityAsync(
+        object entity,
+        string actionUri,
+        AuthorizationPhase authorizationPhase,
+        CancellationToken cancellationToken);
 }

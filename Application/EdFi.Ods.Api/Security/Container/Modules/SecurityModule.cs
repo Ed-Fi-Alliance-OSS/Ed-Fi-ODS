@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -12,6 +11,8 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
@@ -33,12 +34,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IAuthorizationContextProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<AuthorizationFilterContextProvider>()
-                .As<IAuthorizationFilterContextProvider>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<AuthorizationFilteringProvider>()
-                .As<IAuthorizationFilteringProvider>()
+            builder.RegisterType<DataManagementAuthorizationPlanFactory>()
+                .As<IDataManagementAuthorizationPlanFactory>()
                 .SingleInstance();
 
             builder.RegisterType<AuthorizationBasisMetadataSelector>()
@@ -46,8 +43,34 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
-            builder.RegisterType<ResourceAuthorizationMetadataProvider>()
-                .As<IResourceAuthorizationMetadataProvider>()
+            builder.RegisterType<ActionBitValueProvider>()
+                .As<IActionBitValueProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<AuthorizationContextValidator>()
+                .As<IAuthorizationContextValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<AuthorizationStrategyResolver>()
+                .As<IAuthorizationStrategyResolver>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<ClaimSetRequestEvaluator>()
+                .As<IClaimSetRequestEvaluator>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<RequestEvaluationStrategiesSelector>()
+                .As<IRequestEvaluationStrategiesSelector>()
+                .SingleInstance();
+
+            builder.RegisterType<RequestEvaluationValidationRuleSetSelector>()
+                .As<IRequestEvaluationValidationRuleSetSelector>()
+                .SingleInstance();
+
+            builder.RegisterType<ResourceClaimAuthorizationMetadataLineageProvider>()
+                .As<IResourceClaimAuthorizationMetadataLineageProvider>()
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
@@ -55,6 +78,29 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IEntityAuthorizer>()
                 .SingleInstance();
 
+            builder.RegisterType<EntityAuthorizationQueryExecutor>()
+                .As<IEntityAuthorizationQueryExecutor>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityAuthorizationSqlBuilder>()
+                .As<IEntityAuthorizationSqlBuilder>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceAuthorizationValidator>()
+                .As<IEntityInstanceAuthorizationValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceDelegateFilterAuthorizer>()
+                .As<IEntityInstanceDelegateFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceViewBasedFilterAuthorizer>()
+                .As<IEntityInstanceViewBasedFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<RedundantAuthorizationContextManager>()
+                .As<IRedundantAuthorizationContextManager>()
+                .SingleInstance();
 
             builder.RegisterType<NamedAuthorizationStrategyProvider>()
                 .As<IAuthorizationStrategyProvider>()

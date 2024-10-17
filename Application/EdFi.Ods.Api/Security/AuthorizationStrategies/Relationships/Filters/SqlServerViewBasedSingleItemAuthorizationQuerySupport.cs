@@ -3,15 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
-using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
@@ -19,7 +18,9 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
 {
     private const int SqlServerParameterCountThreshold = 2000;
 
-    public string GetItemExistenceCheckSql(ViewBasedAuthorizationFilterDefinition filterDefinition, AuthorizationFilterContext filterContext)
+    public string GetItemExistenceCheckSql(
+        ViewBasedAuthorizationFilterDefinition filterDefinition,
+        AuthorizationFilterContext filterContext)
     {
         // If we are processing a view-based authorization with no claim values to be applied
         if (filterContext.ClaimParameterName == null)
@@ -61,24 +62,22 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
         return $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw INNER JOIN @{RelationshipAuthorizationConventions.ClaimsParameterName} c ON authvw.{filterDefinition.ViewSourceEndpointName} = c.Id AND authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName}";
     }
 
-    public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
+    public void ApplyEducationOrganizationIdClaimsToCommand(DbCommand cmd, IList<long> claimEducationOrganizationIds)
     {
         // No parameters needed if less than 2,000 EdOrgIds present
-        if (authorizationContext.ApiClientContext.EducationOrganizationIds.Count < SqlServerParameterCountThreshold)
+        if (claimEducationOrganizationIds.Count < SqlServerParameterCountThreshold)
         {
             return;
         }
         
         // Assign EdOrgId claims
-        var claimEdOrgIds = authorizationContext.ApiClientContext.EducationOrganizationIds;
-
-        var edOrgSystemType = claimEdOrgIds.First().GetType();
+        var edOrgSystemType = claimEducationOrganizationIds.First().GetType();
 
         var sqlParameter = cmd.CreateParameter() as SqlParameter;
         sqlParameter!.ParameterName = "ClaimEducationOrganizationIds";
         sqlParameter.SqlDbType = SqlDbType.Structured;
         sqlParameter.TypeName = SqlServerStructuredMappings.StructuredTypeNameBySystemType[edOrgSystemType];
-        sqlParameter.Value = SqlServerTableValuedParameterHelper.CreateIdDataTable(claimEdOrgIds, edOrgSystemType);
+        sqlParameter.Value = SqlServerTableValuedParameterHelper.CreateIdDataTable(claimEducationOrganizationIds, edOrgSystemType);
 
         cmd.Parameters.Add(sqlParameter);
     }

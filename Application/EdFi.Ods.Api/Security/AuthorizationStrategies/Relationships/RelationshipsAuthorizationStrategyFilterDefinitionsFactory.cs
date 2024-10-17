@@ -121,7 +121,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(
-            EdFiAuthorizationContext authorizationContext,
+            DataManagementRequestContext authorizationContext,
             AuthorizationFilterContext filterContext,
             string authorizationStrategyName)
         {
@@ -129,11 +129,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 if (!filterContext.SubjectEndpointName.EndsWith("USI"))
                 {
-                    string existingLiteral = authorizationContext.GetPhaseText("existing ");
+                    string existingLiteral = authorizationContext.AuthorizationPhase.GetPhaseText("existing ");
 
                     throw new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'{filterContext.SubjectEndpointName}' value is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
+                        authorizationContext.AuthorizationPhase.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data

@@ -42,8 +42,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-            EdFiResourceClaim[] relevantClaims,
-            EdFiAuthorizationContext authorizationContext)
+            ClaimSetResourceClaimMetadata[] relevantClaims,
+            DataManagementRequestContext authorizationContext)
         {
             EnsurePropertyDependenciesInitialized();
 

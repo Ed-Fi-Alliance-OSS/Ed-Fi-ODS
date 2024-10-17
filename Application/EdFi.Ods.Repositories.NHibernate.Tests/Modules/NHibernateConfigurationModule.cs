@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Providers;
 using NHibernate;
 using System;
+using EdFi.Ods.Api.Security.Authorization.EntityAuthorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Common.Security.Authorization;
 using NHibernate.Cfg;
@@ -21,6 +22,30 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.RegisterType<EntityAuthorizer>()
                 .As<IEntityAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityAuthorizationQueryExecutor>()
+                .As<IEntityAuthorizationQueryExecutor>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityAuthorizationSqlBuilder>()
+                .As<IEntityAuthorizationSqlBuilder>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceAuthorizationValidator>()
+                .As<IEntityInstanceAuthorizationValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceDelegateFilterAuthorizer>()
+                .As<IEntityInstanceDelegateFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<EntityInstanceViewBasedFilterAuthorizer>()
+                .As<IEntityInstanceViewBasedFilterAuthorizer>()
+                .SingleInstance();
+
+            builder.RegisterType<RedundantAuthorizationContextManager>()
+                .As<IRedundantAuthorizationContextManager>()
                 .SingleInstance();
 
             builder.RegisterType<OrmMappingFileDataProvider>()
