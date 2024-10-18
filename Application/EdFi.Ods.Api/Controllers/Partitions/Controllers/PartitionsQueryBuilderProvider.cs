@@ -94,11 +94,13 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
 
             if (additionalParameters.TryGetValue("allowSmallPartitions", out string value) && Convert.ToBoolean(value))
             {
-                partitionSizeSql = "CAST(GREATEST(1, CEILING(CountOfRows / @numberOfPartitions)) AS BIGINT) AS PartitionSize";
+                string greatest = _dialect.GetGreatestString("1", "CEILING(CountOfRows / @numberOfPartitions)");
+                partitionSizeSql = $"CAST({greatest} AS BIGINT) AS PartitionSize";
             }
             else
             {
-                partitionSizeSql = "CAST(GREATEST(CEILING(CountOfRows / @numberOfPartitions), 5 * @maxPageSize) AS BIGINT) AS PartitionSize";
+                string greatest = _dialect.GetGreatestString("CEILING(CountOfRows / @numberOfPartitions)", "(5 * @maxPageSize)");
+                partitionSizeSql = $"CAST({greatest} AS BIGINT) AS PartitionSize";
             }
 
             var ctePartitionSizesQueryBuilder1 = new QueryBuilder(_dialect)

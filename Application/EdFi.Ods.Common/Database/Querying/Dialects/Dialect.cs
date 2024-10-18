@@ -33,5 +33,10 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
         {
             return $"{cteName} AS ({sql})";
         }
+
+        public virtual string GetGreatestString(string expression1, string expression2)
+        {
+            return $"GREATEST({expression1}, {expression2})";
+        }
     }
 }

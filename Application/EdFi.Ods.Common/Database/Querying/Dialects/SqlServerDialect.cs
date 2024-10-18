@@ -57,5 +57,11 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 
             return ($"{columnName} IN (SELECT Id FROM {parameterName})", parameters);
         }
+
+        public override string GetGreatestString(string expression1, string expression2)
+        {
+            // For SQL 2022 and later, this override is not need. For SQL 2019 and earlier, CASE must be used
+            return $"CASE WHEN {expression1} > {expression2} THEN {expression1} ELSE {expression2} END";
+        }
     }
 }
