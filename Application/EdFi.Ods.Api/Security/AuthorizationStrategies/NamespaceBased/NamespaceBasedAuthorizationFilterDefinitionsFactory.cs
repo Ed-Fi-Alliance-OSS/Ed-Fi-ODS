@@ -88,13 +88,13 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         var namespacePrefixes = parameterValue as object[] ?? [parameterValue];
 
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        whereBuilder.WhereNotNull(subjectEndpointName)
+        whereBuilder.WhereNotNull($"r.{subjectEndpointName}")
             .Where(
                 qb =>
                 {
                     foreach (var namespacePrefix in namespacePrefixes)
                     {
-                        qb.OrWhereLike(subjectEndpointName, namespacePrefix, MatchMode.Start);
+                        qb.OrWhereLike($"r.{subjectEndpointName}", namespacePrefix, MatchMode.Start);
                     }
 
                     return qb;
@@ -107,7 +107,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             new(
                 NamespaceAuthorizationConvention.GetNamespacePropertyName(resourceFullName, availablePropertyNames),
-                "Namespace")
+                "r.Namespace")
         };
     }
     
@@ -136,7 +136,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 return InstanceAuthorizationResult.Failed(
                     new SecurityAuthorizationException(
                         SecurityAuthorizationException.DefaultDetail + $" The {existingLiteral}'Namespace' value has not been assigned but is required for authorization purposes.",
-                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy because the 'Namespace' value has not been assigned."))
+                        authorizationContext.GetPhaseText($"The existing resource item is inaccessible to clients using the '{authorizationStrategyName}' authorization strategy becaus'Namespace' value has not been assigned."))
                     {
                         InstanceTypeParts = authorizationContext.AuthorizationPhase == AuthorizationPhase.ProposedData
                             // On proposed data
@@ -179,7 +179,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     {
         if (filterContext.ClaimParameterValues.Length == 1)
         {
-            if (filterContext.SubjectEndpointName == "Namespace")
+            if (filterContext.SubjectEndpointName == "r.Namespace")
             {
                 queryBuilder.WhereLike($"{_oldNamespaceQueryColumnExpression}", filterContext.ClaimParameterValues.Single());
             }
@@ -195,7 +195,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             queryBuilder.Where(
                 q =>
                 {
-                    if (filterContext.SubjectEndpointName == "Namespace")
+                    if (filterContext.SubjectEndpointName == "r.Namespace")
                     {
                         filterContext.ClaimParameterValues.ForEach(ns => q.OrWhereLike(_oldNamespaceQueryColumnExpression, ns));
                     }
