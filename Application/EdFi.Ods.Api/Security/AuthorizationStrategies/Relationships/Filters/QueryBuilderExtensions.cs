@@ -39,12 +39,30 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string authViewAlias = null)
         {
             // Temporary logic to opt-in to join-based authorization approach
-            if (_callContextStorage.GetValue<bool>("UseJoinAuth"))
+            bool useJoinAuth = _callContextStorage.GetValue<bool>("UseJoinAuth"); 
+
+            if (useJoinAuth)
             {
                 ApplySingleColumnJoinFilterUsingJoins(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName, viewTargetEndpointName, joinType, authViewAlias);
                 return;
             }
 
+            ApplySingleColumnJoinFilterUsingCtes(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName,
+                viewTargetEndpointName,
+                joinType,
+                authViewAlias);
+        }
+
+        private static void ApplySingleColumnJoinFilterUsingCtes(
+            this QueryBuilder queryBuilder,
+            IDictionary<string, object> parameters,
+            string viewName,
+            string subjectEndpointName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName,
+            JoinType joinType,
+            string authViewAlias = null)
+        {
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
             {
@@ -54,19 +72,19 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
             // Create a CTE query for the authorization view
-            var cte = new QueryBuilder(queryBuilder.Dialect);
+            var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
             cte.From($"auth.{viewName} AS av");
             cte.Select($"av.{viewTargetEndpointName}");
             cte.Distinct();
-            
+
             // Apply claims to the CTE query
             if (value is object[] arrayOfValues)
             {
-                cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues);
+                cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
             else
             {
-                cte.Where($"av.{viewSourceEndpointName}", value);
+                cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
             }
 
             // Add the CTE to the main query, with alias
@@ -94,14 +112,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         }
 
         private static void ApplySingleColumnJoinFilterUsingJoins(
-            this QueryBuilder queryBuilder,
+            QueryBuilder queryBuilder,
             IDictionary<string, object> parameters,
             string viewName,
             string subjectEndpointName,
             string viewSourceEndpointName,
             string viewTargetEndpointName,
             JoinType joinType,
-            string authViewAlias = null)
+            string authViewAlias)
         {
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
@@ -158,9 +176,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         }
 
         /// <summary>
-        /// Applies a join-based filter to the criteria for the specified custom authorization view.
+        /// Applies a join-based filter to the <see cref="QueryBuilder" /> for the specified custom authorization view.
         /// </summary>
-        /// <param name="queryBuilder">The <see cref="QueryBuilder" /> to which criteria should be applied.</param>
+        /// <param name="queryBuilder">The <see cref="QueryBuilder" /> to which filters should be applied.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
         /// <param name="subjectEndpointNames">The name of the property to be joined for the entity being queried.</param>
         /// <param name="viewTargetEndpointNames">The name of the property to be joined for the other property as authorization view.</param> 

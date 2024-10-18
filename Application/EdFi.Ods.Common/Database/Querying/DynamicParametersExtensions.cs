@@ -31,6 +31,8 @@ public static class DynamicParametersExtensions
         // Merge source parameters into target parameters, preserving the target values when they're already present.
         foreach (string key in sourceParameters.Keys)
         {
+        	// NOTE: This can lead to quiet loss of conflicting parameter names. Recommendation is to apply explicit 
+        	// names to CTE-based queries to avoid ordinal-based parameter name conflicts.
             if (!targetParameters.Contains(key))
             {
                 targetParameters.Add(key, sourceParameters[key]);
