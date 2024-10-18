@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -65,6 +66,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         QueryBuilder queryBuilder,
         QueryBuilder whereBuilder,
+        Resource resource,
         string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
         JoinType joinType,
@@ -87,14 +89,16 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         // Ensure the Namespace parameter is represented as an object array
         var namespacePrefixes = parameterValue as object[] ?? [parameterValue];
 
+        var alias = resource.Entity.RootTableAlias();
+        
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        whereBuilder.WhereNotNull(subjectEndpointName)
+        whereBuilder.WhereNotNull($"{alias}.{subjectEndpointName}")
             .Where(
                 qb =>
                 {
                     foreach (var namespacePrefix in namespacePrefixes)
                     {
-                        qb.OrWhereLike(subjectEndpointName, namespacePrefix, MatchMode.Start);
+                        qb.OrWhereLike($"{alias}.{subjectEndpointName}", namespacePrefix, MatchMode.Start);
                     }
 
                     return qb;

@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
@@ -35,6 +36,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
         protected static IResourceModelProvider ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
         protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+        
+        private static readonly IResourceIdentificationCodePropertiesProvider  _resourceIdentificationCodePropertiesProvider = new ResourceIdentificationCodePropertiesProvider();
 
         private static ApiSettings CreateApiSettings()
         {
@@ -82,7 +85,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .ToList();
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), CreateApiSettings())
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), 
+                        _resourceIdentificationCodePropertiesProvider,
+                        CreateApiSettings())
                     .Create(openApiMetadataResources, false);
             }
 
@@ -220,7 +225,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), appSettings)
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, appSettings)
                     .Create(openApiMetadataResources, false);
             }
 
@@ -316,7 +321,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), CreateApiSettings())
+                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, CreateApiSettings())
                     .Create(_openApiMetadataResources, false);
             }
 

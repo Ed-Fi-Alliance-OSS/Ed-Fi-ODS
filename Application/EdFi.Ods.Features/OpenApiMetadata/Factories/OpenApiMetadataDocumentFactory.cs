@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
@@ -25,12 +26,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
+        private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IOpenApiIdentityProvider openApiIdentityProvider)
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider, IOpenApiIdentityProvider openApiIdentityProvider)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _openApiIdentityProvider = openApiIdentityProvider;
+            _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
             _openApiUpconversionProvider = openApiUpconversionProvider;
         }
 
@@ -48,7 +51,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var pathsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        documentContext, _openApiIdentityProvider, _apiSettings);
+                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _apiSettings);
 
                 var tagsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);
