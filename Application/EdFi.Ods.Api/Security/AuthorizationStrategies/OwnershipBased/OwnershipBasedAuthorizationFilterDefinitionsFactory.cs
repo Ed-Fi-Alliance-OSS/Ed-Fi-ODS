@@ -49,6 +49,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         QueryBuilder queryBuilder,
         QueryBuilder whereQueryBuilder,
+        Resource resource,
         string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
         JoinType joinType,

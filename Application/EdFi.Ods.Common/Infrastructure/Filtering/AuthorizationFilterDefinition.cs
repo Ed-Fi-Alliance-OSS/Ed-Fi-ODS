@@ -37,7 +37,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         public AuthorizationFilterDefinition(
             string filterName,
             string friendlyHqlConditionFormat,
-            Action<QueryBuilder, QueryBuilder, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> criteriaApplicator,
+            Action<QueryBuilder, QueryBuilder, Resource, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> criteriaApplicator,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
             Func<DataManagementRequestContext, AuthorizationFilterContext, string, InstanceAuthorizationResult> authorizeInstance)
         {
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <summary>
         /// Gets the function for applying the filter using NHibernate's <see cref="NHibernate.ICriteria"/> API.
         /// </summary>
-        public Action<QueryBuilder, QueryBuilder, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> CriteriaApplicator { get; protected set; }
+        public Action<QueryBuilder, QueryBuilder, Resource, string[], IDictionary<string, object>, JoinType, IAuthorizationStrategy> CriteriaApplicator { get; protected set; }
 
         /// <summary>
         /// Gets the function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.

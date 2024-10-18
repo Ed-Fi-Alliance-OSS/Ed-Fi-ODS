@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
                     WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
-                (queryBuilder, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) =>
+                (queryBuilder, @where, resource, subjectEndpointNames, parameters, joinType, authorizationStrategy) =>
                 {
                     if (subjectEndpointNames?.Length != 1)
                     {
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             : base(
                 filterName,
                 null, // HQL condition (not supported by view-based authorization)
-                (criteria, @where, subjectEndpointNames, parameters, joinType, authorizationStrategy) 
+                (criteria, @where, resource, subjectEndpointNames, parameters, joinType, authorizationStrategy) 
                     => criteria.ApplyCustomViewJoinFilter(
                         viewName,
                         subjectEndpointNames,
