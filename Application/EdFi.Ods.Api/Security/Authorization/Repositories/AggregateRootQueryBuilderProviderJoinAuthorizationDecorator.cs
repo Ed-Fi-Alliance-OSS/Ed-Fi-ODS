@@ -21,13 +21,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// <summary>
     /// Provides an abstract implementation for applying authorization filters to queries on aggregate roots built using the <see cref="QueryBuilder"/>.
     /// </summary>
-    public class AggregateRootQueryBuilderProviderAuthorizationDecorator : IAggregateRootQueryBuilderProvider
+    public class AggregateRootQueryBuilderProviderJoinAuthorizationDecorator : IAggregateRootQueryBuilderProvider
     {
         private readonly IAggregateRootQueryBuilderProvider _decoratedInstance;
         private readonly IContextProvider<DataManagementAuthorizationPlan> _authorizationPlanContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        public AggregateRootQueryBuilderProviderAuthorizationDecorator(
+        public AggregateRootQueryBuilderProviderJoinAuthorizationDecorator(
             IAggregateRootQueryBuilderProvider decoratedInstance,
             IContextProvider<DataManagementAuthorizationPlan> authorizationPlanContextProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)

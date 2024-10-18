@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             {typeof(AuthorizationContextUpsertPipelineStepsProviderDecorator), typeof(IUpsertPipelineStepsProvider)},
             {typeof(AuthorizationContextDeletePipelineStepsProviderDecorator), typeof(IDeletePipelineStepsProvider)},
             
-            {typeof(AggregateRootQueryBuilderProviderAuthorizationDecorator), typeof(IAggregateRootQueryBuilderProvider)},
+            {typeof(AggregateRootQueryBuilderProviderJoinAuthorizationDecorator), typeof(IAggregateRootQueryBuilderProvider)},
             {typeof(AggregateRootQueryBuilderProviderCteAuthorizationDecorator), typeof(IAggregateRootQueryBuilderProvider)},
         };
 
