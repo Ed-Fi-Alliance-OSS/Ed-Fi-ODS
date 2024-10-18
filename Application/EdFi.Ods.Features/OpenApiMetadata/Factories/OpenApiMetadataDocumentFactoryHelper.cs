@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
 
         public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(
-            OpenApiMetadataDocumentContext openApiMetadataDocumentContext, IOpenApiIdentityProvider openApiIdentityProvider, ApiSettings apiSettings)
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext, IOpenApiIdentityProvider openApiIdentityProvider, IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider, ApiSettings apiSettings)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -85,7 +86,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 //Profile strategy implements each of the interfaces in the signature of the paths factory constructor
                 //Hence the odd parameter repetition.
-                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, apiSettings);
+                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, apiSettings);
             }
 
             IOpenApiMetadataPathsFactorySelectorStrategy selectorStrategy = null;
@@ -109,7 +110,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             selectorStrategy ??= defaultStrategy;
             resourceNamingStrategy ??= defaultResourceDefinitionNamingStrategy;
 
-            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, apiSettings);
+            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, apiSettings);
         }
 
         public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)
