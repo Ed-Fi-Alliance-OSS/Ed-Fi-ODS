@@ -10,9 +10,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
     public class OpenApiMetadataResponsesFactory
     {
-        public IDictionary<string, Response> Create()
+        public IDictionary<string, Response> Create(bool isCompositeContext)
         {
-            return new Dictionary<string, Response>
+            var responses = new Dictionary<string, Response>
                    {
                        // 201
                        {
@@ -119,6 +119,35 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                     }
                        }
                    };
+
+            if (!isCompositeContext)
+            {
+                responses.Add(
+                    "Partitions", new Response
+                    {
+                        description = "The partitions were successfully retrieved.",
+                        schema = new Schema
+                        {
+                            type = "object",
+                            properties = new Dictionary<string, Schema>
+                            {
+                                {
+                                    "pageTokens", new Schema
+                                    {
+                                        type = "array",
+                                        items = new Schema
+                                        {
+                                            type = "string",
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                );
+            }
+
+            return responses;
         }
     }
 }
