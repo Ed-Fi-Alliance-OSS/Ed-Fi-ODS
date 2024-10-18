@@ -11,10 +11,10 @@ namespace EdFi.Ods.Common.Security.Claims
 {
     /// <summary>
     /// Defines a method for obtaining a list of claims (and the corresponding authorization strategies) 
-    /// that can be use to authorize a resourceUri.
+    /// that can be used to authorize a resourceUri.
     /// </summary>
     [Intercept(InterceptorCacheKeys.Security)]
-    public interface IResourceAuthorizationMetadataProvider
+    public interface IResourceClaimAuthorizationMetadataLineageProvider
     {
         /// <summary>
         /// Gets the lineage of all resource claims (going up the resource claims taxonomy) that can be used to authorize the 
@@ -23,13 +23,13 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <param name="resourceClaimUri">The URI representation of the resource associated with the request.</param>
         /// <param name="action">The action associated with the request.</param>
         /// <returns>The lineage of resource claims.</returns>
-        IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimAuthorizationMetadata(string resourceClaimUri, string action);
+        IEnumerable<DefaultResourceClaimMetadata> GetAuthorizationLineage(string resourceClaimUri, string action);
     }
 
     /// <summary>
     /// Provides metadata about a resource claim and the associated authorization strategy name.
     /// </summary>
-    public class ResourceClaimAuthorizationMetadata
+    public class DefaultResourceClaimMetadata
     {
         /// <summary>
         /// The URI of the claim type.
