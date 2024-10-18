@@ -1280,10 +1280,10 @@
 									"script": {
 										"exec": [
 											"pm.environment.set('supplied:schoolId', 255901001);\r",
-											"pm.environment.set('supplied:identificationCode', \"255901\");\r",
-											"pm.environment.set('supplied:educationOrganizationIdentificationSystemDescriptor', \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor%23SEA\");\r",
 											"pm.environment.set('supplied:nameOfInstitution', 'Grand Bend Middle School');\r",
-											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');"
+											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');\r",
+											"pm.environment.set('supplied:identificationCode', \"255901001\");\r",
+											"pm.environment.set('supplied:educationOrganizationIdentificationSystemDescriptor', \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor%23SEA\");"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1971,7 +1971,7 @@
 											"\r",
 											"pm.test(\"Should return one expected resouce\", () => {\r",
 											"    pm.expect(responseItems.count()).to.equal(1);\r",
-											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:lea_id'));\r",
+											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:highSchool_id'));\r",
 											"    pm.expect(responseItems[0].identificationCodes[0].identificationCode).to.equals(pm.environment.get('supplied:identificationCode'));\r",
 											"});"
 										],
@@ -1984,7 +1984,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?identificaitonCode={{supplied:identificationCode}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?identificationCode={{supplied:identificationCode}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1992,11 +1992,11 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"localEducationAgencies"
+										"schools"
 									],
 									"query": [
 										{
-											"key": "identificaitonCode",
+											"key": "identificationCode",
 											"value": "{{supplied:identificationCode}}"
 										}
 									]
