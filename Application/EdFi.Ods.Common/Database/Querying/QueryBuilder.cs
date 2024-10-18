@@ -83,14 +83,14 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder Where(string column, object value)
+        public QueryBuilder Where(string column, object value, string parameterNameDisposition = null)
         {
-            return Where(column, "=", value);
+            return Where(column, "=", value, parameterNameDisposition);
         }
 
-        public QueryBuilder Where(string column, string op, object value)
+        public QueryBuilder Where(string column, string op, object value, string parameterNameDisposition = null)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value, parameterNameDisposition);
 
             _sqlBuilder.Where($"{column} {op} {parameterName}", parameters);
 
@@ -112,7 +112,7 @@ namespace EdFi.Ods.Common.Database.Querying
             else if (value is IList values)
             {
                 parameters = new DynamicParameters();
-                parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
+                parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
                 parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, values) });
             }
             else if (value is DynamicParameters dynamicParameters)
@@ -125,7 +125,7 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 // Inline parameter, automatically named
                 parameters = new DynamicParameters();
-                parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
+                parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
                 parameters.Add(parameterName, value);
             }
 
@@ -320,19 +320,19 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
         
-        public QueryBuilder WhereIn(string columnName, IList values)
+        public QueryBuilder WhereIn(string columnName, IList values, string parameterNameDisposition = null)
         {
-            return WhereIn(columnName, values, useOrWhere: false);
+            return WhereIn(columnName, values, parameterNameDisposition, useOrWhere: false);
         }
 
-        public QueryBuilder OrWhereIn(string columnName, IList values)
+        public QueryBuilder OrWhereIn(string columnName, IList values, string parameterNameDisposition = null)
         {
-            return WhereIn(columnName, values, useOrWhere: true);
+            return WhereIn(columnName, values, parameterNameDisposition, useOrWhere: true);
         }
 
-        private QueryBuilder WhereIn(string columnName, IList values, bool useOrWhere)
+        private QueryBuilder WhereIn(string columnName, IList values, string parameterNameDisposition, bool useOrWhere)
         {
-            string parameterName = _parameterIndexer.NextParameterName();
+            string parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
 
             var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
 
