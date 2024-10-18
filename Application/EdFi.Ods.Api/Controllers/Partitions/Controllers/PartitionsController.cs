@@ -64,7 +64,7 @@ public class PartitionsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> Get(
-        [FromQuery] int number = 1,
+        [FromQuery] int? number,
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
         if (number is < 1 or > 200)
@@ -220,7 +220,7 @@ public class PartitionsController : ControllerBase
             }
 
             // Add the final range only if we haven't reached the limit
-            if (rangeMin != null && list.Count < number)
+            if (rangeMin != null && list.Count < (number ?? int.MaxValue))
             {
                 string finalPageToken = PagingHelpers.GetPageToken(rangeMin.Value, int.MaxValue);
                 list.Add(finalPageToken);

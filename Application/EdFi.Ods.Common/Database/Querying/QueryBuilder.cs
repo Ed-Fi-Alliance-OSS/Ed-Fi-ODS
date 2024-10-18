@@ -52,6 +52,11 @@ namespace EdFi.Ods.Common.Database.Querying
             TableName = tableName;
         }
 
+        public Dialect Dialect
+        {
+            get => _dialect;
+        }
+
         public string TableName { get; private set; }
 
         public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
@@ -154,9 +159,16 @@ namespace EdFi.Ods.Common.Database.Querying
                 // Since we're dealing with a child scope with only 1 WHERE clause, no need to wrap it
                 _sqlBuilder.Where($"{whereCriteria}", template.Parameters);
             }
+            else
+            {
+                if (childScope.Parameters.Any())
+                {
+                    _sqlBuilder.AddParameters(childScope.Parameters);
+                }
+            }
 
             // Incorporate any JOINs added into this builder
-            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -176,17 +188,27 @@ namespace EdFi.Ods.Common.Database.Querying
                 return this;
             }
 
-            var template = childScopeSqlBuilder.AddTemplate(
-                "/**where**/",
-                childScope.Parameters.Any()
-                    ? new DynamicParameters(childScope.Parameters)
-                    : null);
+            if (childScopeSqlBuilder.HasWhereClause())
+            {
+                var template = childScopeSqlBuilder.AddTemplate(
+                    "/**where**/",
+                    childScope.Parameters.Any()
+                        ? new DynamicParameters(childScope.Parameters)
+                        : null);
 
-            // SqlBuilder warps 'OR' where clauses when building the template SQL
-            _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                // SqlBuilder wraps 'OR' where clauses when building the template SQL
+                _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+            }
+            else
+            {
+                if (childScope.Parameters.Any())
+                {
+                    _sqlBuilder.AddParameters(childScope.Parameters);
+                }
+            }
 
             // Incorporate the JOINs into this builder
-            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -495,6 +517,21 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             _sqlBuilder.ClearClause(ClauseKey.Select);
             _sqlBuilder.ClearClause(ClauseKey.Distinct);
+        }
+        
+        /// <summary>
+        /// Clears the CTE queries (e.g. for building a COUNT query with a cloned QueryBuilder, since they will already be present on the final query).
+        /// </summary>
+        public void ClearWith()
+        {
+            _sqlBuilder.ClearClause(ClauseKey.With);
+        }
+
+        public QueryBuilder AddParameters(DynamicParameters parameters)
+        {
+            _sqlBuilder.AddParameters(parameters);
+
+            return this;
         }
     }
 
