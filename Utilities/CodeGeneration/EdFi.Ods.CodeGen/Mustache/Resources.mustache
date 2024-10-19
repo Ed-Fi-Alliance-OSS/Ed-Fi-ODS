@@ -83,6 +83,7 @@ namespace {{ResourceClassesNamespace}}
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -289,6 +290,7 @@ namespace {{ResourceClassesNamespace}}
             set { Set{{ParentName}}(value); }
         }
 
+        [IgnoreMember]
         public {{ParentNamespacePrefix}}I{{ParentName}} {{ParentName}}
         {
             set { Set{{ParentName}}(value); }
