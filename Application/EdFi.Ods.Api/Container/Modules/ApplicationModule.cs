@@ -349,6 +349,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<PersonTypesProvider>()
                 .As<IPersonTypesProvider>()
                 .SingleInstance();
+            
+            builder.RegisterType<ResourceIdentificationCodePropertiesProvider>()
+                .As<IResourceIdentificationCodePropertiesProvider>()
+                .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
                 .Named<IInterceptor>(InterceptorCacheKeys.OdsInstances)
@@ -390,10 +394,6 @@ namespace EdFi.Ods.Api.Container.Modules
             
             builder.RegisterType<EdFiAdminOdsConnectionStringDatabaseWriter>()
                 .As<IEdFiOdsConnectionStringWriter>()
-                .SingleInstance();
-            
-            builder.RegisterType<ResourceIdentificationCodePropertiesProvider>()
-                .As<IResourceIdentificationCodePropertiesProvider>()
                 .SingleInstance();
 
             builder.RegisterInstance(TimeProvider.System)

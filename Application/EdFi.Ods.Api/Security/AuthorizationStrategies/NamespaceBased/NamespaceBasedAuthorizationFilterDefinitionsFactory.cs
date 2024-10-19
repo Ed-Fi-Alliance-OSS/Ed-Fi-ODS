@@ -89,7 +89,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         // Ensure the Namespace parameter is represented as an object array
         var namespacePrefixes = parameterValue as object[] ?? [parameterValue];
 
-        var alias = resource.Entity.RootTableAlias();
+        var alias = resource.Entity?.RootTableAlias() ?? "r";
         
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
         whereBuilder.WhereNotNull($"{alias}.{subjectEndpointName}")

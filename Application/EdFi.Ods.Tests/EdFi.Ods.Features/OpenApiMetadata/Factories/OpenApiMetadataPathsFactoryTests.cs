@@ -37,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
         protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
         
-        private static readonly IResourceIdentificationCodePropertiesProvider  _resourceIdentificationCodePropertiesProvider = new ResourceIdentificationCodePropertiesProvider();
+        private static readonly IResourceIdentificationCodePropertiesProvider  _resourceIdentificationCodePropertiesProvider = A.Fake<IResourceIdentificationCodePropertiesProvider>();
 
         private static ApiSettings CreateApiSettings()
         {

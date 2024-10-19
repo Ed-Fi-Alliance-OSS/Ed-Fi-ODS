@@ -14,7 +14,7 @@ namespace EdFi.Ods.Common.Providers.Queries;
 public interface IResourceIdentificationCodePropertiesProvider
 {
     /// <summary>
-    /// Attempts to get the queryable properties of an resource's identificationCode collection.
+    /// Attempts to get the queryable properties of a resource's identificationCode collection.
     /// </summary>
     /// <param name="resource">The entity to try and get the identificationCode properties for.</param>
     /// <param name="queryableIdentificationCodeProperties">The queryable properties of the identificationCode of the <paramref name="resource"/>.</param>
