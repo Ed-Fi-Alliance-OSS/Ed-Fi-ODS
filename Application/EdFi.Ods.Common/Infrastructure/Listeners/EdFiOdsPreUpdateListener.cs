@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
+using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -57,7 +58,8 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
                 aggregateRoot.LastModifiedDate = lastModifiedDate;
 
                 // Produce the JSON
-                var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
+                var resourceData = MessagePackHelper.SerializeAndCompressResourceData(aggregateRoot);
+                // var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
                 aggregateRoot.Json = resourceData;
 
                 // Update the state
@@ -65,7 +67,8 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
 
                 if (_logger.IsDebugEnabled)
                 {
-                    _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressStream(new MemoryStream(resourceData, 8, resourceData.Length - 8))}");
+                    _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                    //_logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressStream(new MemoryStream(resourceData, 8, resourceData.Length - 8))}");
                 }
             }
         }
