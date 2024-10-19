@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Common.Compression;
+using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Serialization;
+using MessagePack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -75,7 +77,8 @@ namespace EdFi.Ods.Common.Repositories
         {
             if (Json != null)
             {
-                deserialized = CompressionHelper.DecompressAndDeserialize<TTarget>(Json, _serializerSettings);
+                deserialized = MessagePackHelper.DecompressAndDeserialize<TTarget>(Json);
+                // deserialized = CompressionHelper.DecompressAndDeserialize<TTarget>(Json, _serializerSettings);
                 return true;
             }
 

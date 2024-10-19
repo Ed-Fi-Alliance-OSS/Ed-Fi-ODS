@@ -9,9 +9,61 @@ using System.IO.Compression;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Serialization;
+using MessagePack;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Infrastructure.Listeners;
+
+public class MessagePackHelper
+{
+    private static readonly MessagePackSerializerOptions _lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+
+    public static byte[] SerializeAndCompressResourceData(object entity)
+    {
+        // Produce the JSON
+        if (ResourceEntityTypeMap.TryGetResourceType(entity.GetType(), out var resourceType))
+        {
+            object resource = SerializerHelper.MapEntityToResource(entity, resourceType);
+
+            // Serialize the object directly to a MemoryStream
+            byte[] byteArray;
+
+            using (var memoryStream = new MemoryStream())
+            {
+                // Write the LastModifiedDate value at the head of the stream so we can detect if the JSON has changed and is invalid without deserializing it
+                byte[] lastModifiedDateBytes = BitConverter.GetBytes((entity as IDateVersionedEntity)!.LastModifiedDate.ToBinary());
+                memoryStream.Write(lastModifiedDateBytes);
+
+                MessagePackSerializer.Serialize(resourceType, memoryStream, resource, _lz4Options);
+                
+                byteArray = memoryStream.ToArray();
+            }
+
+            // var resourceData = MessagePackSerializer.Serialize(resourceType, resource);
+            return byteArray;
+        }
+
+        return null;
+    }
+
+    public static TResource DecompressAndDeserialize<TResource>(byte[] compressedData)
+    {
+        if (compressedData == null || compressedData.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(compressedData));
+        }
+
+        using var memoryStream = new MemoryStream(compressedData);
+
+        // Consume the long value off containing the LastModifiedDate off the head of the stream
+        for (int i = 0; i < 8; i++)
+        {
+            memoryStream.ReadByte();
+        }
+
+        return MessagePackSerializer.Deserialize<TResource>(memoryStream, _lz4Options);
+    }
+}
 
 public class JsonHelper
 {
@@ -20,20 +72,7 @@ public class JsonHelper
         // Produce the JSON
         if (ResourceEntityTypeMap.TryGetResourceType(entity.GetType(), out var resourceType))
         {
-            object resource = Activator.CreateInstance(resourceType);
-
-            var originalAction = GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction();
-
-            try
-            {
-                // Set the action in context so we map the reference data
-                GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(RequestActions.ReadActionUri);
-                (entity as IMappable).Map(resource);
-            }
-            finally
-            {
-                GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(originalAction);
-            }
+            object resource = SerializerHelper.MapEntityToResource(entity, resourceType);
 
             var serializer = JsonSerializer.Create(jsonSerializerSettings);
 
@@ -65,5 +104,28 @@ public class JsonHelper
         }
 
         return null;
+    }
+}
+
+public static class SerializerHelper
+{
+    public static object MapEntityToResource(object entity, Type resourceType)
+    {
+        object resource = Activator.CreateInstance(resourceType);
+
+        var originalAction = GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction();
+
+        try
+        {
+            // Set the action in context so we map the reference data
+            GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(RequestActions.ReadActionUri);
+            (entity as IMappable).Map(resource);
+        }
+        finally
+        {
+            GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(originalAction);
+        }
+
+        return resource;
     }
 }
