@@ -18,6 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.5.172" />
     <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

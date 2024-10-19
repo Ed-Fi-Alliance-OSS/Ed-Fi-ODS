@@ -24,6 +24,8 @@ using {{Namespace}};
 {{/SchemaNamespaces}}
 using Newtonsoft.Json;
 using FluentValidation.Results;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 {{#ResourceContexts}}
 // Aggregate: {{ResourceName}}
@@ -36,11 +38,12 @@ namespace {{ResourceClassesNamespace}}
     /// <summary>
     /// Represents a reference to the {{ReferenceName}} resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class {{ReferenceName}}Reference : IResourceReference
     {
         {{#ReferenceIdentifiers}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         {{^IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
@@ -62,6 +65,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public Guid ResourceId { get; set; }
 
         {{#HasDiscriminator}}
@@ -69,12 +73,15 @@ namespace {{ResourceClassesNamespace}}
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public string Discriminator { get; set; }
 
         {{/HasDiscriminator}}
         {{#HRef}}
 
-        private Link _link;
+        [JsonIgnore]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        public Link _link;
 
         [DataMember(Name="link")]
         public Link Link
@@ -159,7 +166,7 @@ namespace {{ResourceClassesNamespace}}
     /// <summary>
     /// A class which represents the {{FQName}} table of the {{ResourceName}} aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     {{#IsResourceExtensionClass}}
     [Display(Name="{{SchemaProperCaseName}}")]
@@ -212,6 +219,7 @@ namespace {{ResourceClassesNamespace}}
         /// The unique identifier for the {{EntityName}} resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         [JsonConverter(typeof({{GuidConverterTypeName}}))]
         public Guid Id { get; set; }
         {{/Guid}}
@@ -240,6 +248,7 @@ namespace {{ResourceClassesNamespace}}
         }
 
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         [FullyDefinedReference]{{#IsRequired}}[RequiredReference({{#IsIdentifying}}isIdentifying: true{{/IsIdentifying}}{{^IsIdentifying}}"{{SchemaName}}", "{{ResourceName}}"{{/IsIdentifying}})]{{/IsRequired}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
@@ -310,6 +319,7 @@ namespace {{ResourceClassesNamespace}}
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
         {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{PropertyName}} 
         {
             get => _{{PropertyFieldName}};
@@ -337,6 +347,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]            
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -355,6 +366,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]            
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -376,6 +388,7 @@ namespace {{ResourceClassesNamespace}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -463,7 +476,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
-        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"),Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}}){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{PropertyType}} I{{DerivedName}}.{{DerivedName}}Id
@@ -729,6 +742,7 @@ namespace {{ResourceClassesNamespace}}
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]            
         public {{PropertyType}} {{PropertyName}} { get; set; }
         {{/Property}}
         {{/Standard}}
@@ -758,6 +772,7 @@ namespace {{ResourceClassesNamespace}}
         {{#PropertyIsUnifiedAndLocallyDefined}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{PropertyName}}
         {{/PropertyIsUnifiedAndLocallyDefined}}
         {{^PropertyIsUnifiedAndLocallyDefined}}
@@ -875,6 +890,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{CSharpSafePropertyName}} 
         { 
             get => _{{PropertyFieldName}};
@@ -893,6 +909,7 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
@@ -922,6 +939,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{#IsRequired}}[Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]{{/IsRequired}}
         [DataMember(Name = "{{JsonPropertyName}}")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectNamespacePrefix}}I{{EmbeddedObjectType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
@@ -942,6 +960,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{#IsRequired}}[Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]{{/IsRequired}}
         [DataMember(Name = "{{JsonPropertyName}}")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectInterfaceNamespacePrefix}}{{EmbeddedObjectInterfaceType}} {{BaseEntityNamespacePrefix}}I{{BaseEntityName}}.{{PropertyName}}
@@ -963,6 +982,7 @@ namespace {{ResourceClassesNamespace}}
 
         [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -988,6 +1008,7 @@ namespace {{ResourceClassesNamespace}}
         // -------------------------------------------------------------
         {{#IsExtendable}}
         [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public System.Collections.IDictionary Extensions { get; set; }
         {{/IsExtendable}}
         {{^IsExtendable}}
@@ -1008,6 +1029,7 @@ namespace {{ResourceClassesNamespace}}
 
         [NoDuplicateMembers]{{#IsRequiredCollection}}[RequiredCollection]{{/IsRequiredCollection}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public ICollection<{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -1042,9 +1064,11 @@ namespace {{ResourceClassesNamespace}}
         {{#Versioning}}
 
         [DataMember(Name="_etag")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public virtual DateTime LastModifiedDate { get; set; }
 
         {{/Versioning}}
