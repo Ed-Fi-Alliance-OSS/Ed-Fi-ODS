@@ -43,10 +43,19 @@ namespace {{ResourceClassesNamespace}}
     public class {{ReferenceName}}Reference : IResourceReference
     {
         {{#ReferenceIdentifiers}}
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         {{^IsUniqueId}}
+        {{#IsDescriptorUsage}}[IgnoreMember]{{/IsDescriptorUsage}}{{^IsDescriptorUsage}}[Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]{{/IsDescriptorUsage}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
+        {{#IsDescriptorUsage}}
+
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})][JsonIgnore]
+        public int {{CSharpSafePropertyName}}Id
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{DescriptorName}}", {{CSharpSafePropertyName}}); }
+            set { {{CSharpSafePropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{DescriptorName}}", value); }
+        }
+        {{/IsDescriptorUsage}}
         {{/IsUniqueId}}
         {{#IsUniqueId}}
         public {{PropertyType}} {{PropertyName}} 
@@ -368,8 +377,17 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         {{#IsUnique}}[UniqueId]{{/IsUnique}}[DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]            
+        {{#IsDescriptorUsage}}[IgnoreMember]{{/IsDescriptorUsage}}{{^IsDescriptorUsage}}[Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]{{/IsDescriptorUsage}}            
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
+        {{#IsDescriptorUsage}}
+
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})][JsonIgnore]
+        public int {{CSharpSafePropertyName}}Id
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{DescriptorName}}", {{CSharpSafePropertyName}}); }
+            set { {{CSharpSafePropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{DescriptorName}}", value); }
+        }
+        {{/IsDescriptorUsage}}
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
@@ -744,8 +762,17 @@ namespace {{ResourceClassesNamespace}}
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]            
+        {{#IsDescriptorUsage}}[IgnoreMember]{{/IsDescriptorUsage}}{{^IsDescriptorUsage}}[Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]{{/IsDescriptorUsage}}            
         public {{PropertyType}} {{PropertyName}} { get; set; }
+        {{#IsDescriptorUsage}}
+
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})][JsonIgnore]
+        public int {{CSharpSafePropertyName}}Id
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{DescriptorName}}", {{CSharpSafePropertyName}}); }
+            set { {{CSharpSafePropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{DescriptorName}}", value); }
+        }
+        {{/IsDescriptorUsage}}
         {{/Property}}
         {{/Standard}}
         {{/Properties}}
@@ -911,8 +938,17 @@ namespace {{ResourceClassesNamespace}}
         {{Misc}}
 {{>Resources_PropertyValidations}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        {{#IsDescriptorUsage}}[IgnoreMember]{{/IsDescriptorUsage}}{{^IsDescriptorUsage}}[Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]{{/IsDescriptorUsage}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
+            {{#IsDescriptorUsage}}
+
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})][JsonIgnore]
+        public int {{CSharpSafePropertyName}}Id
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{DescriptorName}}", {{CSharpSafePropertyName}}); }
+            set { {{CSharpSafePropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{DescriptorName}}", value); } 
+        }
+            {{/IsDescriptorUsage}}
         {{/PropertyDefaultHasDomainMeaning}}
         {{/Property}}
         {{/Standard}}
