@@ -23,6 +23,8 @@ using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.TPDM;
 using Newtonsoft.Json;
 using FluentValidation.Results;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: AccreditationStatusDescriptor
 
@@ -31,7 +33,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
     /// <summary>
     /// A class which represents the tpdm.AccreditationStatusDescriptor table of the AccreditationStatusDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -60,6 +62,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// The unique identifier for the AccreditationStatusDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -144,6 +147,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -152,6 +156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -159,6 +164,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -166,6 +172,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -175,6 +182,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -184,6 +192,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -227,9 +236,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -302,7 +313,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.AidTypeDescriptor table of the AidTypeDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -331,6 +342,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// The unique identifier for the AidTypeDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -415,6 +427,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -423,6 +436,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -430,6 +444,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -437,6 +452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -446,6 +462,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -455,6 +472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -498,9 +516,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -573,27 +593,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// Represents a reference to the Candidate resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateReference : IResourceReference
     {
         [DataMember(Name="candidateIdentifier")]
+        [Key(0)]
         public string CandidateIdentifier { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(1)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(3)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -662,7 +688,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.Candidate table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -702,6 +728,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// The unique identifier for the Candidate resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -725,6 +752,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         [DataMember(Name="personReference")]
+        [Key(1)]
         [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -756,6 +784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(32, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="candidateIdentifier")]
+        [Key(2)]            
         public string CandidateIdentifier { get; set; }
         // -------------------------------------------------------------
 
@@ -820,6 +849,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="birthCity")]
+        [Key(3)]
         public string BirthCity { get; set; }
 
         /// <summary>
@@ -828,7 +858,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="birthCountryDescriptor")][DescriptorExists("CountryDescriptor")]
+        [IgnoreMember]
         public string BirthCountryDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int BirthCountryDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CountryDescriptor", BirthCountryDescriptor); }
+            set { BirthCountryDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CountryDescriptor", value); } 
+        }
 
         /// <summary>
         /// The month, day, and year on which an individual was born.
@@ -836,6 +874,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="birthDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(5)]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
@@ -844,6 +883,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="birthInternationalProvince")]
+        [Key(6)]
         public string BirthInternationalProvince { get; set; }
 
         /// <summary>
@@ -852,7 +892,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="birthSexDescriptor")][DescriptorExists("SexDescriptor")]
+        [IgnoreMember]
         public string BirthSexDescriptor { get; set; }
+
+        [Key(7)][JsonIgnore]
+        public int BirthSexDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", BirthSexDescriptor); }
+            set { BirthSexDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", value); } 
+        }
 
         /// <summary>
         /// The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which an individual was born.
@@ -860,13 +908,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="birthStateAbbreviationDescriptor")][DescriptorExists("StateAbbreviationDescriptor")]
+        [IgnoreMember]
         public string BirthStateAbbreviationDescriptor { get; set; }
+
+        [Key(8)][JsonIgnore]
+        public int BirthStateAbbreviationDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StateAbbreviationDescriptor", BirthStateAbbreviationDescriptor); }
+            set { BirthStateAbbreviationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("StateAbbreviationDescriptor", value); } 
+        }
 
         /// <summary>
         /// For students born outside of the U.S., the date the student entered the U.S.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="dateEnteredUS")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(9)]
         public DateTime? DateEnteredUS { get; set; }
 
         /// <summary>
@@ -875,6 +932,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="displacementStatus")]
+        [Key(10)]
         public string DisplacementStatus { get; set; }
 
         /// <summary>
@@ -882,6 +940,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="economicDisadvantaged")]
+        [Key(11)]
         public bool? EconomicDisadvantaged { get; set; }
 
         /// <summary>
@@ -890,13 +949,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="englishLanguageExamDescriptor")][DescriptorExists("EnglishLanguageExamDescriptor")]
+        [IgnoreMember]
         public string EnglishLanguageExamDescriptor { get; set; }
+
+        [Key(12)][JsonIgnore]
+        public int EnglishLanguageExamDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EnglishLanguageExamDescriptor", EnglishLanguageExamDescriptor); }
+            set { EnglishLanguageExamDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EnglishLanguageExamDescriptor", value); } 
+        }
 
         /// <summary>
         /// Indicator of whether individual is a first generation college student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="firstGenerationStudent")]
+        [Key(13)]
         public bool? FirstGenerationStudent { get; set; }
 
         /// <summary>
@@ -906,6 +974,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="firstName")]
+        [Key(14)]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -914,7 +983,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="genderDescriptor")][DescriptorExists("GenderDescriptor")]
+        [IgnoreMember]
         public string GenderDescriptor { get; set; }
+
+        [Key(15)][JsonIgnore]
+        public int GenderDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GenderDescriptor", GenderDescriptor); }
+            set { GenderDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GenderDescriptor", value); } 
+        }
 
         /// <summary>
         /// An appendage, if any, used to denote an individual's generation in his family (e.g., Jr., Sr., III).
@@ -922,6 +999,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(10, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="generationCodeSuffix")]
+        [Key(16)]
         public string GenerationCodeSuffix { get; set; }
 
         /// <summary>
@@ -929,6 +1007,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="hispanicLatinoEthnicity")]
+        [Key(17)]
         public bool? HispanicLatinoEthnicity { get; set; }
 
         /// <summary>
@@ -938,6 +1017,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="lastSurname")]
+        [Key(18)]
         public string LastSurname { get; set; }
 
         /// <summary>
@@ -946,7 +1026,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="limitedEnglishProficiencyDescriptor")][DescriptorExists("LimitedEnglishProficiencyDescriptor")]
+        [IgnoreMember]
         public string LimitedEnglishProficiencyDescriptor { get; set; }
+
+        [Key(19)][JsonIgnore]
+        public int LimitedEnglishProficiencyDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LimitedEnglishProficiencyDescriptor", LimitedEnglishProficiencyDescriptor); }
+            set { LimitedEnglishProficiencyDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LimitedEnglishProficiencyDescriptor", value); } 
+        }
 
         /// <summary>
         /// The individual's maiden name.
@@ -954,6 +1042,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="maidenName")]
+        [Key(20)]
         public string MaidenName { get; set; }
 
         /// <summary>
@@ -962,6 +1051,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="middleName")]
+        [Key(21)]
         public string MiddleName { get; set; }
 
         /// <summary>
@@ -969,6 +1059,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="multipleBirthStatus")]
+        [Key(22)]
         public bool? MultipleBirthStatus { get; set; }
 
         /// <summary>
@@ -977,6 +1068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="personalTitlePrefix")]
+        [Key(23)]
         public string PersonalTitlePrefix { get; set; }
 
         /// <summary>
@@ -1013,7 +1105,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="sexDescriptor")][DescriptorExists("SexDescriptor")]
+        [IgnoreMember]
         public string SexDescriptor { get; set; }
+
+        [Key(24)][JsonIgnore]
+        public int SexDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", SexDescriptor); }
+            set { SexDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", value); } 
+        }
 
         /// <summary>
         /// This descriptor defines the originating record source system for the person.
@@ -1073,6 +1173,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="addresses")]
+        [Key(25)]
         public ICollection<CandidateAddress> CandidateAddresses
         {
             get { return _candidateAddresses; }
@@ -1103,6 +1204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="disabilities")]
+        [Key(26)]
         public ICollection<CandidateDisability> CandidateDisabilities
         {
             get { return _candidateDisabilities; }
@@ -1133,6 +1235,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="electronicMails")]
+        [Key(27)]
         public ICollection<CandidateElectronicMail> CandidateElectronicMails
         {
             get { return _candidateElectronicMails; }
@@ -1163,6 +1266,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="languages")]
+        [Key(28)]
         public ICollection<CandidateLanguage> CandidateLanguages
         {
             get { return _candidateLanguages; }
@@ -1193,6 +1297,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="otherNames")]
+        [Key(29)]
         public ICollection<CandidateOtherName> CandidateOtherNames
         {
             get { return _candidateOtherNames; }
@@ -1223,6 +1328,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="personalIdentificationDocuments")]
+        [Key(30)]
         public ICollection<CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
         {
             get { return _candidatePersonalIdentificationDocuments; }
@@ -1253,6 +1359,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="races")]
+        [Key(31)]
         public ICollection<CandidateRace> CandidateRaces
         {
             get { return _candidateRaces; }
@@ -1283,6 +1390,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="telephones")]
+        [Key(32)]
         public ICollection<CandidateTelephone> CandidateTelephones
         {
             get { return _candidateTelephones; }
@@ -1315,9 +1423,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(33)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(34)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -1696,7 +1806,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateAddress table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress, IValidatableObject
     {
@@ -1743,6 +1853,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -1760,7 +1871,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="addressTypeDescriptor")][DescriptorExists("AddressTypeDescriptor")]
+        [IgnoreMember]            
         public string AddressTypeDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int AddressTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AddressTypeDescriptor", AddressTypeDescriptor); }
+            set { AddressTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AddressTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// The name of the city in which an address is located.
@@ -1769,6 +1888,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
+        [Key(1)]            
         public string City { get; set; }
 
         /// <summary>
@@ -1778,6 +1898,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(17, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="postalCode")]
+        [Key(2)]            
         public string PostalCode { get; set; }
 
         /// <summary>
@@ -1787,7 +1908,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="stateAbbreviationDescriptor")][DescriptorExists("StateAbbreviationDescriptor")]
+        [IgnoreMember]            
         public string StateAbbreviationDescriptor { get; set; }
+
+        [Key(3)][JsonIgnore]
+        public int StateAbbreviationDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StateAbbreviationDescriptor", StateAbbreviationDescriptor); }
+            set { StateAbbreviationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("StateAbbreviationDescriptor", value); }
+        }
 
         /// <summary>
         /// The street number and street name or post office box number of an address.
@@ -1796,6 +1925,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="streetNumberName")]
+        [Key(4)]            
         public string StreetNumberName { get; set; }
         // -------------------------------------------------------------
 
@@ -1903,6 +2033,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="apartmentRoomSuiteNumber")]
+        [Key(5)]
         public string ApartmentRoomSuiteNumber { get; set; }
 
         /// <summary>
@@ -1911,6 +2042,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="buildingSiteNumber")]
+        [Key(6)]
         public string BuildingSiteNumber { get; set; }
 
         /// <summary>
@@ -1919,6 +2051,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="congressionalDistrict")]
+        [Key(7)]
         public string CongressionalDistrict { get; set; }
 
         /// <summary>
@@ -1927,6 +2060,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(5, MinimumLength=3, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="countyFIPSCode")]
+        [Key(8)]
         public string CountyFIPSCode { get; set; }
 
         /// <summary>
@@ -1934,6 +2068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="doNotPublishIndicator")]
+        [Key(9)]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -1942,6 +2077,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="latitude")]
+        [Key(10)]
         public string Latitude { get; set; }
 
         /// <summary>
@@ -1950,7 +2086,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="localeDescriptor")][DescriptorExists("LocaleDescriptor")]
+        [IgnoreMember]
         public string LocaleDescriptor { get; set; }
+
+        [Key(11)][JsonIgnore]
+        public int LocaleDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LocaleDescriptor", LocaleDescriptor); }
+            set { LocaleDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LocaleDescriptor", value); } 
+        }
 
         /// <summary>
         /// The geographic longitude of the physical address.
@@ -1958,6 +2102,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="longitude")]
+        [Key(12)]
         public string Longitude { get; set; }
 
         /// <summary>
@@ -1966,6 +2111,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="nameOfCounty")]
+        [Key(13)]
         public string NameOfCounty { get; set; }
         // -------------------------------------------------------------
 
@@ -2002,6 +2148,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="periods")]
+        [Key(14)]
         public ICollection<CandidateAddressPeriod> CandidateAddressPeriods
         {
             get { return _candidateAddressPeriods; }
@@ -2192,7 +2339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateAddressPeriod table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod
     {
@@ -2235,6 +2382,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateAddress(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidateAddress CandidateAddress
         {
             set { SetCandidateAddress(value); }
@@ -2251,6 +2399,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(0)]            
         public DateTime BeginDate { get; set; }
         // -------------------------------------------------------------
 
@@ -2321,6 +2470,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(1)]
         public DateTime? EndDate { get; set; }
         // -------------------------------------------------------------
 
@@ -2422,7 +2572,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateDisability table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability, IValidatableObject
     {
@@ -2469,6 +2619,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -2486,7 +2637,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="disabilityDescriptor")][DescriptorExists("DisabilityDescriptor")]
+        [IgnoreMember]            
         public string DisabilityDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int DisabilityDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDescriptor", DisabilityDescriptor); }
+            set { DisabilityDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2557,7 +2716,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="disabilityDeterminationSourceTypeDescriptor")][DescriptorExists("DisabilityDeterminationSourceTypeDescriptor")]
+        [IgnoreMember]
         public string DisabilityDeterminationSourceTypeDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int DisabilityDeterminationSourceTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDeterminationSourceTypeDescriptor", DisabilityDeterminationSourceTypeDescriptor); }
+            set { DisabilityDeterminationSourceTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDeterminationSourceTypeDescriptor", value); } 
+        }
 
         /// <summary>
         /// A description of the disability diagnosis.
@@ -2565,6 +2732,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(80, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="disabilityDiagnosis")]
+        [Key(2)]
         public string DisabilityDiagnosis { get; set; }
 
         /// <summary>
@@ -2572,6 +2740,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="orderOfDisability")]
+        [Key(3)]
         public int? OrderOfDisability { get; set; }
         // -------------------------------------------------------------
 
@@ -2608,6 +2777,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="designations")]
+        [Key(4)]
         public ICollection<CandidateDisabilityDesignation> CandidateDisabilityDesignations
         {
             get { return _candidateDisabilityDesignations; }
@@ -2798,7 +2968,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateDisabilityDesignation table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation
     {
@@ -2841,6 +3011,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateDisability(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidateDisability CandidateDisability
         {
             set { SetCandidateDisability(value); }
@@ -2858,7 +3029,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="disabilityDesignationDescriptor")][DescriptorExists("DisabilityDesignationDescriptor")]
+        [IgnoreMember]            
         public string DisabilityDesignationDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int DisabilityDesignationDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDesignationDescriptor", DisabilityDesignationDescriptor); }
+            set { DisabilityDesignationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDesignationDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3022,7 +3201,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateElectronicMail table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail
     {
@@ -3065,6 +3244,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -3082,6 +3262,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(128, MinimumLength=7, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="electronicMailAddress")]
+        [Key(0)]            
         public string ElectronicMailAddress { get; set; }
 
         /// <summary>
@@ -3091,7 +3272,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="electronicMailTypeDescriptor")][DescriptorExists("ElectronicMailTypeDescriptor")]
+        [IgnoreMember]            
         public string ElectronicMailTypeDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int ElectronicMailTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ElectronicMailTypeDescriptor", ElectronicMailTypeDescriptor); }
+            set { ElectronicMailTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ElectronicMailTypeDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3170,6 +3359,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="doNotPublishIndicator")]
+        [Key(2)]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -3177,6 +3367,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryEmailAddressIndicator")]
+        [Key(3)]
         public bool? PrimaryEmailAddressIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -3278,7 +3469,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateLanguage table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage, IValidatableObject
     {
@@ -3325,6 +3516,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -3342,7 +3534,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="languageDescriptor")][DescriptorExists("LanguageDescriptor")]
+        [IgnoreMember]            
         public string LanguageDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int LanguageDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LanguageDescriptor", LanguageDescriptor); }
+            set { LanguageDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LanguageDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3441,6 +3641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="uses")]
+        [Key(1)]
         public ICollection<CandidateLanguageUse> CandidateLanguageUses
         {
             get { return _candidateLanguageUses; }
@@ -3631,7 +3832,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateLanguageUse table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse
     {
@@ -3674,6 +3875,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidateLanguage(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidateLanguage CandidateLanguage
         {
             set { SetCandidateLanguage(value); }
@@ -3691,7 +3893,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="languageUseDescriptor")][DescriptorExists("LanguageUseDescriptor")]
+        [IgnoreMember]            
         public string LanguageUseDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int LanguageUseDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LanguageUseDescriptor", LanguageUseDescriptor); }
+            set { LanguageUseDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LanguageUseDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3855,7 +4065,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateOtherName table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName
     {
@@ -3898,6 +4108,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -3915,7 +4126,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="otherNameTypeDescriptor")][DescriptorExists("OtherNameTypeDescriptor")]
+        [IgnoreMember]            
         public string OtherNameTypeDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int OtherNameTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("OtherNameTypeDescriptor", OtherNameTypeDescriptor); }
+            set { OtherNameTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("OtherNameTypeDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3987,6 +4206,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="firstName")]
+        [Key(1)]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -3995,6 +4215,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(10, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="generationCodeSuffix")]
+        [Key(2)]
         public string GenerationCodeSuffix { get; set; }
 
         /// <summary>
@@ -4004,6 +4225,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="lastSurname")]
+        [Key(3)]
         public string LastSurname { get; set; }
 
         /// <summary>
@@ -4012,6 +4234,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="middleName")]
+        [Key(4)]
         public string MiddleName { get; set; }
 
         /// <summary>
@@ -4020,6 +4243,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(30, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="personalTitlePrefix")]
+        [Key(5)]
         public string PersonalTitlePrefix { get; set; }
         // -------------------------------------------------------------
 
@@ -4121,7 +4345,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidatePersonalIdentificationDocument table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument
     {
@@ -4164,6 +4388,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -4181,7 +4406,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="identificationDocumentUseDescriptor")][DescriptorExists("IdentificationDocumentUseDescriptor")]
+        [IgnoreMember]            
         public string IdentificationDocumentUseDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int IdentificationDocumentUseDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("IdentificationDocumentUseDescriptor", IdentificationDocumentUseDescriptor); }
+            set { IdentificationDocumentUseDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("IdentificationDocumentUseDescriptor", value); }
+        }
 
         /// <summary>
         /// The category of the document relative to its purpose.
@@ -4190,7 +4423,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="personalInformationVerificationDescriptor")][DescriptorExists("PersonalInformationVerificationDescriptor")]
+        [IgnoreMember]            
         public string PersonalInformationVerificationDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int PersonalInformationVerificationDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PersonalInformationVerificationDescriptor", PersonalInformationVerificationDescriptor); }
+            set { PersonalInformationVerificationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PersonalInformationVerificationDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4269,6 +4510,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="documentExpirationDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(2)]
         public DateTime? DocumentExpirationDate { get; set; }
 
         /// <summary>
@@ -4277,6 +4519,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="documentTitle")]
+        [Key(3)]
         public string DocumentTitle { get; set; }
 
         /// <summary>
@@ -4285,7 +4528,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="issuerCountryDescriptor")][DescriptorExists("CountryDescriptor")]
+        [IgnoreMember]
         public string IssuerCountryDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int IssuerCountryDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CountryDescriptor", IssuerCountryDescriptor); }
+            set { IssuerCountryDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CountryDescriptor", value); } 
+        }
 
         /// <summary>
         /// The unique identifier on the issuer's identification system.
@@ -4293,6 +4544,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(60, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="issuerDocumentIdentificationCode")]
+        [Key(5)]
         public string IssuerDocumentIdentificationCode { get; set; }
 
         /// <summary>
@@ -4301,6 +4553,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(150, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="issuerName")]
+        [Key(6)]
         public string IssuerName { get; set; }
         // -------------------------------------------------------------
 
@@ -4402,7 +4655,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateRace table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateRace : Entities.Common.TPDM.ICandidateRace
     {
@@ -4445,6 +4698,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -4462,7 +4716,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="raceDescriptor")][DescriptorExists("RaceDescriptor")]
+        [IgnoreMember]            
         public string RaceDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int RaceDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("RaceDescriptor", RaceDescriptor); }
+            set { RaceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("RaceDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4626,7 +4888,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// <summary>
     /// A class which represents the tpdm.CandidateTelephone table of the Candidate aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone
     {
@@ -4669,6 +4931,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             set { SetCandidate(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
@@ -4686,6 +4949,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(24, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="telephoneNumber")]
+        [Key(0)]            
         public string TelephoneNumber { get; set; }
 
         /// <summary>
@@ -4695,7 +4959,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="telephoneNumberTypeDescriptor")][DescriptorExists("TelephoneNumberTypeDescriptor")]
+        [IgnoreMember]            
         public string TelephoneNumberTypeDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int TelephoneNumberTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", TelephoneNumberTypeDescriptor); }
+            set { TelephoneNumberTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TelephoneNumberTypeDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4774,6 +5046,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="doNotPublishIndicator")]
+        [Key(2)]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -4782,6 +5055,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="orderOfPriority")]
+        [Key(3)]
         public int? OrderOfPriority { get; set; }
 
         /// <summary>
@@ -4789,6 +5063,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="textMessageCapabilityIndicator")]
+        [Key(4)]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -4895,39 +5170,56 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// <summary>
     /// Represents a reference to the CandidateEducatorPreparationProgramAssociation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationReference : IResourceReference
     {
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(0)]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="candidateIdentifier")]
+        [Key(1)]
         public string CandidateIdentifier { get; set; }
 
         [DataMember(Name="educationOrganizationId")]
+        [Key(2)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="programName")]
+        [Key(3)]
         public string ProgramName { get; set; }
 
         [DataMember(Name="programTypeDescriptor")][DescriptorExists("ProgramTypeDescriptor")]
+        [IgnoreMember]
         public string ProgramTypeDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int ProgramTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", ProgramTypeDescriptor); }
+            set { ProgramTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(5)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(6)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(7)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -5016,7 +5308,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// <summary>
     /// A class which represents the tpdm.CandidateEducatorPreparationProgramAssociation table of the CandidateEducatorPreparationProgramAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -5050,6 +5342,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// The unique identifier for the CandidateEducatorPreparationProgramAssociation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -5073,6 +5366,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="candidateReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Candidate.TPDM.CandidateReference CandidateReference
         {
@@ -5106,6 +5400,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="educatorPreparationProgramReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference EducatorPreparationProgramReference
         {
@@ -5136,6 +5431,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime BeginDate { get; set; }
 
         /// <summary>
@@ -5328,6 +5624,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
@@ -5336,7 +5633,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="eppProgramPathwayDescriptor")][DescriptorExists("EPPProgramPathwayDescriptor")]
+        [IgnoreMember]
         public string EPPProgramPathwayDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int EPPProgramPathwayDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EPPProgramPathwayDescriptor", EPPProgramPathwayDescriptor); }
+            set { EPPProgramPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EPPProgramPathwayDescriptor", value); } 
+        }
 
         /// <summary>
         /// Reason exited for the association.
@@ -5344,7 +5649,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="reasonExitedDescriptor")][DescriptorExists("ReasonExitedDescriptor")]
+        [IgnoreMember]
         public string ReasonExitedDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int ReasonExitedDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ReasonExitedDescriptor", ReasonExitedDescriptor); }
+            set { ReasonExitedDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ReasonExitedDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5380,6 +5693,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
         [NoDuplicateMembers]
         [DataMember(Name="cohortYears")]
+        [Key(7)]
         public ICollection<CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get { return _candidateEducatorPreparationProgramAssociationCohortYears; }
@@ -5410,6 +5724,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
         [NoDuplicateMembers]
         [DataMember(Name="degreeSpecializations")]
+        [Key(8)]
         public ICollection<CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get { return _candidateEducatorPreparationProgramAssociationDegreeSpecializations; }
@@ -5442,9 +5757,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(9)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(10)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -5663,7 +5980,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// <summary>
     /// A class which represents the tpdm.CandidateEducatorPreparationProgramAssociationCohortYear table of the CandidateEducatorPreparationProgramAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear
     {
@@ -5708,6 +6025,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [Key(0)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SchoolYearType.EdFi.SchoolYearTypeReference SchoolYearTypeReference
         {
@@ -5740,6 +6058,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
@@ -5757,7 +6076,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="cohortYearTypeDescriptor")][DescriptorExists("CohortYearTypeDescriptor")]
+        [IgnoreMember]            
         public string CohortYearTypeDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int CohortYearTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CohortYearTypeDescriptor", CohortYearTypeDescriptor); }
+            set { CohortYearTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CohortYearTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// The school year associated with the cohort; for example, the intended school year of graduation.
@@ -5861,7 +6188,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int TermDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5969,7 +6304,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// <summary>
     /// A class which represents the tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization table of the CandidateEducatorPreparationProgramAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization
     {
@@ -6012,6 +6347,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
@@ -6029,6 +6365,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="majorSpecialization")]
+        [Key(0)]            
         public string MajorSpecialization { get; set; }
         // -------------------------------------------------------------
 
@@ -6099,6 +6436,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(1)]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
@@ -6107,6 +6445,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="minorSpecialization")]
+        [Key(2)]
         public string MinorSpecialization { get; set; }
         // -------------------------------------------------------------
 
@@ -6213,7 +6552,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.CertificationRouteDescriptor table of the CertificationRouteDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -6242,6 +6581,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// The unique identifier for the CertificationRouteDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -6326,6 +6666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -6334,6 +6675,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -6341,6 +6683,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -6348,6 +6691,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -6357,6 +6701,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -6366,6 +6711,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -6409,9 +6755,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -6484,7 +6832,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
     /// <summary>
     /// A class which represents the tpdm.CoteachingStyleObservedDescriptor table of the CoteachingStyleObservedDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -6513,6 +6861,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// The unique identifier for the CoteachingStyleObservedDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -6597,6 +6946,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -6605,6 +6955,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -6612,6 +6963,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -6619,6 +6971,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -6628,6 +6981,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -6637,6 +6991,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -6680,9 +7035,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -6755,7 +7112,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// <summary>
     /// A class which represents the tpdm.CredentialExtension table of the Credential aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [Display(Name="TPDM")]
     public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension, IChildEntity, IValidatableObject
@@ -6805,6 +7162,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="personReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -6837,6 +7195,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             set { SetCredential(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.EdFi.ICredential Credential
         {
             set { SetCredential(value); }
@@ -6906,6 +7265,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="boardCertificationIndicator")]
+        [Key(1)]
         public bool? BoardCertificationIndicator { get; set; }
 
         /// <summary>
@@ -6914,7 +7274,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="certificationRouteDescriptor")][DescriptorExists("CertificationRouteDescriptor")]
+        [IgnoreMember]
         public string CertificationRouteDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int CertificationRouteDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CertificationRouteDescriptor", CertificationRouteDescriptor); }
+            set { CertificationRouteDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CertificationRouteDescriptor", value); } 
+        }
 
         /// <summary>
         /// The title of the certification obtained by the educator.
@@ -6922,6 +7290,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(64, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="certificationTitle")]
+        [Key(3)]
         public string CertificationTitle { get; set; }
 
         /// <summary>
@@ -6929,6 +7298,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="credentialStatusDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]
         public DateTime? CredentialStatusDate { get; set; }
 
         /// <summary>
@@ -6937,7 +7307,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="credentialStatusDescriptor")][DescriptorExists("CredentialStatusDescriptor")]
+        [IgnoreMember]
         public string CredentialStatusDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int CredentialStatusDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CredentialStatusDescriptor", CredentialStatusDescriptor); }
+            set { CredentialStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CredentialStatusDescriptor", value); } 
+        }
 
         /// <summary>
         /// The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.
@@ -6945,7 +7323,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="educatorRoleDescriptor")][DescriptorExists("EducatorRoleDescriptor")]
+        [IgnoreMember]
         public string EducatorRoleDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int EducatorRoleDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EducatorRoleDescriptor", EducatorRoleDescriptor); }
+            set { EducatorRoleDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EducatorRoleDescriptor", value); } 
+        }
 
         /// <summary>
         /// A unique alphanumeric code assigned to a person.
@@ -7032,6 +7418,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="studentAcademicRecords")]
+        [Key(7)]
         public ICollection<CredentialStudentAcademicRecord> CredentialStudentAcademicRecords
         {
             get { return _credentialStudentAcademicRecords; }
@@ -7241,7 +7628,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// <summary>
     /// A class which represents the tpdm.CredentialStudentAcademicRecord table of the Credential aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord
     {
@@ -7286,6 +7673,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="studentAcademicRecordReference")]
+        [Key(0)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentAcademicRecord.EdFi.StudentAcademicRecordReference StudentAcademicRecordReference
         {
@@ -7318,6 +7706,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             set { SetCredentialExtension(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.ICredentialExtension CredentialExtension
         {
             set { SetCredentialExtension(value); }
@@ -7630,7 +8019,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.CredentialStatusDescriptor table of the CredentialStatusDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -7659,6 +8048,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// The unique identifier for the CredentialStatusDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -7743,6 +8133,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -7751,6 +8142,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -7758,6 +8150,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -7765,6 +8158,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -7774,6 +8168,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -7783,6 +8178,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -7826,9 +8222,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -7901,33 +8299,48 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// <summary>
     /// Represents a reference to the EducatorPreparationProgram resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgramReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="programName")]
+        [Key(1)]
         public string ProgramName { get; set; }
 
         [DataMember(Name="programTypeDescriptor")][DescriptorExists("ProgramTypeDescriptor")]
+        [IgnoreMember]
         public string ProgramTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int ProgramTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", ProgramTypeDescriptor); }
+            set { ProgramTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(3)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(4)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(5)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -8006,7 +8419,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// <summary>
     /// A class which represents the tpdm.EducatorPreparationProgram table of the EducatorPreparationProgram aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -8039,6 +8452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// The unique identifier for the EducatorPreparationProgram resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -8062,6 +8476,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         }
 
         [DataMember(Name="educationOrganizationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
@@ -8118,6 +8533,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="programName")]
+        [Key(2)]            
         public string ProgramName { get; set; }
 
         /// <summary>
@@ -8127,7 +8543,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="programTypeDescriptor")][DescriptorExists("ProgramTypeDescriptor")]
+        [IgnoreMember]            
         public string ProgramTypeDescriptor { get; set; }
+
+        [Key(3)][JsonIgnore]
+        public int ProgramTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", ProgramTypeDescriptor); }
+            set { ProgramTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8208,7 +8632,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="accreditationStatusDescriptor")][DescriptorExists("AccreditationStatusDescriptor")]
+        [IgnoreMember]
         public string AccreditationStatusDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int AccreditationStatusDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AccreditationStatusDescriptor", AccreditationStatusDescriptor); }
+            set { AccreditationStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AccreditationStatusDescriptor", value); } 
+        }
 
         /// <summary>
         /// A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.
@@ -8216,6 +8648,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(20, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="programId")]
+        [Key(5)]
         public string ProgramId { get; set; }
         // -------------------------------------------------------------
 
@@ -8252,6 +8685,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="gradeLevels")]
+        [Key(6)]
         public ICollection<EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
         {
             get { return _educatorPreparationProgramGradeLevels; }
@@ -8284,9 +8718,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -8462,7 +8898,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// <summary>
     /// A class which represents the tpdm.EducatorPreparationProgramGradeLevel table of the EducatorPreparationProgram aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel
     {
@@ -8505,6 +8941,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
             set { SetEducatorPreparationProgram(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEducatorPreparationProgram EducatorPreparationProgram
         {
             set { SetEducatorPreparationProgram(value); }
@@ -8522,7 +8959,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="gradeLevelDescriptor")][DescriptorExists("GradeLevelDescriptor")]
+        [IgnoreMember]            
         public string GradeLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int GradeLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GradeLevelDescriptor", GradeLevelDescriptor); }
+            set { GradeLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GradeLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8691,7 +9136,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.EducatorRoleDescriptor table of the EducatorRoleDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -8720,6 +9165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// The unique identifier for the EducatorRoleDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -8804,6 +9250,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -8812,6 +9259,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -8819,6 +9267,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -8826,6 +9275,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -8835,6 +9285,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -8844,6 +9295,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -8887,9 +9339,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -8962,7 +9416,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
     /// <summary>
     /// A class which represents the tpdm.EnglishLanguageExamDescriptor table of the EnglishLanguageExamDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -8991,6 +9445,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// The unique identifier for the EnglishLanguageExamDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -9075,6 +9530,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -9083,6 +9539,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -9090,6 +9547,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -9097,6 +9555,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -9106,6 +9565,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -9115,6 +9575,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -9158,9 +9619,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -9233,7 +9696,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.EPPProgramPathwayDescriptor table of the EPPProgramPathwayDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -9262,6 +9725,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// The unique identifier for the EPPProgramPathwayDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -9346,6 +9810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -9354,6 +9819,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -9361,6 +9827,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -9368,6 +9835,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -9377,6 +9845,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -9386,6 +9855,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -9429,9 +9899,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -9504,45 +9976,78 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// <summary>
     /// Represents a reference to the Evaluation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(1)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(2)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(3)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(4)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="schoolYear")]
+        [Key(5)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(7)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(8)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(9)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -9641,7 +10146,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// <summary>
     /// A class which represents the tpdm.Evaluation table of the Evaluation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -9674,6 +10179,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// The unique identifier for the Evaluation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -9697,6 +10203,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         }
 
         [DataMember(Name="performanceEvaluationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
@@ -9774,6 +10281,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationTitle")]
+        [Key(2)]            
         public string EvaluationTitle { get; set; }
 
         /// <summary>
@@ -9981,6 +10489,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationDescription")]
+        [Key(3)]
         public string EvaluationDescription { get; set; }
 
         /// <summary>
@@ -9989,13 +10498,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationTypeDescriptor")][DescriptorExists("EvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string EvaluationTypeDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int EvaluationTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", EvaluationTypeDescriptor); }
+            set { EvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", value); } 
+        }
 
         /// <summary>
         /// A score indicating how much homogeneity, or consensus, there is in the ratings given by judges. Most commonly a percentage scale (1-100)
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="interRaterReliabilityScore")]
+        [Key(5)]
         public int? InterRaterReliabilityScore { get; set; }
 
         /// <summary>
@@ -10004,6 +10522,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(6)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -10012,6 +10531,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(7)]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -10048,6 +10568,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="ratingLevels")]
+        [Key(8)]
         public ICollection<EvaluationRatingLevel> EvaluationRatingLevels
         {
             get { return _evaluationRatingLevels; }
@@ -10080,9 +10601,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(9)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(10)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -10258,7 +10781,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingLevel table of the Evaluation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel
     {
@@ -10301,6 +10824,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
             set { SetEvaluation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluation Evaluation
         {
             set { SetEvaluation(value); }
@@ -10318,7 +10842,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationRatingLevelDescriptor")][DescriptorExists("EvaluationRatingLevelDescriptor")]
+        [IgnoreMember]            
         public string EvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int EvaluationRatingLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", EvaluationRatingLevelDescriptor); }
+            set { EvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -10389,6 +10921,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(1)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -10397,6 +10930,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(2)]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -10503,51 +11037,86 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// <summary>
     /// Represents a reference to the EvaluationElement resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationElementTitle")]
+        [Key(1)]
         public string EvaluationElementTitle { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(2)]
         public string EvaluationObjectiveTitle { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(3)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(4)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(5)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(6)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="schoolYear")]
+        [Key(7)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(8)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(9)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(10)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(11)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -10656,7 +11225,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationElement table of the EvaluationElement aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -10689,6 +11258,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// The unique identifier for the EvaluationElement resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -10712,6 +11282,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
@@ -10768,6 +11339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationElementTitle")]
+        [Key(2)]            
         public string EvaluationElementTitle { get; set; }
 
         /// <summary>
@@ -11062,7 +11634,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationTypeDescriptor")][DescriptorExists("EvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string EvaluationTypeDescriptor { get; set; }
+
+        [Key(3)][JsonIgnore]
+        public int EvaluationTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", EvaluationTypeDescriptor); }
+            set { EvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", value); } 
+        }
 
         /// <summary>
         /// The maximum summary numerical rating or score for the evaluation element.
@@ -11070,6 +11650,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(4)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -11078,6 +11659,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(5)]
         public decimal? MinRating { get; set; }
 
         /// <summary>
@@ -11085,6 +11667,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="sortOrder")]
+        [Key(6)]
         public int? SortOrder { get; set; }
         // -------------------------------------------------------------
 
@@ -11121,6 +11704,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="ratingLevels")]
+        [Key(7)]
         public ICollection<EvaluationElementRatingLevel> EvaluationElementRatingLevels
         {
             get { return _evaluationElementRatingLevels; }
@@ -11153,9 +11737,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(8)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(9)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -11331,7 +11917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationElementRatingLevel table of the EvaluationElement aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel
     {
@@ -11374,6 +11960,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
             set { SetEvaluationElement(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationElement EvaluationElement
         {
             set { SetEvaluationElement(value); }
@@ -11391,7 +11978,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationRatingLevelDescriptor")][DescriptorExists("EvaluationRatingLevelDescriptor")]
+        [IgnoreMember]            
         public string EvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int EvaluationRatingLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", EvaluationRatingLevelDescriptor); }
+            set { EvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11462,6 +12057,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(1)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -11470,6 +12066,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(2)]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -11576,60 +12173,105 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// <summary>
     /// Represents a reference to the EvaluationElementRating resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate")]
+        [Key(1)]
         public DateTime EvaluationDate { get; set; }
 
         [DataMember(Name="evaluationElementTitle")]
+        [Key(2)]
         public string EvaluationElementTitle { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(3)]
         public string EvaluationObjectiveTitle { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(4)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(5)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(6)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(7)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="personId")]
+        [Key(8)]
         public string PersonId { get; set; }
 
         [DataMember(Name="schoolYear")]
+        [Key(9)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(10)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(11)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(12)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(13)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(14)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -11753,7 +12395,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationElementRating table of the EvaluationElementRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -11786,6 +12428,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// The unique identifier for the EvaluationElementRating resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -11809,6 +12452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
 
         [DataMember(Name="evaluationElementReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
@@ -11842,6 +12486,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveRatingReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference EvaluationObjectiveRatingReference
         {
@@ -12326,6 +12971,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="areaOfRefinement")]
+        [Key(3)]
         public string AreaOfRefinement { get; set; }
 
         /// <summary>
@@ -12334,6 +12980,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="areaOfReinforcement")]
+        [Key(4)]
         public string AreaOfReinforcement { get; set; }
 
         /// <summary>
@@ -12342,6 +12989,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="comments")]
+        [Key(5)]
         public string Comments { get; set; }
 
         /// <summary>
@@ -12350,7 +12998,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationElementRatingLevelDescriptor")][DescriptorExists("EvaluationElementRatingLevelDescriptor")]
+        [IgnoreMember]
         public string EvaluationElementRatingLevelDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int EvaluationElementRatingLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationElementRatingLevelDescriptor", EvaluationElementRatingLevelDescriptor); }
+            set { EvaluationElementRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationElementRatingLevelDescriptor", value); } 
+        }
 
         /// <summary>
         /// Feedback provided to the evaluated person.
@@ -12358,6 +13014,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(2048, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="feedback")]
+        [Key(7)]
         public string Feedback { get; set; }
         // -------------------------------------------------------------
 
@@ -12394,6 +13051,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="results")]
+        [Key(8)]
         public ICollection<EvaluationElementRatingResult> EvaluationElementRatingResults
         {
             get { return _evaluationElementRatingResults; }
@@ -12426,9 +13084,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(9)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(10)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -12881,7 +13541,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationElementRatingResult table of the EvaluationElementRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -12925,6 +13585,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             set { SetEvaluationElementRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationElementRating EvaluationElementRating
         {
             set { SetEvaluationElementRating(value); }
@@ -12944,6 +13605,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="rating")]
+        [Key(0)]            
         public decimal Rating 
         { 
             get => _rating;
@@ -12962,6 +13624,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="ratingResultTitle")]
+        [Key(1)]            
         public string RatingResultTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -13043,7 +13706,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="resultDatatypeTypeDescriptor")][DescriptorExists("ResultDatatypeTypeDescriptor")]
+        [IgnoreMember]
         public string ResultDatatypeTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int ResultDatatypeTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", ResultDatatypeTypeDescriptor); }
+            set { ResultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -13157,7 +13828,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
     /// <summary>
     /// A class which represents the tpdm.EvaluationElementRatingLevelDescriptor table of the EvaluationElementRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -13186,6 +13857,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// The unique identifier for the EvaluationElementRatingLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -13270,6 +13942,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -13278,6 +13951,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -13285,6 +13959,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -13292,6 +13967,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -13301,6 +13977,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -13310,6 +13987,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -13353,9 +14031,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -13428,48 +14108,82 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// <summary>
     /// Represents a reference to the EvaluationObjective resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(1)]
         public string EvaluationObjectiveTitle { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(2)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(3)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(4)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(5)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="schoolYear")]
+        [Key(6)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(7)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(8)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(9)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(10)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -13573,7 +14287,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationObjective table of the EvaluationObjective aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -13606,6 +14320,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// The unique identifier for the EvaluationObjective resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -13629,6 +14344,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         }
 
         [DataMember(Name="evaluationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
@@ -13685,6 +14401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(2)]            
         public string EvaluationObjectiveTitle { get; set; }
 
         /// <summary>
@@ -13946,6 +14663,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationObjectiveDescription")]
+        [Key(3)]
         public string EvaluationObjectiveDescription { get; set; }
 
         /// <summary>
@@ -13954,7 +14672,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationTypeDescriptor")][DescriptorExists("EvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string EvaluationTypeDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int EvaluationTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", EvaluationTypeDescriptor); }
+            set { EvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", value); } 
+        }
 
         /// <summary>
         /// The maximum summary numerical rating or score for the evaluation Objective.
@@ -13962,6 +14688,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(5)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -13970,6 +14697,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(6)]
         public decimal? MinRating { get; set; }
 
         /// <summary>
@@ -13977,6 +14705,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="sortOrder")]
+        [Key(7)]
         public int? SortOrder { get; set; }
         // -------------------------------------------------------------
 
@@ -14013,6 +14742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="ratingLevels")]
+        [Key(8)]
         public ICollection<EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
         {
             get { return _evaluationObjectiveRatingLevels; }
@@ -14045,9 +14775,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(9)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(10)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -14223,7 +14955,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationObjectiveRatingLevel table of the EvaluationObjective aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel
     {
@@ -14266,6 +14998,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
             set { SetEvaluationObjective(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationObjective EvaluationObjective
         {
             set { SetEvaluationObjective(value); }
@@ -14283,7 +15016,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationRatingLevelDescriptor")][DescriptorExists("EvaluationRatingLevelDescriptor")]
+        [IgnoreMember]            
         public string EvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int EvaluationRatingLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", EvaluationRatingLevelDescriptor); }
+            set { EvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -14354,6 +15095,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(1)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -14362,6 +15104,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(2)]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -14468,57 +15211,101 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// <summary>
     /// Represents a reference to the EvaluationObjectiveRating resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate")]
+        [Key(1)]
         public DateTime EvaluationDate { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(2)]
         public string EvaluationObjectiveTitle { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(3)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(4)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(5)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(6)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="personId")]
+        [Key(7)]
         public string PersonId { get; set; }
 
         [DataMember(Name="schoolYear")]
+        [Key(8)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(9)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(10)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(11)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(12)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(13)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -14637,7 +15424,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationObjectiveRating table of the EvaluationObjectiveRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -14670,6 +15457,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// The unique identifier for the EvaluationObjectiveRating resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -14693,6 +15481,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
 
         [DataMember(Name="evaluationObjectiveReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
@@ -14726,6 +15515,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
 
         [DataMember(Name="evaluationRatingReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationRating.TPDM.EvaluationRatingReference EvaluationRatingReference
         {
@@ -15173,6 +15963,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="comments")]
+        [Key(3)]
         public string Comments { get; set; }
 
         /// <summary>
@@ -15181,7 +15972,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="objectiveRatingLevelDescriptor")][DescriptorExists("ObjectiveRatingLevelDescriptor")]
+        [IgnoreMember]
         public string ObjectiveRatingLevelDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int ObjectiveRatingLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ObjectiveRatingLevelDescriptor", ObjectiveRatingLevelDescriptor); }
+            set { ObjectiveRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ObjectiveRatingLevelDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -15217,6 +16016,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="results")]
+        [Key(5)]
         public ICollection<EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
         {
             get { return _evaluationObjectiveRatingResults; }
@@ -15249,9 +16049,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(6)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(7)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -15672,7 +16474,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationObjectiveRatingResult table of the EvaluationObjectiveRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -15716,6 +16518,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             set { SetEvaluationObjectiveRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationObjectiveRating EvaluationObjectiveRating
         {
             set { SetEvaluationObjectiveRating(value); }
@@ -15735,6 +16538,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="rating")]
+        [Key(0)]            
         public decimal Rating 
         { 
             get => _rating;
@@ -15753,6 +16557,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="ratingResultTitle")]
+        [Key(1)]            
         public string RatingResultTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -15834,7 +16639,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="resultDatatypeTypeDescriptor")][DescriptorExists("ResultDatatypeTypeDescriptor")]
+        [IgnoreMember]
         public string ResultDatatypeTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int ResultDatatypeTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", ResultDatatypeTypeDescriptor); }
+            set { ResultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -15948,7 +16761,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationPeriodDescriptor table of the EvaluationPeriodDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -15977,6 +16790,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// The unique identifier for the EvaluationPeriodDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -16061,6 +16875,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -16069,6 +16884,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -16076,6 +16892,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -16083,6 +16900,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -16092,6 +16910,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -16101,6 +16920,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -16144,9 +16964,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -16219,54 +17041,97 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// <summary>
     /// Represents a reference to the EvaluationRating resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationDate")]
+        [Key(1)]
         public DateTime EvaluationDate { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(2)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(3)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(4)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(5)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="personId")]
+        [Key(6)]
         public string PersonId { get; set; }
 
         [DataMember(Name="schoolYear")]
+        [Key(7)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(8)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(9)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(10)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(11)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(12)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -16380,7 +17245,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationRating table of the EvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -16414,6 +17279,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// The unique identifier for the EvaluationRating resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -16437,6 +17303,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="evaluationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
@@ -16470,6 +17337,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="performanceEvaluationRatingReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference PerformanceEvaluationRatingReference
         {
@@ -16503,6 +17371,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="sectionReference")]
+        [Key(3)]
         [FullyDefinedReference]
         public Section.EdFi.SectionReference SectionReference
         {
@@ -16562,6 +17431,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="evaluationDate")]
+        [Key(4)]            
         public DateTime EvaluationDate { get; set; }
 
         /// <summary>
@@ -16901,7 +17771,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationRatingLevelDescriptor")][DescriptorExists("EvaluationRatingLevelDescriptor")]
+        [IgnoreMember]
         public string EvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int EvaluationRatingLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", EvaluationRatingLevelDescriptor); }
+            set { EvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", value); } 
+        }
 
         /// <summary>
         /// The Status of the poerformance evaluation.
@@ -16909,7 +17787,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="evaluationRatingStatusDescriptor")][DescriptorExists("EvaluationRatingStatusDescriptor")]
+        [IgnoreMember]
         public string EvaluationRatingStatusDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int EvaluationRatingStatusDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingStatusDescriptor", EvaluationRatingStatusDescriptor); }
+            set { EvaluationRatingStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingStatusDescriptor", value); } 
+        }
 
         /// <summary>
         /// The local code assigned by the School that identifies the course offering provided for the instruction of students.
@@ -17053,6 +17939,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="results")]
+        [Key(7)]
         public ICollection<EvaluationRatingResult> EvaluationRatingResults
         {
             get { return _evaluationRatingResults; }
@@ -17083,6 +17970,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="reviewers")]
+        [Key(8)]
         public ICollection<EvaluationRatingReviewer> EvaluationRatingReviewers
         {
             get { return _evaluationRatingReviewers; }
@@ -17115,9 +18003,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(9)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(10)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -17557,7 +18447,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingResult table of the EvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -17601,6 +18491,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
@@ -17620,6 +18511,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="rating")]
+        [Key(0)]            
         public decimal Rating 
         { 
             get => _rating;
@@ -17638,6 +18530,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="ratingResultTitle")]
+        [Key(1)]            
         public string RatingResultTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -17719,7 +18612,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="resultDatatypeTypeDescriptor")][DescriptorExists("ResultDatatypeTypeDescriptor")]
+        [IgnoreMember]
         public string ResultDatatypeTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int ResultDatatypeTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", ResultDatatypeTypeDescriptor); }
+            set { ResultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -17828,7 +18729,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingReviewer table of the EvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer, IValidatableObject
     {
@@ -17873,6 +18774,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         [DataMember(Name="reviewerPersonReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public Person.EdFi.PersonReference ReviewerPersonReference
         {
@@ -17905,6 +18807,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
@@ -17922,6 +18825,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
+        [Key(1)]            
         public string FirstName { get; set; }
 
         /// <summary>
@@ -17931,6 +18835,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
+        [Key(2)]            
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
 
@@ -18065,6 +18970,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </summary>
         
         [DataMember(Name = "receivedTraining")]
+        [Key(3)]
         public EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining { get; set; }
 
         Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
@@ -18239,7 +19145,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingReviewerReceivedTraining table of the EvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining
     {
@@ -18282,6 +19188,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             set { SetEvaluationRatingReviewer(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IEvaluationRatingReviewer EvaluationRatingReviewer
         {
             set { SetEvaluationRatingReviewer(value); }
@@ -18351,6 +19258,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="interRaterReliabilityScore")]
+        [Key(0)]
         public int? InterRaterReliabilityScore { get; set; }
 
         /// <summary>
@@ -18358,6 +19266,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="receivedTrainingDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(1)]
         public DateTime? ReceivedTrainingDate { get; set; }
         // -------------------------------------------------------------
 
@@ -18464,7 +19373,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingLevelDescriptor table of the EvaluationRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -18493,6 +19402,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// The unique identifier for the EvaluationRatingLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -18577,6 +19487,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -18585,6 +19496,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -18592,6 +19504,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -18599,6 +19512,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -18608,6 +19522,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -18617,6 +19532,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -18660,9 +19576,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -18735,7 +19653,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingStatusDescriptor table of the EvaluationRatingStatusDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -18764,6 +19682,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// The unique identifier for the EvaluationRatingStatusDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -18848,6 +19767,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -18856,6 +19776,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -18863,6 +19784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -18870,6 +19792,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -18879,6 +19802,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -18888,6 +19812,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -18931,9 +19856,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -19006,7 +19933,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.EvaluationTypeDescriptor table of the EvaluationTypeDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -19035,6 +19962,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// The unique identifier for the EvaluationTypeDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -19119,6 +20047,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -19127,6 +20056,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -19134,6 +20064,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -19141,6 +20072,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -19150,6 +20082,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -19159,6 +20092,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -19202,9 +20136,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -19277,14 +20213,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// <summary>
     /// Represents a reference to the FinancialAid resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class FinancialAidReference : IResourceReference
     {
         [DataMember(Name="aidTypeDescriptor")][DescriptorExists("AidTypeDescriptor")]
+        [IgnoreMember]
         public string AidTypeDescriptor { get; set; }
 
+        [Key(0)][JsonIgnore]
+        public int AidTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AidTypeDescriptor", AidTypeDescriptor); }
+            set { AidTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AidTypeDescriptor", value); }
+        }
+
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(1)]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="studentUniqueId")]
@@ -19302,17 +20247,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(2)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(4)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -19391,7 +20341,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// <summary>
     /// A class which represents the tpdm.FinancialAid table of the FinancialAid aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity
     {
@@ -19420,6 +20370,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// The unique identifier for the FinancialAid resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -19443,6 +20394,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         }
 
         [DataMember(Name="studentReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
@@ -19474,7 +20426,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="aidTypeDescriptor")][DescriptorExists("AidTypeDescriptor")]
+        [IgnoreMember]            
         public string AidTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int AidTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AidTypeDescriptor", AidTypeDescriptor); }
+            set { AidTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AidTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// The date the award was designated.
@@ -19482,6 +20442,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime BeginDate { get; set; }
 
         /// <summary>
@@ -19589,6 +20550,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="aidAmount")]
+        [Key(4)]
         public decimal? AidAmount { get; set; }
 
         /// <summary>
@@ -19597,6 +20559,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="aidConditionDescription")]
+        [Key(5)]
         public string AidConditionDescription { get; set; }
 
         /// <summary>
@@ -19604,6 +20567,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(6)]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
@@ -19611,6 +20575,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="pellGrantRecipient")]
+        [Key(7)]
         public bool? PellGrantRecipient { get; set; }
         // -------------------------------------------------------------
 
@@ -19649,9 +20614,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(8)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(9)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -19738,7 +20705,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.GenderDescriptor table of the GenderDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -19767,6 +20734,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// The unique identifier for the GenderDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -19851,6 +20819,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -19859,6 +20828,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -19866,6 +20836,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -19873,6 +20844,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -19882,6 +20854,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -19891,6 +20864,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -19934,9 +20908,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -20009,7 +20985,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
     /// <summary>
     /// A class which represents the tpdm.ObjectiveRatingLevelDescriptor table of the ObjectiveRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -20038,6 +21014,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// The unique identifier for the ObjectiveRatingLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -20122,6 +21099,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -20130,6 +21108,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -20137,6 +21116,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -20144,6 +21124,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -20153,6 +21134,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -20162,6 +21144,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -20205,9 +21188,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -20280,42 +21265,74 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// <summary>
     /// Represents a reference to the PerformanceEvaluation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(1)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(2)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(3)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="schoolYear")]
+        [Key(4)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(6)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(7)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(8)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -20409,7 +21426,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluation table of the PerformanceEvaluation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -20443,6 +21460,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// The unique identifier for the PerformanceEvaluation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -20466,6 +21484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
 
         [DataMember(Name="educationOrganizationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
@@ -20499,6 +21518,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SchoolYearType.EdFi.SchoolYearTypeReference SchoolYearTypeReference
         {
@@ -20555,7 +21575,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]            
         public string EvaluationPeriodDescriptor { get; set; }
+
+        [Key(3)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
 
         /// <summary>
         /// An assigned unique identifier for the performance evaluation.
@@ -20564,6 +21592,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(4)]            
         public string PerformanceEvaluationTitle { get; set; }
 
         /// <summary>
@@ -20573,7 +21602,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]            
         public string PerformanceEvaluationTypeDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
 
         /// <summary>
         /// The identifier for the school year.
@@ -20607,7 +21644,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]            
         public string TermDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -20714,7 +21759,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="academicSubjectDescriptor")][DescriptorExists("AcademicSubjectDescriptor")]
+        [IgnoreMember]
         public string AcademicSubjectDescriptor { get; set; }
+
+        [Key(7)][JsonIgnore]
+        public int AcademicSubjectDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AcademicSubjectDescriptor", AcademicSubjectDescriptor); }
+            set { AcademicSubjectDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AcademicSubjectDescriptor", value); } 
+        }
 
         /// <summary>
         /// The long description of the Performance Evaluation.
@@ -20722,6 +21775,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="performanceEvaluationDescription")]
+        [Key(8)]
         public string PerformanceEvaluationDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -20758,6 +21812,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="gradeLevels")]
+        [Key(9)]
         public ICollection<PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
         {
             get { return _performanceEvaluationGradeLevels; }
@@ -20788,6 +21843,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="ratingLevels")]
+        [Key(10)]
         public ICollection<PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
         {
             get { return _performanceEvaluationRatingLevels; }
@@ -20820,9 +21876,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(11)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(12)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -21034,7 +22092,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationGradeLevel table of the PerformanceEvaluation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel
     {
@@ -21077,6 +22135,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             set { SetPerformanceEvaluation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
@@ -21094,7 +22153,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="gradeLevelDescriptor")][DescriptorExists("GradeLevelDescriptor")]
+        [IgnoreMember]            
         public string GradeLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int GradeLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GradeLevelDescriptor", GradeLevelDescriptor); }
+            set { GradeLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GradeLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21258,7 +22325,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingLevel table of the PerformanceEvaluation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel
     {
@@ -21301,6 +22368,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             set { SetPerformanceEvaluation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
@@ -21318,7 +22386,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="evaluationRatingLevelDescriptor")][DescriptorExists("EvaluationRatingLevelDescriptor")]
+        [IgnoreMember]            
         public string EvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int EvaluationRatingLevelDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", EvaluationRatingLevelDescriptor); }
+            set { EvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", value); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21389,6 +22465,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="maxRating")]
+        [Key(1)]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
@@ -21397,6 +22474,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="minRating")]
+        [Key(2)]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -21503,48 +22581,89 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// <summary>
     /// Represents a reference to the PerformanceEvaluationRating resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(1)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(2)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(3)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="personId")]
+        [Key(4)]
         public string PersonId { get; set; }
 
         [DataMember(Name="schoolYear")]
+        [Key(5)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(6)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(7)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(8)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(9)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(10)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -21648,7 +22767,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRating table of the PerformanceEvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -21682,6 +22801,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// The unique identifier for the PerformanceEvaluationRating resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -21705,6 +22825,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="performanceEvaluationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
@@ -21738,6 +22859,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="personReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -22067,6 +23189,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="actualDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]
         public DateTime ActualDate { get; set; }
 
         /// <summary>
@@ -22075,6 +23198,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(1, 2147483647, ErrorMessage=ValidationHelpers.RangeMinOnlyMessageFormat)]
         [DataMember(Name="actualDuration")]
+        [Key(4)]
         public int? ActualDuration { get; set; }
 
         /// <summary>
@@ -22082,6 +23206,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="actualTime")][JsonConverter(typeof(UtcTimeConverter))]
+        [Key(5)]
         public TimeSpan? ActualTime { get; set; }
 
         /// <summary>
@@ -22089,6 +23214,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="announced")]
+        [Key(6)]
         public bool? Announced { get; set; }
 
         /// <summary>
@@ -22097,6 +23223,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="comments")]
+        [Key(7)]
         public string Comments { get; set; }
 
         /// <summary>
@@ -22105,7 +23232,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="coteachingStyleObservedDescriptor")][DescriptorExists("CoteachingStyleObservedDescriptor")]
+        [IgnoreMember]
         public string CoteachingStyleObservedDescriptor { get; set; }
+
+        [Key(8)][JsonIgnore]
+        public int CoteachingStyleObservedDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CoteachingStyleObservedDescriptor", CoteachingStyleObservedDescriptor); }
+            set { CoteachingStyleObservedDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CoteachingStyleObservedDescriptor", value); } 
+        }
 
         /// <summary>
         /// The rating level achieved based upon the rating or score.
@@ -22113,13 +23248,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="performanceEvaluationRatingLevelDescriptor")][DescriptorExists("PerformanceEvaluationRatingLevelDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationRatingLevelDescriptor { get; set; }
+
+        [Key(9)][JsonIgnore]
+        public int PerformanceEvaluationRatingLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationRatingLevelDescriptor", PerformanceEvaluationRatingLevelDescriptor); }
+            set { PerformanceEvaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationRatingLevelDescriptor", value); } 
+        }
 
         /// <summary>
         /// The month, day, and year on which the performance evaluation was scheduled.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="scheduleDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(10)]
         public DateTime? ScheduleDate { get; set; }
         // -------------------------------------------------------------
 
@@ -22156,6 +23300,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="results")]
+        [Key(11)]
         public ICollection<PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
         {
             get { return _performanceEvaluationRatingResults; }
@@ -22186,6 +23331,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
         [NoDuplicateMembers]
         [DataMember(Name="reviewers")]
+        [Key(12)]
         public ICollection<PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
         {
             get { return _performanceEvaluationRatingReviewers; }
@@ -22218,9 +23364,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(13)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(14)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -22439,7 +23587,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingResult table of the PerformanceEvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -22483,6 +23631,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
@@ -22502,6 +23651,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // NOT in a reference, NOT a lookup column 
         [Range(typeof(decimal), "-999.999", "999.999", ErrorMessage=ValidationHelpers.RangeMessageFormat)]
         [DataMember(Name="rating")]
+        [Key(0)]            
         public decimal Rating 
         { 
             get => _rating;
@@ -22520,6 +23670,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="ratingResultTitle")]
+        [Key(1)]            
         public string RatingResultTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -22601,7 +23752,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="resultDatatypeTypeDescriptor")][DescriptorExists("ResultDatatypeTypeDescriptor")]
+        [IgnoreMember]
         public string ResultDatatypeTypeDescriptor { get; set; }
+
+        [Key(2)][JsonIgnore]
+        public int ResultDatatypeTypeDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", ResultDatatypeTypeDescriptor); }
+            set { ResultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -22710,7 +23869,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingReviewer table of the PerformanceEvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IValidatableObject
     {
@@ -22755,6 +23914,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
 
         [DataMember(Name="reviewerPersonReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public Person.EdFi.PersonReference ReviewerPersonReference
         {
@@ -22787,6 +23947,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRating(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
@@ -22804,6 +23965,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
+        [Key(1)]            
         public string FirstName { get; set; }
 
         /// <summary>
@@ -22813,6 +23975,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
+        [Key(2)]            
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
 
@@ -22947,6 +24110,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         
         [DataMember(Name = "receivedTraining")]
+        [Key(3)]
         public PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining
@@ -23121,7 +24285,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingReviewerReceivedTraining table of the PerformanceEvaluationRating aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining
     {
@@ -23164,6 +24328,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             set { SetPerformanceEvaluationRatingReviewer(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer
         {
             set { SetPerformanceEvaluationRatingReviewer(value); }
@@ -23233,6 +24398,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="interRaterReliabilityScore")]
+        [Key(0)]
         public int? InterRaterReliabilityScore { get; set; }
 
         /// <summary>
@@ -23240,6 +24406,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="receivedTrainingDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(1)]
         public DateTime? ReceivedTrainingDate { get; set; }
         // -------------------------------------------------------------
 
@@ -23346,7 +24513,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingLevelDescriptor table of the PerformanceEvaluationRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -23375,6 +24542,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// The unique identifier for the PerformanceEvaluationRatingLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -23459,6 +24627,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -23467,6 +24636,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -23474,6 +24644,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -23481,6 +24652,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -23490,6 +24662,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -23499,6 +24672,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -23542,9 +24716,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -23617,7 +24793,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationTypeDescriptor table of the PerformanceEvaluationTypeDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -23646,6 +24822,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// The unique identifier for the PerformanceEvaluationTypeDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -23730,6 +24907,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -23738,6 +24916,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -23745,6 +24924,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -23752,6 +24932,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -23761,6 +24942,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -23770,6 +24952,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -23813,9 +24996,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -23888,54 +25073,90 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// <summary>
     /// Represents a reference to the RubricDimension resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class RubricDimensionReference : IResourceReference
     {
         [DataMember(Name="educationOrganizationId")]
+        [Key(0)]
         public int EducationOrganizationId { get; set; }
 
         [DataMember(Name="evaluationElementTitle")]
+        [Key(1)]
         public string EvaluationElementTitle { get; set; }
 
         [DataMember(Name="evaluationObjectiveTitle")]
+        [Key(2)]
         public string EvaluationObjectiveTitle { get; set; }
 
         [DataMember(Name="evaluationPeriodDescriptor")][DescriptorExists("EvaluationPeriodDescriptor")]
+        [IgnoreMember]
         public string EvaluationPeriodDescriptor { get; set; }
 
+        [Key(3)][JsonIgnore]
+        public int EvaluationPeriodDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", EvaluationPeriodDescriptor); }
+            set { EvaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", value); }
+        }
+
         [DataMember(Name="evaluationTitle")]
+        [Key(4)]
         public string EvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTitle")]
+        [Key(5)]
         public string PerformanceEvaluationTitle { get; set; }
 
         [DataMember(Name="performanceEvaluationTypeDescriptor")][DescriptorExists("PerformanceEvaluationTypeDescriptor")]
+        [IgnoreMember]
         public string PerformanceEvaluationTypeDescriptor { get; set; }
 
+        [Key(6)][JsonIgnore]
+        public int PerformanceEvaluationTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", PerformanceEvaluationTypeDescriptor); }
+            set { PerformanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", value); }
+        }
+
         [DataMember(Name="rubricRating")]
+        [Key(7)]
         public int RubricRating { get; set; }
 
         [DataMember(Name="schoolYear")]
+        [Key(8)]
         public short SchoolYear { get; set; }
 
         [DataMember(Name="termDescriptor")][DescriptorExists("TermDescriptor")]
+        [IgnoreMember]
         public string TermDescriptor { get; set; }
+
+        [Key(9)][JsonIgnore]
+        public int TermDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", TermDescriptor); }
+            set { TermDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", value); }
+        }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(10)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(11)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(12)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -24049,7 +25270,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// <summary>
     /// A class which represents the tpdm.RubricDimension table of the RubricDimension aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -24079,6 +25300,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// The unique identifier for the RubricDimension resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -24102,6 +25324,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         }
 
         [DataMember(Name="evaluationElementReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
@@ -24301,6 +25524,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="rubricRating")]
+        [Key(2)]            
         public int RubricRating 
         { 
             get => _rubricRating;
@@ -24496,6 +25720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(1024, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="criterionDescription")]
+        [Key(3)]
         public string CriterionDescription { get; set; }
 
         /// <summary>
@@ -24503,6 +25728,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="dimensionOrder")]
+        [Key(4)]
         public int? DimensionOrder { get; set; }
 
         /// <summary>
@@ -24511,7 +25737,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="rubricRatingLevelDescriptor")][DescriptorExists("RubricRatingLevelDescriptor")]
+        [IgnoreMember]
         public string RubricRatingLevelDescriptor { get; set; }
+
+        [Key(5)][JsonIgnore]
+        public int RubricRatingLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("RubricRatingLevelDescriptor", RubricRatingLevelDescriptor); }
+            set { RubricRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("RubricRatingLevelDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -24557,9 +25791,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(6)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(7)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -24646,7 +25882,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     /// <summary>
     /// A class which represents the tpdm.RubricRatingLevelDescriptor table of the RubricRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -24675,6 +25911,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// The unique identifier for the RubricRatingLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -24759,6 +25996,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -24767,6 +26005,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -24774,6 +26013,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -24781,6 +26021,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -24790,6 +26031,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -24799,6 +26041,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -24842,9 +26085,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -24917,7 +26162,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [Display(Name="TPDM")]
     public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, IChildEntity
@@ -24963,6 +26208,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         }
 
         [DataMember(Name="postSecondaryInstitutionReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
         {
@@ -24995,6 +26241,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
             set { SetSchool(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.EdFi.ISchool School
         {
             set { SetSchool(value); }
@@ -25202,7 +26449,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
     /// <summary>
     /// A class which represents the tpdm.SurveyResponseExtension table of the SurveyResponse aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [Display(Name="TPDM")]
     public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension, IChildEntity
@@ -25248,6 +26495,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         }
 
         [DataMember(Name="personReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -25280,6 +26528,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
             set { SetSurveyResponse(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.EdFi.ISurveyResponse SurveyResponse
         {
             set { SetSurveyResponse(value); }
@@ -25518,39 +26767,56 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// <summary>
     /// Represents a reference to the SurveyResponsePersonTargetAssociation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SurveyResponsePersonTargetAssociationReference : IResourceReference
     {
         [DataMember(Name="namespace")]
+        [Key(0)]
         public string Namespace { get; set; }
 
         [DataMember(Name="personId")]
+        [Key(1)]
         public string PersonId { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(2)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="surveyIdentifier")]
+        [Key(3)]
         public string SurveyIdentifier { get; set; }
 
         [DataMember(Name="surveyResponseIdentifier")]
+        [Key(4)]
         public string SurveyResponseIdentifier { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(5)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(6)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(7)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -25639,7 +26905,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// <summary>
     /// A class which represents the tpdm.SurveyResponsePersonTargetAssociation table of the SurveyResponsePersonTargetAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
@@ -25668,6 +26934,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// The unique identifier for the SurveyResponsePersonTargetAssociation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -25691,6 +26958,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
 
         [DataMember(Name="personReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -25724,6 +26992,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
 
         [DataMember(Name="surveyResponseReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SurveyResponse.EdFi.SurveyResponseReference SurveyResponseReference
         {
@@ -25993,9 +27262,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(3)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(4)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -26096,42 +27367,60 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// <summary>
     /// Represents a reference to the SurveySectionResponsePersonTargetAssociation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponsePersonTargetAssociationReference : IResourceReference
     {
         [DataMember(Name="namespace")]
+        [Key(0)]
         public string Namespace { get; set; }
 
         [DataMember(Name="personId")]
+        [Key(1)]
         public string PersonId { get; set; }
 
         [DataMember(Name="sourceSystemDescriptor")][DescriptorExists("SourceSystemDescriptor")]
+        [IgnoreMember]
         public string SourceSystemDescriptor { get; set; }
 
+        [Key(2)][JsonIgnore]
+        public int SourceSystemDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", SourceSystemDescriptor); }
+            set { SourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", value); }
+        }
+
         [DataMember(Name="surveyIdentifier")]
+        [Key(3)]
         public string SurveyIdentifier { get; set; }
 
         [DataMember(Name="surveyResponseIdentifier")]
+        [Key(4)]
         public string SurveyResponseIdentifier { get; set; }
 
         [DataMember(Name="surveySectionTitle")]
+        [Key(5)]
         public string SurveySectionTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(6)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(7)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(8)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -26225,7 +27514,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// <summary>
     /// A class which represents the tpdm.SurveySectionResponsePersonTargetAssociation table of the SurveySectionResponsePersonTargetAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
@@ -26254,6 +27543,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// The unique identifier for the SurveySectionResponsePersonTargetAssociation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -26277,6 +27567,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         }
 
         [DataMember(Name="personReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Person.EdFi.PersonReference PersonReference
         {
@@ -26310,6 +27601,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         }
 
         [DataMember(Name="surveySectionResponseReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public SurveySectionResponse.EdFi.SurveySectionResponseReference SurveySectionResponseReference
         {
@@ -26612,9 +27904,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(3)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(4)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------

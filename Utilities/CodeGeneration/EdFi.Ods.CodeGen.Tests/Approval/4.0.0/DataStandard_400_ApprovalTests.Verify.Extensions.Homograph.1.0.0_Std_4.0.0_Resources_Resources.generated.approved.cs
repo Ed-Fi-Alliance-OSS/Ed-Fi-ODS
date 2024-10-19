@@ -23,6 +23,8 @@ using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Homograph;
 using Newtonsoft.Json;
 using FluentValidation.Results;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: Name
 
@@ -31,30 +33,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// <summary>
     /// Represents a reference to the Name resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class NameReference : IResourceReference
     {
         [DataMember(Name="firstName")]
+        [Key(0)]
         public string FirstName { get; set; }
 
         [DataMember(Name="lastSurname")]
+        [Key(1)]
         public string LastSurname { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(2)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(4)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -128,7 +137,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// <summary>
     /// A class which represents the homograph.Name table of the Name aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
@@ -157,6 +166,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// The unique identifier for the Name resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -177,6 +187,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="firstName")]
+        [Key(1)]            
         public string FirstName { get; set; }
 
         /// <summary>
@@ -186,6 +197,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="lastSurname")]
+        [Key(2)]            
         public string LastSurname { get; set; }
         // -------------------------------------------------------------
 
@@ -289,9 +301,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(3)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(4)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -364,30 +378,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// <summary>
     /// Represents a reference to the Parent resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class ParentReference : IResourceReference
     {
         [DataMember(Name="parentFirstName")]
+        [Key(0)]
         public string ParentFirstName { get; set; }
 
         [DataMember(Name="parentLastSurname")]
+        [Key(1)]
         public string ParentLastSurname { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(2)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(4)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -461,7 +482,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// <summary>
     /// A class which represents the homograph.Parent table of the Parent aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -495,6 +516,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// The unique identifier for the Parent resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -518,6 +540,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
 
         [DataMember(Name="parentNameReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference ParentNameReference
         {
@@ -689,6 +712,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
         [NoDuplicateMembers][RequiredCollection]
         [DataMember(Name="addresses")]
+        [Key(2)]
         public ICollection<ParentAddress> ParentAddresses
         {
             get { return _parentAddresses; }
@@ -719,6 +743,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
         [NoDuplicateMembers][RequiredCollection]
         [DataMember(Name="studentSchoolAssociations")]
+        [Key(3)]
         public ICollection<ParentStudentSchoolAssociation> ParentStudentSchoolAssociations
         {
             get { return _parentStudentSchoolAssociations; }
@@ -751,9 +776,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(4)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(5)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -958,7 +985,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// <summary>
     /// A class which represents the homograph.ParentAddress table of the Parent aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class ParentAddress : Entities.Common.Homograph.IParentAddress
     {
@@ -1001,6 +1028,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
             set { SetParent(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.IParent Parent
         {
             set { SetParent(value); }
@@ -1018,6 +1046,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
+        [Key(0)]            
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -1182,7 +1211,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// <summary>
     /// A class which represents the homograph.ParentStudentSchoolAssociation table of the Parent aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class ParentStudentSchoolAssociation : Entities.Common.Homograph.IParentStudentSchoolAssociation
     {
@@ -1227,6 +1256,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
 
         [DataMember(Name="studentSchoolAssociationReference")]
+        [Key(0)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
@@ -1259,6 +1289,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
             set { SetParent(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.IParent Parent
         {
             set { SetParent(value); }
@@ -1540,27 +1571,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// <summary>
     /// Represents a reference to the School resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SchoolReference : IResourceReference
     {
         [DataMember(Name="schoolName")]
+        [Key(0)]
         public string SchoolName { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(1)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(3)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -1629,7 +1666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// <summary>
     /// A class which represents the homograph.School table of the School aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -1658,6 +1695,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// The unique identifier for the School resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -1681,6 +1719,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [Key(1)]
         [FullyDefinedReference]
         public SchoolYearType.Homograph.SchoolYearTypeReference SchoolYearTypeReference
         {
@@ -1712,6 +1751,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(100, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="schoolName")]
+        [Key(2)]            
         public string SchoolName { get; set; }
         // -------------------------------------------------------------
 
@@ -1806,6 +1846,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </summary>
         
         [DataMember(Name = "address")]
+        [Key(3)]
         public SchoolAddress SchoolAddress { get; set; }
 
         Entities.Common.Homograph.ISchoolAddress Entities.Common.Homograph.ISchool.SchoolAddress
@@ -1846,9 +1887,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(4)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(5)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -1986,7 +2029,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// <summary>
     /// A class which represents the homograph.SchoolAddress table of the School aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
@@ -2029,6 +2072,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
             set { SetSchool(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.ISchool School
         {
             set { SetSchool(value); }
@@ -2100,6 +2144,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText]
         [DataMember(Name="city")]
+        [Key(0)]
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -2206,27 +2251,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// <summary>
     /// Represents a reference to the SchoolYearType resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SchoolYearTypeReference : IResourceReference
     {
         [DataMember(Name="schoolYear")]
+        [Key(0)]
         public string SchoolYear { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(1)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(3)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -2295,7 +2346,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// <summary>
     /// A class which represents the homograph.SchoolYearType table of the SchoolYearType aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
@@ -2324,6 +2375,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// The unique identifier for the SchoolYearType resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -2344,6 +2396,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(20, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="schoolYear")]
+        [Key(1)]            
         public string SchoolYear { get; set; }
         // -------------------------------------------------------------
 
@@ -2438,9 +2491,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(2)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(3)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -2513,30 +2568,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// <summary>
     /// Represents a reference to the Staff resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StaffReference : IResourceReference
     {
         [DataMember(Name="staffFirstName")]
+        [Key(0)]
         public string StaffFirstName { get; set; }
 
         [DataMember(Name="staffLastSurname")]
+        [Key(1)]
         public string StaffLastSurname { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(2)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(4)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -2610,7 +2672,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// <summary>
     /// A class which represents the homograph.Staff table of the Staff aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -2644,6 +2706,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// The unique identifier for the Staff resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -2667,6 +2730,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
 
         [DataMember(Name="staffNameReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StaffNameReference
         {
@@ -2838,6 +2902,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
         [NoDuplicateMembers]
         [DataMember(Name="addresses")]
+        [Key(2)]
         public ICollection<StaffAddress> StaffAddresses
         {
             get { return _staffAddresses; }
@@ -2868,6 +2933,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
         [NoDuplicateMembers]
         [DataMember(Name="studentSchoolAssociations")]
+        [Key(3)]
         public ICollection<StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get { return _staffStudentSchoolAssociations; }
@@ -2900,9 +2966,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(4)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(5)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -3107,7 +3175,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// <summary>
     /// A class which represents the homograph.StaffAddress table of the Staff aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
@@ -3150,6 +3218,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             set { SetStaff(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.IStaff Staff
         {
             set { SetStaff(value); }
@@ -3167,6 +3236,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
+        [Key(0)]            
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -3331,7 +3401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// <summary>
     /// A class which represents the homograph.StaffStudentSchoolAssociation table of the Staff aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
@@ -3376,6 +3446,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
 
         [DataMember(Name="studentSchoolAssociationReference")]
+        [Key(0)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public StudentSchoolAssociation.Homograph.StudentSchoolAssociationReference StudentSchoolAssociationReference
         {
@@ -3408,6 +3479,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             set { SetStaff(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.IStaff Staff
         {
             set { SetStaff(value); }
@@ -3689,30 +3761,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// <summary>
     /// Represents a reference to the Student resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentReference : IResourceReference
     {
         [DataMember(Name="studentFirstName")]
+        [Key(0)]
         public string StudentFirstName { get; set; }
 
         [DataMember(Name="studentLastSurname")]
+        [Key(1)]
         public string StudentLastSurname { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(2)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(4)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -3786,7 +3865,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// <summary>
     /// A class which represents the homograph.Student table of the Student aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -3815,6 +3894,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// The unique identifier for the Student resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -3838,6 +3918,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
 
         [DataMember(Name="schoolYearTypeReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference("homograph", "Student")]
         public SchoolYearType.Homograph.SchoolYearTypeReference SchoolYearTypeReference
         {
@@ -3871,6 +3952,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
 
         [DataMember(Name="studentNameReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Name.Homograph.NameReference StudentNameReference
         {
@@ -4044,6 +4126,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </summary>
         [Required(ErrorMessage=ValidationHelpers.RequiredObjectMessageFormat)]
         [DataMember(Name = "address")]
+        [Key(3)]
         public StudentAddress StudentAddress { get; set; }
 
         Entities.Common.Homograph.IStudentAddress Entities.Common.Homograph.IStudent.StudentAddress
@@ -4084,9 +4167,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(4)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(5)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -4238,7 +4323,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// <summary>
     /// A class which represents the homograph.StudentAddress table of the Student aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
@@ -4281,6 +4366,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             set { SetStudent(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.Homograph.IStudent Student
         {
             set { SetStudent(value); }
@@ -4298,6 +4384,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         [RequiredWithNonDefault]
         [NonDefaultStringLength(30, MinimumLength=2, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="city")]
+        [Key(0)]            
         public string City { get; set; }
         // -------------------------------------------------------------
 
@@ -4467,33 +4554,41 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// <summary>
     /// Represents a reference to the StudentSchoolAssociation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationReference : IResourceReference
     {
         [DataMember(Name="schoolName")]
+        [Key(0)]
         public string SchoolName { get; set; }
 
         [DataMember(Name="studentFirstName")]
+        [Key(1)]
         public string StudentFirstName { get; set; }
 
         [DataMember(Name="studentLastSurname")]
+        [Key(2)]
         public string StudentLastSurname { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(3)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(4)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(5)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -4572,7 +4667,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// <summary>
     /// A class which represents the homograph.StudentSchoolAssociation table of the StudentSchoolAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
@@ -4601,6 +4696,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         /// The unique identifier for the StudentSchoolAssociation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -4624,6 +4720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         }
 
         [DataMember(Name="schoolReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public School.Homograph.SchoolReference SchoolReference
         {
@@ -4657,6 +4754,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         }
 
         [DataMember(Name="studentReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.Homograph.StudentReference StudentReference
         {
@@ -4863,9 +4961,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(3)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(4)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
