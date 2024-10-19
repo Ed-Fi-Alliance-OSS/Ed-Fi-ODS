@@ -118,7 +118,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
 
-            string mainHql = GetMainHql();
+            string mainHql = GetMainHql((isReadRequest || _resourceSerializationEnabled));
 
             using (new SessionScope(SessionFactory))
             {
@@ -148,7 +148,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);
             }
 
-            string GetMainHql()
+            string GetMainHql(bool isReadRequest)
             {
                 return _hqlByScenario.GetOrAdd(
                     (isReadRequest, whereClause, orderByClause),
