@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -72,7 +73,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -172,7 +174,8 @@ Actual:
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -258,7 +261,8 @@ Actual:
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
