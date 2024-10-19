@@ -8,7 +8,7 @@ public class PagingParameters
 
     public PagingParameters(IQueryParameters queryParameters)
     {
-        if (queryParameters.MinAggregateId != null && queryParameters.MaxAggregateId != null && queryParameters.PageSize != null)
+        if (queryParameters.MinAggregateId != null && queryParameters.MaxAggregateId != null)
         {
             PageSize = queryParameters.PageSize;
             MinAggregateId = queryParameters.MinAggregateId;

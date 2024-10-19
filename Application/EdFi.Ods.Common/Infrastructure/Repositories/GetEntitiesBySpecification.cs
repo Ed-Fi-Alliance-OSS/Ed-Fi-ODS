@@ -83,14 +83,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 var result = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(aggregateIds, cancellationToken);
 
-                string nextPageToken = null;
-
-                if (queryParameters.MinAggregateId != null)
-                {
-                    nextPageToken = PagingHelpers.GetPageToken(
-                        specificationResult.Ids[^1].AggregateId + 1,
-                        queryParameters.MaxAggregateId!.Value);
-                }
+                string nextPageToken = PagingHelpers.GetPageToken(
+                    specificationResult.Ids[^1].AggregateId + 1,
+                    queryParameters.MaxAggregateId ?? int.MaxValue);
 
                 return new GetBySpecificationResult<TEntity>
                 {

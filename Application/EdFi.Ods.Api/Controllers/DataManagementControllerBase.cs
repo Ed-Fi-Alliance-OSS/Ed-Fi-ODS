@@ -196,7 +196,7 @@ namespace EdFi.Ods.Api.Controllers
                 Response.Headers.Append(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
             }
 
-            if (queryParameters.MinAggregateId != null && result.Resources.Count > 0)
+            if (result.Resources.Count > 0)
             {
                 Response.Headers.Append(HeaderConstants.NextPageToken, result.ResultMetadata.NextPageToken);
             }
