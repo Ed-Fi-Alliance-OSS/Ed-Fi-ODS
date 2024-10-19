@@ -11,6 +11,7 @@ using System.Reflection;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
@@ -39,6 +40,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IOptions<MvcNewtonsoftJsonOptions> _jsonOptions;
+        private readonly ApiSettings _apiSettings;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
@@ -46,11 +48,13 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+            IOptions<MvcNewtonsoftJsonOptions> jsonOptions,
+            ApiSettings apiSettings)
         {
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
             _jsonOptions = jsonOptions;
+            _apiSettings = apiSettings;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -115,7 +119,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _jsonOptions);
+            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _jsonOptions, _apiSettings);
 
             return configuration;
 

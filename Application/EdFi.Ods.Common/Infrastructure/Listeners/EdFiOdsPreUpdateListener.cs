@@ -8,6 +8,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Compression;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +24,17 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
 {
     private readonly JsonSerializerSettings _jsonSerializerSettings;
     private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsPreUpdateListener));
+    private readonly bool _serializationEnabled;
 
-    public EdFiOdsPreUpdateListener(IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+    public EdFiOdsPreUpdateListener(IOptions<MvcNewtonsoftJsonOptions> jsonOptions, ApiSettings apiSettings)
     {
-        _jsonSerializerSettings = new JsonSerializerSettings(jsonOptions.Value.SerializerSettings);
-        _jsonSerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ResourceSerialization.GetConfigKeyName());
+
+        if (_serializationEnabled)
+        {
+            _jsonSerializerSettings = new JsonSerializerSettings(jsonOptions.Value.SerializerSettings);
+            _jsonSerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
     }
 
     public Task<bool> OnPreUpdateAsync(PreUpdateEvent @event, CancellationToken cancellationToken)
@@ -38,24 +46,27 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
 
     public bool OnPreUpdate(PreUpdateEvent @event)
     {
-        if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
+        if (_serializationEnabled)
         {
-            var persister = @event.Persister;
-
-            // Update the entity with the last modified date before serializing
-            var lastModifiedDate = persister.Get<DateTime>(@event.State, "LastModifiedDate");
-            aggregateRoot.LastModifiedDate = lastModifiedDate;
-
-            // Produce the JSON
-            var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
-            aggregateRoot.Json = resourceData;
-
-            // Update the state
-            persister.Set(@event.State, "Json", aggregateRoot.Json);
-
-            if (_logger.IsDebugEnabled)
+            if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
-                _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressStream(new MemoryStream(resourceData, 8, resourceData.Length - 8))}");
+                var persister = @event.Persister;
+
+                // Update the entity with the last modified date before serializing
+                var lastModifiedDate = persister.Get<DateTime>(@event.State, "LastModifiedDate");
+                aggregateRoot.LastModifiedDate = lastModifiedDate;
+
+                // Produce the JSON
+                var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
+                aggregateRoot.Json = resourceData;
+
+                // Update the state
+                persister.Set(@event.State, "Json", aggregateRoot.Json);
+
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressStream(new MemoryStream(resourceData, 8, resourceData.Length - 8))}");
+                }
             }
         }
 

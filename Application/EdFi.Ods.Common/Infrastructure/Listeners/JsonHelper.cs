@@ -6,10 +6,9 @@
 using System;
 using System.IO;
 using System.IO.Compression;
-using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Serialization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Infrastructure.Listeners;
@@ -22,7 +21,19 @@ public class JsonHelper
         if (ResourceEntityTypeMap.TryGetResourceType(entity.GetType(), out var resourceType))
         {
             object resource = Activator.CreateInstance(resourceType);
-            (entity as IMappable).Map(resource);
+
+            var originalAction = GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction();
+
+            try
+            {
+                // Set the action in context so we map the reference data
+                GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(RequestActions.ReadActionUri);
+                (entity as IMappable).Map(resource);
+            }
+            finally
+            {
+                GeneratedArtifactStaticDependencies.AuthorizationContextProvider.SetAction(originalAction);
+            }
 
             var serializer = JsonSerializer.Create(jsonSerializerSettings);
 
@@ -32,7 +43,8 @@ public class JsonHelper
             using (var memoryStream = new MemoryStream())
             {
                 // Write the LastModifiedDate value at the head of the stream so we can detect if the JSON has changed and is invalid without deserializing it
-                memoryStream.Write((entity as IDateVersionedEntity).LastModifiedDate.GetBytes());
+                byte[] lastModifiedDateBytes = BitConverter.GetBytes((entity as IDateVersionedEntity)!.LastModifiedDate.ToBinary());
+                memoryStream.Write(lastModifiedDateBytes);
 
                 using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Compress))
                 {

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Models;
@@ -28,8 +29,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
             IParameterListSetter parameterListSetter,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings)
         {
             _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
         }

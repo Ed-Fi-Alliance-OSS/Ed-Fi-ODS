@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -27,8 +28,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         public GetEntityByKey(
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
