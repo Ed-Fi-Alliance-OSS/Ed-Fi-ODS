@@ -26,8 +26,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : AggregateRootWithCompositeKey, IMappable
     {
         private const string ChangeVersion = "ChangeVersion";
-        public const string _Id = "Id";
-        private static readonly IList<ResultItem<TEntity>> _emptyList = new List<ResultItem<TEntity>>();
+        private static readonly IList<ResultItem<TEntity>> _emptyList = Array.Empty<ResultItem<TEntity>>();
 
         private readonly IAggregateRootQueryBuilderProvider _pagedAggregateIdsCriteriaProvider;
         private readonly IDomainModelProvider _domainModelProvider;
@@ -79,37 +78,59 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     };
                 }
 
-                // Get the full results
-                var aggregateIds = specificationResult.Ids.Select(x => x.AggregateId).ToList();
-                
-                var result = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(aggregateIds, cancellationToken);
-                // Get only the results from the ODS for the items without JSON 
-                Guid[] idsToLoad = specificationResult.ItemData
+                // Get only the results from the ODS for the items without JSON, or with mismatching LastModifiedDate value 
+                int[] aggregateIdsToLoad = specificationResult.ItemData
                     .Where(x => x.Json == null || x.LastModifiedDate != GetLastModifiedDate(x.Json))
-                    .Select(x => x.Id).ToArray();
+                    .Select(x => x.AggregateId)
+                    .ToArray();
 
-                List<ResultItem<TEntity>> resultWithOriginalOrder;
+                List<ResultItem<TEntity>> results;
 
-                if (idsToLoad.Length > 0)
+                if (aggregateIdsToLoad.Length == 0)
                 {
-                    var entityResults = await _getEntitiesByIds.GetByIdsAsync(
-                        idsToLoad,
-                        cancellationToken);
-                    
-                    // Order results using original order (GetByIds sorts by Id)
-                    resultWithOriginalOrder = specificationResult.ItemData
-                        .GroupJoin(
-                            entityResults, 
-                            itemData => itemData.Id, 
-                            entity => entity.Id, 
-                            (itemData, entities) => new ResultItem<TEntity>(entities.SingleOrDefault(), itemData.Json))
+                    results = specificationResult.ItemData
+                        .Select(i => new ResultItem<TEntity>(null, i.Json))
                         .ToList();
                 }
                 else
                 {
-                    resultWithOriginalOrder = specificationResult.ItemData
-                        .Select(i => new ResultItem<TEntity>(null, i.Json))
-                        .ToList();
+                    var entityResults = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(
+                        aggregateIdsToLoad,
+                        cancellationToken);
+
+                    results = new();
+
+                    // Results will be ordered by AggregateId
+                    int itemDataIndex = 0;
+                    int entityResultIndex = 0;
+
+                    while (itemDataIndex < specificationResult.ItemData.Count && entityResultIndex < entityResults.Count)
+                    {
+                        var itemData = specificationResult.ItemData[itemDataIndex];
+                        var entity = entityResults[entityResultIndex];
+
+                        // If the AggregateIds match, assign the entity to the ItemData object
+                        if (itemData.AggregateId == entity.AggregateId)
+                        {
+                            results.Add(new ResultItem<TEntity>(entity));
+
+                            // itemData.Entity = entity;
+                            itemDataIndex++;
+                            entityResultIndex++;
+                        }
+                        // If the ItemData's AggregateId is smaller, move to the next ItemData
+                        else if (itemData.AggregateId < entity.AggregateId)
+                        {
+                            results.Add(new ResultItem<TEntity>(null, itemData.Json));
+                            itemDataIndex++;
+                        }
+                        // If the EntityResult's AggregateId is smaller, move to the next EntityResult
+                        else
+                        {
+                            throw new InvalidOperationException("Unexpected entity encountered in entity results.");
+                            // entityResultIndex++;
+                        }
+                    }
                 }
 
                 string nextPageToken = null;
@@ -123,7 +144,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 return new GetBySpecificationResult<TEntity>
                 {
-                    Results = result, // TODO:ODS-6433 - Need to optimize the return data to avoid too much linq processing here
+                    Results = results,
                     ResultMetadata = new ResultMetadata
                     {
                         TotalCount = specificationResult.TotalCount,
@@ -258,11 +279,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         
         private class ItemData
         {
-            public Guid Id { get; set; }
             public int AggregateId { get; set; }
 
             public byte[] Json { get; set; }
             public DateTime LastModifiedDate { get; set; }
+
+            public TEntity Entity { get; set; }
         }
     }
 }

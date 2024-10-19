@@ -5,6 +5,7 @@
 
 
 using System;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Interceptors;
 using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Security.Authorization;
@@ -21,12 +22,13 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             this NHibernate.Cfg.Configuration configuration,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
+            IOptions<MvcNewtonsoftJsonOptions> jsonOptions,
+            ApiSettings apiSettings)
         {
             configuration.Interceptor = new EdFiOdsInterceptor();
-            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener(jsonOptions));
+            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener(jsonOptions, apiSettings));
             configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener());
-            configuration.SetListener(ListenerType.PreUpdate, new EdFiOdsPreUpdateListener(jsonOptions));
+            configuration.SetListener(ListenerType.PreUpdate, new EdFiOdsPreUpdateListener(jsonOptions, apiSettings));
 
             configuration.SetListener(
                 ListenerType.PostUpdate,
