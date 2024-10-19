@@ -5,11 +5,13 @@
 
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using log4net;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 
-namespace EdFi.Ods.Common.Infrastructure.Configuration;
+namespace EdFi.Ods.Features.ResourceSerialization;
 
 public class JsonNHibernateConfigurationActivity : INHibernateBeforeBindMappingActivity
     {
