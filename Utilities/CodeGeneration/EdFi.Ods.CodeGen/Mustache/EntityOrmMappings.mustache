@@ -79,7 +79,6 @@
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
     <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
-    <property name="Json" column="Json" type="BinaryBlob" length="8000" />
         {{/IsAggregateRoot}}
 
     <!-- Properties -->
