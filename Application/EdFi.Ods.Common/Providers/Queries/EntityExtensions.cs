@@ -9,11 +9,18 @@ namespace EdFi.Ods.Common.Providers.Queries;
 
 public static class EntityExtensions
 {
-    private const string _baseAlias = "b";
-    private const string _standardAlias = "r";
+    private const string BaseAlias = "b";
+    private const string StandardAlias = "r";
 
+    /// <summary>
+    /// Determines the appropriate table alias for the given aggregate root entity.
+    /// </summary>
+    /// <param name="aggregateRootEntity">The aggregate root entity to determine the alias for.</param>
+    /// <returns>
+    /// Returns "b" if the entity is derived, otherwise returns "r".
+    /// </returns>
     public static string RootTableAlias(this Entity aggregateRootEntity)
     {
-        return aggregateRootEntity.IsDerived ? _baseAlias : _standardAlias;
+        return aggregateRootEntity.IsDerived ? BaseAlias : StandardAlias;
     }
 }

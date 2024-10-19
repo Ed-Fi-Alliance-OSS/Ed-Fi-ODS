@@ -79,6 +79,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
         {
             private OpenApiMetadataDocumentFactory _extensionOnlyOpenApiMetadataDocumentFactory;
             private SdkGenExtensionResourceStrategy _resourceStrategy;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "gb";
             private OpenApiMetadataDocument _actualMetadataObject;
@@ -100,10 +101,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 var upconversionProvider = A.Fake<IOpenApiUpconversionProvider>();
                 A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
 
+                _resourceIdentificationCodePropertiesProvider = A.Fake<IResourceIdentificationCodePropertiesProvider>();
+                
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     upconversionProvider,
-                    Stub<IResourceIdentificationCodePropertiesProvider>(),
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();

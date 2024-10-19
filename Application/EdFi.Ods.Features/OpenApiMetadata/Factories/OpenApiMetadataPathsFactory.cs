@@ -415,7 +415,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 type = OpenApiMetadataDocumentHelper.PropertyType(x),
                                 format = x.PropertyType.ToOpenApiFormat(),
                                 required = false,
-                                isIdentity = null,
                                 maxLength = OpenApiMetadataDocumentHelper.GetMaxLength(x),
                                 isDeprecated = OpenApiMetadataDocumentHelper.GetIsDeprecated(x),
                                 deprecatedReasons = OpenApiMetadataDocumentHelper.GetDeprecatedReasons(x)

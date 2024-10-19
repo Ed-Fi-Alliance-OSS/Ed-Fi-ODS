@@ -2144,7 +2144,7 @@
 									"query": [
 										{
 											"key": "educationOrganizationIdentificationSystemDescriptor",
-											"value": "uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#non-existatnt"
+											"value": "uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#non-existant"
 										}
 									]
 								}
