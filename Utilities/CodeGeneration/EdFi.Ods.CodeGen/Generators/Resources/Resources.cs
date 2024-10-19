@@ -10,8 +10,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
+using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -273,11 +275,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 {
                     ResourceReference = new
                     {
+                        MessagePackIndexer = new MessagePackIndexer(),
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers =
                             _resourcePropertyRenderer.AssembleIdentifiers(resourceClass),
                         Href = AssembleHref(resourceClass),
-                        HasDiscriminator = resourceClass.Entity.HasDiscriminator()
+                        HasDiscriminator = resourceClass.Entity.HasDiscriminator(),
                     },
                     ShouldRenderClass = false,
                     HasDiscriminator = resourceClass.Entity.HasDiscriminator()
@@ -323,10 +326,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             return new
             {
+                MessagePackIndexer = new MessagePackIndexer(),
                 ShouldRenderClass = true,
                 ResourceReference = resourceClass.IsAggregateReference()
                     ? new
                     {
+                        MessagePackIndexer = new MessagePackIndexer(),
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers = _resourcePropertyRenderer
                             .AssembleIdentifiers(resourceClass),
