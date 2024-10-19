@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -25,8 +25,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         : NHibernateRepositoryOperationBase, IGetEntitiesBySpecification<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public const string _Id = "Id";
-        private static IList<TEntity> EmptyList = new List<TEntity>();
+        private static readonly IList<TEntity> _emptyList = Array.Empty<TEntity>();
 
         private readonly IAggregateRootQueryBuilderProvider _pagedAggregateIdsCriteriaProvider;
         private readonly IDomainModelProvider _domainModelProvider;
@@ -52,7 +51,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             CancellationToken cancellationToken)
         {
             var entityFullName = specification.GetApiModelFullName();
-            
+
             if (!_domainModelProvider.GetDomainModel().EntityByFullName.TryGetValue(entityFullName, out var aggregateRootEntity))
             {
                 throw new Exception($"Unable to find API model entity for '{entityFullName}'.");
@@ -69,7 +68,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 {
                     return new GetBySpecificationResult<TEntity>
                     {
-                        Results = EmptyList,
+                        Results = _emptyList,
                         ResultMetadata = new ResultMetadata
                         {
                             TotalCount = specificationResult.TotalCount,
