@@ -23,6 +23,8 @@ using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: InstitutionControlDescriptor
 
@@ -31,7 +33,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     /// <summary>
     /// A class which represents the samplestudenttranscript.InstitutionControlDescriptor table of the InstitutionControlDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -60,6 +62,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// The unique identifier for the InstitutionControlDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -144,6 +147,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -152,6 +156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -159,6 +164,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -166,6 +172,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -175,6 +182,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -184,6 +192,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -227,9 +236,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -302,7 +313,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     /// <summary>
     /// A class which represents the samplestudenttranscript.InstitutionLevelDescriptor table of the InstitutionLevelDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -331,6 +342,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// The unique identifier for the InstitutionLevelDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -415,6 +427,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -423,6 +436,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -430,6 +444,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -437,6 +452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -446,6 +462,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -455,6 +472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -498,9 +516,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -573,27 +593,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// <summary>
     /// Represents a reference to the PostSecondaryOrganization resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class PostSecondaryOrganizationReference : IResourceReference
     {
         [DataMember(Name="nameOfInstitution")]
+        [Key(0)]
         public string NameOfInstitution { get; set; }
 
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(1)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public string Discriminator { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(3)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -662,7 +688,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// <summary>
     /// A class which represents the samplestudenttranscript.PostSecondaryOrganization table of the PostSecondaryOrganization aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [NoUnsuppliedRequiredMembersWithMeaningfulDefaults]
     public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, IHasRequiredMembersWithMeaningfulDefaultValues
@@ -692,6 +718,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// The unique identifier for the PostSecondaryOrganization resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -712,6 +739,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, MinimumLength=1, ErrorMessage=ValidationHelpers.StringLengthWithMinimumMessageFormat), NoDangerousText, NoWhitespace]
         [DataMember(Name="nameOfInstitution")]
+        [Key(1)]            
         public string NameOfInstitution { get; set; }
         // -------------------------------------------------------------
 
@@ -778,6 +806,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="acceptanceIndicator")]
+        [Key(2)]
         public bool AcceptanceIndicator 
         { 
             get => _acceptanceIndicator;
@@ -796,7 +825,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="institutionControlDescriptor")][DescriptorExists("InstitutionControlDescriptor")]
+        [IgnoreMember]
         public string InstitutionControlDescriptor { get; set; }
+
+        [Key(3)][JsonIgnore]
+        public int InstitutionControlDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("InstitutionControlDescriptor", InstitutionControlDescriptor); }
+            set { InstitutionControlDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("InstitutionControlDescriptor", value); } 
+        }
 
         /// <summary>
         /// The level of the institution.
@@ -805,7 +842,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="institutionLevelDescriptor")][DescriptorExists("InstitutionLevelDescriptor")]
+        [IgnoreMember]
         public string InstitutionLevelDescriptor { get; set; }
+
+        [Key(4)][JsonIgnore]
+        public int InstitutionLevelDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("InstitutionLevelDescriptor", InstitutionLevelDescriptor); }
+            set { InstitutionLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("InstitutionLevelDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         IEnumerable<string> IHasRequiredMembersWithMeaningfulDefaultValues.GetUnassignedMemberNames()
@@ -851,9 +896,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(5)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(6)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -926,7 +973,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     /// <summary>
     /// A class which represents the samplestudenttranscript.SpecialEducationGraduationStatusDescriptor table of the SpecialEducationGraduationStatusDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -955,6 +1002,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// The unique identifier for the SpecialEducationGraduationStatusDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -1039,6 +1087,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -1047,6 +1096,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -1054,6 +1104,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -1061,6 +1112,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -1070,6 +1122,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -1079,6 +1132,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -1122,9 +1176,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -1197,7 +1253,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// <summary>
     /// A class which represents the samplestudenttranscript.StudentAcademicRecordClassRankingExtension table of the StudentAcademicRecord aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IChildEntity
@@ -1241,6 +1297,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecordClassRanking(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.EdFi.IStudentAcademicRecordClassRanking StudentAcademicRecordClassRanking
         {
             set { SetStudentAcademicRecordClassRanking(value); }
@@ -1312,7 +1369,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="specialEducationGraduationStatusDescriptor")][DescriptorExists("SpecialEducationGraduationStatusDescriptor")]
+        [IgnoreMember]
         public string SpecialEducationGraduationStatusDescriptor { get; set; }
+
+        [Key(0)][JsonIgnore]
+        public int SpecialEducationGraduationStatusDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SpecialEducationGraduationStatusDescriptor", SpecialEducationGraduationStatusDescriptor); }
+            set { SpecialEducationGraduationStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SpecialEducationGraduationStatusDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1418,7 +1483,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// <summary>
     /// A class which represents the samplestudenttranscript.StudentAcademicRecordExtension table of the StudentAcademicRecord aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     [Display(Name="SampleStudentTranscript")]
     public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IChildEntity
@@ -1464,6 +1529,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         }
 
         [DataMember(Name="postSecondaryOrganizationReference")]
+        [Key(0)]
         [FullyDefinedReference]
         public PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganizationReference PostSecondaryOrganizationReference
         {
@@ -1496,6 +1562,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
             set { SetStudentAcademicRecord(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.EdFi.IStudentAcademicRecord StudentAcademicRecord
         {
             set { SetStudentAcademicRecord(value); }
@@ -1593,7 +1660,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="submissionCertificationDescriptor")][DescriptorExists("SubmissionCertificationDescriptor")]
+        [IgnoreMember]
         public string SubmissionCertificationDescriptor { get; set; }
+
+        [Key(1)][JsonIgnore]
+        public int SubmissionCertificationDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SubmissionCertificationDescriptor", SubmissionCertificationDescriptor); }
+            set { SubmissionCertificationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SubmissionCertificationDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1718,7 +1793,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     /// <summary>
     /// A class which represents the samplestudenttranscript.SubmissionCertificationDescriptor table of the SubmissionCertificationDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -1747,6 +1822,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// The unique identifier for the SubmissionCertificationDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -1831,6 +1907,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -1839,6 +1916,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -1846,6 +1924,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -1853,6 +1932,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -1862,6 +1942,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -1871,6 +1952,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -1914,9 +1996,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
