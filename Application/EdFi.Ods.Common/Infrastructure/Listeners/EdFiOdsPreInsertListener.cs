@@ -73,7 +73,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                     aggregateRoot.LastModifiedDate = lastModifiedDate;
 
                     // Produce the JSON
-                    var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
+                    var resourceData = MessagePackHelper.SerializeAndCompressResourceData(aggregateRoot);
+                    // var resourceData = JsonHelper.SerializeAndCompressResourceData(aggregateRoot, _jsonSerializerSettings);
                     aggregateRoot.Json = resourceData;
 
                     // Update the state
@@ -81,7 +82,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
                     if (_logger.IsDebugEnabled)
                     {
-                        _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressByteArray(resourceData)}");
+                        _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                        // _logger.Debug($"JSON for updated entity: {CompressionHelper.DecompressByteArray(resourceData)}");
                     }
                 }
             }
