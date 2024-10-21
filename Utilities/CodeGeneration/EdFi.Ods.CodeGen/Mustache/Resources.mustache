@@ -58,6 +58,7 @@ namespace {{ResourceClassesNamespace}}
         {{/IsDescriptorUsage}}
         {{/IsUniqueId}}
         {{#IsUniqueId}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{PropertyType}} {{PropertyName}} 
         {
             get => _{{PropertyFieldName}};
@@ -496,7 +497,7 @@ namespace {{ResourceClassesNamespace}}
         /// </summary>
         {{{Misc}}}
 {{>Resources_PropertyValidations}}
-        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"),Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}}){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore{{/JsonIgnore}}]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [{{^JsonIgnore}}DataMember(Name="{{JsonPropertyName}}"),Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}}){{/JsonIgnore}}{{#JsonIgnore}}JsonIgnore, IgnoreMember{{/JsonIgnore}}]{{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}{{#IsDescriptorUsage}}[DescriptorExists("{{DescriptorName}}")]{{/IsDescriptorUsage}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{PropertyType}} I{{DerivedName}}.{{DerivedName}}Id
@@ -1041,22 +1042,15 @@ namespace {{ResourceClassesNamespace}}
         {{/InheritedCollections}}
         // -------------------------------------------------------------
 
+        {{#IsExtendable}}
         // =============================================================
         //                     Extensions
         // -------------------------------------------------------------
-        {{#IsExtendable}}
         [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public System.Collections.IDictionary Extensions { get; set; }
-        {{/IsExtendable}}
-        {{^IsExtendable}}
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        {{/IsExtendable}}
         // -------------------------------------------------------------
+        {{/IsExtendable}}
 
         // =============================================================
         //                          Collections
