@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int InstitutionControlDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -216,15 +216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -360,7 +351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int InstitutionLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -496,15 +487,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -876,15 +858,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1020,7 +993,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int SpecialEducationGraduationStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1156,15 +1129,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1395,15 +1359,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1686,15 +1641,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1840,7 +1786,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int SubmissionCertificationDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -1976,15 +1922,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections

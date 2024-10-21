@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int ArtMediumDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -216,15 +216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -533,15 +524,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1160,15 +1142,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1773,15 +1746,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2111,15 +2075,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2351,15 +2306,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2576,15 +2522,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2853,15 +2790,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2988,7 +2916,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int FavoriteBookCategoryDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -3124,15 +3052,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3268,7 +3187,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int MembershipTypeDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -3404,15 +3323,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3669,15 +3579,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4086,15 +3987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4319,15 +4211,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4545,15 +4428,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4791,15 +4665,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -5048,15 +4913,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -5323,15 +5179,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -5703,15 +5550,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6324,15 +6162,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6762,15 +6591,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7004,15 +6824,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7266,15 +7077,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7541,15 +7343,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7789,15 +7582,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -8171,15 +7955,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -8548,15 +8323,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -8808,15 +8574,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9085,15 +8842,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9313,15 +9061,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9822,15 +9561,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10190,15 +9920,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10424,15 +10145,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10684,15 +10396,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10804,6 +10507,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
 
         [DataMember(Name="studentUniqueId")]
+        [Key(5)]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -10818,12 +10522,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
-        [Key(5)]
+        [Key(6)]
         public Guid ResourceId { get; set; }
 
 
         [JsonIgnore]
-        [Key(6)]
+        [Key(7)]
         public Link _link;
 
         [IgnoreMember]
@@ -11500,15 +11204,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -12142,15 +11837,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -12379,15 +12065,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -12747,15 +12424,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -12992,15 +12660,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13249,15 +12908,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13475,15 +13125,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13704,15 +13345,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13965,15 +13597,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -14382,15 +14005,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -14615,15 +14229,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -14915,15 +14520,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -15152,15 +14748,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -15524,15 +15111,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -15636,6 +15214,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         public short GraduationSchoolYear { get; set; }
 
         [DataMember(Name="studentUniqueId")]
+        [Key(3)]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -15650,19 +15229,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
-        [Key(3)]
+        [Key(4)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
-        [Key(4)]
+        [Key(5)]
         public string Discriminator { get; set; }
 
 
         [JsonIgnore]
-        [Key(5)]
+        [Key(6)]
         public Link _link;
 
         [IgnoreMember]
@@ -16247,15 +15826,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17028,15 +16598,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17273,15 +16834,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17530,15 +17082,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17756,15 +17299,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17982,15 +17516,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -18208,15 +17733,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -18490,15 +18006,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -18755,15 +18262,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -18993,15 +18491,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -19426,15 +18915,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20049,15 +19529,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20295,15 +19766,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20541,15 +20003,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20913,15 +20366,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -21186,15 +20630,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -21415,15 +20850,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -21637,15 +21063,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -22178,15 +21595,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
