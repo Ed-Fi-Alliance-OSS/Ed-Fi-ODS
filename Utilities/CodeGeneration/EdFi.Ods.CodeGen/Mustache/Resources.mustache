@@ -1047,6 +1047,7 @@ namespace {{ResourceClassesNamespace}}
         //                     Extensions
         // -------------------------------------------------------------
         [JsonProperty("_ext")][JsonConverter(typeof(ExtensionsConverter), "{{ResourceName}}", "{{EntityName}}")]
+        [MessagePackFormatter(typeof(ExtensionsMessagePackFormatter), "{{ResourceName}}", "{{EntityName}}")]
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public System.Collections.IDictionary Extensions { get; set; }
         // -------------------------------------------------------------
