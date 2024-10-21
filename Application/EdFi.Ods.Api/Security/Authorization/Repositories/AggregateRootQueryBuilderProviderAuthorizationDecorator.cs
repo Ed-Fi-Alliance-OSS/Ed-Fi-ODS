@@ -215,6 +215,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     filterDefinition.CriteriaApplicator(
                         queryBuilder,
                         conjunctionQueryBuilder,
+                        authorizationPlan.RequestContext.Resource,
                         filterContext.SubjectEndpointNames,
                         parameterValues,
                         joinType,
