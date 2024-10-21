@@ -11,6 +11,7 @@ using System.Threading;
 using Dapper;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Database.Querying
 {
@@ -52,6 +53,11 @@ namespace EdFi.Ods.Common.Database.Querying
             TableName = tableName;
         }
 
+        public Dialect Dialect
+        {
+            get => _dialect;
+        }
+
         public string TableName { get; private set; }
 
         public IDictionary<string, object> Parameters { get; } = new Dictionary<string, object>();
@@ -77,14 +83,14 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder Where(string column, object value)
+        public QueryBuilder Where(string column, object value, string parameterNameDisposition = null)
         {
-            return Where(column, "=", value);
+            return Where(column, "=", value, parameterNameDisposition);
         }
 
-        public QueryBuilder Where(string column, string op, object value)
+        public QueryBuilder Where(string column, string op, object value, string parameterNameDisposition = null)
         {
-            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value);
+            (DynamicParameters parameters, string parameterName) = GetParametersFromObject(value, parameterNameDisposition);
 
             _sqlBuilder.Where($"{column} {op} {parameterName}", parameters);
 
@@ -106,7 +112,7 @@ namespace EdFi.Ods.Common.Database.Querying
             else if (value is IList values)
             {
                 parameters = new DynamicParameters();
-                parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
+                parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
                 parameters.AddDynamicParams(new[] { new KeyValuePair<string, object>(parameterName, values) });
             }
             else if (value is DynamicParameters dynamicParameters)
@@ -119,7 +125,7 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 // Inline parameter, automatically named
                 parameters = new DynamicParameters();
-                parameterName = parameterNameDisposition ?? $"@p{_parameterIndexer.Increment()}";
+                parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
                 parameters.Add(parameterName, value);
             }
 
@@ -156,7 +162,7 @@ namespace EdFi.Ods.Common.Database.Querying
             }
 
             // Incorporate any JOINs added into this builder
-            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -176,17 +182,27 @@ namespace EdFi.Ods.Common.Database.Querying
                 return this;
             }
 
-            var template = childScopeSqlBuilder.AddTemplate(
-                "/**where**/",
-                childScope.Parameters.Any()
-                    ? new DynamicParameters(childScope.Parameters)
-                    : null);
+            if (childScopeSqlBuilder.HasWhereClause())
+            {
+                var template = childScopeSqlBuilder.AddTemplate(
+                    "/**where**/",
+                    childScope.Parameters.Any()
+                        ? new DynamicParameters(childScope.Parameters)
+                        : null);
 
-            // SqlBuilder warps 'OR' where clauses when building the template SQL
-            _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+                // SqlBuilder wraps 'OR' where clauses when building the template SQL
+                _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+            }
+            else
+            {
+                if (childScope.Parameters.Any())
+                {
+                    _sqlBuilder.AddParameters(childScope.Parameters);
+                }
+            }
 
             // Incorporate the JOINs into this builder
-            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "with", "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -304,19 +320,19 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
         
-        public QueryBuilder WhereIn(string columnName, IList values)
+        public QueryBuilder WhereIn(string columnName, IList values, string parameterNameDisposition = null)
         {
-            return WhereIn(columnName, values, useOrWhere: false);
+            return WhereIn(columnName, values, parameterNameDisposition, useOrWhere: false);
         }
 
-        public QueryBuilder OrWhereIn(string columnName, IList values)
+        public QueryBuilder OrWhereIn(string columnName, IList values, string parameterNameDisposition = null)
         {
-            return WhereIn(columnName, values, useOrWhere: true);
+            return WhereIn(columnName, values, parameterNameDisposition, useOrWhere: true);
         }
 
-        private QueryBuilder WhereIn(string columnName, IList values, bool useOrWhere)
+        private QueryBuilder WhereIn(string columnName, IList values, string parameterNameDisposition, bool useOrWhere)
         {
-            string parameterName = _parameterIndexer.NextParameterName();
+            string parameterName = parameterNameDisposition ?? _parameterIndexer.NextParameterName();
 
             var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
 
@@ -495,6 +511,21 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             _sqlBuilder.ClearClause(ClauseKey.Select);
             _sqlBuilder.ClearClause(ClauseKey.Distinct);
+        }
+
+        /// <summary>
+        /// Clears the CTE queries (e.g. for building a COUNT query with a cloned QueryBuilder, since they will already be present on the final query).
+        /// </summary>
+        public void ClearWith()
+        {
+            _sqlBuilder.ClearClause(ClauseKey.With);
+        }
+
+        public QueryBuilder AddParameters(DynamicParameters parameters)
+        {
+            _sqlBuilder.AddParameters(parameters);
+
+            return this;
         }
     }
 

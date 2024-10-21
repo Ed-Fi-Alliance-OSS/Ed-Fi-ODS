@@ -72,6 +72,8 @@ namespace EdFi.Ods.Api.Controllers
         protected Lazy<GetManyPipeline<TResourceModel, TAggregateRoot>> GetManyPipeline;
         protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
 
+        private static readonly IContextStorage _contextStorage = new CallContextStorage();
+
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
             IEdFiProblemDetailsProvider problemDetailsProvider,
@@ -148,7 +150,13 @@ namespace EdFi.Ods.Api.Controllers
             [FromQuery] Dictionary<string, string> additionalParameters = default)
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-            
+
+            // Store alternative auth approach decision into call context
+            if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
+            {
+                _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
+            }
+
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
             if (!QueryParametersValidator.IsValid(queryParameters, _defaultPageLimitSize, out string errorMessage))

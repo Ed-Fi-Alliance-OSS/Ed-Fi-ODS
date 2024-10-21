@@ -43,9 +43,11 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
         var cteCountQueryBuilder = cteQueryBuilder.Clone();
         bool hasDistinct = cteCountQueryBuilder.HasDistinct();
         cteCountQueryBuilder.ClearSelect();
+        cteCountQueryBuilder.ClearWith();
         cteCountQueryBuilder.SelectRaw($"COUNT({(hasDistinct ? "DISTINCT " : null)}AggregateId) AS CountOfRows");
 
-        var queryBuilder = new QueryBuilder(_dialect).With("Numbered", cteQueryBuilder)
+        var queryBuilder = new QueryBuilder(_dialect)
+            .With("Numbered", cteQueryBuilder)
             .With("Counts", cteCountQueryBuilder)
             .From("Numbered, Counts")
             .Select("AggregateId")

@@ -190,5 +190,6 @@ namespace EdFi.Ods.Common.Database.Querying
         public static string Having = "having";
         public static string Set = "set";
         public static string Distinct = "distinct";
+        public static string With = "with";
     }
 }

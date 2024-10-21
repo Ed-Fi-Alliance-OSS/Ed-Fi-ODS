@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.CustomViewBased;
@@ -15,10 +15,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
     public static class QueryBuilderExtensions
     {
+        private static readonly CallContextStorage _callContextStorage = new();
+
         /// <summary>
         /// Applies a join-based filter to the criteria for the specified authorization view.
         /// </summary>
-        /// <param name="queryBuilder"></param>
+        /// <param name="queryBuilder">The <see cref="QueryBuilder" /> to which criteria should be applied.</param>
         /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
         /// <param name="subjectEndpointName">The name of the property to be joined for the entity being queried.</param>
@@ -36,6 +38,95 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
+            // Temporary logic to opt-in to join-based authorization approach
+            bool useJoinAuth = _callContextStorage.GetValue<bool>("UseJoinAuth"); 
+
+            if (useJoinAuth)
+            {
+                ApplySingleColumnJoinFilterUsingJoins(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName, viewTargetEndpointName, joinType, authViewAlias);
+                return;
+            }
+
+            ApplySingleColumnJoinFilterUsingCtes(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName,
+                viewTargetEndpointName,
+                joinType,
+                authViewAlias);
+        }
+
+        private static void ApplySingleColumnJoinFilterUsingCtes(
+            this QueryBuilder queryBuilder,
+            IDictionary<string, object> parameters,
+            string viewName,
+            string subjectEndpointName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName,
+            JoinType joinType,
+            string authViewAlias = null)
+        {
+            // Defensive check to ensure required parameter is present
+            if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
+            {
+                throw new Exception($"Unable to find parameter for filtering '{RelationshipAuthorizationConventions.ClaimsParameterName}' on view '{viewName}'. Available parameters: '{string.Join("', '", parameters.Keys)}'");
+            }
+
+            authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
+
+            // Create a CTE query for the authorization view
+            var cte = new QueryBuilder(queryBuilder.Dialect, queryBuilder.ParameterIndexer);
+            cte.From($"auth.{viewName} AS av");
+            cte.Select($"av.{viewTargetEndpointName}");
+            cte.Distinct();
+
+            // Apply claims to the CTE query
+            if (value is object[] arrayOfValues)
+            {
+                cte.WhereIn($"av.{viewSourceEndpointName}", arrayOfValues, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+            }
+            else
+            {
+                cte.Where($"av.{viewSourceEndpointName}", value, $"@{RelationshipAuthorizationConventions.ClaimsParameterName}");
+            }
+
+            // Add the CTE to the main query, with alias
+            queryBuilder.With(authViewAlias, cte);
+
+            // Apply join to the authorization CTE
+            if (joinType == JoinType.InnerJoin)
+            {
+                queryBuilder.Join(
+                    authViewAlias,
+                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+            }
+            else if (joinType == JoinType.LeftOuterJoin)
+            {
+                queryBuilder.LeftJoin(
+                    authViewAlias,
+                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+                
+                queryBuilder.Where(qb => qb.WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
+            }
+            else
+            {
+                throw new NotSupportedException("Unsupported authorization view join type.");
+            }
+        }
+
+        private static void ApplySingleColumnJoinFilterUsingJoins(
+            QueryBuilder queryBuilder,
+            IDictionary<string, object> parameters,
+            string viewName,
+            string subjectEndpointName,
+            string viewSourceEndpointName,
+            string viewTargetEndpointName,
+            JoinType joinType,
+            string authViewAlias)
+        {
+            // Defensive check to ensure required parameter is present
+            if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
+            {
+                throw new Exception($"Unable to find parameter for filtering '{RelationshipAuthorizationConventions.ClaimsParameterName}' on view '{viewName}'. Available parameters: '{string.Join("', '", parameters.Keys)}'");
+            }
+
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
             // Apply authorization join using ICriteria
@@ -56,12 +147,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 throw new NotSupportedException("Unsupported authorization view join type.");
             }
             
-            // Defensive check to ensure required parameter is present
-            if (!parameters.TryGetValue(RelationshipAuthorizationConventions.ClaimsParameterName, out object value))
-            {
-                throw new Exception($"Unable to find parameter for filtering '{RelationshipAuthorizationConventions.ClaimsParameterName}' on view '{viewName}'. Available parameters: '{string.Join("', '", parameters.Keys)}'");
-            }
-
             if (value is object[] arrayOfValues)
             {
                 if (joinType == JoinType.InnerJoin)
@@ -90,15 +175,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             }
         }
 
-        private static string GetFullNameForView(this string viewName)
-        {
-            return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
-        }
-
         /// <summary>
-        /// Applies a join-based filter to the criteria for the specified custom authorization view.
+        /// Applies a join-based filter to the <see cref="QueryBuilder" /> for the specified custom authorization view.
         /// </summary>
-        /// <param name="criteria">The criteria to which filters should be applied.</param>
+        /// <param name="queryBuilder">The <see cref="QueryBuilder" /> to which filters should be applied.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
         /// <param name="subjectEndpointNames">The name of the property to be joined for the entity being queried.</param>
         /// <param name="viewTargetEndpointNames">The name of the property to be joined for the other property as authorization view.</param> 

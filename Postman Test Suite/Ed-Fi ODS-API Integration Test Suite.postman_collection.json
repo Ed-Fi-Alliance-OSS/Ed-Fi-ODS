@@ -11477,7 +11477,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sessionReference\": {\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"localCourseCode\": \"ALG-1\",\r\n    \"instructionalTimePlanned\": {{$randomInt}},\r\n    \"courseLevelCharacteristics\": [],\r\n    \"curriculumUseds\": [],\r\n    \"offeredGradeLevels\": []\r\n}",
+													"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sessionReference\": {\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"localCourseCode\": \"ALG-1\",\r\n    \"instructionalTimePlanned\": 1{{$randomInt}},\r\n    \"courseLevelCharacteristics\": [],\r\n    \"curriculumUseds\": [],\r\n    \"offeredGradeLevels\": []\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
