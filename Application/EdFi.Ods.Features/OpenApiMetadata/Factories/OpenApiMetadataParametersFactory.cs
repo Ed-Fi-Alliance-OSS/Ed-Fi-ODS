@@ -45,7 +45,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         format = "int32",
                         minimum = 0,
                         maximum  = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit(),
-                        required = false
+                        required = false,
+                        @default = 25
                     }
                 },
                 {
@@ -114,7 +115,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     {
                         name = "totalCount",
                         description =
-                            "Indicates if the total number of items available should be returned in the 'Total-Count' header of the response.  If set to false, 'Total-Count' header will not be provided. Must be false when using key set paging.",
+                            "Indicates if the total number of items available should be returned in the 'Total-Count' header of the response.  If set to false, 'Total-Count' header will not be provided. Must be false when using cursor paging (with pageToken).",
                         @in = "query",
                         type = "boolean",
                         required = false,
@@ -126,7 +127,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "pageToken", new Parameter
                     {
                         name = "pageToken",
-                        description = "Applicable when using key set paging. The token of the page to retrieve.",
+                        description = "The token of the page to retrieve, obtained either from the \"Next-Page-Token\" header of the previous request, or from the \"partitions\" endpoint for the resource. Cannot be used with limit/offset paging.",
                         @in = "query",
                         type = "string",
                         required = false
@@ -137,12 +138,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "pageSize", new Parameter
                     {
                         name = "pageSize",
-                        description = "Applicable when using key set paging. The maximum number of records to retrieve in the page.",
+                        description = "The maximum number of items to retrieve in the page. For use with pageToken (cursor paging) only.",
                         @in = "query",
                         type = "integer",
                         format = "int32",
                         minimum = 0,
-                        required = false
+                        required = false,
+                        @default = 25
                     }
                 );
 
@@ -150,14 +152,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "numberOfPartitions", new Parameter
                     {
                         name = "number",
-                        description = "The number of evenly distributed partitions to provide across the matching results.",
+                        description = "The number of evenly distributed partitions to provide for client-side parallel processing. If unspecified, a reasonable set of partitions will be determined based on the total number of accessible items.",
                         @in = "query",
                         type = "integer",
                         format = "int32",
                         minimum = PartitionsController.MinPartitions,
                         maximum = PartitionsController.MaxPartitions,
-                        required = false,
-                        @default = 2
+                        required = false
                     }
                 );
             }

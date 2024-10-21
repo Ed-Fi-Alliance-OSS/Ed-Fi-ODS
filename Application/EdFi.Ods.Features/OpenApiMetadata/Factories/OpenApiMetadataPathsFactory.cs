@@ -168,7 +168,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 okResponse.headers ??= new Dictionary<string, Header>();
                 okResponse.headers.Add(HeaderConstants.NextPageToken, new Header
                 {
-                    description = "Applicable when using key set paging. It specifies the next page's token; if it is not returned, there are no remaining records in the partition.", 
+                    description = "A token that can be used to retrieve the next contiguous page of items. If not present, it indicates that there are no more items in the current cursor paging context (which is the current partition if the starting token was obtained using the partitions endpoint).", 
                     type = "string"
                 });
             }
@@ -214,9 +214,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
-                summary = "Retrieves a set of page tokens to be used for key set paging in the \"Get All\" endpoint.",
+                summary = "Retrieves a set of page tokens to be used for efficient client-side parallel processing.",
                 description =
-                    "This operation returns a set of page tokens representing the first page of evenly distributed partitions across the matching results, meant to be used for key set paging in the \"Get All\" endpoint to retrieve large amounts of data in parallel.",
+                    "Computes an evenly distributed set of partitions over the accessible data and returns a set of page tokens, each representing the first page of one of the partitions.",
                 operationId = $"get{openApiMetadataResource.Resource.PluralName}Partitions",
                 deprecated = openApiMetadataResource.IsDeprecated,
                 produces = new[]
