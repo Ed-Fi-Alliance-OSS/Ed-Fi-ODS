@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int AlternativeEducationEligibilityReasonDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -216,15 +216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -345,6 +336,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
 
         [DataMember(Name="studentUniqueId")]
+        [Key(5)]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -359,12 +351,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
-        [Key(5)]
+        [Key(6)]
         public Guid ResourceId { get; set; }
 
 
         [JsonIgnore]
-        [Key(6)]
+        [Key(7)]
         public Link _link;
 
         [IgnoreMember]
@@ -910,15 +902,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1358,15 +1341,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections

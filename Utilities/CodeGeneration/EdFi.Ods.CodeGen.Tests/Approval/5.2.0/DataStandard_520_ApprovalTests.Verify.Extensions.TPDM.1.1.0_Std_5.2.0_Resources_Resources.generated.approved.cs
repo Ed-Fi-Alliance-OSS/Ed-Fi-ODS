@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int AccreditationStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -216,15 +216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -360,7 +351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int AidTypeDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -496,15 +487,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1172,15 +1154,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2147,15 +2120,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2506,15 +2470,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2776,15 +2731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3135,15 +3081,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3403,15 +3340,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3640,15 +3568,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3999,15 +3918,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4279,15 +4189,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4589,15 +4490,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4822,15 +4714,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -5099,15 +4982,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -5692,15 +5566,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6231,15 +6096,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6481,15 +6337,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6616,7 +6463,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int CertificationRouteDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -6752,15 +6599,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -6896,7 +6734,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int CoteachingStyleObservedDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -7032,15 +6870,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7417,15 +7246,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -7934,15 +7754,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -8083,7 +7894,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int CredentialStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -8219,15 +8030,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -8684,15 +8486,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9065,15 +8858,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9200,7 +8984,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EducatorRoleDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -9336,15 +9120,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9480,7 +9255,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EnglishLanguageExamDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -9616,15 +9391,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -9760,7 +9526,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EPPProgramPathwayDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -9896,15 +9662,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10567,15 +10324,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -10966,15 +10714,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -11703,15 +11442,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -12102,15 +11832,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13050,15 +12771,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13757,15 +13469,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -13892,7 +13595,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EvaluationElementRatingLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -14028,15 +13731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -14741,15 +14435,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -15140,15 +14825,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -16015,15 +15691,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -16690,15 +16357,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -16825,7 +16483,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EvaluationPeriodDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -16961,15 +16619,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -17956,15 +17605,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -18681,15 +18321,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -19026,15 +18657,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -19320,15 +18942,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -19455,7 +19068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EvaluationRatingLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -19591,15 +19204,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -19735,7 +19339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EvaluationRatingStatusDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -19871,15 +19475,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20015,7 +19610,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int EvaluationTypeDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -20151,15 +19746,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20268,6 +19854,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="studentUniqueId")]
+        [Key(2)]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -20282,19 +19869,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
-        [Key(2)]
+        [Key(3)]
         public Guid ResourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator value which identifies the concrete sub-type of the referenced resource
         /// when the referenced resource has been derived; otherwise <b>null</b>.
         /// </summary>
-        [Key(3)]
+        [Key(4)]
         public string Discriminator { get; set; }
 
 
         [JsonIgnore]
-        [Key(4)]
+        [Key(5)]
         public Link _link;
 
         [IgnoreMember]
@@ -20629,15 +20216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -20787,7 +20365,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int GenderDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -20923,15 +20501,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -21067,7 +20636,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int ObjectiveRatingLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -21203,15 +20772,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -21829,15 +21389,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -22277,15 +21828,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -22528,15 +22070,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -23317,15 +22850,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -23821,15 +23345,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -24166,15 +23681,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -24460,15 +23966,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -24595,7 +24092,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int PerformanceEvaluationRatingLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -24731,15 +24228,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -24875,7 +24363,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int PerformanceEvaluationTypeDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -25011,15 +24499,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -25806,15 +25285,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -25964,7 +25434,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int RubricRatingLevelDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -26100,15 +25570,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -26384,15 +25845,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -26695,15 +26147,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -27277,15 +26720,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -27919,15 +27353,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections

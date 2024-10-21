@@ -349,15 +349,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -783,15 +774,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1124,15 +1106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Contact.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1474,15 +1447,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -1867,15 +1831,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2163,15 +2118,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2471,15 +2417,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -2884,15 +2821,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3318,15 +3246,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -3659,15 +3578,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4147,15 +4057,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4466,15 +4367,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -4941,15 +4833,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
