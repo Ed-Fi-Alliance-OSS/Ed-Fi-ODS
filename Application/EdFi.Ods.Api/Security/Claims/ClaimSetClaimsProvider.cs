@@ -5,9 +5,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
+
+namespace EdFi.Ods.Api.Security.Claims;
 
 public class ClaimSetClaimsProvider : IClaimSetClaimsProvider
 {
@@ -18,7 +19,7 @@ public class ClaimSetClaimsProvider : IClaimSetClaimsProvider
         _securityRepository = securityRepository;
     }
     
-    public IList<EdFiResourceClaim> GetClaims(string claimSetName)
+    public IList<ClaimSetResourceClaimMetadata> GetClaims(string claimSetName)
     {
         var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
@@ -28,10 +29,10 @@ public class ClaimSetClaimsProvider : IClaimSetClaimsProvider
         
         // Create a list of resource claims to be issued.
         var claims = resourceClaimsByClaimName.Select(
-                g => new EdFiResourceClaim(g.Key,
-                    new EdFiResourceClaimValue
-                    {
-                        Actions = g.Select(
+                g => 
+                    new ClaimSetResourceClaimMetadata(
+                        g.Key,
+                        g.Select(
                                 x => new ResourceAction(
                                     x.Action.ActionUri,
                                     x.AuthorizationStrategyOverrides
@@ -39,7 +40,7 @@ public class ClaimSetClaimsProvider : IClaimSetClaimsProvider
                                         .ToArray(),
                                     x.ValidationRuleSetNameOverride))
                             .ToArray()
-                    }))
+                    ))
             .ToList();
 
         return claims;

@@ -29,6 +29,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -73,6 +74,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="BeginDate" column="BeginDate" type="date" />
@@ -1288,6 +1290,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="CommencementTime" column="CommencementTime" type="TimeAsTimeSpan" />

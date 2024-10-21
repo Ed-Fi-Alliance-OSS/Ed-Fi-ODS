@@ -31,17 +31,17 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
         private readonly IAggregateRootQueryBuilderProvider _pagedAggregateIdsCriteriaProvider;
         private readonly IDomainModelProvider _domainModelProvider;
-        private readonly IGetEntitiesByIds<TEntity> _getEntitiesByIds;
+        private readonly IGetEntitiesByAggregateIds<TEntity> _getEntitiesByAggregateIds;
 
         public GetEntitiesBySpecification(
             ISessionFactory sessionFactory,
-            IGetEntitiesByIds<TEntity> getEntitiesByIds,
+            IGetEntitiesByAggregateIds<TEntity> getEntitiesByAggregateIds,
             [FromKeyedServices(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)]
             IAggregateRootQueryBuilderProvider pagedAggregateIdsCriteriaProvider,
             IDomainModelProvider domainModelProvider)
             : base(sessionFactory)
         {
-            _getEntitiesByIds = getEntitiesByIds;
+            _getEntitiesByAggregateIds = getEntitiesByAggregateIds;
             _pagedAggregateIdsCriteriaProvider = pagedAggregateIdsCriteriaProvider;
             _domainModelProvider = domainModelProvider;
         }
@@ -80,14 +80,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Get the full results
-                var ids = specificationResult.Ids.Select(x => x.Id).ToList();
+                var aggregateIds = specificationResult.Ids.Select(x => x.AggregateId).ToList();
 
-                var result = await _getEntitiesByIds.GetByIdsAsync(ids, cancellationToken);
-
-                // Restore original order of the result rows (GetByIds sorts by Id)
-                var resultWithOriginalOrder = ids
-                    .Join(result, id => id, r => r.Id, (id, r) => r)
-                    .ToList();
+                var result = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(aggregateIds, cancellationToken);
 
                 string nextPageToken = null;
 
@@ -100,7 +95,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 return new GetBySpecificationResult<TEntity>
                 {
-                    Results = resultWithOriginalOrder,
+                    Results = result,
                     ResultMetadata = new ResultMetadata
                     {
                         TotalCount = specificationResult.TotalCount,

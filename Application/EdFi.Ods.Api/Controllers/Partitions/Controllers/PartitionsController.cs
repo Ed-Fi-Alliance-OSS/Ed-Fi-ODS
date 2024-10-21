@@ -48,6 +48,8 @@ public class PartitionsController : ControllerBase
     private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
     private readonly IPartitionsQueryBuilderProvider _partitionsQueryBuilderProvider;
 
+    private static readonly IContextStorage _contextStorage = new CallContextStorage();
+
     public PartitionsController(
         DbProviderFactory dbProviderFactory,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -67,6 +69,12 @@ public class PartitionsController : ControllerBase
         [FromQuery] int number = 1,
         [FromQuery] Dictionary<string, string> additionalParameters = default)
     {
+        // Store alternative auth approach decision into call context
+        if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
+        {
+            _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
+        }
+
         if (number is < MinPartitions or > MaxPartitions)
         {
             var problemDetails = new BadRequestParameterException(

@@ -17,11 +17,8 @@ using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Validation;
-using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
-using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -39,9 +36,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     {
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IDeletedItemsResourceDataProvider _deletedItemsResourceDataProvider;
-        private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private readonly ISecurityRepository _securityRepository;
         private readonly ILogContextAccessor _logContextAccessor;
         private readonly int _defaultPageLimitSize;
 
@@ -51,18 +45,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         public DeletesController(
             IDomainModelProvider domainModelProvider,
             IDeletedItemsResourceDataProvider deletedItemsResourceDataProvider,
-            IAuthorizationContextProvider authorizationContextProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider,
-            ISecurityRepository securityRepository,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ILogContextAccessor logContextAccessor,
             ApiSettings apiSettings)
         {
             _domainModelProvider = domainModelProvider;
             _deletedItemsResourceDataProvider = deletedItemsResourceDataProvider;
-            _authorizationContextProvider = authorizationContextProvider;
-            _resourceClaimUriProvider = resourceClaimUriProvider;
-            _securityRepository = securityRepository;
             _logContextAccessor = logContextAccessor;
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
@@ -99,9 +87,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                     }.AsSerializableModel());
             }
 
-            // Set authorization context (should this be moved?)
-            _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
-            _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
+            // TODO: ODS-6510 - Set authorization context (should this be moved/removed?)
+            // _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
+            // _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
 

@@ -114,7 +114,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 _actualStudent.ShouldBeSameAs(Supplied<Student>());
             }
 
-            private bool CompareContexts(EdFiAuthorizationContext context)
+            private bool CompareContexts(DataManagementRequestContext context)
             {
                 context.ResourceClaimUris.Single()
                     .ShouldBe("Resource");

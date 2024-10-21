@@ -7,47 +7,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain.DomainModelEnhancers;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
     public class TrackedChangesQueryFactoryAuthorizationDecoratorBase
     {
-        private readonly IApiClientContextProvider _apiClientContextProvider;
-        private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-
-        private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
-        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
+        private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
+        private readonly string _readChangesActionUri;
 
         protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
-            IAuthorizationContextProvider authorizationContextProvider,
-            IApiClientContextProvider apiClientContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            ISecurityRepository securityRepository)
         {
-            _authorizationContextProvider = authorizationContextProvider;
-            _apiClientContextProvider = apiClientContextProvider;
-            _authorizationFilteringProvider = authorizationFilteringProvider;
-            _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
+            _dataManagementAuthorizationPlanFactory = dataManagementAuthorizationPlanFactory;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
-            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+
+            _readChangesActionUri = securityRepository.GetActionByName("ReadChanges").ActionUri;
 
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
@@ -62,28 +50,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     $"Unable to perform authorization because entity type for '{resource.Entity.FullName}' could not be identified.");
             }
 
-            // Make sure Authorization context is present before proceeding
-            _authorizationContextProvider.VerifyAuthorizationContextExists();
-
-            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
-
-            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
-            string requestActionUri = _authorizationContextProvider.GetAction();
-
-            var authorizationContext = new EdFiAuthorizationContext(
-                apiClientContext,
-                _dataManagementResourceContextProvider.Get().Resource,
-                resourceClaimUris,
-                requestActionUri,
-                entityType);
-
-            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                apiClientContext.ClaimSetName,
-                resourceClaimUris,
-                requestActionUri);
-
-            var authorizationFiltering =
-                _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
+            var authorizationPlan = _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(_readChangesActionUri);
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
@@ -99,7 +66,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
             JoinType DetermineRelationshipBasedAuthViewJoinType()
             {
-                var countOfRelationshipBasedAuthorizationFilters = authorizationFiltering.Count(
+                var countOfRelationshipBasedAuthorizationFilters = authorizationPlan.Filtering.Count(
                     af => af.Operator == FilterOperator.Or && af.Filters.Select(
                             afd =>
                             {
@@ -125,7 +92,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
             void ApplyAuthorizationStrategiesCombinedWithAndLogic()
             {
-                var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
+                var andStrategies = authorizationPlan.Filtering.Where(x => x.Operator == FilterOperator.And).ToArray();
 
                 // Combine 'AND' strategies
                 if (andStrategies.Any())
@@ -150,7 +117,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
             void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
-                var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
+                var orStrategies = authorizationPlan.Filtering.Where(x => x.Operator == FilterOperator.Or).ToArray();
 
                 // Combine 'OR' strategies
                 bool orFiltersApplied = false;

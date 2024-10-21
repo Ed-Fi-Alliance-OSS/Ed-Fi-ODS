@@ -29,6 +29,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="BirthCity" column="BirthCity" type="string" length="30" />
@@ -497,6 +498,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="EndDate" column="EndDate" type="date" />
@@ -709,6 +711,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="AccreditationStatusDescriptorId" column="AccreditationStatusDescriptorId" type="int" />
@@ -803,6 +806,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="EvaluationDescription" column="EvaluationDescription" type="string" length="255" />
@@ -919,6 +923,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="EvaluationTypeDescriptorId" column="EvaluationTypeDescriptorId" type="int" />
@@ -1046,6 +1051,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="AreaOfRefinement" column="AreaOfRefinement" type="string" length="1024" />
@@ -1186,6 +1192,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="EvaluationObjectiveDescription" column="EvaluationObjectiveDescription" type="string" length="255" />
@@ -1309,6 +1316,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="Comments" column="Comments" type="string" length="1024" />
@@ -1446,6 +1454,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
@@ -1686,6 +1695,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="AidAmount" column="AidAmount" type="decimal" />
@@ -1745,6 +1755,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
@@ -1893,6 +1904,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="ActualDate" column="ActualDate" type="date" not-null="true" />
@@ -2123,6 +2135,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="CriterionDescription" column="CriterionDescription" type="string" length="1024" not-null="true" />
@@ -2245,6 +2258,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -2306,6 +2320,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 

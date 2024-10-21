@@ -89,7 +89,6 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							}
@@ -131,11 +130,12 @@
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the profile isn't readable using the profile\", () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not readable using API profile 'test-profile-resource-writeonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not readable using API profile 'test-profile-resource-writeonly'\\./i);",
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -144,7 +144,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -153,8 +154,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -230,8 +231,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -315,8 +316,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -400,8 +401,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -450,8 +451,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -517,11 +518,12 @@
 											"});",
 											"",
 											"pm.test(`Should return the error indicating the resource isn't writable using the profile`, () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'\\./i);",
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -530,7 +532,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -539,8 +542,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -615,11 +618,12 @@
 											"});",
 											"",
 											"pm.test(\"Should return the error indicating the reasource isn't writable using the profile\", () => {",
-											"  pm.expect(problemDetails.errors).to.contain(\"Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'.\");",
+											"  pm.expect(problemDetails.errors).to.match(/Resource class 'School' is not writable using API profile 'test-profile-resource-readonly'\\./i);",
 											"});",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -628,7 +632,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -637,8 +642,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -721,8 +726,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
-										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+										"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -887,9 +892,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -955,11 +960,12 @@
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource isn't accessible using the profile\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"  pm.expect(problemDetails.errors).to.match(/Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\\./i);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -968,7 +974,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -977,9 +984,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.readable+json",
-												"description": "test-profile-staffonly-resource-includeall"
+												"description": "test-profile-staffonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1045,11 +1052,12 @@
 													"});",
 													"",
 													"pm.test(\"Should return the error indicating the resource requested doesn't match the one specified by the profile\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"  pm.expect(problemDetails.errors).to.match(/The resource specified by the profile-based content type \\('school'\\) does not match the requested resource \\('Student'\\)\\./i);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1058,7 +1066,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1067,9 +1076,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1156,9 +1165,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1245,9 +1254,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1313,8 +1322,8 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
-												"value": "application/vnd.ed-fi.invalid+json"
+												"value": "application/vnd.ed-fi.invalid+json",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -1373,9 +1382,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1444,11 +1452,12 @@
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the resource is not accessible through the profile specified by the content type.\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type.\");",
+													"  pm.expect(problemDetails.errors).to.match(/Resource 'Student' is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\\./i);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1457,7 +1466,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1466,9 +1476,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1537,11 +1546,12 @@
 													"});",
 													"",
 													"pm.test(\"Should return error message indicating that the profile-based content type does not match the resource targeted by the request.\", () => {",
-													"  pm.expect(problemDetails.errors).to.contain(\"The resource specified by the profile-based content type ('school') does not match the requested resource ('Student').\");",
+													"  pm.expect(problemDetails.errors).to.match(/The resource specified by the profile-based content type \\('school'\\) does not match the requested resource \\('Student'\\)\\./i);",
 													"});",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -1550,7 +1560,8 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -1559,9 +1570,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json"
+												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1651,10 +1661,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1718,10 +1727,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1813,10 +1821,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
-												"description": "test-profile-studentonly-resource-includeall"
+												"description": "test-profile-studentonly-resource-includeall",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -1886,9 +1893,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.invalid+json"
+												"value": "application/vnd.ed-fi.invalid+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -2023,9 +2029,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.non-existing.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2113,9 +2119,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.non-existing.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2374,9 +2380,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2438,9 +2444,9 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.readable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2507,9 +2513,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-resource.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2579,9 +2585,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"type": "text",
 										"value": "application/vnd.ed-fi.school.test-profile-with-unexisting-property.writable+json",
-										"description": "non-existing"
+										"description": "non-existing",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -2789,8 +2795,8 @@
 									{
 										"key": "Accept",
 										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-										"type": "text",
-										"description": "test-profile-studentonly-resource-includeall"
+										"description": "test-profile-studentonly-resource-includeall",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -2847,8 +2853,8 @@
 									{
 										"key": "Accept",
 										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-										"type": "text",
-										"description": "test-profile-studentonly-resource-includeall"
+										"description": "test-profile-studentonly-resource-includeall",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -3006,9 +3012,9 @@
 										"header": [
 											{
 												"key": "Accept",
-												"type": "text",
 												"value": "application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.readable+json",
-												"description": "assessment-readable-excludes-embedded-object"
+												"description": "assessment-readable-excludes-embedded-object",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -3151,8 +3157,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3266,8 +3272,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3514,8 +3520,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3577,8 +3583,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
+												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -3813,9 +3819,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.readable+json",
-														"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors"
+														"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -3914,8 +3920,8 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
-														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json"
+														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -3998,8 +4004,8 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
-																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json"
+																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4151,9 +4157,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.writable+json",
-																"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors"
+																"description": "test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4221,9 +4227,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors.writable+json",
-																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors"
+																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4378,9 +4384,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.writable+json",
-																"description": "test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors"
+																"description": "test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -4468,8 +4474,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -4578,9 +4584,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4633,9 +4638,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4694,9 +4698,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
-												"type": "text",
-												"value": "application/json"
+												"value": "application/json",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -4756,7 +4759,6 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"name": "Content-Type",
 												"value": "application/json",
 												"type": "text"
 											}
@@ -4850,9 +4852,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.readable+json",
-														"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors"
+														"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -4936,9 +4938,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.readable+json",
-														"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+														"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5000,9 +5002,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5160,9 +5162,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-escriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-escriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5230,10 +5232,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"name": "Content-Type",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.writable+json",
-																"type": "text",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5389,10 +5390,9 @@
 														"header": [
 															{
 																"key": "Content-Type",
-																"name": "Content-Type",
-																"type": "text",
 																"value": "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.writable+json",
-																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors"
+																"description": "test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors",
+																"type": "text"
 															}
 														],
 														"body": {
@@ -5457,6 +5457,69 @@
 				{
 					"name": "Setup",
 					"item": [
+						{
+							"name": "Extension Descriptors",
+							"item": [
+								{
+									"name": "Ensure Art Medium Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"namespace\": \"uri://ed-fi.org/ArtMediumDescriptor\",\r\n  \"codeValue\": \"Art Medium\",\r\n  \"shortDescription\": \"Art Medium\",\r\n  \"description\": \"Art Medium\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/artMediumDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"artMediumDescriptors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Ensure Favorite Book Category Descriptor Exists",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"namespace\": \"uri://ed-fi.org/FavoriteBookCategoryDescriptor\",\r\n  \"codeValue\": \"Non-Fiction\",\r\n  \"shortDescription\": \"Non-Fiction\",\r\n  \"description\": \"Non-Fiction\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/sample/favoriteBookCategoryDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"sample",
+												"favoriteBookCategoryDescriptors"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Create Staff",
 							"event": [
@@ -5795,9 +5858,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-not-Included.readable+json",
-														"description": "sample-staff-extension-not-Included"
+														"description": "sample-staff-extension-not-Included",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5857,9 +5920,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-excluded.readable+json",
-														"description": "sample-staff-extension-excluded"
+														"description": "sample-staff-extension-excluded",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -5930,9 +5993,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-include-only-deeply.readable+json",
-														"description": "sample-staff-extension-include-only-deeply"
+														"description": "sample-staff-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6003,9 +6066,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-only-deeply.readable+json",
-														"description": "sample-staff-extension-exclude-only-deeply"
+														"description": "sample-staff-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6065,9 +6128,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-everything.readable+json",
-														"description": "sample-staff-extension-exclude-everything"
+														"description": "sample-staff-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6143,9 +6206,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-include-only-deeply.readable+json",
-														"description": "sample-student-extension-include-only-deeply"
+														"description": "sample-student-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6216,9 +6279,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-exclude-only-deeply.readable+json",
-														"description": "sample-student-extension-exclude-only-deeply"
+														"description": "sample-student-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6278,9 +6341,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-exclude-everything.readable+json",
-														"description": "sample-student-extension-exclude-everything"
+														"description": "sample-student-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6354,9 +6417,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-multi-level-includeonly.readable+json",
-														"description": "sample-student-extension-multi-level-includeonly"
+														"description": "sample-student-extension-multi-level-includeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6430,9 +6493,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.sample-student-extension-multi-level-excludeonly.readable+json",
-														"description": "sample-student-extension-multi-level-excludeonly"
+														"description": "sample-student-extension-multi-level-excludeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -6766,9 +6829,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-not-included.writable+json",
-														"description": "sample-staff-extension-not-included"
+														"description": "sample-staff-extension-not-included",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -6948,9 +7011,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-excluded.writable+json",
-														"description": "sample-staff-extension-excluded"
+														"description": "sample-staff-extension-excluded",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7130,9 +7193,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-include-only-deeply.writable+json",
-														"description": "sample-staff-extension-include-only-deeply"
+														"description": "sample-staff-extension-include-only-deeply",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7312,9 +7375,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-only-deeply.writable+json",
-														"description": "sample-staff-extension-exclude-only-deeply"
+														"description": "sample-staff-extension-exclude-only-deeply",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -7494,9 +7557,9 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
 														"value": "application/vnd.ed-fi.staff.sample-staff-extension-exclude-everything.writable+json",
-														"description": "sample-staff-extension-exclude-everything"
+														"description": "sample-staff-extension-exclude-everything",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8058,9 +8121,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json",
-														"description": "test-profile-resource-includeonly"
+														"description": "test-profile-resource-includeonly",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8158,9 +8221,9 @@
 												"header": [
 													{
 														"key": "Accept",
-														"type": "text",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json",
-														"description": "test-profile-studentonly2-resource-includeall"
+														"description": "test-profile-studentonly2-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8445,8 +8508,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8545,8 +8608,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.Test-Profile-StudentOnly2-Resource-IncludeAll.readable+json",
-														"type": "text",
-														"description": "Test-Profile-StudentOnly2-Resource-IncludeAll"
+														"description": "Test-Profile-StudentOnly2-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -8637,8 +8700,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-resource-includeall"
+														"description": "test-profile-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8745,8 +8808,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-studentonly2-resource-includeall"
+														"description": "test-profile-studentonly2-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -8940,8 +9003,8 @@
 												"header": [
 													{
 														"key": "Content-Type",
-														"type": "text",
-														"value": "application/json"
+														"value": "application/json",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9040,8 +9103,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-														"type": "text",
-														"description": "Test-Profile-Resource-IncludeAll"
+														"description": "Test-Profile-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9148,8 +9211,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json",
-														"type": "text",
-														"description": "Test-Profile-Resource-IncludeAll"
+														"description": "Test-Profile-Resource-IncludeAll",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9278,8 +9341,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9329,8 +9392,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9647,8 +9710,8 @@
 													{
 														"key": "Accept",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"url": {
@@ -9828,8 +9891,8 @@
 													{
 														"key": "Content-Type",
 														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
-														"type": "text",
-														"description": "test-profile-studentonly-resource-includeall"
+														"description": "test-profile-studentonly-resource-includeall",
+														"type": "text"
 													}
 												],
 												"body": {
@@ -9915,8 +9978,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -9966,8 +10029,8 @@
 											{
 												"key": "Content-Type",
 												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
-												"type": "text",
-												"description": "test-profile-studentonly2-resource-includeall"
+												"description": "test-profile-studentonly2-resource-includeall",
+												"type": "text"
 											}
 										],
 										"url": {
@@ -10057,17 +10120,24 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"\r",
-											"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-											"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-											"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+											"if (pm.response.code == 404) {\r",
+											"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+											"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+											"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+											"} else {\r",
+											"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+											"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+											"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+											"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+											"}\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -10925,17 +10995,24 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11180,7 +11257,7 @@
 													"\r",
 													"const originalEntity = pm.environment.get(\"known:school\");\r",
 													"const profileEntity = pm.response.json();\r",
-													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const keys = _.filter(pm.environment.get(\"known:school:PrimaryKeys\"), k => k[0] != '_'); // exclude special properties\r",
 													"const profileIncludeKeys = [\r",
 													"    \"nameOfInstitution\",\r",
 													"    \"operationalStatusDescriptor\",\r",
@@ -11200,8 +11277,10 @@
 													"\r",
 													"pm.test(\"The response model should contain the explicitly included properties\",\r",
 													"    () => {\r",
-													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        // Traverse all properties that are not primary keys\r",
+													"        for (const key of Object.keys(originalEntity)\r",
+													"          .filter(function (e) { return this.indexOf(e) < 0; }, keys)\r",
+													"          .filter(k => k[0] != '_')) // exclude special properties \r",
 													"        {     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -11223,7 +11302,7 @@
 													"\r",
 													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
 													"    () => {\r",
-													"        pm.expect(Object.entries(profileEntity).length).to.equal(profileIncludeKeys.length + keys.length);\r",
+													"        pm.expect(Object.keys(profileEntity).filter(k => k[0] != '_').length).to.equal(profileIncludeKeys.length + keys.length);\r",
 													"});\r",
 													""
 												],
@@ -11269,7 +11348,7 @@
 													"\r",
 													"const originalEntity = pm.environment.get(\"known:studentSpecialEducationProgramAssociation\");\r",
 													"const profileEntity = pm.response.json();\r",
-													"const keys = pm.environment.get(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const keys = _.filter(pm.environment.get(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\"), k => k[0] != '_'); // exclude special properties\r",
 													"const profileIncludeKeys = [\r",
 													"    \"specialEducationSettingDescriptor\",\r",
 													"    \"specialEducationHoursPerWeek\",\r",
@@ -11286,7 +11365,9 @@
 													"pm.test(\"The response model should contain the explicitly included properties\",\r",
 													"    () => {        \r",
 													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        for (const key of Object.keys(originalEntity)\r",
+													"          .filter(function (e) { return this.indexOf(e) < 0; }, keys)\r",
+													"          .filter(k => k[0] != '_')) // exclude special properties \r",
 													"        {     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -11308,11 +11389,16 @@
 													"\r",
 													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
 													"    () => {\r",
-													"        pm.expect(Object.entries(profileEntity).length).to.equal(profileIncludeKeys.length + keys.length);\r",
+													"      console.log(Object.entries(profileEntity));\r",
+													"      console.log(profileIncludeKeys);\r",
+													"      console.log(keys);\r",
+													"\r",
+													"      pm.expect(Object.keys(profileEntity).filter(k => k[0] != '_').length).to.equal(profileIncludeKeys.length + keys.length);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11755,17 +11841,24 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11820,7 +11913,8 @@
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -11829,7 +11923,8 @@
 												"exec": [
 													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11838,7 +11933,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12617,17 +12712,24 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id', '_ext'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
-													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id', '_ext');\r",
 													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -12682,7 +12784,8 @@
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -12691,7 +12794,8 @@
 												"exec": [
 													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -12700,7 +12804,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12740,7 +12844,7 @@
 													"\r",
 													"const originalEntity = pm.environment.get(\"known:school\");\r",
 													"const profileEntity = pm.response.json();\r",
-													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const keys = _.filter(pm.environment.get(\"known:school:PrimaryKeys\"), k => k[0] != '_'); // exclude special properties\r",
 													"const profileRegularReferenceIncludeKeys = [\r",
 													"    \"localEducationAgencyReference\"\r",
 													"];\r",
@@ -12758,7 +12862,9 @@
 													"pm.test(\"the response model should contain the explicitly included regular reference properties\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        for (const key of Object.keys(originalEntity)\r",
+													"          .filter(function (e) { return this.indexOf(e) < 0; }, keys)\r",
+													"          .filter(k => k[0] != '_')) // exclude special properties\r",
 													"        {     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -12797,11 +12903,14 @@
 													"\r",
 													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
 													"    () => {\r",
-													"        pm.expect(Object.keys(profileEntity).length).to.equal(profileRegularReferenceIncludeKeys.length + profileRoleNamedReferenceIncludeKeys.length + keys.length);\r",
+													"      const expectedCount = profileRegularReferenceIncludeKeys.length + profileRoleNamedReferenceIncludeKeys.length + keys.length;\r",
+													"\r",
+													"      pm.expect(Object.keys(profileEntity).filter(k => k[0] != '_').length).to.equal(expectedCount);\r",
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -13048,17 +13157,24 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"\r",
-													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
-													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
-													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"if (pm.response.code == 404) {\r",
+													"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", ['schoolId'].concat('id', '_ext'));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", [\"beginDate\", \"educationOrganizationReference\",\"programReference\",\"studentReference\"].concat('id'));\r",
+													"} else {\r",
+													"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+													"  pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"  pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"      .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"}\r",
 													"\r",
 													"function getPrimaryKeys(resource) {\r",
 													"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
 													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -13113,7 +13229,8 @@
 													"});\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
@@ -13122,7 +13239,8 @@
 												"exec": [
 													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -13131,7 +13249,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13473,15 +13591,22 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"\r",
-											"pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", getPrimaryKeys(\"edFi_educationOrganizationAddress\"));\r",
+											"if (pm.response.code == 404) {\r",
+											"  // If swagger is not available, provide a hard-code version of these very stable keys\r",
+											"  pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", [\"addressTypeDescriptor\",\"stateAbbreviationDescriptor\",\"city\",\"postalCode\",\"streetNumberName\"]);\r",
+											"} else {\r",
+											"  // If swagger is available, provide read (and augment with some hard-coded well-known values) using Swagger metadata\r",
+											"  pm.environment.set(\"known:educationOrganizationAddress:PrimaryKeys\", getPrimaryKeys(\"edFi_educationOrganizationAddress\"));\r",
+											"}\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    const resourceProperties = pm.response.json().components.schemas[resource].properties;\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true);\r",
-											"}"
+											"}\r",
+											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -13536,7 +13661,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -13545,7 +13671,8 @@
 										"exec": [
 											"pm.environment.set(\"supplied:localEducationAgencyId:A\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -13554,7 +13681,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:A}},\r\n    \"nameOfInstitution\": \"LEA A\",\r\n    \"shortNameOfInstitution\": \"LEA A\",\r\n    \"webSite\": \"http://www.lea-a.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"AA\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": {{supplied:localEducationAgencyId:A}}\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:A}},\r\n    \"nameOfInstitution\": \"LEA A\",\r\n    \"shortNameOfInstitution\": \"LEA A\",\r\n    \"webSite\": \"http://www.lea-a.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"AA\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": \"{{supplied:localEducationAgencyId:A}}\"\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13602,7 +13729,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -13611,7 +13739,8 @@
 										"exec": [
 											"pm.environment.set(\"supplied:localEducationAgencyId:B\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -13620,7 +13749,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:B}},\r\n    \"nameOfInstitution\": \"LEA B\",\r\n    \"shortNameOfInstitution\": \"LEA B\",\r\n    \"webSite\": \"http://www.lea-b.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"BB\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": {{supplied:localEducationAgencyId:A}}\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"educationServiceCenterReference\": {\r\n        \"educationServiceCenterId\": 255950\r\n    },\r\n    \"localEducationAgencyId\": {{supplied:localEducationAgencyId:B}},\r\n    \"nameOfInstitution\": \"LEA B\",\r\n    \"shortNameOfInstitution\": \"LEA B\",\r\n    \"webSite\": \"http://www.lea-b.edu/\",\r\n    \"localEducationAgencyCategoryDescriptor\": \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n            \"city\": \"BB\",\r\n            \"postalCode\": \"73334\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"123 Main Street\",\r\n            \"nameOfCounty\": \"Williston\",\r\n            \"latitude\": \"lat\",\r\n            \"longitude\": \"long\",\r\n            \"apartmentRoomSuiteNumber\": \"AP 333\",\r\n            \"doNotPublishIndicator\": false\r\n        }\r\n    ],\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [\r\n        {\r\n            \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n            \"identificationCode\": \"{{supplied:localEducationAgencyId:A}}\"\r\n        }\r\n    ],\r\n    \"institutionTelephones\": [\r\n        {\r\n            \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n            \"telephoneNumber\": \"(999) 123-456\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14245,10 +14374,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-non-creatable' excludes (or does not include) one or more required data elements needed to create the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-non-creatable' excludes \\(or does not include\\) one or more required data elements needed to create the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14318,10 +14448,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14443,10 +14574,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14511,10 +14643,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes (or does not include) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'test-profile-resource-includes-child-collection-with-non-creatable-items' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'EducationOrganizationInternationalAddress' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14631,10 +14764,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14746,10 +14880,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -14809,10 +14944,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Should include error indicating that the profile cannot be used to create the resource item.\", () => {\r",
-											"  pm.expect(problemDetails.errors).to.contain(\"The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes (or does not include) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource.\");\r",
+											"  pm.expect(problemDetails.errors).to.match(/The Profile definition for 'assessment-writable-includes-non-creatable-embedded-object' excludes \\(or does not include\\) one or more required data elements needed to create a child item of type 'AssessmentContentStandard' in the resource./i);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],

@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -27,40 +27,42 @@ namespace EdFi.Ods.Api.Security.Container.Modules
         private readonly IDictionary<Type, Type> _genericServiceByAuthorizationDecorator = new Dictionary<Type, Type>
         {
             // NHibernate authorization decorators
-            {typeof(IGetEntityByKey<>), typeof(GetEntityByKeyAuthorizationDecorator<>)},
-            {typeof(IGetEntitiesBySpecification<>), typeof(GetEntitiesBySpecificationAuthorizationDecorator<>)},
-            {typeof(IGetEntityById<>), typeof(GetEntityByIdAuthorizationDecorator<>)},
-            {typeof(IGetEntitiesByIds<>), typeof(GetEntitiesByIdsAuthorizationDecorator<>)},
-            {typeof(ICreateEntity<>), typeof(CreateEntityAuthorizationDecorator<>)},
-            {typeof(IDeleteEntityById<>), typeof(DeleteEntityByIdAuthorizationDecorator<>)},
-            {typeof(IUpdateEntity<>), typeof(UpdateEntityAuthorizationDecorator<>)},
-            {typeof(IUpsertEntity<>), typeof(UpsertEntityAuthorizationDecorator<>)},
+            {typeof(GetEntityByKeyAuthorizationDecorator<>), typeof(IGetEntityByKey<>)},
+            {typeof(GetEntitiesBySpecificationAuthorizationDecorator<>), typeof(IGetEntitiesBySpecification<>)},
+            {typeof(GetEntityByIdAuthorizationDecorator<>), typeof(IGetEntityById<>)},
+            {typeof(GetEntitiesByIdsAuthorizationDecorator<>), typeof(IGetEntitiesByIds<>)},
+            {typeof(GetEntitiesByAggregateIdsAuthorizationDecorator<>), typeof(IGetEntitiesByAggregateIds<>)},
+            {typeof(CreateEntityAuthorizationDecorator<>), typeof(ICreateEntity<>)},
+            {typeof(DeleteEntityByIdAuthorizationDecorator<>), typeof(IDeleteEntityById<>)},
+            {typeof(UpdateEntityAuthorizationDecorator<>), typeof(IUpdateEntity<>)},
+            {typeof(UpsertEntityAuthorizationDecorator<>), typeof(IUpsertEntity<>)},
         };
 
         private readonly IDictionary<Type, Type> _serviceByAuthorizationDecorator = new Dictionary<Type, Type>
         {
             // pipeline steps authorization decorators
-            {typeof(IGetPipelineStepsProvider), typeof(AuthorizationContextGetPipelineStepsProviderDecorator)},
+            {typeof(AuthorizationContextGetPipelineStepsProviderDecorator), typeof(IGetPipelineStepsProvider)},
             {
-                typeof(IGetBySpecificationPipelineStepsProvider),
-                typeof(AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator)
+                typeof(AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator),
+                typeof(IGetBySpecificationPipelineStepsProvider)
             },
-            {typeof(IUpsertPipelineStepsProvider), typeof(AuthorizationContextUpsertPipelineStepsProviderDecorator)},
-            {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)},
+            {typeof(AuthorizationContextUpsertPipelineStepsProviderDecorator), typeof(IUpsertPipelineStepsProvider)},
+            {typeof(AuthorizationContextDeletePipelineStepsProviderDecorator), typeof(IDeletePipelineStepsProvider)},
             
-            {typeof(IAggregateRootQueryBuilderProvider), typeof(AggregateRootQueryBuilderProviderAuthorizationDecorator)},
+            {typeof(AggregateRootQueryBuilderProviderJoinAuthorizationDecorator), typeof(IAggregateRootQueryBuilderProvider)},
+            {typeof(AggregateRootQueryBuilderProviderCteAuthorizationDecorator), typeof(IAggregateRootQueryBuilderProvider)},
         };
 
         protected override void Load(ContainerBuilder builder)
         {
             foreach (var decoratorRegistration in _genericServiceByAuthorizationDecorator)
             {
-                builder.RegisterGenericDecorator(decoratorRegistration.Value, decoratorRegistration.Key);
+                builder.RegisterGenericDecorator(decoratorRegistration.Key, decoratorRegistration.Value);
             }
 
             foreach (var decoratorRegistration in _serviceByAuthorizationDecorator)
             {
-                builder.RegisterDecorator(decoratorRegistration.Value, decoratorRegistration.Key);
+                builder.RegisterDecorator(decoratorRegistration.Key, decoratorRegistration.Value);
             }
 
             builder.RegisterType<ClientAppRepo>()

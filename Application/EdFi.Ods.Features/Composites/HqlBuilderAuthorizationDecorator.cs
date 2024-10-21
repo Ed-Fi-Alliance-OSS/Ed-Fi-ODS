@@ -4,20 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -27,31 +23,24 @@ namespace EdFi.Ods.Features.Composites
 {
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
-        private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-        private readonly IApiClientContextProvider _apiClientContextProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
+        private readonly IDataManagementAuthorizationPlanFactory _dataManagementAuthorizationPlanFactory;
 
-        private static readonly ConcurrentDictionary<string, Type> _entityTypeByName = new(StringComparer.OrdinalIgnoreCase);
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
-        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
-            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IDataManagementAuthorizationPlanFactory dataManagementAuthorizationPlanFactory,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiClientContextProvider apiClientContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
+            _dataManagementAuthorizationPlanFactory = Preconditions.ThrowIfNull(dataManagementAuthorizationPlanFactory, nameof(dataManagementAuthorizationPlanFactory));
             _authorizationFilterDefinitionProvider = Preconditions.ThrowIfNull(authorizationFilterDefinitionProvider, nameof(authorizationFilterDefinitionProvider));
-            _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
-            _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
-            _apiClientContextProvider = apiClientContextProvider;
+            _authorizationContextProvider = authorizationContextProvider;
         }
 
         /// <summary>
@@ -64,49 +53,47 @@ namespace EdFi.Ods.Features.Composites
         {
             var resourceClass = processorContext.CurrentResourceClass;
 
-            if (!(resourceClass is Resource))
+            if (resourceClass is not Resource resource)
             {
                 throw new InvalidOperationException(
                     $"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
             }
 
-            var resource = (Resource) resourceClass;
-
             // --------------------------
             //   Determine inclusion
             // --------------------------
-            var entityType = GetEntityType(resource);
 
-            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
-            string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
+            // In the case where we have an abstract class and it has no claim, eg EducationOrganization, we will allow the join if the subtype has been included.
+            if (processorContext.IsAbstract())
+            {
+                if (processorContext.ShouldIncludeResourceSubtype())
+                {
+                    Logger.DebugFormat(
+                        "Resource is abstract and so target resource '{0}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.",
+                        processorContext.CurrentResourceClass.Name);
 
-            var authorizationContext = new EdFiAuthorizationContext(
-                apiClientContext,
-                resource,
-                resourceClaimUris,
-                RequestActions.ReadActionUri,
-                entityType);
+                    return true;
+                }
+
+                Logger.DebugFormat("Resource '{0}' has been excluded from the response because it is abstract and only concrete types can be authorized. To include this referenced resource, use the 'includeResourceSubtype' attribute on the 'ReferencedResource' element in the composite definition.", processorContext.CurrentResourceClass.Name);
+                return false;
+            }
 
             // Authorize and apply filtering
-            IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering;
+            DataManagementAuthorizationPlan authorizationPlan;
 
             try
             {
-                var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                    apiClientContext.ClaimSetName, resourceClaimUris, RequestActions.ReadActionUri);
-                
-                // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(
-                    authorizationContext,
-                    authorizationBasisMetadata);
-                
+                authorizationPlan =
+                    _dataManagementAuthorizationPlanFactory.CreateAuthorizationPlan(resource, RequestActions.ReadActionUri);
+
                 // Make sure that all applied filtering has HQL support 
-                if (!authorizationFiltering.All(
+                if (!authorizationPlan.Filtering.All(
                         filtering => filtering.Filters.All(
                             f => (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
-                                f.FilterName,
-                                out var filterApplicationDetails)
-                            && filterApplicationDetails.HqlConditionFormatString != null))))
+                                    f.FilterName,
+                                    out var authorizationFilterDefinition)
+                                && authorizationFilterDefinition.HqlConditionFormatString != null))))
                 {
                     throw new SecurityConfigurationException(
                         SecurityConfigurationException.DefaultDetail,
@@ -118,33 +105,19 @@ namespace EdFi.Ods.Features.Composites
                 // If this is the base resource, rethrow the exception to achieve a 401 response
                 if (processorContext.IsBaseResource())
                 {
-                    Logger.Debug($"BaseResource: {processorContext.CurrentResourceClass.Name} could not be authorized.");
+                    Logger.DebugFormat("BaseResource: {0} could not be authorized.", processorContext.CurrentResourceClass.Name);
+
                     throw;
                 }
 
-                // In the case where we have an abstract class and it has no claim, eg EducationOrganization, we will allow
-                // the join if the subtype has been included.
-                if (processorContext.IsAbstract())
-                {
-                    Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} has no claim.");
-
-                    if (processorContext.ShouldIncludeResourceSubtype())
-                    {
-                        Logger.Debug(
-                            $"Resource is abstract and so target resource '{processorContext.CurrentResourceClass.Name}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.");
-
-                        return true;
-                    }
-                }
-
-                Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} is excluded from the request.");
-                Logger.Debug($"Security Exception Message: {ex.Message}.");
+                Logger.DebugFormat("Resource {0} is excluded from the request.", processorContext.CurrentResourceClass.Name);
+                Logger.DebugFormat("AuthorizationException Message: {0}.", ex.Message);
 
                 return false;
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryAuthorizationFiltering = authorizationFiltering;
+            builderContext.CurrentQueryAuthorizationFiltering = authorizationPlan.Filtering;
 
             return true;
         }
@@ -298,25 +271,6 @@ namespace EdFi.Ods.Features.Composites
         public HqlBuilderContext CreateFlattenedReferenceChildContext(HqlBuilderContext parentingBuilderContext)
         {
             return _next.CreateFlattenedReferenceChildContext(parentingBuilderContext);
-        }
-
-        private Type GetEntityType(ResourceClassBase currentResourceClass)
-        {
-            var assemblyName = currentResourceClass.IsEdFiStandardResource
-                ? Namespaces.Standard.BaseNamespace
-                : $"{Namespaces.Extensions.BaseNamespace}.{currentResourceClass.SchemaProperCaseName}";
-
-            return _entityTypeByName.GetOrAdd(
-                currentResourceClass.Name,
-                r =>
-                {
-                    string entityTypeAssemblyQualifiedName =
-                        $"{currentResourceClass.Entity.EntityTypeFullName(currentResourceClass.SchemaProperCaseName)}, {assemblyName}";
-
-                    Type type = Type.GetType(entityTypeAssemblyQualifiedName);
-
-                    return type;
-                });
         }
 
         private void ApplyFilters(

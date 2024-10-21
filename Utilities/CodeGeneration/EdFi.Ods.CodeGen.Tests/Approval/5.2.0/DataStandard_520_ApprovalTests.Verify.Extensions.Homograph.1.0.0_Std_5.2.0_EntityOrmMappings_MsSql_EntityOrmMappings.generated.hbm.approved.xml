@@ -33,6 +33,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -154,6 +155,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -194,6 +196,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" />
@@ -270,6 +273,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -314,6 +318,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 
@@ -435,6 +440,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" not-null="true" />
@@ -523,6 +529,7 @@
 
     <!-- Unique Guid-based identifier for aggregate root -->
     <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Properties -->
 

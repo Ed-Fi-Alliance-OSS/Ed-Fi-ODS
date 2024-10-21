@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
 public static class NamespaceBasedAuthorizationHelpers
 {
-    public static IList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext, string authorizationStrategyName)
+    public static IList<string> GetClaimNamespacePrefixes(DataManagementRequestContext authorizationContext, string authorizationStrategyName)
     {
         var namespacePrefixes = authorizationContext.ApiClientContext.NamespacePrefixes;
 
