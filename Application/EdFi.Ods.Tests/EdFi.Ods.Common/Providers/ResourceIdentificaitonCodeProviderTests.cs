@@ -19,7 +19,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
         private IResourceIdentificationCodePropertiesProvider _provider;
 
         [Test]
-        public void TryFindIdentificationCodes_ShouldReturnFalseAndNull_WhenResourceHasNoIdentificaionCode()
+        public void TryFindIdentificationCodes_ShouldReturnFalseAndNull_WhenResourceHasNoIdentificationCode()
         {
             // Arrange    
             _provider = new ResourceIdentificationCodePropertiesProvider();
@@ -40,7 +40,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
         }
         
         [Test]
-        public void TryFindIdentificationCodes_ShouldReturnTrueAndIdCodeProperties_WhenABaseResourceHasIdentificationCode()
+        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenABaseResourceHasIdentificationCode()
         {
             // Arrange    
             _provider = new ResourceIdentificationCodePropertiesProvider();
@@ -58,10 +58,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
             //Assert
             result.ShouldBeTrue();
             identificationCodeProperties.Count.ShouldBe(4);
+            identificationCodeProperties.Select(p => p.PropertyName).ToList().ShouldBeEquivalentTo(new List<string> 
+            {
+                "CourseIdentificationSystemDescriptor",
+                "AssigningOrganizationIdentificationCode",
+                "CourseCatalogURL",
+                "IdentificationCode"
+            });
         }
         
         [Test]
-        public void TryFindIdentificationCodes_ShouldReturnTrueAndIdCodeProperties_WhenADerivedResourceHasIdentificationCode()
+        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenADerivedResourceHasIdentificationCode()
         {
             // Arrange    
             _provider = new ResourceIdentificationCodePropertiesProvider();
@@ -79,6 +86,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
             //Assert
             result.ShouldBeTrue();
             identificationCodeProperties.Count.ShouldBe(2);
+            identificationCodeProperties.Select(p => p.PropertyName).ToList().ShouldBeEquivalentTo(new List<string> 
+            {
+                "EducationOrganizationIdentificationSystemDescriptor",
+                "IdentificationCode"
+            });
         }
     }
 }
