@@ -38,8 +38,8 @@ namespace EdFi.Ods.Api.Controllers.Partitions.Controllers;
 [Route($"{RouteConstants.DataManagementRoutePrefix}/{{schema}}/{{resource}}/partitions")]
 public class PartitionsController : ControllerBase
 {
-    private const int MinPartitions = 1;
-    private const int MaxPartitions = 200;
+    public const int MinPartitions = 1;
+    public const int MaxPartitions = 200;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly ILogContextAccessor _logContextAccessor;
@@ -75,7 +75,7 @@ public class PartitionsController : ControllerBase
             _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
         }
 
-        if (number is < 1 or > 200)
+        if (number is < MinPartitions or > MaxPartitions)
         {
             var problemDetails = new BadRequestParameterException(
                 BadRequestException.DefaultDetail,

@@ -206,21 +206,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray, bool isChangeQueryDeletes = false, bool isChangeQueryKeyChanges = false)
-        {
-            if (isChangeQueryDeletes && isChangeQueryKeyChanges)
+        public static Dictionary<string, Response> GetBaseResponses()
+            => new()
             {
-                throw new ArgumentException(
-                    $"{nameof(isChangeQueryDeletes)} and {nameof(isChangeQueryKeyChanges)} cannot be both true.");
-            }
+                {"400", new Response {@ref = GetResponseReference("BadRequest")}},
+                {"401", new Response {@ref = GetResponseReference("Unauthorized")}},
+                {"403", new Response {@ref = GetResponseReference("Forbidden")}},
+                {"500", new Response {@ref = GetResponseReference("Error")}}
+            };
 
+        public static Dictionary<string, Response> GetReadOperationResponses(string schemaReferenceName, bool isArray)
+        {
             var schemaRef = new Schema
             {
-                @ref = isChangeQueryDeletes
-                    ? GetDefinitionReference($"trackedChanges_{resourceName}Delete")
-                    : isChangeQueryKeyChanges
-                        ? GetDefinitionReference($"trackedChanges_{resourceName}KeyChange")
-                        : GetDefinitionReference(resourceName)
+                @ref = schemaReferenceName
             };
 
             var schema = isArray
@@ -231,7 +230,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 }
                 : schemaRef;
 
-            return new Dictionary<string, Response>
+            return new Dictionary<string, Response>(GetBaseResponses())
                    {
                        {
                            "200", new Response
@@ -246,33 +245,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                   }
                        },
                        {
-                           "400", new Response
-                                  {
-                                      @ref = GetResponseReference("BadRequest")
-                                  }
-                       },
-                       {
-                           "401", new Response
-                                  {
-                                      @ref = GetResponseReference("Unauthorized")
-                                  }
-                       },
-                       {
-                           "403", new Response
-                                  {
-                                      @ref = GetResponseReference("Forbidden")
-                                  }
-                       },
-                       {
                            "404", new Response
                                   {
                                       @ref = GetResponseReference("NotFound")
-                                  }
-                       },
-                       {
-                           "500", new Response
-                                  {
-                                      @ref = GetResponseReference("Error")
                                   }
                        }
                    };
@@ -280,7 +255,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public static SortedDictionary<string, Response> GetWriteOperationResponses(HttpMethod httpMethod)
         {
-            var responses = new Dictionary<string, Response>();
+            var responses = new Dictionary<string, Response>(GetBaseResponses());
 
             switch (httpMethod.ToString())
             {
@@ -343,27 +318,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
 
             responses.Add(
-                "400",
-                new Response
-                {
-                    @ref = GetResponseReference("BadRequest")
-                });
-
-            responses.Add(
-                "401",
-                new Response
-                {
-                    @ref = GetResponseReference("Unauthorized")
-                });
-
-            responses.Add(
-                "403",
-                new Response
-                {
-                    @ref = GetResponseReference("Forbidden")
-                });
-
-            responses.Add(
                 "409",
                 new Response
                 {
@@ -375,13 +329,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Response
                 {
                     @ref = GetResponseReference("PreconditionFailed")
-                });
-
-            responses.Add(
-                "500",
-                new Response
-                {
-                    @ref = GetResponseReference("Error")
                 });
 
             return new SortedDictionary<string, Response>(responses);
