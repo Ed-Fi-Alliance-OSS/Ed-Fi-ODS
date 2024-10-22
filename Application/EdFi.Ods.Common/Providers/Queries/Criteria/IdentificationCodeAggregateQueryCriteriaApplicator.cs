@@ -153,4 +153,6 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
                 .Select(p => p.ColumnName(_databaseEngine, p.PropertyName)).ToArray();
         }
     }
+
+    public static string IdentificationCodeEntityTableAlias() => IdentificationCodeTableAlias;
 }
