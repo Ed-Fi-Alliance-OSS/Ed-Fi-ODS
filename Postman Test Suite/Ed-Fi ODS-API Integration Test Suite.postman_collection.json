@@ -11073,16 +11073,18 @@
 													"pm.environment.set('known:cteProgramServiceDescriptor', requestJson._ext.Sample.cteProgramService.cteProgramServiceDescriptor);\r",
 													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										},
 										{
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:schools:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+													""
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -11091,7 +11093,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": \"{{supplied:schools:schoolId}}\",\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"schoolId\": 1{{$randomInt}}{{$randomInt}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n        \"cteProgramService\": {\r\n          \"cteProgramServiceDescriptor\": \"uri://ed-fi.org/CTEProgramServiceDescriptor#Architecture and Construction\"\r\n        }\r\n\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
