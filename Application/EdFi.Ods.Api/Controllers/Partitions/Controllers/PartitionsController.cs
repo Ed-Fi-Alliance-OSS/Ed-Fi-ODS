@@ -67,10 +67,10 @@ public class PartitionsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(
         [FromQuery] int? number,
-        [FromQuery] Dictionary<string, string> additionalParameters = default)
+        [FromQuery] Dictionary<string, string> additionalParameters)
     {
         // Store alternative auth approach decision into call context
-        if (additionalParameters?.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
+        if (additionalParameters.TryGetValue("useJoinAuth", out string useJoinAuth) == true)
         {
             _contextStorage.SetValue("UseJoinAuth", Convert.ToBoolean(useJoinAuth));
         }
