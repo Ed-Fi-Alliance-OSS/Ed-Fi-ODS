@@ -65,7 +65,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         }
         catch (DbException ex) when (ex.Message.Contains(ClientNotApprovedDbMessage))
         {
-            throw new SecurityAuthenticationException(AuthenticationFailureMessages.InvalidClient);
+            return null;
         }
         catch (DbException ex) when (ex.Message.Contains(TokenLimitReachedDbMessage))
         {
