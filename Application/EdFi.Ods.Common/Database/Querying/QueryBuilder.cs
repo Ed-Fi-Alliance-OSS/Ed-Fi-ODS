@@ -11,7 +11,6 @@ using System.Threading;
 using Dapper;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Database.Querying
 {
@@ -159,6 +158,13 @@ namespace EdFi.Ods.Common.Database.Querying
 
                 // Since we're dealing with a child scope with only 1 WHERE clause, no need to wrap it
                 _sqlBuilder.Where($"{whereCriteria}", template.Parameters);
+            }
+            else
+            {
+                if (childScope.Parameters.Any())
+                {
+                    _sqlBuilder.AddParameters(childScope.Parameters);
+                }
             }
 
             // Incorporate any JOINs added into this builder
