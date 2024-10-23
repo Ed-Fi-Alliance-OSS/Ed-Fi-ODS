@@ -9,7 +9,9 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Exceptions;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
@@ -22,6 +24,7 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
 
     private const string AddTokenProcedureName = "dbo.CreateClientAccessToken";
     private const string TokenLimitReachedDbMessage = "Token limit reached";
+    private const string ClientNotApprovedDbMessage = "Client is not approved";
 
     public EdFiAdminAccessTokenFactory(
         DbProviderFactory dbProviderFactory,
@@ -59,6 +62,10 @@ public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
         try
         {
             await connection.ExecuteAsync(AddTokenProcedureName, @params, commandType: CommandType.StoredProcedure);
+        }
+        catch (DbException ex) when (ex.Message.Contains(ClientNotApprovedDbMessage))
+        {
+            throw new SecurityAuthenticationException(AuthenticationFailureMessages.ClientNotApproved);
         }
         catch (DbException ex) when (ex.Message.Contains(TokenLimitReachedDbMessage))
         {
