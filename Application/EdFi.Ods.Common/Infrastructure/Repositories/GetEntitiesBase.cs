@@ -11,6 +11,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
@@ -37,6 +39,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly Lazy<List<string>> _aggregateHqlStatementsForWrites;
         private readonly Lazy<string> _mainHqlStatementBaseForReads;
         private readonly Lazy<string> _mainHqlStatementBaseForWrites;
+        private bool _resourceSerializationEnabled;
 
         // Holds pre-built HQL queries to avoid string allocations for each execution 
         private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
@@ -54,9 +57,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         protected GetEntitiesBase(
             ISessionFactory sessionFactory, 
             IDomainModelProvider domainModelProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings)
             : base(sessionFactory)
         {
+            _resourceSerializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ResourceSerialization.GetConfigKeyName());
+
             _domainModelProvider = domainModelProvider;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _aggregate = new Lazy<Aggregate>(() => dataManagementResourceContextProvider.Get().Resource.Entity.Aggregate);
@@ -112,7 +118,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
 
-            string mainHql = GetMainHql();
+            string mainHql = GetMainHql((isReadRequest || _resourceSerializationEnabled));
 
             using (new SessionScope(SessionFactory))
             {
@@ -123,7 +129,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 if (!isShallow)
                 {
-                    var aggregateStatements = isReadRequest
+                    var aggregateStatements = (isReadRequest || _resourceSerializationEnabled)
                         ? _aggregateHqlStatementsForReads.Value
                         : _aggregateHqlStatementsForWrites.Value;
 
@@ -142,7 +148,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);
             }
 
-            string GetMainHql()
+            string GetMainHql(bool isReadRequest)
             {
                 return _hqlByScenario.GetOrAdd(
                     (isReadRequest, whereClause, orderByClause),

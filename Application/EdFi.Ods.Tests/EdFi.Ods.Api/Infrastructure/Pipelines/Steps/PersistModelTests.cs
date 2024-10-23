@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
             }
         }
 
-        public class AccountEntity : IDateVersionedEntity, IHasIdentifier
+        public class AccountEntity : IDateVersionedEntity, IHasIdentifier, IMappable
         {
             public DateTime LastModifiedDate
             {
@@ -42,6 +42,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
             {
                 get { return Guid.NewGuid(); }
                 set { }
+            }
+
+            public void Map(object target)
+            {
+                throw new NotImplementedException();
             }
         }
 

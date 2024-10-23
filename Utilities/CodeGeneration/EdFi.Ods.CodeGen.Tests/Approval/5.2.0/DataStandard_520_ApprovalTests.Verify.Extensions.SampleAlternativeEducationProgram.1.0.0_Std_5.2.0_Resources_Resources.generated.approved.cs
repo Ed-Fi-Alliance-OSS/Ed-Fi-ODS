@@ -23,6 +23,8 @@ using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram;
 using Newtonsoft.Json;
 using FluentValidation.Results;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: AlternativeEducationEligibilityReasonDescriptor
 
@@ -31,7 +33,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
     /// <summary>
     /// A class which represents the samplealternativeeducationprogram.AlternativeEducationEligibilityReasonDescriptor table of the AlternativeEducationEligibilityReasonDescriptor aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class AlternativeEducationEligibilityReasonDescriptor : Entities.Common.SampleAlternativeEducationProgram.IAlternativeEducationEligibilityReasonDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
@@ -60,6 +62,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         /// The unique identifier for the AlternativeEducationEligibilityReasonDescriptor resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -77,7 +80,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [JsonIgnore]
+        [JsonIgnore, IgnoreMember]
         public int AlternativeEducationEligibilityReasonDescriptorId { get; set; }
 
         int IDescriptor.DescriptorId
@@ -144,6 +147,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         [RequiredWithNonDefault]
         [NonDefaultStringLength(50, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="codeValue")]
+        [Key(1)]            
         public string CodeValue { get; set; }
 
         /// <summary>
@@ -152,6 +156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         // NOT in a reference, NOT a lookup column 
         [NonDefaultStringLength(1024, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="description")]
+        [Key(2)]            
         public string Description { get; set; }
 
         /// <summary>
@@ -159,6 +164,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(3)]            
         public DateTime? EffectiveBeginDate { get; set; }
 
         /// <summary>
@@ -166,6 +172,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime? EffectiveEndDate { get; set; }
 
         /// <summary>
@@ -175,6 +182,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         [RequiredWithNonDefault]
         [NonDefaultStringLength(255, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="namespace")]
+        [Key(5)]            
         public string Namespace { get; set; }
 
         /// <summary>
@@ -184,6 +192,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         [RequiredWithNonDefault]
         [NonDefaultStringLength(75, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="shortDescription")]
+        [Key(6)]            
         public string ShortDescription { get; set; }
         // -------------------------------------------------------------
 
@@ -207,15 +216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -227,9 +227,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AlternativeEducationEligibilityRe
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(7)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(8)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -302,26 +304,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
     /// <summary>
     /// Represents a reference to the StudentAlternativeEducationProgramAssociation resource.
     /// </summary>
-    [DataContract]
+    [DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentAlternativeEducationProgramAssociationReference : IResourceReference
     {
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(0)]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="educationOrganizationId")]
+        [Key(1)]
         public long EducationOrganizationId { get; set; }
 
         [DataMember(Name="programEducationOrganizationId")]
+        [Key(2)]
         public long ProgramEducationOrganizationId { get; set; }
 
         [DataMember(Name="programName")]
+        [Key(3)]
         public string ProgramName { get; set; }
 
         [DataMember(Name="programTypeDescriptor")][DescriptorExists("ProgramTypeDescriptor")]
+        [IgnoreMember]
         public string ProgramTypeDescriptor { get; set; }
 
+        [Key(4)][JsonIgnore]
+        public int ProgramTypeDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", ProgramTypeDescriptor); }
+            set { ProgramTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", value); }
+        }
+
         [DataMember(Name="studentUniqueId")]
+        [Key(5)]
         public string StudentUniqueId 
         {
             get => _studentUniqueId;
@@ -336,11 +351,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         /// <summary>
         /// Gets or sets the resource identifier of the referenced resource.
         /// </summary>
+        [Key(6)]
         public Guid ResourceId { get; set; }
 
 
-        private Link _link;
+        [JsonIgnore]
+        [Key(7)]
+        public Link _link;
 
+        [IgnoreMember]
         [DataMember(Name="link")]
         public Link Link
         {
@@ -415,7 +434,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
     /// <summary>
     /// A class which represents the samplealternativeeducationprogram.StudentAlternativeEducationProgramAssociation table of the StudentAlternativeEducationProgramAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentAlternativeEducationProgramAssociation : Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, IValidatableObject
     {
@@ -451,6 +470,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         /// The unique identifier for the StudentAlternativeEducationProgramAssociation resource.
         /// </summary>
         [DataMember(Name="id")]
+        [Key(0)]
         [JsonConverter(typeof(GuidConverter))]
         public Guid Id { get; set; }
         // ------------------------------------------------------------
@@ -474,6 +494,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
 
         [DataMember(Name="educationOrganizationReference")]
+        [Key(1)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public EducationOrganization.EdFi.EducationOrganizationReference EducationOrganizationReference
         {
@@ -507,6 +528,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
 
         [DataMember(Name="programReference")]
+        [Key(2)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Program.EdFi.ProgramReference ProgramReference
         {
@@ -540,6 +562,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
 
         [DataMember(Name="studentReference")]
+        [Key(3)]
         [FullyDefinedReference][RequiredReference(isIdentifying: true)]
         public Student.EdFi.StudentReference StudentReference
         {
@@ -570,6 +593,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(4)]            
         public DateTime BeginDate { get; set; }
 
         /// <summary>
@@ -791,6 +815,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [Key(5)]            
         public DateTime? EndDate { get; set; }
 
         /// <summary>
@@ -799,13 +824,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // NOT in a reference, IS a lookup column 
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="reasonExitedDescriptor")][DescriptorExists("ReasonExitedDescriptor")]
+        [IgnoreMember]            
         public string ReasonExitedDescriptor { get; set; }
+
+        [Key(6)][JsonIgnore]
+        public int ReasonExitedDescriptorId
+        {
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ReasonExitedDescriptor", ReasonExitedDescriptor); }
+            set { ReasonExitedDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ReasonExitedDescriptor", value); }
+        }
 
         /// <summary>
         /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="servedOutsideOfRegularSession")]
+        [Key(7)]            
         public bool? ServedOutsideOfRegularSession { get; set; }
         // -------------------------------------------------------------
 
@@ -820,7 +854,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         [RequiredWithNonDefault]
         [NonDefaultStringLength(306, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText]
         [DataMember(Name="alternativeEducationEligibilityReasonDescriptor")][DescriptorExists("AlternativeEducationEligibilityReasonDescriptor")]
+        [IgnoreMember]
         public string AlternativeEducationEligibilityReasonDescriptor { get; set; }
+
+        [Key(8)][JsonIgnore]
+        public int AlternativeEducationEligibilityReasonDescriptorId
+        { 
+            get { return GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AlternativeEducationEligibilityReasonDescriptor", AlternativeEducationEligibilityReasonDescriptor); }
+            set { AlternativeEducationEligibilityReasonDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AlternativeEducationEligibilityReasonDescriptor", value); } 
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -841,6 +883,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
 
         [NoDuplicateMembers]
         [DataMember(Name="programParticipationStatuses")]
+        [Key(9)]
         public ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> GeneralStudentProgramAssociationProgramParticipationStatuses
         {
             get { return _generalStudentProgramAssociationProgramParticipationStatuses; }
@@ -859,15 +902,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections
@@ -877,6 +911,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
 
         [NoDuplicateMembers]
         [DataMember(Name="meetingTimes")]
+        [Key(10)]
         public ICollection<StudentAlternativeEducationProgramAssociationMeetingTime> StudentAlternativeEducationProgramAssociationMeetingTimes
         {
             get { return _studentAlternativeEducationProgramAssociationMeetingTimes; }
@@ -909,9 +944,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // -------------------------------------------------------------
 
         [DataMember(Name="_etag")]
+        [Key(11)]
         public virtual string ETag { get; set; }
             
         [DataMember(Name="_lastModifiedDate")]
+        [Key(12)]
         public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
@@ -1144,7 +1181,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
     /// <summary>
     /// A class which represents the samplealternativeeducationprogram.StudentAlternativeEducationProgramAssociationMeetingTime table of the StudentAlternativeEducationProgramAssociation aggregate in the ODS Database.
     /// </summary>
-    [Serializable, DataContract]
+    [Serializable, DataContract, MessagePackObject]
     [ExcludeFromCodeCoverage]
     public class StudentAlternativeEducationProgramAssociationMeetingTime : Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociationMeetingTime
     {
@@ -1187,6 +1224,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
             set { SetStudentAlternativeEducationProgramAssociation(value); }
         }
 
+        [IgnoreMember]
         public Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociation StudentAlternativeEducationProgramAssociation
         {
             set { SetStudentAlternativeEducationProgramAssociation(value); }
@@ -1203,6 +1241,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="endTime")][JsonConverter(typeof(UtcTimeConverter))]
+        [Key(0)]            
         public TimeSpan EndTime { get; set; }
 
         /// <summary>
@@ -1211,6 +1250,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // NOT in a reference, NOT a lookup column 
         [RequiredWithNonDefault]
         [DataMember(Name="startTime")][JsonConverter(typeof(UtcTimeConverter))]
+        [Key(1)]            
         public TimeSpan StartTime { get; set; }
         // -------------------------------------------------------------
 
@@ -1301,15 +1341,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                     Extensions
-        // -------------------------------------------------------------
-        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
-        public System.Collections.IDictionary Extensions {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
 
         // =============================================================
         //                          Collections

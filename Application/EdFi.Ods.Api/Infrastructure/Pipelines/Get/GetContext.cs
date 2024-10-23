@@ -9,7 +9,7 @@ using EdFi.Ods.Common;
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Get
 {
     public class GetContext<TEntityModel> : IHasPersistentModel<TEntityModel>, IHasETag, IHasIdentifier
-        where TEntityModel : class
+        where TEntityModel : class, IMappable
     {
         public GetContext(Guid id, string etag)
         {
