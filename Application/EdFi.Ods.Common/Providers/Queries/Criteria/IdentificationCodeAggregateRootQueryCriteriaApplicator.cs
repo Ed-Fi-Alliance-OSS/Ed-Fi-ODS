@@ -21,7 +21,7 @@ namespace EdFi.Ods.Common.Providers.Queries.Criteria;
 /// <summary>
 /// Applies criteria to a query based on identification codes property values
 /// </summary>
-public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRootQueryCriteriaApplicator
+public class IdentificationCodeAggregateRootQueryCriteriaApplicator : IAggregateRootQueryCriteriaApplicator
 {
     private readonly IDescriptorResolver _descriptorResolver;
     private readonly IResourceModelProvider _resourceModelProvider;
@@ -31,7 +31,7 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
     private const string IdentificationCodeTableAlias = "idct";
     private readonly ConcurrentDictionary<FullName, Join> _identificationCodeTableJoinByRootEntityName = new();
 
-    public IdentificationCodeAggregateQueryCriteriaApplicator(
+    public IdentificationCodeAggregateRootQueryCriteriaApplicator(
         IDescriptorResolver descriptorResolver,
         IResourceModelProvider resourceModelProvider,
         IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
@@ -46,26 +46,34 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
     public void ApplyAdditionalParameters(QueryBuilder queryBuilder, Entity entity, AggregateRootWithCompositeKey specification,
         IDictionary<string, string> additionalParameters)
     {
-        if (additionalParameters == null || !additionalParameters.Any() || additionalParameters.All(
+        if (additionalParameters == null
+            || !additionalParameters.Any()
+            || additionalParameters.All(
                 ap => AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(ap.Key, StringComparer.OrdinalIgnoreCase)))
+        {
             return;
+        }
 
         var resource = _resourceModelProvider.GetResourceModel().GetResourceByFullName(entity.FullName);
 
         // If the entity does not have an identificationCodes collection with queryable properties, return
         if (!_resourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
                 resource, out List<ResourceProperty> identificationCodeProperties))
+        {
             return;
+        }
 
         // Find any supplied additionalParameters with a non-default value and name matching that of a queryable identificationCode property, if none then return
         var applicableAdditionalParameters = additionalParameters
             .Where(
-                x => !x.Value.IsDefaultValue() &&
-                     identificationCodeProperties.Any(y => y.PropertyName.Equals(x.Key, StringComparison.OrdinalIgnoreCase)))
+                x => !x.Value.IsDefaultValue()
+                     && identificationCodeProperties.Any(y => y.PropertyName.Equals(x.Key, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
 
         if (applicableAdditionalParameters.Length == 0)
+        {
             return;
+        }
 
         var identificationCodeTableJoin =
             GetIdentificationCodeEntityTableJoin(entity, identificationCodeProperties.First().EntityProperty.Entity);
@@ -127,10 +135,8 @@ public class IdentificationCodeAggregateQueryCriteriaApplicator : IAggregateRoot
         return _identificationCodeTableJoinByRootEntityName.GetOrAdd(
             rootEntity.FullName, _ =>
             {
-                string alias = rootEntity.IsDerived
-                    ? "b"
-                    : "r";
-
+                string alias = rootEntity.RootTableAlias();
+                
                 var join = new Join(
                     $"{identificationCodeEntity.Schema}.{identificationCodeEntity.TableName(_databaseEngine)}"
                         .Alias(IdentificationCodeTableAlias));

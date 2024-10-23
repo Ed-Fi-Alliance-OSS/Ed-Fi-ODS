@@ -41,8 +41,8 @@ public class ResourceIdentificationCodePropertiesProvider : IResourceIdentificat
 
         bool IsQueryableIdentificationCodeProperty(ResourceProperty property)
         {
-            return property.PropertyName.Equals("IdentificationCode") ||
-                   !property.EntityProperty.IsPredefinedProperty();
+            return property.PropertyName.Equals("IdentificationCode")
+                   || !property.EntityProperty.IsPredefinedProperty();
         }
     }
 

@@ -25,13 +25,13 @@ using Test.Common;
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
 {
     [TestFixture]
-    public class IdentificationCodeAggregateQueryCriteriaApplicatorTests
+    public class IdentificationCodeAggregateRootQueryCriteriaApplicatorTests
     {
         private IResourceModel _resourceModel;
         private IResourceModelProvider _resourceModelProvider;
         private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
         private readonly string identificationCodeTableAlias =
-            IdentificationCodeAggregateQueryCriteriaApplicator.IdentificationCodeEntityTableAlias();
+            IdentificationCodeAggregateRootQueryCriteriaApplicator.IdentificationCodeEntityTableAlias();
 
         [SetUp]
         public void SetUp()
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 () => fakeResourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
                     resourceWithIdentificationCodeProperty, out identificationCodeProperties)).Returns(false);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 () => fakeResourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
                     resourceWithIdentificationCodeProperty, out identificationCodeProperties)).Returns(false);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -178,7 +178,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 () => fakeResourceIdentificationCodePropertiesProvider.TryGetIdentificationCodeProperties(
                     resourceWithIdentificationCodeProperty, out identificationCodeProperties)).Returns(false);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -243,7 +243,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                             property => property.PropertyName.Equals("IdentificationCode") ||
                                         !property.EntityProperty.IsPredefinedProperty()).ToList());
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -316,7 +316,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                             property => property.PropertyName.Equals("IdentificationCode") ||
                                         !property.EntityProperty.IsPredefinedProperty()).ToList());
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -392,7 +392,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                         resourceWithIdentificationCodeCollection, out identificationCodeProperties)).Returns(true)
                 .AssignsOutAndRefParameters(identificationCodePropertiesForResource);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -468,7 +468,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                         resourceWithIdentificationCodeCollection, out identificationCodeProperties)).Returns(true)
                 .AssignsOutAndRefParameters(identificationCodePropertiesForResource);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -538,7 +538,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                         resourceWithIdentificationCodeCollection, out identificationCodeProperties)).Returns(true)
                 .AssignsOutAndRefParameters(identificationCodePropertiesForResource);
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 fakeDescriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 
@@ -645,7 +645,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     => courseIdentificationSystemDescriptorToDescriptorIdMappings.GetValueOrDefault(
                         (descriptorName, descriptorUri)));
 
-            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateQueryCriteriaApplicator(
+            var identificationCodeAggregateQueryCriteriaApplicator = new IdentificationCodeAggregateRootQueryCriteriaApplicator(
                 descriptorResolver, _resourceModelProvider, fakeResourceIdentificationCodePropertiesProvider,
                 global::EdFi.Common.Configuration.DatabaseEngine.TryParseEngine(databaseEngineEnum.ToString()));
 

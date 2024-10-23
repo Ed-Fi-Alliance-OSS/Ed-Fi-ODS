@@ -5,6 +5,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers.Queries;
 using NUnit.Framework;
@@ -17,22 +19,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
     public class ResourceIdentificationCodePropertiesProviderTests
     {
         private IResourceIdentificationCodePropertiesProvider _provider;
+        private DomainModel _domainModel; 
+        
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            _provider = new ResourceIdentificationCodePropertiesProvider();
+            _domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+        }
 
         [Test]
         public void TryFindIdentificationCodes_ShouldReturnFalseAndNull_WhenResourceHasNoIdentificationCode()
         {
             // Arrange    
-            _provider = new ResourceIdentificationCodePropertiesProvider();
-            const string ResourceName = "edfi.Calendar";
-
-            var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
-
-            Resource resource = domainModel.ResourceModel.GetAllResources()
-                .First(r => r.FullName.Equals(ResourceName));
+            Resource resourceWithoutIdentificationCode = _domainModel.ResourceModel.GetResourceByFullName("edfi.Calendar");
 
             // Act
             bool result = _provider.TryGetIdentificationCodeProperties(
-                resource, out List<ResourceProperty> identificationCodeProperties);
+                resourceWithoutIdentificationCode, out List<ResourceProperty> identificationCodeProperties);
 
             //Assert
             result.ShouldBeFalse();
@@ -40,20 +44,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
         }
         
         [Test]
-        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenABaseResourceHasIdentificationCode()
+        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenAResourceHasIdentificationCode()
         {
             // Arrange    
             _provider = new ResourceIdentificationCodePropertiesProvider();
-            const string ResourceName = "edfi.Course";
+            const string ResourceWithIdentificationCodeCollectionName = "edfi.Course";
 
-            var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
-
-            Resource resource = domainModel.ResourceModel.GetAllResources()
-                .First(r => r.FullName.Equals(ResourceName));
+            Resource resourceWithIdentificationCodeCollection = _domainModel.ResourceModel.GetAllResources()
+                .First(r => r.FullName.Equals(ResourceWithIdentificationCodeCollectionName));
 
             // Act
             bool result = _provider.TryGetIdentificationCodeProperties(
-                resource, out List<ResourceProperty> identificationCodeProperties);
+                resourceWithIdentificationCodeCollection, out List<ResourceProperty> identificationCodeProperties);
 
             //Assert
             result.ShouldBeTrue();
@@ -68,20 +70,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
         }
         
         [Test]
-        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenADerivedResourceHasIdentificationCode()
+        public void TryFindIdentificationCodes_ShouldReturnTrueAndCorrectIdentificationCodeProperties_WhenADerivedResourceHasInheritedIdentificationCode()
         {
             // Arrange    
             _provider = new ResourceIdentificationCodePropertiesProvider();
-            const string ResourceName = "edfi.School";
+            const string DerivedResourceName = "edfi.School";
 
             var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
-            Resource resource = domainModel.ResourceModel.GetAllResources()
-                .First(r => r.FullName.Equals(ResourceName));
+            Resource derivedResource = domainModel.ResourceModel.GetAllResources()
+                .First(r => r.FullName.Equals(DerivedResourceName));
 
             // Act
             bool result = _provider.TryGetIdentificationCodeProperties(
-                resource, out List<ResourceProperty> identificationCodeProperties);
+                derivedResource, out List<ResourceProperty> identificationCodeProperties);
 
             //Assert
             result.ShouldBeTrue();
