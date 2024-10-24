@@ -23,7 +23,7 @@ BEGIN
 	    AND ac.isapproved = true;
   
   	IF (client_is_approved = 0) THEN
-  		RAISE EXCEPTION USING MESSAGE = 'Client is not arrpoved';
+  		RAISE EXCEPTION USING MESSAGE = 'Client is not approved';
   	END IF;
 
     IF maxtokencount < 1 THEN
