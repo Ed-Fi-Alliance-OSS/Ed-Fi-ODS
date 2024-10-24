@@ -32,7 +32,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.168" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.3.352" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.3.162" />
       </ItemGroup>
     </Otherwise>
