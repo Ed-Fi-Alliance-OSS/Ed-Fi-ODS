@@ -36,13 +36,14 @@ namespace EdFi.Admin.DataAccess.Models
         /// <param name="sandboxType">Empty, Minimal, Populated</param>
         /// <param name="key">optional parameter, value is created randomly if it is null or empty. Both Key and Secret are required if providing either.</param>
         /// <param name="secret">optional parameter, value is created randomly if it is null or empty. Both Key and Secret are required if providing either.</param>
+        /// <param name="isApproved">optional parameter, is this client allowed to authenticate. Default is <c>true</c>.</param>
         /// <returns>ApiClient information about the created sandbox</returns>
-        public ApiClient AddSandboxClient(string name, SandboxType sandboxType, string key, string secret)
+        public ApiClient AddSandboxClient(string name, SandboxType sandboxType, string key, string secret, bool isApproved = true)
         {
             var client = new ApiClient(true)
             {
                 Name = name,
-                IsApproved = true,
+                IsApproved = isApproved,
                 UseSandbox = true,
                 SandboxType = sandboxType
             };
