@@ -409,7 +409,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         parameterList.Add(
                             new Parameter
                             {
-                                name = (x.DescriptorName ?? x.PropertyName).ToCamelCase(),
+                                name = x.PropertyName.ToCamelCase(),
                                 @in = "query",
                                 description = x.Description,
                                 type = OpenApiMetadataDocumentHelper.PropertyType(x),
