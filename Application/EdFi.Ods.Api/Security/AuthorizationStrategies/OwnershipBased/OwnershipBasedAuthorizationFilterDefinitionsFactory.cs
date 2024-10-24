@@ -49,6 +49,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         QueryBuilder queryBuilder,
         QueryBuilder whereQueryBuilder,
+        Resource _,
         string[] subjectEndpointNames,
         IDictionary<string, object> parameters,
         JoinType joinType,
@@ -67,7 +68,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private void ApplyTrackedChangesAuthorizationCriteria(
         AuthorizationFilterDefinition filterDefinition,
         AuthorizationFilterContext filterContext,
-        Resource resource,
+        Resource _,
         int filterIndex,
         QueryBuilder queryBuilder,
         bool useOuterJoins)

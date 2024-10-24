@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
 using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Composites.Test;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
@@ -116,6 +117,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         {
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+
 
             protected override void Arrange()
             {
@@ -128,6 +131,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
+                
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
 
                 var resourceModel = ResourceModelProvider.GetResourceModel();
 
@@ -147,6 +152,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -217,6 +223,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private ICompositesMetadataProvider _compositesMetadataProvider;
             private IProfileResourceModelProvider _profileResourceModelProvider;
             private IProfileResourceNamesProvider _profileResourceNamesProvider;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+
 
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
@@ -233,6 +241,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 _profileResourceNamesProvider = Stub<IProfileResourceNamesProvider>();
 
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
+
                 A.CallTo(() => _profileResourceNamesProvider.GetProfileResourceNames())
                     .Returns(new List<ProfileAndResourceNames>());
 
@@ -247,6 +257,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -295,6 +306,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private ICompositesMetadataProvider _compositesMetadataProvider;
             private IProfileResourceModelProvider _profileResourceModelProvider;
             private IProfileResourceNamesProvider _profileResourceNamesProvider;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
 
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
@@ -306,6 +318,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 _profileResourceModelProvider = Stub<IProfileResourceModelProvider>();
 
                 _profileResourceNamesProvider = Stub<IProfileResourceNamesProvider>();
+
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
 
                 A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
                     .Returns(new List<CompositeCategory>());
@@ -322,6 +336,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
@@ -382,6 +397,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private IProfileResourceModelProvider _profileResourceModelProvider;
             private IProfileResourceNamesProvider _profileResourceNamesProvider;
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
             private List<OpenApiContent> _actualMetadata;
 
             protected override void Arrange()
@@ -427,9 +443,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
@@ -495,6 +514,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private CompositesMetadataProvider _compositesMetadataProvider;
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+
 
             protected override void Arrange()
             {
@@ -527,9 +548,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
+
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -615,6 +639,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
 
             private List<OpenApiContent> _actualMetadata;
+            
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+
 
             protected override void Arrange()
             {
@@ -634,6 +661,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
                 var _resourceModelProvider = Stub<IResourceModelProvider>();
+                
+                _resourceIdentificationCodePropertiesProvider = Stub<IResourceIdentificationCodePropertiesProvider>();
 
                 var resourceModel = ResourceModelProvider.GetResourceModel();
 
@@ -651,6 +680,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
@@ -718,13 +748,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         public class When_requesting_a_section_from_the_cache_for_which_no_route_was_registered : TestFixtureBase
         {
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
-
+            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
             private List<OpenApiContent> _actualMetadata;
 
             protected override void Arrange()
             {
                 var _openAPIMetadataRouteInformation = Stub<IList<IOpenApiMetadataRouteInformation>>();
-
+                var _resourceIdentificationCodeProperties = Stub<IResourceIdentificationCodePropertiesProvider>();
                 var _openApiContentProviders = Stub<IList<IOpenApiContentProvider>>();
 
                 A.CallTo(() => OpenApiV3UpconversionProvider.GetUpconvertedOpenApiJson(A<string>._))
@@ -736,6 +766,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
                     OpenApiV3UpconversionProvider,
+                    _resourceIdentificationCodeProperties,
                     new FakeOpenApiIdentityProvider());
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
