@@ -461,7 +461,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = CreateApiClient(context, userId, name, sandboxType, key, secret, true);
 
                 AddApplicationEducationOrganizations(context, applicationId, client);
 
@@ -509,7 +509,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 _logger.Debug($"Creating API Client");
-                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret, true);
 
                 _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
@@ -728,8 +728,8 @@ namespace EdFi.Admin.DataAccess.Repositories
             string name,
             SandboxType sandboxType,
             string key,
-            string secret, 
-            bool isApproved = true)
+            string secret,
+            bool isApproved)
         {
             var attachedUser = context.Users.Find(userId);
 
