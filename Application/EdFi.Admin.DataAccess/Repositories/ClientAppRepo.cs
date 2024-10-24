@@ -439,11 +439,11 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public ApiClient CreateApiClient(int userId, string name, string key, string secret)
+        public ApiClient CreateApiClient(int userId, string name, string key, string secret, bool isApproved)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = CreateApiClient(context, userId, name, SandboxType.Sample, key, secret);
+                var client = CreateApiClient(context, userId, name, SandboxType.Sample, key, secret, isApproved);
 
                 context.SaveChanges();
 
@@ -461,7 +461,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = CreateApiClient(context, userId, name, sandboxType, key, secret, true);
 
                 AddApplicationEducationOrganizations(context, applicationId, client);
 
@@ -509,7 +509,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 _logger.Debug($"Creating API Client");
-                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret, true);
 
                 _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
@@ -723,17 +723,17 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        private ApiClient CreateApiClient(
-            IUsersContext context,
+        private ApiClient CreateApiClient(IUsersContext context,
             int userId,
             string name,
             SandboxType sandboxType,
             string key,
-            string secret)
+            string secret,
+            bool isApproved)
         {
             var attachedUser = context.Users.Find(userId);
 
-            return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
+            return attachedUser.AddSandboxClient(name, sandboxType, key, secret, isApproved);
         }
 
         private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)

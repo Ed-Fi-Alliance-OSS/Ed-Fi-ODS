@@ -82,6 +82,11 @@ namespace EdFi.Ods.Api.Providers
 
             // create a new token
             var token = await _accessTokenFactory.CreateAccessTokenAsync(authenticationResult.ApiClientDetails.ApiClientId, tokenRequestScope);
+            
+            if (token == null)
+            {
+                return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
+            }
 
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);

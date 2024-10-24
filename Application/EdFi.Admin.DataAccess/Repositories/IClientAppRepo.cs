@@ -68,7 +68,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 
         Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName);
 
-        ApiClient CreateApiClient(int userId, string name, string key, string secret);
+        ApiClient CreateApiClient(int userId, string name, string key, string secret, bool isApproved = true);
 
         void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<long> edOrgIds, int applicationId);
 

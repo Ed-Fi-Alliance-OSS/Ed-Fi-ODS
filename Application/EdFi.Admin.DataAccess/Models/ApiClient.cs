@@ -75,7 +75,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Lock-out the application if not approved (Auto-approve in sandbox)
+        /// Lock-out the application if not approved
         /// </summary>
         public bool IsApproved { get; set; }
 
