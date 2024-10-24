@@ -16,33 +16,33 @@ BEGIN
 
   DECLARE @ActiveTokenCount INT
   DECLARE @ClientIsApproved INT
-  
+
   SET @ClientIsApproved = (SELECT COUNT(1)
-                                     FROM dbo.ApiClients ac
-                                     WHERE ac.ApiClientId = @ApiClientId
-                                       AND ac.IsApproved = 1)
-                                       
+                                 FROM dbo.ApiClients ac
+                                 WHERE ac.ApiClientId = @ApiClientId
+                                   AND ac.IsApproved = 1)
+
   IF (@ClientIsApproved = 0)
   BEGIN
     THROW 50000, 'Client is not approved', 1;
   END
-	
-	IF @MaxTokenCount < 1
-		SET @ActiveTokenCount = 0
-	ELSE
-	BEGIN                                 
+
+  IF @MaxTokenCount < 1
+    SET @ActiveTokenCount = 0
+  ELSE
+  BEGIN
     SET @ActiveTokenCount = (SELECT COUNT(1)
-                                     FROM dbo.ClientAccessTokens actoken
-                                     WHERE ApiClient_ApiClientId = @ApiClientId
-                                       AND actoken.Expiration > GETUTCDATE())
-	END
-	
+                                   FROM dbo.ClientAccessTokens actoken
+                                   WHERE ApiClient_ApiClientId = @ApiClientId
+                                     AND actoken.Expiration > GETUTCDATE())
+  END
+
   IF (@MaxTokenCount < 1) OR (@ActiveTokenCount < @MaxTokenCount)
-	BEGIN
-        INSERT INTO dbo.ClientAccessTokens(Id, Expiration, Scope, ApiClient_ApiClientId)
-        VALUES (@Id, @Expiration, @Scope, @ApiClientId)
-	END
-    ELSE
-		THROW 50000, 'Token limit reached', 1;
+  BEGIN
+    INSERT INTO dbo.ClientAccessTokens(Id, Expiration, Scope, ApiClient_ApiClientId)
+    VALUES (@Id, @Expiration, @Scope, @ApiClientId)
+  END
+  ELSE
+    THROW 50000, 'Token limit reached', 1;
 END
 GO
