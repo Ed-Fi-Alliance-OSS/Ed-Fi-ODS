@@ -47,6 +47,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.ProblemDetails;
 using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Validation;
@@ -347,6 +348,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<PersonTypesProvider>()
                 .As<IPersonTypesProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<ResourceIdentificationCodePropertiesProvider>()
+                .As<IResourceIdentificationCodePropertiesProvider>()
                 .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()

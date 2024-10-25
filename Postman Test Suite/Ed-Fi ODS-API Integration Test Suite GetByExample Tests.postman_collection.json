@@ -1281,7 +1281,9 @@
 										"exec": [
 											"pm.environment.set('supplied:schoolId', 255901001);\r",
 											"pm.environment.set('supplied:nameOfInstitution', 'Grand Bend Middle School');\r",
-											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');"
+											"pm.environment.set('supplied:shortNameOfInstitution', 'GBES');\r",
+											"pm.environment.set('supplied:identificationCode', \"255901001\");\r",
+											"pm.environment.set('supplied:educationOrganizationIdentificationSystemDescriptor', encodeURIComponent(\"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\"));"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1948,6 +1950,331 @@
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "When filtering by IdentificationCode",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create School with existing IdentificationCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"known:schoolWithDuplicateIdentificationCode_id\", pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\n        \"localEducationAgencyReference\": {\n            \"localEducationAgencyId\": 255901,\n            \"link\": {\n                \"rel\": \"LocalEducationAgency\",\n                \"href\": \"/ed-fi/localEducationAgencies/97cb137b7004479893cf92f7d770bb81\"\n            }\n        },\n        \"schoolId\": 255901999,\n        \"nameOfInstitution\": \"Grand Bend High Alternate\",\n        \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\n        \"shortNameOfInstitution\": \"GBHSA\",\n        \"webSite\": \"http://www.GBISD.edu/GBHSA/\",\n        \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\n        \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\",\n        \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\n        \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\n        \"educationOrganizationCategories\": [\n            {\n                \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\n            }\n        ],\n        \"identificationCodes\": [\n            {\n                \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#Federal\",\n                \"identificationCode\": \"255901001\"\n            }\n        ],\n        \"indicators\": [],\n        \"institutionTelephones\": [],\n        \"internationalAddresses\": [],\n        \"schoolCategories\": [\n            {\n                \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\n            }\n        ],\n        \"gradeLevels\": [\n            {\n                \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\n            },\n            {\n                \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Tenth grade\"\n            },\n            {\n                \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\n            },\n            {\n                \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Twelfth grade\"\n            }\n        ]\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Requests filtered by IdentificationCode properties",
+							"item": [
+								{
+									"name": "When filtering by an existing IdentificationCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return two expected resouces\", () => {\r",
+													"    pm.expect(responseItems.count()).to.equal(2);\r",
+													"    pm.expect(responseItems.map('id')).to.have.all.members([pm.environment.get('known:highSchool_id'),pm.environment.get('known:schoolWithDuplicateIdentificationCode_id')]);\r",
+													"    pm.expect(responseItems[0].identificationCodes[0].identificationCode).to.equal(pm.environment.get('supplied:identificationCode'));\r",
+													"    pm.expect(responseItems[1].identificationCodes[0].identificationCode).to.equal(pm.environment.get('supplied:identificationCode'));\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?identificationCode={{supplied:identificationCode}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											],
+											"query": [
+												{
+													"key": "identificationCode",
+													"value": "{{supplied:identificationCode}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When filtering by an existing IdentificationCode and IdentificationSystem descriptor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return one expected resouce\", () => {\r",
+													"    pm.expect(responseItems.count()).to.equal(1);\r",
+													"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:highSchool_id'));\r",
+													"    pm.expect(responseItems[0].identificationCodes[0].identificationCode).to.equals(pm.environment.get('supplied:identificationCode'));\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?identificationCode={{supplied:identificationCode}}&educationOrganizationIdentificationSystemDescriptor={{supplied:educationOrganizationIdentificationSystemDescriptor}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											],
+											"query": [
+												{
+													"key": "identificationCode",
+													"value": "{{supplied:identificationCode}}"
+												},
+												{
+													"key": "educationOrganizationIdentificationSystemDescriptor",
+													"value": "{{supplied:educationOrganizationIdentificationSystemDescriptor}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When filtering by a non-existent IdentificationCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return an empty response\", () => {\r",
+													"    const responseItems = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseItems.count()).to.equal(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?identificationCode=non-existent",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
+											],
+											"query": [
+												{
+													"key": "identificationCode",
+													"value": "non-existent"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When filtering by an existing educationOrganizationIdentificationSystemDescriptor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return one expected resouce\", () => {\r",
+													"    pm.expect(responseItems.count()).to.equal(1);\r",
+													"    pm.expect(responseItems[0].id).to.equal(pm.environment.get('known:lea_id'));\r",
+													"    pm.expect(encodeURIComponent(responseItems[0].identificationCodes[0].educationOrganizationIdentificationSystemDescriptor)).to.equal(pm.environment.get('supplied:educationOrganizationIdentificationSystemDescriptor'));\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?educationOrganizationIdentificationSystemDescriptor={{supplied:educationOrganizationIdentificationSystemDescriptor}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
+											],
+											"query": [
+												{
+													"key": "educationOrganizationIdentificationSystemDescriptor",
+													"value": "{{supplied:educationOrganizationIdentificationSystemDescriptor}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When filtering by a non-existent educationOrganizationIdentificationSystemDescriptor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return an empty response\", () => {\r",
+													"    const responseItems = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseItems.count()).to.equal(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies?educationOrganizationIdentificationSystemDescriptor=uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor%23non-existant",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"localEducationAgencies"
+											],
+											"query": [
+												{
+													"key": "educationOrganizationIdentificationSystemDescriptor",
+													"value": "uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#non-existant"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete School with duplicate IdentificationCode",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolWithDuplicateIdentificationCode_id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolWithDuplicateIdentificationCode_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				}
