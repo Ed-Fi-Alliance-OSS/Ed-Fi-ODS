@@ -4,10 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Threading;
 using log4net;
 using Microsoft.Data.SqlClient;
 using Npgsql;
 using Polly;
+using Polly.Contrib.WaitAndRetry;
 using Polly.Retry;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories;
@@ -19,21 +21,25 @@ public static class DeadlockPolicyHelper
     public static int RetryCount = 5;
     public static int RetryStartingDelayMilliseconds = 100;
 
+    private static int _totalRetries = 0;
+
     static DeadlockPolicyHelper()
     {
         RetryPolicy = Policy.Handle<Exception>(ShouldRetry)
             .WaitAndRetryAsync(
-                RetryCount,
-                (retryNumber, context) =>
+                Backoff.ExponentialBackoff(TimeSpan.FromMilliseconds(RetryStartingDelayMilliseconds), RetryCount),
+                onRetry: (result, ts, retryAttempt, context) =>
                 {
-                    var waitDuration = TimeSpan.FromMilliseconds(RetryStartingDelayMilliseconds * (Math.Pow(2, retryNumber)));
+                    Interlocked.Increment(ref _totalRetries);
 
-                    (context["Logger"] as Lazy<ILog>)?.Value.Warn(
-                        $"Deadlock exception encountered during '{context["EntityTypeName"]}' entity persistence. Retrying transaction (retry #{retryNumber} of {RetryCount} after {waitDuration.TotalMilliseconds:N0}ms))...");
+                    var logger = context["Logger"] as ILog;
 
-                    return waitDuration;
-                },
-                onRetry: (res, ts, context) => { });
+                    if (logger?.IsWarnEnabled == true)
+                    {
+                        logger.Warn(
+                            $"Deadlock exception encountered during '{context["EntityTypeName"]}' entity persistence. Retrying transaction (attempt #{retryAttempt + 1} of {RetryCount + 1} after {ts.TotalMilliseconds:N0}ms). {_totalRetries} total retries...");
+                    }
+                });
     }
 
     /// <summary>

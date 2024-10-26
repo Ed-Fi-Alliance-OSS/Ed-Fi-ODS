@@ -116,25 +116,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         try
                         {
                             await Session.SaveAsync(entity, cancellationToken);
+                            await trans.CommitAsync(cancellationToken);
                         }
                         catch (Exception)
                         {
                             await trans.RollbackAsync(cancellationToken);
                             throw;
                         }
-                        finally
-                        {
-                            if (!trans.WasRolledBack)
-                            {
-                                await trans.CommitAsync(cancellationToken);
-                            }
-                        }
                     },
                     _retryPolicyContextData);
 
                 bool IdHasValue()
                 {
-                    return !entity.Id.Equals(default(Guid));
+                    return !entity.Id.Equals(default);
                 }
             }
         }

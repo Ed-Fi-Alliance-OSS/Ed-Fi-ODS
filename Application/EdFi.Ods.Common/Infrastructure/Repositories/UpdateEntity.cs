@@ -42,18 +42,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         try
                         {
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
+                            await trans.CommitAsync(cancellationToken);
                         }
                         catch (Exception)
                         {
                             await trans.RollbackAsync(cancellationToken);
                             throw;
-                        }
-                        finally
-                        {
-                            if (!trans.WasRolledBack)
-                            {
-                                await trans.CommitAsync(cancellationToken);
-                            }
                         }
                     },
                     _retryPolicyContextData);
