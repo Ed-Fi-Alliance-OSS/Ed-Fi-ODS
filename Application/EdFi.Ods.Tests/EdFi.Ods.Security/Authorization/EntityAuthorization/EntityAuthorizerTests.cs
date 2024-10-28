@@ -115,7 +115,7 @@ public class EntityAuthorizerTests
     }
 
     [Test]
-    public async Task AuthorizeEntityAsync_ShouldThrowException_WhenDelegateFilterAuthorizerFailsAndResults()
+    public Task AuthorizeEntityAsync_ShouldThrowException_WhenDelegateFilterAuthorizerFailsAndResults()
     {
         // Arrange
         var actionUri = "some-action-uri";
@@ -150,6 +150,8 @@ public class EntityAuthorizerTests
             _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ExistingData, CancellationToken.None));
         
         ex.Message.ShouldBe("Authorization failed");
+
+        return Task.CompletedTask;
     }
 
     [Test]
@@ -295,7 +297,7 @@ public class EntityAuthorizerTests
     }
     
     [Test]
-    public async Task AuthorizeEntityAsync_ShouldThrow_WhenAllPendingExistenceChecksIsEmpty()
+    public Task AuthorizeEntityAsync_ShouldThrow_WhenAllPendingExistenceChecksIsEmpty()
     {
         // Arrange
         var actionUri = "some-action-uri";
@@ -332,10 +334,12 @@ public class EntityAuthorizerTests
             _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ExistingData, CancellationToken.None));
         
         ex.Message.ShouldBe("Authorization failed");
+
+        return Task.CompletedTask;
     }
     
     [Test]
-    public async Task AuthorizeEntityAsync_ShouldThrow_WhenPendingOrStrategyResultsInFailedState()
+    public Task AuthorizeEntityAsync_ShouldThrow_WhenPendingOrStrategyResultsInFailedState()
     {
         // Arrange
         var actionUri = "some-action-uri";
@@ -383,5 +387,7 @@ public class EntityAuthorizerTests
             _entityAuthorizer.AuthorizeEntityAsync(entity, actionUri, AuthorizationPhase.ExistingData, CancellationToken.None));
         
         ex.Message.ShouldBe("Authorization failed");
+
+        return Task.CompletedTask;
     }
 }

@@ -748,7 +748,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         public class When_requesting_a_section_from_the_cache_for_which_no_route_was_registered : TestFixtureBase
         {
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
-            private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
             private List<OpenApiContent> _actualMetadata;
 
             protected override void Arrange()
