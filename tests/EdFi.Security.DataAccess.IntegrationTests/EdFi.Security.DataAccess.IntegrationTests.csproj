@@ -6,7 +6,7 @@
     <Assembly>EdFi.Security.DataAccess.IntegrationTests</Assembly>
     <RootNameSpace>EdFi.Security.DataAccess.IntegrationTests</RootNameSpace>
     <Copyright>Copyright © 2024, Ed-Fi Alliance and contributors</Copyright>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>

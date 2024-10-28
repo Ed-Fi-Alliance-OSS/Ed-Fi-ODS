@@ -6,7 +6,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemlbyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemlbyName>
     <RootNamespace>EdFi.Ods.Repositories.NHibernate.Tests</RootNamespace>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
