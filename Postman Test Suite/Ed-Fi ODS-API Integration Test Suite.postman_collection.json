@@ -1090,6 +1090,97 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Unapproved Client With Correct Key/Secret Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const clientSuffix = \"Unapproved_Client\";\r",
+									"\r",
+									"const apiKeyName = `ApiKey_${clientSuffix}`;\r",
+									"const apiSecretName = `ApiSecret_${clientSuffix}`;\r",
+									"\r",
+									"let clientId = pm.environment.get(apiKeyName) ?? clientSuffix;\r",
+									"let clientSecret = pm.environment.get(apiSecretName) ?? clientSuffix;\r",
+									"\r",
+									"pm.environment.set(`known:${apiKeyName}`, clientId);\r",
+									"pm.environment.set(`known:${apiSecretName}`, clientSecret);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_client\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_client\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{known:ApiSecret_Unapproved_Client}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{known:ApiKey_Unapproved_Client}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/oauth/token",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
