@@ -7,7 +7,7 @@
     <AssemblyVersion>99.99.99.00</AssemblyVersion>
     <RootNamespace>EdFi.Ods.Api</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</PackageProjectUrl>
