@@ -100,7 +100,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
 
         public class When_trying_to_authenticate_using_valid_key_and_invalid_secret : TestFixtureBase
         {
-            private ApiClientIdentity _apiClientIdentity;
             private ApiClientAuthenticator.AuthenticationResult _actualResult;
             private IApiClientAuthenticator _apiClientAuthenticator;
 
@@ -129,12 +128,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             public void Should_return_false()
             {
                 _actualResult.IsAuthenticated.ShouldBeFalse();
-            }
-
-            [Test]
-            public void Should_return_null_identity()
-            {
-                _apiClientIdentity.ShouldBeNull();
             }
         }
     }

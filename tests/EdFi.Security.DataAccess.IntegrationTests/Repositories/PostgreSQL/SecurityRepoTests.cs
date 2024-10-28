@@ -105,7 +105,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Repositories.PostgreSQL
         public class When_getting_claimsResources : SecurityRepoTests
         {
             [SetUp]
-            public void Setup()
+            public new void Setup()
             {
                 string resourceName = "ResourceNameTest" + Guid.NewGuid().ToString("N");
 
