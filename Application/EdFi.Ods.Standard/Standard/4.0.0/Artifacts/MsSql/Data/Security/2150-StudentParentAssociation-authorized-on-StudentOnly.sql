@@ -235,12 +235,6 @@ BEGIN
 
     SET @resourceClaimActionId = SCOPE_IDENTITY()
 
-    IF NOT EXISTS(SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] ='RelationshipsWithStudentsOnlyIncludingDeletes')
-    BEGIN
-        INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
-        VALUES ('Relationships With Students Only Including Deletes', 'RelationshipsWithStudentsOnlyIncludingDeletes');
-    END
-    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId

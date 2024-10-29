@@ -2491,15 +2491,15 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyIncludingDeletes'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithStudentsOnlyIncludingDeletes''';
         THROW 50000, @msg, 1
     END
 
-    PRINT 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    PRINT 'Adding authorization strategy ''RelationshipsWithStudentsOnlyIncludingDeletes'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (@resourceClaimActionId, @authorizationStrategyId)
 

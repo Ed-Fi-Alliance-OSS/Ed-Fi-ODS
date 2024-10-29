@@ -89,6 +89,13 @@ BEGIN
     VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes');
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] = 'RelationshipsWithStudentsOnlyIncludingDeletes')
+BEGIN
+    INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName])
+    VALUES ('Relationships With Students Only Including Deletes', 'RelationshipsWithStudentsOnlyIncludingDeletes');
+END
+
+
 /* ==================================================================================================================================== */
 
 /* --------------------------------- */

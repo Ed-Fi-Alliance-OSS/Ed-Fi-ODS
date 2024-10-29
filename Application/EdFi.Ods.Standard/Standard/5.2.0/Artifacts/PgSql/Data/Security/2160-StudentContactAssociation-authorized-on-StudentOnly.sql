@@ -214,12 +214,6 @@ BEGIN
     RETURNING ResourceClaimActionId
     INTO resource_claim_action_id;
 
-    
-    IF NOT EXISTS (SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyIncludingDeletes') THEN
-    INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
-    VALUES ('Relationships With Students Only Including Deletes', 'RelationshipsWithStudentsOnlyIncludingDeletes');
-    END IF;
-
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
