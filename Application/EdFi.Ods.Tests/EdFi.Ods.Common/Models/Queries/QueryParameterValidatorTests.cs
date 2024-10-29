@@ -28,7 +28,7 @@ public class QueryParametersValidatorTests
     }
 
     [TestCase(true, Parameters.None)]
-    [TestCase(false, Parameters.PageSize, "pageToken is required when pageSize is specified.")]
+    [TestCase(false, Parameters.PageSize, "PageToken is required when pageSize is specified.")]
     [TestCase(true, Parameters.PageToken)]
     [TestCase(true, Parameters.PageToken | Parameters.PageSize)]
     [TestCase(true, Parameters.Limit)]
@@ -36,7 +36,7 @@ public class QueryParametersValidatorTests
     [TestCase(false, Parameters.Limit | Parameters.PageToken, "Use pageSize instead of limit when using cursor paging with pageToken.")]
     [TestCase(true, Parameters.Limit | Parameters.PageToken | Parameters.PageSize)]
     [TestCase(true, Parameters.Offset)]
-    [TestCase(false, Parameters.Offset | Parameters.PageSize, "pageSize cannot be used with limit/offset paging.")]
+    [TestCase(false, Parameters.Offset | Parameters.PageSize, "Use limit instead of pageSize when using limit/offset paging.")]
     [TestCase(false, Parameters.Offset | Parameters.PageToken, "Both offset and pageToken parameters were provided, but they support alternative paging approaches and cannot be used together.")]
     [TestCase(false, Parameters.Offset | Parameters.PageToken | Parameters.PageSize, "Both offset and pageToken parameters were provided, but they support alternative paging approaches and cannot be used together.")]
     [TestCase(true, Parameters.Offset | Parameters.Limit)]
@@ -101,7 +101,7 @@ public class QueryParametersValidatorTests
 
         // Assert
         result.ShouldBeFalse();
-        errorMessage.ShouldBe("offset cannot be a negative value.");
+        errorMessage.ShouldBe("Offset cannot be a negative value.");
     }
 
     [Test]
@@ -118,7 +118,7 @@ public class QueryParametersValidatorTests
 
         // Assert
         result.ShouldBeFalse();
-        errorMessage.ShouldBe("limit cannot be a negative value.");
+        errorMessage.ShouldBe($"Limit must be a value between 0 and {DefaultPageLimitSize}.");
     }
 
     [Test]
@@ -135,7 +135,7 @@ public class QueryParametersValidatorTests
 
         // Assert
         result.ShouldBeFalse();
-        errorMessage.ShouldBe($"limit cannot be greater than {DefaultPageLimitSize}.");
+        errorMessage.ShouldBe($"Limit must be a value between 0 and {DefaultPageLimitSize}.");
     }
 
     [Test]
@@ -171,7 +171,7 @@ public class QueryParametersValidatorTests
 
         // Assert
         result.ShouldBeFalse();
-        errorMessage.ShouldBe("pageSize cannot be a negative value.");
+        errorMessage.ShouldBe($"PageSize must be a value between 0 and {DefaultPageLimitSize}.");
     }
 
     [Test]
@@ -190,7 +190,7 @@ public class QueryParametersValidatorTests
 
         // Assert
         result.ShouldBeFalse();
-        errorMessage.ShouldBe($"pageSize cannot be greater than {DefaultPageLimitSize}.");
+        errorMessage.ShouldBe($"PageSize must be a value between 0 and {DefaultPageLimitSize}.");
     }
 
     [Test]

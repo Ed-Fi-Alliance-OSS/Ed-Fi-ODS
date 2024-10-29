@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d3d5da8b-42ff-4fcb-bb76-d215b5cebd98",
+		"_postman_id": "5e983aaa-3e8f-45dd-af38-2aa59f79ceda",
 		"name": "Ed-Fi ODS/API Integration Test Suite ResponseTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -863,17 +863,18 @@
 															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be between 0 and 500.\", () => {",
 															"  const problemDetails = pm.response.json();",
 															"",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
 															"",
-															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
+															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be a value between 0 and 500.\");",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -882,7 +883,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -927,17 +929,18 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be a value between 0 and 500.\", () => {",
 															"  const problemDetails = pm.response.json();",
 															"",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
 															"",
-															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
+															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be a value between 0 and 500.\");",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -946,7 +949,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -2520,7 +2524,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -2531,17 +2536,18 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be a value between 0 and 500.\", () => {",
 															"  const problemDetails = pm.response.json();",
 															"",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
 															"",
-															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
+															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be a value between 0 and 500.\");",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],
@@ -2588,7 +2594,8 @@
 														"exec": [
 															""
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												},
 												{
@@ -2599,17 +2606,18 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 0 and 500.\", () => {",
+															"pm.test(\"Should return a message indicating that the limit must be a value between 0 and 500.\", () => {",
 															"  const problemDetails = pm.response.json();",
 															"",
 															"  pm.expect(pm.response.code).equal(problemDetails.status);",
 															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:parameter-validation-failed\");",
 															"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");",
 															"",
-															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be omitted or set to a value between 0 and 500.\");",
+															"  pm.expect(problemDetails.errors[0]).to.equal(\"Limit must be a value between 0 and 500.\");",
 															"});"
 														],
-														"type": "text/javascript"
+														"type": "text/javascript",
+														"packages": {}
 													}
 												}
 											],

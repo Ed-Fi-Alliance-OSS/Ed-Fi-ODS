@@ -127,7 +127,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     {
                         if (countTemplateParameters.ParameterNames.Contains("MinAggregateId"))
                         {
-                            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["Total count cannot be determined while using key set paging."]);
+                            throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["Total count cannot be determined while using cursor paging (when pageToken is specified)."]);
                         }
                     }
                 }

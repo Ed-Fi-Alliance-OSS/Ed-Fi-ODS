@@ -34,11 +34,11 @@ public static class QueryParametersValidator
             {
                 if (queryParameters.Offset.HasValue)
                 {
-                    errorMessage = "pageSize cannot be used with limit/offset paging.";
+                    errorMessage = "Use limit instead of pageSize when using limit/offset paging.";
                 }
                 else
                 {
-                    errorMessage = "pageToken is required when pageSize is specified.";
+                    errorMessage = "PageToken is required when pageSize is specified.";
                 }
 
                 return false;
@@ -47,19 +47,19 @@ public static class QueryParametersValidator
             // Validate the values provided
             if (queryParameters.Offset is < 0)
             {
-                errorMessage = $"offset cannot be a negative value.";
+                errorMessage = $"Offset cannot be a negative value.";
                 return false;
             }
 
             if (queryParameters.Limit is < 0)
             {
-                errorMessage = $"limit cannot be a negative value.";
+                errorMessage = $"Limit must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
 
             if (queryParameters.Limit.HasValue && queryParameters.Limit > defaultPageLimitSize)
             {
-                errorMessage = $"limit cannot be greater than {defaultPageLimitSize}.";
+                errorMessage = $"Limit must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
         }
@@ -75,13 +75,13 @@ public static class QueryParametersValidator
             // Validate the values provided
             if (queryParameters.PageSize is < 0)
             {
-                errorMessage = $"pageSize cannot be a negative value.";
+                errorMessage = $"PageSize must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
 
             if (queryParameters.PageSize.HasValue && queryParameters.PageSize > defaultPageLimitSize)
             {
-                errorMessage = $"pageSize cannot be greater than {defaultPageLimitSize}.";
+                errorMessage = $"PageSize must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
         }
