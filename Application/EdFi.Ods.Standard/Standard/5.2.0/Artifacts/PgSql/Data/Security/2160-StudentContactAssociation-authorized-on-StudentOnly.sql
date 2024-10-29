@@ -215,17 +215,22 @@ BEGIN
     INTO resource_claim_action_id;
 
     
+    IF NOT EXISTS (SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyIncludingDeletes') THEN
+    INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName)
+    VALUES ('Relationships With Students Only Including Deletes', 'RelationshipsWithStudentsOnlyIncludingDeletes');
+    END IF;
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithStudentsOnlyIncludingDeletes''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithStudentsOnlyIncludingDeletes'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
     VALUES (resource_claim_action_id, authorization_strategy_id);
 
