@@ -394,7 +394,7 @@
         </Action>
         <Action name="ReadChanges">
           <AuthorizationStrategies>
-            <AuthorizationStrategy name="RelationshipsWithStudentsOnlyIncludingDeletes" />
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
           </AuthorizationStrategies>
         </Action>
       </DefaultAuthorization>
