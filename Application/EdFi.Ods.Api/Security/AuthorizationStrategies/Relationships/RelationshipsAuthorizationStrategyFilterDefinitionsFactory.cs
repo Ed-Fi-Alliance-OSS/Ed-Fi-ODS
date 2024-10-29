@@ -70,7 +70,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 .OrderBy(p => p)
                 .Select(personType => $"{personType}USI")
                 .ToArray();
-            
+
             return personUsiNames.Select(usiName => 
                 new ViewBasedAuthorizationFilterDefinition(
                     $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
