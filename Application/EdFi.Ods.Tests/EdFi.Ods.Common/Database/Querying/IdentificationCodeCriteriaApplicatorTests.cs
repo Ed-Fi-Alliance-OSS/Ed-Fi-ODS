@@ -29,7 +29,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
     {
         private IResourceModel _resourceModel;
         private IResourceModelProvider _resourceModelProvider;
-        private IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
         private readonly string identificationCodeTableAlias =
             IdentificationCodeAggregateRootQueryCriteriaApplicator.IdentificationCodeEntityTableAlias();
 

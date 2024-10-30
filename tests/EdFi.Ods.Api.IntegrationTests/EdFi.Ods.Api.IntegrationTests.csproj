@@ -6,7 +6,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.Api.IntegrationTests</RootNamespace>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>

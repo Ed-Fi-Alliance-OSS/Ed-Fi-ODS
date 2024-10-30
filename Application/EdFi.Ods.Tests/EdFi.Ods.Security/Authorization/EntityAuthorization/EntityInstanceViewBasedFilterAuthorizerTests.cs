@@ -37,7 +37,7 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
     private EntityInstanceViewBasedFilterAuthorizer _authorizer;
 
     [Test]
-    public async Task PerformViewBasedAuthorizationAsync_ShouldNotExecuteQuery_WhenParameterValuesAreNull()
+    public Task PerformViewBasedAuthorizationAsync_ShouldNotExecuteQuery_WhenParameterValuesAreNull()
     {
         // Arrange
         var resultsWithPendingExistenceChecks = new[]
@@ -83,6 +83,8 @@ public class EntityInstanceViewBasedFilterAuthorizerTests
                 resultsWithPendingExistenceChecks,
                 claimEducationOrganizationIds))
             .MustNotHaveHappened();
+        
+        return Task.CompletedTask;
     }
 
     [Test]
