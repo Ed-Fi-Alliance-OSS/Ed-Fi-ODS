@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>

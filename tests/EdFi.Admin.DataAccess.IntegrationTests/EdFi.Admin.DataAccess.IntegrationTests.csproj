@@ -9,7 +9,7 @@
     <Assembly>EdFi.Admin.DataAccess.IntegrationTests</Assembly>
     <RootNameSpace>EdFi.Admin.DataAccess.IntegrationTests</RootNameSpace>
     <Copyright>Copyright © 2019, Ed-Fi Alliance and contributors</Copyright>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
