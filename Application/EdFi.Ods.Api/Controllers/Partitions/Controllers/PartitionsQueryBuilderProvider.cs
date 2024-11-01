@@ -46,6 +46,8 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
         // Get the CTE "row numbers" query
         var cteQueryBuilder = BuildRowNumbersCte();
 
+        cteQueryBuilder.ApplyChangeVersionCriteria(queryParameters);
+
         // Build the count query
         var cteCountQueryBuilder = BuildCountCte();
 
@@ -70,8 +72,6 @@ public class PartitionsQueryBuilderProvider : IPartitionsQueryBuilderProvider
                 specification,
                 queryParameters,
                 additionalParameters);
-
-        cteQueryBuilder.ApplyChangeVersionCriteria(queryParameters);
 
             return cteQueryBuilder1;
         }

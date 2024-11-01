@@ -82,7 +82,7 @@ public class PartitionsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(
         [FromQuery] int? number,
-        [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest = default,
+        [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
         [FromQuery] Dictionary<string, string> additionalParameters)
     {
         // Store alternative auth approach decision into call context
@@ -103,10 +103,7 @@ public class PartitionsController : ControllerBase
             return BadRequest(problemDetails);
         }
 
-        var  queryParameters = 
-            urlQueryParametersRequest == null 
-            ? null
-            : new QueryParameters(urlQueryParametersRequest);
+        var  queryParameters = new QueryParameters(urlQueryParametersRequest);
 
         // Bind the request to the corresponding resource class model
         Resource resource = _dataManagementResourceContextProvider.Get()?.Resource;

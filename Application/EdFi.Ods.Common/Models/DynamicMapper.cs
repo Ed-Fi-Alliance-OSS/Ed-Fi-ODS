@@ -228,18 +228,6 @@ namespace EdFi.Ods.Common.Models
             var d = (ExtractDelegate) m.CreateDelegate(typeof(ExtractDelegate));
 
             return d;
-
-            Dictionary<string, PropertyInfo> GetTypeProperties(Type type)
-            {
-                if (type.IsInterface)
-                {
-                    // Process the interface and the interfaces it implements directly (but not recursively)
-                    return type.GetProperties().Concat(type.GetInterfaces().SelectMany(i => i.GetProperties()))
-                        .ToDictionary(p => p.Name, p => p);
-                }
-
-                return type.GetProperties().ToDictionary(x => x.Name, x => x);
-            }
         }
 
         private static void ValidatePropertyMappings(
