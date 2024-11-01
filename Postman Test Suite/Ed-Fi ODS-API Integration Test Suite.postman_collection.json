@@ -6263,7 +6263,7 @@
 																				"method": "GET",
 																				"header": [],
 																				"url": {
-																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23School Charter&totalCount=true&limit=0",
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School&totalCount=true&limit=0",
 																					"host": [
 																						"{{ApiBaseUrl}}"
 																					],
@@ -6276,7 +6276,7 @@
 																					"query": [
 																						{
 																							"key": "charterStatusDescriptor",
-																							"value": "uri://ed-fi.org/CharterStatusDescriptor#School Charter"
+																							"value": "uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School"
 																						},
 																						{
 																							"key": "totalCount",
