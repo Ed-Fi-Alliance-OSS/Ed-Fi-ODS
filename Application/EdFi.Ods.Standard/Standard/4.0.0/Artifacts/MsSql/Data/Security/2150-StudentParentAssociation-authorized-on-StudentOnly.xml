@@ -27,7 +27,7 @@
             <Action name="ReadChanges">
               <AuthorizationStrategies>
                 <AuthorizationStrategy
-                  name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+                  name="RelationshipsWithStudentsOnlyIncludingDeletes" />
               </AuthorizationStrategies>
             </Action>
           </DefaultAuthorization>
