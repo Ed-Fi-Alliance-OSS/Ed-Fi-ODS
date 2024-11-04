@@ -19,6 +19,11 @@ BEGIN
     CREATE INDEX IX_Assessment_EducationOrganizationId ON [edfi].[Assessment](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId' AND object_id = OBJECT_ID('edfi.AssesssmentAdministrationParticipation')) 
+BEGIN
+    CREATE INDEX IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId ON [edfi].[AssesssmentAdministrationParticipation](AssigningEducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_BellSchedule_SchoolId' AND object_id = OBJECT_ID('edfi.BellSchedule')) 
 BEGIN
     CREATE INDEX IX_BellSchedule_SchoolId ON [edfi].[BellSchedule](SchoolId) INCLUDE (Id)
@@ -284,6 +289,31 @@ BEGIN
     CREATE INDEX IX_StudentAssessmentEducationOrganizationAssociation_EducationOrganizationId ON [edfi].[StudentAssessmentEducationOrganizationAssociation](EducationOrganizationId) INCLUDE (Id)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistration_AssigningEducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistration')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistration_AssigningEducationOrganizationId ON [edfi].[StudentAssessmentRegistration](AssigningEducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistration_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistration')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistration_EducationOrganizationId ON [edfi].[StudentAssessmentRegistration](EducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistration_SchoolId' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistration')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistration_SchoolId ON [edfi].[StudentAssessmentRegistration](SchoolId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistrationBatteryPartAssociation')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation](AssigningEducationOrganizationId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistrationBatteryPartAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistrationBatteryPartAssociation')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistrationBatteryPartAssociation_EducationOrganizationId ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation](EducationOrganizationId) INCLUDE (Id)
+END;
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentCohortAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentCohortAssociation')) 
 BEGIN
     CREATE INDEX IX_StudentCohortAssociation_EducationOrganizationId ON [edfi].[StudentCohortAssociation](EducationOrganizationId) INCLUDE (Id)
@@ -297,6 +327,11 @@ END;
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentDisciplineIncidentNonOffenderAssociation_SchoolId' AND object_id = OBJECT_ID('edfi.StudentDisciplineIncidentNonOffenderAssociation')) 
 BEGIN
     CREATE INDEX IX_StudentDisciplineIncidentNonOffenderAssociation_SchoolId ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation](SchoolId) INCLUDE (Id)
+END;
+
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentEducationOrganizationAssessmentAccommodation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentEducationOrganizationAssessmentAccommodation')) 
+BEGIN
+    CREATE INDEX IX_StudentEducationOrganizationAssessmentAccommodation_EducationOrganizationId ON [edfi].[StudentEducationOrganizationAssessmentAccommodation](EducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentEducationOrganizationAssociation_EducationOrganizationId' AND object_id = OBJECT_ID('edfi.StudentEducationOrganizationAssociation')) 

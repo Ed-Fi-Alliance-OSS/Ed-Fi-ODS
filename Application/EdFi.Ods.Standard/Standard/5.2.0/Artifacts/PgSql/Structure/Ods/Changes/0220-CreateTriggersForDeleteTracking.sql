@@ -252,6 +252,46 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.assessment
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.assessment_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.assessmentadministration_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.assessmentadministration(
+        oldadministrationidentifier, oldassessmentidentifier, oldassigningeducationorganizationid, oldnamespace,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.administrationidentifier, OLD.assessmentidentifier, OLD.assigningeducationorganizationid, OLD.namespace, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentadministration') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.assessmentadministration 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.assessmentadministration_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.assessmentbatterypart_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.assessmentbatterypart(
+        oldassessmentbatterypartname, oldassessmentidentifier, oldnamespace,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.assessmentbatterypartname, OLD.assessmentidentifier, OLD.namespace, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentbatterypart') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.assessmentbatterypart 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.assessmentbatterypart_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.assessmentcategorydescriptor_deleted()
     RETURNS trigger AS
 $BODY$
@@ -392,6 +432,26 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentscorerangelearningstandard') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.assessmentscorerangelearningstandard 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.assessmentscorerangelearningstandard_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.assesssmentadministrationparticipation_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.assesssmentadministrationparticipation(
+        oldadministrationidentifier, oldassessmentidentifier, oldassigningeducationorganizationid, oldnamespace, oldparticipatingeducationorganizationid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.administrationidentifier, OLD.assessmentidentifier, OLD.assigningeducationorganizationid, OLD.namespace, OLD.participatingeducationorganizationid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'assesssmentadministrationparticipation') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.assesssmentadministrationparticipation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.assesssmentadministrationparticipation_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.assignmentlatestatusdescriptor_deleted()
@@ -4347,6 +4407,23 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.schoolyeartype
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.schoolyeartype_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.section504disabilitytypedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.Section504DisabilityTypeDescriptorId, b.codevalue, b.namespace, b.id, 'edfi.Section504DisabilityTypeDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.Section504DisabilityTypeDescriptorId = b.descriptorid ;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'section504disabilitytypedescriptor') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.section504disabilitytypedescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.section504disabilitytypedescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.section_deleted()
     RETURNS trigger AS
 $BODY$
@@ -5041,6 +5118,54 @@ CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studentassessmenteducationorgan
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentassessmenteducationorganizationassociation_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.studentassessmentregistration_deleted()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    dj0 edfi.student%ROWTYPE;
+BEGIN
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
+
+    INSERT INTO tracked_changes_edfi.studentassessmentregistration(
+        oldadministrationidentifier, oldassessmentidentifier, oldassigningeducationorganizationid, oldeducationorganizationid, oldnamespace, oldstudentusi, oldstudentuniqueid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.administrationidentifier, OLD.assessmentidentifier, OLD.assigningeducationorganizationid, OLD.educationorganizationid, OLD.namespace, OLD.studentusi, dj0.studentuniqueid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmentregistration') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studentassessmentregistration 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentassessmentregistration_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.studentassessmentregistrationbatterypartassociation_deleted()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    dj0 edfi.student%ROWTYPE;
+BEGIN
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
+
+    INSERT INTO tracked_changes_edfi.studentassessmentregistrationbatterypartassociation(
+        oldadministrationidentifier, oldassessmentbatterypartname, oldassessmentidentifier, oldassigningeducationorganizationid, oldeducationorganizationid, oldnamespace, oldstudentusi, oldstudentuniqueid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.administrationidentifier, OLD.assessmentbatterypartname, OLD.assessmentidentifier, OLD.assigningeducationorganizationid, OLD.educationorganizationid, OLD.namespace, OLD.studentusi, dj0.studentuniqueid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmentregistrationbatterypartassociation') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studentassessmentregistrationbatterypartassociation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentassessmentregistrationbatterypartassociation_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.studentcharacteristicdescriptor_deleted()
     RETURNS trigger AS
 $BODY$
@@ -5188,6 +5313,30 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studentdisciplineincidentnonoffenderassociation') THEN
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studentdisciplineincidentnonoffenderassociation 
     FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentdisciplineincidentnonoffenderassociation_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.studenteducationorganizationassessmentaccommodation_deleted()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    dj0 edfi.student%ROWTYPE;
+BEGIN
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
+
+    INSERT INTO tracked_changes_edfi.studenteducationorganizationassessmentaccommodation(
+        oldeducationorganizationid, oldstudentusi, oldstudentuniqueid,
+        id, discriminator, changeversion)
+    VALUES (
+        OLD.educationorganizationid, OLD.studentusi, dj0.studentuniqueid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'studenteducationorganizationassessmentaccommodation') THEN
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.studenteducationorganizationassessmentaccommodation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studenteducationorganizationassessmentaccommodation_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.studenteducationorganizationassociation_deleted()
@@ -5534,10 +5683,10 @@ BEGIN
     SELECT INTO dj1 * FROM edfi.student j1 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.studentspecialeducationprogrameligibilityassociation(
-        oldconsenttoevaluationreceiveddate, oldeducationorganizationid, oldprogramname, oldprogramtypedescriptorid, oldprogramtypedescriptornamespace, oldprogramtypedescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
+        oldconsenttoevaluationreceiveddate, oldeducationorganizationid, oldprogrameducationorganizationid, oldprogramname, oldprogramtypedescriptorid, oldprogramtypedescriptornamespace, oldprogramtypedescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.consenttoevaluationreceiveddate, OLD.educationorganizationid, OLD.programname, OLD.programtypedescriptorid, dj0.namespace, dj0.codevalue, OLD.studentusi, dj1.studentuniqueid, 
+        OLD.consenttoevaluationreceiveddate, OLD.educationorganizationid, OLD.programeducationorganizationid, OLD.programname, OLD.programtypedescriptorid, dj0.namespace, dj0.codevalue, OLD.studentusi, dj1.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;

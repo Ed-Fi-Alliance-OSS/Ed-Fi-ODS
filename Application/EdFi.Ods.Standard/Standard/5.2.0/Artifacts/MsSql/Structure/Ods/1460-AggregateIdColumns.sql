@@ -15,6 +15,14 @@ CREATE SEQUENCE [edfi].[Assessment_AggSeq] START WITH -2147483648 INCREMENT BY 1
 ALTER TABLE [edfi].[Assessment] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[Assessment_AggSeq];
 CREATE INDEX [IX_Assessment_AggregateId] ON [edfi].[Assessment] (AggregateId);
 
+CREATE SEQUENCE [edfi].[AssessmentAdministration_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[AssessmentAdministration] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AssessmentAdministration_AggSeq];
+CREATE INDEX [IX_AssessmentAdministration_AggregateId] ON [edfi].[AssessmentAdministration] (AggregateId);
+
+CREATE SEQUENCE [edfi].[AssessmentBatteryPart_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[AssessmentBatteryPart] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AssessmentBatteryPart_AggSeq];
+CREATE INDEX [IX_AssessmentBatteryPart_AggregateId] ON [edfi].[AssessmentBatteryPart] (AggregateId);
+
 CREATE SEQUENCE [edfi].[AssessmentItem_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[AssessmentItem] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AssessmentItem_AggSeq];
 CREATE INDEX [IX_AssessmentItem_AggregateId] ON [edfi].[AssessmentItem] (AggregateId);
@@ -22,6 +30,10 @@ CREATE INDEX [IX_AssessmentItem_AggregateId] ON [edfi].[AssessmentItem] (Aggrega
 CREATE SEQUENCE [edfi].[AssessmentScoreRangeLearningStandard_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AssessmentScoreRangeLearningStandard_AggSeq];
 CREATE INDEX [IX_AssessmentScoreRangeLearningStandard_AggregateId] ON [edfi].[AssessmentScoreRangeLearningStandard] (AggregateId);
+
+CREATE SEQUENCE [edfi].[AssesssmentAdministrationParticipation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[AssesssmentAdministrationParticipation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[AssesssmentAdministrationParticipation_AggSeq];
+CREATE INDEX [IX_AssesssmentAdministrationParticipation_AggregateId] ON [edfi].[AssesssmentAdministrationParticipation] (AggregateId);
 
 CREATE SEQUENCE [edfi].[BalanceSheetDimension_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[BalanceSheetDimension] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[BalanceSheetDimension_AggSeq];
@@ -339,6 +351,14 @@ CREATE SEQUENCE [edfi].[StudentAssessmentEducationOrganizationAssociation_AggSeq
 ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentAssessmentEducationOrganizationAssociation_AggSeq];
 CREATE INDEX [IX_StudentAssessmentEducationOrganizationAssociation_AggregateId] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] (AggregateId);
 
+CREATE SEQUENCE [edfi].[StudentAssessmentRegistration_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[StudentAssessmentRegistration] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentAssessmentRegistration_AggSeq];
+CREATE INDEX [IX_StudentAssessmentRegistration_AggregateId] ON [edfi].[StudentAssessmentRegistration] (AggregateId);
+
+CREATE SEQUENCE [edfi].[StudentAssessmentRegistrationBatteryPartAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentAssessmentRegistrationBatteryPartAssociation_AggSeq];
+CREATE INDEX [IX_StudentAssessmentRegistrationBatteryPartAssociation_AggregateId] ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] (AggregateId);
+
 CREATE SEQUENCE [edfi].[StudentCohortAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[StudentCohortAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentCohortAssociation_AggSeq];
 CREATE INDEX [IX_StudentCohortAssociation_AggregateId] ON [edfi].[StudentCohortAssociation] (AggregateId);
@@ -358,6 +378,10 @@ CREATE INDEX [IX_StudentDisciplineIncidentBehaviorAssociation_AggregateId] ON [e
 CREATE SEQUENCE [edfi].[StudentDisciplineIncidentNonOffenderAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentDisciplineIncidentNonOffenderAssociation_AggSeq];
 CREATE INDEX [IX_StudentDisciplineIncidentNonOffenderAssociation_AggregateId] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] (AggregateId);
+
+CREATE SEQUENCE [edfi].[StudentEducationOrganizationAssessmentAccommodation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
+ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentEducationOrganizationAssessmentAccommodation_AggSeq];
+CREATE INDEX [IX_StudentEducationOrganizationAssessmentAccommodation_AggregateId] ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] (AggregateId);
 
 CREATE SEQUENCE [edfi].[StudentEducationOrganizationAssociation_AggSeq] START WITH -2147483648 INCREMENT BY 1;
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociation] ADD AggregateId int NOT NULL DEFAULT NEXT VALUE FOR [edfi].[StudentEducationOrganizationAssociation_AggSeq];

@@ -9,9 +9,15 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_2d3c0c_Id ON edfi.AccountabilityRating(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_7808ee_Id ON edfi.Assessment(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_c64558_Id ON edfi.AssessmentAdministration(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_6e22f2_Id ON edfi.AssessmentBatteryPart(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_dc3dcf_Id ON edfi.AssessmentItem(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_a20588_Id ON edfi.AssessmentScoreRangeLearningStandard(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_0b52ab_Id ON edfi.AssesssmentAdministrationParticipation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_e52c9c_Id ON edfi.BalanceSheetDimension(Id);
 
@@ -171,6 +177,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_ee3b2a_Id ON edfi.StudentAssessment(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_afb8b8_Id ON edfi.StudentAssessmentEducationOrganizationAssociation(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_79fd6b_Id ON edfi.StudentAssessmentRegistration(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_3bb369_Id ON edfi.StudentAssessmentRegistrationBatteryPartAssociation(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_369ddc_Id ON edfi.StudentCohortAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_395c07_Id ON edfi.StudentCompetencyObjective(Id);
@@ -180,6 +190,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_e2733e_Id ON edfi.StudentContactAssociation
 CREATE UNIQUE INDEX IF NOT EXISTS UX_f4934f_Id ON edfi.StudentDisciplineIncidentBehaviorAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_4b43da_Id ON edfi.StudentDisciplineIncidentNonOffenderAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_5f4481_Id ON edfi.StudentEducationOrganizationAssessmentAccommodation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8e1257_Id ON edfi.StudentEducationOrganizationAssociation(Id);
 
