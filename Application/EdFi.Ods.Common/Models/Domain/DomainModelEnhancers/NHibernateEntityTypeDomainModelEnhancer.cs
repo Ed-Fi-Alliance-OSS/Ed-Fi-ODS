@@ -41,6 +41,11 @@ namespace EdFi.Ods.Common.Models.Domain.DomainModelEnhancers
             
             foreach (KeyValuePair<string,IClassMetadata> classMetadata in allClassMetadata)
             {
+                if (classMetadata.Value.EntityName.EndsWith("ReferenceData"))
+                {
+                    continue;
+                }
+
                 var mappedEntityType = classMetadata.Value.MappedClass;
                 string schema = mappedEntityType.GetCustomAttribute<SchemaAttribute>()?.Schema;
 

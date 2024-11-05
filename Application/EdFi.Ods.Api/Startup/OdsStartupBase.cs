@@ -57,6 +57,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using NHibernate.Engine;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -439,6 +440,8 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => (StringComparer) Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>().GetEqualityComparer());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataPolicyException>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IEntityExtensionRegistrar>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<ISessionFactoryImplementor>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.

@@ -66,8 +66,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(
-                typeof(TEntity), out IList<string> aggregateExtensions)
-                ? aggregateExtensions.ToDictionary(x => x, x => (object) new List<object>())
+                typeof(TEntity), out Dictionary<string, Entity> aggregateExtensions)
+                ? aggregateExtensions.ToDictionary(x => x.Key, x => (object) new List<object>())
                 : new Dictionary<string, object>();
         }
     }

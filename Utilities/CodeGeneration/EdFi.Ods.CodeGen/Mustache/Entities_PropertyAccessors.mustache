@@ -17,6 +17,7 @@
         private {{CSharpDeclaredType}} {{IdFieldName}};
         private string {{ValueFieldName}};
 
+        [IgnoreMember]
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{LookupValuePropertyName}}
         {
             get
@@ -74,6 +75,7 @@
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
 
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{UniqueIdPropertyName}}
         {
             get

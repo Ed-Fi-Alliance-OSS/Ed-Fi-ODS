@@ -34,6 +34,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         {
             using (new SessionScope(SessionFactory))
             {
+                // If the persistent entity is detached (deserialized from root record), attach it now 
+                if (!Session.Contains(persistentEntity))
+                {
+                    await Session.LockAsync(persistentEntity, LockMode.None, cancellationToken).ConfigureAwait(false);
+                }
+
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {

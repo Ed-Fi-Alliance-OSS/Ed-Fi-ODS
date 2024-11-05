@@ -8,9 +8,11 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
+using NHibernate.Engine;
 
 namespace EdFi.Ods.Common.Dependencies
 {
@@ -31,6 +33,8 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IContextProvider<DataPolicyException>> _dataPolicyExceptionContextProvider;
         private static Lazy<StringComparer> _databaseEngineSpecificStringComparer;
         private static Lazy<IDescriptorResolver> _descriptorResolver;
+        private static Lazy<IEntityExtensionRegistrar> _entityExtensionRegistrar;
+        private static Lazy<ISessionFactoryImplementor> _sessionFactory;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
@@ -44,6 +48,8 @@ namespace EdFi.Ods.Common.Dependencies
         public static IContextProvider<DataPolicyException> DataPolicyExceptionContextProvider => _dataPolicyExceptionContextProvider?.Value;
         public static StringComparer DatabaseEngineSpecificStringComparer => _databaseEngineSpecificStringComparer?.Value;
         public static IDescriptorResolver DescriptorResolver => _descriptorResolver?.Value;
+        public static IEntityExtensionRegistrar EntityExtensionRegistrar => _entityExtensionRegistrar?.Value;
+        public static ISessionFactoryImplementor SessionFactory => _sessionFactory?.Value;
 
         /// <summary>
         /// Provides a mechanism for providing resolution of container managed components (intended for use only
@@ -109,6 +115,16 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IDescriptorResolver> resolver)
             {
                 _descriptorResolver = new Lazy<IDescriptorResolver>(resolver);
+            }
+
+            public static void Set(Func<IEntityExtensionRegistrar> resolver)
+            {
+                _entityExtensionRegistrar = new Lazy<IEntityExtensionRegistrar>(resolver);
+            }
+
+            public static void Set(Func<ISessionFactoryImplementor> resolver)
+            {
+                _sessionFactory = new Lazy<ISessionFactoryImplementor>(resolver);
             }
         }
     }

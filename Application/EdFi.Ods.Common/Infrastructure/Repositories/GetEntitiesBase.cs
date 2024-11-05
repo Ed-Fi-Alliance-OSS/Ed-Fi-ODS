@@ -10,9 +10,15 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
@@ -38,12 +44,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly Lazy<string> _mainHqlStatementBaseForReads;
         private readonly Lazy<string> _mainHqlStatementBaseForWrites;
 
+        private readonly Dialect _dialect;
+        private readonly DatabaseEngine _databaseEngine;
+        protected readonly bool SerializationEnabled;
+
         // Holds pre-built HQL queries to avoid string allocations for each execution 
         private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
         private static readonly ConcurrentDictionary<(bool isReadRequest, int childIndex, string whereClause), string> _childHqlByScenario = new();
 
-        // Authorization is optional configuration -- container will initialize this property if registered
-        public IAuthorizationContextProvider AuthorizationContextProvider { get; set; }
+        private static QueryBuilder _queryBuilder;
 
         // Static members, not shared between concrete generic types
         private static readonly string _aggregateRootEntityTypeName = typeof(TEntity).FullName;
@@ -54,9 +63,16 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         protected GetEntitiesBase(
             ISessionFactory sessionFactory, 
             IDomainModelProvider domainModelProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings,
+            Dialect dialect,
+            DatabaseEngine databaseEngine)
             : base(sessionFactory)
         {
+            SerializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _dialect = dialect;
+            _databaseEngine = databaseEngine;
+
             _domainModelProvider = domainModelProvider;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _aggregate = new Lazy<Aggregate>(() => dataManagementResourceContextProvider.Get().Resource.Entity.Aggregate);
@@ -290,6 +306,61 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 throw new Exception($"Unable to find aggregate for '{fullName}'.");
 
             return aggregate;
+        }
+
+        protected QueryBuilder GetSingleItemQueryBuilder()
+        {
+            if (_queryBuilder != null)
+            {
+                return _queryBuilder.Clone();
+            }
+
+            var idQueryBuilder = new QueryBuilder(_dialect);
+
+            // Get the fully qualified physical table name
+            Entity aggregateRootEntity = _aggregate.Value.AggregateRoot;
+
+            var schemaTableName = $"{aggregateRootEntity.Schema}.{aggregateRootEntity.TableName(_databaseEngine)}";
+
+            string rootTableAlias = aggregateRootEntity.IsDerived
+                ? "b"
+                : "r";
+
+            idQueryBuilder
+                .From(schemaTableName.Alias("r"))
+                .Select($"{rootTableAlias}.{ColumnNames.AggregateId}");
+
+            if (SerializationEnabled)
+            {
+                idQueryBuilder
+                    .Select($"{rootTableAlias}.{ColumnNames.AggregateData}")
+                    .Select($"{rootTableAlias}.{ColumnNames.LastModifiedDate}");
+            }
+
+            // NOTE: Optimization opportunity - the derived entity may not be needed unless there is criteria to be applied that uses the derived type.
+            // This would eliminate a join with every page. Will need to include Discriminator value in join in lieu of join to base.
+
+            // Add the join to the base type
+            if (aggregateRootEntity.IsDerived)
+            {
+                idQueryBuilder.Join(
+                    $"{aggregateRootEntity.BaseEntity.Schema}.{aggregateRootEntity.BaseEntity.TableName(_databaseEngine)} AS b",
+                    j =>
+                    {
+                        foreach (var propertyMapping in aggregateRootEntity.BaseAssociation.PropertyMappings)
+                        {
+                            j.On(
+                                $"r.{propertyMapping.ThisProperty.ColumnNameByDatabaseEngine[_databaseEngine]}",
+                                $"b.{propertyMapping.OtherProperty.ColumnNameByDatabaseEngine[_databaseEngine]}");
+                        }
+
+                        return j;
+                    });
+            }
+
+            _queryBuilder = idQueryBuilder;
+
+            return idQueryBuilder.Clone();
         }
     }
 }

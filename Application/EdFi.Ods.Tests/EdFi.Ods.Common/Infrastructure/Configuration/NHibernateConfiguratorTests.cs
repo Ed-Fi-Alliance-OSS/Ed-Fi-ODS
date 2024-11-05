@@ -57,7 +57,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     configurationActivities,
                     ormMappingFileDataProvider,
                     () => entityAuthorizer,
-                    authorizationContextProvider);
+                    authorizationContextProvider,
+                    new ApiSettings());
 
                 _configuration = nHibernateConfigurator.Configure();
 

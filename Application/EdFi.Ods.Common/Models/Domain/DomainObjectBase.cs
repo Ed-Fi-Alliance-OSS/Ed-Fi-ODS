@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
+using MessagePack;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Common.Models.Domain
@@ -30,10 +30,8 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <summary>
         ///     Gets or sets the date that the domain object was first created and persisted (used to identify transient objects for NHibernate).
         /// </summary>
-        [IgnoreDataMember] //JsonIgnore
+        [Key(0)]
         public virtual DateTime CreateDate { get; set; }
-
-        public virtual int AggregateId { get; set; }
 
         public override bool Equals(object obj)
         {

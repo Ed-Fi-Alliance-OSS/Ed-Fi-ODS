@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Interceptors;
 using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Security.Authorization;
@@ -15,14 +16,16 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
     public static class NHibernateConfigurationExtensions
     {
-        public static void AddCreateDateHooks(
+        public static void SetInterceptorAndEventListeners(
             this NHibernate.Cfg.Configuration configuration,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
-            IAuthorizationContextProvider authorizationContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider,
+            ApiSettings apiSettings)
         {
             configuration.Interceptor = new EdFiOdsInterceptor();
-            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener());
+            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener(apiSettings));
             configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener());
+            configuration.SetListener(ListenerType.PreUpdate, new EdFiOdsPreUpdateListener(apiSettings));
 
             configuration.SetListener(
                 ListenerType.PostUpdate,

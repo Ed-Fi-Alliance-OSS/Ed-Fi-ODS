@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
             {
                 // Map the persistent models to resources
                 IList<TResourceModel> resources = new List<TResourceModel>();
-                context.PersistentModels.MapCollectionTo(resources);
+                context.PersistentModels.MapResultItemCollectionTo(resources);
 
                 result.Resources = resources;
             }

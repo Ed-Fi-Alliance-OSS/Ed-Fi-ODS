@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Common.Extensions
 {
@@ -135,6 +136,89 @@ namespace EdFi.Ods.Common.Extensions
 
                 sourceItem.Map(targetItem);
                 targetList.Add(targetItem);
+            }
+
+            Type GetItemType()
+            {
+                if (_itemTypeByUnderlyingListType.TryGetValue(targetListType, out Type type))
+                {
+                    return type;
+                }
+        
+                var listTypes = targetListType.GetGenericArguments();
+        
+                if (listTypes.Length == 0)
+                {
+                    throw new ArgumentException(
+                        $"Target list type of '{targetListType.FullName}' does not have any generic arguments.");
+                }
+        
+                // Assumption: ItemType is last generic argument (most of the time this will be a List<T>,
+                // but it could be a CovariantIListAdapter<TBase, TDerived>.  We want the last generic argument type.
+                 type = listTypes[^1];
+                _itemTypeByUnderlyingListType[targetListType] = type;
+        
+                return type;
+            }
+        }
+
+        public static void MapResultItemCollectionTo<TSource, TTarget>(
+            this ICollection<ResultItem<TSource>> sourceResultItemsList,
+            ICollection<TTarget> targetList,
+            bool itemCreatable = true,
+            object parent = null,
+            Func<TSource, bool> isItemIncluded = null)
+            where TSource : IMappable
+        {
+            if (sourceResultItemsList == null)
+            {
+                return;
+            }
+
+            if (targetList == null)
+            {
+                return;
+            }
+
+            var targetListType = targetList.GetType();
+            var itemType = GetItemType();
+            
+            // Deserialize entities
+            foreach (var resultItem in sourceResultItemsList)
+            {
+                if (resultItem.Entity == null && resultItem.AggregateData != null)
+                {
+                    if (resultItem.TryDeserialize(out TSource sourceEntity))
+                    {
+                        resultItem.Entity = sourceEntity;
+                    }
+                }
+            }
+
+            foreach (var sourceItem in sourceResultItemsList.Where(i => isItemIncluded == null || isItemIncluded(i.Entity)))
+            {
+                if (!itemCreatable)
+                {
+                    // Use context provider to note the potential Data Policy Exception here (which applies only if the resource
+                    // is being created, otherwise the SynchronizeCollectionTo method to the existing entity will handle any
+                    // data policy violations).
+                    if (GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Get() == null)
+                    {
+                        string profileName = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        GeneratedArtifactStaticDependencies.DataPolicyExceptionContextProvider.Set(new DataPolicyException(profileName, itemType.Name));
+                    }
+                }
+                
+                // Create and map the item
+                var mappedTargetItem = (TTarget) Activator.CreateInstance(itemType);
+
+                if (parent != null)
+                {
+                    (mappedTargetItem as IChildEntity)?.SetParent(parent);
+                }
+
+                sourceItem.Entity.Map(mappedTargetItem);
+                targetList.Add(mappedTargetItem);
             }
 
             Type GetItemType()
