@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (SerializationEnabled)
                 {
                     // Get the item from serialized form
-                    var singleItemQueryBuilder = GetSingleItemQueryBuilder();
+                    var (singleItemQueryBuilder, rootTableAlias) = GetSingleItemQueryBuilder();
 
                     singleItemQueryBuilder.Where("Id", ids[0]);
                     var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();

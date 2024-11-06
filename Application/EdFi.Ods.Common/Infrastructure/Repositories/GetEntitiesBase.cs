@@ -308,23 +308,20 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             return aggregate;
         }
 
-        protected QueryBuilder GetSingleItemQueryBuilder()
+        protected (QueryBuilder queryBuilder, string rootTableAlias) GetSingleItemQueryBuilder()
         {
+            // Get the fully qualified physical table name
+            Entity aggregateRootEntity = _aggregate.Value.AggregateRoot;
+            string rootTableAlias = aggregateRootEntity.IsDerived ? "b" : "r";
+
             if (_queryBuilder != null)
             {
-                return _queryBuilder.Clone();
+                return (_queryBuilder.Clone(), rootTableAlias);
             }
 
             var idQueryBuilder = new QueryBuilder(_dialect);
 
-            // Get the fully qualified physical table name
-            Entity aggregateRootEntity = _aggregate.Value.AggregateRoot;
-
             var schemaTableName = $"{aggregateRootEntity.Schema}.{aggregateRootEntity.TableName(_databaseEngine)}";
-
-            string rootTableAlias = aggregateRootEntity.IsDerived
-                ? "b"
-                : "r";
 
             idQueryBuilder
                 .From(schemaTableName.Alias("r"))
@@ -360,7 +357,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             _queryBuilder = idQueryBuilder;
 
-            return idQueryBuilder.Clone();
+            return (idQueryBuilder.Clone(), rootTableAlias);
         }
     }
 }
