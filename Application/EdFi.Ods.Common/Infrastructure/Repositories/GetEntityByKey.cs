@@ -180,11 +180,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             async Task<ItemData<TEntity>> GetItemData(OrderedDictionary compositeKeyValues, SessionScope scope)
             {
                 // Get the item from serialized form
-                var (singleItemQueryBuilder, rootTableAlias) = GetSingleItemQueryBuilder();
+                var singleItemQueryBuilder = GetSingleItemQueryBuilder();
 
+                // Apply primary key values to the root (derived, if applicable) table, as that's how the composite key values are provided
                 foreach (DictionaryEntry keyValue in compositeKeyValues)
                 {
-                    singleItemQueryBuilder.Where($"{rootTableAlias}.{(string) keyValue.Key}", keyValue.Value);
+                    singleItemQueryBuilder.Where($"r.{(string) keyValue.Key}", keyValue.Value);
                 }
 
                 var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();

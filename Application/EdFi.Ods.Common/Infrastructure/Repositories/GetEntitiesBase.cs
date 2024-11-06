@@ -308,7 +308,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             return aggregate;
         }
 
-        protected (QueryBuilder queryBuilder, string rootTableAlias) GetSingleItemQueryBuilder()
+        protected QueryBuilder GetSingleItemQueryBuilder()
         {
             // Get the fully qualified physical table name
             Entity aggregateRootEntity = _aggregate.Value.AggregateRoot;
@@ -316,7 +316,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             if (_queryBuilder != null)
             {
-                return (_queryBuilder.Clone(), rootTableAlias);
+                return _queryBuilder.Clone();
             }
 
             var idQueryBuilder = new QueryBuilder(_dialect);
@@ -357,7 +357,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             _queryBuilder = idQueryBuilder;
 
-            return (idQueryBuilder.Clone(), rootTableAlias);
+            return idQueryBuilder.Clone();
         }
     }
 }
