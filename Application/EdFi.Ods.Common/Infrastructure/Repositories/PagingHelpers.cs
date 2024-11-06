@@ -33,9 +33,7 @@ public static class PagingHelpers
             case 3: base64 += "="; break;
         }
 
-        // Convert the Base64 string to bytes
-        byte[] bytes = Convert.FromBase64String(base64);
-        string decodedString = Encoding.UTF8.GetString(bytes);
+        string decodedString = GetDecodedString();
 
         var minMaxAggregateIds = decodedString.Split(',');
 
@@ -53,6 +51,22 @@ public static class PagingHelpers
         catch (Exception ex)
         {
             throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["The page token provided was invalid."], ex);
+        }
+
+        string GetDecodedString()
+        {
+            try
+            {
+                // Convert the Base64 string to bytes
+                byte[] bytes = Convert.FromBase64String(base64);
+                string s = Encoding.UTF8.GetString(bytes);
+
+                return s;
+            }
+            catch (Exception ex)
+            {
+                throw new BadRequestParameterException(BadRequestException.DefaultDetail, ["The page token provided was invalid."], ex);
+            }
         }
     }
 }

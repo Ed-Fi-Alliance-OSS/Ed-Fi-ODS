@@ -68,7 +68,7 @@ namespace EdFi.Ods.Common.Providers.Queries
             var idQueryBuilder = GetQueryBuilder(aggregateRootEntity, pagingParameters);
 
             // Add special query fields
-            AggregateQueryBuilderHelpers.ProcessCommonQueryParameters(idQueryBuilder, queryParameters);
+            idQueryBuilder.ApplyQueryParameterCriteria(queryParameters);
 
             // Apply additional parameters, as applicable
             foreach (var applicator in _additionalParametersCriteriaApplicator)

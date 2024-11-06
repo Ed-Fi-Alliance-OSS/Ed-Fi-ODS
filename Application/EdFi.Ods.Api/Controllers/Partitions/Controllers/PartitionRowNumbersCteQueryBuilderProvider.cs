@@ -96,7 +96,7 @@ public class PartitionRowNumbersCteQueryBuilderProvider : IAggregateRootQueryBui
         }
 
         // Add special query fields
-        AggregateQueryBuilderHelpers.ProcessCommonQueryParameters(rowNumbersQueryBuilder, queryParameters);
+        QueryBuilderExtensions.ApplyQueryParameterCriteria(rowNumbersQueryBuilder, queryParameters);
 
         // Apply additional parameters, as applicable
         foreach (var applicator in _additionalParametersCriteriaApplicator)

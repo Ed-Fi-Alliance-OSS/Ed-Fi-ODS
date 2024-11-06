@@ -8,11 +8,36 @@ using EdFi.Ods.Common.Models.Queries;
 
 namespace EdFi.Ods.Common.Providers.Queries;
 
-public static class AggregateQueryBuilderHelpers
+public static class QueryBuilderExtensions
 {
-    public static void ProcessCommonQueryParameters(QueryBuilder queryBuilder, IQueryParameters parameters)
+    private const string ChangeVersion = "ChangeVersion";
+
+    public static void ApplyChangeVersionCriteria(this QueryBuilder queryBuilder, IQueryParameters queryParameters)
     {
-        foreach (IQueryCriteriaBase criteria in parameters.QueryCriteria)
+        if (queryParameters == null)
+        {
+            return;
+        }
+
+        if (queryParameters.MinChangeVersion.HasValue)
+        {
+            queryBuilder.Where(ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
+        }
+
+        if (queryParameters.MaxChangeVersion.HasValue)
+        {
+            queryBuilder.Where(ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
+        }
+    }
+
+    public static void ApplyQueryParameterCriteria(this QueryBuilder queryBuilder, IQueryParameters queryParameters)
+    {
+        if (queryParameters == null)
+        {
+            return;
+        }
+
+        foreach (IQueryCriteriaBase criteria in queryParameters.QueryCriteria)
         {
             if (criteria is TextCriteria textCriteria)
             {

@@ -97,7 +97,6 @@ namespace EdFi.Ods.Common.Models
             Func<string, IEnumerable<string>, PropertyMapping[]> getContextDataPropertyMappings = null)
         {
             var sourceProperties = GetTypeProperties(sourceType);
-
             var targetProperties = GetTypeProperties(targetType);
 
             // If explicit propertyNameMappings are NOT supplied...
@@ -146,6 +145,30 @@ namespace EdFi.Ods.Common.Models
                 return null;
             }
 
+            return CreateDelegate(methodName, sourceType, targetType, propertyNameMappings, sourceProperties,
+                targetProperties);
+
+            Dictionary<string, PropertyInfo> GetTypeProperties(Type type)
+            {
+                if (type.IsInterface)
+                {
+                    // Process the interface and the interfaces it implements directly (but not recursively)
+                    return type.GetProperties().Concat(type.GetInterfaces().SelectMany(i => i.GetProperties()))
+                        .ToDictionary(p => p.Name, p => p);
+                }
+                
+                return type.GetProperties().ToDictionary(x => x.Name, x => x);
+            }
+        }
+
+        private static ExtractDelegate CreateDelegate(
+            string methodName,
+            Type sourceType,
+            Type targetType,
+            PropertyMapping[] propertyNameMappings,
+            Dictionary<string, PropertyInfo> sourceProperties,
+            Dictionary<string, PropertyInfo> targetProperties)
+        {
             var m = new DynamicMethod(
                 methodName,
                 null,
@@ -192,13 +215,7 @@ namespace EdFi.Ods.Common.Models
                 else
                 {
                     // Nullable type target
-                    il.Emit(
-                        OpCodes.Newobj,
-                        targetProperty.PropertyType.GetConstructor(
-                            new[]
-                            {
-                                targetUnderlyingType
-                            }));
+                    il.Emit(OpCodes.Newobj, targetProperty.PropertyType.GetConstructor([targetUnderlyingType]));
 
                     il.Emit(OpCodes.Callvirt, targetProperty.GetSetMethod());
                 }
@@ -211,18 +228,6 @@ namespace EdFi.Ods.Common.Models
             var d = (ExtractDelegate) m.CreateDelegate(typeof(ExtractDelegate));
 
             return d;
-
-            Dictionary<string, PropertyInfo> GetTypeProperties(Type type)
-            {
-                if (type.IsInterface)
-                {
-                    // Process the interface and the interfaces it implements directly (but not recursively)
-                    return type.GetProperties().Concat(type.GetInterfaces().SelectMany(i => i.GetProperties()))
-                        .ToDictionary(p => p.Name, p => p);
-                }
-
-                return type.GetProperties().ToDictionary(x => x.Name, x => x);
-            }
         }
 
         private static void ValidatePropertyMappings(

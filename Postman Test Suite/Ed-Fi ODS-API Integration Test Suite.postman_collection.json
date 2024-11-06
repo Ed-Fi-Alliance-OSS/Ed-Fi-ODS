@@ -4598,7 +4598,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Invalid page token",
+									"name": "Key set paging, Invalid page token (not an encoded token)",
 									"event": [
 										{
 											"listen": "test",
@@ -4642,6 +4642,61 @@
 												{
 													"key": "pageToken",
 													"value": "DefinitelyNotValid"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Key set paging, Invalid page token (leading space)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"const problemDetails = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate request was invalid.\", () => {\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate the page token is invalid.\", () => {\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"The page token provided was invalid.\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradingPeriods?pageToken= LTIxNDc0NzQwMzgsMjE0NzQ4MzY0Nw&pageSize=2",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradingPeriods"
+											],
+											"query": [
+												{
+													"key": "pageToken",
+													"value": " LTIxNDc0NzQwMzgsMjE0NzQ4MzY0Nw"
 												},
 												{
 													"key": "pageSize",
@@ -5665,6 +5720,1628 @@
 												}
 											},
 											"response": []
+										}
+									]
+								},
+								{
+									"name": "Partition Filtering",
+									"item": [
+										{
+											"name": "Standard",
+											"item": [
+												{
+													"name": "Get Total Count of Filtered Items",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set(\"known:studentSectionAssociations:count\", pm.response.headers.get(\"Total-Count\"));\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations?schoolId=255901001&localCourseCode=ENG-1&totalCount=true&limit=0",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations"
+															],
+															"query": [
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																},
+																{
+																	"key": "totalCount",
+																	"value": "true"
+																},
+																{
+																	"key": "limit",
+																	"value": "0"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Filtered Partitions",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const response = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should return two page tokens.\", () => {\r",
+																	"  pm.expect(response.pageTokens).to.have.lengthOf(2);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set(\"known:studentSectionAssociations:pageToken:1\", response.pageTokens[0]);\r",
+																	"pm.environment.set(\"known:studentSectionAssociations:pageToken:2\", response.pageTokens[1]);\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/partitions?schoolId=255901001&localCourseCode=ENG-1&number=2&allowSmallPartitions=true",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations",
+																"partitions"
+															],
+															"query": [
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																},
+																{
+																	"key": "number",
+																	"value": "2"
+																},
+																{
+																	"key": "allowSmallPartitions",
+																	"value": "true"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get First Filtered Partition",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const items = pm.response.json();\r",
+																	"\r",
+																	"pm.environment.set(\"known:studentSectionAssociations:itemsLength:1\", items.length);\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations?pageToken={{known:studentSectionAssociations:pageToken:1}}&pageSize=500&schoolId=255901001&localCourseCode=ENG-1",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations"
+															],
+															"query": [
+																{
+																	"key": "pageToken",
+																	"value": "{{known:studentSectionAssociations:pageToken:1}}"
+																},
+																{
+																	"key": "pageSize",
+																	"value": "500"
+																},
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Second Filtered Partition",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const items = pm.response.json();\r",
+																	"\r",
+																	"const actualPartition1Length = pm.environment.get(\"known:studentSectionAssociations:itemsLength:1\");\r",
+																	"const actualPartition2Length = items.length;\r",
+																	"\r",
+																	"const expectedCount = Number(pm.environment.get(\"known:studentSectionAssociations:count\"));\r",
+																	"\r",
+																	"pm.test(\"Filtered partitions should return the expected total number of items.\", () => {\r",
+																	"  pm.expect(actualPartition1Length + actualPartition2Length).to.equal(expectedCount);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations?pageToken={{known:studentSectionAssociations:pageToken:2}}&pageSize=500&schoolId=255901001&localCourseCode=ENG-1",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations"
+															],
+															"query": [
+																{
+																	"key": "pageToken",
+																	"value": "{{known:studentSectionAssociations:pageToken:2}}"
+																},
+																{
+																	"key": "pageSize",
+																	"value": "500"
+																},
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Clean up Environment Variables",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																	"_.chain(_.keys(pm.environment.toObject()))\r",
+																	"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																	"  .each(k => pm.environment.unset(k)).value();\r",
+																	"\r",
+																	"pm.execution.skipRequest();"
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Derived",
+											"item": [
+												{
+													"name": "EducationOrganizations",
+													"item": [
+														{
+															"name": "Filtered on Base Property",
+															"item": [
+																{
+																	"name": "Get Total Count of Filtered Items",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:schools:count\", pm.response.headers.get(\"Total-Count\"));\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?shortNameOfInstitution=GBMS&totalCount=true&limit=0",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"schools"
+																			],
+																			"query": [
+																				{
+																					"key": "shortNameOfInstitution",
+																					"value": "GBMS"
+																				},
+																				{
+																					"key": "totalCount",
+																					"value": "true"
+																				},
+																				{
+																					"key": "limit",
+																					"value": "0"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Filtered Partitions",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const response = pm.response.json();\r",
+																					"\r",
+																					"pm.test(\"Should return two page tokens.\", () => {\r",
+																					"  pm.expect(response.pageTokens).to.have.lengthOf(1);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:schools:pageToken:1\", response.pageTokens[0]);\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/partitions?shortNameOfInstitution=GBMS&number=2&allowSmallPartitions=true",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"schools",
+																				"partitions"
+																			],
+																			"query": [
+																				{
+																					"key": "shortNameOfInstitution",
+																					"value": "GBMS"
+																				},
+																				{
+																					"key": "number",
+																					"value": "2"
+																				},
+																				{
+																					"key": "allowSmallPartitions",
+																					"value": "true"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Only Filtered Partition",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const items = pm.response.json();\r",
+																					"\r",
+																					"const actualPartitionLength = items.length;\r",
+																					"\r",
+																					"const expectedCount = Number(pm.environment.get(\"known:schools:count\"));\r",
+																					"\r",
+																					"pm.test(\"Filtered partitions should return the expected total number of items.\", () => {\r",
+																					"  pm.expect(actualPartitionLength).to.equal(expectedCount);\r",
+																					"});\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?pageToken={{known:schools:pageToken:1}}&pageSize=500&shortNameOfInstitution=GBMS",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"schools"
+																			],
+																			"query": [
+																				{
+																					"key": "pageToken",
+																					"value": "{{known:schools:pageToken:1}}"
+																				},
+																				{
+																					"key": "pageSize",
+																					"value": "500"
+																				},
+																				{
+																					"key": "shortNameOfInstitution",
+																					"value": "GBMS"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																}
+															]
+														},
+														{
+															"name": "Filtered on Derived Property",
+															"item": [
+																{
+																	"name": "Setup",
+																	"item": [
+																		{
+																			"name": "Create Charter School",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 201\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(201);\r",
+																							"});\r",
+																							"\r",
+																							"pm.environment.set('known:school:id',pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "POST",
+																				"header": [],
+																				"body": {
+																					"mode": "raw",
+																					"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 7890,\r\n    \"nameOfInstitution\": \"ABCD Charter School\",\r\n    \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n    \"shortNameOfInstitution\": \"ABCD\",\r\n    \"webSite\": \"http://www.GBISD.edu/ABCD/\",\r\n    \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n    \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n    \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n    \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"schoolCategories\": [\r\n      {\r\n        \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#Middle School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Sixth grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Seventh grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n      }\r\n    ]\r\n  }",
+																					"options": {
+																						"raw": {
+																							"language": "json"
+																						}
+																					}
+																				},
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools"
+																					]
+																				}
+																			},
+																			"response": []
+																		}
+																	]
+																},
+																{
+																	"name": "Filtered Partitions",
+																	"item": [
+																		{
+																			"name": "Get Total Count of Filtered Items",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 200\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(200);\r",
+																							"});\r",
+																							"\r",
+																							"pm.environment.set(\"known:schools:count\", pm.response.headers.get(\"Total-Count\"));\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "GET",
+																				"header": [],
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School&totalCount=true&limit=0",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools"
+																					],
+																					"query": [
+																						{
+																							"key": "charterStatusDescriptor",
+																							"value": "uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School"
+																						},
+																						{
+																							"key": "totalCount",
+																							"value": "true"
+																						},
+																						{
+																							"key": "limit",
+																							"value": "0"
+																						}
+																					]
+																				}
+																			},
+																			"response": []
+																		},
+																		{
+																			"name": "Get Filtered Partitions",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 200\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(200);\r",
+																							"});\r",
+																							"\r",
+																							"const response = pm.response.json();\r",
+																							"\r",
+																							"pm.test(\"Should return two page tokens.\", () => {\r",
+																							"  pm.expect(response.pageTokens).to.have.lengthOf(2);\r",
+																							"});\r",
+																							"\r",
+																							"pm.environment.set(\"known:schools:pageToken:1\", response.pageTokens[0]);\r",
+																							"pm.environment.set(\"known:schools:pageToken:2\", response.pageTokens[1]);\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "GET",
+																				"header": [],
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/partitions?charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School&number=2&allowSmallPartitions=true",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools",
+																						"partitions"
+																					],
+																					"query": [
+																						{
+																							"key": "charterStatusDescriptor",
+																							"value": "uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School"
+																						},
+																						{
+																							"key": "number",
+																							"value": "2"
+																						},
+																						{
+																							"key": "allowSmallPartitions",
+																							"value": "true"
+																						}
+																					]
+																				}
+																			},
+																			"response": []
+																		},
+																		{
+																			"name": "Get First Filtered Partition",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 200\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(200);\r",
+																							"});\r",
+																							"\r",
+																							"const items = pm.response.json();\r",
+																							"\r",
+																							"pm.environment.set(\"known:schools:itemsLength:1\", items.length);\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "GET",
+																				"header": [],
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?pageToken={{known:schools:pageToken:1}}&pageSize=500&charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools"
+																					],
+																					"query": [
+																						{
+																							"key": "pageToken",
+																							"value": "{{known:schools:pageToken:1}}"
+																						},
+																						{
+																							"key": "pageSize",
+																							"value": "500"
+																						},
+																						{
+																							"key": "charterStatusDescriptor",
+																							"value": "uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School"
+																						}
+																					]
+																				}
+																			},
+																			"response": []
+																		},
+																		{
+																			"name": "Get Second Filtered Partition",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 200\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(200);\r",
+																							"});\r",
+																							"\r",
+																							"const items = pm.response.json();\r",
+																							"\r",
+																							"const actualPartition1Length = pm.environment.get(\"known:schools:itemsLength:1\");\r",
+																							"const actualPartition2Length = items.length;\r",
+																							"\r",
+																							"const expectedCount = Number(pm.environment.get(\"known:schools:count\"));\r",
+																							"\r",
+																							"pm.test(\"Filtered partitions should return the expected total number of items.\", () => {\r",
+																							"  pm.expect(actualPartition1Length + actualPartition2Length).to.equal(expectedCount);\r",
+																							"});\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "GET",
+																				"header": [],
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?pageToken={{known:schools:pageToken:2}}&pageSize=500&charterStatusDescriptor=uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools"
+																					],
+																					"query": [
+																						{
+																							"key": "pageToken",
+																							"value": "{{known:schools:pageToken:2}}"
+																						},
+																						{
+																							"key": "pageSize",
+																							"value": "500"
+																						},
+																						{
+																							"key": "charterStatusDescriptor",
+																							"value": "uri://ed-fi.org/CharterStatusDescriptor%23Not a Charter School"
+																						}
+																					]
+																				}
+																			},
+																			"response": []
+																		}
+																	]
+																},
+																{
+																	"name": "Teardown",
+																	"item": [
+																		{
+																			"name": "Delete Charter School",
+																			"event": [
+																				{
+																					"listen": "test",
+																					"script": {
+																						"exec": [
+																							"pm.test(\"Status code is 204\", () => {\r",
+																							"  pm.expect(pm.response.code).to.equal(204);\r",
+																							"});\r",
+																							""
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"method": "DELETE",
+																				"header": [],
+																				"body": {
+																					"mode": "raw",
+																					"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 7890,\r\n    \"nameOfInstitution\": \"ABCD Charter School\",\r\n    \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n    \"shortNameOfInstitution\": \"ABCD\",\r\n    \"webSite\": \"http://www.GBISD.edu/ABCD/\",\r\n    \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n    \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n    \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n    \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"schoolCategories\": [\r\n      {\r\n        \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#Middle School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Sixth grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Seventh grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n      }\r\n    ]\r\n  }",
+																					"options": {
+																						"raw": {
+																							"language": "json"
+																						}
+																					}
+																				},
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					],
+																					"path": [
+																						"data",
+																						"v3",
+																						"ed-fi",
+																						"schools",
+																						"{{known:school:id}}"
+																					]
+																				}
+																			},
+																			"response": []
+																		},
+																		{
+																			"name": "Clean up Environment Variables",
+																			"event": [
+																				{
+																					"listen": "prerequest",
+																					"script": {
+																						"exec": [
+																							"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																							"_.chain(_.keys(pm.environment.toObject()))\r",
+																							"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																							"  .each(k => pm.environment.unset(k)).value();\r",
+																							"\r",
+																							"pm.execution.skipRequest();"
+																						],
+																						"type": "text/javascript",
+																						"packages": {}
+																					}
+																				}
+																			],
+																			"request": {
+																				"auth": {
+																					"type": "noauth"
+																				},
+																				"method": "GET",
+																				"header": [],
+																				"url": {
+																					"raw": "{{ApiBaseUrl}}",
+																					"host": [
+																						"{{ApiBaseUrl}}"
+																					]
+																				}
+																			},
+																			"response": []
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"name": "StudentProgramAssociations",
+													"item": [
+														{
+															"name": "Filtered on Base Property",
+															"item": [
+																{
+																	"name": "Get Total Count of Filtered",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentProgramAssociations:count\", pm.response.headers.get(\"Total-Count\"));\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?programName=Bilingual&totalCount=true&limit=0",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "programName",
+																					"value": "Bilingual"
+																				},
+																				{
+																					"key": "totalCount",
+																					"value": "true"
+																				},
+																				{
+																					"key": "limit",
+																					"value": "0"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Filtered Partitions",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const response = pm.response.json();\r",
+																					"\r",
+																					"pm.test(\"Should return two page tokens.\", () => {\r",
+																					"  pm.expect(response.pageTokens).to.have.lengthOf(2);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentProgramAssociations:pageToken:1\", response.pageTokens[0]);\r",
+																					"pm.environment.set(\"known:studentProgramAssociations:pageToken:2\", response.pageTokens[1]);\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/partitions?programName=Bilingual&number=2&allowSmallPartitions=true",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentProgramAssociations",
+																				"partitions"
+																			],
+																			"query": [
+																				{
+																					"key": "programName",
+																					"value": "Bilingual"
+																				},
+																				{
+																					"key": "number",
+																					"value": "2"
+																				},
+																				{
+																					"key": "allowSmallPartitions",
+																					"value": "true"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get First Filtered Partition",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const items = pm.response.json();\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentProgramAssociations:itemsLength:1\", items.length);\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?pageToken={{known:studentProgramAssociations:pageToken:1}}&pageSize=500",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "pageToken",
+																					"value": "{{known:studentProgramAssociations:pageToken:1}}"
+																				},
+																				{
+																					"key": "pageSize",
+																					"value": "500"
+																				},
+																				{
+																					"key": "programName",
+																					"value": "Bilingual",
+																					"disabled": true
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Second Filtered Partition",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const items = pm.response.json();\r",
+																					"\r",
+																					"const actualPartition1Length = pm.environment.get(\"known:studentProgramAssociations:itemsLength:1\");\r",
+																					"const actualPartition2Length = items.length;\r",
+																					"\r",
+																					"const expectedCount = Number(pm.environment.get(\"known:studentProgramAssociations:count\"));\r",
+																					"\r",
+																					"pm.test(\"Filtered partitions should return the expected total number of items.\", () => {\r",
+																					"  pm.expect(actualPartition1Length + actualPartition2Length).to.equal(expectedCount);\r",
+																					"});\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?pageToken={{known:studentProgramAssociations:pageToken:2}}&pageSize=500&programName=Bilingual",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "pageToken",
+																					"value": "{{known:studentProgramAssociations:pageToken:2}}"
+																				},
+																				{
+																					"key": "pageSize",
+																					"value": "500"
+																				},
+																				{
+																					"key": "programName",
+																					"value": "Bilingual"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Clean up Environment Variables",
+																	"event": [
+																		{
+																			"listen": "prerequest",
+																			"script": {
+																				"exec": [
+																					"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																					"_.chain(_.keys(pm.environment.toObject()))\r",
+																					"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																					"  .each(k => pm.environment.unset(k)).value();\r",
+																					"\r",
+																					"pm.execution.skipRequest();"
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"auth": {
+																			"type": "noauth"
+																		},
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			]
+																		}
+																	},
+																	"response": []
+																}
+															]
+														},
+														{
+															"name": "Filtered on Derived Property",
+															"item": [
+																{
+																	"name": "Get Total Count of Filtered",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:count\", pm.response.headers.get(\"Total-Count\"));\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations?specialEducationExitExplained=Student Graduated with Diploma&totalCount=true&limit=0",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentSpecialEducationProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "specialEducationExitExplained",
+																					"value": "Student Graduated with Diploma"
+																				},
+																				{
+																					"key": "totalCount",
+																					"value": "true"
+																				},
+																				{
+																					"key": "limit",
+																					"value": "0"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Filtered Partitions",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const response = pm.response.json();\r",
+																					"\r",
+																					"pm.test(\"Should return two page tokens.\", () => {\r",
+																					"  pm.expect(response.pageTokens).to.have.lengthOf(2);\r",
+																					"});\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:pageToken:1\", response.pageTokens[0]);\r",
+																					"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:pageToken:2\", response.pageTokens[1]);\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/partitions?specialEducationExitExplained=Student Graduated with Diploma&number=2&allowSmallPartitions=true",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentSpecialEducationProgramAssociations",
+																				"partitions"
+																			],
+																			"query": [
+																				{
+																					"key": "specialEducationExitExplained",
+																					"value": "Student Graduated with Diploma"
+																				},
+																				{
+																					"key": "number",
+																					"value": "2"
+																				},
+																				{
+																					"key": "allowSmallPartitions",
+																					"value": "true"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get First Filtered Partition",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const items = pm.response.json();\r",
+																					"\r",
+																					"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:itemsLength:1\", items.length);\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations?pageToken={{known:studentSpecialEducationProgramAssociations:pageToken:1}}&pageSize=500&specialEducationExitExplained=Student Graduated with Diploma",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentSpecialEducationProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "pageToken",
+																					"value": "{{known:studentSpecialEducationProgramAssociations:pageToken:1}}"
+																				},
+																				{
+																					"key": "pageSize",
+																					"value": "500"
+																				},
+																				{
+																					"key": "specialEducationExitExplained",
+																					"value": "Student Graduated with Diploma"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Get Second Filtered Partition",
+																	"event": [
+																		{
+																			"listen": "test",
+																			"script": {
+																				"exec": [
+																					"pm.test(\"Status code is 200\", () => {\r",
+																					"  pm.expect(pm.response.code).to.equal(200);\r",
+																					"});\r",
+																					"\r",
+																					"const items = pm.response.json();\r",
+																					"\r",
+																					"const actualPartition1Length = pm.environment.get(\"known:studentSpecialEducationProgramAssociations:itemsLength:1\");\r",
+																					"const actualPartition2Length = items.length;\r",
+																					"\r",
+																					"const expectedCount = Number(pm.environment.get(\"known:studentSpecialEducationProgramAssociations:count\"));\r",
+																					"\r",
+																					"pm.test(\"Filtered partitions should return the expected total number of items.\", () => {\r",
+																					"  pm.expect(actualPartition1Length + actualPartition2Length).to.equal(expectedCount);\r",
+																					"});\r",
+																					""
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations?pageToken={{known:studentSpecialEducationProgramAssociations:pageToken:2}}&pageSize=500&specialEducationExitExplained=Student Graduated with Diploma",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			],
+																			"path": [
+																				"data",
+																				"v3",
+																				"ed-fi",
+																				"studentSpecialEducationProgramAssociations"
+																			],
+																			"query": [
+																				{
+																					"key": "pageToken",
+																					"value": "{{known:studentSpecialEducationProgramAssociations:pageToken:2}}"
+																				},
+																				{
+																					"key": "pageSize",
+																					"value": "500"
+																				},
+																				{
+																					"key": "specialEducationExitExplained",
+																					"value": "Student Graduated with Diploma"
+																				}
+																			]
+																		}
+																	},
+																	"response": []
+																},
+																{
+																	"name": "Clean up Environment Variables",
+																	"event": [
+																		{
+																			"listen": "prerequest",
+																			"script": {
+																				"exec": [
+																					"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																					"_.chain(_.keys(pm.environment.toObject()))\r",
+																					"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																					"  .each(k => pm.environment.unset(k)).value();\r",
+																					"\r",
+																					"pm.execution.skipRequest();"
+																				],
+																				"type": "text/javascript",
+																				"packages": {}
+																			}
+																		}
+																	],
+																	"request": {
+																		"auth": {
+																			"type": "noauth"
+																		},
+																		"method": "GET",
+																		"header": [],
+																		"url": {
+																			"raw": "{{ApiBaseUrl}}",
+																			"host": [
+																				"{{ApiBaseUrl}}"
+																			]
+																		}
+																	},
+																	"response": []
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"name": "Change Versions",
+											"item": [
+												{
+													"name": "Get Available Changes",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.environment.set(\"known:availableChangeVersion\", pm.response.json().newestChangeVersion);"
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"changeQueries",
+																"v1",
+																"availableChangeVersions"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Total Count of Items",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const totalCount = Number(pm.response.headers.get(\"Total-Count\"));\r",
+																	"\r",
+																	"pm.test(\"Count of items with other filters should be greater than 0.\", () => {\r",
+																	"  pm.expect(totalCount).to.be.greaterThan(0);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations?schoolId=255901001&localCourseCode=ENG-1&totalCount=true&limit=0",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations"
+															],
+															"query": [
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																},
+																{
+																	"key": "totalCount",
+																	"value": "true"
+																},
+																{
+																	"key": "limit",
+																	"value": "0"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Total Count of Items with ChangeVersion",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const totalCount = Number(pm.response.headers.get(\"Total-Count\"));\r",
+																	"\r",
+																	"pm.test(\"Count of items with other filters should equal 0.\", () => {\r",
+																	"  pm.expect(totalCount).to.equal(0);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations?minChangeVersion={{known:availableChangeVersion}}&schoolId=255901001&localCourseCode=ENG-1&totalCount=true&limit=0",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations"
+															],
+															"query": [
+																{
+																	"key": "minChangeVersion",
+																	"value": "{{known:availableChangeVersion}}",
+																	"description": "This will eliminate all items from the set if applied correctly."
+																},
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																},
+																{
+																	"key": "totalCount",
+																	"value": "true"
+																},
+																{
+																	"key": "limit",
+																	"value": "0"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Filtered Partitions with ChangeVersion",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const response = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should return no page tokens when ChangeVersion is applied.\", () => {\r",
+																	"  pm.expect(response.pageTokens).to.have.lengthOf(0);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/partitions?minChangeVersion={{known:availableChangeVersion}}&schoolId=255901001&localCourseCode=ENG-1&number=2&allowSmallPartitions=true",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentSectionAssociations",
+																"partitions"
+															],
+															"query": [
+																{
+																	"key": "minChangeVersion",
+																	"value": "{{known:availableChangeVersion}}",
+																	"description": "This will eliminate all items from the set if applied correctly."
+																},
+																{
+																	"key": "schoolId",
+																	"value": "255901001"
+																},
+																{
+																	"key": "localCourseCode",
+																	"value": "ENG-1"
+																},
+																{
+																	"key": "number",
+																	"value": "2"
+																},
+																{
+																	"key": "allowSmallPartitions",
+																	"value": "true"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Clean up Environment Variables",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																	"_.chain(_.keys(pm.environment.toObject()))\r",
+																	"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																	"  .each(k => pm.environment.unset(k)).value();\r",
+																	"\r",
+																	"pm.execution.skipRequest();"
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "noauth"
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
 										}
 									]
 								}

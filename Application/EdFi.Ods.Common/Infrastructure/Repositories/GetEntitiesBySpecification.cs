@@ -25,7 +25,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         : NHibernateRepositoryOperationBase, IGetEntitiesBySpecification<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        private const string ChangeVersion = "ChangeVersion";
         public const string _Id = "Id";
         private static IList<TEntity> EmptyList = new List<TEntity>();
 
@@ -162,7 +161,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (idsTemplate != null)
                 {
                     var idsResults = await Session.Connection.QueryAsync<PageIds>(idsTemplate.RawSql, idsTemplate.Parameters);
-                    
+
                     return new SpecificationResult
                     {
                         Ids = idsResults.ToArray() 
@@ -176,31 +175,18 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     Ids = Array.Empty<PageIds>(),
                     TotalCount = countResult 
                 };
-                
+
                 QueryBuilder GetIdsQueryBuilder()
                 {
-                    var idsQueryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(
+                    var queryBuilder = _pagedAggregateIdsCriteriaProvider.GetQueryBuilder(
                         aggregateRootEntity,
                         specification,
                         queryParameters,
                         additionalParameters);
 
-                    SetChangeQueriesCriteria(idsQueryBuilder);
+                    queryBuilder.ApplyChangeVersionCriteria(queryParameters);
 
-                    return idsQueryBuilder;
-
-                    void SetChangeQueriesCriteria(QueryBuilder queryBuilder)
-                    {
-                        if (queryParameters.MinChangeVersion.HasValue)
-                        {
-                            queryBuilder.Where(ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
-                        }
-
-                        if (queryParameters.MaxChangeVersion.HasValue)
-                        {
-                            queryBuilder.Where(ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
-                        }
-                    }
+                    return queryBuilder;
                 }
             }
 
