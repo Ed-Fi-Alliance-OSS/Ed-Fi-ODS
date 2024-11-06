@@ -16,9 +16,12 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: InstitutionControlDescriptor
 
@@ -32,6 +35,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class InstitutionControlDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -40,6 +44,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int InstitutionControlDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -211,6 +216,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class InstitutionLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -219,6 +225,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int InstitutionLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -385,23 +392,27 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     /// <summary>
     /// Represents a read-only reference to the <see cref="PostSecondaryOrganization"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class PostSecondaryOrganizationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string NameOfInstitution { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(1)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -466,6 +477,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PostSecondaryOrganization : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -481,6 +493,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string NameOfInstitution  { get; set; }
         // -------------------------------------------------------------
 
@@ -492,7 +505,9 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(7)]
         public virtual bool AcceptanceIndicator  { get; set; }
+        [Key(8)]
         public virtual int InstitutionControlDescriptorId 
         {
             get
@@ -512,6 +527,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         private int _institutionControlDescriptorId;
         private string _institutionControlDescriptor;
 
+        [IgnoreMember]
         public virtual string InstitutionControlDescriptor
         {
             get
@@ -527,6 +543,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
                 _institutionControlDescriptorId = default(int);
             }
         }
+        [Key(9)]
         public virtual int InstitutionLevelDescriptorId 
         {
             get
@@ -546,6 +563,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         private int _institutionLevelDescriptorId;
         private string _institutionLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string InstitutionLevelDescriptor
         {
             get
@@ -688,6 +706,7 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SpecialEducationGraduationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -696,6 +715,7 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int SpecialEducationGraduationStatusDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -867,6 +887,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentAcademicRecordExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -881,7 +902,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.StudentAcademicRecord StudentAcademicRecord { get; set; }
 
         Entities.Common.EdFi.IStudentAcademicRecord IStudentAcademicRecordExtension.StudentAcademicRecord
@@ -900,7 +921,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual string NameOfInstitution  { get; set; }
+        [Key(2)]
         public virtual int? SubmissionCertificationDescriptorId 
         {
             get
@@ -920,6 +943,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         private int? _submissionCertificationDescriptorId;
         private string _submissionCertificationDescriptor;
 
+        [IgnoreMember]
         public virtual string SubmissionCertificationDescriptor
         {
             get
@@ -950,6 +974,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData PostSecondaryOrganizationReferenceData { get; set; }
 
         /// <summary>
@@ -992,7 +1017,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (StudentAcademicRecord as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (StudentAcademicRecord as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -1079,6 +1104,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentAcademicRecordClassRankingExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1093,7 +1119,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.StudentAcademicRecordClassRanking StudentAcademicRecordClassRanking { get; set; }
 
         Entities.Common.EdFi.IStudentAcademicRecordClassRanking IStudentAcademicRecordClassRankingExtension.StudentAcademicRecordClassRanking
@@ -1112,6 +1138,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual int SpecialEducationGraduationStatusDescriptorId 
         {
             get
@@ -1131,6 +1158,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         private int _specialEducationGraduationStatusDescriptorId;
         private string _specialEducationGraduationStatusDescriptor;
 
+        [IgnoreMember]
         public virtual string SpecialEducationGraduationStatusDescriptor
         {
             get
@@ -1183,7 +1211,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (StudentAcademicRecordClassRanking as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (StudentAcademicRecordClassRanking as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -1275,6 +1303,7 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
     /// </summary>
     [Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SubmissionCertificationDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -1283,6 +1312,7 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int SubmissionCertificationDescriptorId 
         {
             get { return base.DescriptorId; }

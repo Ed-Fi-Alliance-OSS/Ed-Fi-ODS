@@ -1,7 +1,7 @@
     /// <summary>
     /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the {{EntityParentClassName}} entity's aggregate extensions.
     /// </summary>
-    [ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage][MessagePackObject]
     public class {{ClassName}} : I{{ClassName}}, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
     {
         // =============================================================
@@ -41,6 +41,7 @@
         // -------------------------------------------------------------
         {{#OneToOnes}}
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public {{OtherClassName}} {{OtherClassName}}
         {
             get { return ({{OtherClassName}}) (this as I{{ClassName}}).{{OtherClassName}};  }

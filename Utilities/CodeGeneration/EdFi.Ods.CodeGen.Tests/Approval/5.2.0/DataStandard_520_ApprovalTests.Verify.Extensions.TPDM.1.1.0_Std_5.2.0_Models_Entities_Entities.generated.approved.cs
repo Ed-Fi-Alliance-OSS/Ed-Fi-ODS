@@ -16,9 +16,12 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.TPDM;
 using Newtonsoft.Json;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: AccreditationStatusDescriptor
 
@@ -32,6 +35,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class AccreditationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IAccreditationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -40,6 +44,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int AccreditationStatusDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -211,6 +216,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class AidTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IAidTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -219,6 +225,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int AidTypeDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -385,23 +392,27 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="Candidate"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class CandidateReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string CandidateIdentifier { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(1)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -466,6 +477,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Candidate : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ICandidate, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -489,6 +501,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string CandidateIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -500,7 +513,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(7)]
         public virtual string BirthCity  { get; set; }
+        [Key(8)]
         public virtual int? BirthCountryDescriptorId 
         {
             get
@@ -520,6 +535,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _birthCountryDescriptorId;
         private string _birthCountryDescriptor;
 
+        [IgnoreMember]
         public virtual string BirthCountryDescriptor
         {
             get
@@ -535,6 +551,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _birthCountryDescriptorId = default(int?);
             }
         }
+        [Key(9)]
         public virtual DateTime BirthDate 
         {
             get { return _birthDate; }
@@ -544,7 +561,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime _birthDate;
         
+        [Key(10)]
         public virtual string BirthInternationalProvince  { get; set; }
+        [Key(11)]
         public virtual int? BirthSexDescriptorId 
         {
             get
@@ -564,6 +583,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _birthSexDescriptorId;
         private string _birthSexDescriptor;
 
+        [IgnoreMember]
         public virtual string BirthSexDescriptor
         {
             get
@@ -579,6 +599,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _birthSexDescriptorId = default(int?);
             }
         }
+        [Key(12)]
         public virtual int? BirthStateAbbreviationDescriptorId 
         {
             get
@@ -598,6 +619,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _birthStateAbbreviationDescriptorId;
         private string _birthStateAbbreviationDescriptor;
 
+        [IgnoreMember]
         public virtual string BirthStateAbbreviationDescriptor
         {
             get
@@ -613,6 +635,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _birthStateAbbreviationDescriptorId = default(int?);
             }
         }
+        [Key(13)]
         public virtual DateTime? DateEnteredUS 
         {
             get { return _dateEnteredUS; }
@@ -632,8 +655,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime? _dateEnteredUS;
         
+        [Key(14)]
         public virtual string DisplacementStatus  { get; set; }
+        [Key(15)]
         public virtual bool? EconomicDisadvantaged  { get; set; }
+        [Key(16)]
         public virtual int? EnglishLanguageExamDescriptorId 
         {
             get
@@ -653,6 +679,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _englishLanguageExamDescriptorId;
         private string _englishLanguageExamDescriptor;
 
+        [IgnoreMember]
         public virtual string EnglishLanguageExamDescriptor
         {
             get
@@ -668,8 +695,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _englishLanguageExamDescriptorId = default(int?);
             }
         }
+        [Key(17)]
         public virtual bool? FirstGenerationStudent  { get; set; }
+        [Key(18)]
         public virtual string FirstName  { get; set; }
+        [Key(19)]
         public virtual int? GenderDescriptorId 
         {
             get
@@ -689,6 +719,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _genderDescriptorId;
         private string _genderDescriptor;
 
+        [IgnoreMember]
         public virtual string GenderDescriptor
         {
             get
@@ -704,9 +735,13 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _genderDescriptorId = default(int?);
             }
         }
+        [Key(20)]
         public virtual string GenerationCodeSuffix  { get; set; }
+        [Key(21)]
         public virtual bool? HispanicLatinoEthnicity  { get; set; }
+        [Key(22)]
         public virtual string LastSurname  { get; set; }
+        [Key(23)]
         public virtual int? LimitedEnglishProficiencyDescriptorId 
         {
             get
@@ -726,6 +761,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _limitedEnglishProficiencyDescriptorId;
         private string _limitedEnglishProficiencyDescriptor;
 
+        [IgnoreMember]
         public virtual string LimitedEnglishProficiencyDescriptor
         {
             get
@@ -741,13 +777,21 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _limitedEnglishProficiencyDescriptorId = default(int?);
             }
         }
+        [Key(24)]
         public virtual string MaidenName  { get; set; }
+        [Key(25)]
         public virtual string MiddleName  { get; set; }
+        [Key(26)]
         public virtual bool? MultipleBirthStatus  { get; set; }
+        [Key(27)]
         public virtual string PersonalTitlePrefix  { get; set; }
+        [Key(28)]
         public virtual string PersonId  { get; set; }
+        [Key(29)]
         public virtual string PreferredFirstName  { get; set; }
+        [Key(30)]
         public virtual string PreferredLastSurname  { get; set; }
+        [Key(31)]
         public virtual int? SexDescriptorId 
         {
             get
@@ -767,6 +811,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _sexDescriptorId;
         private string _sexDescriptor;
 
+        [IgnoreMember]
         public virtual string SexDescriptor
         {
             get
@@ -782,6 +827,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _sexDescriptorId = default(int?);
             }
         }
+        [Key(32)]
         public virtual int? SourceSystemDescriptorId 
         {
             get
@@ -801,6 +847,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -831,6 +878,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(33)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -859,6 +907,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> _candidateAddresses;
         private ICollection<Entities.Common.TPDM.ICandidateAddress> _candidateAddressesCovariant;
+        [Key(34)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> CandidateAddresses
         {
             get
@@ -868,6 +918,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateAddresses is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> set)
+                {
+                    set.Reattach(this, "CandidateAddresses");
+                }
+            
                 foreach (var item in _candidateAddresses)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -906,6 +961,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> _candidateDisabilities;
         private ICollection<Entities.Common.TPDM.ICandidateDisability> _candidateDisabilitiesCovariant;
+        [Key(35)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> CandidateDisabilities
         {
             get
@@ -915,6 +972,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateDisabilities is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> set)
+                {
+                    set.Reattach(this, "CandidateDisabilities");
+                }
+            
                 foreach (var item in _candidateDisabilities)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -953,6 +1015,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> _candidateElectronicMails;
         private ICollection<Entities.Common.TPDM.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
+        [Key(36)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> CandidateElectronicMails
         {
             get
@@ -962,6 +1026,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateElectronicMails is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> set)
+                {
+                    set.Reattach(this, "CandidateElectronicMails");
+                }
+            
                 foreach (var item in _candidateElectronicMails)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1000,6 +1069,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> _candidateLanguages;
         private ICollection<Entities.Common.TPDM.ICandidateLanguage> _candidateLanguagesCovariant;
+        [Key(37)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> CandidateLanguages
         {
             get
@@ -1009,6 +1080,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateLanguages is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> set)
+                {
+                    set.Reattach(this, "CandidateLanguages");
+                }
+            
                 foreach (var item in _candidateLanguages)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1047,6 +1123,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> _candidateOtherNames;
         private ICollection<Entities.Common.TPDM.ICandidateOtherName> _candidateOtherNamesCovariant;
+        [Key(38)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> CandidateOtherNames
         {
             get
@@ -1056,6 +1134,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateOtherNames is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> set)
+                {
+                    set.Reattach(this, "CandidateOtherNames");
+                }
+            
                 foreach (var item in _candidateOtherNames)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1094,6 +1177,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
         private ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
+        [Key(39)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
         {
             get
@@ -1103,6 +1188,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidatePersonalIdentificationDocuments is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> set)
+                {
+                    set.Reattach(this, "CandidatePersonalIdentificationDocuments");
+                }
+            
                 foreach (var item in _candidatePersonalIdentificationDocuments)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1141,6 +1231,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> _candidateRaces;
         private ICollection<Entities.Common.TPDM.ICandidateRace> _candidateRacesCovariant;
+        [Key(40)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> CandidateRaces
         {
             get
@@ -1150,6 +1242,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateRaces is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> set)
+                {
+                    set.Reattach(this, "CandidateRaces");
+                }
+            
                 foreach (var item in _candidateRaces)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1188,6 +1285,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> _candidateTelephones;
         private ICollection<Entities.Common.TPDM.ICandidateTelephone> _candidateTelephonesCovariant;
+        [Key(41)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> CandidateTelephones
         {
             get
@@ -1197,6 +1296,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateTelephones is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> set)
+                {
+                    set.Reattach(this, "CandidateTelephones");
+                }
+            
                 foreach (var item in _candidateTelephones)
                     if (item.Candidate == null)
                         item.Candidate = this;
@@ -1340,6 +1444,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1355,7 +1460,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateAddress.Candidate
@@ -1365,6 +1470,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int AddressTypeDescriptorId 
         {
             get
@@ -1384,6 +1490,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _addressTypeDescriptorId;
         private string _addressTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string AddressTypeDescriptor
         {
             get
@@ -1400,10 +1507,13 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(2)]
         public virtual string City  { get; set; }
         [DomainSignature]
+        [Key(3)]
         public virtual string PostalCode  { get; set; }
         [DomainSignature]
+        [Key(4)]
         public virtual int StateAbbreviationDescriptorId 
         {
             get
@@ -1423,6 +1533,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _stateAbbreviationDescriptorId;
         private string _stateAbbreviationDescriptor;
 
+        [IgnoreMember]
         public virtual string StateAbbreviationDescriptor
         {
             get
@@ -1439,6 +1550,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(5)]
         public virtual string StreetNumberName  { get; set; }
         // -------------------------------------------------------------
 
@@ -1450,12 +1562,19 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(6)]
         public virtual string ApartmentRoomSuiteNumber  { get; set; }
+        [Key(7)]
         public virtual string BuildingSiteNumber  { get; set; }
+        [Key(8)]
         public virtual string CongressionalDistrict  { get; set; }
+        [Key(9)]
         public virtual string CountyFIPSCode  { get; set; }
+        [Key(10)]
         public virtual bool? DoNotPublishIndicator  { get; set; }
+        [Key(11)]
         public virtual string Latitude  { get; set; }
+        [Key(12)]
         public virtual int? LocaleDescriptorId 
         {
             get
@@ -1475,6 +1594,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _localeDescriptorId;
         private string _localeDescriptor;
 
+        [IgnoreMember]
         public virtual string LocaleDescriptor
         {
             get
@@ -1490,7 +1610,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _localeDescriptorId = default(int?);
             }
         }
+        [Key(13)]
         public virtual string Longitude  { get; set; }
+        [Key(14)]
         public virtual string NameOfCounty  { get; set; }
         // -------------------------------------------------------------
 
@@ -1515,6 +1637,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> _candidateAddressPeriods;
         private ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
+        [Key(15)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> CandidateAddressPeriods
         {
             get
@@ -1524,6 +1648,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateAddressPeriods is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> set)
+                {
+                    set.Reattach(this, "CandidateAddressPeriods");
+                }
+            
                 foreach (var item in _candidateAddressPeriods)
                     if (item.CandidateAddress == null)
                         item.CandidateAddress = this;
@@ -1578,7 +1707,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("AddressTypeDescriptorId", AddressTypeDescriptorId);
@@ -1670,6 +1799,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateAddressPeriod : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateAddressPeriod, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1684,7 +1814,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual CandidateAddress CandidateAddress { get; set; }
 
         Entities.Common.TPDM.ICandidateAddress ICandidateAddressPeriod.CandidateAddress
@@ -1694,6 +1824,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
@@ -1713,6 +1844,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -1770,7 +1902,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (CandidateAddress as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (CandidateAddress as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("BeginDate", BeginDate);
@@ -1858,6 +1990,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateDisability : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateDisability, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1873,7 +2006,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateDisability.Candidate
@@ -1883,6 +2016,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int DisabilityDescriptorId 
         {
             get
@@ -1902,6 +2036,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _disabilityDescriptorId;
         private string _disabilityDescriptor;
 
+        [IgnoreMember]
         public virtual string DisabilityDescriptor
         {
             get
@@ -1927,6 +2062,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual int? DisabilityDeterminationSourceTypeDescriptorId 
         {
             get
@@ -1946,6 +2082,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _disabilityDeterminationSourceTypeDescriptorId;
         private string _disabilityDeterminationSourceTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string DisabilityDeterminationSourceTypeDescriptor
         {
             get
@@ -1961,7 +2098,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _disabilityDeterminationSourceTypeDescriptorId = default(int?);
             }
         }
+        [Key(3)]
         public virtual string DisabilityDiagnosis  { get; set; }
+        [Key(4)]
         public virtual int? OrderOfDisability  { get; set; }
         // -------------------------------------------------------------
 
@@ -1986,6 +2125,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> _candidateDisabilityDesignations;
         private ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
+        [Key(5)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> CandidateDisabilityDesignations
         {
             get
@@ -1995,6 +2136,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateDisabilityDesignations is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> set)
+                {
+                    set.Reattach(this, "CandidateDisabilityDesignations");
+                }
+            
                 foreach (var item in _candidateDisabilityDesignations)
                     if (item.CandidateDisability == null)
                         item.CandidateDisability = this;
@@ -2048,7 +2194,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("DisabilityDescriptorId", DisabilityDescriptorId);
@@ -2136,6 +2282,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateDisabilityDesignation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateDisabilityDesignation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2150,7 +2297,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual CandidateDisability CandidateDisability { get; set; }
 
         Entities.Common.TPDM.ICandidateDisability ICandidateDisabilityDesignation.CandidateDisability
@@ -2160,6 +2307,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int DisabilityDesignationDescriptorId 
         {
             get
@@ -2179,6 +2327,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _disabilityDesignationDescriptorId;
         private string _disabilityDesignationDescriptor;
 
+        [IgnoreMember]
         public virtual string DisabilityDesignationDescriptor
         {
             get
@@ -2242,7 +2391,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (CandidateDisability as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (CandidateDisability as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("DisabilityDesignationDescriptorId", DisabilityDesignationDescriptorId);
@@ -2330,6 +2479,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateElectronicMail : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateElectronicMail, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2344,7 +2494,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateElectronicMail.Candidate
@@ -2354,8 +2504,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string ElectronicMailAddress  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual int ElectronicMailTypeDescriptorId 
         {
             get
@@ -2375,6 +2527,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _electronicMailTypeDescriptorId;
         private string _electronicMailTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ElectronicMailTypeDescriptor
         {
             get
@@ -2400,7 +2553,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual bool? DoNotPublishIndicator  { get; set; }
+        [Key(4)]
         public virtual bool? PrimaryEmailAddressIndicator  { get; set; }
         // -------------------------------------------------------------
 
@@ -2439,7 +2594,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("ElectronicMailAddress", ElectronicMailAddress);
@@ -2528,6 +2683,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateLanguage : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateLanguage, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2543,7 +2699,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateLanguage.Candidate
@@ -2553,6 +2709,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int LanguageDescriptorId 
         {
             get
@@ -2572,6 +2729,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _languageDescriptorId;
         private string _languageDescriptor;
 
+        [IgnoreMember]
         public virtual string LanguageDescriptor
         {
             get
@@ -2620,6 +2778,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> _candidateLanguageUses;
         private ICollection<Entities.Common.TPDM.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
+        [Key(2)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse>))]
         public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> CandidateLanguageUses
         {
             get
@@ -2629,6 +2789,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateLanguageUses is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> set)
+                {
+                    set.Reattach(this, "CandidateLanguageUses");
+                }
+            
                 foreach (var item in _candidateLanguageUses)
                     if (item.CandidateLanguage == null)
                         item.CandidateLanguage = this;
@@ -2681,7 +2846,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("LanguageDescriptorId", LanguageDescriptorId);
@@ -2769,6 +2934,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateLanguageUse : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateLanguageUse, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2783,7 +2949,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual CandidateLanguage CandidateLanguage { get; set; }
 
         Entities.Common.TPDM.ICandidateLanguage ICandidateLanguageUse.CandidateLanguage
@@ -2793,6 +2959,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int LanguageUseDescriptorId 
         {
             get
@@ -2812,6 +2979,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _languageUseDescriptorId;
         private string _languageUseDescriptor;
 
+        [IgnoreMember]
         public virtual string LanguageUseDescriptor
         {
             get
@@ -2875,7 +3043,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (CandidateLanguage as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (CandidateLanguage as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("LanguageUseDescriptorId", LanguageUseDescriptorId);
@@ -2963,6 +3131,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateOtherName : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateOtherName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2977,7 +3146,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateOtherName.Candidate
@@ -2987,6 +3156,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int OtherNameTypeDescriptorId 
         {
             get
@@ -3006,6 +3176,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _otherNameTypeDescriptorId;
         private string _otherNameTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string OtherNameTypeDescriptor
         {
             get
@@ -3031,10 +3202,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual string FirstName  { get; set; }
+        [Key(3)]
         public virtual string GenerationCodeSuffix  { get; set; }
+        [Key(4)]
         public virtual string LastSurname  { get; set; }
+        [Key(5)]
         public virtual string MiddleName  { get; set; }
+        [Key(6)]
         public virtual string PersonalTitlePrefix  { get; set; }
         // -------------------------------------------------------------
 
@@ -3073,7 +3249,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("OtherNameTypeDescriptorId", OtherNameTypeDescriptorId);
@@ -3161,6 +3337,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidatePersonalIdentificationDocument : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -3175,7 +3352,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidatePersonalIdentificationDocument.Candidate
@@ -3185,6 +3362,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int IdentificationDocumentUseDescriptorId 
         {
             get
@@ -3204,6 +3382,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _identificationDocumentUseDescriptorId;
         private string _identificationDocumentUseDescriptor;
 
+        [IgnoreMember]
         public virtual string IdentificationDocumentUseDescriptor
         {
             get
@@ -3220,6 +3399,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(2)]
         public virtual int PersonalInformationVerificationDescriptorId 
         {
             get
@@ -3239,6 +3419,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _personalInformationVerificationDescriptorId;
         private string _personalInformationVerificationDescriptor;
 
+        [IgnoreMember]
         public virtual string PersonalInformationVerificationDescriptor
         {
             get
@@ -3264,6 +3445,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual DateTime? DocumentExpirationDate 
         {
             get { return _documentExpirationDate; }
@@ -3283,7 +3465,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime? _documentExpirationDate;
         
+        [Key(4)]
         public virtual string DocumentTitle  { get; set; }
+        [Key(5)]
         public virtual int? IssuerCountryDescriptorId 
         {
             get
@@ -3303,6 +3487,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int? _issuerCountryDescriptorId;
         private string _issuerCountryDescriptor;
 
+        [IgnoreMember]
         public virtual string IssuerCountryDescriptor
         {
             get
@@ -3318,7 +3503,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _issuerCountryDescriptorId = default(int?);
             }
         }
+        [Key(6)]
         public virtual string IssuerDocumentIdentificationCode  { get; set; }
+        [Key(7)]
         public virtual string IssuerName  { get; set; }
         // -------------------------------------------------------------
 
@@ -3359,7 +3546,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("IdentificationDocumentUseDescriptorId", IdentificationDocumentUseDescriptorId);
@@ -3448,6 +3635,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateRace : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateRace, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -3462,7 +3650,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateRace.Candidate
@@ -3472,6 +3660,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int RaceDescriptorId 
         {
             get
@@ -3491,6 +3680,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _raceDescriptorId;
         private string _raceDescriptor;
 
+        [IgnoreMember]
         public virtual string RaceDescriptor
         {
             get
@@ -3553,7 +3743,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("RaceDescriptorId", RaceDescriptorId);
@@ -3641,6 +3831,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -3655,7 +3846,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Candidate Candidate { get; set; }
 
         Entities.Common.TPDM.ICandidate ICandidateTelephone.Candidate
@@ -3665,8 +3856,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string TelephoneNumber  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual int TelephoneNumberTypeDescriptorId 
         {
             get
@@ -3686,6 +3879,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         private int _telephoneNumberTypeDescriptorId;
         private string _telephoneNumberTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string TelephoneNumberTypeDescriptor
         {
             get
@@ -3711,8 +3905,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual bool? DoNotPublishIndicator  { get; set; }
+        [Key(4)]
         public virtual int? OrderOfPriority  { get; set; }
+        [Key(5)]
         public virtual bool? TextMessageCapabilityIndicator  { get; set; }
         // -------------------------------------------------------------
 
@@ -3751,7 +3948,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Candidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Candidate as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("TelephoneNumber", TelephoneNumber);
@@ -3840,27 +4037,35 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     /// <summary>
     /// Represents a read-only reference to the <see cref="CandidateEducatorPreparationProgramAssociation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class CandidateEducatorPreparationProgramAssociationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual DateTime BeginDate { get; set; }
+        [Key(1)]
         public virtual string CandidateIdentifier { get; set; }
+        [Key(2)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(3)]
         public virtual string ProgramName { get; set; }
+        [Key(4)]
         public virtual int ProgramTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(5)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(6)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -3929,6 +4134,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateEducatorPreparationProgramAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -3946,6 +4152,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
@@ -3956,12 +4163,16 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private DateTime _beginDate;
         
         [DomainSignature]
+        [Key(7)]
         public virtual string CandidateIdentifier  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual string ProgramName  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual int ProgramTypeDescriptorId 
         {
             get
@@ -3981,6 +4192,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private int _programTypeDescriptorId;
         private string _programTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ProgramTypeDescriptor
         {
             get
@@ -4006,6 +4218,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(11)]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -4025,6 +4238,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private DateTime? _endDate;
         
+        [Key(12)]
         public virtual int? EPPProgramPathwayDescriptorId 
         {
             get
@@ -4044,6 +4258,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private int? _eppProgramPathwayDescriptorId;
         private string _eppProgramPathwayDescriptor;
 
+        [IgnoreMember]
         public virtual string EPPProgramPathwayDescriptor
         {
             get
@@ -4059,6 +4274,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 _eppProgramPathwayDescriptorId = default(int?);
             }
         }
+        [Key(13)]
         public virtual int? ReasonExitedDescriptorId 
         {
             get
@@ -4078,6 +4294,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private int? _reasonExitedDescriptorId;
         private string _reasonExitedDescriptor;
 
+        [IgnoreMember]
         public virtual string ReasonExitedDescriptor
         {
             get
@@ -4108,6 +4325,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(14)]
         public virtual NHibernate.CandidateAggregate.TPDM.CandidateReferenceData CandidateReferenceData { get; set; }
 
         /// <summary>
@@ -4128,6 +4346,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             set { }
         }
 
+        [Key(15)]
         public virtual NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData EducatorPreparationProgramReferenceData { get; set; }
 
         /// <summary>
@@ -4156,6 +4375,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
+        [Key(16)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear>))]
         public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get
@@ -4165,6 +4386,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateEducatorPreparationProgramAssociationCohortYears is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> set)
+                {
+                    set.Reattach(this, "CandidateEducatorPreparationProgramAssociationCohortYears");
+                }
+            
                 foreach (var item in _candidateEducatorPreparationProgramAssociationCohortYears)
                     if (item.CandidateEducatorPreparationProgramAssociation == null)
                         item.CandidateEducatorPreparationProgramAssociation = this;
@@ -4203,6 +4429,8 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
         private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
+        [Key(17)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>))]
         public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get
@@ -4212,6 +4440,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_candidateEducatorPreparationProgramAssociationDegreeSpecializations is DeserializedPersistentGenericSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> set)
+                {
+                    set.Reattach(this, "CandidateEducatorPreparationProgramAssociationDegreeSpecializations");
+                }
+            
                 foreach (var item in _candidateEducatorPreparationProgramAssociationDegreeSpecializations)
                     if (item.CandidateEducatorPreparationProgramAssociation == null)
                         item.CandidateEducatorPreparationProgramAssociation = this;
@@ -4354,6 +4587,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateEducatorPreparationProgramAssociationCohortYear : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -4368,7 +4602,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual CandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
 
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationCohortYear.CandidateEducatorPreparationProgramAssociation
@@ -4378,6 +4612,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int CohortYearTypeDescriptorId 
         {
             get
@@ -4397,6 +4632,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private int _cohortYearTypeDescriptorId;
         private string _cohortYearTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string CohortYearTypeDescriptor
         {
             get
@@ -4413,6 +4649,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             }
         }
         [DomainSignature]
+        [Key(2)]
         public virtual short SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
@@ -4424,6 +4661,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual int? TermDescriptorId 
         {
             get
@@ -4443,6 +4681,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         private int? _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -4473,6 +4712,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(4)]
         public virtual NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
 
         /// <summary>
@@ -4508,7 +4748,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (CandidateEducatorPreparationProgramAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (CandidateEducatorPreparationProgramAssociation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("CohortYearTypeDescriptorId", CohortYearTypeDescriptorId);
@@ -4597,6 +4837,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -4611,7 +4852,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual CandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
 
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationDegreeSpecialization.CandidateEducatorPreparationProgramAssociation
@@ -4621,6 +4862,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string MajorSpecialization  { get; set; }
         // -------------------------------------------------------------
 
@@ -4632,6 +4874,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -4651,6 +4894,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private DateTime? _endDate;
         
+        [Key(3)]
         public virtual string MinorSpecialization  { get; set; }
         // -------------------------------------------------------------
 
@@ -4689,7 +4933,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (CandidateEducatorPreparationProgramAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (CandidateEducatorPreparationProgramAssociation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("MajorSpecialization", MajorSpecialization);
@@ -4782,6 +5026,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CertificationRouteDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICertificationRouteDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -4790,6 +5035,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int CertificationRouteDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -4961,6 +5207,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CoteachingStyleObservedDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -4969,6 +5216,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int CoteachingStyleObservedDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -5140,6 +5388,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CredentialStudentAcademicRecord : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICredentialStudentAcademicRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -5154,7 +5403,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.Credential Credential { get; set; }
 
         Entities.Common.TPDM.ICredentialExtension ICredentialStudentAcademicRecord.CredentialExtension
@@ -5164,10 +5413,13 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual short SchoolYear  { get; set; }
         [Display(Name="StudentUniqueId")][DomainSignature]
+        [Key(3)]
         public virtual int StudentUSI 
         {
             get
@@ -5193,6 +5445,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int _studentUSI;
         private string _studentUniqueId;
 
+        [Key(4)]
         public virtual string StudentUniqueId
         {
             get
@@ -5217,6 +5470,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(5)]
         public virtual int TermDescriptorId 
         {
             get
@@ -5236,6 +5490,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -5276,6 +5531,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(6)]
         public virtual NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData StudentAcademicRecordReferenceData { get; set; }
 
         /// <summary>
@@ -5319,7 +5575,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Credential as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Credential as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EducationOrganizationId", EducationOrganizationId);
@@ -5410,6 +5666,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CredentialExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICredentialExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -5424,7 +5681,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.Credential Credential { get; set; }
 
         Entities.Common.EdFi.ICredential ICredentialExtension.Credential
@@ -5443,7 +5700,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual bool? BoardCertificationIndicator  { get; set; }
+        [Key(2)]
         public virtual int? CertificationRouteDescriptorId 
         {
             get
@@ -5463,6 +5722,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int? _certificationRouteDescriptorId;
         private string _certificationRouteDescriptor;
 
+        [IgnoreMember]
         public virtual string CertificationRouteDescriptor
         {
             get
@@ -5478,7 +5738,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 _certificationRouteDescriptorId = default(int?);
             }
         }
+        [Key(3)]
         public virtual string CertificationTitle  { get; set; }
+        [Key(4)]
         public virtual DateTime? CredentialStatusDate 
         {
             get { return _credentialStatusDate; }
@@ -5498,6 +5760,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
         private DateTime? _credentialStatusDate;
         
+        [Key(5)]
         public virtual int? CredentialStatusDescriptorId 
         {
             get
@@ -5517,6 +5780,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int? _credentialStatusDescriptorId;
         private string _credentialStatusDescriptor;
 
+        [IgnoreMember]
         public virtual string CredentialStatusDescriptor
         {
             get
@@ -5532,6 +5796,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 _credentialStatusDescriptorId = default(int?);
             }
         }
+        [Key(6)]
         public virtual int? EducatorRoleDescriptorId 
         {
             get
@@ -5551,6 +5816,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int? _educatorRoleDescriptorId;
         private string _educatorRoleDescriptor;
 
+        [IgnoreMember]
         public virtual string EducatorRoleDescriptor
         {
             get
@@ -5566,7 +5832,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 _educatorRoleDescriptorId = default(int?);
             }
         }
+        [Key(7)]
         public virtual string PersonId  { get; set; }
+        [Key(8)]
         public virtual int? SourceSystemDescriptorId 
         {
             get
@@ -5586,6 +5854,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int? _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -5616,6 +5885,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(9)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -5687,7 +5957,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Credential as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Credential as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -5779,6 +6049,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class CredentialStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICredentialStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -5787,6 +6058,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int CredentialStatusDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -5953,25 +6225,31 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EducatorPreparationProgram"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EducatorPreparationProgramReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual string ProgramName { get; set; }
+        [Key(2)]
         public virtual int ProgramTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(3)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(4)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -6038,6 +6316,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EducatorPreparationProgram : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEducatorPreparationProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -6054,10 +6333,13 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string ProgramName  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual int ProgramTypeDescriptorId 
         {
             get
@@ -6077,6 +6359,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         private int _programTypeDescriptorId;
         private string _programTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ProgramTypeDescriptor
         {
             get
@@ -6102,6 +6385,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(9)]
         public virtual int? AccreditationStatusDescriptorId 
         {
             get
@@ -6121,6 +6405,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         private int? _accreditationStatusDescriptorId;
         private string _accreditationStatusDescriptor;
 
+        [IgnoreMember]
         public virtual string AccreditationStatusDescriptor
         {
             get
@@ -6136,6 +6421,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                 _accreditationStatusDescriptorId = default(int?);
             }
         }
+        [Key(10)]
         public virtual string ProgramId  { get; set; }
         // -------------------------------------------------------------
 
@@ -6152,6 +6438,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(11)]
         public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData EducationOrganizationReferenceData { get; set; }
 
         /// <summary>
@@ -6180,6 +6467,8 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
         private ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
+        [Key(12)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel>))]
         public virtual ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
         {
             get
@@ -6189,6 +6478,11 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_educatorPreparationProgramGradeLevels is DeserializedPersistentGenericSet<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> set)
+                {
+                    set.Reattach(this, "EducatorPreparationProgramGradeLevels");
+                }
+            
                 foreach (var item in _educatorPreparationProgramGradeLevels)
                     if (item.EducatorPreparationProgram == null)
                         item.EducatorPreparationProgram = this;
@@ -6328,6 +6622,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EducatorPreparationProgramGradeLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -6342,7 +6637,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EducatorPreparationProgram EducatorPreparationProgram { get; set; }
 
         Entities.Common.TPDM.IEducatorPreparationProgram IEducatorPreparationProgramGradeLevel.EducatorPreparationProgram
@@ -6352,6 +6647,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int GradeLevelDescriptorId 
         {
             get
@@ -6371,6 +6667,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         private int _gradeLevelDescriptorId;
         private string _gradeLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string GradeLevelDescriptor
         {
             get
@@ -6434,7 +6731,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EducatorPreparationProgram as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EducatorPreparationProgram as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("GradeLevelDescriptorId", GradeLevelDescriptorId);
@@ -6527,6 +6824,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EducatorRoleDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEducatorRoleDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -6535,6 +6833,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EducatorRoleDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -6706,6 +7005,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EnglishLanguageExamDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEnglishLanguageExamDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -6714,6 +7014,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EnglishLanguageExamDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -6885,6 +7186,7 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EPPProgramPathwayDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEPPProgramPathwayDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -6893,6 +7195,7 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EPPProgramPathwayDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -7059,29 +7362,39 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="Evaluation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(2)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(3)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(4)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(5)]
         public virtual short SchoolYear { get; set; }
+        [Key(6)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(7)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(8)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -7152,6 +7465,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Evaluation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -7168,8 +7482,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -7189,6 +7505,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -7205,10 +7522,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(8)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -7228,6 +7548,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -7244,8 +7565,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(11)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual int TermDescriptorId 
         {
             get
@@ -7265,6 +7588,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -7290,7 +7614,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(13)]
         public virtual string EvaluationDescription  { get; set; }
+        [Key(14)]
         public virtual int? EvaluationTypeDescriptorId 
         {
             get
@@ -7310,6 +7636,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         private int? _evaluationTypeDescriptorId;
         private string _evaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationTypeDescriptor
         {
             get
@@ -7325,8 +7652,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 _evaluationTypeDescriptorId = default(int?);
             }
         }
+        [Key(15)]
         public virtual int? InterRaterReliabilityScore  { get; set; }
+        [Key(16)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(17)]
         public virtual decimal? MinRating  { get; set; }
         // -------------------------------------------------------------
 
@@ -7343,6 +7673,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(18)]
         public virtual NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
 
         /// <summary>
@@ -7371,6 +7702,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> _evaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
+        [Key(19)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel>))]
         public virtual ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> EvaluationRatingLevels
         {
             get
@@ -7380,6 +7713,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationRatingLevels is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> set)
+                {
+                    set.Reattach(this, "EvaluationRatingLevels");
+                }
+            
                 foreach (var item in _evaluationRatingLevels)
                     if (item.Evaluation == null)
                         item.Evaluation = this;
@@ -7525,6 +7863,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -7539,7 +7878,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Evaluation Evaluation { get; set; }
 
         Entities.Common.TPDM.IEvaluation IEvaluationRatingLevel.Evaluation
@@ -7549,6 +7888,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int EvaluationRatingLevelDescriptorId 
         {
             get
@@ -7568,6 +7908,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         private int _evaluationRatingLevelDescriptorId;
         private string _evaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingLevelDescriptor
         {
             get
@@ -7593,7 +7934,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(3)]
         public virtual decimal? MinRating  { get; set; }
         // -------------------------------------------------------------
 
@@ -7635,7 +7978,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Evaluation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Evaluation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EvaluationRatingLevelDescriptorId", EvaluationRatingLevelDescriptorId);
@@ -7723,31 +8066,43 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationElement"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationElementReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual string EvaluationElementTitle { get; set; }
+        [Key(2)]
         public virtual string EvaluationObjectiveTitle { get; set; }
+        [Key(3)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(4)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(5)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(6)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(7)]
         public virtual short SchoolYear { get; set; }
+        [Key(8)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(9)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(10)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -7820,6 +8175,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationElement : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationElement, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -7836,12 +8192,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -7861,6 +8221,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -7877,10 +8238,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(10)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -7900,6 +8264,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -7916,8 +8281,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(13)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(14)]
         public virtual int TermDescriptorId 
         {
             get
@@ -7937,6 +8304,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -7962,6 +8330,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(15)]
         public virtual int? EvaluationTypeDescriptorId 
         {
             get
@@ -7981,6 +8350,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         private int? _evaluationTypeDescriptorId;
         private string _evaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationTypeDescriptor
         {
             get
@@ -7996,8 +8366,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 _evaluationTypeDescriptorId = default(int?);
             }
         }
+        [Key(16)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(17)]
         public virtual decimal? MinRating  { get; set; }
+        [Key(18)]
         public virtual int? SortOrder  { get; set; }
         // -------------------------------------------------------------
 
@@ -8014,6 +8387,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(19)]
         public virtual NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
 
         /// <summary>
@@ -8042,6 +8416,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> _evaluationElementRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
+        [Key(20)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel>))]
         public virtual ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> EvaluationElementRatingLevels
         {
             get
@@ -8051,6 +8427,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationElementRatingLevels is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> set)
+                {
+                    set.Reattach(this, "EvaluationElementRatingLevels");
+                }
+            
                 foreach (var item in _evaluationElementRatingLevels)
                     if (item.EvaluationElement == null)
                         item.EvaluationElement = this;
@@ -8198,6 +8579,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationElementRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationElementRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -8212,7 +8594,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationElement EvaluationElement { get; set; }
 
         Entities.Common.TPDM.IEvaluationElement IEvaluationElementRatingLevel.EvaluationElement
@@ -8222,6 +8604,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int EvaluationRatingLevelDescriptorId 
         {
             get
@@ -8241,6 +8624,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         private int _evaluationRatingLevelDescriptorId;
         private string _evaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingLevelDescriptor
         {
             get
@@ -8266,7 +8650,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(3)]
         public virtual decimal? MinRating  { get; set; }
         // -------------------------------------------------------------
 
@@ -8308,7 +8694,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationElement as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationElement as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EvaluationRatingLevelDescriptorId", EvaluationRatingLevelDescriptorId);
@@ -8396,34 +8782,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationElementRating"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationElementRatingReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual DateTime EvaluationDate { get; set; }
+        [Key(2)]
         public virtual string EvaluationElementTitle { get; set; }
+        [Key(3)]
         public virtual string EvaluationObjectiveTitle { get; set; }
+        [Key(4)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(5)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(6)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(7)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(8)]
         public virtual string PersonId { get; set; }
+        [Key(9)]
         public virtual short SchoolYear { get; set; }
+        [Key(10)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(11)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(12)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(13)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -8499,6 +8900,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationElementRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationElementRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -8515,8 +8917,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -8536,10 +8940,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private DateTime _evaluationDate;
 
         [DomainSignature]
+        [Key(8)]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -8559,6 +8966,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -8575,10 +8983,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(11)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(13)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -8598,6 +9009,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -8614,10 +9026,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(14)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(15)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(16)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -8637,6 +9052,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -8653,6 +9069,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(17)]
         public virtual int TermDescriptorId 
         {
             get
@@ -8672,6 +9089,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -8697,9 +9115,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(18)]
         public virtual string AreaOfRefinement  { get; set; }
+        [Key(19)]
         public virtual string AreaOfReinforcement  { get; set; }
+        [Key(20)]
         public virtual string Comments  { get; set; }
+        [Key(21)]
         public virtual int? EvaluationElementRatingLevelDescriptorId 
         {
             get
@@ -8719,6 +9141,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int? _evaluationElementRatingLevelDescriptorId;
         private string _evaluationElementRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationElementRatingLevelDescriptor
         {
             get
@@ -8734,6 +9157,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 _evaluationElementRatingLevelDescriptorId = default(int?);
             }
         }
+        [Key(22)]
         public virtual string Feedback  { get; set; }
         // -------------------------------------------------------------
 
@@ -8750,6 +9174,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(23)]
         public virtual NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
 
         /// <summary>
@@ -8770,6 +9195,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             set { }
         }
 
+        [Key(24)]
         public virtual NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData EvaluationObjectiveRatingReferenceData { get; set; }
 
         /// <summary>
@@ -8798,6 +9224,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> _evaluationElementRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
+        [Key(25)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult>))]
         public virtual ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> EvaluationElementRatingResults
         {
             get
@@ -8807,6 +9235,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationElementRatingResults is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> set)
+                {
+                    set.Reattach(this, "EvaluationElementRatingResults");
+                }
+            
                 foreach (var item in _evaluationElementRatingResults)
                     if (item.EvaluationElementRating == null)
                         item.EvaluationElementRating = this;
@@ -8958,6 +9391,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationElementRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationElementRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -8972,7 +9406,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationElementRating EvaluationElementRating { get; set; }
 
         Entities.Common.TPDM.IEvaluationElementRating IEvaluationElementRatingResult.EvaluationElementRating
@@ -8982,8 +9416,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual decimal Rating  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -8995,6 +9431,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual int ResultDatatypeTypeDescriptorId 
         {
             get
@@ -9014,6 +9451,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private int _resultDatatypeTypeDescriptorId;
         private string _resultDatatypeTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ResultDatatypeTypeDescriptor
         {
             get
@@ -9070,7 +9508,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationElementRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationElementRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("Rating", Rating);
@@ -9164,6 +9602,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationElementRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -9172,6 +9611,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EvaluationElementRatingLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -9338,30 +9778,41 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationObjective"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationObjectiveReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual string EvaluationObjectiveTitle { get; set; }
+        [Key(2)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(3)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(4)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(5)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(6)]
         public virtual short SchoolYear { get; set; }
+        [Key(7)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(8)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(9)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -9433,6 +9884,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationObjective : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationObjective, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -9449,10 +9901,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -9472,6 +9927,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -9488,10 +9944,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(9)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -9511,6 +9970,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -9527,8 +9987,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(12)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(13)]
         public virtual int TermDescriptorId 
         {
             get
@@ -9548,6 +10010,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -9573,7 +10036,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(14)]
         public virtual string EvaluationObjectiveDescription  { get; set; }
+        [Key(15)]
         public virtual int? EvaluationTypeDescriptorId 
         {
             get
@@ -9593,6 +10058,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         private int? _evaluationTypeDescriptorId;
         private string _evaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationTypeDescriptor
         {
             get
@@ -9608,8 +10074,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 _evaluationTypeDescriptorId = default(int?);
             }
         }
+        [Key(16)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(17)]
         public virtual decimal? MinRating  { get; set; }
+        [Key(18)]
         public virtual int? SortOrder  { get; set; }
         // -------------------------------------------------------------
 
@@ -9626,6 +10095,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(19)]
         public virtual NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData EvaluationReferenceData { get; set; }
 
         /// <summary>
@@ -9654,6 +10124,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
+        [Key(20)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel>))]
         public virtual ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
         {
             get
@@ -9663,6 +10135,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationObjectiveRatingLevels is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> set)
+                {
+                    set.Reattach(this, "EvaluationObjectiveRatingLevels");
+                }
+            
                 foreach (var item in _evaluationObjectiveRatingLevels)
                     if (item.EvaluationObjective == null)
                         item.EvaluationObjective = this;
@@ -9809,6 +10286,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationObjectiveRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -9823,7 +10301,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationObjective EvaluationObjective { get; set; }
 
         Entities.Common.TPDM.IEvaluationObjective IEvaluationObjectiveRatingLevel.EvaluationObjective
@@ -9833,6 +10311,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int EvaluationRatingLevelDescriptorId 
         {
             get
@@ -9852,6 +10331,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         private int _evaluationRatingLevelDescriptorId;
         private string _evaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingLevelDescriptor
         {
             get
@@ -9877,7 +10357,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(3)]
         public virtual decimal? MinRating  { get; set; }
         // -------------------------------------------------------------
 
@@ -9919,7 +10401,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationObjective as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationObjective as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EvaluationRatingLevelDescriptorId", EvaluationRatingLevelDescriptorId);
@@ -10007,33 +10489,47 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationObjectiveRating"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationObjectiveRatingReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual DateTime EvaluationDate { get; set; }
+        [Key(2)]
         public virtual string EvaluationObjectiveTitle { get; set; }
+        [Key(3)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(4)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(5)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(6)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(7)]
         public virtual string PersonId { get; set; }
+        [Key(8)]
         public virtual short SchoolYear { get; set; }
+        [Key(9)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(10)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(11)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(12)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -10108,6 +10604,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationObjectiveRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationObjectiveRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -10124,8 +10621,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -10145,8 +10644,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private DateTime _evaluationDate;
 
         [DomainSignature]
+        [Key(8)]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -10166,6 +10667,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -10182,10 +10684,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(10)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -10205,6 +10710,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -10221,10 +10727,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(13)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(14)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(15)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -10244,6 +10753,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -10260,6 +10770,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(16)]
         public virtual int TermDescriptorId 
         {
             get
@@ -10279,6 +10790,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -10304,7 +10816,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(17)]
         public virtual string Comments  { get; set; }
+        [Key(18)]
         public virtual int? ObjectiveRatingLevelDescriptorId 
         {
             get
@@ -10324,6 +10838,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int? _objectiveRatingLevelDescriptorId;
         private string _objectiveRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string ObjectiveRatingLevelDescriptor
         {
             get
@@ -10354,6 +10869,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(19)]
         public virtual NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
 
         /// <summary>
@@ -10374,6 +10890,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             set { }
         }
 
+        [Key(20)]
         public virtual NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData EvaluationRatingReferenceData { get; set; }
 
         /// <summary>
@@ -10402,6 +10919,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
+        [Key(21)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult>))]
         public virtual ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
         {
             get
@@ -10411,6 +10930,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationObjectiveRatingResults is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> set)
+                {
+                    set.Reattach(this, "EvaluationObjectiveRatingResults");
+                }
+            
                 foreach (var item in _evaluationObjectiveRatingResults)
                     if (item.EvaluationObjectiveRating == null)
                         item.EvaluationObjectiveRating = this;
@@ -10561,6 +11085,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationObjectiveRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -10575,7 +11100,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationObjectiveRating EvaluationObjectiveRating { get; set; }
 
         Entities.Common.TPDM.IEvaluationObjectiveRating IEvaluationObjectiveRatingResult.EvaluationObjectiveRating
@@ -10585,8 +11110,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual decimal Rating  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -10598,6 +11125,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual int ResultDatatypeTypeDescriptorId 
         {
             get
@@ -10617,6 +11145,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         private int _resultDatatypeTypeDescriptorId;
         private string _resultDatatypeTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ResultDatatypeTypeDescriptor
         {
             get
@@ -10673,7 +11202,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationObjectiveRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationObjectiveRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("Rating", Rating);
@@ -10767,6 +11296,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationPeriodDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationPeriodDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -10775,6 +11305,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -10941,32 +11472,45 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationRating"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class EvaluationRatingReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual DateTime EvaluationDate { get; set; }
+        [Key(2)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(3)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(4)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(5)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(6)]
         public virtual string PersonId { get; set; }
+        [Key(7)]
         public virtual short SchoolYear { get; set; }
+        [Key(8)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(9)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(10)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(11)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -11040,6 +11584,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -11057,8 +11602,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -11078,6 +11625,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private DateTime _evaluationDate;
 
         [DomainSignature]
+        [Key(8)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -11097,6 +11645,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -11113,10 +11662,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(9)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -11136,6 +11688,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -11152,10 +11705,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(12)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(13)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(14)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -11175,6 +11731,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -11191,6 +11748,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(15)]
         public virtual int TermDescriptorId 
         {
             get
@@ -11210,6 +11768,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -11235,8 +11794,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(16)]
         public virtual int? ActualDuration  { get; set; }
+        [Key(17)]
         public virtual string Comments  { get; set; }
+        [Key(18)]
         public virtual int? EvaluationRatingLevelDescriptorId 
         {
             get
@@ -11256,6 +11818,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int? _evaluationRatingLevelDescriptorId;
         private string _evaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingLevelDescriptor
         {
             get
@@ -11271,6 +11834,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _evaluationRatingLevelDescriptorId = default(int?);
             }
         }
+        [Key(19)]
         public virtual int? EvaluationRatingStatusDescriptorId 
         {
             get
@@ -11290,6 +11854,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int? _evaluationRatingStatusDescriptorId;
         private string _evaluationRatingStatusDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingStatusDescriptor
         {
             get
@@ -11305,9 +11870,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _evaluationRatingStatusDescriptorId = default(int?);
             }
         }
+        [Key(20)]
         public virtual string LocalCourseCode  { get; set; }
+        [Key(21)]
         public virtual long? SchoolId  { get; set; }
+        [Key(22)]
         public virtual string SectionIdentifier  { get; set; }
+        [Key(23)]
         public virtual string SessionName  { get; set; }
         // -------------------------------------------------------------
 
@@ -11324,6 +11893,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(24)]
         public virtual NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData EvaluationReferenceData { get; set; }
 
         /// <summary>
@@ -11344,6 +11914,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { }
         }
 
+        [Key(25)]
         public virtual NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData PerformanceEvaluationRatingReferenceData { get; set; }
 
         /// <summary>
@@ -11364,6 +11935,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { }
         }
 
+        [Key(26)]
         public virtual NHibernate.SectionAggregate.EdFi.SectionReferenceData SectionReferenceData { get; set; }
 
         /// <summary>
@@ -11392,6 +11964,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> _evaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
+        [Key(27)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult>))]
         public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> EvaluationRatingResults
         {
             get
@@ -11401,6 +11975,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationRatingResults is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> set)
+                {
+                    set.Reattach(this, "EvaluationRatingResults");
+                }
+            
                 foreach (var item in _evaluationRatingResults)
                     if (item.EvaluationRating == null)
                         item.EvaluationRating = this;
@@ -11439,6 +12018,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> _evaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
+        [Key(28)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer>))]
         public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> EvaluationRatingReviewers
         {
             get
@@ -11448,6 +12029,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationRatingReviewers is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> set)
+                {
+                    set.Reattach(this, "EvaluationRatingReviewers");
+                }
+            
                 foreach (var item in _evaluationRatingReviewers)
                     if (item.EvaluationRating == null)
                         item.EvaluationRating = this;
@@ -11598,6 +12184,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -11612,7 +12199,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationRating EvaluationRating { get; set; }
 
         Entities.Common.TPDM.IEvaluationRating IEvaluationRatingResult.EvaluationRating
@@ -11622,8 +12209,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual decimal Rating  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -11635,6 +12224,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual int ResultDatatypeTypeDescriptorId 
         {
             get
@@ -11654,6 +12244,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int _resultDatatypeTypeDescriptorId;
         private string _resultDatatypeTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ResultDatatypeTypeDescriptor
         {
             get
@@ -11710,7 +12301,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("Rating", Rating);
@@ -11799,6 +12390,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -11814,7 +12406,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationRating EvaluationRating { get; set; }
 
         Entities.Common.TPDM.IEvaluationRating IEvaluationRatingReviewer.EvaluationRating
@@ -11824,8 +12416,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string FirstName  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -11837,7 +12431,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual string ReviewerPersonId  { get; set; }
+        [Key(4)]
         public virtual int? ReviewerSourceSystemDescriptorId 
         {
             get
@@ -11857,6 +12453,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         private int? _reviewerSourceSystemDescriptorId;
         private string _reviewerSourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string ReviewerSourceSystemDescriptor
         {
             get
@@ -11877,6 +12474,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        [IgnoreMember]
         public virtual Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining
         {
             get
@@ -11913,6 +12511,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> _evaluationRatingReviewerReceivedTrainingPersistentList;
 
+        [Key(5)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining>))]
         public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> EvaluationRatingReviewerReceivedTrainingPersistentList
         {
             get
@@ -11922,6 +12522,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_evaluationRatingReviewerReceivedTrainingPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> set)
+                {
+                    set.Reattach(this, "EvaluationRatingReviewerReceivedTrainingPersistentList");
+                }
+
                 foreach (var item in _evaluationRatingReviewerReceivedTrainingPersistentList)
                     if (item.EvaluationRatingReviewer == null)
                         item.EvaluationRatingReviewer = this;
@@ -11945,6 +12550,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(6)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData ReviewerPersonReferenceData { get; set; }
 
         /// <summary>
@@ -11991,7 +12597,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("FirstName", FirstName);
@@ -12080,6 +12686,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -12094,7 +12701,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EvaluationRatingReviewer EvaluationRatingReviewer { get; set; }
 
         Entities.Common.TPDM.IEvaluationRatingReviewer IEvaluationRatingReviewerReceivedTraining.EvaluationRatingReviewer
@@ -12113,7 +12720,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual int? InterRaterReliabilityScore  { get; set; }
+        [Key(2)]
         public virtual DateTime? ReceivedTrainingDate 
         {
             get { return _receivedTrainingDate; }
@@ -12173,7 +12782,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (EvaluationRatingReviewer as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (EvaluationRatingReviewer as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -12265,6 +12874,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -12273,6 +12883,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EvaluationRatingLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -12444,6 +13055,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationRatingStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -12452,6 +13064,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EvaluationRatingStatusDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -12623,6 +13236,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class EvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -12631,6 +13245,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int EvaluationTypeDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -12797,25 +13412,31 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="FinancialAid"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class FinancialAidReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual int AidTypeDescriptorId { get; set; }
+        [Key(1)]
         public virtual DateTime BeginDate { get; set; }
+        [Key(2)]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(3)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(4)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -12882,6 +13503,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class FinancialAid : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IFinancialAid, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -12897,6 +13519,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual int AidTypeDescriptorId 
         {
             get
@@ -12916,6 +13539,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         private int _aidTypeDescriptorId;
         private string _aidTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string AidTypeDescriptor
         {
             get
@@ -12932,6 +13556,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(7)]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
@@ -12942,6 +13567,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         private DateTime _beginDate;
         
         [Display(Name="StudentUniqueId")][DomainSignature]
+        [Key(8)]
         public virtual int StudentUSI 
         {
             get
@@ -12967,6 +13593,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         private int _studentUSI;
         private string _studentUniqueId;
 
+        [Key(9)]
         public virtual string StudentUniqueId
         {
             get
@@ -13000,8 +13627,11 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(10)]
         public virtual decimal? AidAmount  { get; set; }
+        [Key(11)]
         public virtual string AidConditionDescription  { get; set; }
+        [Key(12)]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -13021,6 +13651,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 
         private DateTime? _endDate;
         
+        [Key(13)]
         public virtual bool? PellGrantRecipient  { get; set; }
         // -------------------------------------------------------------
 
@@ -13037,6 +13668,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(14)]
         public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData { get; set; }
 
         /// <summary>
@@ -13170,6 +13802,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class GenderDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IGenderDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -13178,6 +13811,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int GenderDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -13349,6 +13983,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class ObjectiveRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -13357,6 +13992,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int ObjectiveRatingLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -13523,28 +14159,37 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="PerformanceEvaluation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class PerformanceEvaluationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(2)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(3)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(4)]
         public virtual short SchoolYear { get; set; }
+        [Key(5)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(6)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(7)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -13614,6 +14259,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IPerformanceEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -13631,8 +14277,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -13652,6 +14300,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -13668,8 +14317,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(8)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -13689,6 +14340,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -13705,8 +14357,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(10)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual int TermDescriptorId 
         {
             get
@@ -13726,6 +14380,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -13751,6 +14406,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(12)]
         public virtual int? AcademicSubjectDescriptorId 
         {
             get
@@ -13770,6 +14426,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int? _academicSubjectDescriptorId;
         private string _academicSubjectDescriptor;
 
+        [IgnoreMember]
         public virtual string AcademicSubjectDescriptor
         {
             get
@@ -13785,6 +14442,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 _academicSubjectDescriptorId = default(int?);
             }
         }
+        [Key(13)]
         public virtual string PerformanceEvaluationDescription  { get; set; }
         // -------------------------------------------------------------
 
@@ -13801,6 +14459,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(14)]
         public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData EducationOrganizationReferenceData { get; set; }
 
         /// <summary>
@@ -13821,6 +14480,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set { }
         }
 
+        [Key(15)]
         public virtual NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
 
         /// <summary>
@@ -13840,6 +14500,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
+        [Key(16)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel>))]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
         {
             get
@@ -13849,6 +14511,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_performanceEvaluationGradeLevels is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> set)
+                {
+                    set.Reattach(this, "PerformanceEvaluationGradeLevels");
+                }
+            
                 foreach (var item in _performanceEvaluationGradeLevels)
                     if (item.PerformanceEvaluation == null)
                         item.PerformanceEvaluation = this;
@@ -13887,6 +14554,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
+        [Key(17)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel>))]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
         {
             get
@@ -13896,6 +14565,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_performanceEvaluationRatingLevels is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> set)
+                {
+                    set.Reattach(this, "PerformanceEvaluationRatingLevels");
+                }
+            
                 foreach (var item in _performanceEvaluationRatingLevels)
                     if (item.PerformanceEvaluation == null)
                         item.PerformanceEvaluation = this;
@@ -14040,6 +14714,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationGradeLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -14054,7 +14729,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual PerformanceEvaluation PerformanceEvaluation { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluation IPerformanceEvaluationGradeLevel.PerformanceEvaluation
@@ -14064,6 +14739,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int GradeLevelDescriptorId 
         {
             get
@@ -14083,6 +14759,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int _gradeLevelDescriptorId;
         private string _gradeLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string GradeLevelDescriptor
         {
             get
@@ -14148,7 +14825,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (PerformanceEvaluation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (PerformanceEvaluation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("GradeLevelDescriptorId", GradeLevelDescriptorId);
@@ -14236,6 +14913,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -14250,7 +14928,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual PerformanceEvaluation PerformanceEvaluation { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluation IPerformanceEvaluationRatingLevel.PerformanceEvaluation
@@ -14260,6 +14938,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual int EvaluationRatingLevelDescriptorId 
         {
             get
@@ -14279,6 +14958,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         private int _evaluationRatingLevelDescriptorId;
         private string _evaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationRatingLevelDescriptor
         {
             get
@@ -14304,7 +14984,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual decimal? MaxRating  { get; set; }
+        [Key(3)]
         public virtual decimal? MinRating  { get; set; }
         // -------------------------------------------------------------
 
@@ -14346,7 +15028,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (PerformanceEvaluation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (PerformanceEvaluation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EvaluationRatingLevelDescriptorId", EvaluationRatingLevelDescriptorId);
@@ -14434,30 +15116,41 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="PerformanceEvaluationRating"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class PerformanceEvaluationRatingReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(2)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(3)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(4)]
         public virtual string PersonId { get; set; }
+        [Key(5)]
         public virtual short SchoolYear { get; set; }
+        [Key(6)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(7)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(8)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(9)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -14529,6 +15222,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IPerformanceEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -14546,8 +15240,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -14567,6 +15263,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -14583,8 +15280,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(8)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -14604,6 +15303,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -14620,10 +15320,13 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(10)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -14643,6 +15346,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -14659,6 +15363,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(13)]
         public virtual int TermDescriptorId 
         {
             get
@@ -14678,6 +15383,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -14703,6 +15409,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(14)]
         public virtual DateTime ActualDate 
         {
             get { return _actualDate; }
@@ -14712,10 +15419,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private DateTime _actualDate;
         
+        [Key(15)]
         public virtual int? ActualDuration  { get; set; }
+        [Key(16)]
         public virtual TimeSpan? ActualTime  { get; set; }
+        [Key(17)]
         public virtual bool? Announced  { get; set; }
+        [Key(18)]
         public virtual string Comments  { get; set; }
+        [Key(19)]
         public virtual int? CoteachingStyleObservedDescriptorId 
         {
             get
@@ -14735,6 +15447,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int? _coteachingStyleObservedDescriptorId;
         private string _coteachingStyleObservedDescriptor;
 
+        [IgnoreMember]
         public virtual string CoteachingStyleObservedDescriptor
         {
             get
@@ -14750,6 +15463,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 _coteachingStyleObservedDescriptorId = default(int?);
             }
         }
+        [Key(20)]
         public virtual int? PerformanceEvaluationRatingLevelDescriptorId 
         {
             get
@@ -14769,6 +15483,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int? _performanceEvaluationRatingLevelDescriptorId;
         private string _performanceEvaluationRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationRatingLevelDescriptor
         {
             get
@@ -14784,6 +15499,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 _performanceEvaluationRatingLevelDescriptorId = default(int?);
             }
         }
+        [Key(21)]
         public virtual DateTime? ScheduleDate 
         {
             get { return _scheduleDate; }
@@ -14818,6 +15534,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(22)]
         public virtual NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
 
         /// <summary>
@@ -14838,6 +15555,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set { }
         }
 
+        [Key(23)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -14866,6 +15584,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
+        [Key(24)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult>))]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
         {
             get
@@ -14875,6 +15595,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_performanceEvaluationRatingResults is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> set)
+                {
+                    set.Reattach(this, "PerformanceEvaluationRatingResults");
+                }
+            
                 foreach (var item in _performanceEvaluationRatingResults)
                     if (item.PerformanceEvaluationRating == null)
                         item.PerformanceEvaluationRating = this;
@@ -14913,6 +15638,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
         private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
+        [Key(25)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer>))]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
         {
             get
@@ -14922,6 +15649,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_performanceEvaluationRatingReviewers is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> set)
+                {
+                    set.Reattach(this, "PerformanceEvaluationRatingReviewers");
+                }
+            
                 foreach (var item in _performanceEvaluationRatingReviewers)
                     if (item.PerformanceEvaluationRating == null)
                         item.PerformanceEvaluationRating = this;
@@ -15070,6 +15802,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -15084,7 +15817,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual PerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluationRating IPerformanceEvaluationRatingResult.PerformanceEvaluationRating
@@ -15094,8 +15827,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual decimal Rating  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -15107,6 +15842,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual int ResultDatatypeTypeDescriptorId 
         {
             get
@@ -15126,6 +15862,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int _resultDatatypeTypeDescriptorId;
         private string _resultDatatypeTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string ResultDatatypeTypeDescriptor
         {
             get
@@ -15182,7 +15919,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (PerformanceEvaluationRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (PerformanceEvaluationRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("Rating", Rating);
@@ -15271,6 +16008,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -15286,7 +16024,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual PerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluationRating IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRating
@@ -15296,8 +16034,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string FirstName  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -15309,7 +16049,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual string ReviewerPersonId  { get; set; }
+        [Key(4)]
         public virtual int? ReviewerSourceSystemDescriptorId 
         {
             get
@@ -15329,6 +16071,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private int? _reviewerSourceSystemDescriptorId;
         private string _reviewerSourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string ReviewerSourceSystemDescriptor
         {
             get
@@ -15349,6 +16092,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        [IgnoreMember]
         public virtual Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining
         {
             get
@@ -15385,6 +16129,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> _performanceEvaluationRatingReviewerReceivedTrainingPersistentList;
 
+        [Key(5)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining>))]
         public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> PerformanceEvaluationRatingReviewerReceivedTrainingPersistentList
         {
             get
@@ -15394,6 +16140,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_performanceEvaluationRatingReviewerReceivedTrainingPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> set)
+                {
+                    set.Reattach(this, "PerformanceEvaluationRatingReviewerReceivedTrainingPersistentList");
+                }
+
                 foreach (var item in _performanceEvaluationRatingReviewerReceivedTrainingPersistentList)
                     if (item.PerformanceEvaluationRatingReviewer == null)
                         item.PerformanceEvaluationRatingReviewer = this;
@@ -15417,6 +16168,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(6)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData ReviewerPersonReferenceData { get; set; }
 
         /// <summary>
@@ -15463,7 +16215,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (PerformanceEvaluationRating as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (PerformanceEvaluationRating as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("FirstName", FirstName);
@@ -15552,6 +16304,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -15566,7 +16319,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual PerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer { get; set; }
 
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer IPerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationRatingReviewer
@@ -15585,7 +16338,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual int? InterRaterReliabilityScore  { get; set; }
+        [Key(2)]
         public virtual DateTime? ReceivedTrainingDate 
         {
             get { return _receivedTrainingDate; }
@@ -15645,7 +16400,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (PerformanceEvaluationRatingReviewer as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (PerformanceEvaluationRatingReviewer as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -15737,6 +16492,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -15745,6 +16501,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int PerformanceEvaluationRatingLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -15916,6 +16673,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class PerformanceEvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -15924,6 +16682,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -16090,32 +16849,45 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
     /// <summary>
     /// Represents a read-only reference to the <see cref="RubricDimension"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class RubricDimensionReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual long EducationOrganizationId { get; set; }
+        [Key(1)]
         public virtual string EvaluationElementTitle { get; set; }
+        [Key(2)]
         public virtual string EvaluationObjectiveTitle { get; set; }
+        [Key(3)]
         public virtual int EvaluationPeriodDescriptorId { get; set; }
+        [Key(4)]
         public virtual string EvaluationTitle { get; set; }
+        [Key(5)]
         public virtual string PerformanceEvaluationTitle { get; set; }
+        [Key(6)]
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        [Key(7)]
         public virtual int RubricRating { get; set; }
+        [Key(8)]
         public virtual short SchoolYear { get; set; }
+        [Key(9)]
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(10)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(11)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -16189,6 +16961,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class RubricDimension : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IRubricDimension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -16204,12 +16977,16 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature]
+        [Key(9)]
         public virtual int EvaluationPeriodDescriptorId 
         {
             get
@@ -16229,6 +17006,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         private int _evaluationPeriodDescriptorId;
         private string _evaluationPeriodDescriptor;
 
+        [IgnoreMember]
         public virtual string EvaluationPeriodDescriptor
         {
             get
@@ -16245,10 +17023,13 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(10)]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature]
+        [Key(12)]
         public virtual int PerformanceEvaluationTypeDescriptorId 
         {
             get
@@ -16268,6 +17049,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         private int _performanceEvaluationTypeDescriptorId;
         private string _performanceEvaluationTypeDescriptor;
 
+        [IgnoreMember]
         public virtual string PerformanceEvaluationTypeDescriptor
         {
             get
@@ -16284,10 +17066,13 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             }
         }
         [DomainSignature]
+        [Key(13)]
         public virtual int RubricRating  { get; set; }
         [DomainSignature]
+        [Key(14)]
         public virtual short SchoolYear  { get; set; }
         [DomainSignature]
+        [Key(15)]
         public virtual int TermDescriptorId 
         {
             get
@@ -16307,6 +17092,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         private int _termDescriptorId;
         private string _termDescriptor;
 
+        [IgnoreMember]
         public virtual string TermDescriptor
         {
             get
@@ -16332,8 +17118,11 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(16)]
         public virtual string CriterionDescription  { get; set; }
+        [Key(17)]
         public virtual int? DimensionOrder  { get; set; }
+        [Key(18)]
         public virtual int? RubricRatingLevelDescriptorId 
         {
             get
@@ -16353,6 +17142,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         private int? _rubricRatingLevelDescriptorId;
         private string _rubricRatingLevelDescriptor;
 
+        [IgnoreMember]
         public virtual string RubricRatingLevelDescriptor
         {
             get
@@ -16383,6 +17173,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(19)]
         public virtual NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
 
         /// <summary>
@@ -16526,6 +17317,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class RubricRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IRubricRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -16534,6 +17326,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int RubricRatingLevelDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -16705,6 +17498,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -16719,7 +17513,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.School School { get; set; }
 
         Entities.Common.EdFi.ISchool ISchoolExtension.School
@@ -16738,6 +17532,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual long? PostSecondaryInstitutionId  { get; set; }
         // -------------------------------------------------------------
 
@@ -16754,6 +17549,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(2)]
         public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData PostSecondaryInstitutionReferenceData { get; set; }
 
         /// <summary>
@@ -16786,7 +17582,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (School as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (School as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -16878,6 +17674,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SurveyResponseExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ISurveyResponseExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -16892,7 +17689,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual EdFi.SurveyResponse SurveyResponse { get; set; }
 
         Entities.Common.EdFi.ISurveyResponse ISurveyResponseExtension.SurveyResponse
@@ -16911,7 +17708,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual string PersonId  { get; set; }
+        [Key(2)]
         public virtual int? SourceSystemDescriptorId 
         {
             get
@@ -16931,6 +17730,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         private int? _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -16961,6 +17761,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(3)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -17003,7 +17804,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (SurveyResponse as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (SurveyResponse as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -17090,27 +17891,35 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
     /// <summary>
     /// Represents a read-only reference to the <see cref="SurveyResponsePersonTargetAssociation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class SurveyResponsePersonTargetAssociationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string Namespace { get; set; }
+        [Key(1)]
         public virtual string PersonId { get; set; }
+        [Key(2)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(3)]
         public virtual string SurveyIdentifier { get; set; }
+        [Key(4)]
         public virtual string SurveyResponseIdentifier { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(5)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(6)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -17179,6 +17988,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SurveyResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -17194,10 +18004,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string Namespace  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -17217,6 +18030,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -17233,8 +18047,10 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
             }
         }
         [DomainSignature]
+        [Key(9)]
         public virtual string SurveyIdentifier  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual string SurveyResponseIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -17261,6 +18077,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(11)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -17281,6 +18098,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
             set { }
         }
 
+        [Key(12)]
         public virtual NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData SurveyResponseReferenceData { get; set; }
 
         /// <summary>
@@ -17411,28 +18229,37 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
     /// <summary>
     /// Represents a read-only reference to the <see cref="SurveySectionResponsePersonTargetAssociation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class SurveySectionResponsePersonTargetAssociationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string Namespace { get; set; }
+        [Key(1)]
         public virtual string PersonId { get; set; }
+        [Key(2)]
         public virtual int SourceSystemDescriptorId { get; set; }
+        [Key(3)]
         public virtual string SurveyIdentifier { get; set; }
+        [Key(4)]
         public virtual string SurveyResponseIdentifier { get; set; }
+        [Key(5)]
         public virtual string SurveySectionTitle { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(6)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(7)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -17502,6 +18329,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
     /// </summary>
     [Schema("tpdm")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SurveySectionResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -17517,10 +18345,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string Namespace  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string PersonId  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual int SourceSystemDescriptorId 
         {
             get
@@ -17540,6 +18371,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         private int _sourceSystemDescriptorId;
         private string _sourceSystemDescriptor;
 
+        [IgnoreMember]
         public virtual string SourceSystemDescriptor
         {
             get
@@ -17556,10 +18388,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
             }
         }
         [DomainSignature]
+        [Key(9)]
         public virtual string SurveyIdentifier  { get; set; }
         [DomainSignature]
+        [Key(10)]
         public virtual string SurveyResponseIdentifier  { get; set; }
         [DomainSignature]
+        [Key(11)]
         public virtual string SurveySectionTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -17586,6 +18421,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(12)]
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -17606,6 +18442,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
             set { }
         }
 
+        [Key(13)]
         public virtual NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData SurveySectionResponseReferenceData { get; set; }
 
         /// <summary>
