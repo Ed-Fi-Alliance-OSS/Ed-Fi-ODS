@@ -491,7 +491,7 @@ namespace EdFi.Ods.CodeGen.Generators
             }
         }
 
-        private static readonly Dictionary<FullName, MessagePackIndexer> _abstractMessagePackIndexerByEntity = new(); 
+        private readonly Dictionary<FullName, MessagePackIndexer> _abstractMessagePackIndexerByEntity = new(); 
 
         private static bool IsSynchronizedProperty(EntityProperty property)
         {

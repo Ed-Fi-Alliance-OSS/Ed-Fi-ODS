@@ -52,7 +52,7 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
     [OneTimeSetUp]
     protected async Task SetUp()
     {
-        await Program.Main(
+        var returnCode = await Program.Main(
             new[]
             {
                 "--ExtensionPaths",
@@ -62,6 +62,11 @@ public abstract class ApprovalTestsBase<TVersionMetadata>
                 "--StandardVersion",
                 _standardVersion
             });
+
+        if (returnCode == ReturnCodesConventions.Error)
+        {
+            throw new Exception("An unexpected problem was encountered during code generation.", Program.LastException);
+        }
     }
 
     /// <summary>
