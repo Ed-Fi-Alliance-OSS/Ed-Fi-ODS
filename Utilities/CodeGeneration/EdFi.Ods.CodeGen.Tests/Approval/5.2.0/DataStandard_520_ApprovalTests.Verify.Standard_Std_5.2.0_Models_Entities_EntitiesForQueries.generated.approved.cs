@@ -258,6 +258,15 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccommodationDescriptorAggreg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentAccommodationQ> StudentAssessmentAccommodations  { get; set; }
     #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationAssessmentAccommodationQ> StudentAssessmentRegistrationAssessmentAccommodations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi.StudentAssessmentRegistrationBatteryPartAssociationAccommodationQ> StudentAssessmentRegistrationBatteryPartAssociationAccommodations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationGeneralAccommodationQ> StudentEducationOrganizationAssessmentAccommodationGeneralAccommodations  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -719,6 +728,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // -------------------------------------------------------------
 
         // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ> AssessmentAdministrations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPartQ> AssessmentBatteryParts  { get; set; }
+    #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentItemAggregate.EdFi.AssessmentItemQ> AssessmentItems  { get; set; }
     #pragma warning restore 114
@@ -1291,6 +1306,255 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
+// Aggregate: AssessmentAdministration
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.AssessmentAdministration table of the AssessmentAdministration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssessmentAdministrationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AdministrationIdentifier { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentIdentifier { get; set; }
+        [DomainSignature]
+        public virtual long AssigningEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<AssessmentAdministrationAssessmentAdminstrationPeriodQ> AssessmentAdministrationAssessmentAdminstrationPeriods { get; set; }
+        public virtual ICollection<AssessmentAdministrationAssessmentBatteryPartQ> AssessmentAdministrationAssessmentBatteryParts { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationQ> AssesssmentAdministrationParticipations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ AssigningEducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.AssessmentAdministrationAssessmentAdminstrationPeriod table of the AssessmentAdministration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssessmentAdministrationAssessmentAdminstrationPeriodQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ AssessmentAdministration { get; set; }
+        [DomainSignature]
+        public virtual DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual DateTime? EndDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.AssessmentAdministrationAssessmentBatteryPart table of the AssessmentAdministration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssessmentAdministrationAssessmentBatteryPartQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ AssessmentAdministration { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentBatteryPartName { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPartQ AssessmentBatteryPart { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: AssessmentBatteryPart
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.AssessmentBatteryPart table of the AssessmentBatteryPart aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssessmentBatteryPartQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AssessmentBatteryPartName { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentIdentifier { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<AssessmentBatteryPartObjectiveAssessmentQ> AssessmentBatteryPartObjectiveAssessments { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationAssessmentBatteryPartQ> AssessmentAdministrationAssessmentBatteryParts  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi.StudentAssessmentRegistrationBatteryPartAssociationQ> StudentAssessmentRegistrationBatteryPartAssociations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.AssessmentBatteryPartObjectiveAssessment table of the AssessmentBatteryPart aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssessmentBatteryPartObjectiveAssessmentQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPartQ AssessmentBatteryPart { get; set; }
+        [DomainSignature]
+        public virtual string IdentificationCode { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ ObjectiveAssessment { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: AssessmentCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentCategoryDescriptorAggregate.EdFi
@@ -1825,6 +2089,110 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentScoreRangeLearningS
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: AssesssmentAdministrationParticipation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssesssmentAdministrationParticipationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.AssesssmentAdministrationParticipation table of the AssesssmentAdministrationParticipation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssesssmentAdministrationParticipationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AdministrationIdentifier { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentIdentifier { get; set; }
+        [DomainSignature]
+        public virtual long AssigningEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        [DomainSignature]
+        public virtual long ParticipatingEducationOrganizationId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<AssesssmentAdministrationParticipationAdministrationPointOfContactQ> AssesssmentAdministrationParticipationAdministrationPointOfContacts { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ AssessmentAdministration { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ ParticipatingEducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.AssesssmentAdministrationParticipationAdministrationPointOfContact table of the AssesssmentAdministrationParticipation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class AssesssmentAdministrationParticipationAdministrationPointOfContactQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationQ AssesssmentAdministrationParticipation { get; set; }
+        [DomainSignature]
+        public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string ElectronicMailAddress { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string FirstName  { get; set; }
+        public virtual string LastSurname  { get; set; }
+        public virtual string LoginId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -7689,10 +8057,19 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi.AccountabilityRatingQ> AccountabilityRatings  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ> AssessmentAdministrations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentContentStandardQ> AssessmentContentStandards  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ> Assessments  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationAdministrationPointOfContactQ> AssesssmentAdministrationParticipationAdministrationPointOfContacts  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationQ> AssesssmentAdministrationParticipations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
@@ -7755,6 +8132,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ> ReportCards  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> ReportingStudentAssessmentRegistrations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationQ> StaffEducationOrganizationAssignmentAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -7768,6 +8148,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociationQ> StudentAssessmentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ> StudentEducationOrganizationAssessmentAccommodations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
@@ -7798,6 +8181,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationQ> SurveySectionResponseEducationOrganizationTargetAssociations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> TestingStudentAssessmentRegistrations  { get; set; }
     #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
@@ -9880,6 +10266,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeLevelDescriptorAggregate
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationGradeLevelQ> StaffSchoolAssociationGradeLevels  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
@@ -14640,6 +15029,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPartObjectiveAssessmentQ> AssessmentBatteryPartObjectiveAssessments  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandardQ> AssessmentScoreRangeLearningStandards  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -15546,6 +15938,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PlatformTypeDescriptorAggrega
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentPlatformTypeQ> AssessmentPlatformTypes  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
@@ -19254,6 +19649,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
+// Aggregate: Section504DisabilityTypeDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.Section504DisabilityTypeDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.Section504DisabilityTypeDescriptor table of the Section504DisabilityTypeDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class Section504DisabilityTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int Section504DisabilityTypeDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentSection504ProgramAssociationAggregate.EdFi.StudentSection504ProgramAssociationQ> StudentSection504ProgramAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: SectionAttendanceTakenEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAggregate.EdFi
@@ -22254,6 +22691,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationQ> StudentDisciplineIncidentNonOffenderAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ> StudentEducationOrganizationAssessmentAccommodations  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -23427,6 +23867,269 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentEducationOrg
         // -------------------------------------------------------------
     }
 }
+// Aggregate: StudentAssessmentRegistration
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentRegistration table of the StudentAssessmentRegistration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AdministrationIdentifier { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentIdentifier { get; set; }
+        [DomainSignature]
+        public virtual long AssigningEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        [DomainSignature]
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int? AssessmentGradeLevelDescriptorId  { get; set; }
+        public virtual DateTime EntryDate  { get; set; }
+        public virtual int? PlatformTypeDescriptorId  { get; set; }
+        public virtual long? ReportingEducationOrganizationId  { get; set; }
+        public virtual long SchoolId  { get; set; }
+        public virtual long? TestingEducationOrganizationId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentAssessmentRegistrationAssessmentAccommodationQ> StudentAssessmentRegistrationAssessmentAccommodations { get; set; }
+        public virtual ICollection<StudentAssessmentRegistrationAssessmentCustomizationQ> StudentAssessmentRegistrationAssessmentCustomizations { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi.StudentAssessmentRegistrationBatteryPartAssociationQ> StudentAssessmentRegistrationBatteryPartAssociations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationQ AssessmentAdministration { get; set; }
+        protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ AssessmentGradeLevelDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptorQ PlatformTypeDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ ReportingEducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ StudentEducationOrganizationAssessmentAccommodation { get; set; }
+        protected virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
+        protected virtual NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ StudentSchoolAssociation { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ TestingEducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentRegistrationAssessmentAccommodation table of the StudentAssessmentRegistration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationAssessmentAccommodationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ StudentAssessmentRegistration { get; set; }
+        [DomainSignature]
+        public virtual int AccommodationDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptorQ AccommodationDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentRegistrationAssessmentCustomization table of the StudentAssessmentRegistration aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationAssessmentCustomizationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ StudentAssessmentRegistration { get; set; }
+        [DomainSignature]
+        public virtual string CustomizationKey { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CustomizationValue  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StudentAssessmentRegistrationBatteryPartAssociation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentRegistrationBatteryPartAssociation table of the StudentAssessmentRegistrationBatteryPartAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationBatteryPartAssociationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AdministrationIdentifier { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentBatteryPartName { get; set; }
+        [DomainSignature]
+        public virtual string AssessmentIdentifier { get; set; }
+        [DomainSignature]
+        public virtual long AssigningEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        [DomainSignature]
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentAssessmentRegistrationBatteryPartAssociationAccommodationQ> StudentAssessmentRegistrationBatteryPartAssociationAccommodations { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPartQ AssessmentBatteryPart { get; set; }
+        protected virtual NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ StudentAssessmentRegistration { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentRegistrationBatteryPartAssociationAccommodation table of the StudentAssessmentRegistrationBatteryPartAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationBatteryPartAssociationAccommodationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi.StudentAssessmentRegistrationBatteryPartAssociationQ StudentAssessmentRegistrationBatteryPartAssociation { get; set; }
+        [DomainSignature]
+        public virtual int AccommodationDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptorQ AccommodationDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: StudentCharacteristicDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi
@@ -24102,6 +24805,104 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentNonO
         // -------------------------------------------------------------
     }
 }
+// Aggregate: StudentEducationOrganizationAssessmentAccommodation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentEducationOrganizationAssessmentAccommodation table of the StudentEducationOrganizationAssessmentAccommodation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssessmentAccommodationQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<StudentEducationOrganizationAssessmentAccommodationGeneralAccommodationQ> StudentEducationOrganizationAssessmentAccommodationGeneralAccommodations { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation table of the StudentEducationOrganizationAssessmentAccommodation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssessmentAccommodationGeneralAccommodationQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ StudentEducationOrganizationAssessmentAccommodation { get; set; }
+        [DomainSignature]
+        public virtual int AccommodationDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptorQ AccommodationDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: StudentEducationOrganizationAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi
@@ -24172,6 +24973,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // =============================================================
         //              External references for HQL Queries
         // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
+    #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptorQ BarrierToInternetAccessInResidenceDescriptor { get; set; }
@@ -26468,6 +27274,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // -------------------------------------------------------------
 
         // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ> StudentAssessmentRegistrations  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CalendarAggregate.EdFi.CalendarQ Calendar { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ ClassOfSchoolYearType { get; set; }
         protected virtual NHibernate.QueryModels.EnrollmentTypeDescriptorAggregate.EdFi.EnrollmentTypeDescriptorQ EnrollmentTypeDescriptor { get; set; }
@@ -26728,6 +27539,61 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgr
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi.SchoolFoodServiceProgramServiceDescriptorQ SchoolFoodServiceProgramServiceDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: StudentSection504ProgramAssociation
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSection504ProgramAssociationAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.StudentSection504ProgramAssociation table of the StudentSection504ProgramAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentSection504ProgramAssociationQ : QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public override DateTime BeginDate { get; set; }
+        [DomainSignature]
+        public override long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public override long ProgramEducationOrganizationId { get; set; }
+        [DomainSignature]
+        public override string ProgramName { get; set; }
+        [DomainSignature]
+        public override int ProgramTypeDescriptorId { get; set; }
+        [DomainSignature]
+        public override int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual bool? AccommodationPlan  { get; set; }
+        public virtual int? Section504DisabilityTypeDescriptorId  { get; set; }
+        public virtual bool Section504Eligibility  { get; set; }
+        public virtual DateTime? Section504EligibilityDecisionDate  { get; set; }
+        public virtual DateTime? Section504MeetingDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.Section504DisabilityTypeDescriptorAggregate.EdFi.Section504DisabilityTypeDescriptorQ Section504DisabilityTypeDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -27249,6 +28115,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         public virtual DateTime ConsentToEvaluationReceivedDate { get; set; }
         [DomainSignature]
         public virtual long EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual long ProgramEducationOrganizationId { get; set; }
         [DomainSignature]
         public virtual string ProgramName { get; set; }
         [DomainSignature]

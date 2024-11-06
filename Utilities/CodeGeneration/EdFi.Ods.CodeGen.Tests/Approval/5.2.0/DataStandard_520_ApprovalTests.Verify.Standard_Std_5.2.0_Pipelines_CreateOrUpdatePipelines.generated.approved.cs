@@ -89,6 +89,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AssessmentAdministrationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentAdministration.EdFi.AssessmentAdministration, Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministration>
+    {
+        public AssessmentAdministrationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentBatteryPartCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentBatteryPart.EdFi.AssessmentBatteryPart, Entities.NHibernate.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPart>
+    {
+        public AssessmentBatteryPartCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AssessmentCategoryDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentCategoryDescriptor.EdFi.AssessmentCategoryDescriptor, Entities.NHibernate.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptor>
     {
         public AssessmentCategoryDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -134,6 +146,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard, Entities.NHibernate.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandard>
     {
         public AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssesssmentAdministrationParticipationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssesssmentAdministrationParticipation.EdFi.AssesssmentAdministrationParticipation, Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipation>
+    {
+        public AssesssmentAdministrationParticipationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1469,6 +1487,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class Section504DisabilityTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Section504DisabilityTypeDescriptor.EdFi.Section504DisabilityTypeDescriptor, Entities.NHibernate.Section504DisabilityTypeDescriptorAggregate.EdFi.Section504DisabilityTypeDescriptor>
+    {
+        public Section504DisabilityTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class SectionAttendanceTakenEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SectionAttendanceTakenEvent.EdFi.SectionAttendanceTakenEvent, Entities.NHibernate.SectionAttendanceTakenEventAggregate.EdFi.SectionAttendanceTakenEvent>
     {
         public SectionAttendanceTakenEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1667,6 +1691,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentAssessmentRegistration.EdFi.StudentAssessmentRegistration, Entities.NHibernate.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistration>
+    {
+        public StudentAssessmentRegistrationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentRegistrationBatteryPartAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentAssessmentRegistrationBatteryPartAssociation.EdFi.StudentAssessmentRegistrationBatteryPartAssociation, Entities.NHibernate.StudentAssessmentRegistrationBatteryPartAssociationAggregate.EdFi.StudentAssessmentRegistrationBatteryPartAssociation>
+    {
+        public StudentAssessmentRegistrationBatteryPartAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class StudentCharacteristicDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentCharacteristicDescriptor.EdFi.StudentCharacteristicDescriptor, Entities.NHibernate.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptor>
     {
         public StudentCharacteristicDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1706,6 +1742,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentDisciplineIncidentNonOffenderAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation, Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociation>
     {
         public StudentDisciplineIncidentNonOffenderAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentEducationOrganizationAssessmentAccommodationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentEducationOrganizationAssessmentAccommodation.EdFi.StudentEducationOrganizationAssessmentAccommodation, Entities.NHibernate.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodation>
+    {
+        public StudentEducationOrganizationAssessmentAccommodationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1808,6 +1850,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentSchoolFoodServiceProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentSchoolFoodServiceProgramAssociation.EdFi.StudentSchoolFoodServiceProgramAssociation, Entities.NHibernate.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi.StudentSchoolFoodServiceProgramAssociation>
     {
         public StudentSchoolFoodServiceProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSection504ProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentSection504ProgramAssociation.EdFi.StudentSection504ProgramAssociation, Entities.NHibernate.StudentSection504ProgramAssociationAggregate.EdFi.StudentSection504ProgramAssociation>
+    {
+        public StudentSection504ProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
