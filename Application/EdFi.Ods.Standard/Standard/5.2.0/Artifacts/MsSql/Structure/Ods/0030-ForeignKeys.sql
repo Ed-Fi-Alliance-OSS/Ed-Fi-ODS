@@ -6065,15 +6065,15 @@ CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssessmentAccommodatio
 ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] ([StudentUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssessmentAccommodation_AccommodationDescriptor] FOREIGN KEY ([AccommodationDescriptorId])
+ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation_AccommodationDescriptor] FOREIGN KEY ([AccommodationDescriptorId])
 REFERENCES [edfi].[AccommodationDescriptor] ([AccommodationDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssessmentAccommodation_AccommodationDescriptor]
-ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] ([AccommodationDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation_AccommodationDescriptor]
+ON [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] ([AccommodationDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssessmentAccommodation_StudentEducationOrganizationAssessmentAccommodation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
+ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation_StudentEducationOrganizationAssessmentAccommodation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssessmentAccommodation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
 GO

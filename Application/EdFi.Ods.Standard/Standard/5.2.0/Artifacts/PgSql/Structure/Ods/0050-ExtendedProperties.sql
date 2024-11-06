@@ -88,14 +88,14 @@ COMMENT ON COLUMN edfi.AssessmentAcademicSubject.AcademicSubjectDescriptorId IS 
 
 -- Extended Properties [edfi].[AssessmentAdministration] --
 COMMENT ON TABLE edfi.AssessmentAdministration IS 'The anticipated administration of an assessment under the purview of an education organization.';
-COMMENT ON COLUMN edfi.AssessmentAdministration.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.AssessmentAdministration.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.AssessmentAdministration.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAdministration.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssessmentAdministration.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentAdministrationAssessmentAdminstrationPeriod] --
 COMMENT ON TABLE edfi.AssessmentAdministrationAssessmentAdminstrationPeriod IS 'The anticipated dates for the assessment or administration window.';
-COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.Namespace IS 'Namespace for the assessment.';
@@ -104,7 +104,7 @@ COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentAdminstrationPeriod.End
 
 -- Extended Properties [edfi].[AssessmentAdministrationAssessmentBatteryPart] --
 COMMENT ON TABLE edfi.AssessmentAdministrationAssessmentBatteryPart IS 'A reference to the parts of the assessment battery that are offered in this administration of the assessment.';
-COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentBatteryPart.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentBatteryPart.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentBatteryPart.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentBatteryPart.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssessmentAdministrationAssessmentBatteryPart.Namespace IS 'Namespace for the assessment.';
@@ -290,7 +290,7 @@ COMMENT ON COLUMN edfi.AssessmentSection.SessionName IS 'The identifier for the 
 
 -- Extended Properties [edfi].[AssesssmentAdministrationParticipation] --
 COMMENT ON TABLE edfi.AssesssmentAdministrationParticipation IS 'Identifies the point of contact for the administration of an assessment under the purview of an education organization.';
-COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.Namespace IS 'Namespace for the assessment.';
@@ -298,14 +298,14 @@ COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipation.ParticipatingEduca
 
 -- Extended Properties [edfi].[AssesssmentAdministrationParticipationAdministrationPoin_c21adc] --
 COMMENT ON TABLE edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc IS 'Pre-identified contacts for education organizations administering the assessment.';
-COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.ParticipatingEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.ElectronicMailAddress IS 'The email address for the contact.';
-COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.FirstName IS 'The contacts''s first name.';
+COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.FirstName IS 'The contact''s first name.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.LastSurname IS 'The contact''s last name.';
 COMMENT ON COLUMN edfi.AssesssmentAdministrationParticipationAdministrationPoin_c21adc.LoginId IS 'The login ID for the user; used for security access control interface.';
 
@@ -3412,7 +3412,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentPeriod.EndDate IS 'The last date the ass
 
 -- Extended Properties [edfi].[StudentAssessmentRegistration] --
 COMMENT ON TABLE edfi.StudentAssessmentRegistration IS 'Identifies an assessment registration that a student is expected to participate in including the testing organization, reporting organization and assessment delivery details.';
-COMMENT ON COLUMN edfi.StudentAssessmentRegistration.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistration.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -3427,7 +3427,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentRegistration.TestingEducationOrganizatio
 
 -- Extended Properties [edfi].[StudentAssessmentRegistrationAssessmentAccommodation] --
 COMMENT ON TABLE edfi.StudentAssessmentRegistrationAssessmentAccommodation IS 'The special variation(s) to be used in how assessments (in general) are presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
-COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -3437,7 +3437,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentAccommodation.Acco
 
 -- Extended Properties [edfi].[StudentAssessmentRegistrationAssessmentCustomization] --
 COMMENT ON TABLE edfi.StudentAssessmentRegistrationAssessmentCustomization IS 'Key/value pairs which may be used to facilitate customization of an assessment or to support vendor reporting/analysis.';
-COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -3448,7 +3448,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentRegistrationAssessmentCustomization.Cust
 
 -- Extended Properties [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] --
 COMMENT ON TABLE edfi.StudentAssessmentRegistrationBatteryPartAssociation IS 'The association to the part(s) of the assessment battery that the student is to be tested for this administration of the assessment.';
-COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.AssessmentBatteryPartName IS 'The name of the part of an assessment battery.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -3458,7 +3458,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociation.Stude
 
 -- Extended Properties [edfi].[StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694] --
 COMMENT ON TABLE edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694 IS 'The special variation(s) to be used for the specific part of the assessment battery on how is presented, how it is administered, or how the test taker is allowed to respond.';
-COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694.AdministrationIdentifier IS 'The title or name of the assessment in the context of it''s administration.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694.AdministrationIdentifier IS 'The title or name of the assessment in the context of its administration.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694.AssessmentBatteryPartName IS 'The name of the part of an assessment battery.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistrationBatteryPartAssociationAccom_c87694.AssigningEducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -3652,11 +3652,11 @@ COMMENT ON TABLE edfi.StudentEducationOrganizationAssessmentAccommodation IS 'Th
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
--- Extended Properties [edfi].[StudentEducationOrganizationAssessmentAccommodation] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssessmentAccommodation IS 'The special variation(s) to be used in how assessments (in general) are presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodation.AccommodationDescriptorId IS 'The special variation(s) to be used in how assessments (in general) are presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
+-- Extended Properties [edfi].[StudentEducationOrganizationAssessmentAccommodationGener_d1d10a] --
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a IS 'The special variation(s) to be used in how assessments (in general) are presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a.AccommodationDescriptorId IS 'The special variation(s) to be used in how assessments (in general) are presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociation] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociation IS 'This association represents student information as reported in the context of the student''s relationship to the education organization. Enrollment relationship semantics are covered by StudentSchoolAssociation.';

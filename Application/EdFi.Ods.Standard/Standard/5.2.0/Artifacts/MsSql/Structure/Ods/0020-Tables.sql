@@ -8598,20 +8598,20 @@ GO
 ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] ADD CONSTRAINT [StudentEducationOrganizationAssessmentAccommodation_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[StudentEducationOrganizationAssessmentAccommodation] --
-CREATE TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] (
+-- Table [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] --
+CREATE TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] (
     [EducationOrganizationId] [BIGINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [AccommodationDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentEducationOrganizationAssessmentAccommodation_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
         [StudentUSI] ASC,
         [AccommodationDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodation] ADD CONSTRAINT [StudentEducationOrganizationAssessmentAccommodation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
+ALTER TABLE [edfi].[StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation] ADD CONSTRAINT [StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociation] --

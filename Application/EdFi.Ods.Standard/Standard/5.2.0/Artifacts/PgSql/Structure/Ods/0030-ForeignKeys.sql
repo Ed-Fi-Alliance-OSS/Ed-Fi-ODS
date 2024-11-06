@@ -5581,14 +5581,14 @@ REFERENCES edfi.Student (StudentUSI)
 CREATE INDEX FK_5f4481_Student
 ON edfi.StudentEducationOrganizationAssessmentAccommodation (StudentUSI ASC);
 
-ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ADD CONSTRAINT FK_9da4de_AccommodationDescriptor FOREIGN KEY (AccommodationDescriptorId)
+ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a ADD CONSTRAINT FK_d1d10a_AccommodationDescriptor FOREIGN KEY (AccommodationDescriptorId)
 REFERENCES edfi.AccommodationDescriptor (AccommodationDescriptorId)
 ;
 
-CREATE INDEX FK_9da4de_AccommodationDescriptor
-ON edfi.StudentEducationOrganizationAssessmentAccommodation (AccommodationDescriptorId ASC);
+CREATE INDEX FK_d1d10a_AccommodationDescriptor
+ON edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a (AccommodationDescriptorId ASC);
 
-ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ADD CONSTRAINT FK_9da4de_StudentEducationOrganizationAssessmentAccommodation FOREIGN KEY (EducationOrganizationId, StudentUSI)
+ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a ADD CONSTRAINT FK_d1d10a_StudentEducationOrganizationAssessmentAccommodation FOREIGN KEY (EducationOrganizationId, StudentUSI)
 REFERENCES edfi.StudentEducationOrganizationAssessmentAccommodation (EducationOrganizationId, StudentUSI)
 ON DELETE CASCADE
 ;

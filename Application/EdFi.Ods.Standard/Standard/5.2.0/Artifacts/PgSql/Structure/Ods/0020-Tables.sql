@@ -5718,15 +5718,15 @@ ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ALTER COLUM
 ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
--- Table edfi.StudentEducationOrganizationAssessmentAccommodation --
-CREATE TABLE edfi.StudentEducationOrganizationAssessmentAccommodation (
+-- Table edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a --
+CREATE TABLE edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a (
     EducationOrganizationId BIGINT NOT NULL,
     StudentUSI INT NOT NULL,
     AccommodationDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentEducationOrganizationAssessmentAccommodation_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AccommodationDescriptorId)
+    CONSTRAINT StudentEducationOrganizationAssessmentAccommodatio_d1d10a_PK PRIMARY KEY (EducationOrganizationId, StudentUSI, AccommodationDescriptorId)
 );
-ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodation ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
+ALTER TABLE edfi.StudentEducationOrganizationAssessmentAccommodationGener_d1d10a ALTER COLUMN CreateDate SET DEFAULT current_timestamp AT TIME ZONE 'UTC';
 
 -- Table edfi.StudentEducationOrganizationAssociation --
 CREATE TABLE edfi.StudentEducationOrganizationAssociation (
