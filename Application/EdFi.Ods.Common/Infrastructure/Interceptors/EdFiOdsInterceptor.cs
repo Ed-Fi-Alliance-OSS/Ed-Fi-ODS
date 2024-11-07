@@ -4,12 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Text.RegularExpressions;
-using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Security.CustomViewBased;
-using log4net;
 using NHibernate;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Infrastructure.Interceptors
 {
