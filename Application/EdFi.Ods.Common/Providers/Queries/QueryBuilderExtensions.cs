@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Queries;
 
@@ -10,8 +11,6 @@ namespace EdFi.Ods.Common.Providers.Queries;
 
 public static class QueryBuilderExtensions
 {
-    private const string ChangeVersion = "ChangeVersion";
-
     public static void ApplyChangeVersionCriteria(this QueryBuilder queryBuilder, IQueryParameters queryParameters)
     {
         if (queryParameters == null)
@@ -21,12 +20,12 @@ public static class QueryBuilderExtensions
 
         if (queryParameters.MinChangeVersion.HasValue)
         {
-            queryBuilder.Where(ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
+            queryBuilder.Where(ColumnNames.ChangeVersion, ">=", queryParameters.MinChangeVersion.Value);
         }
 
         if (queryParameters.MaxChangeVersion.HasValue)
         {
-            queryBuilder.Where(ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
+            queryBuilder.Where(ColumnNames.ChangeVersion, "<=", queryParameters.MaxChangeVersion.Value);
         }
     }
 
