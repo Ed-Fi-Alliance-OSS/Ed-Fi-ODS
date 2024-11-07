@@ -10,11 +10,7 @@ IF EXISTS (SELECT 1
    DROP INDEX UX_EducationOrganizationIdToStudentUSI ON auth.EducationOrganizationIdToStudentUSI;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStudentUSI'))
-    DROP VIEW auth.EducationOrganizationIdToStudentUSI;
-GO 
-
-CREATE VIEW auth.EducationOrganizationIdToStudentUSI AS
+CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSI AS
     SELECT  edOrgs.SourceEducationOrganizationId, ssa.StudentUSI, COUNT_BIG(*) AS Ignored
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
         INNER JOIN edfi.StudentSchoolAssociation ssa
@@ -29,12 +25,8 @@ IF EXISTS (SELECT 1
    DROP INDEX UX_EducationOrganizationIdToParentUSI ON auth.EducationOrganizationIdToParentUSI;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToParentUSI'))
-    DROP VIEW auth.EducationOrganizationIdToParentUSI;
-GO 
-
 CREATE OR ALTER VIEW auth.EducationOrganizationIdToParentUSI AS
-    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI, COUNT_BIG(*) AS Ignored
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
             INNER JOIN edfi.StudentSchoolAssociation ssa 
                 ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
@@ -43,11 +35,7 @@ CREATE OR ALTER VIEW auth.EducationOrganizationIdToParentUSI AS
     GROUP BY edOrgs.SourceEducationOrganizationId, spa.ParentUSI
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStaffUSI'))
-    DROP VIEW auth.EducationOrganizationIdToStaffUSI;
-GO 
-
-CREATE VIEW auth.EducationOrganizationIdToStaffUSI AS
+CREATE OR ALTER VIEW auth.EducationOrganizationIdToStaffUSI AS
 
     -- EdOrg Assignments
     SELECT  edOrgs.SourceEducationOrganizationId, seo_assign.StaffUSI
@@ -64,11 +52,7 @@ CREATE VIEW auth.EducationOrganizationIdToStaffUSI AS
                 ON edOrgs.TargetEducationOrganizationId = seo_empl.EducationOrganizationId
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStudentUSIThroughResponsibility'))
-    DROP VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility;
-GO 
-
-CREATE VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS
+CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS
     SELECT  edOrgs.SourceEducationOrganizationId, seora.StudentUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
             INNER JOIN edfi.StudentEducationOrganizationResponsibilityAssociation seora
