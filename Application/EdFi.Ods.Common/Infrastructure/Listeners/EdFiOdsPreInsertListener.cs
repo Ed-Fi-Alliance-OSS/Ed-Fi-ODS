@@ -59,20 +59,29 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
                 if (_serializationEnabled)
                 {
-                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                    aggregateRoot.LastModifiedDate = lastModifiedDate;
-                    aggregateRoot.CreateDate = createDate;
-
-                    // Produce the serialized data
-                    var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
-                    aggregateRoot.AggregateData = resourceData;
-
-                    // Update the state
-                    persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
-
-                    if (_logger.IsDebugEnabled)
+                    try
                     {
-                        _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                        var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+                        aggregateRoot.LastModifiedDate = lastModifiedDate;
+                        aggregateRoot.CreateDate = createDate;
+
+                        // Produce the serialized data
+                        var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
+                        aggregateRoot.AggregateData = resourceData;
+
+                        // Update the state
+                        persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
+
+                        if (_logger.IsDebugEnabled)
+                        {
+                            _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"An unexpected error occurred while serializing entity data on entity '{@event.Entity.GetType().Name}'...", ex);
+
+                        throw;
                     }
                 }
             }

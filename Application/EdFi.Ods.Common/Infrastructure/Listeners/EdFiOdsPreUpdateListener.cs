@@ -38,22 +38,31 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
         {
             if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
-                var persister = @event.Persister;
-
-                // Update the entity with the last modified date before serializing
-                var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                aggregateRoot.LastModifiedDate = lastModifiedDate;
-
-                // Produce the serialized data
-                var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
-                aggregateRoot.AggregateData = aggregateData;
-
-                // Update the state
-                persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
-
-                if (_logger.IsDebugEnabled)
+                try
                 {
-                    _logger.Debug($"MessagePack bytes for updated entity: {aggregateData.Length:N0}");
+                    var persister = @event.Persister;
+
+                    // Update the entity with the last modified date before serializing
+                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+                    aggregateRoot.LastModifiedDate = lastModifiedDate;
+
+                    // Produce the serialized data
+                    var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
+                    aggregateRoot.AggregateData = aggregateData;
+
+                    // Update the state
+                    persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
+
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($"MessagePack bytes for updated entity: {aggregateData.Length:N0}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error($"An unexpected error occurred while serializing entity data on entity '{@event.Entity.GetType().Name}'...", ex);
+
+                    throw;
                 }
             }
         }
