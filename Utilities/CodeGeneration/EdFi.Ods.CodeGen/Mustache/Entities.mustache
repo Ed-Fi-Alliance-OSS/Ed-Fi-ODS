@@ -600,14 +600,14 @@ namespace {{AggregateNamespace}}
         {{/AllowsPrimaryKeyUpdates}}
         {{#HasAlternateKeyValues}}
         // Provide alternate key information
-        OrderedDictionary IHasAlternateKeyValues.GetAlternateKeyValues()
+        (OrderedDictionary keyValues, bool isDefinedOnBaseType) IHasAlternateKeyValues.GetAlternateKeyValues()
         {
             // Initialize a new dictionary to hold the key values
             var keyValues = new OrderedDictionary();
             {{#AlternateKeyProperties}}
             keyValues.Add("{{PropertyName}}", {{PropertyName}});
             {{/AlternateKeyProperties}}
-            return keyValues;
+            return (keyValues, {{#IsAbstract}}true{{/IsAbstract}}{{^IsAbstract}}false{{/IsAbstract}});
         }
         {{/HasAlternateKeyValues}}
         #region Overrides for Equals() and GetHashCode()

@@ -110,14 +110,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     return null;
                 }
 
-                var alternateKeyValues = entityWithAlternateKeyValues.GetAlternateKeyValues();
+                var (alternateKeyValues, isDefinedOnBaseType) = entityWithAlternateKeyValues.GetAlternateKeyValues();
 
                 // Look up by alternate key
                 if (alternateKeyValues.Count > 0)
                 {
                     if (SerializationEnabled)
                     {
-                        var item = await GetItemData(alternateKeyValues, scope);
+                        var item = await GetItemData(alternateKeyValues, scope, isDefinedOnBaseType);
 
                         // Could not find the item
                         if (item == null)
@@ -177,15 +177,22 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return $" where {criteria}";
             }
 
-            async Task<ItemData<TEntity>> GetItemData(OrderedDictionary compositeKeyValues, SessionScope scope)
+            async Task<ItemData<TEntity>> GetItemData(
+                OrderedDictionary compositeKeyValues,
+                SessionScope scope,
+                bool isDefinedOnBaseType = false)
             {
                 // Get the item from serialized form
                 var singleItemQueryBuilder = GetSingleItemQueryBuilder();
 
+                string rootTableAlias = isDefinedOnBaseType
+                    ? "b"
+                    : "r";
+
                 // Apply primary key values to the root (derived, if applicable) table, as that's how the composite key values are provided
                 foreach (DictionaryEntry keyValue in compositeKeyValues)
                 {
-                    singleItemQueryBuilder.Where($"r.{(string) keyValue.Key}", keyValue.Value);
+                    singleItemQueryBuilder.Where($"{rootTableAlias}.{(string) keyValue.Key}", keyValue.Value);
                 }
 
                 var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
