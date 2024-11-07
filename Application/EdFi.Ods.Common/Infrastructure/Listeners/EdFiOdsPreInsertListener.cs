@@ -36,7 +36,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
         {
             var persister = @event.Persister;
 
-            persister.Set(@event.State, "CreateDate", DateTime.UtcNow);
+            DateTime createDate = DateTime.UtcNow;
+            persister.Set(@event.State, ColumnNames.CreateDate, createDate);
 
             if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
@@ -60,6 +61,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 {
                     var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
                     aggregateRoot.LastModifiedDate = lastModifiedDate;
+                    aggregateRoot.CreateDate = createDate;
 
                     // Produce the serialized data
                     var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);

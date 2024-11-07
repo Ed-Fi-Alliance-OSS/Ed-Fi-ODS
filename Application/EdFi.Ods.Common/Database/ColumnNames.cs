@@ -10,6 +10,7 @@ public static class ColumnNames
 {
     public const string AggregateId = "AggregateId";
     public const string AggregateData = "AggregateData";
+    public const string CreateDate = "CreateDate";
     public const string LastModifiedDate = "LastModifiedDate";
     public const string ChangeVersion = "ChangeVersion";
 }
