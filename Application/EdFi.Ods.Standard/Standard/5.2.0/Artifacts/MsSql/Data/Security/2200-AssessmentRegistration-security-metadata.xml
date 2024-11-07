@@ -48,11 +48,6 @@
 						<Action name="Delete" />
 					</Actions>
 				</ClaimSet>
-				<ClaimSet name="Assessment Read">
-					<Actions>
-						<Action name="Read" />
-					</Actions>
-				</ClaimSet>
 				<ClaimSet name="District Hosted SIS Vendor">
 					<Actions>
 						<Action name="Create" />
@@ -75,9 +70,6 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistrationAssessmentCustomization" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistrationBatteryPartAssociation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistrationBatteryPartAssociationAccommodation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssessmentAccommodation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssessmentAccommodationGeneralAccommodation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/studentSection504ProgramAssociation" />
 			</Claims>
 		</Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
@@ -141,5 +133,119 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor" />
 			</Claims>
 		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentSection504ProgramAssociation" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssessmentAccommodation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssessmentAccommodationGeneralAccommodation" />
+			</Claims>
+		</Claim>
 	</Claims>
 </SecurityMetadata>
+
+
