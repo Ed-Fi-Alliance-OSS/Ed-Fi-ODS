@@ -43,32 +43,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
-                        ITransaction trans = null;
-
-                        try
+                        using (ITransaction trans = Session.BeginTransaction())
                         {
-                            trans = Session.BeginTransaction();
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
                             await trans.CommitAsync(cancellationToken);
-                        }
-                        catch (Exception)
-                        {
-                            // Check to see if we need to explicitly roll the transaction back
-                            if (trans is { IsActive: true })
-                            {
-                                await trans.RollbackAsync(cancellationToken);
-                            }
-                            
-                            // Ensure the transaction is disposed to reset state before (potentially) retrying
-                            trans?.Dispose();
-
-                            // Re-throw to allow Polly to retry
-                            throw;
-                        }
-                        finally
-                        {
-                            // Ensure transaction is disposed in all cases
-                            trans?.Dispose();
                         }
                     },
                     _retryPolicyContextData);
