@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
@@ -108,6 +107,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Save the incoming entity
+                var retryContext = new Dictionary<string, object>(_retryPolicyContextData);
+
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
@@ -116,8 +117,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             await Session.SaveAsync(entity, cancellationToken);
                             await trans.CommitAsync(cancellationToken);
                         }
+
+                        if (retryContext.TryGetValue("Retries", out object retryCount))
+                        {
+                            _logger.Info($"Creation of '{typeof(TEntity).Name}' succeeded after {retryCount} retries...");
+                        }
                     },
-                    _retryPolicyContextData);
+                    retryContext);
 
                 bool IdHasValue()
                 {

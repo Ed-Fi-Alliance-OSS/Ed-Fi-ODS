@@ -18,26 +18,28 @@ public static class DeadlockPolicyHelper
 {
     public static AsyncRetryPolicy RetryPolicy { get; }
 
-    public static int RetryCount = 5;
+    private const int RetryCount = 5;
     public static int RetryStartingDelayMilliseconds = 100;
 
-    private static int _totalRetries = 0;
+    private static int _cumulativeRetries = 0;
 
     static DeadlockPolicyHelper()
     {
-        RetryPolicy = Policy.Handle<Exception>(ShouldRetry)
+        RetryPolicy = Policy.Handle<Exception>(IsDeadlockError)
             .WaitAndRetryAsync(
                 Backoff.ExponentialBackoff(TimeSpan.FromMilliseconds(RetryStartingDelayMilliseconds), RetryCount),
                 onRetry: (result, ts, retryAttempt, context) =>
                 {
-                    Interlocked.Increment(ref _totalRetries);
+                    Interlocked.Increment(ref _cumulativeRetries);
+
+                    context["Retries"] = retryAttempt;
 
                     var logger = context["Logger"] as ILog;
 
                     if (logger?.IsWarnEnabled == true)
                     {
                         logger.Warn(
-                            $"Deadlock exception encountered during '{context["EntityTypeName"]}' entity persistence. Retrying transaction (attempt #{retryAttempt + 1} of {RetryCount + 1} after {ts.TotalMilliseconds:N0}ms). {_totalRetries} total retries...");
+                            $"Deadlock exception encountered during '{context["EntityTypeName"]}' entity persistence. Retrying transaction (with attempt #{retryAttempt + 1} overall of {RetryCount + 1} total in {ts.TotalMilliseconds:N0}ms). (Cumulative total retries: {_cumulativeRetries})...");
                     }
                 });
     }
@@ -47,7 +49,7 @@ public static class DeadlockPolicyHelper
     /// </summary>
     /// <param name="exception">The exception of the pipeline execution call.</param>
     /// <returns><b>true</b> if the result should be handled by the retry policy; otherwise <b>false</b>.</returns>
-    private static bool ShouldRetry(Exception exception)
+    private static bool IsDeadlockError(Exception exception)
     {
         // Exit quickly if no exception is present (no retries necessary)
         if (exception == null)
@@ -56,13 +58,13 @@ public static class DeadlockPolicyHelper
         }
         
         // SQL Server deadlock detection
-        if ((exception.InnerException as SqlException)?.Message?.Contains("deadlocked") == true)
+        if (exception.InnerException is SqlException { Number: 1205 })
         {
             return true;
         }
 
         // PostgreSQL deadlock detection
-        if ((exception.InnerException as PostgresException)?.Message?.Contains("deadlock") == true)
+        if (exception.InnerException is PostgresException { SqlState: PostgresErrorCodes.DeadlockDetected })
         {
             return true;
         }

@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,6 +39,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     await Session.LockAsync(persistentEntity, LockMode.None, cancellationToken).ConfigureAwait(false);
                 }
 
+                // Save the incoming entity
+                var retryContext = new Dictionary<string, object>(_retryPolicyContextData);
+
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
@@ -47,6 +49,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         {
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
                             await trans.CommitAsync(cancellationToken);
+                        }
+                        
+                        if (retryContext.TryGetValue("Retries", out object retryCount))
+                        {
+                            _logger.Info($"Update of '{typeof(TEntity).Name}' succeeded after {retryCount} retries...");
                         }
                     },
                     _retryPolicyContextData);
