@@ -156,11 +156,9 @@ function Pack {
         $params = @{
             PackageDefinitionFile = $NuspecFilePath
             Version               = $version
-            Properties            = @{
-                configuration = $Configuration
-                id = $PackageName
-            }
+            PackageId             = $PackageName
             OutputDirectory       = $packageOutput
+            BuildConfiguration    = $Configuration
         }
 
         & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
