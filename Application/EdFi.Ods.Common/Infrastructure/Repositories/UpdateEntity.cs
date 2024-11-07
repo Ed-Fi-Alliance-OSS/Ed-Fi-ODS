@@ -40,20 +40,26 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 // Save the incoming entity
-                var retryContext = new Dictionary<string, object>(_retryPolicyContextData);
-
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
+                        bool isRetry = false;
+                        
+                        if (ctx.TryGetValue("Retries", out object retryCount))
+                        {
+                            isRetry = true;
+                            _logger.Info($"Retry #{retryCount}: Retrying update of '{typeof(TEntity).Name}'...");
+                        }
+
                         using (ITransaction trans = Session.BeginTransaction())
                         {
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
                             await trans.CommitAsync(cancellationToken);
                         }
                         
-                        if (retryContext.TryGetValue("Retries", out object retryCount))
+                        if (isRetry)
                         {
-                            _logger.Info($"Update of '{typeof(TEntity).Name}' succeeded after {retryCount} retries...");
+                            _logger.Info($"Retry #{retryCount}: Successfully updated '{typeof(TEntity).Name}' after {retryCount} retries...");
                         }
                     },
                     _retryPolicyContextData);
