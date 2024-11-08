@@ -21,6 +21,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Serialization;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -29,6 +30,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
+        private readonly Lazy<ILog> _logger;
 
         public GetEntityByKey(
             ISessionFactory sessionFactory,
@@ -40,6 +43,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+
+            _logger = new Lazy<ILog>(() => LogManager.GetLogger(GetType()));
         }
 
         /// <summary>

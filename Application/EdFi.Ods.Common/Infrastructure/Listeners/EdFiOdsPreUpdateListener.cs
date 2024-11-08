@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
@@ -42,16 +43,17 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
                 {
                     var persister = @event.Persister;
 
-                    // Update the entity with the last modified date before serializing
-                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                    aggregateRoot.LastModifiedDate = lastModifiedDate;
+                    // Get the established current date/time from context for absolute date/time consistency within the aggregate
+                    DateTime currentDateTime = (DateTime) (CallContext.GetData("CurrentDateTime") ?? DateTime.UtcNow);
 
-                    // Produce the serialized data
+                    // Update the entity (and state for persistence) with the same LastModifiedDate before serializing
+                    aggregateRoot.LastModifiedDate = currentDateTime;
+                    persister.Set(@event.State, ColumnNames.LastModifiedDate, currentDateTime);
+
+                    // Produce the serialized data and update the persistence state
                     var aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
                     aggregateRoot.AggregateData = aggregateData;
-
-                    // Update the state
-                    persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
+                    persister.Set(@event.State, ColumnNames.AggregateData, aggregateData);
 
                     if (_logger.IsDebugEnabled)
                     {

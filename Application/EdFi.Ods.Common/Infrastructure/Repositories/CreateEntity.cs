@@ -106,6 +106,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // New GUID identifiers are assigned by the NHibernate IPreInsertEventListener implementation
                 }
 
+                // Save the current date/time to context for absolute date/time consistency within the aggregate
+                CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
+
                 // Save the incoming entity
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>

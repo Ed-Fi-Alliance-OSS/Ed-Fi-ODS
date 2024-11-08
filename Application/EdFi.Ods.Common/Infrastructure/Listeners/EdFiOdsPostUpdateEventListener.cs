@@ -111,7 +111,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 newKeyValues);
 
             // Execute the update of the primary key
-            await query.ExecuteUpdateAsync();
+            await query.ExecuteUpdateAsync(cancellationToken).ConfigureAwait(false);
 
             void ApplyNewKeyValuesToEntity()
             {

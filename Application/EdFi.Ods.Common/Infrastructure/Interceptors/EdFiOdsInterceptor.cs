@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common.Models.Domain;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Interceptors
@@ -12,6 +13,13 @@ namespace EdFi.Ods.Common.Infrastructure.Interceptors
     {
         public override bool? IsTransient(object entity)
         {
+            // New implementation -- avoid reflection if possible
+            if (entity is DomainObjectBase domainObject)
+            {
+                return domainObject.CreateDate == default;
+            }
+
+            // Fallback legacy logic (kept intact here, just in case)
             var property = entity.GetType().GetProperty("CreateDate");
 
             if (property != null)

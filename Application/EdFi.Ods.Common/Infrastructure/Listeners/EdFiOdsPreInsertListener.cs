@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
@@ -36,8 +37,11 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
         {
             var persister = @event.Persister;
 
-            DateTime createDate = DateTime.UtcNow;
-            persister.Set(@event.State, ColumnNames.CreateDate, createDate);
+            // Get the established current date/time from context for absolute date/time consistency within the aggregate
+            DateTime currentDateTime = (DateTime) (CallContext.GetData("CurrentDateTime") ?? DateTime.UtcNow);
+            
+            // Set the CreateDate persistence state
+            persister.Set(@event.State, ColumnNames.CreateDate, currentDateTime);
 
             if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
@@ -61,20 +65,32 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 {
                     try
                     {
-                        var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                        aggregateRoot.LastModifiedDate = lastModifiedDate;
-                        aggregateRoot.CreateDate = createDate;
+                        // Set additional properties on entity so that they're reflected in serialized data
+                        aggregateRoot.CreateDate = currentDateTime;
 
-                        // Produce the serialized data
-                        var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
-                        aggregateRoot.AggregateData = resourceData;
+                        // Set the LastModifiedDate explicitly
+                        aggregateRoot.LastModifiedDate = currentDateTime;
+                        persister.Set(@event.State, ColumnNames.LastModifiedDate, currentDateTime);
 
-                        // Update the state
-                        persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
-
-                        if (_logger.IsDebugEnabled)
+                        try
                         {
-                            _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                            // Produce the serialized data
+                            var resourceData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
+                            aggregateRoot.AggregateData = resourceData;
+
+                            // Update the state with serialized aggregate data
+                            persister.Set(@event.State, ColumnNames.AggregateData, aggregateRoot.AggregateData);
+
+                            if (_logger.IsDebugEnabled)
+                            {
+                                _logger.Debug($"MessagePack bytes for updated entity: {resourceData.Length:N0}");
+                            }
+                        }
+                        finally
+                        {
+                            // Clear CreateDate property to default value so that entity appears transient until PostInsertListener event
+                            aggregateRoot.CreateDate = default;
+                            aggregateRoot.LastModifiedDate = default;
                         }
                     }
                     catch (Exception ex)
