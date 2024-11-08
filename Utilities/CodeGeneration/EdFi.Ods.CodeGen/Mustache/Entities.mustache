@@ -290,7 +290,7 @@ namespace {{AggregateNamespace}}
                 // -------------------------------------------------------------
                 if (_{{EmbeddedObjectPropertyNameCamelCase}} is DeserializedPersistentGenericSet<{{AggregateNamespacePrefix}}{{OtherClassName}}> set)
                 {
-                    set.Reattach(this, "{{EmbeddedObjectPropertyName}}");
+                    set.Reattach(this, "{{OtherClassName}}");
                 }
 
                 foreach (var item in _{{EmbeddedObjectPropertyNameCamelCase}})

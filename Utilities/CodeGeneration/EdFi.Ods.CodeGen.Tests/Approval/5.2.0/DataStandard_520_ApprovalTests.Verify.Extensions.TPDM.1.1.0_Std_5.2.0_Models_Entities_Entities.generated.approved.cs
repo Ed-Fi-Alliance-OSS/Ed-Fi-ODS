@@ -12524,7 +12524,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 // -------------------------------------------------------------
                 if (_evaluationRatingReviewerReceivedTrainingPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> set)
                 {
-                    set.Reattach(this, "EvaluationRatingReviewerReceivedTrainingPersistentList");
+                    set.Reattach(this, "EvaluationRatingReviewerReceivedTraining");
                 }
 
                 foreach (var item in _evaluationRatingReviewerReceivedTrainingPersistentList)
@@ -16142,7 +16142,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 // -------------------------------------------------------------
                 if (_performanceEvaluationRatingReviewerReceivedTrainingPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> set)
                 {
-                    set.Reattach(this, "PerformanceEvaluationRatingReviewerReceivedTrainingPersistentList");
+                    set.Reattach(this, "PerformanceEvaluationRatingReviewerReceivedTraining");
                 }
 
                 foreach (var item in _performanceEvaluationRatingReviewerReceivedTrainingPersistentList)

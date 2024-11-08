@@ -7383,7 +7383,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 // -------------------------------------------------------------
                 if (_studentArtProgramAssociationFavoriteBookPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> set)
                 {
-                    set.Reattach(this, "StudentArtProgramAssociationFavoriteBookPersistentList");
+                    set.Reattach(this, "StudentArtProgramAssociationFavoriteBook");
                 }
 
                 foreach (var item in _studentArtProgramAssociationFavoriteBookPersistentList)
@@ -12118,7 +12118,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 // -------------------------------------------------------------
                 if (_studentGraduationPlanAssociationCTEProgramServicePersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> set)
                 {
-                    set.Reattach(this, "StudentGraduationPlanAssociationCTEProgramServicePersistentList");
+                    set.Reattach(this, "StudentGraduationPlanAssociationCTEProgramService");
                 }
 
                 foreach (var item in _studentGraduationPlanAssociationCTEProgramServicePersistentList)

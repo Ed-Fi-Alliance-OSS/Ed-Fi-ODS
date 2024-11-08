@@ -1162,7 +1162,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 // -------------------------------------------------------------
                 if (_schoolAddressPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> set)
                 {
-                    set.Reattach(this, "SchoolAddressPersistentList");
+                    set.Reattach(this, "SchoolAddress");
                 }
 
                 foreach (var item in _schoolAddressPersistentList)
@@ -2605,7 +2605,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 // -------------------------------------------------------------
                 if (_studentAddressPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> set)
                 {
-                    set.Reattach(this, "StudentAddressPersistentList");
+                    set.Reattach(this, "StudentAddress");
                 }
 
                 foreach (var item in _studentAddressPersistentList)
