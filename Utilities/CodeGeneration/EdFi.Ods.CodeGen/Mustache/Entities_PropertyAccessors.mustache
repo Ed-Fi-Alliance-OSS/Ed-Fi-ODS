@@ -79,7 +79,7 @@
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
 
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        [IgnoreMember]
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{UniqueIdPropertyName}}
         {
             get

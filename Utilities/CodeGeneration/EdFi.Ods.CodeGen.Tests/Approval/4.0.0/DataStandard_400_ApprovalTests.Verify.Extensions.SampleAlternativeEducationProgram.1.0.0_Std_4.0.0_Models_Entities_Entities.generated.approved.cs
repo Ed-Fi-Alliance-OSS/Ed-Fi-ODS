@@ -306,7 +306,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(21)]
+        [IgnoreMember]
         public override string StudentUniqueId
         {
             get
@@ -355,7 +355,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(22)]
+        [Key(20)]
         public virtual int AlternativeEducationEligibilityReasonDescriptorId 
         {
             get
@@ -414,7 +414,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 
         private ICollection<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime> _studentAlternativeEducationProgramAssociationMeetingTimes;
         private ICollection<Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociationMeetingTime> _studentAlternativeEducationProgramAssociationMeetingTimesCovariant;
-        [Key(23)]
+        [Key(21)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime>))]
         public virtual ICollection<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime> StudentAlternativeEducationProgramAssociationMeetingTimes
         {

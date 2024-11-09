@@ -706,7 +706,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         private int? _staffUSI;
         private string _staffUniqueId;
 
-        [Key(20)]
+        [IgnoreMember]
         public virtual string StaffUniqueId
         {
             get
@@ -730,7 +730,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 _staffUniqueId = value;
             }
         }
-        [Key(21)]
+        [Key(20)]
         public virtual DateTime? StartDate 
         {
             get { return _startDate; }
@@ -750,7 +750,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _startDate;
         
-        [Key(22)]
+        [Key(21)]
         public virtual decimal? WeeklyMileage  { get; set; }
         // -------------------------------------------------------------
 
@@ -767,7 +767,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(23)]
+        [Key(22)]
         public virtual NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData StaffEducationOrganizationAssignmentAssociationReferenceData { get; set; }
 
         /// <summary>
@@ -796,7 +796,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> _busRouteBusYears;
         private ICollection<Entities.Common.Sample.IBusRouteBusYear> _busRouteBusYearsCovariant;
-        [Key(24)]
+        [Key(23)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear> BusRouteBusYears
         {
@@ -850,7 +850,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> _busRoutePrograms;
         private ICollection<Entities.Common.Sample.IBusRouteProgram> _busRouteProgramsCovariant;
-        [Key(25)]
+        [Key(24)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram> BusRoutePrograms
         {
@@ -904,7 +904,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodes;
         private ICollection<Entities.Common.Sample.IBusRouteServiceAreaPostalCode> _busRouteServiceAreaPostalCodesCovariant;
-        [Key(26)]
+        [Key(25)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode> BusRouteServiceAreaPostalCodes
         {
@@ -958,7 +958,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> _busRouteStartTimes;
         private ICollection<Entities.Common.Sample.IBusRouteStartTime> _busRouteStartTimesCovariant;
-        [Key(27)]
+        [Key(26)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime> BusRouteStartTimes
         {
@@ -1012,7 +1012,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> _busRouteTelephones;
         private ICollection<Entities.Common.Sample.IBusRouteTelephone> _busRouteTelephonesCovariant;
-        [Key(28)]
+        [Key(27)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone>))]
         public virtual ICollection<Entities.NHibernate.BusRouteAggregate.Sample.BusRouteTelephone> BusRouteTelephones
         {
@@ -3457,7 +3457,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(7)]
+        [IgnoreMember]
         public virtual string StudentUniqueId
         {
             get
@@ -3506,7 +3506,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(8)]
+        [Key(7)]
         public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData StudentProgramAssociationReferenceData { get; set; }
 
         /// <summary>
@@ -7239,7 +7239,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(20)]
+        [IgnoreMember]
         public override string StudentUniqueId
         {
             get
@@ -7288,9 +7288,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(21)]
+        [Key(19)]
         public virtual int? ArtPieces  { get; set; }
-        [Key(22)]
+        [Key(20)]
         public virtual DateTime? ExhibitDate 
         {
             get { return _exhibitDate; }
@@ -7310,23 +7310,23 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private DateTime? _exhibitDate;
         
-        [Key(23)]
+        [Key(21)]
         public virtual decimal? HoursPerDay  { get; set; }
-        [Key(24)]
+        [Key(22)]
         public virtual string IdentificationCode  { get; set; }
-        [Key(25)]
+        [Key(23)]
         public virtual TimeSpan? KilnReservation  { get; set; }
-        [Key(26)]
+        [Key(24)]
         public virtual string KilnReservationLength  { get; set; }
-        [Key(27)]
+        [Key(25)]
         public virtual decimal? MasteredMediums  { get; set; }
-        [Key(28)]
+        [Key(26)]
         public virtual decimal? NumberOfDaysInAttendance  { get; set; }
-        [Key(29)]
+        [Key(27)]
         public virtual int? PortfolioPieces  { get; set; }
-        [Key(30)]
+        [Key(28)]
         public virtual bool PrivateArtProgram  { get; set; }
-        [Key(31)]
+        [Key(29)]
         public virtual decimal? ProgramFees  { get; set; }
         // -------------------------------------------------------------
 
@@ -7370,7 +7370,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> _studentArtProgramAssociationFavoriteBookPersistentList;
 
-        [Key(32)]
+        [Key(30)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook>))]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationFavoriteBook> StudentArtProgramAssociationFavoriteBookPersistentList
         {
@@ -7417,7 +7417,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMedia;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium> _studentArtProgramAssociationArtMediaCovariant;
-        [Key(33)]
+        [Key(31)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium>))]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationArtMedium> StudentArtProgramAssociationArtMedia
         {
@@ -7471,7 +7471,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYears;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears> _studentArtProgramAssociationPortfolioYearsCovariant;
-        [Key(34)]
+        [Key(32)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears>))]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationPortfolioYears> StudentArtProgramAssociationPortfolioYears
         {
@@ -7525,7 +7525,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> _studentArtProgramAssociationServices;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationService> _studentArtProgramAssociationServicesCovariant;
-        [Key(35)]
+        [Key(33)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService>))]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationService> StudentArtProgramAssociationServices
         {
@@ -7579,7 +7579,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> _studentArtProgramAssociationStyles;
         private ICollection<Entities.Common.Sample.IStudentArtProgramAssociationStyle> _studentArtProgramAssociationStylesCovariant;
-        [Key(36)]
+        [Key(34)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle>))]
         public virtual ICollection<Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociationStyle> StudentArtProgramAssociationStyles
         {
@@ -9734,7 +9734,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         private int _staffUSI;
         private string _staffUniqueId;
 
-        [Key(5)]
+        [IgnoreMember]
         public virtual string StaffUniqueId
         {
             get
@@ -9783,7 +9783,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(6)]
+        [Key(5)]
         public virtual NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData StaffEducationOrganizationEmploymentAssociationReferenceData { get; set; }
 
         /// <summary>
@@ -11951,7 +11951,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(10)]
+        [IgnoreMember]
         public virtual string StudentUniqueId
         {
             get
@@ -11985,9 +11985,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(11)]
+        [Key(10)]
         public virtual TimeSpan? CommencementTime  { get; set; }
-        [Key(12)]
+        [Key(11)]
         public virtual DateTime EffectiveDate 
         {
             get { return _effectiveDate; }
@@ -11997,17 +11997,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private DateTime _effectiveDate;
         
-        [Key(13)]
+        [Key(12)]
         public virtual decimal? GraduationFee  { get; set; }
-        [Key(14)]
+        [Key(13)]
         public virtual string HighSchoolDuration  { get; set; }
-        [Key(15)]
+        [Key(14)]
         public virtual decimal HoursPerWeek  { get; set; }
-        [Key(16)]
+        [Key(15)]
         public virtual bool? IsActivePlan  { get; set; }
-        [Key(17)]
+        [Key(16)]
         public virtual decimal? RequiredAttendance  { get; set; }
-        [Key(18)]
+        [Key(17)]
         public virtual int? StaffUSI 
         {
             get
@@ -12037,7 +12037,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private int? _staffUSI;
         private string _staffUniqueId;
 
-        [Key(19)]
+        [IgnoreMember]
         public virtual string StaffUniqueId
         {
             get
@@ -12061,7 +12061,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _staffUniqueId = value;
             }
         }
-        [Key(20)]
+        [Key(18)]
         public virtual decimal TargetGPA  { get; set; }
         // -------------------------------------------------------------
 
@@ -12105,7 +12105,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> _studentGraduationPlanAssociationCTEProgramServicePersistentList;
 
-        [Key(21)]
+        [Key(19)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> StudentGraduationPlanAssociationCTEProgramServicePersistentList
         {
@@ -12144,7 +12144,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(22)]
+        [Key(20)]
         public virtual NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData GraduationPlanReferenceData { get; set; }
 
         /// <summary>
@@ -12165,7 +12165,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { }
         }
 
-        [Key(23)]
+        [Key(21)]
         public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData { get; set; }
 
         /// <summary>
@@ -12186,7 +12186,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { }
         }
 
-        [Key(24)]
+        [Key(22)]
         public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData { get; set; }
 
         /// <summary>
@@ -12215,7 +12215,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjects;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject> _studentGraduationPlanAssociationAcademicSubjectsCovariant;
-        [Key(25)]
+        [Key(23)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject> StudentGraduationPlanAssociationAcademicSubjects
         {
@@ -12269,7 +12269,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodes;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode> _studentGraduationPlanAssociationCareerPathwayCodesCovariant;
-        [Key(26)]
+        [Key(24)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode> StudentGraduationPlanAssociationCareerPathwayCodes
         {
@@ -12323,7 +12323,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptions;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription> _studentGraduationPlanAssociationDescriptionsCovariant;
-        [Key(27)]
+        [Key(25)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription> StudentGraduationPlanAssociationDescriptions
         {
@@ -12377,7 +12377,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBies;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy> _studentGraduationPlanAssociationDesignatedBiesCovariant;
-        [Key(28)]
+        [Key(26)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy> StudentGraduationPlanAssociationDesignatedBies
         {
@@ -12431,7 +12431,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentials;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential> _studentGraduationPlanAssociationIndustryCredentialsCovariant;
-        [Key(29)]
+        [Key(27)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential> StudentGraduationPlanAssociationIndustryCredentials
         {
@@ -12485,7 +12485,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentContactAssociation> _studentGraduationPlanAssociationStudentContactAssociations;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentContactAssociation> _studentGraduationPlanAssociationStudentContactAssociationsCovariant;
-        [Key(30)]
+        [Key(28)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentContactAssociation>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentContactAssociation> StudentGraduationPlanAssociationStudentContactAssociations
         {
@@ -12539,7 +12539,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendeds;
         private ICollection<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended> _studentGraduationPlanAssociationYearsAttendedsCovariant;
-        [Key(31)]
+        [Key(29)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationYearsAttended> StudentGraduationPlanAssociationYearsAttendeds
         {
@@ -13829,7 +13829,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         private int _contactUSI;
         private string _contactUniqueId;
 
-        [Key(2)]
+        [IgnoreMember]
         public virtual string ContactUniqueId
         {
             get
@@ -13878,7 +13878,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(3)]
+        [Key(2)]
         public virtual NHibernate.StudentContactAssociationAggregate.EdFi.StudentContactAssociationReferenceData StudentContactAssociationReferenceData { get; set; }
 
         /// <summary>

@@ -5441,7 +5441,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(4)]
+        [IgnoreMember]
         public virtual string StudentUniqueId
         {
             get
@@ -5466,7 +5466,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             }
         }
         [DomainSignature]
-        [Key(5)]
+        [Key(4)]
         public virtual int TermDescriptorId 
         {
             get
@@ -5527,7 +5527,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(6)]
+        [Key(5)]
         public virtual NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData StudentAcademicRecordReferenceData { get; set; }
 
         /// <summary>
@@ -13585,7 +13585,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         private int _studentUSI;
         private string _studentUniqueId;
 
-        [Key(9)]
+        [IgnoreMember]
         public virtual string StudentUniqueId
         {
             get
@@ -13619,11 +13619,11 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(10)]
+        [Key(9)]
         public virtual decimal? AidAmount  { get; set; }
-        [Key(11)]
+        [Key(10)]
         public virtual string AidConditionDescription  { get; set; }
-        [Key(12)]
+        [Key(11)]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -13643,7 +13643,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 
         private DateTime? _endDate;
         
-        [Key(13)]
+        [Key(12)]
         public virtual bool? PellGrantRecipient  { get; set; }
         // -------------------------------------------------------------
 
@@ -13660,7 +13660,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(14)]
+        [Key(13)]
         public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData { get; set; }
 
         /// <summary>
