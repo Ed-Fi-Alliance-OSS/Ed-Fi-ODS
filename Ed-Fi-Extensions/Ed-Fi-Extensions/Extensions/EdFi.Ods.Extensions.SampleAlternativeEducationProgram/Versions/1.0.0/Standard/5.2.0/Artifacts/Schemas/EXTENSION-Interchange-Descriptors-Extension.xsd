@@ -220,9 +220,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="TribalAffiliationDescriptor" type="TribalAffiliationDescriptor" />
         <xs:element name="VisaDescriptor" type="VisaDescriptor" />
         <xs:element name="WeaponDescriptor" type="WeaponDescriptor" />
-        <xs:element name="ArtMediumDescriptor" type="EXTENSION-ArtMediumDescriptor" />
-        <xs:element name="FavoriteBookCategoryDescriptor" type="EXTENSION-FavoriteBookCategoryDescriptor" />
-        <xs:element name="MembershipTypeDescriptor" type="EXTENSION-MembershipTypeDescriptor" />
+        <xs:element name="AlternativeEducationEligibilityReasonDescriptor" type="EXTENSION-AlternativeEducationEligibilityReasonDescriptor" />
       </xs:choice>
     </xs:complexType>
   </xs:element>
