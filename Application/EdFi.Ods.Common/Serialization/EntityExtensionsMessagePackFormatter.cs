@@ -5,12 +5,15 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using MessagePack;
 using MessagePack.Formatters;
 
@@ -63,6 +66,8 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
         }
     }
 
+    private static ConcurrentDictionary<string, Type> _implicitExtensionEntityTypeByClassTypeName = new();
+
     public IDictionary Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
         if (reader.TryReadNil())
@@ -83,8 +88,35 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
             string extensionClassTypeName = Namespaces.Entities.NHibernate.GetAggregateNamespace(_aggregateName, matchingExtension, isExtensionEntity: true) 
                 + $".{_entityName}Extension";
 
+            // Get the system type using NHibernate (works for all mapped classes)
             Type extensionObjectType = GeneratedArtifactStaticDependencies.SessionFactory.GetClassMetadata(extensionClassTypeName)
-                .MappedClass;
+                ?.MappedClass;
+
+            // Are we dealing with an implicit entity extension?
+            if (extensionObjectType == null)
+            {
+                // This indicates the extension type is an implicit entity extension (there's no mapped entity because it has
+                // no underlying table because it has no columns/properties)
+                extensionObjectType = _implicitExtensionEntityTypeByClassTypeName.GetOrAdd(
+                    extensionClassTypeName,
+                    (tn, args) =>
+                    {
+                        if (!GeneratedArtifactStaticDependencies.DomainModelProvider.GetDomainModel()
+                                .EntityByFullName.TryGetValue(
+                                    new FullName(EdFiConventions.PhysicalSchemaName, args._entityName),
+                                    out var entity))
+                        {
+                            throw new Exception($"Could not find entity '{EdFiConventions.PhysicalSchemaName}.{args._entityName}'.");
+                        }
+
+                        var standardType = (Type) (entity as dynamic).NHibernateEntityType;
+                        
+                        string fullTypeName = ExtensionsConventions.GetExtensionClassAssemblyQualifiedName(standardType, args.extensionName);
+
+                        return Type.GetType(fullTypeName);
+                    },
+                    (_aggregateName, _entityName, extensionName));
+            }
 
             // Wrap the standard collection in a GenericPersistentSet<T> compatible with NHibernate
             // TODO: ODS-6551 - Optimize, create dictionary containing generic method by type

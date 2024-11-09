@@ -3,9 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using log4net;
@@ -33,11 +35,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         {
             using (new SessionScope(SessionFactory))
             {
-                // If the persistent entity is detached (deserialized from root record), attach it now 
-                if (!Session.Contains(persistentEntity))
-                {
-                    await Session.LockAsync(persistentEntity, LockMode.None, cancellationToken).ConfigureAwait(false);
-                }
+                // Save the current date/time to context for absolute date/time consistency within the aggregate
+                CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
 
                 // Save the incoming entity
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
@@ -63,6 +62,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         }
                     },
                     _retryPolicyContextData);
+                
+                // Clear the contextual current date/time explicitly
+                CallContext.SetData("CurrentDateTime", null);
             }
         }
     }

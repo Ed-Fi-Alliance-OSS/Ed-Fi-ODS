@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using Autofac.Features.Indexed;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Infrastructure.Repositories;
@@ -31,20 +34,24 @@ namespace EdFi.Ods.Common.Providers.Queries
         private readonly Dialect _dialect;
         private readonly DatabaseEngine _databaseEngine;
 
-        private readonly ConcurrentDictionary<ulong, QueryBuilder> _queryBuilderByEntity = new(); 
+        private readonly ConcurrentDictionary<ulong, QueryBuilder> _queryBuilderByEntity = new();
+        private readonly bool _serializationEnabled;
 
         public PagedAggregateIdsQueryBuilderProvider(
             IIndex<PagingStrategy, IPagingStrategy> pagingStrategies,
             IAggregateRootQueryCriteriaApplicator[] additionalParametersCriteriaApplicator,
             ISessionFactory sessionFactory, 
             Dialect dialect,
-            DatabaseEngine databaseEngine)
+            DatabaseEngine databaseEngine,
+            ApiSettings apiSettings)
             : base(sessionFactory)
         {
             _pagingStrategies = pagingStrategies;
             _additionalParametersCriteriaApplicator = additionalParametersCriteriaApplicator;
             _dialect = dialect;
             _databaseEngine = databaseEngine;
+
+            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
         }
 
         /// <summary>
@@ -92,7 +99,7 @@ namespace EdFi.Ods.Common.Providers.Queries
                 queryHash,
                 static (hash, args) =>
                 {
-                    var (dialect, databaseEngine, aggregateRootEntity, pagingParameters, pagingStrategy) = args;
+                    var (dialect, databaseEngine, aggregateRootEntity, pagingParameters, pagingStrategy, serializationEnabled) = args;
 
                     var idQueryBuilder = new QueryBuilder(dialect);
 
@@ -105,7 +112,14 @@ namespace EdFi.Ods.Common.Providers.Queries
 
                     idQueryBuilder
                         .From(schemaTableName.Alias("r"))
-                        .Select($"{rootTableAlias}.AggregateId");
+                        .Select($"{rootTableAlias}.{ColumnNames.AggregateId}");
+                    
+                    if (serializationEnabled)
+                    {
+                        idQueryBuilder
+                            .Select($"{rootTableAlias}.{ColumnNames.AggregateData}")
+                            .Select($"{rootTableAlias}.{ColumnNames.LastModifiedDate}");
+                    }
 
                     // NOTE: Optimization opportunity - th ederived entity may not be needed unless there is criteria to be applied that uses the derived type.
                     // This would eliminate a join with every page. Will need to include Discriminator value in join in lieu of join to base.
@@ -135,7 +149,7 @@ namespace EdFi.Ods.Common.Providers.Queries
 
                     return idQueryBuilder;
                 },
-                (_dialect, _databaseEngine, aggregateRootEntity, pagingParameters, pagingStrategy));
+                (_dialect, _databaseEngine, aggregateRootEntity, pagingParameters, pagingStrategy, _serializationEnabled));
 
             var idQueryBuilder = cloneableQuery.Clone();
             pagingStrategy.ApplyPagingParameters(idQueryBuilder.Parameters, pagingParameters);

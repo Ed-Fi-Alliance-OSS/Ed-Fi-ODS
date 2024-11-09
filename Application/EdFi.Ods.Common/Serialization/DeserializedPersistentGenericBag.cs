@@ -77,16 +77,21 @@ public class DeserializedPersistentGenericBag<T> : PersistentGenericBag<T>, IDes
         {
             var persisters = GetPersisters(parent, $"Extensions.{schemaName}");
 
-            var id = persisters.EntityPersister.GetIdentifier(parent);
-            var snapshot = GetSnapshot(persisters.CollectionPersister);
+            // Don't process implicit entity extensions, for which the collection persister will be null
+            if (persisters.CollectionPersister != null)
+            {
+                var id = persisters.EntityPersister.GetIdentifier(parent);
+                var snapshot = GetSnapshot(persisters.CollectionPersister);
 
+                Owner = parent;
+                SetSnapshot(id, persisters.Role, snapshot);
+            }
+
+            // Set the back-reference for each item in the collection
             foreach (IChildEntity item in this)
             {
                 item.SetParent(parent);
             }
-
-            Owner = parent;
-            SetSnapshot(id, persisters.Role, snapshot);
         }
     }
 
@@ -119,7 +124,15 @@ public class DeserializedPersistentGenericBag<T> : PersistentGenericBag<T>, IDes
                 var entityPersister = args.sessionFactory.GetEntityPersister(parentTypeName);
 
                 var role = $"{parentTypeName}.{args.collectionPropertyName}";
-                var collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+
+                ICollectionPersister collectionPersister = null;
+
+                try
+                {
+                    collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                }
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch { }
 
                 return new Persisters()
                 {

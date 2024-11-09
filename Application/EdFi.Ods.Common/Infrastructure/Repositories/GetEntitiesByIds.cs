@@ -74,7 +74,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // If we have data and LastModifiedDate on record is the same as the serialized data, use it
                     if (item.AggregateData != null && item.LastModifiedDate == item.AggregateData.ReadLastModifiedDate())
                     {
+                        // Deserialize the entity
                         var entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(item.AggregateData);
+
+                        // Add the entity to the current session and, importantly, snapshot it.
+                        await scope.Session.LockAsync(entity, LockMode.None, cancellationToken).ConfigureAwait(false);
+
                         return [entity];
                     }
                 }

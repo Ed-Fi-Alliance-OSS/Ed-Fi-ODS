@@ -30,6 +30,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly ISurrogateKeyResolver[] _surrogateKeyResolvers;
 
         private readonly Lazy<ILog> _logger;
 
@@ -39,10 +40,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             ApiSettings apiSettings,
             Dialect dialect,
-            DatabaseEngine databaseEngine)
+            DatabaseEngine databaseEngine,
+            ISurrogateKeyResolver[] surrogateKeyResolvers)
             : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _surrogateKeyResolvers = surrogateKeyResolvers;
 
             _logger = new Lazy<ILog>(() => LogManager.GetLogger(GetType()));
         }
@@ -71,6 +74,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Go try to get the existing entity
                 var compositeKeyValues = entityWithKeyValues.GetPrimaryKeyValues();
 
+                var resource = _dataManagementResourceContextProvider.Get()?.Resource;
+
                 if (ShouldTryLoadByCompositePrimaryKey())
                 {
                     // Only look up by composite key if "Id" is not considered part of the "DomainSignature"
@@ -79,7 +84,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         // Use optimized load only if serialization feature enabled
                         if (SerializationEnabled)
                         {
-                            var item = await GetItemData(compositeKeyValues, scope);
+                            var item = await GetItemData(resource?.Entity, compositeKeyValues, scope);
 
                             // Could not find the item
                             if (item == null)
@@ -90,7 +95,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             // Were we able to deserialize it?
                             if (item.Entity != null)
                             {
-                                await scope.Session.LockAsync(item.Entity, LockMode.None, cancellationToken);
                                 return item.Entity;
                             }
                         }
@@ -122,7 +126,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 {
                     if (SerializationEnabled)
                     {
-                        var item = await GetItemData(alternateKeyValues, scope, isDefinedOnBaseType);
+                        var item = await GetItemData(resource?.Entity, alternateKeyValues, scope, isDefinedOnBaseType);
 
                         // Could not find the item
                         if (item == null)
@@ -152,7 +156,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         return true;
                     }
 
-                    var resource = _dataManagementResourceContextProvider.Get()?.Resource;
                     var identifier = resource?.Entity?.Identifier;
 
                     // If the entity doesn't have a surrogate key, proceed with load by primary key
@@ -183,6 +186,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             }
 
             async Task<ItemData<TEntity>> GetItemData(
+                Entity entity,
                 OrderedDictionary compositeKeyValues,
                 SessionScope scope,
                 bool isDefinedOnBaseType = false)
@@ -209,7 +213,27 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // If we have data and LastModifiedDate on record is the same as the serialized data, deserialize the entity
                 if (item?.AggregateData != null && item.LastModifiedDate == item.AggregateData.ReadLastModifiedDate())
                 {
-                    item.Entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(item.AggregateData);
+                    // Deserialize the entity
+                    var deserializedInstance = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(item.AggregateData);
+
+                    // If the entity has a surrogate key
+                    var surrogateKeyCheckEntity = entity?.IsDerived == true ? entity.BaseEntity : entity;
+
+                    if (surrogateKeyCheckEntity?.Identifier.IsSurrogateIdentifier() == true)
+                    {
+                        foreach (var surrogateKeyResolver in _surrogateKeyResolvers)
+                        {
+                            if (await surrogateKeyResolver.TryResolveKeyAsync(entity, deserializedInstance))
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    // Add the entity to the current session and, importantly, snapshot it.
+                    await scope.Session.LockAsync(deserializedInstance, LockMode.None, cancellationToken).ConfigureAwait(false);
+
+                    item.Entity = deserializedInstance;
                 }
 
                 return item;

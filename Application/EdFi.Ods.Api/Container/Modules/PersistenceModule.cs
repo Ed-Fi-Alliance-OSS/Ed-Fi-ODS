@@ -176,6 +176,15 @@ namespace EdFi.Ods.Api.Container.Modules
 
             RegisterPersonIdentifierCaching(builder);
 
+            // Register surrogate key resolvers (for deserialization support)
+            builder.RegisterType<StudentSurrogateKeyResolver>()
+                .As<ISurrogateKeyResolver>()
+                .SingleInstance();
+
+            builder.RegisterType<DescriptorSurrogateKeyResolver>()
+                .As<ISurrogateKeyResolver>()
+                .SingleInstance();
+
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
                 .As<IOrmMappingFileDataProvider>()

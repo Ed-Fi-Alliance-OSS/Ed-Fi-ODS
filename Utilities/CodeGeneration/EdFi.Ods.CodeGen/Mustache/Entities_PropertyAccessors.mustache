@@ -70,6 +70,10 @@
         private {{CSharpDeclaredType}} {{UsiFieldName}};
     {{#IsPersonEntity}}
         string IIdentifiablePerson.UniqueId { get { return {{UniqueIdPropertyName}}; } }
+        
+        // Supports deserialization of entities that don't have surrogate id available after creation
+        void IPersonUsiMutator.SetUsi(int newValue) => {{UsiFieldName}} = newValue;
+        int IPersonUsiMutator.GetUsi() => {{UsiFieldName}};
 
     {{/IsPersonEntity}}
     {{^IsPersonEntity}}

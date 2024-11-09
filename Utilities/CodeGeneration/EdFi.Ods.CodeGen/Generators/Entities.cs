@@ -177,6 +177,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     IsAbstract = entity.IsAbstractRequiringNoCompositeId(),
                     entity.IsDerived,
                     IsDescriptor = entity.IsDescriptorEntity,
+                    IsPersonEntity = entity.IsPersonEntity(),
                     context.IsConcreteEntityBaseClass,
                     context.IsConcreteEntityChildClassForBase,
                     IsDerivedExtensionEntityOfConcreteBase = entity.IsDerived
@@ -577,7 +578,6 @@ namespace EdFi.Ods.CodeGen.Generators
                                  UniqueIdPropertyName = p.PropertyName.ReplaceSuffix("USI", "UniqueId"), UniqueIdFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("USI", "UniqueId")
                                             .ToCamelCase(),
-                                 IsPersonEntity = entity.IsPersonEntity()
                              }
                            : _notRendered,
                        UniqueIdProperty = IsUniqueIdPropertyOnPersonEntity(entity, p)

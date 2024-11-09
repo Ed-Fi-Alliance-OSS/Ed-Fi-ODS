@@ -41,7 +41,7 @@
         // -------------------------------------------------------------
         {{#OneToOnes}}
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        [IgnoreMember]
         public {{OtherClassName}} {{OtherClassName}}
         {
             get { return ({{OtherClassName}}) (this as I{{ClassName}}).{{OtherClassName}};  }

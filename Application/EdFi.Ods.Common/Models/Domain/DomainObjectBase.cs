@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EdFi.Ods.Common.Context;
 using MessagePack;
 using Newtonsoft.Json.Linq;
 
@@ -27,11 +28,35 @@ namespace EdFi.Ods.Common.Models.Domain
         [ThreadStatic]
         private static Dictionary<Type, IEnumerable<PropertyInfo>> signaturePropertiesDictionary;
 
+        private DateTime _createDate;
+
         /// <summary>
         ///     Gets or sets the date that the domain object was first created and persisted (used to identify transient objects for NHibernate).
         /// </summary>
         [Key(0)]
-        public virtual DateTime CreateDate { get; set; }
+        public virtual DateTime CreateDate
+        {
+            get
+            {
+                // If we have a value assigned already, return that
+                if (_createDate != default)
+                {
+                    return _createDate;
+                }
+                
+                // Handle reporting serializable CreateDate for transient objects (assigned only during aggregate serialization where dates that haven't yet been assigned are serialized)
+                object transientSerializableDateTimeObject = CallContext.GetData("TransientSerializableCreateDateTime");
+
+                if (transientSerializableDateTimeObject != null)
+                {
+                    return (DateTime) transientSerializableDateTimeObject;
+                }
+
+                // Just return the default value
+                return default;
+            }
+            set => _createDate = value;
+        }
 
         public override bool Equals(object obj)
         {

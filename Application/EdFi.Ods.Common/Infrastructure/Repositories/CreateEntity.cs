@@ -134,6 +134,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     },
                     _retryPolicyContextData);
 
+                // Clear the contextual current date/time explicitly
+                CallContext.SetData("CurrentDateTime", null);
+
                 bool IdHasValue()
                 {
                     return !entity.Id.Equals(default);

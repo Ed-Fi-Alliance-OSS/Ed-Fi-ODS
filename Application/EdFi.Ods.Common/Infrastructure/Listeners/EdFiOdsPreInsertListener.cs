@@ -39,7 +39,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             // Get the established current date/time from context for absolute date/time consistency within the aggregate
             DateTime currentDateTime = (DateTime) (CallContext.GetData("CurrentDateTime") ?? DateTime.UtcNow);
-            
+
             // Set the CreateDate persistence state
             persister.Set(@event.State, ColumnNames.CreateDate, currentDateTime);
 
@@ -65,12 +65,15 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 {
                     try
                     {
-                        // Set additional properties on entity so that they're reflected in serialized data
-                        aggregateRoot.CreateDate = currentDateTime;
+                        // Get the LastModifiedDate assigned by NHibernate
+                        DateTime originalLastModifiedDate = aggregateRoot.LastModifiedDate;
 
-                        // Set the LastModifiedDate explicitly
-                        aggregateRoot.LastModifiedDate = currentDateTime;
-                        persister.Set(@event.State, ColumnNames.LastModifiedDate, currentDateTime);
+                        // Set additional properties on entity so that they're reflected correctly in serialized data
+                        aggregateRoot.CreateDate = currentDateTime;
+                        aggregateRoot.LastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+
+                        // Set a date context that will cause all transient entities to report the assigned date without affecting the entity itself
+                        CallContext.SetData("TransientSerializableCreateDateTime", currentDateTime);
 
                         try
                         {
@@ -88,9 +91,14 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                         }
                         finally
                         {
-                            // Clear CreateDate property to default value so that entity appears transient until PostInsertListener event
+                            // Stop defaulting the reported CreateDate for transient entities
+                            CallContext.SetData("TransientSerializableCreateDateTime", null);
+
+                            // Reset CreateDate property to default value so that entity appears transient (until PostInsertListener event)
                             aggregateRoot.CreateDate = default;
-                            aggregateRoot.LastModifiedDate = default;
+
+                            // Restore LastModifiedDate on the entity
+                            aggregateRoot.LastModifiedDate = originalLastModifiedDate;
                         }
                     }
                     catch (Exception ex)
