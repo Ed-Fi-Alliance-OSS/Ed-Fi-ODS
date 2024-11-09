@@ -7000,7 +7000,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
-        [Key(0)]
+        [IgnoreMember]
         public StudentPetPreference StudentPetPreference
         {
             get { return (StudentPetPreference) (this as IStudentExtension).StudentPetPreference;  }
