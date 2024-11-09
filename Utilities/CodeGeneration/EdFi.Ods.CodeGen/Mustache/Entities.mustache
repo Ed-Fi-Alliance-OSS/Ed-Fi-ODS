@@ -414,6 +414,23 @@ namespace {{AggregateNamespace}}
             }
             set
             {
+                // If the _aggregateExtensions is null, this is being assigned from the constructor
+                // for the first time and no special handling is required
+                if (_aggregateExtensions != null && value != null)
+                {
+                    // For aggregate extensions that have already been initialized by the extensions factory,
+                    // we need to copy any "implicit" aggregate extension object entries over to the incoming
+                    // value dictionary being assigned by NHibernate (or deserialization) because it won't have them,
+                    // but they must be there for correct handling of extensions for the API.
+                    foreach (var key in _aggregateExtensions.Keys)
+                    {
+                        if (!value.Contains(key))
+                        {
+                            value[key] = _aggregateExtensions[key];
+                        }
+                    }
+                }
+
                 _aggregateExtensions = value;
             }
         }
