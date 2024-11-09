@@ -10,6 +10,8 @@ CREATE INDEX IF NOT EXISTS IX_AccountabilityRating_EducationOrganizationId ON ed
 
 CREATE INDEX IF NOT EXISTS IX_Assessment_EducationOrganizationId ON edfi.Assessment(EducationOrganizationId) INCLUDE (Id);
 
+CREATE INDEX IF NOT EXISTS IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId ON edfi.AssesssmentAdministrationParticipation(AssigningEducationOrganizationId) INCLUDE (Id);
+
 CREATE INDEX IF NOT EXISTS IX_BellSchedule_SchoolId ON edfi.BellSchedule(SchoolId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_Calendar_SchoolId ON edfi.Calendar(SchoolId) INCLUDE (Id);
@@ -116,11 +118,23 @@ CREATE INDEX IF NOT EXISTS IX_StudentAcademicRecord_EducationOrganizationId ON e
 
 CREATE INDEX IF NOT EXISTS IX_StudentAssessmentEducationOrganizationAssociation_EducationOrganizationId ON edfi.StudentAssessmentEducationOrganizationAssociation(EducationOrganizationId) INCLUDE (Id);
 
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_AssigningEducationOrganizationId ON edfi.StudentAssessmentRegistration(AssigningEducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_EducationOrganizationId ON edfi.StudentAssessmentRegistration(EducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_SchoolId ON edfi.StudentAssessmentRegistration(SchoolId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId ON edfi.StudentAssessmentRegistrationBatteryPartAssociation(AssigningEducationOrganizationId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistrationBatteryPartAssociation_EducationOrganizationId ON edfi.StudentAssessmentRegistrationBatteryPartAssociation(EducationOrganizationId) INCLUDE (Id);
+
 CREATE INDEX IF NOT EXISTS IX_StudentCohortAssociation_EducationOrganizationId ON edfi.StudentCohortAssociation(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentDisciplineIncidentBehaviorAssociation_SchoolId ON edfi.StudentDisciplineIncidentBehaviorAssociation(SchoolId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentDisciplineIncidentNonOffenderAssociation_SchoolId ON edfi.StudentDisciplineIncidentNonOffenderAssociation(SchoolId) INCLUDE (Id);
+
+CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationAssessmentAccommodation_EducationOrganizationId ON edfi.StudentEducationOrganizationAssessmentAccommodation(EducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_StudentEducationOrganizationAssociation_EducationOrganizationId ON edfi.StudentEducationOrganizationAssociation(EducationOrganizationId) INCLUDE (Id);
 

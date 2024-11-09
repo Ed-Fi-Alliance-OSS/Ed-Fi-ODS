@@ -48,6 +48,38 @@ CREATE TABLE [tracked_changes_edfi].[Assessment]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_Assessment PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[AssessmentAdministration]'))
+CREATE TABLE [tracked_changes_edfi].[AssessmentAdministration]
+(
+       OldAdministrationIdentifier [NVARCHAR](255) NOT NULL,
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldAssigningEducationOrganizationId [BIGINT] NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       NewAdministrationIdentifier [NVARCHAR](255) NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewAssigningEducationOrganizationId [BIGINT] NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_AssessmentAdministration PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[AssessmentBatteryPart]'))
+CREATE TABLE [tracked_changes_edfi].[AssessmentBatteryPart]
+(
+       OldAssessmentBatteryPartName [NVARCHAR](65) NOT NULL,
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       NewAssessmentBatteryPartName [NVARCHAR](65) NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_AssessmentBatteryPart PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[AssessmentItem]'))
 CREATE TABLE [tracked_changes_edfi].[AssessmentItem]
 (
@@ -77,6 +109,25 @@ CREATE TABLE [tracked_changes_edfi].[AssessmentScoreRangeLearningStandard]
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_AssessmentScoreRangeLearningStandard PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[AssesssmentAdministrationParticipation]'))
+CREATE TABLE [tracked_changes_edfi].[AssesssmentAdministrationParticipation]
+(
+       OldAdministrationIdentifier [NVARCHAR](255) NOT NULL,
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldAssigningEducationOrganizationId [BIGINT] NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       OldParticipatingEducationOrganizationId [BIGINT] NOT NULL,
+       NewAdministrationIdentifier [NVARCHAR](255) NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewAssigningEducationOrganizationId [BIGINT] NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       NewParticipatingEducationOrganizationId [BIGINT] NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_AssesssmentAdministrationParticipation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[BalanceSheetDimension]'))
 CREATE TABLE [tracked_changes_edfi].[BalanceSheetDimension]
@@ -1500,6 +1551,54 @@ CREATE TABLE [tracked_changes_edfi].[StudentAssessmentEducationOrganizationAssoc
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentAssessmentEducationOrganizationAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentAssessmentRegistration]'))
+CREATE TABLE [tracked_changes_edfi].[StudentAssessmentRegistration]
+(
+       OldAdministrationIdentifier [NVARCHAR](255) NOT NULL,
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldAssigningEducationOrganizationId [BIGINT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewAdministrationIdentifier [NVARCHAR](255) NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewAssigningEducationOrganizationId [BIGINT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentAssessmentRegistration PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentAssessmentRegistrationBatteryPartAssociation]'))
+CREATE TABLE [tracked_changes_edfi].[StudentAssessmentRegistrationBatteryPartAssociation]
+(
+       OldAdministrationIdentifier [NVARCHAR](255) NOT NULL,
+       OldAssessmentBatteryPartName [NVARCHAR](65) NOT NULL,
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldAssigningEducationOrganizationId [BIGINT] NOT NULL,
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewAdministrationIdentifier [NVARCHAR](255) NULL,
+       NewAssessmentBatteryPartName [NVARCHAR](65) NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewAssigningEducationOrganizationId [BIGINT] NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentAssessmentRegistrationBatteryPartAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentCohortAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentCohortAssociation]
 (
@@ -1610,6 +1709,21 @@ CREATE TABLE [tracked_changes_edfi].[StudentDisciplineIncidentNonOffenderAssocia
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentDisciplineIncidentNonOffenderAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentEducationOrganizationAssessmentAccommodation]'))
+CREATE TABLE [tracked_changes_edfi].[StudentEducationOrganizationAssessmentAccommodation]
+(
+       OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewEducationOrganizationId [BIGINT] NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentEducationOrganizationAssessmentAccommodation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentEducationOrganizationAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentEducationOrganizationAssociation]
@@ -1900,6 +2014,7 @@ CREATE TABLE [tracked_changes_edfi].[StudentSpecialEducationProgramEligibilityAs
 (
        OldConsentToEvaluationReceivedDate [DATE] NOT NULL,
        OldEducationOrganizationId [BIGINT] NOT NULL,
+       OldProgramEducationOrganizationId [BIGINT] NOT NULL,
        OldProgramName [NVARCHAR](60) NOT NULL,
        OldProgramTypeDescriptorId [INT] NOT NULL,
        OldProgramTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
@@ -1908,6 +2023,7 @@ CREATE TABLE [tracked_changes_edfi].[StudentSpecialEducationProgramEligibilityAs
        OldStudentUniqueId [NVARCHAR](32) NOT NULL,
        NewConsentToEvaluationReceivedDate [DATE] NULL,
        NewEducationOrganizationId [BIGINT] NULL,
+       NewProgramEducationOrganizationId [BIGINT] NULL,
        NewProgramName [NVARCHAR](60) NULL,
        NewProgramTypeDescriptorId [INT] NULL,
        NewProgramTypeDescriptorNamespace [NVARCHAR](255) NULL,

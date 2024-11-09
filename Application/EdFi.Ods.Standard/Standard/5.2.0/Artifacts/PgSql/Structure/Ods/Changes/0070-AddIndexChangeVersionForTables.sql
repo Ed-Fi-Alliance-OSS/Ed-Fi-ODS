@@ -9,9 +9,15 @@ CREATE INDEX IF NOT EXISTS UX_2d3c0c_ChangeVersion ON edfi.AccountabilityRating(
 
 CREATE INDEX IF NOT EXISTS UX_7808ee_ChangeVersion ON edfi.Assessment(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_c64558_ChangeVersion ON edfi.AssessmentAdministration(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_6e22f2_ChangeVersion ON edfi.AssessmentBatteryPart(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_dc3dcf_ChangeVersion ON edfi.AssessmentItem(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_a20588_ChangeVersion ON edfi.AssessmentScoreRangeLearningStandard(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_0b52ab_ChangeVersion ON edfi.AssesssmentAdministrationParticipation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_e52c9c_ChangeVersion ON edfi.BalanceSheetDimension(ChangeVersion);
 
@@ -171,6 +177,10 @@ CREATE INDEX IF NOT EXISTS UX_ee3b2a_ChangeVersion ON edfi.StudentAssessment(Cha
 
 CREATE INDEX IF NOT EXISTS UX_afb8b8_ChangeVersion ON edfi.StudentAssessmentEducationOrganizationAssociation(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_79fd6b_ChangeVersion ON edfi.StudentAssessmentRegistration(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_3bb369_ChangeVersion ON edfi.StudentAssessmentRegistrationBatteryPartAssociation(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_369ddc_ChangeVersion ON edfi.StudentCohortAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_395c07_ChangeVersion ON edfi.StudentCompetencyObjective(ChangeVersion);
@@ -180,6 +190,8 @@ CREATE INDEX IF NOT EXISTS UX_e2733e_ChangeVersion ON edfi.StudentContactAssocia
 CREATE INDEX IF NOT EXISTS UX_f4934f_ChangeVersion ON edfi.StudentDisciplineIncidentBehaviorAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_4b43da_ChangeVersion ON edfi.StudentDisciplineIncidentNonOffenderAssociation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_5f4481_ChangeVersion ON edfi.StudentEducationOrganizationAssessmentAccommodation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_8e1257_ChangeVersion ON edfi.StudentEducationOrganizationAssociation(ChangeVersion);
 

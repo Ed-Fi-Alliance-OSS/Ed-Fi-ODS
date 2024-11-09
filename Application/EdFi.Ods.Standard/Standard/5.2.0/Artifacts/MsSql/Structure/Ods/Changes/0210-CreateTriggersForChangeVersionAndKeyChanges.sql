@@ -42,6 +42,32 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentAdministration_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AssessmentAdministration_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministration] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[AssessmentAdministration]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[AssessmentAdministration] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion] ON [edfi].[AssessmentBatteryPart] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[AssessmentBatteryPart]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[AssessmentBatteryPart] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentItem_TR_UpdateChangeVersion]
 GO
 
@@ -64,6 +90,19 @@ BEGIN
     UPDATE [edfi].[AssessmentScoreRangeLearningStandard]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[AssessmentScoreRangeLearningStandard] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_AssesssmentAdministrationParticipation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AssesssmentAdministrationParticipation_TR_UpdateChangeVersion] ON [edfi].[AssesssmentAdministrationParticipation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[AssesssmentAdministrationParticipation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[AssesssmentAdministrationParticipation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -1273,6 +1312,32 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentRegistration_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentRegistration_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistration] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentAssessmentRegistration]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentAssessmentRegistration] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentRegistrationBatteryPartAssociation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentRegistrationBatteryPartAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentAssessmentRegistrationBatteryPartAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentAssessmentRegistrationBatteryPartAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentCohortAssociation_TR_UpdateChangeVersion]
 GO
 
@@ -1334,6 +1399,19 @@ BEGIN
     UPDATE [edfi].[StudentDisciplineIncidentNonOffenderAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentDisciplineIncidentNonOffenderAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentEducationOrganizationAssessmentAccommodation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentEducationOrganizationAssessmentAccommodation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssessmentAccommodation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentEducationOrganizationAssessmentAccommodation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentEducationOrganizationAssessmentAccommodation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

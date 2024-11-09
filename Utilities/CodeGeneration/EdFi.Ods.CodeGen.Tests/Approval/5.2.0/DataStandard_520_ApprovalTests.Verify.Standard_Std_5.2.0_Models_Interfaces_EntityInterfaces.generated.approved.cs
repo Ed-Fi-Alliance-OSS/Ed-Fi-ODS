@@ -1369,6 +1369,244 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentAdministration model.
+    /// </summary>
+    public interface IAssessmentAdministration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string AdministrationIdentifier { get; set; }
+        
+        string AssessmentIdentifier { get; set; }
+        
+        long AssigningEducationOrganizationId { get; set; }
+        
+        string Namespace { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IAssessmentAdministrationAssessmentAdminstrationPeriod> AssessmentAdministrationAssessmentAdminstrationPeriods { get; set; }
+        ICollection<IAssessmentAdministrationAssessmentBatteryPart> AssessmentAdministrationAssessmentBatteryParts { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentResourceId { get; set; }
+        string AssessmentDiscriminator { get; set; }
+        Guid? AssigningEducationOrganizationResourceId { get; set; }
+        string AssigningEducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssessmentAdministrationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssessmentAdministrationMappingContract(
+            bool isAssessmentAdministrationAssessmentAdminstrationPeriodsSupported,
+            bool isAssessmentAdministrationAssessmentBatteryPartsSupported,
+            bool isAssessmentReferenceSupported,
+            bool isAssigningEducationOrganizationReferenceSupported,
+            bool isAssessmentAdministrationAssessmentAdminstrationPeriodsItemCreatable,
+            Func<IAssessmentAdministrationAssessmentAdminstrationPeriod, bool> isAssessmentAdministrationAssessmentAdminstrationPeriodIncluded,
+            bool isAssessmentAdministrationAssessmentBatteryPartsItemCreatable,
+            Func<IAssessmentAdministrationAssessmentBatteryPart, bool> isAssessmentAdministrationAssessmentBatteryPartIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentAdministrationAssessmentAdminstrationPeriodsSupported = isAssessmentAdministrationAssessmentAdminstrationPeriodsSupported;
+            IsAssessmentAdministrationAssessmentBatteryPartsSupported = isAssessmentAdministrationAssessmentBatteryPartsSupported;
+            IsAssessmentReferenceSupported = isAssessmentReferenceSupported;
+            IsAssigningEducationOrganizationReferenceSupported = isAssigningEducationOrganizationReferenceSupported;
+            IsAssessmentAdministrationAssessmentAdminstrationPeriodsItemCreatable = isAssessmentAdministrationAssessmentAdminstrationPeriodsItemCreatable;
+            IsAssessmentAdministrationAssessmentAdminstrationPeriodIncluded = isAssessmentAdministrationAssessmentAdminstrationPeriodIncluded;
+            IsAssessmentAdministrationAssessmentBatteryPartsItemCreatable = isAssessmentAdministrationAssessmentBatteryPartsItemCreatable;
+            IsAssessmentAdministrationAssessmentBatteryPartIncluded = isAssessmentAdministrationAssessmentBatteryPartIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentAdministrationAssessmentAdminstrationPeriodsSupported { get; }
+        public bool IsAssessmentAdministrationAssessmentBatteryPartsSupported { get; }
+        public bool IsAssessmentReferenceSupported { get; }
+        public bool IsAssigningEducationOrganizationReferenceSupported { get; }
+        public bool IsAssessmentAdministrationAssessmentAdminstrationPeriodsItemCreatable { get; }
+        public Func<IAssessmentAdministrationAssessmentAdminstrationPeriod, bool> IsAssessmentAdministrationAssessmentAdminstrationPeriodIncluded { get; }
+        public bool IsAssessmentAdministrationAssessmentBatteryPartsItemCreatable { get; }
+        public Func<IAssessmentAdministrationAssessmentBatteryPart, bool> IsAssessmentAdministrationAssessmentBatteryPartIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentAdministrationAssessmentAdminstrationPeriods":
+                    return IsAssessmentAdministrationAssessmentAdminstrationPeriodsSupported;
+                case "AssessmentAdministrationAssessmentBatteryParts":
+                    return IsAssessmentAdministrationAssessmentBatteryPartsSupported;
+                case "AssessmentReference":
+                    return IsAssessmentReferenceSupported;
+                case "AssigningEducationOrganizationReference":
+                    return IsAssigningEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AdministrationIdentifier":
+                    return true;
+                case "AssessmentIdentifier":
+                    return true;
+                case "AssigningEducationOrganizationId":
+                    return true;
+                case "Namespace":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentAdministrationAssessmentAdminstrationPeriods":
+                    return IsAssessmentAdministrationAssessmentAdminstrationPeriodsItemCreatable;
+                case "AssessmentAdministrationAssessmentBatteryParts":
+                    return IsAssessmentAdministrationAssessmentBatteryPartsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentAdministrationAssessmentAdminstrationPeriod model.
+    /// </summary>
+    public interface IAssessmentAdministrationAssessmentAdminstrationPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IAssessmentAdministration AssessmentAdministration { get; set; }
+        
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssessmentAdministrationAssessmentAdminstrationPeriodMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssessmentAdministrationAssessmentAdminstrationPeriodMappingContract(
+            bool isEndDateSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEndDateSupported = isEndDateSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEndDateSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EndDate":
+                    return IsEndDateSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentAdministrationAssessmentBatteryPart model.
+    /// </summary>
+    public interface IAssessmentAdministrationAssessmentBatteryPart : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IAssessmentAdministration AssessmentAdministration { get; set; }
+        
+        string AssessmentBatteryPartName { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? AssessmentBatteryPartResourceId { get; set; }
+        string AssessmentBatteryPartDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssessmentAdministrationAssessmentBatteryPartMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssessmentAdministrationAssessmentBatteryPartMappingContract(
+            bool isAssessmentBatteryPartReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentBatteryPartReferenceSupported = isAssessmentBatteryPartReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentBatteryPartReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentBatteryPartReference":
+                    return IsAssessmentBatteryPartReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AssessmentBatteryPartName":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentAssessedGradeLevel model.
     /// </summary>
     public interface IAssessmentAssessedGradeLevel : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -1407,6 +1645,158 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "GradeLevelDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentBatteryPart model.
+    /// </summary>
+    public interface IAssessmentBatteryPart : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string AssessmentBatteryPartName { get; set; }
+        
+        string AssessmentIdentifier { get; set; }
+        
+        string Namespace { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IAssessmentBatteryPartObjectiveAssessment> AssessmentBatteryPartObjectiveAssessments { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentResourceId { get; set; }
+        string AssessmentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssessmentBatteryPartMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssessmentBatteryPartMappingContract(
+            bool isAssessmentBatteryPartObjectiveAssessmentsSupported,
+            bool isAssessmentReferenceSupported,
+            bool isAssessmentBatteryPartObjectiveAssessmentsItemCreatable,
+            Func<IAssessmentBatteryPartObjectiveAssessment, bool> isAssessmentBatteryPartObjectiveAssessmentIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentBatteryPartObjectiveAssessmentsSupported = isAssessmentBatteryPartObjectiveAssessmentsSupported;
+            IsAssessmentReferenceSupported = isAssessmentReferenceSupported;
+            IsAssessmentBatteryPartObjectiveAssessmentsItemCreatable = isAssessmentBatteryPartObjectiveAssessmentsItemCreatable;
+            IsAssessmentBatteryPartObjectiveAssessmentIncluded = isAssessmentBatteryPartObjectiveAssessmentIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentBatteryPartObjectiveAssessmentsSupported { get; }
+        public bool IsAssessmentReferenceSupported { get; }
+        public bool IsAssessmentBatteryPartObjectiveAssessmentsItemCreatable { get; }
+        public Func<IAssessmentBatteryPartObjectiveAssessment, bool> IsAssessmentBatteryPartObjectiveAssessmentIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentBatteryPartObjectiveAssessments":
+                    return IsAssessmentBatteryPartObjectiveAssessmentsSupported;
+                case "AssessmentReference":
+                    return IsAssessmentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AssessmentBatteryPartName":
+                    return true;
+                case "AssessmentIdentifier":
+                    return true;
+                case "Namespace":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentBatteryPartObjectiveAssessments":
+                    return IsAssessmentBatteryPartObjectiveAssessmentsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentBatteryPartObjectiveAssessment model.
+    /// </summary>
+    public interface IAssessmentBatteryPartObjectiveAssessment : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IAssessmentBatteryPart AssessmentBatteryPart { get; set; }
+        
+        string IdentificationCode { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ObjectiveAssessmentResourceId { get; set; }
+        string ObjectiveAssessmentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssessmentBatteryPartObjectiveAssessmentMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssessmentBatteryPartObjectiveAssessmentMappingContract(
+            bool isObjectiveAssessmentReferenceSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsObjectiveAssessmentReferenceSupported = isObjectiveAssessmentReferenceSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsObjectiveAssessmentReferenceSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "ObjectiveAssessmentReference":
+                    return IsObjectiveAssessmentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "IdentificationCode":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -3051,6 +3441,195 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "SectionIdentifier":
                     return true;
                 case "SessionName":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssesssmentAdministrationParticipation model.
+    /// </summary>
+    public interface IAssesssmentAdministrationParticipation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string AdministrationIdentifier { get; set; }
+        
+        string AssessmentIdentifier { get; set; }
+        
+        long AssigningEducationOrganizationId { get; set; }
+        
+        string Namespace { get; set; }
+        
+        long ParticipatingEducationOrganizationId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IAssesssmentAdministrationParticipationAdministrationPointOfContact> AssesssmentAdministrationParticipationAdministrationPointOfContacts { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentAdministrationResourceId { get; set; }
+        string AssessmentAdministrationDiscriminator { get; set; }
+        Guid? ParticipatingEducationOrganizationResourceId { get; set; }
+        string ParticipatingEducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssesssmentAdministrationParticipationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssesssmentAdministrationParticipationMappingContract(
+            bool isAssessmentAdministrationReferenceSupported,
+            bool isAssesssmentAdministrationParticipationAdministrationPointOfContactsSupported,
+            bool isParticipatingEducationOrganizationReferenceSupported,
+            bool isAssesssmentAdministrationParticipationAdministrationPointOfContactsItemCreatable,
+            Func<IAssesssmentAdministrationParticipationAdministrationPointOfContact, bool> isAssesssmentAdministrationParticipationAdministrationPointOfContactIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentAdministrationReferenceSupported = isAssessmentAdministrationReferenceSupported;
+            IsAssesssmentAdministrationParticipationAdministrationPointOfContactsSupported = isAssesssmentAdministrationParticipationAdministrationPointOfContactsSupported;
+            IsParticipatingEducationOrganizationReferenceSupported = isParticipatingEducationOrganizationReferenceSupported;
+            IsAssesssmentAdministrationParticipationAdministrationPointOfContactsItemCreatable = isAssesssmentAdministrationParticipationAdministrationPointOfContactsItemCreatable;
+            IsAssesssmentAdministrationParticipationAdministrationPointOfContactIncluded = isAssesssmentAdministrationParticipationAdministrationPointOfContactIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentAdministrationReferenceSupported { get; }
+        public bool IsAssesssmentAdministrationParticipationAdministrationPointOfContactsSupported { get; }
+        public bool IsParticipatingEducationOrganizationReferenceSupported { get; }
+        public bool IsAssesssmentAdministrationParticipationAdministrationPointOfContactsItemCreatable { get; }
+        public Func<IAssesssmentAdministrationParticipationAdministrationPointOfContact, bool> IsAssesssmentAdministrationParticipationAdministrationPointOfContactIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentAdministrationReference":
+                    return IsAssessmentAdministrationReferenceSupported;
+                case "AssesssmentAdministrationParticipationAdministrationPointOfContacts":
+                    return IsAssesssmentAdministrationParticipationAdministrationPointOfContactsSupported;
+                case "ParticipatingEducationOrganizationReference":
+                    return IsParticipatingEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AdministrationIdentifier":
+                    return true;
+                case "AssessmentIdentifier":
+                    return true;
+                case "AssigningEducationOrganizationId":
+                    return true;
+                case "Namespace":
+                    return true;
+                case "ParticipatingEducationOrganizationId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssesssmentAdministrationParticipationAdministrationPointOfContacts":
+                    return IsAssesssmentAdministrationParticipationAdministrationPointOfContactsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssesssmentAdministrationParticipationAdministrationPointOfContact model.
+    /// </summary>
+    public interface IAssesssmentAdministrationParticipationAdministrationPointOfContact : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IAssesssmentAdministrationParticipation AssesssmentAdministrationParticipation { get; set; }
+        
+        long EducationOrganizationId { get; set; }
+        
+        string ElectronicMailAddress { get; set; }
+
+        // Non-PK properties
+        string FirstName { get; set; }
+        string LastSurname { get; set; }
+        string LoginId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class AssesssmentAdministrationParticipationAdministrationPointOfContactMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public AssesssmentAdministrationParticipationAdministrationPointOfContactMappingContract(
+            bool isEducationOrganizationReferenceSupported,
+            bool isFirstNameSupported,
+            bool isLastSurnameSupported,
+            bool isLoginIdSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsFirstNameSupported = isFirstNameSupported;
+            IsLastSurnameSupported = isLastSurnameSupported;
+            IsLoginIdSupported = isLoginIdSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsFirstNameSupported { get; }
+        public bool IsLastSurnameSupported { get; }
+        public bool IsLoginIdSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "FirstName":
+                    return IsFirstNameSupported;
+                case "LastSurname":
+                    return IsLastSurnameSupported;
+                case "LoginId":
+                    return IsLoginIdSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "ElectronicMailAddress":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -32844,6 +33423,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the Section504DisabilityTypeDescriptor model.
+    /// </summary>
+    public interface ISection504DisabilityTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [AutoIncrement]
+        int Section504DisabilityTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class Section504DisabilityTypeDescriptorMappingContract : IMappingContract
+    {
+        public Section504DisabilityTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "Section504DisabilityTypeDescriptorId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the SectionAttendanceTakenEvent model.
     /// </summary>
     public interface ISectionAttendanceTakenEvent : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -40125,6 +40780,477 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistration model.
+    /// </summary>
+    public interface IStudentAssessmentRegistration : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string AdministrationIdentifier { get; set; }
+        
+        string AssessmentIdentifier { get; set; }
+        
+        long AssigningEducationOrganizationId { get; set; }
+        
+        long EducationOrganizationId { get; set; }
+        
+        string Namespace { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        string AssessmentGradeLevelDescriptor { get; set; }
+        DateTime EntryDate { get; set; }
+        string PlatformTypeDescriptor { get; set; }
+        long? ReportingEducationOrganizationId { get; set; }
+        long SchoolId { get; set; }
+        long? TestingEducationOrganizationId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentAssessmentRegistrationAssessmentAccommodation> StudentAssessmentRegistrationAssessmentAccommodations { get; set; }
+        ICollection<IStudentAssessmentRegistrationAssessmentCustomization> StudentAssessmentRegistrationAssessmentCustomizations { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentAdministrationResourceId { get; set; }
+        string AssessmentAdministrationDiscriminator { get; set; }
+        Guid? ReportingEducationOrganizationResourceId { get; set; }
+        string ReportingEducationOrganizationDiscriminator { get; set; }
+        Guid? StudentEducationOrganizationAssessmentAccommodationResourceId { get; set; }
+        string StudentEducationOrganizationAssessmentAccommodationDiscriminator { get; set; }
+        Guid? StudentEducationOrganizationAssociationResourceId { get; set; }
+        string StudentEducationOrganizationAssociationDiscriminator { get; set; }
+        Guid? StudentSchoolAssociationResourceId { get; set; }
+        string StudentSchoolAssociationDiscriminator { get; set; }
+        Guid? TestingEducationOrganizationResourceId { get; set; }
+        string TestingEducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentRegistrationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentRegistrationMappingContract(
+            bool isAssessmentAdministrationReferenceSupported,
+            bool isAssessmentGradeLevelDescriptorSupported,
+            bool isEntryDateSupported,
+            bool isPlatformTypeDescriptorSupported,
+            bool isReportingEducationOrganizationIdSupported,
+            bool isReportingEducationOrganizationReferenceSupported,
+            bool isSchoolIdSupported,
+            bool isStudentAssessmentRegistrationAssessmentAccommodationsSupported,
+            bool isStudentAssessmentRegistrationAssessmentCustomizationsSupported,
+            bool isStudentEducationOrganizationAssessmentAccommodationReferenceSupported,
+            bool isStudentEducationOrganizationAssociationReferenceSupported,
+            bool isStudentSchoolAssociationReferenceSupported,
+            bool isTestingEducationOrganizationIdSupported,
+            bool isTestingEducationOrganizationReferenceSupported,
+            bool isStudentAssessmentRegistrationAssessmentAccommodationsItemCreatable,
+            Func<IStudentAssessmentRegistrationAssessmentAccommodation, bool> isStudentAssessmentRegistrationAssessmentAccommodationIncluded,
+            bool isStudentAssessmentRegistrationAssessmentCustomizationsItemCreatable,
+            Func<IStudentAssessmentRegistrationAssessmentCustomization, bool> isStudentAssessmentRegistrationAssessmentCustomizationIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentAdministrationReferenceSupported = isAssessmentAdministrationReferenceSupported;
+            IsAssessmentGradeLevelDescriptorSupported = isAssessmentGradeLevelDescriptorSupported;
+            IsEntryDateSupported = isEntryDateSupported;
+            IsPlatformTypeDescriptorSupported = isPlatformTypeDescriptorSupported;
+            IsReportingEducationOrganizationIdSupported = isReportingEducationOrganizationIdSupported;
+            IsReportingEducationOrganizationReferenceSupported = isReportingEducationOrganizationReferenceSupported;
+            IsSchoolIdSupported = isSchoolIdSupported;
+            IsStudentAssessmentRegistrationAssessmentAccommodationsSupported = isStudentAssessmentRegistrationAssessmentAccommodationsSupported;
+            IsStudentAssessmentRegistrationAssessmentCustomizationsSupported = isStudentAssessmentRegistrationAssessmentCustomizationsSupported;
+            IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported = isStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
+            IsStudentEducationOrganizationAssociationReferenceSupported = isStudentEducationOrganizationAssociationReferenceSupported;
+            IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
+            IsTestingEducationOrganizationIdSupported = isTestingEducationOrganizationIdSupported;
+            IsTestingEducationOrganizationReferenceSupported = isTestingEducationOrganizationReferenceSupported;
+            IsStudentAssessmentRegistrationAssessmentAccommodationsItemCreatable = isStudentAssessmentRegistrationAssessmentAccommodationsItemCreatable;
+            IsStudentAssessmentRegistrationAssessmentAccommodationIncluded = isStudentAssessmentRegistrationAssessmentAccommodationIncluded;
+            IsStudentAssessmentRegistrationAssessmentCustomizationsItemCreatable = isStudentAssessmentRegistrationAssessmentCustomizationsItemCreatable;
+            IsStudentAssessmentRegistrationAssessmentCustomizationIncluded = isStudentAssessmentRegistrationAssessmentCustomizationIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentAdministrationReferenceSupported { get; }
+        public bool IsAssessmentGradeLevelDescriptorSupported { get; }
+        public bool IsEntryDateSupported { get; }
+        public bool IsPlatformTypeDescriptorSupported { get; }
+        public bool IsReportingEducationOrganizationIdSupported { get; }
+        public bool IsReportingEducationOrganizationReferenceSupported { get; }
+        public bool IsSchoolIdSupported { get; }
+        public bool IsStudentAssessmentRegistrationAssessmentAccommodationsSupported { get; }
+        public bool IsStudentAssessmentRegistrationAssessmentCustomizationsSupported { get; }
+        public bool IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported { get; }
+        public bool IsStudentEducationOrganizationAssociationReferenceSupported { get; }
+        public bool IsStudentSchoolAssociationReferenceSupported { get; }
+        public bool IsTestingEducationOrganizationIdSupported { get; }
+        public bool IsTestingEducationOrganizationReferenceSupported { get; }
+        public bool IsStudentAssessmentRegistrationAssessmentAccommodationsItemCreatable { get; }
+        public Func<IStudentAssessmentRegistrationAssessmentAccommodation, bool> IsStudentAssessmentRegistrationAssessmentAccommodationIncluded { get; }
+        public bool IsStudentAssessmentRegistrationAssessmentCustomizationsItemCreatable { get; }
+        public Func<IStudentAssessmentRegistrationAssessmentCustomization, bool> IsStudentAssessmentRegistrationAssessmentCustomizationIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentAdministrationReference":
+                    return IsAssessmentAdministrationReferenceSupported;
+                case "AssessmentGradeLevelDescriptor":
+                    return IsAssessmentGradeLevelDescriptorSupported;
+                case "EntryDate":
+                    return IsEntryDateSupported;
+                case "PlatformTypeDescriptor":
+                    return IsPlatformTypeDescriptorSupported;
+                case "ReportingEducationOrganizationId":
+                    return IsReportingEducationOrganizationIdSupported;
+                case "ReportingEducationOrganizationReference":
+                    return IsReportingEducationOrganizationReferenceSupported;
+                case "SchoolId":
+                    return IsSchoolIdSupported;
+                case "StudentAssessmentRegistrationAssessmentAccommodations":
+                    return IsStudentAssessmentRegistrationAssessmentAccommodationsSupported;
+                case "StudentAssessmentRegistrationAssessmentCustomizations":
+                    return IsStudentAssessmentRegistrationAssessmentCustomizationsSupported;
+                case "StudentEducationOrganizationAssessmentAccommodationReference":
+                    return IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
+                case "StudentEducationOrganizationAssociationReference":
+                    return IsStudentEducationOrganizationAssociationReferenceSupported;
+                case "StudentSchoolAssociationReference":
+                    return IsStudentSchoolAssociationReferenceSupported;
+                case "TestingEducationOrganizationId":
+                    return IsTestingEducationOrganizationIdSupported;
+                case "TestingEducationOrganizationReference":
+                    return IsTestingEducationOrganizationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AdministrationIdentifier":
+                    return true;
+                case "AssessmentIdentifier":
+                    return true;
+                case "AssigningEducationOrganizationId":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "Namespace":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentAssessmentRegistrationAssessmentAccommodations":
+                    return IsStudentAssessmentRegistrationAssessmentAccommodationsItemCreatable;
+                case "StudentAssessmentRegistrationAssessmentCustomizations":
+                    return IsStudentAssessmentRegistrationAssessmentCustomizationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistrationAssessmentAccommodation model.
+    /// </summary>
+    public interface IStudentAssessmentRegistrationAssessmentAccommodation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentAssessmentRegistration StudentAssessmentRegistration { get; set; }
+        
+        string AccommodationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentRegistrationAssessmentAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentRegistrationAssessmentAccommodationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AccommodationDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistrationAssessmentCustomization model.
+    /// </summary>
+    public interface IStudentAssessmentRegistrationAssessmentCustomization : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentAssessmentRegistration StudentAssessmentRegistration { get; set; }
+        
+        string CustomizationKey { get; set; }
+
+        // Non-PK properties
+        string CustomizationValue { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentRegistrationAssessmentCustomizationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentRegistrationAssessmentCustomizationMappingContract(
+            bool isCustomizationValueSupported,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsCustomizationValueSupported = isCustomizationValueSupported;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsCustomizationValueSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CustomizationValue":
+                    return IsCustomizationValueSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "CustomizationKey":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistrationBatteryPartAssociation model.
+    /// </summary>
+    public interface IStudentAssessmentRegistrationBatteryPartAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        string AdministrationIdentifier { get; set; }
+        
+        string AssessmentBatteryPartName { get; set; }
+        
+        string AssessmentIdentifier { get; set; }
+        
+        long AssigningEducationOrganizationId { get; set; }
+        
+        long EducationOrganizationId { get; set; }
+        
+        string Namespace { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentAssessmentRegistrationBatteryPartAssociationAccommodation> StudentAssessmentRegistrationBatteryPartAssociationAccommodations { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentBatteryPartResourceId { get; set; }
+        string AssessmentBatteryPartDiscriminator { get; set; }
+        Guid? StudentAssessmentRegistrationResourceId { get; set; }
+        string StudentAssessmentRegistrationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentRegistrationBatteryPartAssociationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentRegistrationBatteryPartAssociationMappingContract(
+            bool isAssessmentBatteryPartReferenceSupported,
+            bool isStudentAssessmentRegistrationBatteryPartAssociationAccommodationsSupported,
+            bool isStudentAssessmentRegistrationReferenceSupported,
+            bool isStudentAssessmentRegistrationBatteryPartAssociationAccommodationsItemCreatable,
+            Func<IStudentAssessmentRegistrationBatteryPartAssociationAccommodation, bool> isStudentAssessmentRegistrationBatteryPartAssociationAccommodationIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAssessmentBatteryPartReferenceSupported = isAssessmentBatteryPartReferenceSupported;
+            IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsSupported = isStudentAssessmentRegistrationBatteryPartAssociationAccommodationsSupported;
+            IsStudentAssessmentRegistrationReferenceSupported = isStudentAssessmentRegistrationReferenceSupported;
+            IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsItemCreatable = isStudentAssessmentRegistrationBatteryPartAssociationAccommodationsItemCreatable;
+            IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationIncluded = isStudentAssessmentRegistrationBatteryPartAssociationAccommodationIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAssessmentBatteryPartReferenceSupported { get; }
+        public bool IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsSupported { get; }
+        public bool IsStudentAssessmentRegistrationReferenceSupported { get; }
+        public bool IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsItemCreatable { get; }
+        public Func<IStudentAssessmentRegistrationBatteryPartAssociationAccommodation, bool> IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AssessmentBatteryPartReference":
+                    return IsAssessmentBatteryPartReferenceSupported;
+                case "StudentAssessmentRegistrationBatteryPartAssociationAccommodations":
+                    return IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsSupported;
+                case "StudentAssessmentRegistrationReference":
+                    return IsStudentAssessmentRegistrationReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AdministrationIdentifier":
+                    return true;
+                case "AssessmentBatteryPartName":
+                    return true;
+                case "AssessmentIdentifier":
+                    return true;
+                case "AssigningEducationOrganizationId":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "Namespace":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentAssessmentRegistrationBatteryPartAssociationAccommodations":
+                    return IsStudentAssessmentRegistrationBatteryPartAssociationAccommodationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentRegistrationBatteryPartAssociationAccommodation model.
+    /// </summary>
+    public interface IStudentAssessmentRegistrationBatteryPartAssociationAccommodation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentAssessmentRegistrationBatteryPartAssociation StudentAssessmentRegistrationBatteryPartAssociation { get; set; }
+        
+        string AccommodationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentRegistrationBatteryPartAssociationAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentRegistrationBatteryPartAssociationAccommodationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AccommodationDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessmentScoreResult model.
     /// </summary>
     public interface IStudentAssessmentScoreResult : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -41644,6 +42770,154 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssessmentAccommodation model.
+    /// </summary>
+    public interface IStudentEducationOrganizationAssessmentAccommodation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        
+        long EducationOrganizationId { get; set; }
+        
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentEducationOrganizationAssessmentAccommodationGeneralAccommodation> StudentEducationOrganizationAssessmentAccommodationGeneralAccommodations { get; set; }
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentEducationOrganizationAssessmentAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentEducationOrganizationAssessmentAccommodationMappingContract(
+            bool isEducationOrganizationReferenceSupported,
+            bool isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsSupported,
+            bool isStudentReferenceSupported,
+            bool isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsItemCreatable,
+            Func<IStudentEducationOrganizationAssessmentAccommodationGeneralAccommodation, bool> isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsSupported = isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsItemCreatable = isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsItemCreatable;
+            IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationIncluded = isStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
+        public bool IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsItemCreatable { get; }
+        public Func<IStudentEducationOrganizationAssessmentAccommodationGeneralAccommodation, bool> IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "StudentEducationOrganizationAssessmentAccommodationGeneralAccommodations":
+                    return IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "EducationOrganizationId":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "StudentEducationOrganizationAssessmentAccommodationGeneralAccommodations":
+                    return IsStudentEducationOrganizationAssessmentAccommodationGeneralAccommodationsItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssessmentAccommodationGeneralAccommodation model.
+    /// </summary>
+    public interface IStudentEducationOrganizationAssessmentAccommodationGeneralAccommodation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentEducationOrganizationAssessmentAccommodation StudentEducationOrganizationAssessmentAccommodation { get; set; }
+        
+        string AccommodationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentEducationOrganizationAssessmentAccommodationGeneralAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentEducationOrganizationAssessmentAccommodationGeneralAccommodationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "AccommodationDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
@@ -47171,6 +48445,148 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentSection504ProgramAssociation model.
+    /// </summary>
+    public interface IStudentSection504ProgramAssociation : EdFi.IGeneralStudentProgramAssociation, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+
+        // Non-PK properties
+        bool? AccommodationPlan { get; set; }
+        string Section504DisabilityTypeDescriptor { get; set; }
+        bool Section504Eligibility { get; set; }
+        DateTime? Section504EligibilityDecisionDate { get; set; }
+        DateTime? Section504MeetingDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentSection504ProgramAssociationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentSection504ProgramAssociationMappingContract(
+            bool isAccommodationPlanSupported,
+            bool isEducationOrganizationReferenceSupported,
+            bool isEndDateSupported,
+            bool isGeneralStudentProgramAssociationProgramParticipationStatusesSupported,
+            bool isProgramReferenceSupported,
+            bool isReasonExitedDescriptorSupported,
+            bool isSection504DisabilityTypeDescriptorSupported,
+            bool isSection504EligibilitySupported,
+            bool isSection504EligibilityDecisionDateSupported,
+            bool isSection504MeetingDateSupported,
+            bool isServedOutsideOfRegularSessionSupported,
+            bool isStudentReferenceSupported,
+            bool isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable,
+            Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> isGeneralStudentProgramAssociationProgramParticipationStatusIncluded,
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            IsAccommodationPlanSupported = isAccommodationPlanSupported;
+            IsEducationOrganizationReferenceSupported = isEducationOrganizationReferenceSupported;
+            IsEndDateSupported = isEndDateSupported;
+            IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = isGeneralStudentProgramAssociationProgramParticipationStatusesSupported;
+            IsProgramReferenceSupported = isProgramReferenceSupported;
+            IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
+            IsSection504DisabilityTypeDescriptorSupported = isSection504DisabilityTypeDescriptorSupported;
+            IsSection504EligibilitySupported = isSection504EligibilitySupported;
+            IsSection504EligibilityDecisionDateSupported = isSection504EligibilityDecisionDateSupported;
+            IsSection504MeetingDateSupported = isSection504MeetingDateSupported;
+            IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
+            IsStudentReferenceSupported = isStudentReferenceSupported;
+            IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable = isGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
+            IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+            SupportedExtensions = supportedExtensions;
+        }
+
+        public bool IsAccommodationPlanSupported { get; }
+        public bool IsEducationOrganizationReferenceSupported { get; }
+        public bool IsEndDateSupported { get; }
+        public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; }
+        public bool IsProgramReferenceSupported { get; }
+        public bool IsReasonExitedDescriptorSupported { get; }
+        public bool IsSection504DisabilityTypeDescriptorSupported { get; }
+        public bool IsSection504EligibilitySupported { get; }
+        public bool IsSection504EligibilityDecisionDateSupported { get; }
+        public bool IsSection504MeetingDateSupported { get; }
+        public bool IsServedOutsideOfRegularSessionSupported { get; }
+        public bool IsStudentReferenceSupported { get; }
+        public bool IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable { get; }
+        public Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "AccommodationPlan":
+                    return IsAccommodationPlanSupported;
+                case "EducationOrganizationReference":
+                    return IsEducationOrganizationReferenceSupported;
+                case "EndDate":
+                    return IsEndDateSupported;
+                case "GeneralStudentProgramAssociationProgramParticipationStatuses":
+                    return IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported;
+                case "ProgramReference":
+                    return IsProgramReferenceSupported;
+                case "ReasonExitedDescriptor":
+                    return IsReasonExitedDescriptorSupported;
+                case "Section504DisabilityTypeDescriptor":
+                    return IsSection504DisabilityTypeDescriptorSupported;
+                case "Section504Eligibility":
+                    return IsSection504EligibilitySupported;
+                case "Section504EligibilityDecisionDate":
+                    return IsSection504EligibilityDecisionDateSupported;
+                case "Section504MeetingDate":
+                    return IsSection504MeetingDateSupported;
+                case "ServedOutsideOfRegularSession":
+                    return IsServedOutsideOfRegularSessionSupported;
+                case "StudentReference":
+                    return IsStudentReferenceSupported;
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "BeginDate":
+                    return true;
+                case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
+                    return true;
+                case "ProgramName":
+                    return true;
+                case "ProgramTypeDescriptor":
+                    return true;
+                case "StudentUniqueId":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName)
+        {
+            switch (memberName)
+            {
+                case "GeneralStudentProgramAssociationProgramParticipationStatuses":
+                    return IsGeneralStudentProgramAssociationProgramParticipationStatusesItemCreatable;
+                default:
+                    throw new Exception($"Unknown child item '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentSectionAssociation model.
     /// </summary>
     public interface IStudentSectionAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -48220,6 +49636,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         
         long EducationOrganizationId { get; set; }
         
+        long ProgramEducationOrganizationId { get; set; }
+        
         string ProgramName { get; set; }
         
         string ProgramTypeDescriptor { get; set; }
@@ -48368,6 +49786,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                 case "ConsentToEvaluationReceivedDate":
                     return true;
                 case "EducationOrganizationId":
+                    return true;
+                case "ProgramEducationOrganizationId":
                     return true;
                 case "ProgramName":
                     return true;

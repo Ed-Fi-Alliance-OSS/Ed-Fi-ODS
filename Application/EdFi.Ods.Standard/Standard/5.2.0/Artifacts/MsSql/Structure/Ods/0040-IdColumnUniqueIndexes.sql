@@ -25,6 +25,20 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentAdministration') AND name = N'UX_AssessmentAdministration_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentAdministration_Id ON [edfi].[AssessmentAdministration]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentBatteryPart') AND name = N'UX_AssessmentBatteryPart_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentBatteryPart_Id ON [edfi].[AssessmentBatteryPart]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentItem') AND name = N'UX_AssessmentItem_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentItem_Id ON [edfi].[AssessmentItem]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -34,6 +48,13 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentScoreRangeLearningStandard') AND name = N'UX_AssessmentScoreRangeLearningStandard_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentScoreRangeLearningStandard_Id ON [edfi].[AssessmentScoreRangeLearningStandard]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssesssmentAdministrationParticipation') AND name = N'UX_AssesssmentAdministrationParticipation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_AssesssmentAdministrationParticipation_Id ON [edfi].[AssesssmentAdministrationParticipation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -592,6 +613,20 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentAssessmentRegistration') AND name = N'UX_StudentAssessmentRegistration_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentAssessmentRegistration_Id ON [edfi].[StudentAssessmentRegistration]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentAssessmentRegistrationBatteryPartAssociation') AND name = N'UX_StudentAssessmentRegistrationBatteryPartAssociation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentAssessmentRegistrationBatteryPartAssociation_Id ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentCohortAssociation') AND name = N'UX_StudentCohortAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StudentCohortAssociation_Id ON [edfi].[StudentCohortAssociation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -622,6 +657,13 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentNonOffenderAssociation') AND name = N'UX_StudentDisciplineIncidentNonOffenderAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StudentDisciplineIncidentNonOffenderAssociation_Id ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentEducationOrganizationAssessmentAccommodation') AND name = N'UX_StudentEducationOrganizationAssessmentAccommodation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentEducationOrganizationAssessmentAccommodation_Id ON [edfi].[StudentEducationOrganizationAssessmentAccommodation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
