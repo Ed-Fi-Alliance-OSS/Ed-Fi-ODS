@@ -184,6 +184,9 @@ namespace EdFi.Ods.Common.Extensions
             var itemType = GetItemType();
             
             // Deserialize entities
+            // -----------------------------------------------------------------------
+            // TODO: ODS-6551 - This is probably redundant now with the code in GetBySpecification. Consider removal once branches are stable.
+            // -----------------------------------------------------------------------
             foreach (var resultItem in sourceResultItemsList)
             {
                 if (resultItem.Entity == null && resultItem.AggregateData != null)
@@ -194,6 +197,7 @@ namespace EdFi.Ods.Common.Extensions
                     }
                 }
             }
+            // -----------------------------------------------------------------------
 
             foreach (var sourceItem in sourceResultItemsList.Where(i => isItemIncluded == null || isItemIncluded(i.Entity)))
             {

@@ -9,10 +9,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Providers.Queries;
@@ -131,6 +131,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             throw new InvalidOperationException("Unexpected entity encountered in entity results.");
                         }
                     }
+                }
+
+                // Deserialize results
+                foreach (var resultItem in results.Where(r => r.AggregateData != null && r.Entity == null))
+                {
+                    resultItem.Entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(resultItem.AggregateData);
                 }
 
                 string nextPageToken = PagingHelpers.GetPageToken(
