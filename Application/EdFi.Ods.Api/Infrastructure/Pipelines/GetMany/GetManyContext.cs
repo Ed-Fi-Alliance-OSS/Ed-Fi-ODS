@@ -43,7 +43,7 @@ namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
         /// <summary>
         ///     Gets or sets the list of persistent models retrieved from storage.
         /// </summary>
-        public IList<ResultItem<TEntityModel>> PersistentModels { get; set; }
+        public IList<TEntityModel> PersistentModels { get; set; }
 
         /// <summary>
         ///     Gets or sets the resource model to be used as a specification for the query.

@@ -332,6 +332,17 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 idQueryBuilder
                     .Select($"{rootTableAlias}.{ColumnNames.AggregateData}")
                     .Select($"{rootTableAlias}.{ColumnNames.LastModifiedDate}");
+
+                // Consider these could be refactored out into separate components
+                if (aggregateRootEntity.IsPersonEntity())
+                {
+                    idQueryBuilder.Select($"{rootTableAlias}.{aggregateRootEntity.Name}Usi AS SurrogateId");
+                }
+                
+                if (aggregateRootEntity.IsDescriptorEntity)
+                {
+                    idQueryBuilder.Select($"{rootTableAlias}.DescriptorId AS SurrogateId");
+                }
             }
 
             // NOTE: Optimization opportunity - the derived entity may not be needed unless there is criteria to be applied that uses the derived type.

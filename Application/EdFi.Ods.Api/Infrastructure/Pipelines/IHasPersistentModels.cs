@@ -4,13 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface IHasPersistentModels<TEntityModel>
         where TEntityModel : class
     {
-        IList<ResultItem<TEntityModel>> PersistentModels { get; set; }
+        IList<TEntityModel> PersistentModels { get; set; }
     }
 }

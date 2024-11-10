@@ -20,7 +20,6 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Serialization;
 using log4net;
 using NHibernate;
 
@@ -30,7 +29,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        private readonly ISurrogateKeyResolver[] _surrogateKeyResolvers;
+        private readonly IEntityDeserializer _entityDeserializer;
 
         private readonly Lazy<ILog> _logger;
 
@@ -41,11 +40,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             ApiSettings apiSettings,
             Dialect dialect,
             DatabaseEngine databaseEngine,
-            ISurrogateKeyResolver[] surrogateKeyResolvers)
+            IEntityDeserializer entityDeserializer)
             : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
-            _surrogateKeyResolvers = surrogateKeyResolvers;
+            _entityDeserializer = entityDeserializer;
 
             _logger = new Lazy<ILog>(() => LogManager.GetLogger(GetType()));
         }
@@ -84,18 +83,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         // Use optimized load only if serialization feature enabled
                         if (SerializationEnabled)
                         {
-                            var item = await GetItemData(resource?.Entity, compositeKeyValues, scope);
+                            var itemRawData = await GetItemRawDataByCompositeKey(compositeKeyValues, scope);
 
                             // Could not find the item
-                            if (item == null)
+                            if (itemRawData == null)
                             {
                                 return null;
                             }
 
-                            // Were we able to deserialize it?
-                            if (item.Entity != null)
+                            // Can we deserialize it?
+                            if (itemRawData.IsDeserializable())
                             {
-                                return item.Entity;
+                                // Deserialize the entity
+                                return await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
                             }
                         }
 
@@ -126,18 +126,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 {
                     if (SerializationEnabled)
                     {
-                        var item = await GetItemData(resource?.Entity, alternateKeyValues, scope, isDefinedOnBaseType);
+                        var itemRawData = await GetItemRawDataByCompositeKey(alternateKeyValues, scope, isDefinedOnBaseType);
 
                         // Could not find the item
-                        if (item == null)
+                        if (itemRawData == null)
                         {
                             return null;
                         }
 
-                        // Were we able to deserialize it?
-                        if (item.Entity != null)
+                        // Can we deserialize it?
+                        if (itemRawData.IsDeserializable())
                         {
-                            return item.Entity;
+                            // Deserialize the entity
+                            return await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
                         }
                     }
 
@@ -185,18 +186,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return $" where {criteria}";
             }
 
-            async Task<ItemData<TEntity>> GetItemData(
-                Entity entity,
+            async Task<ItemRawData> GetItemRawDataByCompositeKey(
                 OrderedDictionary compositeKeyValues,
                 SessionScope scope,
-                bool isDefinedOnBaseType = false)
+                bool keyColumnsAreOnBaseType = false)
             {
                 // Get the item from serialized form
                 var singleItemQueryBuilder = GetSingleItemQueryBuilder();
 
-                string rootTableAlias = isDefinedOnBaseType
-                    ? "b"
-                    : "r";
+                string rootTableAlias = keyColumnsAreOnBaseType ? "b" : "r";
 
                 // Apply primary key values to the root (derived, if applicable) table, as that's how the composite key values are provided
                 foreach (DictionaryEntry keyValue in compositeKeyValues)
@@ -206,37 +204,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
 
-                var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemData<TEntity>>(
+                var itemRawData = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData>(
                     singleItemTemplate.RawSql,
                     singleItemTemplate.Parameters);
 
-                // If we have data and LastModifiedDate on record is the same as the serialized data, deserialize the entity
-                if (item?.AggregateData != null && item.LastModifiedDate == item.AggregateData.ReadLastModifiedDate())
-                {
-                    // Deserialize the entity
-                    var deserializedInstance = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(item.AggregateData);
-
-                    // If the entity has a surrogate key
-                    var surrogateKeyCheckEntity = entity?.IsDerived == true ? entity.BaseEntity : entity;
-
-                    if (surrogateKeyCheckEntity?.Identifier.IsSurrogateIdentifier() == true)
-                    {
-                        foreach (var surrogateKeyResolver in _surrogateKeyResolvers)
-                        {
-                            if (await surrogateKeyResolver.TryResolveKeyAsync(entity, deserializedInstance))
-                            {
-                                break;
-                            }
-                        }
-                    }
-
-                    // Add the entity to the current session and, importantly, snapshot it.
-                    await scope.Session.LockAsync(deserializedInstance, LockMode.None, cancellationToken).ConfigureAwait(false);
-
-                    item.Entity = deserializedInstance;
-                }
-
-                return item;
+                return itemRawData;
             }
         }
     }

@@ -22,6 +22,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Serialization;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -29,7 +30,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class GetEntitiesByIds<TEntity> : GetEntitiesBase<TEntity>, IGetEntitiesByIds<TEntity>
         where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
     {
+        private readonly IEntityDeserializer _entityDeserializer;
         private readonly IParameterListSetter _parameterListSetter;
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(GetEntitiesByIds<TEntity>));
 
         public GetEntitiesByIds(
             ISessionFactory sessionFactory,
@@ -38,9 +42,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
             ApiSettings apiSettings,
             Dialect dialect,
-            DatabaseEngine databaseEngine)
+            DatabaseEngine databaseEngine,
+            IEntityDeserializer entityDeserializer)
             : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
+            _entityDeserializer = entityDeserializer;
             _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
         }
 
@@ -61,7 +67,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     singleItemQueryBuilder.Where("Id", ids[0]);
                     var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
 
-                    var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemData<TEntity>>(
+                    var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData>(
                         singleItemTemplate.RawSql,
                         singleItemTemplate.Parameters);
 
@@ -71,16 +77,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         return Array.Empty<TEntity>();
                     }
 
-                    // If we have data and LastModifiedDate on record is the same as the serialized data, use it
-                    if (item.AggregateData != null && item.LastModifiedDate == item.AggregateData.ReadLastModifiedDate())
+                    // If we can deserialize the item
+                    if (item.IsDeserializable())
                     {
-                        // Deserialize the entity
-                        var entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(item.AggregateData);
-
-                        // Add the entity to the current session and, importantly, snapshot it.
-                        await scope.Session.LockAsync(entity, LockMode.None, cancellationToken).ConfigureAwait(false);
-
-                        return [entity];
+                        try
+                        {
+                            // Deserialize the entity
+                            var entity = await _entityDeserializer.DeserializeAsync<TEntity>(item);
+                            return [entity];
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {item.AggregateId}). Falling back to load through NHibernate repository...", ex);
+                        }
                     }
                 }
 

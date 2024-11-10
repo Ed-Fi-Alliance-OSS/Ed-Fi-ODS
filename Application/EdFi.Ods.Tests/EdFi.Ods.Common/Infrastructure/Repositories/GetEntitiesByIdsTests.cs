@@ -23,6 +23,7 @@ using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
@@ -78,7 +79,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _contextProvider, 
                     new ApiSettings(),
                     new SqlServerDialect(),
-                    DatabaseEngine.SqlServer);
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -181,7 +183,8 @@ Actual:
                     _contextProvider, 
                     new ApiSettings(),
                     new SqlServerDialect(),
-                    DatabaseEngine.SqlServer);
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -270,7 +273,8 @@ Actual:
                     _contextProvider, 
                     new ApiSettings(),
                     new SqlServerDialect(),
-                    DatabaseEngine.SqlServer);
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]

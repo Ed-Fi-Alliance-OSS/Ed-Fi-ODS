@@ -53,7 +53,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
                     return;
                 }
 
-                context.PersistentModels = models.Select(e => new ResultItem<TEntityModel>(e)).ToArray();
+                context.PersistentModels = models;
             }
             catch (Exception ex)
             {

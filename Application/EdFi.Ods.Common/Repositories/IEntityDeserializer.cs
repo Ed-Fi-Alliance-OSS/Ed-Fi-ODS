@@ -4,11 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Infrastructure.Repositories;
 
-namespace EdFi.Ods.Common.Infrastructure.Repositories;
+namespace EdFi.Ods.Common.Repositories;
 
-public interface ISurrogateKeyResolver
+public interface IEntityDeserializer
 {
-    Task<bool> TryResolveKeyAsync(Entity entity, object instance);
+    Task<TEntity> DeserializeAsync<TEntity>(ItemRawData itemRawData);
 }

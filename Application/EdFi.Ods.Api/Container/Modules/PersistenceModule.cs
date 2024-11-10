@@ -176,13 +176,17 @@ namespace EdFi.Ods.Api.Container.Modules
 
             RegisterPersonIdentifierCaching(builder);
 
-            // Register surrogate key resolvers (for deserialization support)
-            builder.RegisterType<StudentSurrogateKeyResolver>()
-                .As<ISurrogateKeyResolver>()
+            // Register surrogate key mutators (for deserialization support)
+            builder.RegisterType<EntityDeserializer>()
+                .As<IEntityDeserializer>()
                 .SingleInstance();
 
-            builder.RegisterType<DescriptorSurrogateKeyResolver>()
-                .As<ISurrogateKeyResolver>()
+            builder.RegisterType<PersonSurrogateIdMutator>()
+                .As<ISurrogateIdMutator>()
+                .SingleInstance();
+
+            builder.RegisterType<DescriptorSurrogateIdMutator>()
+                .As<ISurrogateIdMutator>()
                 .SingleInstance();
 
             builder.RegisterType<OrmMappingFileDataProvider>()

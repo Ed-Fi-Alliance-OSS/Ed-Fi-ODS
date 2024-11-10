@@ -162,8 +162,9 @@ namespace EdFi.Ods.Common.Extensions
             }
         }
 
+        // TODO: ODS-6551 - Revisit names of these methods
         public static void MapResultItemCollectionTo<TSource, TTarget>(
-            this ICollection<ResultItem<TSource>> sourceResultItemsList,
+            this ICollection<TSource> sourceResultItemsList,
             ICollection<TTarget> targetList,
             bool itemCreatable = true,
             object parent = null,
@@ -183,23 +184,7 @@ namespace EdFi.Ods.Common.Extensions
             var targetListType = targetList.GetType();
             var itemType = GetItemType();
             
-            // Deserialize entities
-            // -----------------------------------------------------------------------
-            // TODO: ODS-6551 - This is probably redundant now with the code in GetBySpecification. Consider removal once branches are stable.
-            // -----------------------------------------------------------------------
-            foreach (var resultItem in sourceResultItemsList)
-            {
-                if (resultItem.Entity == null && resultItem.AggregateData != null)
-                {
-                    if (resultItem.TryDeserialize(out TSource sourceEntity))
-                    {
-                        resultItem.Entity = sourceEntity;
-                    }
-                }
-            }
-            // -----------------------------------------------------------------------
-
-            foreach (var sourceItem in sourceResultItemsList.Where(i => isItemIncluded == null || isItemIncluded(i.Entity)))
+            foreach (var sourceItem in sourceResultItemsList.Where(e => isItemIncluded == null || isItemIncluded(e)))
             {
                 if (!itemCreatable)
                 {
@@ -221,7 +206,7 @@ namespace EdFi.Ods.Common.Extensions
                     (mappedTargetItem as IChildEntity)?.SetParent(parent);
                 }
 
-                sourceItem.Entity.Map(mappedTargetItem);
+                sourceItem.Map(mappedTargetItem);
                 targetList.Add(mappedTargetItem);
             }
 

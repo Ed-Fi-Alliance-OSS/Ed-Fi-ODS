@@ -3,17 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-
 namespace EdFi.Ods.Common.Infrastructure.Repositories;
 
-public class ItemData<TEntity>
+public interface ISurrogateIdMutator
 {
-    public int AggregateId { get; set; }
-
-    public byte[] AggregateData { get; set; }
-
-    public TEntity Entity { get; set; }
-
-    public DateTime LastModifiedDate { get; set; }
+    bool TrySetSurrogateId(object instance, ItemRawData itemRawData);
 }
