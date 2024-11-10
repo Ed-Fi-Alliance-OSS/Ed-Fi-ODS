@@ -53,6 +53,19 @@ public class DeserializedPersistentGenericSet<T> : PersistentGenericSet<T>, IDes
         // Only process if we haven't already
         if (Owner == null)
         {
+            // Clear the wrapped set after copying to a list
+            var items = new List<T>(WrappedSet);
+            WrappedSet.Clear();
+
+            // Set the parent references on the items, and re-add to the set
+            // (so GetHashCodes used in the underlying HashSet are correct for persistence operations)
+            foreach (T item in items)
+            {
+                (item as IChildEntity)!.SetParent(parent);
+                WrappedSet.Add(item);
+            }
+
+            // Finalize addition of collection back into the current Session
             var persisters = GetPersisters(parent, collectionPropertyName);
     
             var id = persisters.EntityPersister.GetIdentifier(parent);
