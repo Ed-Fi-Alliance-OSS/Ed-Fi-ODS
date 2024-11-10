@@ -139,8 +139,12 @@ public class DeserializedPersistentGenericBag<T> : PersistentGenericBag<T>, IDes
 
                 if (collectionPersister == null)
                 {
-                    role = $"{parentTypeName}.{args.collectionPropertyName}";
-                    collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                    try
+                    {
+                        role = $"{parentTypeName}.{args.collectionPropertyName}";
+                        collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                    }
+                    catch { /* Ignore */ }
                 }
 
                 return new Persisters()
