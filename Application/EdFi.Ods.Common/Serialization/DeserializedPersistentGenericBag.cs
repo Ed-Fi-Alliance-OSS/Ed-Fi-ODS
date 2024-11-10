@@ -123,16 +123,25 @@ public class DeserializedPersistentGenericBag<T> : PersistentGenericBag<T>, IDes
                 string parentTypeName = pt.Item1.FullName;
                 var entityPersister = args.sessionFactory.GetEntityPersister(parentTypeName);
 
-                var role = $"{parentTypeName}.{args.collectionPropertyName}";
-
                 ICollectionPersister collectionPersister = null;
+                string role = null;
 
-                try
+                if (entityPersister.IsInherited)
                 {
+                    try
+                    {
+                        // Look on the base class first
+                        role = $"{entityPersister.EntityMetamodel.Superclass}.{args.collectionPropertyName}";
+                        collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                    }
+                    catch { /* Ignore */ }
+                }
+
+                if (collectionPersister == null)
+                {
+                    role = $"{parentTypeName}.{args.collectionPropertyName}";
                     collectionPersister = args.sessionFactory.GetCollectionPersister(role);
                 }
-                // ReSharper disable once EmptyGeneralCatchClause
-                catch { }
 
                 return new Persisters()
                 {
@@ -140,6 +149,6 @@ public class DeserializedPersistentGenericBag<T> : PersistentGenericBag<T>, IDes
                     CollectionPersister = collectionPersister,
                     Role = role
                 };
-            }, (collectionPropertyName, sessionFactory: _sessionFactory));
+            }, (collectionPropertyName, sessionFactory: _sessionFactory ));
     }
 }

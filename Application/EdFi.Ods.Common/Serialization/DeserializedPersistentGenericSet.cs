@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NHibernate.Collection.Generic;
 using NHibernate.Engine;
+using NHibernate.Persister.Collection;
 
 namespace EdFi.Ods.Common.Serialization;
 
@@ -104,8 +105,25 @@ public class DeserializedPersistentGenericSet<T> : PersistentGenericSet<T>, IDes
                 string parentTypeName = pt.Item1.FullName;
                 var entityPersister = args.sessionFactory.GetEntityPersister(parentTypeName);
 
-                var role = $"{parentTypeName}.{args.collectionPropertyName}";
-                var collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                ICollectionPersister collectionPersister = null;
+                string role = null;
+
+                if (entityPersister.IsInherited)
+                {
+                    try
+                    {
+                        // Look on the base class first
+                        role = $"{entityPersister.EntityMetamodel.Superclass}.{args.collectionPropertyName}";
+                        collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                    }
+                    catch { /* Ignore */ }
+                }
+
+                if (collectionPersister == null)
+                {
+                    role = $"{parentTypeName}.{args.collectionPropertyName}";
+                    collectionPersister = args.sessionFactory.GetCollectionPersister(role);
+                }
 
                 return new Persisters()
                 {
