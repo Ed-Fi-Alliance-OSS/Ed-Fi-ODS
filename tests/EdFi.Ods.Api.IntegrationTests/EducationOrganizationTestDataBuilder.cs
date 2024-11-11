@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                                 {schoolId}, 
                                 {staffUSI}, 
                                 {TestEmploymentStatusDescriptorId}, 
-                                '{ entryDate }');"
+                                '{ entryDate?.Date.ToShortDateString() }');"
 
             );
 
@@ -105,7 +105,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                     {schoolId}, 
                     {staffUSI}, 
                     {TestStaffClassificationDescriptorId}, 
-                    '{ entryDate }');"
+                    '{ entryDate?.Date.ToShortDateString() }');"
             );
 
             return this;
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 VALUES (
                     '{newGuidId}', 
                     '{newGuidId}', 
-                    '{ DateTime.Now }', 
+                    '{ DateTime.UtcNow.Date.ToShortDateString() }', 
                     '{newGuidId}');"
             );
             return this;
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 VALUES (
                     '{newGuidId}',
                     '{newGuidId}',
-                    '{DateTime.UtcNow.Date}',
+                    '{DateTime.UtcNow.Date.ToShortDateString()}',
                     '{newGuidId}');"
             );
 
@@ -268,7 +268,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 VALUES (
                     {schoolId},
                     {studentUSI},
-                    '{entryDate}',
+                    '{entryDate?.Date.ToShortDateString()}',
                     {TestGradeLevelDescriptorId});"
             );
 
@@ -289,7 +289,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                     StudentUSI,
                     ResponsibilityDescriptorId)
                 VALUES (
-                    '{entryDate}',
+                    '{entryDate?.Date.ToShortDateString()}',
                     {schoolId},
                     {studentUSI},
                     {TestResponsibilityDescriptorId});"

@@ -38,7 +38,7 @@ jobs:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     services:
