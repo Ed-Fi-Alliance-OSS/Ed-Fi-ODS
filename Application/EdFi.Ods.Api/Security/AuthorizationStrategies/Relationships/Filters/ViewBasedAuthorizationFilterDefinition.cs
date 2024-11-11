@@ -52,6 +52,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     }
 
                     @where.ApplySingleColumnJoinFilter(
+                        resource,
                         parameters,
                         viewName,
                         subjectEndpointNames[0],

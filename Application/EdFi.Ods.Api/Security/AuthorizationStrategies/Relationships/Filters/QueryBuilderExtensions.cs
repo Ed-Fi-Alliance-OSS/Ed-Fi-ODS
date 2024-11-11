@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.CustomViewBased;
 
@@ -21,6 +23,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// Applies a join-based filter to the criteria for the specified authorization view.
         /// </summary>
         /// <param name="queryBuilder">The <see cref="QueryBuilder" /> to which criteria should be applied.</param>
+        /// <param name="resource"></param>
         /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
         /// <param name="subjectEndpointName">The name of the property to be joined for the entity being queried.</param>
@@ -30,6 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         public static void ApplySingleColumnJoinFilter(
             this QueryBuilder queryBuilder,
+            Resource resource,
             IDictionary<string, object> parameters,
             string viewName,
             string subjectEndpointName,
@@ -43,11 +47,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             if (useJoinAuth)
             {
-                ApplySingleColumnJoinFilterUsingJoins(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName, viewTargetEndpointName, joinType, authViewAlias);
+                ApplySingleColumnJoinFilterUsingJoins(queryBuilder, resource, parameters, viewName, subjectEndpointName, viewSourceEndpointName, viewTargetEndpointName, joinType, authViewAlias);
                 return;
             }
 
-            ApplySingleColumnJoinFilterUsingCtes(queryBuilder, parameters, viewName, subjectEndpointName, viewSourceEndpointName,
+            ApplySingleColumnJoinFilterUsingCtes(queryBuilder, resource, parameters, viewName, subjectEndpointName, viewSourceEndpointName,
                 viewTargetEndpointName,
                 joinType,
                 authViewAlias);
@@ -55,6 +59,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         private static void ApplySingleColumnJoinFilterUsingCtes(
             this QueryBuilder queryBuilder,
+            Resource resource,
             IDictionary<string, object> parameters,
             string viewName,
             string subjectEndpointName,
@@ -90,19 +95,21 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             // Add the CTE to the main query, with alias
             queryBuilder.With(authViewAlias, cte);
 
+            var subjectJoin =  GetSubjectJoinDetails(resource, subjectEndpointName);
+
             // Apply join to the authorization CTE
             if (joinType == JoinType.InnerJoin)
             {
                 queryBuilder.Join(
                     authViewAlias,
-                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.endpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
             }
             else if (joinType == JoinType.LeftOuterJoin)
             {
                 queryBuilder.LeftJoin(
                     authViewAlias,
-                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
-                
+                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.endpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+            
                 queryBuilder.Where(qb => qb.WhereNotNull($"{authViewAlias}.{viewTargetEndpointName}"));
             }
             else
@@ -113,6 +120,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         private static void ApplySingleColumnJoinFilterUsingJoins(
             QueryBuilder queryBuilder,
+            Resource resource,
             IDictionary<string, object> parameters,
             string viewName,
             string subjectEndpointName,
@@ -129,18 +137,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
-            // Apply authorization join using ICriteria
+            var subjectJoin =  GetSubjectJoinDetails(resource, subjectEndpointName);
+
+            // Apply join to the authorization view
             if (joinType == JoinType.InnerJoin)
             {
                 queryBuilder.Join(
                     $"auth.{viewName} AS {authViewAlias}",
-                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.tableAlias}", $"{authViewAlias}.{viewTargetEndpointName}"));
             }
             else if (joinType == JoinType.LeftOuterJoin)
             {
                 queryBuilder.LeftJoin(
                     $"auth.{viewName} AS {authViewAlias}",
-                    j => j.On($"r.{subjectEndpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
+                    j => j.On($"{subjectJoin.tableAlias}.{subjectJoin.endpointName}", $"{authViewAlias}.{viewTargetEndpointName}"));
             }
             else
             {
@@ -174,6 +184,21 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 }
             }
         }
+
+        private static (string tableAlias, string endpointName) GetSubjectJoinDetails(Resource resource, string subjectEndpointName)
+        {
+            // If the resource is derived and the subject property is identifying (part of the PK), join using the base table
+            // to take advantage of indexes that are built on the base table and not each of the derived tables.
+            if (resource.Entity.IsDerived
+                && resource.Entity.PropertyByName.TryGetValue(subjectEndpointName, out var subjectProperty)
+                && subjectProperty.IsIdentifying)
+            {
+                return (AliasConstants.BaseAlias, subjectProperty.BaseProperty.PropertyName);
+            }
+
+            return (AliasConstants.RootAlias, subjectEndpointName);
+        }
+
 
         /// <summary>
         /// Applies a join-based filter to the <see cref="QueryBuilder" /> for the specified custom authorization view.
