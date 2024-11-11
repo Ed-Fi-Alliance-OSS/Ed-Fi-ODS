@@ -43,17 +43,16 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
                 {
                     var persister = @event.Persister;
 
-                    // Update the entity with the last modified date before serializing
-                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
-                    aggregateRoot.LastModifiedDate = lastModifiedDate;
-
                     // Get the established current date/time from context for absolute date/time consistency within the aggregate
                     DateTime currentDateTime = (DateTime)(CallContext.GetData("CurrentDateTime") ?? DateTime.UtcNow);
 
                     // Set a date context that will cause all transient entities to report the assigned date without affecting the entity itself
                     CallContext.SetData("TransientSerializableCreateDateTime", currentDateTime);
 
+                    // Update the entity with the last modified date before serializing
                     DateTime originalLastModified = aggregateRoot.LastModifiedDate;
+                    var lastModifiedDate = persister.Get<DateTime>(@event.State, ColumnNames.LastModifiedDate);
+                    aggregateRoot.LastModifiedDate = lastModifiedDate;
 
                     try
                     {
@@ -74,7 +73,7 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
                         // Stop defaulting the reported CreateDate for transient entities
                         CallContext.SetData("TransientSerializableCreateDateTime", null);
 
-                        // Restore entity property
+                        // Restore the last modified date to the original value
                         aggregateRoot.LastModifiedDate = originalLastModified;
                     }
                 }

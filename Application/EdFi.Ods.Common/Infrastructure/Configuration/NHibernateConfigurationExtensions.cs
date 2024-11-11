@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             configuration.SetListener(
                 ListenerType.PostUpdate,
-                new EdFiOdsPostUpdateEventListener(entityAuthorizerResolver, authorizationContextProvider));
+                new EdFiOdsPostUpdateEventListener(entityAuthorizerResolver, authorizationContextProvider, apiSettings));
         }
     }
 }
