@@ -9,7 +9,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
+using log4net;
 using NHibernate.Connection;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
@@ -19,6 +22,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(NHibernateOdsConnectionProvider));
+        
         public NHibernateOdsConnectionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
             _connectionStringProvider = connectionStringProvider;
@@ -32,7 +37,19 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             {
                 connection.ConnectionString = _connectionStringProvider.GetConnectionString();
 
-                connection.Open();
+                // Define a retry policy with exponential backoff
+                var retryPolicy = Policy
+                    .Handle<Exception>(ex => !(ex is EdFiProblemDetailsExceptionBase)) // Retry on any exception except EdFiProblemDetailsExceptionBase
+                    .WaitAndRetry(Backoff.ExponentialBackoff(
+                        initialDelay: TimeSpan.FromSeconds(1), // Initial retry delay
+                        retryCount: 5),
+                        onRetry: (exception, timeSpan, retryAttempt, context) =>
+                        {
+                            _logger.Warn($"Retry attempt {retryAttempt} of 5: Retrying connection in {timeSpan.TotalSeconds} seconds due to exception: {exception.Message}");
+                        });
+
+                // Execute the Open method with the retry policy
+                retryPolicy.Execute(() => connection.Open());
             }
             catch (EdFiProblemDetailsExceptionBase)
             {
