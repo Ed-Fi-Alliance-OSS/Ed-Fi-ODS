@@ -141,14 +141,18 @@ function Pack {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     }
-    if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName) {
- 
-        $xml = [xml](Get-Content $NuspecFilePath)
-        $xml.package.metadata.id = $PackageName
-        $xml.package.metadata.description = $PackageName
-        $xml.Save($NuspecFilePath)
-        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties copyright=$Copyright  -NoPackageAnalysis -NoDefaultExcludes
+    if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
+        $params = @{
+            PackageDefinitionFile = $NuspecFilePath
+            Version               = $version
+            PackageId             = $PackageName
+            OutputDirectory       = $packageOutput
+            BuildConfiguration    = $Configuration
+        }
 
+        & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
+
+        New-Package @params | Out-Host    
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName) {
         Invoke-Execute {
