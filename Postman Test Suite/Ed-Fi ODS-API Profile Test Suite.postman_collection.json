@@ -17,7 +17,8 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -73,6 +74,10 @@
 									"    };",
 									"",
 									"    pm.sendRequest(descriptorPostRequest, function (err, response) {",
+									"      pm.test(`Should create ${descriptorName} value '${codeValue}'.`, () => {",
+									"        pm.expect(response.code).to.be.oneOf([200, 201]);",
+									"      });",
+									"",
 									"      if (err) {",
 									"        console.log(err);",
 									"      }",
@@ -80,7 +85,8 @@
 									"  });",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
