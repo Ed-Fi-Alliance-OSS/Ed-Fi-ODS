@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using Microsoft.AspNetCore.Http;
 using NHibernate;
 
@@ -20,6 +22,8 @@ public class EntityDeserializer : IEntityDeserializer
     private readonly ISessionFactory _sessionFactory;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
+    private readonly ILog _logger = LogManager.GetLogger(typeof(EntityDeserializer));
+    
     public EntityDeserializer(
         ISurrogateIdMutator[] surrogateIdMutators,
         ISessionFactory sessionFactory,
@@ -32,8 +36,19 @@ public class EntityDeserializer : IEntityDeserializer
         
     public async Task<TEntity> DeserializeAsync<TEntity>(ItemRawData itemRawData)
     {
-        // Deserialize the entity
-        var entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
+        TEntity entity = default;
+
+        try
+        {
+            // Deserialize the entity
+            entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
+        }
+        catch (Exception ex)
+        {
+            // Prevent exceptions during deserialization from failing the processing -- revert to returning a null instance
+            _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {itemRawData.AggregateId}). Falling back to load through NHibernate repository...", ex);
+            return default;
+        }
 
         // Apply surrogate id mutators to set the surrogate id value onto the entity if not already assigned yet
         foreach (var mutator in _surrogateIdMutators)

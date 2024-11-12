@@ -95,7 +95,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             if (itemRawData.IsDeserializable())
                             {
                                 // Deserialize the entity
-                                return await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+                                var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+
+                                if (deserializedEntity != null)
+                                {
+                                    return deserializedEntity;
+                                }
                             }
                         }
 
@@ -138,7 +143,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         if (itemRawData.IsDeserializable())
                         {
                             // Deserialize the entity
-                            return await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+                            var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+
+                            if (deserializedEntity != null)
+                            {
+                                return deserializedEntity;
+                            }
                         }
                     }
 
@@ -149,7 +159,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 return persistedEntity;
-                
+
                 bool ShouldTryLoadByCompositePrimaryKey()
                 {
                     if (compositeKeyValues.Count > 1)

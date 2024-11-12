@@ -80,15 +80,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // If we can deserialize the item
                     if (item.IsDeserializable())
                     {
-                        try
+                        // Deserialize the entity
+                        var entity = await _entityDeserializer.DeserializeAsync<TEntity>(item);
+
+                        if (entity != null)
                         {
-                            // Deserialize the entity
-                            var entity = await _entityDeserializer.DeserializeAsync<TEntity>(item);
                             return [entity];
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {item.AggregateId}). Falling back to load through NHibernate repository...", ex);
                         }
                     }
                 }

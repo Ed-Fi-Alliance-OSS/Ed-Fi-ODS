@@ -100,14 +100,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // Build result items using exclusively deserialized items
                     foreach (var itemRawData in specificationResult.RawItems)
                     {
-                        try
+                        var deserializedInstance = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+
+                        if (deserializedInstance != null)
                         {
-                            var deserializedInstance = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
                             results.Add(deserializedInstance);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {itemRawData.AggregateId}). Falling back to load through NHibernate repository...", ex);
                             itemRawData.AggregateData = null;
                             aggregateIdsToLoad.Add(itemRawData.AggregateId);
                         }
