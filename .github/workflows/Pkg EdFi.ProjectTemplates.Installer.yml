@@ -20,7 +20,7 @@ concurrency:
 
 env:
   INFORMATIONAL_VERSION: "7.3"
-  BUILD_INCREMENTER: "-268"
+  BUILD_INCREMENTER: "-570"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
@@ -123,9 +123,9 @@ jobs:
           }      
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-ODS/    
-      shell: powershell
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
+      shell: powershell        
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS/      
       run: |      
@@ -134,7 +134,7 @@ jobs:
     - name: publish
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.csproj" -PackageName "EdFi.Suite3.ProjectTemplates.Installer"
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer"
       shell: powershell     
     - name: Upload EdFi.Suite3.ProjectTemplates.Installer Artifacts
       if: success() || failure()
