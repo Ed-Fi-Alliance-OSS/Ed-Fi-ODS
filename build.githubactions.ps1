@@ -156,13 +156,15 @@ function Pack {
         $params = @{
             PackageDefinitionFile = $NuspecFilePath
             Version               = $version
-            PackageId             = $PackageName
+            Properties            = @{
+                configuration = $Configuration
+                id = $PackageName
+            }
             OutputDirectory       = $packageOutput
-            BuildConfiguration    = $Configuration
         }
 
         & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
-
+        Write-Host "NuspecFilePath & PackageName exists"
         New-Package @params | Out-Host    
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
