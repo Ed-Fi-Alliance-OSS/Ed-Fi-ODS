@@ -77,24 +77,33 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
             return null;
         }
 
-        if (!GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
-        {
-            throw new Exception($"Unable to find aggregate extension by type '{_containingType.Name}'");
-        }
-
-        var missingExtensionEntries = new List<string>(aggregateExtensionByName.Keys);
-
         var extensionDictionary = new Dictionary<string, object>();
 
         int count = reader.ReadMapHeader();
+
+        if (count == 0)
+        {
+            return extensionDictionary;
+        }
+
+        IList<string> missingExtensionEntries;
+
+        if (GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
+        {
+            missingExtensionEntries = new List<string>(aggregateExtensionByName.Keys);
+        }
+        else
+        {
+            missingExtensionEntries = Array.Empty<string>();
+        }
 
         for (int i = 0; i < count; i++)
         {
             string extensionCollectionName = reader.ReadString();
 
-            if (!aggregateExtensionByName.TryGetValue(extensionCollectionName, out var extensionEntity))
+            if (aggregateExtensionByName?.TryGetValue(extensionCollectionName, out var extensionEntity) != true)
             {
-                throw new Exception($"Unable to find aggregate extension for '{_containingType.Name}' by name '{extensionCollectionName}'.");
+                throw new Exception($"Unable to find the deserialized aggregate extension '{extensionCollectionName}' on '{_containingType.Name}' in the current model.");
             }
 
             missingExtensionEntries.Remove(extensionCollectionName);
@@ -119,9 +128,9 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
             extensionDictionary.Add(extensionCollectionName, persistentList);
         }
 
+        // If there are any extensions that weren't included in the deserialized data, we need to initialize them properly
         if (missingExtensionEntries.Count > 0)
         {
-            // Initialize entries missing from serialized data, but needed for current API context
             foreach (string missingExtensionEntry in missingExtensionEntries)
             {
                 extensionDictionary.Add(missingExtensionEntry, new DeserializedPersistentGenericBag<object>(

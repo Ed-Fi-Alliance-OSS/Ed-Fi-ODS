@@ -121,7 +121,7 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
             // Wrap the standard collection in a GenericPersistentSet<T> compatible with NHibernate
             if (reader.TryReadNil())
             {
-                extensionDictionary[matchingExtension] = CreatePersistentCollection(null);
+                extensionDictionary[matchingExtension] = CreatePersistentCollection();
                 continue;
             }
 
@@ -134,7 +134,7 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
         return extensionDictionary;
     }
 
-    private static object CreatePersistentCollection(object extensionObject)
+    private static object CreatePersistentCollection(object extensionObject = null)
     {
         var list = new List<object>();
         
