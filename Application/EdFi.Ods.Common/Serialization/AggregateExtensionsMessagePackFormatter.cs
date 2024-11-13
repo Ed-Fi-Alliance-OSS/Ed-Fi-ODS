@@ -79,13 +79,6 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
 
         var extensionDictionary = new Dictionary<string, object>();
 
-        int count = reader.ReadMapHeader();
-
-        if (count == 0)
-        {
-            return extensionDictionary;
-        }
-
         IList<string> missingExtensionEntries;
 
         if (GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
@@ -96,6 +89,8 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         {
             missingExtensionEntries = Array.Empty<string>();
         }
+
+        int count = reader.ReadMapHeader();
 
         for (int i = 0; i < count; i++)
         {
