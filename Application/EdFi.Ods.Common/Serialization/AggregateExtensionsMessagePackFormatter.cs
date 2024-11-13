@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using MessagePack;
 using MessagePack.Formatters;
+using NHibernate.Engine;
 
 namespace EdFi.Ods.Common.Serialization;
 
@@ -76,6 +77,13 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
             return null;
         }
 
+        if (!GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
+        {
+            throw new Exception($"Unable to find aggregate extension by type '{_containingType.Name}'");
+        }
+
+        var missingExtensionEntries = new List<string>(aggregateExtensionByName.Keys);
+
         var extensionDictionary = new Dictionary<string, object>();
 
         int count = reader.ReadMapHeader();
@@ -84,21 +92,16 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         {
             string extensionCollectionName = reader.ReadString();
 
-            if (!GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
-            {
-                throw new Exception($"Unable to find aggregate extension by type '{_containingType.Name}'");
-            }
-
             if (!aggregateExtensionByName.TryGetValue(extensionCollectionName, out var extensionEntity))
             {
                 throw new Exception($"Unable to find aggregate extension for '{_containingType.Name}' by name '{extensionCollectionName}'.");
             }
 
+            missingExtensionEntries.Remove(extensionCollectionName);
+
             Type extensionEntityType = (extensionEntity as dynamic).NHibernateEntityType;
 
-            // TODO: ODS-6551 - Optimize, create dictionary containing generic method by type
-            Type listType = typeof(List<>).MakeGenericType(typeof(object));
-            var extensionObjectList = (IList) Activator.CreateInstance(listType);
+            var extensionObjectList = (IList) new List<object>();
 
             int itemCount = reader.ReadArrayHeader();
 
@@ -116,11 +119,23 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
             extensionDictionary.Add(extensionCollectionName, persistentList);
         }
 
+        if (missingExtensionEntries.Count > 0)
+        {
+            // Initialize entries missing from serialized data, but needed for current API context
+            foreach (string missingExtensionEntry in missingExtensionEntries)
+            {
+                extensionDictionary.Add(missingExtensionEntry, new DeserializedPersistentGenericBag<object>(
+                    GeneratedArtifactStaticDependencies.SessionFactory,
+                    new List<object>()));
+            }
+        }
+
         return extensionDictionary;
     }
 
     private static object CreatePersistentBag<T>(IList<T> extensionObjects)
     {
+        // TODO: ODS-6551 - Now that we've identified that the generic type can be reduced to object in many places, can we eliminate the extra wrapper and generic type usage here to simplify and optimize the code?
         var list = new List<T>(extensionObjects.Count);
         
         foreach (T item in extensionObjects)

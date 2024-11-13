@@ -119,35 +119,31 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
             }
 
             // Wrap the standard collection in a GenericPersistentSet<T> compatible with NHibernate
-            // TODO: ODS-6551 - Optimize, create dictionary containing generic method by type
-            var method = GetType()!.GetMethod(nameof(CreatePersistentCollection), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(typeof(object));
-
             if (reader.TryReadNil())
             {
-                extensionDictionary[matchingExtension] = method.Invoke(null, [null]);
+                extensionDictionary[matchingExtension] = CreatePersistentCollection(null);
                 continue;
             }
 
             // Use the serializer to populate the extension object
             var extensionObject = MessagePackSerializer.Deserialize(extensionObjectType, ref reader, options);
 
-            extensionDictionary[matchingExtension] = method.Invoke(null, [extensionObject]);
+            extensionDictionary[matchingExtension] = CreatePersistentCollection(extensionObject);
         }
 
         return extensionDictionary;
     }
 
-    private static object CreatePersistentCollection<T>(T extensionObject)
+    private static object CreatePersistentCollection(object extensionObject)
     {
-        var list = new List<T>();
+        var list = new List<object>();
         
         if (extensionObject != null)
         {
             list.Add(extensionObject);
         };
 
-        var bag = new DeserializedPersistentGenericBag<T>(GeneratedArtifactStaticDependencies.SessionFactory, list);
+        var bag = new DeserializedPersistentGenericBag<object>(GeneratedArtifactStaticDependencies.SessionFactory, list);
 
         return bag;
     }
