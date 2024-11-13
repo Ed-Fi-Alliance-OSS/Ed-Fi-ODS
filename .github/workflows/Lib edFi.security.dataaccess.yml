@@ -7,7 +7,7 @@ name: Lib EdFi.Security.DataAccess
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: [ 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 permissions: read-all
