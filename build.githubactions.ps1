@@ -69,6 +69,9 @@ param(
     [string]
     $RelativeRepoPath,
 
+    [string]
+    $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
+
     [ValidateSet('4.0.0', '5.2.0')]
     [string]  $StandardVersion
 
@@ -153,19 +156,14 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
-        $params = @{
-            PackageDefinitionFile = $NuspecFilePath
-            Version               = $version
-            Properties            = @{
-                configuration = $Configuration
-                id = $PackageName
-            }
-            OutputDirectory       = $packageOutput
-        }
-
-        & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
         Write-Host "NuspecFilePath & PackageName exists"
-        New-Package @params | Out-Host    
+ 
+        $xml = [xml](Get-Content $NuspecFilePath)
+        $xml.package.metadata.id = $PackageName
+        $xml.package.metadata.description = $PackageName
+        $xml.Save($NuspecFilePath)
+        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties copyright=$Copyright  -NoPackageAnalysis -NoDefaultExcludes
+
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
