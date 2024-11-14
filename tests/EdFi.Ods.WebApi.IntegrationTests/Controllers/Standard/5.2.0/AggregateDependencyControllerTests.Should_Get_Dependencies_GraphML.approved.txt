@@ -247,7 +247,7 @@
 <node id="/ed-fi/schoolFoodServiceProgramServiceDescriptors"/>
 <node id="/ed-fi/schools"/>
 <node id="/ed-fi/schoolTypeDescriptors"/>
-<node id="/ed-fi/section504DisabilityTypeDescriptors"/>
+<node id="/ed-fi/section504DisabilityDescriptors"/>
 <node id="/ed-fi/sectionAttendanceTakenEvents"/>
 <node id="/ed-fi/sectionCharacteristicDescriptors"/>
 <node id="/ed-fi/sections"/>
@@ -1290,7 +1290,7 @@
 <edge source="/ed-fi/schools" target="/ed-fi/surveys"/>
 <edge source="/ed-fi/schools" target="/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations"/>
 <edge source="/ed-fi/schoolTypeDescriptors" target="/ed-fi/schools"/>
-<edge source="/ed-fi/section504DisabilityTypeDescriptors" target="/ed-fi/studentSection504ProgramAssociations"/>
+<edge source="/ed-fi/section504DisabilityDescriptors" target="/ed-fi/studentSection504ProgramAssociations"/>
 <edge source="/ed-fi/sectionCharacteristicDescriptors" target="/ed-fi/sections"/>
 <edge source="/ed-fi/sections" target="/ed-fi/assessments"/>
 <edge source="/ed-fi/sections" target="/ed-fi/courseTranscripts"/>

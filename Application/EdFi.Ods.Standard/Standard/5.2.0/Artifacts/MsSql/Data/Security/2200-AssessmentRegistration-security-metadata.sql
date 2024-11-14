@@ -1301,9 +1301,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1319,7 +1319,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('Section504DisabilityTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor', @parentResourceClaimId)
+            VALUES ('Section504DisabilityDescriptor', 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END

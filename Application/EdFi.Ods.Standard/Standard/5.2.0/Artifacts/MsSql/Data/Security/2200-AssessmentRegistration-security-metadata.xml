@@ -130,7 +130,7 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor" />
 			</Claims>
 		</Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">

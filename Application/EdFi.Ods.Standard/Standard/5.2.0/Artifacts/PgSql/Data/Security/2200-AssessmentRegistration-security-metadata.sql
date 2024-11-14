@@ -1216,9 +1216,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1231,7 +1231,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('Section504DisabilityTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor', parent_resource_claim_id)
+        VALUES ('Section504DisabilityDescriptor', 'http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE

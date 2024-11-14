@@ -1384,7 +1384,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/section504DisabilityTypeDescriptors",
+    "resource": "/ed-fi/section504DisabilityDescriptors",
     "order": 1,
     "operations": [
       "Create",
