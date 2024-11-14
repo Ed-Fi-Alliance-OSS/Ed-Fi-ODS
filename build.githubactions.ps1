@@ -156,7 +156,6 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
-        Write-Host "NuspecFilePath & PackageName exists"
  
         $xml = [xml](Get-Content $NuspecFilePath)
         $xml.package.metadata.id = $PackageName
@@ -254,32 +253,31 @@ function Get-IsWindows {
 }
 
 function InstallCredentialHandler {
-         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
-              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-         }
-          # using WebClient is faster then Invoke-WebRequest but shows no progress
-          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-          $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
-          Write-host "Downloading file from $sourceUrl..."
-          $webClient = New-Object System.Net.WebClient
-          $webClient.DownloadFile($sourceUrl, $zipFilePath)
-          Write-host "Download complete." 
-          if (-not (Test-Path $zipFilePath)) {
-              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
-              exit 0
-          }
-          $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
-          if ($fileName.EndsWith('.zip')) {
-              Write-host "Extracting $fileName..."
-              
-              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
-              Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
-              Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
-          }
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         Write-Host "Installed 7Zip4Powershell."
+    }
+     # using WebClient is faster then Invoke-WebRequest but shows no progress
+     $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+     $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+     $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
+     Write-Host "Downloading file from $sourceUrl..."
+     $webClient = New-Object System.Net.WebClient
+     $webClient.DownloadFile($sourceUrl, $zipFilePath)
+     Write-Host "Download complete." 
+     if (-not (Test-Path $zipFilePath)) {
+         Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+         exit 0
+     }
+     $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
+     if ($fileName.EndsWith('.zip')) {
+         Write-Host "Extracting $fileName..."
 
+         if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+         Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
+         Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+     }
 }
-
 function StandardVersions {
 
     $standardProjectDirectory = Split-Path $Solution  -Resolve
