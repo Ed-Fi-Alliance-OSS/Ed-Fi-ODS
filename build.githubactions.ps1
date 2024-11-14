@@ -272,12 +272,13 @@ function InstallCredentialHandler {
      $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
      if ($fileName.EndsWith('.zip')) {
          Write-Host "Extracting $fileName..."
-
+        
          if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
          Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
          Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
      }
 }
+
 function StandardVersions {
 
     $standardProjectDirectory = Split-Path $Solution  -Resolve
