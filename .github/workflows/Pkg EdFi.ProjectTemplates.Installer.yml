@@ -108,7 +108,7 @@ jobs:
       shell: powershell
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-ODS/    
-      shell: powershell        
+      shell: powershell
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
     - name: Install-credential-handler
