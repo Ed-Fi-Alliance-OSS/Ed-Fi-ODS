@@ -3387,6 +3387,104 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Limit > 0 includes Next-Page-Token header",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Next-Page-Token header is present\", () => {\r",
+													"    pm.response.to.have.header(\"Next-Page-Token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset=10&limit=25",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "10"
+												},
+												{
+													"key": "limit",
+													"value": "25"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Limit = 0 excludes Next-Page-Token header",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Next-Page-Token header is NOT present\", () => {\r",
+													"    pm.response.to.not.have.header(\"Next-Page-Token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset=10&limit=0",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											],
+											"query": [
+												{
+													"key": "offset",
+													"value": "10"
+												},
+												{
+													"key": "limit",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -3957,7 +4055,7 @@
 					]
 				},
 				{
-					"name": "Keyset Paging",
+					"name": "Cursor Paging",
 					"item": [
 						{
 							"name": "Setup",
@@ -4488,25 +4586,16 @@
 							"name": "Paging Validation",
 							"item": [
 								{
-									"name": "Key set paging, No page size",
+									"name": "Cursor paging, No page size",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
 													"});\r",
-													"\r",
-													"const problemDetails = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Should indicate request was invalid.\", () => {\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.contain(\"Page token and page size must both be provided for key set paging.\")\r",
-													"});"
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -4543,7 +4632,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, No page token",
+									"name": "Cursor paging, No page token",
 									"event": [
 										{
 											"listen": "test",
@@ -4560,7 +4649,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.contain(\"Page token and page size must both be provided for key set paging.\")\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"PageToken is required when pageSize is specified.\")\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -4598,7 +4687,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Invalid page token (not an encoded token)",
+									"name": "Cursor paging, Invalid page token (not an encoded token)",
 									"event": [
 										{
 											"listen": "test",
@@ -4653,7 +4742,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Invalid page token (leading space)",
+									"name": "Cursor paging, Invalid page token (leading space)",
 									"event": [
 										{
 											"listen": "test",
@@ -4708,7 +4797,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Offset also specified",
+									"name": "Cursor paging, Offset also specified",
 									"event": [
 										{
 											"listen": "test",
@@ -4725,7 +4814,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.contain(\"Both offset/limit and key set paging parameters are provided, but only one type of paging can be used.\");\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Both offset and pageToken parameters were provided, but they support alternative paging approaches and cannot be used together.\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -4766,25 +4855,16 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Limit also specified",
+									"name": "Cursor paging, Limit also specified",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
 													"});\r",
-													"\r",
-													"const problemDetails = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Should indicate request was invalid.\", () => {\r",
-													"  pm.expect(problemDetails.detail).to.equal(\"The request construction was invalid.\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Should indicate both key set paging parameter must be provided.\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.contain(\"Both offset/limit and key set paging parameters are provided, but only one type of paging can be used.\");\r",
-													"});"
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -4824,7 +4904,7 @@
 									"response": []
 								},
 								{
-									"name": "Key set paging, Total Count requested",
+									"name": "Cursor paging, Total Count requested",
 									"event": [
 										{
 											"listen": "test",
@@ -4841,7 +4921,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Should indicate Total Count cannot be determined while using key set paging.\", () => {\r",
-													"  pm.expect(problemDetails.errors).to.contain(\"Total count cannot be determined while using key set paging.\");\r",
+													"  pm.expect(problemDetails.errors).to.contain(\"Total count cannot be determined while using cursor paging (when pageToken is specified).\");\r",
 													"});\r",
 													""
 												],

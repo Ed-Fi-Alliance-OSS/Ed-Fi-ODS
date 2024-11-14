@@ -3,56 +3,85 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Providers.Queries.Paging;
+
 namespace EdFi.Ods.Common.Models.Queries;
 
-public class QueryParametersValidator
+public static class QueryParametersValidator
 {
-    public static bool IsValid(QueryParameters queryParameters, int defaultPageLimitSize, out string errorMessage)
+    public static bool IsValid(IQueryParameters queryParameters, int defaultPageLimitSize, out string errorMessage)
     {
-        errorMessage = string.Empty;
+        errorMessage = null;
 
-        // Check if offset/limit paging is being used
-        bool isOffsetLimitPagingProvided = queryParameters.Offset.HasValue || queryParameters.Limit.HasValue;
-
-        // Check if key set paging is being used
-        bool isKeySetPagingProvided = queryParameters.PageSize.HasValue
-            || queryParameters.MinAggregateId.HasValue
-            || queryParameters.MaxAggregateId.HasValue;
-
-        // Ensure that only one type of paging is provided
-        if (isOffsetLimitPagingProvided && isKeySetPagingProvided)
+        // Look for multiple paging approaches indicated by parameters
+        if (queryParameters.Offset.HasValue
+            && (queryParameters.MinAggregateId.HasValue || queryParameters.MaxAggregateId.HasValue))
         {
-            errorMessage =
-                "Both offset/limit and key set paging parameters are provided, but only one type of paging can be used.";
+            errorMessage = "Both offset and pageToken parameters were provided, but they support alternative paging approaches and cannot be used together.";
 
             return false;
         }
 
-        // // Validate offset/limit paging: if one parameter is provided, both must be provided
-        if (isOffsetLimitPagingProvided)
+        // Determine which paging strategy is in use
+        var pagingStrategy = queryParameters.MinAggregateId.HasValue || queryParameters.MaxAggregateId.HasValue
+            ? PagingStrategy.KeySet
+            : PagingStrategy.LimitOffset;
+
+        if (pagingStrategy == PagingStrategy.LimitOffset)
         {
-            if ((queryParameters.Offset ?? 0) < 0)
+            // Validate basic parameter usage
+            if (queryParameters.PageSize.HasValue && !queryParameters.Limit.HasValue)
+            {
+                if (queryParameters.Offset.HasValue)
+                {
+                    errorMessage = "Use limit instead of pageSize when using limit/offset paging.";
+                }
+                else
+                {
+                    errorMessage = "PageToken is required when pageSize is specified.";
+                }
+
+                return false;
+            }
+
+            // Validate the values provided
+            if (queryParameters.Offset is < 0)
             {
                 errorMessage = $"Offset cannot be a negative value.";
                 return false;
             }
-            
-            if ((queryParameters.Limit ?? 0) < 0 || (queryParameters.Limit ?? defaultPageLimitSize) > defaultPageLimitSize)
+
+            if (queryParameters.Limit is < 0)
             {
-                errorMessage = $"Limit must be omitted or set to a value between 0 and {defaultPageLimitSize}.";
+                errorMessage = $"Limit must be a value between 0 and {defaultPageLimitSize}.";
+                return false;
+            }
+
+            if (queryParameters.Limit.HasValue && queryParameters.Limit > defaultPageLimitSize)
+            {
+                errorMessage = $"Limit must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
         }
-
-        // Validate key set paging: if one parameter is provided, all must be provided
-        if (isKeySetPagingProvided)
+        else
         {
-            if (!queryParameters.PageSize.HasValue
-                || !queryParameters.MinAggregateId.HasValue
-                || !queryParameters.MaxAggregateId.HasValue)
+            // Cursor paging
+            if (queryParameters.Limit.HasValue && !queryParameters.PageSize.HasValue)
             {
-                errorMessage = "Page token and page size must both be provided for key set paging.";
+                errorMessage = "Use pageSize instead of limit when using cursor paging with pageToken.";
+                return false;
+            }
 
+            // Validate the values provided
+            if (queryParameters.PageSize is < 0)
+            {
+                errorMessage = $"PageSize must be a value between 0 and {defaultPageLimitSize}.";
+                return false;
+            }
+
+            if (queryParameters.PageSize.HasValue && queryParameters.PageSize > defaultPageLimitSize)
+            {
+                errorMessage = $"PageSize must be a value between 0 and {defaultPageLimitSize}.";
                 return false;
             }
         }
