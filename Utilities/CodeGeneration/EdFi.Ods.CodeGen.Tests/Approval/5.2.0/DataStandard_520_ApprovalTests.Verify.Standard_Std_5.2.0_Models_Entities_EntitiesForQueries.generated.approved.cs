@@ -24735,6 +24735,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBeha
         //                          Collections
         // -------------------------------------------------------------
         public virtual ICollection<StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeQ> StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes { get; set; }
+        public virtual ICollection<StudentDisciplineIncidentBehaviorAssociationWeaponQ> StudentDisciplineIncidentBehaviorAssociationWeapons { get; set; }
 
         // -------------------------------------------------------------
 
@@ -24794,6 +24795,49 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBeha
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptorQ DisciplineIncidentParticipationCodeDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentDisciplineIncidentBehaviorAssociationWeapon table of the StudentDisciplineIncidentBehaviorAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationWeaponQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationQ StudentDisciplineIncidentBehaviorAssociation { get; set; }
+        [DomainSignature]
+        public virtual int WeaponDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.WeaponDescriptorAggregate.EdFi.WeaponDescriptorQ WeaponDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -30358,6 +30402,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.WeaponDescriptorAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentWeaponQ> DisciplineIncidentWeapons  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeaponQ> StudentDisciplineIncidentBehaviorAssociationWeapons  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }

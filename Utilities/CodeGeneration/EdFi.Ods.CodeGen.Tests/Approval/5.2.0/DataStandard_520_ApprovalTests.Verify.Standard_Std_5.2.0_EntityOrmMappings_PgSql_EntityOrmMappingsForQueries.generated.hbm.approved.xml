@@ -10037,6 +10037,13 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentWeaponQ" />
           </set>
 
+          <set name="StudentDisciplineIncidentBehaviorAssociationWeapons" cascade="none" lazy="true">
+            <key>
+              <column name="WeaponDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeaponQ" />
+          </set>
+
       </join>
     </subclass>
 </class>
@@ -22065,6 +22072,16 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeQ" />
     </set>
 
+    <set name="StudentDisciplineIncidentBehaviorAssociationWeapons" cascade="none" lazy="true">
+      <key>
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeaponQ" />
+    </set>
+
 </class>
 
 
@@ -22092,6 +22109,36 @@
     <!-- Back references -->
     <many-to-one name="DisciplineIncidentParticipationCodeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="DisciplineIncidentParticipationCodeDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeaponQ" table="StudentDisciplineIncidentBehaviorAssociationWeapon" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="WeaponDescriptorId" column="WeaponDescriptorId" type="int" />
+      <key-many-to-one name="StudentDisciplineIncidentBehaviorAssociation">
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="WeaponDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.WeaponDescriptorAggregate.EdFi.WeaponDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="WeaponDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->

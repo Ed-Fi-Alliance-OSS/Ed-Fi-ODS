@@ -66942,6 +66942,19 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
                         includeItem: item => mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded?.Invoke(item) ?? true);
             }
 
+            if (mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponsSupported ?? true)
+            {
+                isModified |=
+                    source.StudentDisciplineIncidentBehaviorAssociationWeapons.SynchronizeCollectionTo(
+                        target.StudentDisciplineIncidentBehaviorAssociationWeapons,
+                        onChildAdded: child =>
+                            {
+                                child.StudentDisciplineIncidentBehaviorAssociation = target;
+                            },
+                        itemCreatable: mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable ?? true,
+                        includeItem: item => mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponIncluded?.Invoke(item) ?? true);
+            }
+
             // Sync extensions
             isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
 
@@ -66990,6 +67003,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
             if (mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported != false)
             {
                 source.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes.MapCollectionTo(target.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes, mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable ?? true, target, mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded);
+            }
+
+            if (mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponsSupported != false)
+            {
+                source.StudentDisciplineIncidentBehaviorAssociationWeapons.MapCollectionTo(target.StudentDisciplineIncidentBehaviorAssociationWeapons, mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable ?? true, target, mappingContract?.IsStudentDisciplineIncidentBehaviorAssociationWeaponIncluded);
             }
 
             // Map extensions
@@ -67050,6 +67068,76 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentDisciplineIncidentBehaviorAsso
     
             // Copy contextual primary key values
             target.DisciplineIncidentParticipationCodeDescriptor = source.DisciplineIncidentParticipationCodeDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target, mappingContract);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentDisciplineIncidentBehaviorAssociationWeaponMapper
+    {
+        private static readonly FullName _fullName_edfi_StudentDisciplineIncidentBehaviorAssociationWeapon = new FullName("edfi", "StudentDisciplineIncidentBehaviorAssociationWeapon");
+    
+        public static bool SynchronizeTo(this IStudentDisciplineIncidentBehaviorAssociationWeapon source, IStudentDisciplineIncidentBehaviorAssociationWeapon target)
+        {
+            bool isModified = false;
+
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentDisciplineIncidentBehaviorAssociationWeaponMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentBehaviorAssociationWeapon);
+
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
+
+            return isModified;
+        }
+
+        public static void MapTo(this IStudentDisciplineIncidentBehaviorAssociationWeapon source, IStudentDisciplineIncidentBehaviorAssociationWeapon target, Action<IStudentDisciplineIncidentBehaviorAssociationWeapon, IStudentDisciplineIncidentBehaviorAssociationWeapon> onMapped)
+        {
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentDisciplineIncidentBehaviorAssociationWeaponMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentDisciplineIncidentBehaviorAssociationWeapon);
+    
+            // Copy contextual primary key values
+            target.WeaponDescriptor = source.WeaponDescriptor;
 
             // Copy non-PK properties
 

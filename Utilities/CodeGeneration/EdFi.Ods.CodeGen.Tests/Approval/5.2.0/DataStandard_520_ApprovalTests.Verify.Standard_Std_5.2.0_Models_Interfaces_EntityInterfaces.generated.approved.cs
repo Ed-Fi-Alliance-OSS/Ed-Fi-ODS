@@ -42646,6 +42646,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode> StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes { get; set; }
+        ICollection<IStudentDisciplineIncidentBehaviorAssociationWeapon> StudentDisciplineIncidentBehaviorAssociationWeapons { get; set; }
 
         // Resource reference data
         Guid? DisciplineIncidentResourceId { get; set; }
@@ -42664,27 +42665,36 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isBehaviorDetailedDescriptionSupported,
             bool isDisciplineIncidentReferenceSupported,
             bool isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported,
+            bool isStudentDisciplineIncidentBehaviorAssociationWeaponsSupported,
             bool isStudentReferenceSupported,
             bool isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable,
             Func<IStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode, bool> isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded,
+            bool isStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable,
+            Func<IStudentDisciplineIncidentBehaviorAssociationWeapon, bool> isStudentDisciplineIncidentBehaviorAssociationWeaponIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsBehaviorDetailedDescriptionSupported = isBehaviorDetailedDescriptionSupported;
             IsDisciplineIncidentReferenceSupported = isDisciplineIncidentReferenceSupported;
             IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported = isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported;
+            IsStudentDisciplineIncidentBehaviorAssociationWeaponsSupported = isStudentDisciplineIncidentBehaviorAssociationWeaponsSupported;
             IsStudentReferenceSupported = isStudentReferenceSupported;
             IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable = isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable;
             IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded = isStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded;
+            IsStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable = isStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable;
+            IsStudentDisciplineIncidentBehaviorAssociationWeaponIncluded = isStudentDisciplineIncidentBehaviorAssociationWeaponIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsBehaviorDetailedDescriptionSupported { get; }
         public bool IsDisciplineIncidentReferenceSupported { get; }
         public bool IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported { get; }
+        public bool IsStudentDisciplineIncidentBehaviorAssociationWeaponsSupported { get; }
         public bool IsStudentReferenceSupported { get; }
         public bool IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable { get; }
         public Func<IStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode, bool> IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodeIncluded { get; }
+        public bool IsStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable { get; }
+        public Func<IStudentDisciplineIncidentBehaviorAssociationWeapon, bool> IsStudentDisciplineIncidentBehaviorAssociationWeaponIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -42696,6 +42706,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsDisciplineIncidentReferenceSupported;
                 case "StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes":
                     return IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesSupported;
+                case "StudentDisciplineIncidentBehaviorAssociationWeapons":
+                    return IsStudentDisciplineIncidentBehaviorAssociationWeaponsSupported;
                 case "StudentReference":
                     return IsStudentReferenceSupported;
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
@@ -42718,6 +42730,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes":
                     return IsStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodesItemCreatable;
+                case "StudentDisciplineIncidentBehaviorAssociationWeapons":
+                    return IsStudentDisciplineIncidentBehaviorAssociationWeaponsItemCreatable;
                 default:
                     throw new Exception($"Unknown child item '{memberName}'.");
             }
@@ -42770,6 +42784,61 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
                 case "DisciplineIncidentParticipationCodeDescriptor":
+                    return true;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        bool IMappingContract.IsItemCreatable(string memberName) => throw new Exception($"Unknown child item member '{memberName}'.");
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentBehaviorAssociationWeapon model.
+    /// </summary>
+    public interface IStudentDisciplineIncidentBehaviorAssociationWeapon : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        IStudentDisciplineIncidentBehaviorAssociation StudentDisciplineIncidentBehaviorAssociation { get; set; }
+        
+        string WeaponDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentDisciplineIncidentBehaviorAssociationWeaponMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentDisciplineIncidentBehaviorAssociationWeaponMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                // Additional inspection support for identifying properties (which are implicitly supported by Profiles) for use during validation
+                case "WeaponDescriptor":
                     return true;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");

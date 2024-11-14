@@ -17198,6 +17198,16 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode" />
     </set>
 
+    <set name="StudentDisciplineIncidentBehaviorAssociationWeapons" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeapon" />
+    </set>
+
 </class>
 
 
@@ -17207,6 +17217,33 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="DisciplineIncidentParticipationCodeDescriptorId" column="DisciplineIncidentParticipationCodeDescriptorId" type="int" />
+      <key-many-to-one name="StudentDisciplineIncidentBehaviorAssociation">
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationWeapon" table="StudentDisciplineIncidentBehaviorAssociationWeapon" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="WeaponDescriptorId" column="WeaponDescriptorId" type="int" />
       <key-many-to-one name="StudentDisciplineIncidentBehaviorAssociation">
         <column name="BehaviorDescriptorId" />
         <column name="IncidentIdentifier" />
