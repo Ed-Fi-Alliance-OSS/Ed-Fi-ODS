@@ -5942,6 +5942,19 @@ REFERENCES [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([BehaviorDescr
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociationWeapon] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentBehaviorAssociationWeapon_StudentDisciplineIncidentBehaviorAssociation] FOREIGN KEY ([BehaviorDescriptorId], [IncidentIdentifier], [SchoolId], [StudentUSI])
+REFERENCES [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([BehaviorDescriptorId], [IncidentIdentifier], [SchoolId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociationWeapon] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentBehaviorAssociationWeapon_WeaponDescriptor] FOREIGN KEY ([WeaponDescriptorId])
+REFERENCES [edfi].[WeaponDescriptor] ([WeaponDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentDisciplineIncidentBehaviorAssociationWeapon_WeaponDescriptor]
+ON [edfi].[StudentDisciplineIncidentBehaviorAssociationWeapon] ([WeaponDescriptorId] ASC)
+GO
+
 ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentDisciplineIncidentNonOffenderAssociation_DisciplineIncident] FOREIGN KEY ([IncidentIdentifier], [SchoolId])
 REFERENCES [edfi].[DisciplineIncident] ([IncidentIdentifier], [SchoolId])
 GO

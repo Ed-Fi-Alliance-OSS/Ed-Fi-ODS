@@ -3642,6 +3642,14 @@ COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
 
+-- Extended Properties [edfi].[StudentDisciplineIncidentBehaviorAssociationWeapon] --
+COMMENT ON TABLE edfi.StudentDisciplineIncidentBehaviorAssociationWeapon IS 'Identifies the type(s) of weapon used by the student during a discipline incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationWeapon.BehaviorDescriptorId IS 'Describes behavior by category.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationWeapon.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationWeapon.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationWeapon.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationWeapon.WeaponDescriptorId IS 'Identifies the type(s) of weapon used by the student during a discipline incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.';
+
 -- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation IS 'This association indicates those students who were involved and not perpetrators for a discipline incident.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';

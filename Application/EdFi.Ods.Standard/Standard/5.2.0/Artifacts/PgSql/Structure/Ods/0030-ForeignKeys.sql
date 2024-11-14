@@ -5485,6 +5485,18 @@ REFERENCES edfi.StudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptor
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationWeapon ADD CONSTRAINT FK_459d56_StudentDisciplineIncidentBehaviorAssociation FOREIGN KEY (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+REFERENCES edfi.StudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationWeapon ADD CONSTRAINT FK_459d56_WeaponDescriptor FOREIGN KEY (WeaponDescriptorId)
+REFERENCES edfi.WeaponDescriptor (WeaponDescriptorId)
+;
+
+CREATE INDEX FK_459d56_WeaponDescriptor
+ON edfi.StudentDisciplineIncidentBehaviorAssociationWeapon (WeaponDescriptorId ASC);
+
 ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CONSTRAINT FK_4b43da_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
 REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
 ;

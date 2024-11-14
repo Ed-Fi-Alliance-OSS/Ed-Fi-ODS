@@ -6285,6 +6285,20 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The role or type of participation of a student in a discipline incident.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode', @level2type=N'COLUMN', @level2name=N'DisciplineIncidentParticipationCodeDescriptorId'
 GO
 
+-- Extended Properties [edfi].[StudentDisciplineIncidentBehaviorAssociationWeapon] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the type(s) of weapon used by the student during a discipline incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Describes behavior by category.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon', @level2type=N'COLUMN', @level2name=N'BehaviorDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon', @level2type=N'COLUMN', @level2name=N'IncidentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the type(s) of weapon used by the student during a discipline incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentBehaviorAssociationWeapon', @level2type=N'COLUMN', @level2name=N'WeaponDescriptorId'
+GO
+
 -- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association indicates those students who were involved and not perpetrators for a discipline incident.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentDisciplineIncidentNonOffenderAssociation'
 GO
