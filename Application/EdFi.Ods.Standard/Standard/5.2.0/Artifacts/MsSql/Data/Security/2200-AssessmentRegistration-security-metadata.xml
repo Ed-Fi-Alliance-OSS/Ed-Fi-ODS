@@ -131,6 +131,8 @@
 			</ClaimSets>
 			<Claims>
 				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/DualCreditTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/DualCreditInstitutionDescriptor" />
 			</Claims>
 		</Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
