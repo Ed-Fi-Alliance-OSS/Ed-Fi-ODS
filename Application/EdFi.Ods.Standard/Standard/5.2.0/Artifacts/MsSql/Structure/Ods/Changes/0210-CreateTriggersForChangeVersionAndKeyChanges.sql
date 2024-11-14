@@ -55,6 +55,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentAdministrationParticipation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_AssessmentAdministrationParticipation_TR_UpdateChangeVersion] ON [edfi].[AssessmentAdministrationParticipation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[AssessmentAdministrationParticipation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[AssessmentAdministrationParticipation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_AssessmentBatteryPart_TR_UpdateChangeVersion]
 GO
 
@@ -90,19 +103,6 @@ BEGIN
     UPDATE [edfi].[AssessmentScoreRangeLearningStandard]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[AssessmentScoreRangeLearningStandard] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_AssesssmentAdministrationParticipation_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_AssesssmentAdministrationParticipation_TR_UpdateChangeVersion] ON [edfi].[AssesssmentAdministrationParticipation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[AssesssmentAdministrationParticipation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[AssesssmentAdministrationParticipation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

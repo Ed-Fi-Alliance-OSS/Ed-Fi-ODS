@@ -11,13 +11,13 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_7808ee_Id ON edfi.Assessment(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_c64558_Id ON edfi.AssessmentAdministration(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_77818e_Id ON edfi.AssessmentAdministrationParticipation(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_6e22f2_Id ON edfi.AssessmentBatteryPart(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_dc3dcf_Id ON edfi.AssessmentItem(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_a20588_Id ON edfi.AssessmentScoreRangeLearningStandard(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_0b52ab_Id ON edfi.AssesssmentAdministrationParticipation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_e52c9c_Id ON edfi.BalanceSheetDimension(Id);
 

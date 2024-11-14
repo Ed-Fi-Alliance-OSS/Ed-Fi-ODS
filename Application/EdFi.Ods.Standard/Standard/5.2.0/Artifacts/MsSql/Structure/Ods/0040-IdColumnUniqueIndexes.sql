@@ -32,6 +32,13 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentAdministrationParticipation') AND name = N'UX_AssessmentAdministrationParticipation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentAdministrationParticipation_Id ON [edfi].[AssessmentAdministrationParticipation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentBatteryPart') AND name = N'UX_AssessmentBatteryPart_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentBatteryPart_Id ON [edfi].[AssessmentBatteryPart]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -48,13 +55,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentScoreRangeLearningStandard') AND name = N'UX_AssessmentScoreRangeLearningStandard_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_AssessmentScoreRangeLearningStandard_Id ON [edfi].[AssessmentScoreRangeLearningStandard]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssesssmentAdministrationParticipation') AND name = N'UX_AssesssmentAdministrationParticipation_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_AssesssmentAdministrationParticipation_Id ON [edfi].[AssesssmentAdministrationParticipation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT

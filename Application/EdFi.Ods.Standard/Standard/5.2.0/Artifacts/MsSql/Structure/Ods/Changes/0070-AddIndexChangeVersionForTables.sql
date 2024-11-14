@@ -28,6 +28,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentAdministrationParticipation') AND name = N'UX_AssessmentAdministrationParticipation_ChangeVersion')
+    CREATE INDEX [UX_AssessmentAdministrationParticipation_ChangeVersion] ON [edfi].[AssessmentAdministrationParticipation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentBatteryPart') AND name = N'UX_AssessmentBatteryPart_ChangeVersion')
     CREATE INDEX [UX_AssessmentBatteryPart_ChangeVersion] ON [edfi].[AssessmentBatteryPart] ([ChangeVersion] ASC)
     GO
@@ -42,12 +48,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentScoreRangeLearningStandard') AND name = N'UX_AssessmentScoreRangeLearningStandard_ChangeVersion')
     CREATE INDEX [UX_AssessmentScoreRangeLearningStandard_ChangeVersion] ON [edfi].[AssessmentScoreRangeLearningStandard] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssesssmentAdministrationParticipation') AND name = N'UX_AssesssmentAdministrationParticipation_ChangeVersion')
-    CREATE INDEX [UX_AssesssmentAdministrationParticipation_ChangeVersion] ON [edfi].[AssesssmentAdministrationParticipation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

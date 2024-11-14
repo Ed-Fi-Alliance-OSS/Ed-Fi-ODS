@@ -25,6 +25,11 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministratio
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentadministrationparticipation') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentadministrationparticipation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentbatterypart') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentbatterypart
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
@@ -37,11 +42,6 @@ END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assessmentscorerangelearningstandard') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assessmentscorerangelearningstandard
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-END IF;
-
-IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'assesssmentadministrationparticipation') THEN
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.assesssmentadministrationparticipation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 

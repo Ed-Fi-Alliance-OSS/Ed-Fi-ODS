@@ -37,6 +37,14 @@ ALTER TABLE [edfi].[AssessmentAdministration] ADD CONSTRAINT AssessmentAdministr
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AssessmentAdministrationParticipation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[AssessmentAdministrationParticipation] ADD [ChangeVersion] [BIGINT] CONSTRAINT AssessmentAdministrationParticipation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[AssessmentAdministrationParticipation] DROP CONSTRAINT AssessmentAdministrationParticipation_DF_ChangeVersion;
+ALTER TABLE [edfi].[AssessmentAdministrationParticipation] ADD CONSTRAINT AssessmentAdministrationParticipation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AssessmentBatteryPart]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[AssessmentBatteryPart] ADD [ChangeVersion] [BIGINT] CONSTRAINT AssessmentBatteryPart_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -58,14 +66,6 @@ BEGIN
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD [ChangeVersion] [BIGINT] CONSTRAINT AssessmentScoreRangeLearningStandard_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] DROP CONSTRAINT AssessmentScoreRangeLearningStandard_DF_ChangeVersion;
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD CONSTRAINT AssessmentScoreRangeLearningStandard_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AssesssmentAdministrationParticipation]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [edfi].[AssesssmentAdministrationParticipation] ADD [ChangeVersion] [BIGINT] CONSTRAINT AssesssmentAdministrationParticipation_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[AssesssmentAdministrationParticipation] DROP CONSTRAINT AssesssmentAdministrationParticipation_DF_ChangeVersion;
-ALTER TABLE [edfi].[AssesssmentAdministrationParticipation] ADD CONSTRAINT AssesssmentAdministrationParticipation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 
