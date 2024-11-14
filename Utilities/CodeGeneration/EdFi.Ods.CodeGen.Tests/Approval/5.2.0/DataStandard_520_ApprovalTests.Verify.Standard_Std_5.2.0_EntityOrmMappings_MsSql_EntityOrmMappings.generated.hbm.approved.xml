@@ -657,16 +657,6 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="AssessmentAdministrationAssessmentAdminstrationPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key>
-        <column name="AdministrationIdentifier" />
-        <column name="AssessmentIdentifier" />
-        <column name="AssigningEducationOrganizationId" />
-        <column name="Namespace" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationAssessmentAdminstrationPeriod" />
-    </set>
-
     <set name="AssessmentAdministrationAssessmentBatteryParts" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AdministrationIdentifier" />
@@ -677,34 +667,16 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationAssessmentBatteryPart" />
     </set>
 
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationAssessmentAdminstrationPeriod" table="AssessmentAdministrationAssessmentAdminstrationPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-many-to-one name="AssessmentAdministration">
+    <set name="AssessmentAdministrationPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
         <column name="AdministrationIdentifier" />
         <column name="AssessmentIdentifier" />
         <column name="AssigningEducationOrganizationId" />
         <column name="Namespace" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationPeriod" />
+    </set>
 
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
 </class>
 
 
@@ -732,6 +704,140 @@
       <column name="AssessmentBatteryPartName" />
       <column name="AssessmentIdentifier" />
       <column name="Namespace" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationPeriod" table="AssessmentAdministrationPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-many-to-one name="AssessmentAdministration">
+        <column name="AdministrationIdentifier" />
+        <column name="AssessmentIdentifier" />
+        <column name="AssigningEducationOrganizationId" />
+        <column name="Namespace" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi.AssessmentAdministrationParticipationReferenceData" table="AssessmentAdministrationParticipation" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AdministrationIdentifier" column="AdministrationIdentifier" type="string"  length="255"  />
+            <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string"  length="60"  />
+            <key-property name="AssigningEducationOrganizationId" column="AssigningEducationOrganizationId" type="long"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
+            <key-property name="ParticipatingEducationOrganizationId" column="ParticipatingEducationOrganizationId" type="long"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi.AssessmentAdministrationParticipation" table="AssessmentAdministrationParticipation" lazy="false" discriminator-value="null">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AdministrationIdentifier" column="AdministrationIdentifier" type="string" length="255" />
+      <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
+      <key-property name="AssigningEducationOrganizationId" column="AssigningEducationOrganizationId" type="long" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
+      <key-property name="ParticipatingEducationOrganizationId" column="ParticipatingEducationOrganizationId" type="long" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="AssessmentAdministrationReferenceData" class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AdministrationIdentifier" />
+      <column name="AssessmentIdentifier" />
+      <column name="AssigningEducationOrganizationId" />
+      <column name="Namespace" />
+    </many-to-one>
+    <many-to-one name="ParticipatingEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ParticipatingEducationOrganizationId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="AssessmentAdministrationParticipationAdministrationPointOfContacts" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key>
+        <column name="AdministrationIdentifier" />
+        <column name="AssessmentIdentifier" />
+        <column name="AssigningEducationOrganizationId" />
+        <column name="Namespace" />
+        <column name="ParticipatingEducationOrganizationId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi.AssessmentAdministrationParticipationAdministrationPointOfContact" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi.AssessmentAdministrationParticipationAdministrationPointOfContact" table="AssessmentAdministrationParticipationAdministrationPointOfContact" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
+      <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
+      <key-many-to-one name="AssessmentAdministrationParticipation">
+        <column name="AdministrationIdentifier" />
+        <column name="AssessmentIdentifier" />
+        <column name="AssigningEducationOrganizationId" />
+        <column name="Namespace" />
+        <column name="ParticipatingEducationOrganizationId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
+    <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
+    <property name="LoginId" column="LoginId" type="string" length="60" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
     </many-to-one>
 
     <!-- Back references -->
@@ -1053,112 +1159,6 @@
     <!-- Aggregate references -->
     <many-to-one name="LearningStandardReferenceData" class="EdFi.Ods.Entities.NHibernate.LearningStandardAggregate.EdFi.LearningStandardReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="LearningStandardId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationReferenceData" table="AssesssmentAdministrationParticipation" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AdministrationIdentifier" column="AdministrationIdentifier" type="string"  length="255"  />
-            <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string"  length="60"  />
-            <key-property name="AssigningEducationOrganizationId" column="AssigningEducationOrganizationId" type="long"  />
-            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
-            <key-property name="ParticipatingEducationOrganizationId" column="ParticipatingEducationOrganizationId" type="long"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipation" table="AssesssmentAdministrationParticipation" lazy="false" discriminator-value="null">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AdministrationIdentifier" column="AdministrationIdentifier" type="string" length="255" />
-      <key-property name="AssessmentIdentifier" column="AssessmentIdentifier" type="string" length="60" />
-      <key-property name="AssigningEducationOrganizationId" column="AssigningEducationOrganizationId" type="long" />
-      <key-property name="Namespace" column="Namespace" type="string" length="255" />
-      <key-property name="ParticipatingEducationOrganizationId" column="ParticipatingEducationOrganizationId" type="long" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-    <property name="AggregateId" column="AggregateId" type="int" not-null="true" insert="false" update="false" />
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="AssessmentAdministrationReferenceData" class="EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi.AssessmentAdministrationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AdministrationIdentifier" />
-      <column name="AssessmentIdentifier" />
-      <column name="AssigningEducationOrganizationId" />
-      <column name="Namespace" />
-    </many-to-one>
-    <many-to-one name="ParticipatingEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="ParticipatingEducationOrganizationId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="AssesssmentAdministrationParticipationAdministrationPointOfContacts" cascade="all-delete-orphan" inverse="true" lazy="true">
-      <key>
-        <column name="AdministrationIdentifier" />
-        <column name="AssessmentIdentifier" />
-        <column name="AssigningEducationOrganizationId" />
-        <column name="Namespace" />
-        <column name="ParticipatingEducationOrganizationId" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationAdministrationPointOfContact" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipationAdministrationPointOfContact" table="AssesssmentAdministrationParticipationAdministrationPointOfContact" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="long" />
-      <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
-      <key-many-to-one name="AssesssmentAdministrationParticipation">
-        <column name="AdministrationIdentifier" />
-        <column name="AssessmentIdentifier" />
-        <column name="AssigningEducationOrganizationId" />
-        <column name="Namespace" />
-        <column name="ParticipatingEducationOrganizationId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
-    <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
-    <property name="LoginId" column="LoginId" type="string" length="60" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
     </many-to-one>
 
     <!-- Back references -->
@@ -4484,6 +4484,38 @@
           <!-- Collections -->
       </join>
     </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DualCreditInstitutionDescriptorAggregate.EdFi.DualCreditInstitutionDescriptor" lazy="false" discriminator-value="edfi.DualCreditInstitutionDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DualCreditInstitutionDescriptor" >
+          <key>
+            <column name="DualCreditInstitutionDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="DualCreditInstitutionDescriptorId" column="DualCreditInstitutionDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
+    <subclass name="EdFi.Ods.Entities.NHibernate.DualCreditTypeDescriptorAggregate.EdFi.DualCreditTypeDescriptor" lazy="false" discriminator-value="edfi.DualCreditTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="DualCreditTypeDescriptor" >
+          <key>
+            <column name="DualCreditTypeDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="DualCreditTypeDescriptorId" column="DualCreditTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </join>
+    </subclass>
     <subclass name="EdFi.Ods.Entities.NHibernate.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptor" lazy="false" discriminator-value="edfi.EducationalEnvironmentDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
       <join table="EducationalEnvironmentDescriptor" >
           <key>
@@ -6244,14 +6276,14 @@
           <!-- Collections -->
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.Section504DisabilityTypeDescriptorAggregate.EdFi.Section504DisabilityTypeDescriptor" lazy="false" discriminator-value="edfi.Section504DisabilityTypeDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
-      <join table="Section504DisabilityTypeDescriptor" >
+    <subclass name="EdFi.Ods.Entities.NHibernate.Section504DisabilityDescriptorAggregate.EdFi.Section504DisabilityDescriptor" lazy="false" discriminator-value="edfi.Section504DisabilityDescriptor" persister="EdFi.Ods.Common.Infrastructure.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Common">
+      <join table="Section504DisabilityDescriptor" >
           <key>
-            <column name="Section504DisabilityTypeDescriptorId" />
+            <column name="Section504DisabilityDescriptorId" />
           </key>
 
           <!-- PK properties -->
-          <property name="Section504DisabilityTypeDescriptorId" column="Section504DisabilityTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="Section504DisabilityDescriptorId" column="Section504DisabilityDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -8953,7 +8985,7 @@
 
           <!-- Properties -->
           <property name="AccommodationPlan" column="AccommodationPlan" type="bool" />
-          <property name="Section504DisabilityTypeDescriptorId" column="Section504DisabilityTypeDescriptorId" type="int" />
+          <property name="Section504DisabilityDescriptorId" column="Section504DisabilityDescriptorId" type="int" />
           <property name="Section504Eligibility" column="Section504Eligibility" type="bool" not-null="true" />
           <property name="Section504EligibilityDecisionDate" column="Section504EligibilityDecisionDate" type="date" />
           <property name="Section504MeetingDate" column="Section504MeetingDate" type="date" />
@@ -8990,7 +9022,9 @@
           <property name="LastEvaluationDate" column="LastEvaluationDate" type="date" />
           <property name="MedicallyFragile" column="MedicallyFragile" type="bool" />
           <property name="MultiplyDisabled" column="MultiplyDisabled" type="bool" />
+          <property name="ReductionInHoursPerWeekComparedToPeers" column="ReductionInHoursPerWeekComparedToPeers" type="decimal" />
           <property name="SchoolHoursPerWeek" column="SchoolHoursPerWeek" type="decimal" />
+          <property name="ShortenedSchoolDayIndicator" column="ShortenedSchoolDayIndicator" type="bool" />
           <property name="SpecialEducationExitDate" column="SpecialEducationExitDate" type="date" />
           <property name="SpecialEducationExitExplained" column="SpecialEducationExitExplained" type="string" length="1024" />
           <property name="SpecialEducationExitReasonDescriptorId" column="SpecialEducationExitReasonDescriptorId" type="int" />
@@ -19428,12 +19462,20 @@
 
     <!-- Properties -->
     <property name="AttemptStatusDescriptorId" column="AttemptStatusDescriptorId" type="int" />
+    <property name="DualCreditEducationOrganizationId" column="DualCreditEducationOrganizationId" type="long" />
+    <property name="DualCreditIndicator" column="DualCreditIndicator" type="bool" />
+    <property name="DualCreditInstitutionDescriptorId" column="DualCreditInstitutionDescriptorId" type="int" />
+    <property name="DualCreditTypeDescriptorId" column="DualCreditTypeDescriptorId" type="int" />
+    <property name="DualHighSchoolCreditIndicator" column="DualHighSchoolCreditIndicator" type="bool" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="HomeroomIndicator" column="HomeroomIndicator" type="bool" />
     <property name="RepeatIdentifierDescriptorId" column="RepeatIdentifierDescriptorId" type="int" />
     <property name="TeacherStudentDataLinkExclusion" column="TeacherStudentDataLinkExclusion" type="bool" />
 
     <!-- Aggregate references -->
+    <many-to-one name="DualCreditEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="DualCreditEducationOrganizationId" />
+    </many-to-one>
     <many-to-one name="SectionReferenceData" class="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="LocalCourseCode" />
       <column name="SchoolId" />

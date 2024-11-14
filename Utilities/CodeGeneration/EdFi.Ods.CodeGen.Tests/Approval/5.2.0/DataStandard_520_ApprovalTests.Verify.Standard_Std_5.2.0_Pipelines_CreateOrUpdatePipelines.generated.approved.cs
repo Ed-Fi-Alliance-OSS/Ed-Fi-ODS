@@ -95,6 +95,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AssessmentAdministrationParticipationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentAdministrationParticipation.EdFi.AssessmentAdministrationParticipation, Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi.AssessmentAdministrationParticipation>
+    {
+        public AssessmentAdministrationParticipationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AssessmentBatteryPartCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentBatteryPart.EdFi.AssessmentBatteryPart, Entities.NHibernate.AssessmentBatteryPartAggregate.EdFi.AssessmentBatteryPart>
     {
         public AssessmentBatteryPartCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -146,12 +152,6 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard, Entities.NHibernate.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandard>
     {
         public AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AssesssmentAdministrationParticipationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssesssmentAdministrationParticipation.EdFi.AssesssmentAdministrationParticipation, Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi.AssesssmentAdministrationParticipation>
-    {
-        public AssesssmentAdministrationParticipationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -548,6 +548,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class DisplacedStudentStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.DisplacedStudentStatusDescriptor.EdFi.DisplacedStudentStatusDescriptor, Entities.NHibernate.DisplacedStudentStatusDescriptorAggregate.EdFi.DisplacedStudentStatusDescriptor>
     {
         public DisplacedStudentStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DualCreditInstitutionDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.DualCreditInstitutionDescriptor.EdFi.DualCreditInstitutionDescriptor, Entities.NHibernate.DualCreditInstitutionDescriptorAggregate.EdFi.DualCreditInstitutionDescriptor>
+    {
+        public DualCreditInstitutionDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DualCreditTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.DualCreditTypeDescriptor.EdFi.DualCreditTypeDescriptor, Entities.NHibernate.DualCreditTypeDescriptorAggregate.EdFi.DualCreditTypeDescriptor>
+    {
+        public DualCreditTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1487,9 +1499,9 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
-    public class Section504DisabilityTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Section504DisabilityTypeDescriptor.EdFi.Section504DisabilityTypeDescriptor, Entities.NHibernate.Section504DisabilityTypeDescriptorAggregate.EdFi.Section504DisabilityTypeDescriptor>
+    public class Section504DisabilityDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Section504DisabilityDescriptor.EdFi.Section504DisabilityDescriptor, Entities.NHibernate.Section504DisabilityDescriptorAggregate.EdFi.Section504DisabilityDescriptor>
     {
-        public Section504DisabilityTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public Section504DisabilityDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

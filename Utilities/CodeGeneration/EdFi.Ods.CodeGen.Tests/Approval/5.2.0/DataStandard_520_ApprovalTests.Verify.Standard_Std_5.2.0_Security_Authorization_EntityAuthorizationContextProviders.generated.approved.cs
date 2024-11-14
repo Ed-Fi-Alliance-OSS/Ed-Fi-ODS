@@ -11,7 +11,7 @@ using EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.AccountabilityRatingAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.AssessmentAdministrationAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.AssesssmentAdministrationParticipationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.AssessmentAdministrationParticipationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.BellScheduleAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CalendarAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CalendarDateAggregate.EdFi;
@@ -301,20 +301,20 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
     }
 
     /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AssesssmentAdministrationParticipation table of the AssesssmentAdministrationParticipation aggregate in the Ods Database.
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AssessmentAdministrationParticipation table of the AssessmentAdministrationParticipation aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class AssesssmentAdministrationParticipationRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IAssesssmentAdministrationParticipation>
+    public class AssessmentAdministrationParticipationRelationshipsAuthorizationContextDataProvider : IRelationshipsAuthorizationContextDataProvider<IAssessmentAdministrationParticipation>
     {
         /// <summary>
         /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
         /// </summary>
-        public RelationshipsAuthorizationContextData GetContextData(IAssesssmentAdministrationParticipation resource)
+        public RelationshipsAuthorizationContextData GetContextData(IAssessmentAdministrationParticipation resource)
         {
             if (resource == null)
-                throw new ArgumentNullException("resource", "The 'assesssmentAdministrationParticipation' resource for obtaining authorization context data cannot be null.");
+                throw new ArgumentNullException("resource", "The 'assessmentAdministrationParticipation' resource for obtaining authorization context data cannot be null.");
 
-            var entity = resource as AssesssmentAdministrationParticipation;
+            var entity = resource as AssessmentAdministrationParticipation;
 
             var contextData = new RelationshipsAuthorizationContextData();
             // AssigningEducationOrganizationId = entity.AssigningEducationOrganizationId, // Primary key property, Role name applied
@@ -341,7 +341,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         /// </summary>
         public RelationshipsAuthorizationContextData GetContextData(object resource)
         {
-            return GetContextData((AssesssmentAdministrationParticipation) resource);
+            return GetContextData((AssessmentAdministrationParticipation) resource);
         }
     }
 
@@ -4666,6 +4666,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentSectionAssociation;
 
             var contextData = new RelationshipsAuthorizationContextData();
+            // DualCreditEducationOrganizationId = entity.DualCreditEducationOrganizationId, // Role name applied and not part of primary key
             contextData.SchoolId = entity.SchoolId == default(long) ? null as long? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
@@ -4678,6 +4679,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         {
            var properties = new string[]
                 {
+                    // "DualCreditEducationOrganizationId",
                     "SchoolId",
                     "StudentUSI",
                 };
