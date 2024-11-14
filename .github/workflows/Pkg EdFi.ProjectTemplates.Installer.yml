@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [main,'b-v*-patch*','feature-*']
   push:
-    branches: ['b-v*-patch*','feature-*']
+    branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 permissions: read-all
