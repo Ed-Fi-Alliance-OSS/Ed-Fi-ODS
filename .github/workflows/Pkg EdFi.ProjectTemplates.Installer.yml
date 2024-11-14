@@ -33,7 +33,7 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
