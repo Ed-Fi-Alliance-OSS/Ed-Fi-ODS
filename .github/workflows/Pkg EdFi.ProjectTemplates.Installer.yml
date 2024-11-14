@@ -106,26 +106,11 @@ jobs:
     - name: build
       run: msbuild "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.sln" /p:Configuration=${{ env.CONFIGURATION }}
       shell: powershell
-    - name: List files in directory
-      shell: powershell
-      run: |
-          # Set the target directory
-          $directoryPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS\Utilities\VisualStudioProjectTemplates\EdFi.ProjectTemplates.Installer\bin\${{ env.CONFIGURATION }}\"
-
-          # Check if directory exists
-          if (Test-Path -Path $directoryPath) {
-              # Get all files in the directory
-              Get-ChildItem -Path $directoryPath | ForEach-Object {
-                  Write-Output "File found: $($_.Name)"
-              }
-          } else {
-              Write-Output "Directory does not exist: $directoryPath"
-          }      
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-ODS/    
+      shell: powershell        
       run: |
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/VisualStudioProjectTemplates/EdFi.ProjectTemplates.Installer/EdFi.ProjectTemplates.Installer.nuspec"
-      shell: powershell        
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: powershell
@@ -135,7 +120,7 @@ jobs:
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName "EdFi.Suite3.ProjectTemplates.Installer"
       shell: powershell     
     - name: Upload EdFi.Suite3.ProjectTemplates.Installer Artifacts
-      if: success() || failure()
+      if: success()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackages.Artifacts
