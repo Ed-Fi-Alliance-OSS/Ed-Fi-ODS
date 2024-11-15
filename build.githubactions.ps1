@@ -69,6 +69,9 @@ param(
     [string]
     $RelativeRepoPath,
 
+    [string]
+    $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
+
     [ValidateSet('4.0.0', '5.2.0')]
     [string]  $StandardVersion
 
@@ -153,17 +156,13 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
-        $params = @{
-            PackageDefinitionFile = $NuspecFilePath
-            Version               = $version
-            PackageId             = $PackageName
-            OutputDirectory       = $packageOutput
-            BuildConfiguration    = $Configuration
-        }
+ 
+        $xml = [xml](Get-Content $NuspecFilePath)
+        $xml.package.metadata.id = $PackageName
+        $xml.package.metadata.description = $PackageName
+        $xml.Save($NuspecFilePath)
+        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties copyright=$Copyright  -NoPackageAnalysis -NoDefaultExcludes
 
-        & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
-
-        New-Package @params | Out-Host    
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
@@ -273,12 +272,11 @@ function InstallCredentialHandler {
      $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
      if ($fileName.EndsWith('.zip')) {
          Write-Host "Extracting $fileName..."
-         
+        
          if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
          Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
          Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
      }
-
 }
 
 function StandardVersions {
