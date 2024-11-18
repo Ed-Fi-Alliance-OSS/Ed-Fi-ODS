@@ -211,6 +211,14 @@ WHERE NOT EXISTS
     FROM sample.StaffExtension se
     WHERE StaffUSI = se.StaffUsi)
 
+UPDATE edfi.Staff
+SET
+    LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+    (SELECT 1
+     FROM sample.StaffExtension se
+     WHERE StaffUSI = se.StaffUsi)
+
 INSERT INTO sample.ContactExtension
     (ContactUSI
     , IsSportsFan
@@ -305,6 +313,14 @@ SELECT
     , '12:00:00'
 FROM sample.ContactExtension
 
+UPDATE edfi.Contact
+SET
+    LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+          (SELECT 1
+           FROM sample.ContactExtension ce
+           WHERE ContactUSI = ce.ContactUSI)
+
 INSERT INTO sample.StudentContactAssociationExtension
     (ContactUSI
     , StudentUSI
@@ -356,6 +372,16 @@ SELECT
     , 'Green Eggs and Ham'
 FROM edfi.StudentContactAssociation
 
+UPDATE edfi.StudentContactAssociation
+SET
+    LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+    (SELECT
+         1
+    FROM sample.StudentContactAssociationExtension spa
+    WHERE ContactUSI = spa.ContactUSI
+    AND StudentUSI = spa.StudentUSI)
+
 INSERT INTO sample.StudentSchoolAssociationExtension
     (EntryDate
     , SchoolId
@@ -376,6 +402,17 @@ WHERE NOT EXISTS
     WHERE EntryDate = ssae.EntryDate
     AND SchoolId = ssae.SchoolId
     AND StudentUSI = ssae.StudentUSI)
+
+UPDATE edfi.StudentSchoolAssociation
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+    (SELECT
+       1
+     FROM sample.StudentSchoolAssociationExtension ssae
+     WHERE EntryDate = ssae.EntryDate
+       AND SchoolId = ssae.SchoolId
+       AND StudentUSI = ssae.StudentUSI)
 
 INSERT INTO sample.StudentEducationOrganizationAssociationAddressExtension
     (AddressTypeDescriptorId
@@ -425,6 +462,17 @@ SELECT
     , 'Test District'
 FROM sample.StudentEducationOrganizationAssociationAddressExtension
 
+UPDATE edfi.StudentEducationOrganizationAssociation
+SET
+    LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+    (SELECT
+         1
+     FROM sample.StudentSchoolAssociationExtension ssae
+     WHERE EntryDate = ssae.EntryDate
+       AND SchoolId = ssae.SchoolId
+       AND StudentUSI = ssae.StudentUSI)
+
 -- Create sample data for new Bus domain entity
 INSERT INTO sample.Bus
     (BusId)
@@ -465,6 +513,20 @@ WHERE NOT EXISTS
     AND ProgramName = scteopae.ProgramName
     AND ProgramTypeDescriptorId = scteopae.ProgramTypeDescriptorId
     AND StudentUSI = scteopae.StudentUSI)
+
+UPDATE edfi.GeneralStudentProgramAssociation
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE EXISTS
+    (SELECT
+       1
+     FROM sample.StudentCTEProgramAssociationExtension scteopae
+     WHERE BeginDate = scteopae.BeginDate
+       AND EducationOrganizationId = scteopae.EducationOrganizationId
+       AND ProgramEducationOrganizationId = scteopae.ProgramEducationOrganizationId
+       AND ProgramName = scteopae.ProgramName
+       AND ProgramTypeDescriptorId = scteopae.ProgramTypeDescriptorId
+       AND StudentUSI = scteopae.StudentUSI)
 
 -- Create sample data for new BusRoute domain entity
 INSERT INTO sample.BusRoute
@@ -551,6 +613,11 @@ INSERT INTO sample.SchoolDirectlyOwnedBus
     , DirectlyOwnedBusId)
 VALUES (@grandBendElementarySchoolId, '602')
 
+UPDATE EdFi.EducationOrganization
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE EducationOrganizationId = @grandBendElementarySchoolId
+
 --- Add extension data for a particular Contact
 UPDATE sample.ContactExtension
 SET IsSportsFan = 1
@@ -613,6 +680,11 @@ INSERT INTO sample.ContactStudentProgramAssociation
     , StudentUSI)
 VALUES (@student604854SPABeginDate, @student604854SPAEducationOrganizationId, @contact777777Usi, @student604854SPAProgramEducationOrganizationId, @student604854SPAProgramName, @student604854SPAProgramTypeDescriptorId, @student604854Usi)
 
+UPDATE edfi.Contact
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE ContactUSI = @contact777777Usi 
+
 --- Add extension data for a particular Staff member
 UPDATE sample.StaffExtension
 SET FirstPetOwnedDate = '2013-04-15'
@@ -629,6 +701,11 @@ INSERT INTO sample.StaffPetPreference
     , MinimumWeight
     , MaximumWeight)
 VALUES (@staff207219Usi, 1, 50)
+
+UPDATE edfi.Staff
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE StaffUSI = @staff207219Usi
 
 --- Add extension data for a particular Student
 INSERT INTO sample.StudentPet
@@ -656,6 +733,11 @@ INSERT INTO sample.StudentAquaticPet
     , IsFixed
     , MimimumTankVolume)
 VALUES ('Dory', @student604854Usi, NULL, 100)
+
+UPDATE edfi.Student
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE StudentUSI = @student604854Usi
 
 --- Create sample data for new StudentArtProgram subclass
 DECLARE @studentArtProgramAssociationStudentUsi INT;
@@ -882,9 +964,19 @@ INSERT INTO sample.StudentContactAssociationTelephone
     , DoNotPublishIndicator)
 VALUES (@contact777777Usi, @student605614Usi, '123-555-4567', @telephoneNumberTypeDescriptor, 1, 1, 0)
 
+UPDATE edfi.StudentContactAssociation
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE ContactUSI = @contact777777Usi AND StudentUSI = @student605614Usi
+
 --- Add extension data to a particular StudentSchoolAssociation
 UPDATE sample.StudentSchoolAssociationExtension
 SET MembershipTypeDescriptorId = @membershipTypeDescriptorId
+WHERE StudentUSI = @student604854Usi AND SchoolId = @grandBendElementarySchoolId
+
+UPDATE edfi.StudentSchoolAssociation
+SET
+  LastModifiedDate = GETUTCDATE()
 WHERE StudentUSI = @student604854Usi AND SchoolId = @grandBendElementarySchoolId
 
 INSERT INTO sample.StudentFavoriteBook
@@ -906,6 +998,11 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
            ,@favoriteBookCategoryDescriptorId
            ,@student604854Usi
            ,1)
+
+UPDATE edfi.Student
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE StudentUSI = @student604854Usi
 
 --- Add extension data to a particular StudentSectionAssociation
 INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation
@@ -934,3 +1031,14 @@ INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociat
            , @student604854SSASectionIdentifier
            , @student604854SSASessionName
            , @student604854SSAStudentUSI)
+
+UPDATE edfi.StudentSectionAssociation
+SET
+  LastModifiedDate = GETUTCDATE()
+WHERE BeginDate = @student604854SSABeginDate
+  AND LocalCourseCode = @student604854SSALocalCourseCode
+  AND SchoolId = @student604854SSASchoolId
+  AND SchoolYear = @student604854SSASchoolYear
+  AND SectionIdentifier = @student604854SSASectionIdentifier
+  AND SessionName = @student604854SSASessionName
+  AND StudentUSI = @student604854SSAStudentUSI
