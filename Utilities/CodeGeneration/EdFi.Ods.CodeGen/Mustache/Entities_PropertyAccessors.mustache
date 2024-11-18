@@ -1,9 +1,47 @@
+{{#IsStandardProperty}}
+    {{^HasSerializedReferenceDataMappings}}
+ { get; set; }
+    {{/HasSerializedReferenceDataMappings}}
+    {{#HasSerializedReferenceDataMappings}}
+
+        {
+            get => {{CSharpSafeFieldName}};
+            set
+            {
+                {{CSharpSafeFieldName}} = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+{{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
+{{/SerializedReferenceDataMappings}}
+                }
+            }
+        }
+
+        private {{CSharpDeclaredType}} {{CSharpSafeFieldName}};
+    {{/HasSerializedReferenceDataMappings}}
+{{/IsStandardProperty}}
 {{#LookupProperty}}
+
         {
             get
             {
                 if ({{IdFieldName}} == default({{CSharpDeclaredType}}))
+                {
                     {{IdFieldName}} = {{#IsNullable}}string.IsNullOrWhiteSpace({{ValueFieldName}}) ? default({{CSharpDeclaredType}}) : {{/IsNullable}}GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{LookupEntityName}}", {{ValueFieldName}});
+        {{#HasSerializedReferenceDataMappings}}
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+            {{#SerializedReferenceDataMappings}}
+                        {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                        {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{IdFieldName}}{{#IsNullable}} ?? default{{/IsNullable}};
+            {{/SerializedReferenceDataMappings}}
+                    }
+        {{/HasSerializedReferenceDataMappings}}
+                }
 
                 return {{IdFieldName}};
             } 
@@ -11,6 +49,16 @@
             {
                 {{IdFieldName}} = value;
                 {{ValueFieldName}} = null;
+        {{#HasSerializedReferenceDataMappings}}
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
+            {{/SerializedReferenceDataMappings}}
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
 
@@ -31,10 +79,21 @@
             {
                 {{ValueFieldName}} = value;
                 {{IdFieldName}} = default({{CSharpDeclaredType}});
+        {{#HasSerializedReferenceDataMappings}}
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{LookupEntityName}}", {{ValueFieldName}});
+            {{/SerializedReferenceDataMappings}}
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
 {{/LookupProperty}}
 {{#UsiProperty}}
+
         {
             get
             {
@@ -44,6 +103,16 @@
                         && usiByUniqueId.TryGetValue({{UniqueIdFieldName}}, out var usi))
                     {
                         {{UsiFieldName}} = usi;
+        {{#HasSerializedReferenceDataMappings}}
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+            {{#SerializedReferenceDataMappings}}
+                            {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                            {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{UsiFieldName}}{{#IsNullable}} ?? default{{/IsNullable}};
+            {{/SerializedReferenceDataMappings}}
+                        }
+        {{/HasSerializedReferenceDataMappings}}
                     }
                 }
 
@@ -63,6 +132,16 @@
             {{^IsNullable}}
                 GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("{{PersonType}}", value);
             {{/IsNullable}}
+            {{#HasSerializedReferenceDataMappings}}
+
+                if ({{#IsNullable}}value != null && {{/IsNullable}}GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
+                {{/SerializedReferenceDataMappings}}
+                }
+            {{/HasSerializedReferenceDataMappings}}
         {{/IsPersonEntity}}
             }
         }
@@ -101,11 +180,26 @@
                         {{UsiFieldName}} = default({{CSharpDeclaredType}});
 
                 {{UniqueIdFieldName}} = value;
+        {{#HasSerializedReferenceDataMappings}}
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("{{PersonType}}", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue({{UniqueIdFieldName}}, out var usi))
+                    {
+            {{#SerializedReferenceDataMappings}}
+                        {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                        {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = usi;
+            {{/SerializedReferenceDataMappings}}
+                    }
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
     {{/IsPersonEntity}}
 {{/UsiProperty}}
 {{#UniqueIdProperty}}
+
         {
             get
             {
@@ -130,6 +224,7 @@
 {{/UniqueIdProperty}}
 {{#DateOnlyProperty}}
     {{#IsNullable}}
+
         {
             get { return {{FieldName}}; }
             set 
@@ -143,22 +238,49 @@
                     var given = (DateTime) value;
                     {{FieldName}} = new DateTime(given.Year, given.Month, given.Day);
                 }
+        {{#HasSerializedReferenceDataMappings}}
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}} ?? default;
+            {{/SerializedReferenceDataMappings}}
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
     {{/IsNullable}}
     {{^IsNullable}}
+
         {
             get { return {{FieldName}}; }
             //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+        {{^HasSerializedReferenceDataMappings}}
             set { {{FieldName}} = new DateTime(value.Year, value.Month, value.Day); }
+        {{/HasSerializedReferenceDataMappings}}
+        {{#HasSerializedReferenceDataMappings}}
+            set
+            {
+                {{FieldName}} = new DateTime(value.Year, value.Month, value.Day);
+
+                if ({{FieldName}} != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}};
+            {{/SerializedReferenceDataMappings}}
+                }
+            }
+        {{/HasSerializedReferenceDataMappings}}
         }
     {{/IsNullable}}
 
         private {{CSharpDeclaredType}} {{FieldName}};
-        
 {{/DateOnlyProperty}}
 {{#DateTimeProperty}}
-{{#IsNullable}}
+    {{#IsNullable}}
+
         {
             get { return {{FieldName}}; }
             set
@@ -171,10 +293,21 @@
                 // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
                 if (value.HasValue && value.Value != (DateTime)typeof(DateTime).GetDefaultValue())
                     {{FieldName}} = value?.ToUniversalTime();
+        {{#HasSerializedReferenceDataMappings}}
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}} ?? default;
+            {{/SerializedReferenceDataMappings}}
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
-{{/IsNullable}}
-{{^IsNullable}}
+    {{/IsNullable}}
+    {{^IsNullable}}
+
         {
             get { return {{FieldName}}; }
             set
@@ -187,17 +320,43 @@
                 // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
                 if (value != ({{CSharpDeclaredType}})typeof({{CSharpDeclaredType}}).GetDefaultValue())
                     {{FieldName}} = value.ToUniversalTime();
+        {{#HasSerializedReferenceDataMappings}}
+
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = {{FieldName}};
+            {{/SerializedReferenceDataMappings}}
+                }
+        {{/HasSerializedReferenceDataMappings}}
             }
         }
-{{/IsNullable}}
+    {{/IsNullable}}
 
         private {{CSharpDeclaredType}} {{FieldName}};
-
 {{/DateTimeProperty}}
 {{#DelegatedProperty}}
+
         {
             get { return base.{{BasePropertyName}}; }
+        {{^HasSerializedReferenceDataMappings}}
             set { base.{{BasePropertyName}} = value; }
+        {{/HasSerializedReferenceDataMappings}}
+        {{#HasSerializedReferenceDataMappings}}
+            set
+            {
+                base.{{BasePropertyName}} = value;
+
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+            {{#SerializedReferenceDataMappings}}
+                    {{ReferenceDataPropertyName}} ??= new {{ReferenceDataClassNamespace}}.{{ReferenceDataClassName}}(true);
+                    {{ReferenceDataPropertyName}}.{{OtherPropertyName}} = value{{#IsNullable}} ?? default{{/IsNullable}};
+            {{/SerializedReferenceDataMappings}}
+                }
+            }
+        {{/HasSerializedReferenceDataMappings}}
         }
         
 {{/DelegatedProperty}}
