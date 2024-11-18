@@ -3,6 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+
 DROP INDEX IF EXISTS IX_AcademicWeek_SchoolId;
 CREATE INDEX IF NOT EXISTS IX_AcademicWeek_SchoolId ON edfi.AcademicWeek(SchoolId) INCLUDE (AggregateId);
 

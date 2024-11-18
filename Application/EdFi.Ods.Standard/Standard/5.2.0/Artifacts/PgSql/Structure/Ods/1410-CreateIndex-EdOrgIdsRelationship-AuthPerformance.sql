@@ -3,6 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+
 CREATE INDEX IF NOT EXISTS IX_AcademicWeek_SchoolId ON edfi.AcademicWeek(SchoolId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_AccountabilityRating_EducationOrganizationId ON edfi.AccountabilityRating(EducationOrganizationId) INCLUDE (Id);

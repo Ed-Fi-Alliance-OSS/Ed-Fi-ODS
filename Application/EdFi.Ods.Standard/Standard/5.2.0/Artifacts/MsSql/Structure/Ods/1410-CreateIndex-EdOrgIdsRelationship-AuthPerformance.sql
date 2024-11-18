@@ -3,6 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_AcademicWeek_SchoolId' AND object_id = OBJECT_ID('edfi.AcademicWeek')) 
 BEGIN
     CREATE INDEX IX_AcademicWeek_SchoolId ON [edfi].[AcademicWeek](SchoolId) INCLUDE (Id)
