@@ -63,5 +63,11 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             // For SQL 2022 and later, this override is not need. For SQL 2019 and earlier, CASE must be used
             return $"CASE WHEN {expression1} > {expression2} THEN {expression1} ELSE {expression2} END";
         }
+
+        /// <summary>
+        /// Gets the maximum number of allowed parameters for SQL Server (see https://learn.microsoft.com/en-us/sql/sql-server/maximum-capacity-specifications-for-sql-server?view=sql-server-ver16).
+        /// </summary>
+        /// <returns>2100</returns>
+        public override int GetMaxParameterCount() => 2100;
     }
 }

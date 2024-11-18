@@ -47,6 +47,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly Dialect _dialect;
         private readonly DatabaseEngine _databaseEngine;
         protected readonly bool SerializationEnabled;
+        private bool _resourceLinksEnabled;
 
         // Holds pre-built HQL queries to avoid string allocations for each execution 
         private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
@@ -70,6 +71,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             : base(sessionFactory)
         {
             SerializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _resourceLinksEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ResourceLinks.GetConfigKeyName());
+
             _dialect = dialect;
             _databaseEngine = databaseEngine;
 
@@ -139,7 +142,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 if (!isShallow)
                 {
-                    var aggregateStatements = isReadRequest
+                    var aggregateStatements = (isReadRequest && _resourceLinksEnabled)
                         ? _aggregateHqlStatementsForReads.Value
                         : _aggregateHqlStatementsForWrites.Value;
 

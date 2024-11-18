@@ -23,6 +23,7 @@ namespace EdFi.Ods.Common.Constants
         public static readonly ApiFeature MultiTenancy = new ApiFeature("multiTenancy", "Multi-Tenancy");
         public static readonly ApiFeature Notifications = new ApiFeature("notifications", "Notifications");
         public static readonly ApiFeature SerializedData = new ApiFeature("serializedData", "SerializedData");
+        public static readonly ApiFeature ResourceLinks = new ApiFeature("resourceLinks", "ResourceLinks");
 
         public ApiFeature(string value, string displayName)
             : base(value, displayName) { }
