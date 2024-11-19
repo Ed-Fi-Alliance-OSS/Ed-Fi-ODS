@@ -163,8 +163,8 @@ namespace {{AggregateNamespace}}
             {{CollectionName}} = new HashSet<{{ContextualCollectionItemName}}>();
             {{/Collections}}
             {{#IsExtendable}}
-            Extensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
-            AggregateExtensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateAggregateExtensions<{{ContextualClassName}}>());
+            Extensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
+            AggregateExtensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateAggregateExtensions<{{ContextualClassName}}>());
             {{/IsExtendable}}
         }
 // restore warnings for inheritance from classes marked Obsolete

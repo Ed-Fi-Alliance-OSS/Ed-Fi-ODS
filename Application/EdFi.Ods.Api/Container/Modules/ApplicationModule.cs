@@ -292,11 +292,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IResourceValidator>()
                 .SingleInstance();
 
-            builder.RegisterType<NoEntityExtensionsFactory>()
-                .As<IEntityExtensionsFactory>()
-                .PreserveExistingDefaults()
-                .SingleInstance();
-
             builder.RegisterType<MappingContractProvider>()
                 .As<IMappingContractProvider>()
                 .SingleInstance();

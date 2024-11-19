@@ -440,7 +440,6 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => (StringComparer) Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>().GetEqualityComparer());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataPolicyException>>());
-                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IEntityExtensionRegistrar>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<ISessionFactoryImplementor>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
@@ -454,8 +453,6 @@ namespace EdFi.Ods.Api.Startup
                         () => Container.Resolve<IResourceModelProvider>()
                             .GetResourceModel());
 
-                EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
-                
                 // Set NHibernate to use Autofac to resolve its dependencies
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
