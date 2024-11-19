@@ -81,13 +81,14 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
 
         IList<string> missingExtensionEntries;
 
-        if (GeneratedArtifactStaticDependencies.EntityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName))
+        if (GeneratedArtifactStaticDependencies.EntityExtensionRegistrar?.AggregateExtensionEntityNamesByType.TryGetValue(_containingType, out var aggregateExtensionByName) == true)
         {
             missingExtensionEntries = new List<string>(aggregateExtensionByName.Keys);
         }
         else
         {
             missingExtensionEntries = Array.Empty<string>();
+            aggregateExtensionByName = null;
         }
 
         int count = reader.ReadMapHeader();
@@ -105,7 +106,7 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
 
             Type extensionEntityType = (extensionEntity as dynamic).NHibernateEntityType;
 
-            var extensionObjectList = (IList) new List<object>();
+            var extensionObjectList = new List<object>();
 
             int itemCount = reader.ReadArrayHeader();
 
@@ -116,10 +117,10 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
                 extensionObjectList!.Add(extensionObject);
             }
 
-            var method = GetType()!.GetMethod(nameof(CreatePersistentBag), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(typeof(object));
+            var persistentList = new DeserializedPersistentGenericBag<object>(
+                GeneratedArtifactStaticDependencies.SessionFactory, 
+                extensionObjectList);
 
-            var persistentList = method.Invoke(null, [extensionObjectList]);
             extensionDictionary.Add(extensionCollectionName, persistentList);
         }
 
@@ -135,19 +136,5 @@ public class AggregateExtensionsMessagePackFormatter : IMessagePackFormatter<IDi
         }
 
         return extensionDictionary;
-    }
-
-    private static object CreatePersistentBag<T>(IList<T> extensionObjects)
-    {
-        // TODO: ODS-6551 - Now that we've identified that the generic type can be reduced to object in many places, can we eliminate the extra wrapper and generic type usage here to simplify and optimize the code?
-        var list = new List<T>(extensionObjects.Count);
-        
-        foreach (T item in extensionObjects)
-        {
-            list.Add(item);
-        }
-
-        var bag = new DeserializedPersistentGenericBag<T>(GeneratedArtifactStaticDependencies.SessionFactory, list); //, extensionObjects);
-        return bag;
     }
 }

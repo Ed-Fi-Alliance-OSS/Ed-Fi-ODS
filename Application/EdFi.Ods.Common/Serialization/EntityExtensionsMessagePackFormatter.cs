@@ -66,7 +66,7 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
         }
     }
 
-    private static ConcurrentDictionary<string, Type> _implicitExtensionEntityTypeByClassTypeName = new();
+    private static readonly ConcurrentDictionary<string, Type> _implicitExtensionEntityTypeByClassTypeName = new();
 
     public IDictionary Deserialize(ref MessagePackReader reader, MessagePackSerializerOptions options)
     {
