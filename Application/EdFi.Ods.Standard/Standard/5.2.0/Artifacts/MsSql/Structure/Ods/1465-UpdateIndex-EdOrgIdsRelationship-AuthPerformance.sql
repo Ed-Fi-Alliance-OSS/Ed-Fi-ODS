@@ -324,6 +324,11 @@ BEGIN
     CREATE INDEX IX_StudentAssessmentRegistration_StudentUSI ON [edfi].[StudentAssessmentRegistration](StudentUSI) INCLUDE (AggregateId)
 END;
 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_StudentAssessmentRegistration_ScheduledStudentUSI' AND object_id = OBJECT_ID('edfi.StudentAssessmentRegistration')) 
+BEGIN
+    CREATE INDEX IX_StudentAssessmentRegistration_ScheduledStudentUSI ON [edfi].[StudentAssessmentRegistration](ScheduledStudentUSI) INCLUDE (AggregateId)
+END;
+
 DROP INDEX IF EXISTS IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation];
 CREATE INDEX IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId ON [edfi].[StudentAssessmentRegistrationBatteryPartAssociation](AssigningEducationOrganizationId) INCLUDE (AggregateId);
 

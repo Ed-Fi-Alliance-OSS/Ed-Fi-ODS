@@ -3430,6 +3430,8 @@ COMMENT ON COLUMN edfi.StudentAssessmentRegistration.AssessmentGradeLevelDescrip
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school for each school year. The EntryDate value should be the date the student enrolled, or when the student''s enrollment materially changed, such as with a grade promotion.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.PlatformTypeDescriptorId IS 'The environment or format in which the assessment is expected to be administered.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.ReportingEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistration.ScheduledEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentAssessmentRegistration.ScheduledStudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.SchoolId IS 'The identifier assigned to a school. It must be distinct from any other identifier assigned to educational organizations, such as a LocalEducationAgencyId, to prevent duplication.';
 COMMENT ON COLUMN edfi.StudentAssessmentRegistration.TestingEducationOrganizationId IS 'The identifier assigned to an education organization.';
 

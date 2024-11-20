@@ -5197,12 +5197,12 @@ REFERENCES edfi.PlatformTypeDescriptor (PlatformTypeDescriptorId)
 CREATE INDEX FK_79fd6b_PlatformTypeDescriptor
 ON edfi.StudentAssessmentRegistration (PlatformTypeDescriptorId ASC);
 
-ALTER TABLE edfi.StudentAssessmentRegistration ADD CONSTRAINT FK_79fd6b_StudentEducationOrganizationAssessmentAccommodation FOREIGN KEY (EducationOrganizationId, StudentUSI)
+ALTER TABLE edfi.StudentAssessmentRegistration ADD CONSTRAINT FK_79fd6b_StudentEducationOrganizationAssessmentAccommodation FOREIGN KEY (ScheduledEducationOrganizationId, ScheduledStudentUSI)
 REFERENCES edfi.StudentEducationOrganizationAssessmentAccommodation (EducationOrganizationId, StudentUSI)
 ;
 
 CREATE INDEX FK_79fd6b_StudentEducationOrganizationAssessmentAccommodation
-ON edfi.StudentAssessmentRegistration (EducationOrganizationId ASC, StudentUSI ASC);
+ON edfi.StudentAssessmentRegistration (ScheduledEducationOrganizationId ASC, ScheduledStudentUSI ASC);
 
 ALTER TABLE edfi.StudentAssessmentRegistration ADD CONSTRAINT FK_79fd6b_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
 REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)

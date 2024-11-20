@@ -8035,6 +8035,8 @@ CREATE TABLE [edfi].[StudentAssessmentRegistration] (
     [EntryDate] [DATE] NOT NULL,
     [PlatformTypeDescriptorId] [INT] NULL,
     [ReportingEducationOrganizationId] [BIGINT] NULL,
+    [ScheduledEducationOrganizationId] [BIGINT] NULL,
+    [ScheduledStudentUSI] [INT] NULL,
     [SchoolId] [BIGINT] NOT NULL,
     [TestingEducationOrganizationId] [BIGINT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,

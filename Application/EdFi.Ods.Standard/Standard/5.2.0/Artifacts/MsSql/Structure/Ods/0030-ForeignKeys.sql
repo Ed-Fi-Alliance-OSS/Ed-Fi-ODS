@@ -5625,12 +5625,12 @@ CREATE NONCLUSTERED INDEX [FK_StudentAssessmentRegistration_PlatformTypeDescript
 ON [edfi].[StudentAssessmentRegistration] ([PlatformTypeDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentAssessmentRegistration] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentRegistration_StudentEducationOrganizationAssessmentAccommodation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
+ALTER TABLE [edfi].[StudentAssessmentRegistration] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentRegistration_StudentEducationOrganizationAssessmentAccommodation] FOREIGN KEY ([ScheduledEducationOrganizationId], [ScheduledStudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssessmentAccommodation] ([EducationOrganizationId], [StudentUSI])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentAssessmentRegistration_StudentEducationOrganizationAssessmentAccommodation]
-ON [edfi].[StudentAssessmentRegistration] ([EducationOrganizationId] ASC, [StudentUSI] ASC)
+ON [edfi].[StudentAssessmentRegistration] ([ScheduledEducationOrganizationId] ASC, [ScheduledStudentUSI] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentAssessmentRegistration] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentRegistration_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])

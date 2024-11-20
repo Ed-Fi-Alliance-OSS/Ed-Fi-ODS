@@ -240,6 +240,8 @@ CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_SchoolId ON edfi.Stu
 
 CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_StudentUSI ON edfi.StudentAssessmentRegistration(StudentUSI) INCLUDE (AggregateId);
 
+CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistration_ScheduledStudentUSI ON edfi.StudentAssessmentRegistration(ScheduledStudentUSI) INCLUDE (AggregateId);
+
 DROP INDEX IF EXISTS IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId;
 CREATE INDEX IF NOT EXISTS IX_StudentAssessmentRegistrationBatteryPartAssociation_AssigningEducationOrganizationId ON edfi.StudentAssessmentRegistrationBatteryPartAssociation(AssigningEducationOrganizationId) INCLUDE (AggregateId);
 
