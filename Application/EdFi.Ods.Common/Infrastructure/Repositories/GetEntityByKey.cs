@@ -92,7 +92,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             }
 
                             // Can we deserialize it?
-                            if (itemRawData.IsDeserializable())
+                            if (itemRawData.IsDeserializable)
                             {
                                 // Deserialize the entity
                                 var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
@@ -140,7 +140,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         }
 
                         // Can we deserialize it?
-                        if (itemRawData.IsDeserializable())
+                        if (itemRawData.IsDeserializable)
                         {
                             // Deserialize the entity
                             var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 return $" where {criteria}";
             }
 
-            async Task<ItemRawData> GetItemRawDataByCompositeKey(
+            async Task<ItemRawData<TEntity>> GetItemRawDataByCompositeKey(
                 OrderedDictionary compositeKeyValues,
                 SessionScope scope,
                 bool keyColumnsAreOnBaseType = false)
@@ -214,7 +214,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
 
-                var itemRawData = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData>(
+                var itemRawData = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData<TEntity>>(
                     singleItemTemplate.RawSql,
                     singleItemTemplate.Parameters);
 

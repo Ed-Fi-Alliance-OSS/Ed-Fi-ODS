@@ -7,7 +7,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories;
 
 public class DescriptorSurrogateIdMutator : ISurrogateIdMutator
 {
-    public bool TrySetSurrogateId(object instance, ItemRawData itemRawData)
+    public bool TrySetSurrogateId(object instance, IItemRawData itemRawData)
     {
         if (instance is IEdFiDescriptor descriptor)
         {

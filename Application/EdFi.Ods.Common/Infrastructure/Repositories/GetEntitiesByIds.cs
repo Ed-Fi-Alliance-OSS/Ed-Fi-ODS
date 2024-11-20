@@ -67,7 +67,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     singleItemQueryBuilder.Where("Id", ids[0]);
                     var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
 
-                    var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData>(
+                    var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData<TEntity>>(
                         singleItemTemplate.RawSql,
                         singleItemTemplate.Parameters);
 
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     }
 
                     // If we can deserialize the item
-                    if (item.IsDeserializable())
+                    if (item.IsDeserializable)
                     {
                         // Deserialize the entity
                         var entity = await _entityDeserializer.DeserializeAsync<TEntity>(item);

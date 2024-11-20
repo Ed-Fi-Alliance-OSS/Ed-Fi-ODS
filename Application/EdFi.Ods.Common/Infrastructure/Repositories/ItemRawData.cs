@@ -8,7 +8,7 @@ using EdFi.Ods.Common.Serialization;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories;
 
-public class ItemRawData
+public class ItemRawData<TEntity> : IItemRawData
 {
     private readonly Lazy<bool> _isDeserializable;
 
@@ -29,12 +29,14 @@ public class ItemRawData
     /// </summary>
     public int SurrogateId { get; set; }
 
+    public TEntity EntityInstance { get; set; }
+
     /// <summary>
     /// Indicates whether the item has data to deserialize, and the data's LastModifiedDate matches the current state of the record. 
     /// </summary>
     /// <returns></returns>
-    public bool IsDeserializable()
+    public bool IsDeserializable
     {
-        return _isDeserializable.Value;
+        get => _isDeserializable.Value;
     }
 }

@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure;
@@ -34,7 +33,7 @@ public class EntityDeserializer : IEntityDeserializer
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
     }
         
-    public async Task<TEntity> DeserializeAsync<TEntity>(ItemRawData itemRawData)
+    public async Task<TEntity> DeserializeAsync<TEntity>(IItemRawData itemRawData)
     {
         TEntity entity = default;
 

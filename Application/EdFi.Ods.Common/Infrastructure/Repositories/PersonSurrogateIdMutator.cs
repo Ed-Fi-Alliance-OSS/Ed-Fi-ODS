@@ -7,7 +7,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories;
 
 public class PersonSurrogateIdMutator : ISurrogateIdMutator
 {
-    public bool TrySetSurrogateId(object instance, ItemRawData itemRawData)
+    public bool TrySetSurrogateId(object instance, IItemRawData itemRawData)
     {
         if (instance is IPersonUsiMutator personMutator)
         {

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -36,6 +38,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IEntityDeserializer _entityDeserializer;
         private readonly IGetEntitiesByAggregateIds<TEntity> _getEntitiesByAggregateIds;
+        private bool _serializationEnabled;
 
         public GetEntitiesBySpecification(
             ISessionFactory sessionFactory,
@@ -43,13 +46,16 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             [FromKeyedServices(PagedAggregateIdsQueryBuilderProvider.RegistrationKey)]
             IAggregateRootQueryBuilderProvider pagedAggregateIdsCriteriaProvider,
             IDomainModelProvider domainModelProvider,
-            IEntityDeserializer entityDeserializer)
+            IEntityDeserializer entityDeserializer,
+            ApiSettings apiSettings)
             : base(sessionFactory)
         {
             _getEntitiesByAggregateIds = getEntitiesByAggregateIds;
             _pagedAggregateIdsCriteriaProvider = pagedAggregateIdsCriteriaProvider;
             _domainModelProvider = domainModelProvider;
             _entityDeserializer = entityDeserializer;
+
+            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
         }
 
         public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
@@ -72,7 +78,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // This approach yields all the data in 2 trips to the database (one for the Ids, and a second for all the aggregates)
                 var specificationResult = await GetPagedAggregateIdsAsync();
 
-                if (specificationResult.RawItems.Count == 0)
+                if (specificationResult.PageItems.Count == 0)
                 {
                     return new GetBySpecificationResult<TEntity>
                     {
@@ -85,73 +91,69 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     };
                 }
 
-                // Get only the results from the ODS for the items without serialized aggregate data, or with mismatching LastModifiedDate value 
-                var aggregateIdsToLoad = specificationResult.RawItems
-                    .Where(x => !x.IsDeserializable())
-                    .Select(x => x.AggregateId)
-                    .ToList();
+                bool nhibernateLoadRequired = !_serializationEnabled;
 
-                List<TEntity> results = new();
-
-                int nonDeserializableCount = aggregateIdsToLoad.Count;
-
-                if (nonDeserializableCount == 0)
+                // First, process results for items that are deserializable
+                if (_serializationEnabled)
                 {
-                    // Build result items using exclusively deserialized items
-                    foreach (var itemRawData in specificationResult.RawItems)
+                    // Try to deserialize all deserializable items
+                    foreach (var itemRawData in specificationResult.PageItems)
                     {
+                        if (!itemRawData.IsDeserializable)
+                        {
+                            nhibernateLoadRequired = true;
+
+                            continue;
+                        }
+
+                        // Deserialize the entity
                         var deserializedInstance = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
 
                         if (deserializedInstance != null)
                         {
-                            results.Add(deserializedInstance);
+                            itemRawData.EntityInstance = deserializedInstance;
                         }
                         else
                         {
+                            nhibernateLoadRequired = true;
                             itemRawData.AggregateData = null;
-                            aggregateIdsToLoad.Add(itemRawData.AggregateId);
                         }
                     }
                 }
 
-                // Do we have an NHibernate
-                if (aggregateIdsToLoad.Count > 0)
+                if (nhibernateLoadRequired)
                 {
-                    // If we had deserialization issues, we need ensure the list is sorted in AggregateId order
-                    if (nonDeserializableCount != aggregateIdsToLoad.Count)
-                    {
-                        aggregateIdsToLoad.Sort();
-                    }
-
+                    var aggregateIdsToLoad = specificationResult.PageItems
+                        .Where(i => i.EntityInstance == null)
+                        .Select(i => i.AggregateId)
+                        .ToList();
+                    
                     // Load entities using NHibernate
                     var entityResults = await _getEntitiesByAggregateIds.GetByAggregateIdsAsync(
                         aggregateIdsToLoad,
                         cancellationToken);
 
                     // Results will be ordered by AggregateId
-                    int itemDataIndex = 0;
-                    int entityResultIndex = 0;
+                    int pageItemIndex = 0;
+                    int entityResultsIndex = 0;
 
-                    while (itemDataIndex < specificationResult.RawItems.Count && entityResultIndex < entityResults.Count)
+                    while (pageItemIndex < specificationResult.PageItems.Count && entityResultsIndex < entityResults.Count)
                     {
-                        var itemData = specificationResult.RawItems[itemDataIndex];
-                        var entity = entityResults[entityResultIndex];
+                        var pageItem = specificationResult.PageItems[pageItemIndex];
+                        var entity = entityResults[entityResultsIndex];
 
                         // If the AggregateIds match, assign the entity to the ItemData object
-                        if (itemData.AggregateId == entity.AggregateId)
+                        if (pageItem.AggregateId == entity.AggregateId)
                         {
-                            results.Add(entity);
+                            pageItem.EntityInstance = entity;
 
-                            itemDataIndex++;
-                            entityResultIndex++;
+                            pageItemIndex++;
+                            entityResultsIndex++;
                         }
-                        // If the ItemData's AggregateId is smaller, move to the next ItemData
-                        else if (itemData.AggregateId < entity.AggregateId)
+                        // If the page item's AggregateId is smaller, move to the next page item
+                        else if (pageItem.AggregateId < entity.AggregateId)
                         {
-                            var deserializedInstance = await _entityDeserializer.DeserializeAsync<TEntity>(itemData);
-                            results.Add(deserializedInstance);
-                            
-                            itemDataIndex++;
+                            pageItemIndex++;
                         }
                         else
                         {
@@ -163,12 +165,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 }
 
                 string nextPageToken = PagingHelpers.GetPageToken(
-                    specificationResult.RawItems[^1].AggregateId + 1,
+                    specificationResult.PageItems[^1].AggregateId + 1,
                     queryParameters.MaxAggregateId ?? int.MaxValue);
 
                 return new GetBySpecificationResult<TEntity>
                 {
-                    Results = results,
+                    Results = specificationResult.PageItems.Select(i => i.EntityInstance).ToList(),
                     ResultMetadata = new ResultMetadata
                     {
                         TotalCount = specificationResult.TotalCount,
@@ -177,14 +179,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 };
             }
 
-            async Task<SpecificationResult> GetPagedAggregateIdsAsync()
+            async Task<SpecificationResult<TEntity>> GetPagedAggregateIdsAsync()
             {
                 // Short circuit any work if no items requested, and no count to perform. 
                 if (!ItemsRequested() && !CountRequested())
                 {
-                    return new SpecificationResult
+                    return new SpecificationResult<TEntity>
                     {
-                        RawItems = Array.Empty<ItemRawData>()
+                        PageItems = Array.Empty<ItemRawData<TEntity>>()
                     };
                 }
 
@@ -225,12 +227,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     await using var multi = await Session.Connection.QueryMultipleAsync(combinedSql, parameters);
 
-                    var itemDataResults = (await multi.ReadAsync<ItemRawData>()).ToArray();
+                    var itemDataResults = (await multi.ReadAsync<ItemRawData<TEntity>>()).ToArray();
                     var totalCount = await multi.ReadSingleAsync<int>();
 
-                    return new SpecificationResult
+                    return new SpecificationResult<TEntity>
                     {
-                        RawItems = itemDataResults, 
+                        PageItems = itemDataResults, 
                         TotalCount = totalCount
                     };
                 }
@@ -238,19 +240,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (idsTemplate != null)
                 {
                     var itemDataResults =
-                        (await Session.Connection.QueryAsync<ItemRawData>(idsTemplate.RawSql, idsTemplate.Parameters)).ToArray();
+                        (await Session.Connection.QueryAsync<ItemRawData<TEntity>>(idsTemplate.RawSql, idsTemplate.Parameters)).ToArray();
 
-                    return new SpecificationResult
+                    return new SpecificationResult<TEntity>
                     {
-                        RawItems = itemDataResults,
+                        PageItems = itemDataResults,
                     };
                 }
 
                 var countResult = await Session.Connection.QuerySingleAsync<int>(countTemplate.RawSql, countTemplate.Parameters);
 
-                return new SpecificationResult
+                return new SpecificationResult<TEntity>
                 {
-                    RawItems = Array.Empty<ItemRawData>(),
+                    PageItems = Array.Empty<ItemRawData<TEntity>>(),
                     TotalCount = countResult 
                 };
 
@@ -273,9 +275,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             bool CountRequested() => queryParameters.TotalCount;
         }
 
-        private class SpecificationResult
+        private class SpecificationResult<T>
         {
-            public IList<ItemRawData> RawItems { get; set; }
+            public IList<ItemRawData<T>> PageItems { get; set; }
             public int TotalCount { get; set; }
         }
     }
