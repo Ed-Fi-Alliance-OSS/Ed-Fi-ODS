@@ -322,7 +322,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -432,7 +432,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -555,7 +555,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -665,7 +665,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -769,5 +769,5 @@
       "potentiallyLogical": false
     }
   ],
-  "edFiVersion": "5.1.0"
+  "edFiVersion": "5.2.0"
 }
