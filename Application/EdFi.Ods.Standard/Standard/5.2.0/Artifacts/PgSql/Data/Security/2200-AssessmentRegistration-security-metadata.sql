@@ -578,9 +578,9 @@ BEGIN
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -593,16 +593,16 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('assesssmentAdministrationParticipation', 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipation', parent_resource_claim_id)
+        VALUES ('assessmentAdministrationParticipation', 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipationAdministrationPointOfContact'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipationAdministrationPointOfContact'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipationAdministrationPointOfContact';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipationAdministrationPointOfContact';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -615,7 +615,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('assesssmentAdministrationParticipationAdministrationPointOfContact', 'http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipationAdministrationPointOfContact', parent_resource_claim_id)
+        VALUES ('assessmentAdministrationParticipationAdministrationPointOfContact', 'http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipationAdministrationPointOfContact', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
 

@@ -2690,7 +2690,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/assesssmentAdministrationParticipations",
+    "resource": "/ed-fi/assessmentAdministrationParticipations",
     "order": 16,
     "operations": [
       "Create",
