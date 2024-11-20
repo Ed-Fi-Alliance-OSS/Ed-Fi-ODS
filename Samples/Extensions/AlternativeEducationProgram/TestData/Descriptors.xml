@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<InterchangeDescriptors xmlns="http://ed-fi.org/5.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/5.1.0 EXTENSION-Interchange-Descriptors-Extension.xsd">
+<InterchangeDescriptors xmlns="http://ed-fi.org/5.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/5.2.0 EXTENSION-Interchange-Descriptors-Extension.xsd">
 	<AlternativeEducationEligibilityReasonDescriptor>
 		<CodeValue>Student intends to withdraw or has withdrawn before graduation</CodeValue>
 		<ShortDescription>Student intends to withdraw or has withdrawn before graduation</ShortDescription>
