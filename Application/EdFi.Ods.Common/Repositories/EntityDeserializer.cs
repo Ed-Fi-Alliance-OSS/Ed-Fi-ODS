@@ -37,7 +37,7 @@ public class EntityDeserializer : IEntityDeserializer
     {
         TEntity entity = default;
 
-        // TODO: ODS-6551 - Restore to fallback to NHibernate-based load once code is stable and known tests pass without suppressing deserialization failures 
+        // TODO: ODS-6551 - Considering restoring this fallback to NHibernate-based load once code is stable and known tests pass without suppressing deserialization failures 
         // try
         {
             // Deserialize the entity

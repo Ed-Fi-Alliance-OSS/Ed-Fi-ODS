@@ -22,7 +22,8 @@ public class MessagePackHelper
         // Serialize the object directly to a MemoryStream
         using var memoryStream = new MemoryStream();
 
-        // Write the LastModifiedDate value at the head of the stream so we can detect if the JSON has changed and is invalid without deserializing it
+        // Write the LastModifiedDate value at the head of the stream so we can detect if the table data has changed and
+        // the serialized entity is obsolete without deserializing it
         byte[] lastModifiedDateBytes = BitConverter.GetBytes(entity.LastModifiedDate.ToBinary());
         memoryStream.Write(lastModifiedDateBytes);
 

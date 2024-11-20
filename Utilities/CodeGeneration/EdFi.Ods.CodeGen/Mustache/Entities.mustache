@@ -309,7 +309,6 @@ namespace {{AggregateNamespace}}
             {{/OneToOnes}}
             {{#RelocatedExtensionOneToOnes}}
         [IgnoreMember]
-        // [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
