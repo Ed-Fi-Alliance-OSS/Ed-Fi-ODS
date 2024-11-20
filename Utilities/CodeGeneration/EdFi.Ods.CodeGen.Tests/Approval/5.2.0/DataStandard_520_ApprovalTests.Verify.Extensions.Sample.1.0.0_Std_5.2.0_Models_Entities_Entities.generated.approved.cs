@@ -3910,7 +3910,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [IgnoreMember]
-        // [Key(12)]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public Entities.NHibernate.ContactAggregate.Sample.ContactCTEProgramService ContactCTEProgramService
         {
@@ -3947,7 +3946,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Sample
             }
         }
         [IgnoreMember]
-        // [Key(13)]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public Entities.NHibernate.ContactAggregate.Sample.ContactTeacherConference ContactTeacherConference
         {
@@ -5274,7 +5272,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [IgnoreMember]
-        // [Key(2)]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public Entities.NHibernate.SchoolAggregate.Sample.SchoolCTEProgramService SchoolCTEProgramService
         {
@@ -5843,7 +5840,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [IgnoreMember]
-        // [Key(2)]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public Entities.NHibernate.StaffAggregate.Sample.StaffPetPreference StaffPetPreference
         {
@@ -10203,7 +10199,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [IgnoreMember]
-        // [Key(14)]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public Entities.NHibernate.StudentContactAssociationAggregate.Sample.StudentContactAssociationTelephone StudentContactAssociationTelephone
         {
@@ -10249,7 +10244,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentContactAssociationAggregate.Sample
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        [Key(15)]
+        [Key(14)]
         public virtual NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData InterventionStudyReferenceData { get; set; }
 
         /// <summary>
