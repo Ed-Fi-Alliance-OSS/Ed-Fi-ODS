@@ -3461,6 +3461,8 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             // AssigningEducationOrganizationId = entity.AssigningEducationOrganizationId, // Primary key property, Role name applied
             contextData.EducationOrganizationId = entity.EducationOrganizationId == default(long) ? null as long? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
             // ReportingEducationOrganizationId = entity.ReportingEducationOrganizationId, // Role name applied and not part of primary key
+            // ScheduledEducationOrganizationId = entity.ScheduledEducationOrganizationId, // Role name applied and not part of primary key
+            // ScheduledStudentUSI = entity.ScheduledStudentUSI, // Not part of primary key
             // SchoolId = entity.SchoolId, // Not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             // TestingEducationOrganizationId = entity.TestingEducationOrganizationId, // Role name applied and not part of primary key
@@ -3477,6 +3479,8 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
                     // "AssigningEducationOrganizationId",
                     "EducationOrganizationId",
                     // "ReportingEducationOrganizationId",
+                    // "ScheduledEducationOrganizationId",
+                    // "ScheduledStudentUSI",
                     // "SchoolId",
                     "StudentUSI",
                     // "TestingEducationOrganizationId",

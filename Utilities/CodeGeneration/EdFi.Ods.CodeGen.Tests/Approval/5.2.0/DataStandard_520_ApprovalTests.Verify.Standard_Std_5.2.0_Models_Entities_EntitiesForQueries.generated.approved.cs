@@ -23997,6 +23997,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentRegistration
         public virtual DateTime EntryDate  { get; set; }
         public virtual int? PlatformTypeDescriptorId  { get; set; }
         public virtual long? ReportingEducationOrganizationId  { get; set; }
+        public virtual long? ScheduledEducationOrganizationId  { get; set; }
+        public virtual int? ScheduledStudentUSI  { get; set; }
         public virtual long SchoolId  { get; set; }
         public virtual long? TestingEducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
@@ -24023,7 +24025,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentRegistration
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ AssessmentGradeLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptorQ PlatformTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ ReportingEducationOrganization { get; set; }
-        protected virtual NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ StudentEducationOrganizationAssessmentAccommodation { get; set; }
+        protected virtual NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ ScheduledStudentEducationOrganizationAssessmentAccommodation { get; set; }
         protected virtual NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ StudentEducationOrganizationAssociation { get; set; }
         protected virtual NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ StudentSchoolAssociation { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ TestingEducationOrganization { get; set; }

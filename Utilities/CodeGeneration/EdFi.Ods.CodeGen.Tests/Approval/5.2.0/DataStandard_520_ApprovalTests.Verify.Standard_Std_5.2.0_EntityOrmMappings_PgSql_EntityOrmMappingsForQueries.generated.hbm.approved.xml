@@ -21403,6 +21403,8 @@
     <property name="EntryDate" column="EntryDate" type="date" not-null="true" />
     <property name="PlatformTypeDescriptorId" column="PlatformTypeDescriptorId" type="int" />
     <property name="ReportingEducationOrganizationId" column="ReportingEducationOrganizationId" type="long" />
+    <property name="ScheduledEducationOrganizationId" column="ScheduledEducationOrganizationId" type="long" />
+    <property name="ScheduledStudentUSI" column="ScheduledStudentUSI" type="int" />
     <property name="SchoolId" column="SchoolId" type="long" not-null="true" />
     <property name="TestingEducationOrganizationId" column="TestingEducationOrganizationId" type="long" />
 
@@ -21424,9 +21426,9 @@
     <many-to-one name="ReportingEducationOrganization" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="ReportingEducationOrganizationId" />
     </many-to-one>
-    <many-to-one name="StudentEducationOrganizationAssessmentAccommodation" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
+    <many-to-one name="ScheduledStudentEducationOrganizationAssessmentAccommodation" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="ScheduledEducationOrganizationId" />
+        <column name="ScheduledStudentUSI" />
     </many-to-one>
     <many-to-one name="StudentEducationOrganizationAssociation" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EducationOrganizationId" />
@@ -22264,8 +22266,8 @@
     <!-- Collections -->
     <set name="StudentAssessmentRegistrations" cascade="none" lazy="true">
       <key>
-        <column name="EducationOrganizationId" />
-        <column name="StudentUSI" />
+        <column name="ScheduledEducationOrganizationId" />
+        <column name="ScheduledStudentUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentRegistrationAggregate.EdFi.StudentAssessmentRegistrationQ" />
     </set>

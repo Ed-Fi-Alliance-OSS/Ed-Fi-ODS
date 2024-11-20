@@ -15122,6 +15122,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessmentRegistrations.EdF
         public string Namespace { get; set; }
         public string PlatformTypeDescriptor { get; set; }
         public long ReportingEducationOrganizationId { get; set; }
+        public long ScheduledEducationOrganizationId { get; set; }
+        public string ScheduledStudentUniqueId { get; set; }
         public long SchoolId { get; set; }
         public string StudentUniqueId { get; set; }
         public long TestingEducationOrganizationId { get; set; }

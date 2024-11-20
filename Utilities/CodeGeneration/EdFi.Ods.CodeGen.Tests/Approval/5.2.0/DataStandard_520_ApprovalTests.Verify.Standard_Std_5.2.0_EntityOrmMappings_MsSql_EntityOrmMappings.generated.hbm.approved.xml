@@ -16519,6 +16519,8 @@
     <property name="EntryDate" column="EntryDate" type="date" not-null="true" />
     <property name="PlatformTypeDescriptorId" column="PlatformTypeDescriptorId" type="int" />
     <property name="ReportingEducationOrganizationId" column="ReportingEducationOrganizationId" type="long" />
+    <property name="ScheduledEducationOrganizationId" column="ScheduledEducationOrganizationId" type="long" />
+    <property name="ScheduledStudentUSI" column="ScheduledStudentUSI" type="int" />
     <property name="SchoolId" column="SchoolId" type="long" not-null="true" />
     <property name="TestingEducationOrganizationId" column="TestingEducationOrganizationId" type="long" />
 
@@ -16532,9 +16534,9 @@
     <many-to-one name="ReportingEducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="ReportingEducationOrganizationId" />
     </many-to-one>
-    <many-to-one name="StudentEducationOrganizationAssessmentAccommodationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-      <column name="StudentUSI" />
+    <many-to-one name="ScheduledStudentEducationOrganizationAssessmentAccommodationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssessmentAccommodationAggregate.EdFi.StudentEducationOrganizationAssessmentAccommodationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ScheduledEducationOrganizationId" />
+      <column name="ScheduledStudentUSI" />
     </many-to-one>
     <many-to-one name="StudentEducationOrganizationAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />

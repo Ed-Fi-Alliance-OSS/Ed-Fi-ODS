@@ -10629,6 +10629,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessmentRegistrations.EdFi
             specification.Namespace = request.Namespace;
             specification.PlatformTypeDescriptor = request.PlatformTypeDescriptor;
             specification.ReportingEducationOrganizationId = request.ReportingEducationOrganizationId;
+            specification.ScheduledEducationOrganizationId = request.ScheduledEducationOrganizationId;
+            specification.ScheduledStudentUniqueId = request.ScheduledStudentUniqueId;
             specification.SchoolId = request.SchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TestingEducationOrganizationId = request.TestingEducationOrganizationId;

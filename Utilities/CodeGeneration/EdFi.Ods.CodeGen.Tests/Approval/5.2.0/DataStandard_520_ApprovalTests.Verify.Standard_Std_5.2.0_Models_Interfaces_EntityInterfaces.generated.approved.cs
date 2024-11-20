@@ -40955,6 +40955,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         DateTime EntryDate { get; set; }
         string PlatformTypeDescriptor { get; set; }
         long? ReportingEducationOrganizationId { get; set; }
+        long? ScheduledEducationOrganizationId { get; set; }
+        string ScheduledStudentUniqueId { get; set; }
         long SchoolId { get; set; }
         long? TestingEducationOrganizationId { get; set; }
 
@@ -40969,8 +40971,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string AssessmentAdministrationDiscriminator { get; set; }
         Guid? ReportingEducationOrganizationResourceId { get; set; }
         string ReportingEducationOrganizationDiscriminator { get; set; }
-        Guid? StudentEducationOrganizationAssessmentAccommodationResourceId { get; set; }
-        string StudentEducationOrganizationAssessmentAccommodationDiscriminator { get; set; }
+        Guid? ScheduledStudentEducationOrganizationAssessmentAccommodationResourceId { get; set; }
+        string ScheduledStudentEducationOrganizationAssessmentAccommodationDiscriminator { get; set; }
         Guid? StudentEducationOrganizationAssociationResourceId { get; set; }
         string StudentEducationOrganizationAssociationDiscriminator { get; set; }
         Guid? StudentSchoolAssociationResourceId { get; set; }
@@ -40992,10 +40994,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isPlatformTypeDescriptorSupported,
             bool isReportingEducationOrganizationIdSupported,
             bool isReportingEducationOrganizationReferenceSupported,
+            bool isScheduledEducationOrganizationIdSupported,
+            bool isScheduledStudentEducationOrganizationAssessmentAccommodationReferenceSupported,
+            bool isScheduledStudentUniqueIdSupported,
             bool isSchoolIdSupported,
             bool isStudentAssessmentRegistrationAssessmentAccommodationsSupported,
             bool isStudentAssessmentRegistrationAssessmentCustomizationsSupported,
-            bool isStudentEducationOrganizationAssessmentAccommodationReferenceSupported,
             bool isStudentEducationOrganizationAssociationReferenceSupported,
             bool isStudentSchoolAssociationReferenceSupported,
             bool isTestingEducationOrganizationIdSupported,
@@ -41013,10 +41017,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsPlatformTypeDescriptorSupported = isPlatformTypeDescriptorSupported;
             IsReportingEducationOrganizationIdSupported = isReportingEducationOrganizationIdSupported;
             IsReportingEducationOrganizationReferenceSupported = isReportingEducationOrganizationReferenceSupported;
+            IsScheduledEducationOrganizationIdSupported = isScheduledEducationOrganizationIdSupported;
+            IsScheduledStudentEducationOrganizationAssessmentAccommodationReferenceSupported = isScheduledStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
+            IsScheduledStudentUniqueIdSupported = isScheduledStudentUniqueIdSupported;
             IsSchoolIdSupported = isSchoolIdSupported;
             IsStudentAssessmentRegistrationAssessmentAccommodationsSupported = isStudentAssessmentRegistrationAssessmentAccommodationsSupported;
             IsStudentAssessmentRegistrationAssessmentCustomizationsSupported = isStudentAssessmentRegistrationAssessmentCustomizationsSupported;
-            IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported = isStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
             IsStudentEducationOrganizationAssociationReferenceSupported = isStudentEducationOrganizationAssociationReferenceSupported;
             IsStudentSchoolAssociationReferenceSupported = isStudentSchoolAssociationReferenceSupported;
             IsTestingEducationOrganizationIdSupported = isTestingEducationOrganizationIdSupported;
@@ -41034,10 +41040,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsPlatformTypeDescriptorSupported { get; }
         public bool IsReportingEducationOrganizationIdSupported { get; }
         public bool IsReportingEducationOrganizationReferenceSupported { get; }
+        public bool IsScheduledEducationOrganizationIdSupported { get; }
+        public bool IsScheduledStudentEducationOrganizationAssessmentAccommodationReferenceSupported { get; }
+        public bool IsScheduledStudentUniqueIdSupported { get; }
         public bool IsSchoolIdSupported { get; }
         public bool IsStudentAssessmentRegistrationAssessmentAccommodationsSupported { get; }
         public bool IsStudentAssessmentRegistrationAssessmentCustomizationsSupported { get; }
-        public bool IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported { get; }
         public bool IsStudentEducationOrganizationAssociationReferenceSupported { get; }
         public bool IsStudentSchoolAssociationReferenceSupported { get; }
         public bool IsTestingEducationOrganizationIdSupported { get; }
@@ -41063,14 +41071,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsReportingEducationOrganizationIdSupported;
                 case "ReportingEducationOrganizationReference":
                     return IsReportingEducationOrganizationReferenceSupported;
+                case "ScheduledEducationOrganizationId":
+                    return IsScheduledEducationOrganizationIdSupported;
+                case "ScheduledStudentEducationOrganizationAssessmentAccommodationReference":
+                    return IsScheduledStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
+                case "ScheduledStudentUniqueId":
+                    return IsScheduledStudentUniqueIdSupported;
                 case "SchoolId":
                     return IsSchoolIdSupported;
                 case "StudentAssessmentRegistrationAssessmentAccommodations":
                     return IsStudentAssessmentRegistrationAssessmentAccommodationsSupported;
                 case "StudentAssessmentRegistrationAssessmentCustomizations":
                     return IsStudentAssessmentRegistrationAssessmentCustomizationsSupported;
-                case "StudentEducationOrganizationAssessmentAccommodationReference":
-                    return IsStudentEducationOrganizationAssessmentAccommodationReferenceSupported;
                 case "StudentEducationOrganizationAssociationReference":
                     return IsStudentEducationOrganizationAssociationReferenceSupported;
                 case "StudentSchoolAssociationReference":

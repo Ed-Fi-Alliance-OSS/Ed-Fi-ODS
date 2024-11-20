@@ -65208,6 +65208,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentRegistrationAggregat
                 isModified = true;
             }
 
+            if ((mappingContract?.IsScheduledEducationOrganizationIdSupported != false)
+                && target.ScheduledEducationOrganizationId != source.ScheduledEducationOrganizationId)
+            {
+                target.ScheduledEducationOrganizationId = source.ScheduledEducationOrganizationId;
+                isModified = true;
+            }
+
+            if ((mappingContract?.IsScheduledStudentUniqueIdSupported != false)
+                && target.ScheduledStudentUniqueId != source.ScheduledStudentUniqueId)
+            {
+                target.ScheduledStudentUniqueId = source.ScheduledStudentUniqueId;
+                isModified = true;
+            }
+
             if ((mappingContract?.IsSchoolIdSupported != false)
                 && target.SchoolId != source.SchoolId)
             {
@@ -65288,6 +65302,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentRegistrationAggregat
             if (mappingContract?.IsReportingEducationOrganizationIdSupported != false)
                 target.ReportingEducationOrganizationId = source.ReportingEducationOrganizationId;
 
+            if (mappingContract?.IsScheduledEducationOrganizationIdSupported != false)
+                target.ScheduledEducationOrganizationId = source.ScheduledEducationOrganizationId;
+
+            if (mappingContract?.IsScheduledStudentUniqueIdSupported != false)
+                target.ScheduledStudentUniqueId = source.ScheduledStudentUniqueId;
+
             if (mappingContract?.IsSchoolIdSupported != false)
                 target.SchoolId = source.SchoolId;
 
@@ -65302,8 +65322,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentRegistrationAggregat
                 target.AssessmentAdministrationDiscriminator = source.AssessmentAdministrationDiscriminator;
                 target.ReportingEducationOrganizationResourceId = source.ReportingEducationOrganizationResourceId;
                 target.ReportingEducationOrganizationDiscriminator = source.ReportingEducationOrganizationDiscriminator;
-                target.StudentEducationOrganizationAssessmentAccommodationResourceId = source.StudentEducationOrganizationAssessmentAccommodationResourceId;
-                target.StudentEducationOrganizationAssessmentAccommodationDiscriminator = source.StudentEducationOrganizationAssessmentAccommodationDiscriminator;
+                target.ScheduledStudentEducationOrganizationAssessmentAccommodationResourceId = source.ScheduledStudentEducationOrganizationAssessmentAccommodationResourceId;
+                target.ScheduledStudentEducationOrganizationAssessmentAccommodationDiscriminator = source.ScheduledStudentEducationOrganizationAssessmentAccommodationDiscriminator;
                 target.StudentEducationOrganizationAssociationResourceId = source.StudentEducationOrganizationAssociationResourceId;
                 target.StudentEducationOrganizationAssociationDiscriminator = source.StudentEducationOrganizationAssociationDiscriminator;
                 target.StudentSchoolAssociationResourceId = source.StudentSchoolAssociationResourceId;
