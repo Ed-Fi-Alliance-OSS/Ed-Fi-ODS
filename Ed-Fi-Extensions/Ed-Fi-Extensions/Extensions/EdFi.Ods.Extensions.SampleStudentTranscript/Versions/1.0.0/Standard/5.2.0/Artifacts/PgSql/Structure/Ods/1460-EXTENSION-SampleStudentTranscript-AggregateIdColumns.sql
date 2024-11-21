@@ -5,6 +5,6 @@
 
 
 CREATE SEQUENCE samplestudenttranscript.PostSecondaryOrganization_aggseq START WITH -2147483648 INCREMENT BY 1 MINVALUE -2147483648;
-ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('samplestudenttranscript.PostSecondaryOrganization_aggseq');
+ALTER TABLE samplestudenttranscript.PostSecondaryOrganization ADD COLUMN AggregateId int NOT NULL DEFAULT nextval('samplestudenttranscript.PostSecondaryOrganization_aggseq'), ADD COLUMN AggregateData bytea;
 CREATE INDEX ix_PostSecondaryOrganization_aggid ON samplestudenttranscript.PostSecondaryOrganization (AggregateId);
 

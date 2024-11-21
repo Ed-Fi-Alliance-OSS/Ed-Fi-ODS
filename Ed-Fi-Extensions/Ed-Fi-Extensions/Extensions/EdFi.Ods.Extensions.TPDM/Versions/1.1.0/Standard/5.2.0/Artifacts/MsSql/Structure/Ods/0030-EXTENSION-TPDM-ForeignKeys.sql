@@ -701,10 +701,6 @@ ALTER TABLE [tpdm].[FinancialAid] WITH CHECK ADD CONSTRAINT [FK_FinancialAid_Stu
 REFERENCES [edfi].[Student] ([StudentUSI])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_FinancialAid_Student]
-ON [tpdm].[FinancialAid] ([StudentUSI] ASC)
-GO
-
 ALTER TABLE [tpdm].[GenderDescriptor] WITH CHECK ADD CONSTRAINT [FK_GenderDescriptor_Descriptor] FOREIGN KEY ([GenderDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
