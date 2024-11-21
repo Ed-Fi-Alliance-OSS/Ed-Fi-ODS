@@ -63,8 +63,8 @@
 				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentAdministrationAssessmentBatteryPart" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentBatteryPart" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentBatteryPartObjectiveAssessment" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipation" />
-				<Claim name="http://ed-fi.org/ods/identity/claims/assesssmentAdministrationParticipationAdministrationPointOfContact" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipation" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/assessmentAdministrationParticipationAdministrationPointOfContact" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistration" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistrationAssessmentAccommodation" />
 				<Claim name="http://ed-fi.org/ods/identity/claims/studentAssessmentRegistrationAssessmentCustomization" />
@@ -130,7 +130,9 @@
 				</ClaimSet>
 			</ClaimSets>
 			<Claims>
-				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/Section504DisabilityDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/DualCreditTypeDescriptor" />
+				<Claim name="http://ed-fi.org/ods/identity/claims/DualCreditInstitutionDescriptor" />
 			</Claims>
 		</Claim>
 		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">

@@ -20,11 +20,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'PostSecondaryO
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the institution.', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'NameOfInstitution'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The level of the institution.', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'InstitutionLevelDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of acceptance.', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'AcceptanceIndicator'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of control of the institution (i.e., public or private).', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'InstitutionControlDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of acceptance.', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'AcceptanceIndicator'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The level of the institution.', @level0type=N'SCHEMA', @level0name=N'samplestudenttranscript', @level1type=N'TABLE', @level1name=N'PostSecondaryOrganization', @level2type=N'COLUMN', @level2name=N'InstitutionLevelDescriptorId'
 GO
 
 -- Extended Properties [samplestudenttranscript].[SpecialEducationGraduationStatusDescriptor] --

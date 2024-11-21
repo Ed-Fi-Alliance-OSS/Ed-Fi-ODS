@@ -3,6 +3,7 @@
   "schemaDefinition": {
     "logicalName": "SampleStudentTranscript",
     "physicalName": "samplestudenttranscript",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
@@ -127,6 +128,7 @@
           "propertyName": "AcceptanceIndicator",
           "propertyType": {
             "dbType": "Boolean",
+            "minLength": 0,
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -195,6 +197,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -760,7 +763,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -834,7 +837,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -923,6 +926,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -946,6 +950,7 @@
           "propertyName": "NameOfInstitution",
           "propertyType": {
             "dbType": "String",
+            "minLength": 0,
             "maxLength": 75,
             "precision": 0,
             "scale": 0,
@@ -982,7 +987,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -1056,7 +1061,7 @@
         {
           "propertyName": "EducationOrganizationId",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Int64",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
@@ -1249,5 +1254,6 @@
       },
       "potentiallyLogical": false
     }
-  ]
+  ],
+  "edFiVersion": "5.2.0"
 }

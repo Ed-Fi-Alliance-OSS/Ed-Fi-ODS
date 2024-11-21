@@ -76,6 +76,27 @@ CREATE TABLE tracked_changes_edfi.assessmentadministration
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'assessmentadministrationparticipation') THEN
+CREATE TABLE tracked_changes_edfi.assessmentadministrationparticipation
+(
+       oldadministrationidentifier VARCHAR(255) NOT NULL,
+       oldassessmentidentifier VARCHAR(60) NOT NULL,
+       oldassigningeducationorganizationid BIGINT NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldparticipatingeducationorganizationid BIGINT NOT NULL,
+       newadministrationidentifier VARCHAR(255) NULL,
+       newassessmentidentifier VARCHAR(60) NULL,
+       newassigningeducationorganizationid BIGINT NULL,
+       newnamespace VARCHAR(255) NULL,
+       newparticipatingeducationorganizationid BIGINT NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT assessmentadministrationparticipation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'assessmentbatterypart') THEN
 CREATE TABLE tracked_changes_edfi.assessmentbatterypart
 (
@@ -124,27 +145,6 @@ CREATE TABLE tracked_changes_edfi.assessmentscorerangelearningstandard
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
        CONSTRAINT assessmentscorerangelearningstandard_pk PRIMARY KEY (ChangeVersion)
-);
-END IF;
-
-IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'assesssmentadministrationparticipation') THEN
-CREATE TABLE tracked_changes_edfi.assesssmentadministrationparticipation
-(
-       oldadministrationidentifier VARCHAR(255) NOT NULL,
-       oldassessmentidentifier VARCHAR(60) NOT NULL,
-       oldassigningeducationorganizationid BIGINT NOT NULL,
-       oldnamespace VARCHAR(255) NOT NULL,
-       oldparticipatingeducationorganizationid BIGINT NOT NULL,
-       newadministrationidentifier VARCHAR(255) NULL,
-       newassessmentidentifier VARCHAR(60) NULL,
-       newassigningeducationorganizationid BIGINT NULL,
-       newnamespace VARCHAR(255) NULL,
-       newparticipatingeducationorganizationid BIGINT NULL,
-       id uuid NOT NULL,
-       changeversion bigint NOT NULL,
-       discriminator varchar(128) NULL,
-       createdate timestamp NOT NULL DEFAULT (now()),
-       CONSTRAINT assesssmentadministrationparticipation_pk PRIMARY KEY (ChangeVersion)
 );
 END IF;
 

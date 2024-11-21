@@ -19,9 +19,9 @@ BEGIN
     CREATE INDEX IX_Assessment_EducationOrganizationId ON [edfi].[Assessment](EducationOrganizationId) INCLUDE (Id)
 END;
 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId' AND object_id = OBJECT_ID('edfi.AssesssmentAdministrationParticipation')) 
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_AssessmentAdministrationParticipation_AssigningEducationOrganizationId' AND object_id = OBJECT_ID('edfi.AssessmentAdministrationParticipation')) 
 BEGIN
-    CREATE INDEX IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId ON [edfi].[AssesssmentAdministrationParticipation](AssigningEducationOrganizationId) INCLUDE (Id)
+    CREATE INDEX IX_AssessmentAdministrationParticipation_AssigningEducationOrganizationId ON [edfi].[AssessmentAdministrationParticipation](AssigningEducationOrganizationId) INCLUDE (Id)
 END;
 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name='IX_BellSchedule_SchoolId' AND object_id = OBJECT_ID('edfi.BellSchedule')) 

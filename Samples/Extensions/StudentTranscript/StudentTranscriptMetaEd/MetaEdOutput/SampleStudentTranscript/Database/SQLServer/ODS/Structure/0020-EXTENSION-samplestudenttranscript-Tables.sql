@@ -24,9 +24,9 @@ GO
 -- Table [samplestudenttranscript].[PostSecondaryOrganization] --
 CREATE TABLE [samplestudenttranscript].[PostSecondaryOrganization] (
     [NameOfInstitution] [NVARCHAR](75) NOT NULL,
-    [InstitutionLevelDescriptorId] [INT] NOT NULL,
-    [InstitutionControlDescriptorId] [INT] NOT NULL,
     [AcceptanceIndicator] [BIT] NOT NULL,
+    [InstitutionControlDescriptorId] [INT] NOT NULL,
+    [InstitutionLevelDescriptorId] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -36,11 +36,11 @@ CREATE TABLE [samplestudenttranscript].[PostSecondaryOrganization] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [samplestudenttranscript].[PostSecondaryOrganization] ADD CONSTRAINT [PostSecondaryOrganization_DF_LastModifiedDate] DEFAULT (getutcdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [samplestudenttranscript].[SpecialEducationGraduationStatusDescriptor] --
@@ -54,7 +54,7 @@ GO
 
 -- Table [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] --
 CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -68,12 +68,12 @@ CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtensi
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] ADD CONSTRAINT [StudentAcademicRecordClassRankingExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordClassRankingExtension] ADD CONSTRAINT [StudentAcademicRecordClassRankingExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [samplestudenttranscript].[StudentAcademicRecordExtension] --
 CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] (
-    [EducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [BIGINT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] ADD CONSTRAINT [StudentAcademicRecordExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [samplestudenttranscript].[StudentAcademicRecordExtension] ADD CONSTRAINT [StudentAcademicRecordExtension_DF_CreateDate] DEFAULT (getutcdate()) FOR [CreateDate]
 GO
 
 -- Table [samplestudenttranscript].[SubmissionCertificationDescriptor] --

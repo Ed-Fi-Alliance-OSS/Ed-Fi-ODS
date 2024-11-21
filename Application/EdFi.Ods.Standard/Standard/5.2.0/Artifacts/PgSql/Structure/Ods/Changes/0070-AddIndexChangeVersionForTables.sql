@@ -11,13 +11,13 @@ CREATE INDEX IF NOT EXISTS UX_7808ee_ChangeVersion ON edfi.Assessment(ChangeVers
 
 CREATE INDEX IF NOT EXISTS UX_c64558_ChangeVersion ON edfi.AssessmentAdministration(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_77818e_ChangeVersion ON edfi.AssessmentAdministrationParticipation(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_6e22f2_ChangeVersion ON edfi.AssessmentBatteryPart(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_dc3dcf_ChangeVersion ON edfi.AssessmentItem(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_a20588_ChangeVersion ON edfi.AssessmentScoreRangeLearningStandard(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_0b52ab_ChangeVersion ON edfi.AssesssmentAdministrationParticipation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_e52c9c_ChangeVersion ON edfi.BalanceSheetDimension(ChangeVersion);
 

@@ -10,7 +10,7 @@ CREATE INDEX IF NOT EXISTS IX_AccountabilityRating_EducationOrganizationId ON ed
 
 CREATE INDEX IF NOT EXISTS IX_Assessment_EducationOrganizationId ON edfi.Assessment(EducationOrganizationId) INCLUDE (Id);
 
-CREATE INDEX IF NOT EXISTS IX_AssesssmentAdministrationParticipation_AssigningEducationOrganizationId ON edfi.AssesssmentAdministrationParticipation(AssigningEducationOrganizationId) INCLUDE (Id);
+CREATE INDEX IF NOT EXISTS IX_AssessmentAdministrationParticipation_AssigningEducationOrganizationId ON edfi.AssessmentAdministrationParticipation(AssigningEducationOrganizationId) INCLUDE (Id);
 
 CREATE INDEX IF NOT EXISTS IX_BellSchedule_SchoolId ON edfi.BellSchedule(SchoolId) INCLUDE (Id);
 

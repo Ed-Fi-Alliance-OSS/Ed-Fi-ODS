@@ -504,6 +504,22 @@
     ]
   },
   {
+    "resource": "/ed-fi/dualCreditInstitutionDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/dualCreditTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/educationalEnvironmentDescriptors",
     "order": 1,
     "operations": [
@@ -1384,7 +1400,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/section504DisabilityTypeDescriptors",
+    "resource": "/ed-fi/section504DisabilityDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -2690,7 +2706,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/assesssmentAdministrationParticipations",
+    "resource": "/ed-fi/assessmentAdministrationParticipations",
     "order": 16,
     "operations": [
       "Create",

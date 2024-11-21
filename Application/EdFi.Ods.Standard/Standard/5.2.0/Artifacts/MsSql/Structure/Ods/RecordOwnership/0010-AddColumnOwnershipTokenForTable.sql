@@ -11,13 +11,13 @@ ALTER TABLE [edfi].[Assessment] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[AssessmentAdministration] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[AssessmentAdministrationParticipation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[AssessmentBatteryPart] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[AssessmentItem] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [edfi].[AssesssmentAdministrationParticipation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[BalanceSheetDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

@@ -26,6 +26,11 @@ ALTER TABLE edfi.AssessmentAdministration ADD ChangeVersion BIGINT DEFAULT (0) N
 ALTER TABLE edfi.AssessmentAdministration ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='assessmentadministrationparticipation' AND column_name='changeversion') THEN
+ALTER TABLE edfi.AssessmentAdministrationParticipation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
+ALTER TABLE edfi.AssessmentAdministrationParticipation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='assessmentbatterypart' AND column_name='changeversion') THEN
 ALTER TABLE edfi.AssessmentBatteryPart ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.AssessmentBatteryPart ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
@@ -39,11 +44,6 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='assessmentscorerangelearningstandard' AND column_name='changeversion') THEN
 ALTER TABLE edfi.AssessmentScoreRangeLearningStandard ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.AssessmentScoreRangeLearningStandard ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='assesssmentadministrationparticipation' AND column_name='changeversion') THEN
-ALTER TABLE edfi.AssesssmentAdministrationParticipation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE edfi.AssesssmentAdministrationParticipation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='balancesheetdimension' AND column_name='changeversion') THEN
