@@ -638,9 +638,6 @@ ALTER TABLE tpdm.FinancialAid ADD CONSTRAINT FK_a465f2_Student FOREIGN KEY (Stud
 REFERENCES edfi.Student (StudentUSI)
 ;
 
-CREATE INDEX FK_a465f2_Student
-ON tpdm.FinancialAid (StudentUSI ASC);
-
 ALTER TABLE tpdm.GenderDescriptor ADD CONSTRAINT FK_554e4f_Descriptor FOREIGN KEY (GenderDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
