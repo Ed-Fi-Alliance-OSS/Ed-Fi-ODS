@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
@@ -107,34 +106,40 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     // New GUID identifiers are assigned by the NHibernate IPreInsertEventListener implementation
                 }
 
+                // Save the current date/time to context for absolute date/time consistency within the aggregate
+                CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
+
                 // Save the incoming entity
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
-                        using var trans = Session.BeginTransaction();
+                        bool isRetry = false;
 
-                        try
+                        if (ctx.TryGetValue("Retries", out object retryCount))
+                        {
+                            isRetry = true;
+                            _logger.Info($"Retry #{retryCount}: Retrying create of '{typeof(TEntity).Name}'...");
+                        }
+
+                        using (ITransaction trans = Session.BeginTransaction())
                         {
                             await Session.SaveAsync(entity, cancellationToken);
+                            await trans.CommitAsync(cancellationToken);
                         }
-                        catch (Exception)
+
+                        if (isRetry)
                         {
-                            await trans.RollbackAsync(cancellationToken);
-                            throw;
-                        }
-                        finally
-                        {
-                            if (!trans.WasRolledBack)
-                            {
-                                await trans.CommitAsync(cancellationToken);
-                            }
+                            _logger.Info($"Retry #{retryCount}: Successfully created '{typeof(TEntity).Name}' after {retryCount} retries...");
                         }
                     },
                     _retryPolicyContextData);
 
+                // Clear the contextual current date/time explicitly
+                CallContext.SetData("CurrentDateTime", null);
+
                 bool IdHasValue()
                 {
-                    return !entity.Id.Equals(default(Guid));
+                    return !entity.Id.Equals(default);
                 }
             }
         }

@@ -4,11 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
+using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -19,6 +21,10 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class Entities : GeneratorBase
     {
+        // Number of properties defined on base classes for aggregate root/child entities, respectively.
+        private const int InitialKeyIndexAggregateRoot = 6;
+        private const int InitialKeyIndexAggregateChild = 1;
+        
         private static readonly object _notRendered = null;
 
         private Func<Entity, bool> _shouldRenderEntityForSchema;
@@ -46,7 +52,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                     e =>
                                         _shouldRenderEntityForSchema(e)
                                         || e.Extensions.Any(ex => _shouldRenderEntityForSchema(ex))))
-                           .OrderBy(x => x.FullName.Name)
+                           .OrderBy(x => x.AggregateRoot.IsAbstract ? 0 : 1)
+                           .ThenBy(x => x.FullName.Name)
                            .ToList();
 
             return new
@@ -65,9 +72,10 @@ namespace EdFi.Ods.CodeGen.Generators
                             // Add the implicit entity extensions
                             .Concat(
                                 aggregate.Members.Where(RequiresImplicitExtension)
-                                    .Select(e => GetImplicitExtension(aggregate, e))),
+                                    .Select(e => GetImplicitExtension(aggregate, e)))
+                            .ToList(),
                         HasDiscriminator = aggregate.AggregateRoot.HasDiscriminator()
-                    }),
+                    }).ToList(),
                 TemplateContext.SchemaProperCaseName,
                 HasExtensionDerivedFromEdFiBaseEntity = orderedAggregates.SelectMany(a => a.Members)
                     .Any(m => !m.IsEdFiStandardEntity && m.IsDerived && m.BaseEntity.IsEdFiStandardEntity)
@@ -91,402 +99,401 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private object GetImplicitExtension(Aggregate aggregate, Entity entity)
         {
-            string parentSchemaProperCaseName = entity.DomainModel
-                                                      .SchemaNameMapProvider.GetSchemaMapByPhysicalName(entity.Schema)
-                                                      .ProperCaseName;
+            string parentSchemaProperCaseName = entity.DomainModel.SchemaNameMapProvider.GetSchemaMapByPhysicalName(entity.Schema)
+                .ProperCaseName;
 
             return new
-                   {
-                       IsImplicitExtension = true, ClassName = entity.GetExtensionClassName(),
-                       EntityParentFieldName = "_" + entity.Name.ToCamelCase(), EntityParentClassNamespacePrefix = parentSchemaProperCaseName + ".",
-                       EntityParentClassName = entity.Name, ModelParentClassName = entity.Name, PrimaryKey = new
-                                                                                                             {
-                                                                                                                 ParentReference = new
-                                                                                                                                   {
-                                                                                                                                       ModelParentInterfaceNamespacePrefix
-                                                                                                                                           = $"Common.{parentSchemaProperCaseName}.",
-                                                                                                                                       ModelParentInterfaceName
-                                                                                                                                           = "I" +
-                                                                                                                                             entity
-                                                                                                                                                .Name
-                                                                                                                                   }
-                                                                                                             },
-                       OneToOnes = entity.AggregateExtensionOneToOnes
-                                         .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                         .Select(
-                                              a => new
-                                                   {
-                                                       OtherClassName = a.OtherEntity.Name, 
-                                                       AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
-                                                   }),
-                       NavigableChildren = entity.NavigableChildren
-                                                 .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                                 .Select(
-                                                      a => new
-                                                           {
-                                                               ChildClassName = a.OtherEntity.Name, ChildCollectionPropertyName = a.Name,
-                                                               ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
-                                                               AggregateExtensionBagName = a.GetAggregateExtensionBagName()
-                                                           }),
-                       SynchronizationSupport = new
-                                                {
-                                                    Properties = entity.AggregateExtensionOneToOnes
-                                                                       .Concat(entity.AggregateExtensionChildren)
-                                                                       .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                                                       .Select(
-                                                                            a => new
-                                                                                 {
-                                                                                     PropertyName = a.Name
-                                                                                 }),
-                                                    CollectionClasses = entity.AggregateExtensionChildren
-                                                                              .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                                                              .Select(
-                                                                                   a => new
-                                                                                        {
-                                                                                            ChildCollectionRoleName = a.RoleName,
-                                                                                            ChildCollectionClassName = a.OtherEntity.Name,
-                                                                                            ChildCollectionPropertyName = a.Name
-                                                                                        })
-                                                }
-                   };
+            {
+                MessagePackIndexer = new MessagePackIndexer(),
+                IsImplicitExtension = true,
+                ClassName = entity.GetExtensionClassName(),
+                EntityParentFieldName = "_" + entity.Name.ToCamelCase(),
+                EntityParentClassNamespacePrefix = parentSchemaProperCaseName + ".",
+                EntityParentClassName = entity.Name,
+                ModelParentClassName = entity.Name,
+                PrimaryKey = new
+                {
+                    ParentReference = new
+                    {
+                        ModelParentInterfaceNamespacePrefix = $"Common.{parentSchemaProperCaseName}.",
+                        ModelParentInterfaceName = "I" + entity.Name
+                    }
+                },
+                OneToOnes = entity.AggregateExtensionOneToOnes.Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                    .Select(
+                        a => new
+                        {
+                            OtherClassName = a.OtherEntity.Name,
+                            AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
+                        }),
+                NavigableChildren = entity.NavigableChildren.Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                    .Select(
+                        a => new
+                        {
+                            ChildClassName = a.OtherEntity.Name,
+                            ChildCollectionPropertyName = a.Name,
+                            ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
+                            AggregateExtensionBagName = a.GetAggregateExtensionBagName()
+                        }),
+                SynchronizationSupport = new
+                {
+                    Properties = entity.AggregateExtensionOneToOnes.Concat(entity.AggregateExtensionChildren)
+                        .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                        .Select(a => new { PropertyName = a.Name }),
+                    CollectionClasses = entity.AggregateExtensionChildren.Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                        .Select(
+                            a => new
+                            {
+                                ChildCollectionRoleName = a.RoleName,
+                                ChildCollectionClassName = a.OtherEntity.Name,
+                                ChildCollectionPropertyName = a.Name
+                            })
+                }
+            };
         }
 
         private IEnumerable<object> GetClasses(Aggregate aggregate, Entity entity)
         {
-            var contexts = GetClassContexts(entity);
+            var contexts = GetClassContexts(entity).ToList();
 
             var schemaNameMapProvider = entity.DomainModel.SchemaNameMapProvider;
 
-            string properCaseSchemaName = schemaNameMapProvider.GetSchemaMapByPhysicalName(entity.Schema)
-                                                               .ProperCaseName;
+            string properCaseSchemaName = schemaNameMapProvider.GetSchemaMapByPhysicalName(entity.Schema).ProperCaseName;
 
             foreach (var context in contexts)
             {
-                yield return
-                    new
+                yield return new
+                {
+                    MessagePackIndexer = GetMessagePackIndexer(),
+                    NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
+                    AggregateName = aggregate.Name,
+                    ClassName = entity.Name,
+                    ReferenceDataClassName = entity.Name + "ReferenceData",
+                    HasReferenceDataClass = entity.IsReferenceable() && entity.TypeHierarchyRootEntity == entity,
+                    ReferenceDataMessagePackIndexer = new MessagePackIndexer(),
+                    TableName = entity.Name,
+                    SchemaName = entity.Schema,
+                    entity.IsAggregateRoot,
+                    IsAbstract = entity.IsAbstractRequiringNoCompositeId(),
+                    entity.IsDerived,
+                    IsDescriptor = entity.IsDescriptorEntity,
+                    IsPersonEntity = entity.IsPersonEntity(),
+                    context.IsConcreteEntityBaseClass,
+                    context.IsConcreteEntityChildClassForBase,
+                    IsDerivedExtensionEntityOfConcreteBase = entity.IsDerived
+                        && !entity.BaseEntity.IsAbstractRequiringNoCompositeId()
+                        && entity.IsExtensionEntity,
+                    HasAlternateKeyValues = entity.Name == "Descriptor", // Legacy template semantics used here
+                    AllowsPrimaryKeyUpdates = entity.Identifier.IsUpdatable,
+                    BaseAggregateRootRelativeNamespace = entity.IsDerived
+                        ? entity.BaseEntity.GetRelativeEntityNamespace(
+                            entity.BaseEntity.SchemaProperCaseName(),
+                            isExtensionContext: !entity.BaseEntity.IsEdFiStandardEntity)
+                        + (!entity.BaseEntity.IsAbstract
+                            ? "Base"
+                            : string.Empty)
+                        : _notRendered,
+                    Constructor = !entity.IsDescriptorEntity
+                        ? new
+                        {
+                            UnderlyingClassName = entity.Name,
+                            TableName = entity.Name,
+                            ContextualClassName = entity.Name
+                                + (context.IsConcreteEntityBaseClass
+                                    ? "Base"
+                                    : string.Empty),
+                            HasParent = entity.ParentAssociation != null,
+                            context.IsConcreteEntityBaseClass,
+                            EmbeddedObjects = entity.NavigableOneToOnes
+
+                                // Don't render explicit objects for associations to other schemas
+                                .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                .Select(
+                                    a => new
+                                    {
+                                        a.OtherEntity.Name,
+                                        EmbeddedObjectPropertyName =
+                                            a.OtherEntity.Name + SystemConventions.OneToOneEntityPropertyNameSuffix
+                                    }),
+                            Collections = entity.NavigableChildren
+
+                                // Don't render explicit objects for associations to other schemas
+                                .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                .Select(
+                                    a => new
+                                    {
+                                        CollectionName = a.Name,
+                                        ContextualCollectionItemName = a.OtherEntity.Name
+                                            + (context.IsConcreteEntityBaseClass
+                                                ? "ForBase"
+                                                : string.Empty)
+                                    })
+                        }
+                        : _notRendered,
+                    PrimaryKey = new
                     {
-                        NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
-                        AggregateName = aggregate.Name, ClassName = entity.Name, ReferenceDataClassName = entity.Name + "ReferenceData",
-                        HasReferenceDataClass = entity.IsReferenceable() && entity.TypeHierarchyRootEntity == entity, TableName = entity.Name,
-                        SchemaName = entity.Schema, entity.IsAggregateRoot, IsAbstract = entity.IsAbstractRequiringNoCompositeId(), entity.IsDerived,
-                        IsDescriptor = entity.IsDescriptorEntity, context.IsConcreteEntityBaseClass, context.IsConcreteEntityChildClassForBase,
-                        IsDerivedExtensionEntityOfConcreteBase =
-                            entity.IsDerived && !entity.BaseEntity.IsAbstractRequiringNoCompositeId() && entity.IsExtensionEntity,
-                        HasAlternateKeyValues = entity.Name == "Descriptor", // Legacy template semantics used here
-                        AllowsPrimaryKeyUpdates = entity.Identifier.IsUpdatable, BaseAggregateRootRelativeNamespace = entity.IsDerived
-                            ? entity.BaseEntity.GetRelativeEntityNamespace(
-                                  entity.BaseEntity.SchemaProperCaseName(),
-                                  isExtensionContext: !entity.BaseEntity.IsEdFiStandardEntity)
-                              + (!entity.BaseEntity.IsAbstract
-                                  ? "Base"
-                                  : string.Empty)
-                            : _notRendered,
-                        Constructor = !entity.IsDescriptorEntity
+                        ParentReference = !entity.IsAggregateRoot
                             ? new
-                              {
-                                  UnderlyingClassName = entity.Name, TableName = entity.Name, ContextualClassName =
-                                      entity.Name + (context.IsConcreteEntityBaseClass
-                                          ? "Base"
-                                          : string.Empty),
-                                  HasParent = entity.ParentAssociation != null, context.IsConcreteEntityBaseClass, EmbeddedObjects = entity
-                                                                                                                                    .NavigableOneToOnes
-
-                                                                                                                                     // Don't render explicit objects for associations to other schemas
-                                                                                                                                    .Where(
-                                                                                                                                         a => a.ThisEntity
-                                                                                                                                               .Schema ==
-                                                                                                                                              a.OtherEntity
-                                                                                                                                               .Schema)
-                                                                                                                                    .Select(
-                                                                                                                                         a => new
-                                                                                                                                              {
-                                                                                                                                                  a.OtherEntity
-                                                                                                                                                   .Name,
-                                                                                                                                                  EmbeddedObjectPropertyName
-                                                                                                                                                      =
-                                                                                                                                                      a.OtherEntity
-                                                                                                                                                       .Name +
-                                                                                                                                                      SystemConventions
-                                                                                                                                                         .OneToOneEntityPropertyNameSuffix
-                                                                                                                                              }),
-                                  Collections = entity.NavigableChildren
-
-                                                       // Don't render explicit objects for associations to other schemas
-                                                      .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                      .Select(
-                                                           a => new
-                                                                {
-                                                                    CollectionName = a.Name,
-                                                                    ContextualCollectionItemName = a.OtherEntity.Name
-                                                                                                                            + (context
-                                                                                                                               .IsConcreteEntityBaseClass
-                                                                                                                                ? "ForBase"
-                                                                                                                                : string.Empty)
-                                                                })
-                              }
+                            {
+                                IsAggregateExtensionTopLevelEntity = entity.IsAggregateExtensionTopLevelEntity,
+                                SchemaProperCaseName = entity.SchemaProperCaseName(),
+                                ModelParentClassName = GetModelParentClassName(entity),
+                                ClassName = entity.Name,
+                                ModelParentInterfaceNamespacePrefix = GetModelParentInterfaceNamespacePrefix(entity),
+                                ModelParentInterfaceName = GetModelParentInterfaceName(entity),
+                                ContextualSuffix = context.IsConcreteEntityChildClassForBase
+                                    ? "Base"
+                                    : string.Empty
+                            }
                             : _notRendered,
-                        PrimaryKey = new
-                                     {
-                                         ParentReference = !entity.IsAggregateRoot
-                                             ? new
-                                               {
-                                                   IsAggregateExtensionTopLevelEntity = entity.IsAggregateExtensionTopLevelEntity, 
-                                                   SchemaProperCaseName = entity.SchemaProperCaseName(),
-                                                   ModelParentClassName = GetModelParentClassName(entity), ClassName = entity.Name,
-                                                   ModelParentInterfaceNamespacePrefix = GetModelParentInterfaceNamespacePrefix(entity),
-                                                   ModelParentInterfaceName = GetModelParentInterfaceName(entity),
-                                                   ContextualSuffix =
-                                                       context.IsConcreteEntityChildClassForBase
-                                                           ? "Base"
-                                                           : string.Empty
-                                               }
-                                             : _notRendered,
-                                         NonParentProperties =
-                                             entity
-                                                .Identifier
-                                                .Properties
-                                                .Where(p => !p.IsFromParent)
-                                                .Select(
-                                                     p => new
-                                                          {
-                                                              IsAbstract = entity.IsAbstract,
-                                                              DisplayName = !entity.IsAbstract
-                                                                  && UniqueIdConventions.IsUSI(p.PropertyName)
-                                                                      ? p.PropertyName.ConvertToUniqueId()
-                                                                      : _notRendered,
-                                                              NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
-                                                              CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
-                                                              CSharpBaseType = p.PropertyType.ToCSharp(),
-                                                              CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                                              IsStandardProperty = !(p.IsDescriptorUsage
-                                                                  || UniqueIdConventions.IsUSI(p.PropertyName)
-                                                                  || IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                                                  || IsNonDerivedDateProperty(entity, p)
-                                                                  || IsDateTimeProperty(p)
-                                                                  || IsDelegatedToBaseProperty(entity, p)),
-                                                              PropertyAccessors = GetPropertyAccessors(entity, p),
-                                                          })
-                                     },
-                        InheritedProperties = entity.IsDerived
-                            ? entity.BaseEntity.NonIdentifyingProperties
-                                    .Where(p => !p.IsAlreadyDefinedInCSharpEntityBaseClasses())
-                                    .OrderBy(p => p.PropertyName)
-                                    .Select(
-                                         p => new
-                                              {
-                                                  BaseClassName = entity.BaseEntity.Name, PropertyName = p.IsDescriptorUsage
-                                                      ? p.GetLookupValuePropertyName()
-                                                      : p.PropertyName,
-                                                  CSharpType = p.IsDescriptorUsage
-                                                      ? "string"
-                                                      : p.PropertyType.ToCSharp(includeNullability: true)
-                                              })
-                            : _notRendered,
-                        Properties = entity
-                                    .NonIdentifyingProperties
-                                    .Where(p => !p.IsAlreadyDefinedInCSharpEntityBaseClasses())
-                                    .OrderBy(p => p.PropertyName)
-                                    .Select(
-                                         p => new
-                                              {
-                                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), p.PropertyName,
-                                                  CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                                  IsStandardProperty =
-                                                      !(p.IsDescriptorUsage
-                                                        || UniqueIdConventions.IsUSI(p.PropertyName)
-                                                        || IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                                        || IsNonDerivedDateProperty(entity, p)
-                                                        || IsDateTimeProperty(p)
-                                                        || IsDelegatedToBaseProperty(entity, p)),
-                                                  PropertyAccessors = GetPropertyAccessors(entity, p)
-                                              }),
-                        HasOneToOnes = entity.NavigableOneToOnes
-                                             .Any(a => a.ThisEntity.Schema == a.OtherEntity.Schema),
-                        OneToOnes = entity.NavigableOneToOnes
-                                          .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                          .Select(
-                                               a => new
-                                                    {
-                                                        AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
-                                                        EmbeddedObjectPropertyName =
-                                                            a.OtherEntity.Name + SystemConventions.OneToOneEntityPropertyNameSuffix,
-                                                        EmbeddedObjectPropertyNameCamelCase =
-                                                            (a.OtherEntity.Name + SystemConventions.OneToOneEntityPropertyNameSuffix).ToCamelCase(),
-                                                        ClassName = entity.Name, NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
-                                                        OtherClassName = a.OtherEntity.Name,
-                                                        OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
-                                                        IsRequired = a.IsRequiredEmbeddedObject,
-                                               }),
-                        RelocatedExtensionOneToOnes = entity.EdFiStandardEntityAssociation?.OtherEntity.NavigableOneToOnes
-                                                            .Where(a => a.OtherEntity.Schema == entity.Schema)
-                                                            .Select(
-                                                                 a => new
-                                                                      {
-                                                                          AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
-                                                                          OtherClassName = a.OtherEntity.Name,
-                                                                          OtherClassPluralName = a.OtherEntity.PluralName,
-                                                                          OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
-                                                                          EdFiStandardClassName = entity.EdFiStandardEntity.Name,
-                                                                          AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
-                                                                      }),
-                        NavigableChildren = entity.NavigableChildren
-                                                  .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                  .Select(
-                                                       a => new
-                                                            {
-                                                                AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
-                                                                IsRequiredCollection = a.Association.Cardinality == Cardinality.OneToOneOrMore,
-                                                                ClassName = entity.Name,
-                                                                ChildClassName = a.OtherEntity.Name,
-                                                                ChildRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
-                                                                ChildCollectionPropertyName = a.Name,
-                                                                ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
-                                                                IsChildForConcreteBase = context.IsConcreteEntityBaseClass
-                                                            }),
-                        RelocatedExtensionCollections = entity.EdFiStandardEntityAssociation?.OtherEntity.NavigableChildren
-                                                              .Where(a => a.OtherEntity.Schema == entity.Schema)
-                                                              .Select(
-                                                                   a => new
-                                                                        {
-                                                                            IsRequiredCollection =
-                                                                                a.Association.Cardinality == Cardinality.OneToOneOrMore,
-                                                                            EdFiStandardClassName = entity.EdFiStandardEntity.Name,
-                                                                            ChildClassName = a.OtherEntity.Name,
-                                                                            ChildCollectionPropertyName = a.Name,
-                                                                            ChildRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
-                                                                            ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
-                                                                            AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
-                                                                        }),
-                        LookupProperties = entity.Properties.Union(entity.InheritedProperties)
-                                                 .Where(p => p.IsDescriptorUsage
-                                                     // NOTE: This condition isn't necessarily correct, but is necessary for matching
-                                                     // "approved" generated output after removing original convention-based IsLookup
-                                                     // implementation for the model-driven IsDescriptorUsage implementation.
-                                                     && !(p.Entity.IsEntityExtension && p.IsFromParent))
-                                                 .OrderBy(p => p.PropertyName)
-                                                 .Select(
-                                                      p => new
-                                                           {
-                                                               p.PropertyName, ValuePropertyName = p.GetLookupValuePropertyName(),
-                                                               ValueEntityName = p.GetLookupValueEntityName()
-                                                           }),
-                        PrimaryKeyMap = new
-                                        {
-                                            ParentClassName = GetEntityParentClassName(entity), PropertyNames = entity.Identifier.Properties
-                                                                                                                      .Where(p => !p.IsFromParent)
-                                                                                                                      .OrderBy(p => p.PropertyName)
-                                                                                                                      .Select(
-                                                                                                                           p => new
-                                                                                                                                {
-                                                                                                                                    p.PropertyName,
-                                                                                                                                    CSharpSafePropertyName
-                                                                                                                                        = p
-                                                                                                                                         .PropertyName
-                                                                                                                                         .MakeSafeForCSharpClass(
-                                                                                                                                              entity
-                                                                                                                                                 .Name)
-                                                                                                                                })
-                                        },
-                        AlternateKeyProperties = entity.Name == "Descriptor" // Added only for equivalence to legacy templates
-                            ? entity.AlternateIdentifiers.FirstOrDefault()
-                                    .Properties
-                                    .Select(
-                                         p => new
-                                              {
-                                                  p.PropertyName
-                                              })
-                            : _notRendered,
-                        HasParent = entity.ParentAssociation != null, EntityParentClassName = GetEntityParentClassName(entity),
-                        EntityParentClassNamespacePrefix = GetEntityParentClassNamespacePrefix(entity),
-                        EntityParentClassNameCamelCase = GetEntityParentClassName(entity).ToCamelCase(), ContextualSuffix =
-                            context.IsConcreteEntityChildClassForBase
-                                ? "Base"
-                                : string.Empty,
-                        SynchronizationSupport = new
-                                                 {
-                                                     Properties = entity.InheritedNonIdentifyingProperties
-                                                                        .Concat(entity.NonIdentifyingProperties)
-                                                                        .Where(IsSynchronizedProperty)
-                                                                        .Select(p => p.GetModelsInterfacePropertyName())
-                                                                        .Concat(
-                                                                             entity.InheritedNavigableOneToOnes
-                                                                                   .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                                                   .Select(a => a.OtherEntity.Name))
-                                                                        .Concat(
-                                                                             entity.NavigableOneToOnes
-                                                                                   .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                                                   .Select(a => a.OtherEntity.Name))
+                        NonParentProperties = entity.Identifier.Properties.Where(p => !p.IsFromParent)
+                            .Select(
+                                p => new
+                                {
+                                    IsAbstract = entity.IsAbstract,
+                                    DisplayName = !entity.IsAbstract && UniqueIdConventions.IsUSI(p.PropertyName)
+                                        ? p.PropertyName.ConvertToUniqueId()
+                                        : _notRendered,
+                                    NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
+                                    CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
+                                    CSharpBaseType = p.PropertyType.ToCSharp(),
+                                    CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
+                                    IsStandardProperty = !(p.IsDescriptorUsage
+                                        || UniqueIdConventions.IsUSI(p.PropertyName)
+                                        || IsUniqueIdPropertyOnPersonEntity(entity, p)
+                                        || IsNonDerivedDateProperty(entity, p)
+                                        || IsDateTimeProperty(p)
+                                        || IsDelegatedToBaseProperty(entity, p)),
+                                    PropertyAccessors = GetPropertyAccessors(entity, p),
+                                })
+                    },
+                    InheritedProperties = entity.IsDerived
+                        ? entity.BaseEntity.NonIdentifyingProperties.Where(p => !p.IsAlreadyDefinedInCSharpEntityBaseClasses())
+                            .OrderBy(p => p.PropertyName)
+                            .Select(
+                                p => new
+                                {
+                                    BaseClassName = entity.BaseEntity.Name,
+                                    PropertyName = p.IsDescriptorUsage
+                                        ? p.GetLookupValuePropertyName()
+                                        : p.PropertyName,
+                                    CSharpType = p.IsDescriptorUsage
+                                        ? "string"
+                                        : p.PropertyType.ToCSharp(includeNullability: true)
+                                })
+                        : _notRendered,
+                    Properties = entity.NonIdentifyingProperties.Where(p => !p.IsAlreadyDefinedInCSharpEntityBaseClasses())
+                        .OrderBy(p => p.PropertyName)
+                        .Select(
+                            p => new
+                            {
+                                CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
+                                p.PropertyName,
+                                CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
+                                IsStandardProperty = !(p.IsDescriptorUsage
+                                    || UniqueIdConventions.IsUSI(p.PropertyName)
+                                    || IsUniqueIdPropertyOnPersonEntity(entity, p)
+                                    || IsNonDerivedDateProperty(entity, p)
+                                    || IsDateTimeProperty(p)
+                                    || IsDelegatedToBaseProperty(entity, p)),
+                                PropertyAccessors = GetPropertyAccessors(entity, p)
+                            }),
+                    HasOneToOnes = entity.NavigableOneToOnes.Any(a => a.ThisEntity.Schema == a.OtherEntity.Schema),
+                    OneToOnes = entity.NavigableOneToOnes.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                        .Select(
+                            a => new
+                            {
+                                AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
+                                EmbeddedObjectPropertyName =
+                                    a.OtherEntity.Name + SystemConventions.OneToOneEntityPropertyNameSuffix,
+                                EmbeddedObjectPropertyNameCamelCase =
+                                    (a.OtherEntity.Name + SystemConventions.OneToOneEntityPropertyNameSuffix).ToCamelCase(),
+                                ClassName = entity.Name,
+                                NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
+                                OtherClassName = a.OtherEntity.Name,
+                                OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                IsRequired = a.IsRequiredEmbeddedObject,
+                            }),
+                    RelocatedExtensionOneToOnes = entity.EdFiStandardEntityAssociation?.OtherEntity.NavigableOneToOnes
+                        .Where(a => a.OtherEntity.Schema == entity.Schema)
+                        .Select(
+                            a => new
+                            {
+                                AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
+                                OtherClassName = a.OtherEntity.Name,
+                                OtherClassPluralName = a.OtherEntity.PluralName,
+                                OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                EdFiStandardClassName = entity.EdFiStandardEntity.Name,
+                                AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
+                            }),
+                    NavigableChildren = entity.NavigableChildren.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                        .Select(
+                            a => new
+                            {
+                                AggregateNamespacePrefix = GetAggregateRelativeNamespacePrefix(entity),
+                                IsRequiredCollection = a.Association.Cardinality == Cardinality.OneToOneOrMore,
+                                ClassName = entity.Name,
+                                ChildClassName = a.OtherEntity.Name,
+                                ChildRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                ChildCollectionPropertyName = a.Name,
+                                ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
+                                IsChildForConcreteBase = context.IsConcreteEntityBaseClass
+                            }),
+                    RelocatedExtensionCollections = entity.EdFiStandardEntityAssociation?.OtherEntity.NavigableChildren
+                        .Where(a => a.OtherEntity.Schema == entity.Schema)
+                        .Select(
+                            a => new
+                            {
+                                IsRequiredCollection = a.Association.Cardinality == Cardinality.OneToOneOrMore,
+                                EdFiStandardClassName = entity.EdFiStandardEntity.Name,
+                                ChildClassName = a.OtherEntity.Name,
+                                ChildCollectionPropertyName = a.Name,
+                                ChildRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
+                                AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
+                            }),
+                    LookupProperties = entity.Properties.Union(entity.InheritedProperties)
+                        .Where(
+                            p => p.IsDescriptorUsage
 
-                                                                         // Add in aggregate extensions when the current entity is an entity extension
-                                                                        .Concat(
-                                                                             entity.GetEntityExtensionNavigableOneToOnes()
-                                                                                   .Select(x => x.OtherEntity.Name))
-                                                                        .Concat(
-                                                                             entity.InheritedNavigableChildren
-                                                                                   .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                                                   .Select(a => a.Name))
-                                                                        .Concat(
-                                                                             entity.NavigableChildren
-                                                                                   .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                                                   .Select(a => a.Name))
+                                // NOTE: This condition isn't necessarily correct, but is necessary for matching
+                                // "approved" generated output after removing original convention-based IsLookup
+                                // implementation for the model-driven IsDescriptorUsage implementation.
+                                && !(p.Entity.IsEntityExtension && p.IsFromParent))
+                        .OrderBy(p => p.PropertyName)
+                        .Select(
+                            p => new
+                            {
+                                p.PropertyName,
+                                ValuePropertyName = p.GetLookupValuePropertyName(),
+                                ValueEntityName = p.GetLookupValueEntityName()
+                            }),
+                    PrimaryKeyMap = new
+                    {
+                        ParentClassName = GetEntityParentClassName(entity),
+                        PropertyNames = entity.Identifier.Properties.Where(p => !p.IsFromParent)
+                        .OrderBy(p => p.PropertyName)
+                        .Select(
+                            p => new
+                            {
+                                p.PropertyName,
+                                CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name)
+                            })
+                    },
+                    AlternateKeyProperties = entity.Name == "Descriptor" // Added only for equivalence to legacy templates
+                        ? entity.AlternateIdentifiers.FirstOrDefault().Properties.Select(p => new { p.PropertyName })
+                        : _notRendered,
+                    HasParent = entity.ParentAssociation != null,
+                    EntityParentClassName = GetEntityParentClassName(entity),
+                    EntityParentClassNamespacePrefix = GetEntityParentClassNamespacePrefix(entity),
+                    EntityParentClassNameCamelCase = GetEntityParentClassName(entity).ToCamelCase(),
+                    ContextualSuffix = context.IsConcreteEntityChildClassForBase
+                        ? "Base"
+                        : string.Empty,
+                    SynchronizationSupport = new
+                    {
+                        Properties = entity.InheritedNonIdentifyingProperties.Concat(entity.NonIdentifyingProperties)
+                            .Where(IsSynchronizedProperty)
+                            .Select(p => p.GetModelsInterfacePropertyName())
+                            .Concat(
+                                entity.InheritedNavigableOneToOnes.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                    .Select(a => a.OtherEntity.Name))
+                            .Concat(
+                                entity.NavigableOneToOnes.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                    .Select(a => a.OtherEntity.Name))
 
-                                                                         // Add in aggregate extensions when the current entity is an entity extension
-                                                                        .Concat(
-                                                                             entity.GetEntityExtensionNavigableChildren()
-                                                                                   .Select(a => a.Name))
-                                                                        .OrderBy(n => n)
-                                                                        .Select(
-                                                                             n => new
-                                                                                  {
-                                                                                      PropertyName = n, ClassName = entity.Name
-                                                                                  }),
-                                                     CollectionClasses = entity
-                                                                        .InheritedNavigableChildren.Where(
-                                                                             a => a.ThisEntity.Schema == a.OtherEntity.Schema)
-                                                                        .Concat(
-                                                                             entity.NavigableChildren.Where(
-                                                                                 a => a.ThisEntity.Schema == a.OtherEntity.Schema))
+                            // Add in aggregate extensions when the current entity is an entity extension
+                            .Concat(entity.GetEntityExtensionNavigableOneToOnes().Select(x => x.OtherEntity.Name))
+                            .Concat(
+                                entity.InheritedNavigableChildren.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                    .Select(a => a.Name))
+                            .Concat(
+                                entity.NavigableChildren.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                                    .Select(a => a.Name))
 
-                                                                         // Add in aggregate extensions when the current entity is an entity extension
-                                                                        .Concat(entity.GetEntityExtensionNavigableChildren())
-                                                                        .Select(
-                                                                             a => new
-                                                                                  {
-                                                                                      ChildCollectionRoleName = a.RoleName,
-                                                                                      ChildCollectionClassName = a.OtherEntity.Name,
-                                                                                      ChildCollectionRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
-                                                                                      ClassName = entity.Name
-                                                                                  })
-                                                 },
-                        IsExtendable = entity.IsExtendable(), ExtendableConcreteBase = entity.IsExtendableDerivedEntityWithConcreteBase(),
-                        HasDiscriminator = entity.HasDiscriminator(), AggregateReferences =
-                            entity.GetAssociationsToReferenceableAggregateRoots()
-                                  .OrderBy(a => a.Name)
-                                  .Select(
-                                       a => new
-                                            {
-                                                AssociationName = a.Name,
-                                                InheritanceRootEntity = a.OtherEntity.TypeHierarchyRootEntity,
-                                                OtherEntity = a.OtherEntity,
-                                                PotentiallyLogical = a.Association.PotentiallyLogical
-                                            })
-                                  .Select(
-                                       x =>
-                                           new
-                                           {
-                                               ReferenceAggregateRelativeNamespace =
-                                                   x.InheritanceRootEntity.GetRelativeAggregateNamespace(
-                                                       x.InheritanceRootEntity.SchemaProperCaseName()),
-                                               ReferenceDataClassName = x.InheritanceRootEntity.Name + "ReferenceData",
-                                               ReferenceDataPropertyName = x.AssociationName + "ReferenceData",
-                                               ReferenceAssociationName = x.AssociationName,
-                                               MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator(),
-                                               PotentiallyLogical = x.PotentiallyLogical
-                                           })
-                    };
+                            // Add in aggregate extensions when the current entity is an entity extension
+                            .Concat(entity.GetEntityExtensionNavigableChildren().Select(a => a.Name))
+                            .OrderBy(n => n)
+                            .Select(
+                                n => new
+                                {
+                                    PropertyName = n,
+                                    ClassName = entity.Name
+                                }),
+                        CollectionClasses = entity.InheritedNavigableChildren
+                            .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
+                            .Concat(entity.NavigableChildren.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema))
+
+                            // Add in aggregate extensions when the current entity is an entity extension
+                            .Concat(entity.GetEntityExtensionNavigableChildren())
+                            .Select(
+                                a => new
+                                {
+                                    ChildCollectionRoleName = a.RoleName,
+                                    ChildCollectionClassName = a.OtherEntity.Name,
+                                    ChildCollectionRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                    ClassName = entity.Name
+                                })
+                    },
+                    IsExtendable = entity.IsExtendable(),
+                    ExtendableConcreteBase = entity.IsExtendableDerivedEntityWithConcreteBase(),
+                    HasDiscriminator = entity.HasDiscriminator(),
+                    AggregateReferences = entity.GetAssociationsToReferenceableAggregateRoots()
+                        .OrderBy(a => a.Name)
+                        .Select(
+                            a => new
+                            {
+                                AssociationName = a.Name,
+                                InheritanceRootEntity = a.OtherEntity.TypeHierarchyRootEntity,
+                                OtherEntity = a.OtherEntity,
+                                PotentiallyLogical = a.Association.PotentiallyLogical
+                            })
+                        .Select(
+                            x => new
+                            {
+                                ReferenceAggregateRelativeNamespace =
+                                    x.InheritanceRootEntity.GetRelativeAggregateNamespace(
+                                        x.InheritanceRootEntity.SchemaProperCaseName()),
+                                ReferenceDataClassName = x.InheritanceRootEntity.Name + "ReferenceData",
+                                ReferenceDataPropertyName = x.AssociationName + "ReferenceData",
+                                ReferenceAssociationName = x.AssociationName,
+                                MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator(),
+                                PotentiallyLogical = x.PotentiallyLogical
+                            })
+                };
+            }
+
+            MessagePackIndexer GetMessagePackIndexer()
+            {
+                if (aggregate.AggregateRoot == entity)
+                {
+                    if (entity.IsAbstract)
+                    {
+                        var abstractMessagePackIndexer = new MessagePackIndexer(InitialKeyIndexAggregateRoot);
+                        _abstractMessagePackIndexerByEntity.Add(entity.FullName, abstractMessagePackIndexer);
+                        return abstractMessagePackIndexer;
+                    }
+                    
+                    if (entity.IsDerived)
+                    {
+                        if (!_abstractMessagePackIndexerByEntity.TryGetValue(entity.BaseEntity.FullName, out var abstractMessagePackIndexer))
+                        {
+                            throw new Exception($"Unable to locate message pack indexer for abstract type '{entity.BaseEntity.FullName}' for entity type '{entity.FullName}'.");
+                        }
+
+                        var derivedMessagePackIndexer = new MessagePackIndexer(abstractMessagePackIndexer);
+                        return derivedMessagePackIndexer;
+                    }
+
+                    return new MessagePackIndexer(InitialKeyIndexAggregateRoot);
+                }
+
+                return new MessagePackIndexer(InitialKeyIndexAggregateChild);
             }
         }
-        
+
+        private readonly Dictionary<FullName, MessagePackIndexer> _abstractMessagePackIndexerByEntity = new(); 
+
         private static bool IsSynchronizedProperty(EntityProperty property)
         {
             return property.PropertyName != "Id"
@@ -571,7 +578,6 @@ namespace EdFi.Ods.CodeGen.Generators
                                  UniqueIdPropertyName = p.PropertyName.ReplaceSuffix("USI", "UniqueId"), UniqueIdFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("USI", "UniqueId")
                                             .ToCamelCase(),
-                                 IsPersonEntity = entity.IsPersonEntity()
                              }
                            : _notRendered,
                        UniqueIdProperty = IsUniqueIdPropertyOnPersonEntity(entity, p)

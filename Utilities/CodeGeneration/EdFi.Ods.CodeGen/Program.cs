@@ -23,6 +23,8 @@ namespace EdFi.Ods.CodeGen
 {
     public static class Program
     {
+        public static Exception LastException;
+
         private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private static ILog _logger;
         private static IContainer _container;
@@ -90,7 +92,10 @@ namespace EdFi.Ods.CodeGen
             {
                 var baseException = e.GetBaseException() ?? e;
 
-                _logger.Error(baseException.Message);
+                // Save the last exception in a static property to make it available for subsequent inspection.
+                LastException = e;
+
+                _logger.Error(baseException);
 
                 return ReturnCodesConventions.Error;
             }

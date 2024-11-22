@@ -4,17 +4,23 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -23,14 +29,24 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly IEntityDeserializer _entityDeserializer;
+
+        private readonly Lazy<ILog> _logger;
 
         public GetEntityByKey(
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings,
+            Dialect dialect,
+            DatabaseEngine databaseEngine,
+            IEntityDeserializer entityDeserializer)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _entityDeserializer = entityDeserializer;
+
+            _logger = new Lazy<ILog>(() => LogManager.GetLogger(GetType()));
         }
 
         /// <summary>
@@ -40,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         /// <returns>The specified entity if found; otherwise null.</returns>
         public async Task<TEntity> GetByKeyAsync(TEntity specification, CancellationToken cancellationToken)
         {
-            using (new SessionScope(SessionFactory))
+            using (var scope = new SessionScope(SessionFactory))
             {
                 TEntity persistedEntity = null;
 
@@ -57,11 +73,38 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Go try to get the existing entity
                 var compositeKeyValues = entityWithKeyValues.GetPrimaryKeyValues();
 
+                var resource = _dataManagementResourceContextProvider.Get()?.Resource;
+
                 if (ShouldTryLoadByCompositePrimaryKey())
                 {
                     // Only look up by composite key if "Id" is not considered part of the "DomainSignature"
                     if (!compositeKeyValues.Contains("Id"))
                     {
+                        // Use optimized load only if serialization feature enabled
+                        if (SerializationEnabled)
+                        {
+                            var itemRawData = await GetItemRawDataByCompositeKey(compositeKeyValues, scope);
+
+                            // Could not find the item
+                            if (itemRawData == null)
+                            {
+                                return null;
+                            }
+
+                            // Can we deserialize it?
+                            if (itemRawData.IsDeserializable)
+                            {
+                                // Deserialize the entity
+                                var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+
+                                if (deserializedEntity != null)
+                                {
+                                    return deserializedEntity;
+                                }
+                            }
+                        }
+
+                        // Load the item from the ODS
                         persistedEntity = (await GetAggregateResultsAsync(
                                 GetWhereClause(compositeKeyValues), q => q.SetParameters(compositeKeyValues), cancellationToken))
                             .SingleOrDefault();
@@ -81,18 +124,42 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     return null;
                 }
 
-                var alternateKeyValues = entityWithAlternateKeyValues.GetAlternateKeyValues();
+                var (alternateKeyValues, isDefinedOnBaseType) = entityWithAlternateKeyValues.GetAlternateKeyValues();
 
                 // Look up by alternate key
                 if (alternateKeyValues.Count > 0)
                 {
+                    if (SerializationEnabled)
+                    {
+                        var itemRawData = await GetItemRawDataByCompositeKey(alternateKeyValues, scope, isDefinedOnBaseType);
+
+                        // Could not find the item
+                        if (itemRawData == null)
+                        {
+                            return null;
+                        }
+
+                        // Can we deserialize it?
+                        if (itemRawData.IsDeserializable)
+                        {
+                            // Deserialize the entity
+                            var deserializedEntity = await _entityDeserializer.DeserializeAsync<TEntity>(itemRawData);
+
+                            if (deserializedEntity != null)
+                            {
+                                return deserializedEntity;
+                            }
+                        }
+                    }
+
+                    // Load the item from the ODS using NHibernate
                     persistedEntity = (await GetAggregateResultsAsync(
                             GetWhereClause(alternateKeyValues), q => q.SetParameters(alternateKeyValues), cancellationToken))
                         .SingleOrDefault();
                 }
 
                 return persistedEntity;
-                
+
                 bool ShouldTryLoadByCompositePrimaryKey()
                 {
                     if (compositeKeyValues.Count > 1)
@@ -100,7 +167,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         return true;
                     }
 
-                    var resource = _dataManagementResourceContextProvider.Get()?.Resource;
                     var identifier = resource?.Entity?.Identifier;
 
                     // If the entity doesn't have a surrogate key, proceed with load by primary key
@@ -128,6 +194,31 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         .Select(e => $"a.{e.Key} = :{e.Key}"));
 
                 return $" where {criteria}";
+            }
+
+            async Task<ItemRawData<TEntity>> GetItemRawDataByCompositeKey(
+                OrderedDictionary compositeKeyValues,
+                SessionScope scope,
+                bool keyColumnsAreOnBaseType = false)
+            {
+                // Get the item from serialized form
+                var singleItemQueryBuilder = GetSingleItemQueryBuilder();
+
+                string rootTableAlias = keyColumnsAreOnBaseType ? "b" : "r";
+
+                // Apply primary key values to the root (derived, if applicable) table, as that's how the composite key values are provided
+                foreach (DictionaryEntry keyValue in compositeKeyValues)
+                {
+                    singleItemQueryBuilder.Where($"{rootTableAlias}.{(string) keyValue.Key}", keyValue.Value);
+                }
+
+                var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
+
+                var itemRawData = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData<TEntity>>(
+                    singleItemTemplate.RawSql,
+                    singleItemTemplate.Parameters);
+
+                return itemRawData;
             }
         }
     }

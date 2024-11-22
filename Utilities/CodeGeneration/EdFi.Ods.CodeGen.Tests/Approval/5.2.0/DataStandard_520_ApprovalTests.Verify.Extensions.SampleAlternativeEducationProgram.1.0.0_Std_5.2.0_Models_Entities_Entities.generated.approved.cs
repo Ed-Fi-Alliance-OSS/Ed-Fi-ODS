@@ -16,9 +16,12 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram;
 using Newtonsoft.Json;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: AlternativeEducationEligibilityReasonDescriptor
 
@@ -32,6 +35,7 @@ namespace EdFi.Ods.Entities.NHibernate.AlternativeEducationEligibilityReasonDesc
     /// </summary>
     [Schema("samplealternativeeducationprogram")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class AlternativeEducationEligibilityReasonDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleAlternativeEducationProgram.IAlternativeEducationEligibilityReasonDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
@@ -40,6 +44,7 @@ namespace EdFi.Ods.Entities.NHibernate.AlternativeEducationEligibilityReasonDesc
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public virtual int AlternativeEducationEligibilityReasonDescriptorId 
         {
             get { return base.DescriptorId; }
@@ -211,6 +216,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
     /// </summary>
     [Schema("samplealternativeeducationprogram")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentAlternativeEducationProgramAssociation : GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociation,
         Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -225,14 +231,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [IgnoreMember]
         public override DateTime BeginDate  { get; set; }
         [DomainSignature]
+        [IgnoreMember]
         public override long EducationOrganizationId  { get; set; }
         [DomainSignature]
+        [IgnoreMember]
         public override long ProgramEducationOrganizationId  { get; set; }
         [DomainSignature]
+        [IgnoreMember]
         public override string ProgramName  { get; set; }
         [DomainSignature]
+        [IgnoreMember]
         public override int ProgramTypeDescriptorId 
         {
             get
@@ -252,6 +263,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         private int _programTypeDescriptorId;
         private string _programTypeDescriptor;
 
+        [IgnoreMember]
         public override string ProgramTypeDescriptor
         {
             get
@@ -268,6 +280,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
             }
         }
         [Display(Name="StudentUniqueId")][DomainSignature]
+        [IgnoreMember]
         public override int StudentUSI 
         {
             get
@@ -293,6 +306,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         private int _studentUSI;
         private string _studentUniqueId;
 
+        [IgnoreMember]
         public override string StudentUniqueId
         {
             get
@@ -341,6 +355,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(19)]
         public virtual int AlternativeEducationEligibilityReasonDescriptorId 
         {
             get
@@ -360,6 +375,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         private int _alternativeEducationEligibilityReasonDescriptorId;
         private string _alternativeEducationEligibilityReasonDescriptor;
 
+        [IgnoreMember]
         public virtual string AlternativeEducationEligibilityReasonDescriptor
         {
             get
@@ -398,6 +414,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 
         private ICollection<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime> _studentAlternativeEducationProgramAssociationMeetingTimes;
         private ICollection<Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociationMeetingTime> _studentAlternativeEducationProgramAssociationMeetingTimesCovariant;
+        [Key(20)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime>))]
         public virtual ICollection<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime> StudentAlternativeEducationProgramAssociationMeetingTimes
         {
             get
@@ -407,6 +425,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_studentAlternativeEducationProgramAssociationMeetingTimes is DeserializedPersistentGenericSet<Entities.NHibernate.StudentAlternativeEducationProgramAssociationAggregate.SampleAlternativeEducationProgram.StudentAlternativeEducationProgramAssociationMeetingTime> set)
+                {
+                    set.Reattach(this, "StudentAlternativeEducationProgramAssociationMeetingTimes");
+                }
+            
                 foreach (var item in _studentAlternativeEducationProgramAssociationMeetingTimes)
                     if (item.StudentAlternativeEducationProgramAssociation == null)
                         item.StudentAlternativeEducationProgramAssociation = this;
@@ -550,6 +573,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
     /// </summary>
     [Schema("samplealternativeeducationprogram")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentAlternativeEducationProgramAssociationMeetingTime : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociationMeetingTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -564,7 +588,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual StudentAlternativeEducationProgramAssociation StudentAlternativeEducationProgramAssociation { get; set; }
 
         Entities.Common.SampleAlternativeEducationProgram.IStudentAlternativeEducationProgramAssociation IStudentAlternativeEducationProgramAssociationMeetingTime.StudentAlternativeEducationProgramAssociation
@@ -574,8 +598,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual TimeSpan EndTime  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual TimeSpan StartTime  { get; set; }
         // -------------------------------------------------------------
 
@@ -624,7 +650,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (StudentAlternativeEducationProgramAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (StudentAlternativeEducationProgramAssociation as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("EndTime", EndTime);

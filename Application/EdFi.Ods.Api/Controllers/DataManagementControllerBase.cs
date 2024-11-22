@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private IActionResult CreateActionResultFromException(Exception exception)
         {
-            HttpContext.Items.Add("Exception", exception);
+            HttpContext.Items.TryAdd("Exception", exception);
 
             // Process translations to Problem Details
             var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);

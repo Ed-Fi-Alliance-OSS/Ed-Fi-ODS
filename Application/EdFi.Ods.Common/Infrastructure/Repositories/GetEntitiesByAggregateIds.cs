@@ -8,7 +8,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -27,8 +30,11 @@ public class GetEntitiesByAggregateIds<TEntity> : GetEntitiesBase<TEntity>, IGet
         ISessionFactory sessionFactory,
         IDomainModelProvider domainModelProvider,
         IParameterListSetter parameterListSetter,
-        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-        : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        ApiSettings apiSettings,
+        Dialect dialect,
+        DatabaseEngine databaseEngine)
+        : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
     {
         _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
     }

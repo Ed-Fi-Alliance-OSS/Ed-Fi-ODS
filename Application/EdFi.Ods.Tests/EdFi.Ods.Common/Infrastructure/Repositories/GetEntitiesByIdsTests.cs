@@ -10,16 +10,20 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
@@ -72,7 +76,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings(),
+                    new SqlServerDialect(),
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -172,7 +180,11 @@ Actual:
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings(),
+                    new SqlServerDialect(),
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -258,7 +270,11 @@ Actual:
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider);
+                    _contextProvider, 
+                    new ApiSettings(),
+                    new SqlServerDialect(),
+                    DatabaseEngine.SqlServer,
+                    Stub<IEntityDeserializer>());
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]

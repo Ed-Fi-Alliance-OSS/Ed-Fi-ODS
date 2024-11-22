@@ -26,12 +26,6 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         }
 
         /// <summary>
-        /// Gets the singleton instance of the factory for creating aggregate and entity extensions.
-        /// </summary>
-        /// <remarks>This property is used to make the factory available to the entity classes during initialization since they are not managed by the IoC container.</remarks>
-        public static IEntityExtensionsFactory Instance { get; set; }
-
-        /// <summary>
         /// Creates an <see cref="System.Collections.IDictionary"/> containing new instances of the registered entity extension types
         /// for the Ed-Fi "core" entity specified by <typeparamref name="TEntity"/>.
         /// </summary>
@@ -66,8 +60,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(
-                typeof(TEntity), out IList<string> aggregateExtensions)
-                ? aggregateExtensions.ToDictionary(x => x, x => (object) new List<object>())
+                typeof(TEntity), out Dictionary<string, Entity> aggregateExtensions)
+                ? aggregateExtensions.ToDictionary(x => x.Key, x => (object) new List<object>())
                 : new Dictionary<string, object>();
         }
     }

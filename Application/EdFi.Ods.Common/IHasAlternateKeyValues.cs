@@ -15,7 +15,7 @@ namespace EdFi.Ods.Common
         /// <summary>
         /// Gets the alternate key values (unique key values which are not the primary key), in the form of an <see cref="OrderedDictionary"/>.
         /// </summary>
-        /// <returns>The dictionary containing the name/value pairs of the alternate key fields.</returns>
-        OrderedDictionary GetAlternateKeyValues();
+        /// <returns>A tuple containing the dictionary of name/value pairs of the alternate key fields, and an indicator as to whether the alternate key is defined on a base type in the model.</returns>
+        (OrderedDictionary keyValues, bool isDefinedOnBaseType) GetAlternateKeyValues();
     }
 }

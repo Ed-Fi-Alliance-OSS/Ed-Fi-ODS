@@ -16,7 +16,8 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
     {
         public Task OnPostInsertAsync(PostInsertEvent @event, CancellationToken cancellationToken)
         {
-            return Task.Run(() => OnPostInsert(@event), cancellationToken);
+            OnPostInsert(@event);
+            return Task.CompletedTask;
         }
 
         public void OnPostInsert(PostInsertEvent @event)
@@ -30,14 +31,12 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             DateTime createDateValue = Get<DateTime>(@event.Persister, @event.State, "CreateDate");
 
-            if (!createDateValue.Equals(default(DateTime)))
+            if (!createDateValue.Equals(default))
             {
                 domainEntity.CreateDate = createDateValue;
             }
 
-            var aggregateRoot = @event.Entity as AggregateRootWithCompositeKey;
-
-            if (aggregateRoot != null)
+            if (@event.Entity is AggregateRootWithCompositeKey aggregateRoot)
             {
                 // Assign the server-assigned Id back to the aggregate root entity
                 if (aggregateRoot.Id.Equals(Guid.Empty))

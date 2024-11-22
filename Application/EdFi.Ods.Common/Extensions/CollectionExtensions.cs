@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Common.Extensions
 {
@@ -143,20 +144,20 @@ namespace EdFi.Ods.Common.Extensions
                 {
                     return type;
                 }
-
+        
                 var listTypes = targetListType.GetGenericArguments();
-
+        
                 if (listTypes.Length == 0)
                 {
                     throw new ArgumentException(
                         $"Target list type of '{targetListType.FullName}' does not have any generic arguments.");
                 }
-
+        
                 // Assumption: ItemType is last generic argument (most of the time this will be a List<T>,
                 // but it could be a CovariantIListAdapter<TBase, TDerived>.  We want the last generic argument type.
                  type = listTypes[^1];
                 _itemTypeByUnderlyingListType[targetListType] = type;
-
+        
                 return type;
             }
         }

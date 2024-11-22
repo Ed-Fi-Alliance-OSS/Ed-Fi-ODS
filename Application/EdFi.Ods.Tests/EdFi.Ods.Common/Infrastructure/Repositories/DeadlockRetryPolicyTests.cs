@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,7 +60,7 @@ public class DeadlockRetryPolicyTests
 
         // Simulate a deadlock exception on the first attempt
         A.CallTo(() => session.SaveAsync(A<TestEntity>._, A<CancellationToken>._))
-            .Throws(() => CreateWrappedSqlException("Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"));
+            .Throws(() => CreateWrappedSqlException(1205, "Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"));
 
         var dataManagementResourceContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
         var entity = new TestEntity() { Name = "Bob", Age = 42};
@@ -90,7 +92,7 @@ public class DeadlockRetryPolicyTests
 
         // Simulate a deadlock exception on the first attempt
         A.CallTo(() => session.SaveAsync(A<TestEntity>._, A<CancellationToken>._))
-            .Throws(() => CreateWrappedSqlException("Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"))
+            .Throws(() => CreateWrappedSqlException(1205, "Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"))
             .NumberOfTimes(3)
             .Then
             .Returns(Task.CompletedTask);
@@ -124,7 +126,7 @@ public class DeadlockRetryPolicyTests
 
         // Simulate a deadlock exception on the first attempt
         A.CallTo(() => session.UpdateAsync(A<TestEntity>._, A<CancellationToken>._))
-            .Throws(() => CreateWrappedSqlException("Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"));
+            .Throws(() => CreateWrappedSqlException(1205, "Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"));
 
         var entity = new TestEntity() { Name = "Bob", Age = 42};
         var repository = new UpdateEntity<TestEntity>(sessionFactory);
@@ -155,7 +157,7 @@ public class DeadlockRetryPolicyTests
 
         // Simulate a deadlock exception on the first attempt
         A.CallTo(() => session.UpdateAsync(A<TestEntity>._, A<CancellationToken>._))
-            .Throws(() => CreateWrappedSqlException("Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"))
+            .Throws(() => CreateWrappedSqlException(1205, "Transaction (Process ID 54) was deadlocked on lock resources with another process and has been chosen as the deadlock victim"))
             .NumberOfTimes(3)
             .Then
             .Returns(Task.CompletedTask);
@@ -172,29 +174,12 @@ public class DeadlockRetryPolicyTests
         A.CallTo(() => session.UpdateAsync(entity, CancellationToken.None)).MustHaveHappened(4, Times.Exactly);
     }
 
-    private static GenericADOException CreateWrappedSqlException(string message)
+    private static GenericADOException CreateWrappedSqlException(int number, string message)
     {
         try
         {
-            // Get the internal SqlException type from System.Data assembly
-            var sqlExceptionType = typeof(SqlException);
-            // Get the constructor that accepts message parameter
-            var constructor = sqlExceptionType.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new []
-            {
-                typeof(string),
-                typeof(SqlErrorCollection),
-                typeof(Exception),
-                typeof(Guid)
-            }, null);
-
-            var errorCollectionConstructor = typeof(SqlErrorCollection).GetConstructor(
-                BindingFlags.NonPublic | BindingFlags.Instance,
-                Type.EmptyTypes);
-
-            var errorCollection = errorCollectionConstructor.Invoke(Array.Empty<object>());
-
-            // Create an instance of SqlException using the constructor
-            var sqlException = (SqlException)constructor.Invoke(new object[] { message, errorCollection, new Exception("123"), Guid.NewGuid() });
+            var sqlException = SqlExceptionCreator.Create(number, message);
+            
             return new GenericADOException("Could not do it.", sqlException);
         }
         catch (Exception ex)
@@ -203,6 +188,53 @@ public class DeadlockRetryPolicyTests
             Console.WriteLine($"Exception occurred while creating SqlException: {ex.Message}");
             return null;
         }
+    }
+}
+
+public static class SqlExceptionCreator
+{
+    public static SqlException Create(int number, string errorMessage)
+    {
+        Exception innerException = null;
+        
+        var sqlErrorCollectionConstructors = typeof(SqlErrorCollection).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+        SqlErrorCollection errors = (sqlErrorCollectionConstructors[0].Invoke(null) as SqlErrorCollection)!;
+
+        var errorList =
+            (errors.GetType().GetField("_errors", BindingFlags.Instance | BindingFlags.NonPublic)
+                    ?.GetValue(errors) as List<object>)!;
+
+        var sqlErrorConstructors = typeof(SqlError).GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);
+        var sqlErrorConstructor = sqlErrorConstructors.FirstOrDefault(f => f.GetParameters().Length == 9)!;
+
+        SqlError sqlError = (sqlErrorConstructor.Invoke(
+        [
+            number, 
+            /* errorState */ (byte)0, 
+            /* errorClass */ (byte)0,
+            /* server */ "", 
+            "test error", 
+            /* procedure */ "",
+            /* lineNumber */ (int)0,
+            /* win32 error code */ (uint)0,
+            innerException
+        ]) as SqlError)!;
+
+        errorList.Add(sqlError);
+
+        SqlException ex = (Activator.CreateInstance(
+            typeof(SqlException),
+            BindingFlags.NonPublic | BindingFlags.Instance,
+            null,
+            [
+                errorMessage,
+                errors,
+                innerException,
+                Guid.NewGuid()
+            ],
+            null) as SqlException)!;
+
+        return ex;
     }
 }
 

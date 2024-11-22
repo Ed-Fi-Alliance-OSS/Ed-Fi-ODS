@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
 {

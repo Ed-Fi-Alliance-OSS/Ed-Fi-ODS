@@ -57,10 +57,14 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
 									"const __ = require('lodash');",
 									"const schools = pm.response.json();",
 									"const schoolIds = __.map(schools, school => school.schoolId);",
-									"pm.environment.set(\"test-suite:known:schoolIds\",schoolIds);",
+									"pm.environment.set(\"test-suite:known:schoolIds\", schoolIds);",
 									"pm.environment.set(\"test-suite:known:schoolId\", __.sample(schoolIds));",
 									""
 								],
@@ -6157,7 +6161,7 @@
 																					"\r",
 																					"const response = pm.response.json();\r",
 																					"\r",
-																					"pm.test(\"Should return two page tokens.\", () => {\r",
+																					"pm.test(\"Should return one page tokens.\", () => {\r",
 																					"  pm.expect(response.pageTokens).to.have.lengthOf(1);\r",
 																					"});\r",
 																					"\r",
@@ -6570,7 +6574,7 @@
 																				"header": [],
 																				"body": {
 																					"mode": "raw",
-																					"raw": "  {\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 7890,\r\n    \"nameOfInstitution\": \"ABCD Charter School\",\r\n    \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n    \"shortNameOfInstitution\": \"ABCD\",\r\n    \"webSite\": \"http://www.GBISD.edu/ABCD/\",\r\n    \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n    \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n    \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n    \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"schoolCategories\": [\r\n      {\r\n        \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#Middle School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Sixth grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Seventh grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n      }\r\n    ]\r\n  }",
+																					"raw": "",
 																					"options": {
 																						"raw": {
 																							"language": "json"
@@ -15460,9 +15464,11 @@
 									"pm.environment.set(\"known:beginDate\",beginDate);\r",
 									"pm.environment.set(\"known:programName\", \"Bilingual\");\r",
 									"pm.environment.set(\"known:programTypeDescriptor\", \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\");\r",
+									"pm.environment.set(\"known:programTypeDescriptor:encoded\", encodeURIComponent(\"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"));\r",
 									"pm.environment.set(\"known:serviceDescriptor\", \"uri://ed-fi.org/ServiceDescriptor#Counseling services\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -15471,9 +15477,13 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", () => {\r",
 									"    pm.expect(pm.response.code).to.equal(201);\r",
-									"});"
+									"});\r",
+									"\r",
+									"pm.environment.set('known:studentProgramAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -15506,7 +15516,7 @@
 					"response": []
 				},
 				{
-					"name": "Get StudentProgramAssociation with a Service",
+					"name": "Get StudentProgramAssociation with a Service (by key)",
 					"event": [
 						{
 							"listen": "test",
@@ -15519,23 +15529,35 @@
 									"const __ = require('lodash');\r",
 									"const responseItems = pm.response.json();\r",
 									"const studentProgramAssociation = __.first(responseItems);\r",
-									"pm.environment.set('known:studentProgramAssociationId', studentProgramAssociation.id);\r",
 									"\r",
-									"pm.expect(studentProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
+									"pm.test(\"Should get the same item just created (by key values)\", () => {\r",
+									"  pm.expect(studentProgramAssociation.id).to.equal(pm.environment.get('known:studentProgramAssociation:id'));\r",
+									"});\r",
 									"\r",
-									"pm.expect(studentProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
+									"pm.test(\"All key values should match\", () => {\r",
+									"  pm.expect(studentProgramAssociation.beginDate).to.equal(pm.environment.get('known:beginDate'));\r",
 									"\r",
-									"pm.expect(studentProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
+									"  pm.expect(studentProgramAssociation.educationOrganizationReference.educationOrganizationId).to.equal(pm.environment.get('known:educationOrganizationId'));\r",
 									"\r",
-									"pm.expect(studentProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
-									"pm.expect(studentProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
-									"pm.expect(studentProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"  pm.expect(studentProgramAssociation.studentReference.studentUniqueId).to.equal(pm.environment.get('known:studentUniqueId'));\r",
 									"\r",
-									"const services = studentProgramAssociation.services;\r",
-									"pm.expect(services.length).to.equal(1);\r",
-									"pm.expect(services[0].serviceDescriptor).to.equal(pm.environment.get(\"known:serviceDescriptor\"));"
+									"  pm.expect(studentProgramAssociation.programReference.educationOrganizationId).to.equal(pm.environment.get(\"known:educationOrganizationId\"));\r",
+									"\r",
+									"  pm.expect(studentProgramAssociation.programReference.programName).to.equal(pm.environment.get(\"known:programName\"));\r",
+									"\r",
+									"  pm.expect(studentProgramAssociation.programReference.programTypeDescriptor).to.equal(pm.environment.get(\"known:programTypeDescriptor\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should include a service\", () => {\r",
+									"  const services = studentProgramAssociation.services;\r",
+									"\r",
+									"  pm.expect(services.length).to.equal(1);\r",
+									"  pm.expect(services[0].serviceDescriptor).to.equal(pm.environment.get(\"known:serviceDescriptor\"));\r",
+									"});\r",
+									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -15556,7 +15578,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?beginDate={{known:beginDate}}&studentUniqueId={{known:studentUniqueId}}&educationOrganizationId={{known:educationOrganizationId}}&programEducationOrganizationId={{known:educationOrganizationId}}&programName={{known:programName}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?beginDate={{known:beginDate}}&studentUniqueId={{known:studentUniqueId}}&educationOrganizationId={{known:educationOrganizationId}}&programEducationOrganizationId={{known:educationOrganizationId}}&programName={{known:programName}}&programTypeDescriptor={{known:programTypeDescriptor:encoded}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -15586,6 +15608,10 @@
 								{
 									"key": "programName",
 									"value": "{{known:programName}}"
+								},
+								{
+									"key": "programTypeDescriptor",
+									"value": "{{known:programTypeDescriptor:encoded}}"
 								}
 							]
 						}
@@ -15692,7 +15718,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociation:id}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -15701,7 +15727,7 @@
 								"v3",
 								"ed-fi",
 								"studentProgramAssociations",
-								"{{known:studentProgramAssociationId}}"
+								"{{known:studentProgramAssociation:id}}"
 							]
 						}
 					},
@@ -15718,7 +15744,8 @@
 									"    pm.expect(pm.response.code).to.equal(204);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -15726,7 +15753,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationId}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociation:id}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -15735,7 +15762,7 @@
 								"v3",
 								"ed-fi",
 								"studentProgramAssociations",
-								"{{known:studentProgramAssociationId}}"
+								"{{known:studentProgramAssociation:id}}"
 							]
 						}
 					},
@@ -18456,6 +18483,47 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Test Suite Teardown",
+			"item": [
+				{
+					"name": "Clean up Environment Variables and Access Tokens",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									"\r",
+									"// Remove all environment variables related to Access Tokens\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									"\r",
+									"pm.execution.skipRequest();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

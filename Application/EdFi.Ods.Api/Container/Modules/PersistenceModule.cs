@@ -32,6 +32,7 @@ using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
 using NHibernate;
+using NHibernate.Engine;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 using Module = Autofac.Module;
 
@@ -175,6 +176,19 @@ namespace EdFi.Ods.Api.Container.Modules
 
             RegisterPersonIdentifierCaching(builder);
 
+            // Register surrogate key mutators (for deserialization support)
+            builder.RegisterType<EntityDeserializer>()
+                .As<IEntityDeserializer>()
+                .SingleInstance();
+
+            builder.RegisterType<PersonSurrogateIdMutator>()
+                .As<ISurrogateIdMutator>()
+                .SingleInstance();
+
+            builder.RegisterType<DescriptorSurrogateIdMutator>()
+                .As<ISurrogateIdMutator>()
+                .SingleInstance();
+
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
                 .As<IOrmMappingFileDataProvider>()
@@ -195,6 +209,11 @@ namespace EdFi.Ods.Api.Container.Modules
                     c => c.Resolve<NHibernate.Cfg.Configuration>()
                         .BuildSessionFactory())
                 .As<ISessionFactory>()
+                .SingleInstance();
+
+            builder.Register(
+                    c => (ISessionFactoryImplementor) c.Resolve<ISessionFactory>())
+                .As<ISessionFactoryImplementor>()
                 .SingleInstance();
 
             // ----------------------------------------------------------------------------------------------------

@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Common.Dependencies;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -46,6 +47,13 @@ namespace EdFi.Ods.Api.Container.Modules
                 .WithParameter(new TypedParameter(typeof(IEnumerable<Assembly>), installedExtensionAssemblies))
                 .As<IEntityExtensionRegistrar>()
                 .SingleInstance();
+
+            // Set feature-specific static resolvers
+            builder.RegisterBuildCallback(container =>
+            {
+                GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IEntityExtensionsFactory>);
+                GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IEntityExtensionRegistrar>);
+            });
 
             installedExtensionAssemblies.ForEach(
                 assembly =>

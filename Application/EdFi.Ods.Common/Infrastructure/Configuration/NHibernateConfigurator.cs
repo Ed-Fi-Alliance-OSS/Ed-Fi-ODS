@@ -11,8 +11,8 @@ using System.Reflection;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -36,16 +36,19 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly ApiSettings _apiSettings;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
-            IAuthorizationContextProvider authorizationContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider,
+            ApiSettings apiSettings)
         {
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
+            _apiSettings = apiSettings;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -110,7 +113,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.AddCreateDateHooks(_entityAuthorizerResolver, _authorizationContextProvider);
+            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _apiSettings);
 
             return configuration;
 

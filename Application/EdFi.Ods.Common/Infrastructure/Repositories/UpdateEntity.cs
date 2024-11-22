@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using log4net;
@@ -34,29 +35,36 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         {
             using (new SessionScope(SessionFactory))
             {
+                // Save the current date/time to context for absolute date/time consistency within the aggregate
+                CallContext.SetData("CurrentDateTime", DateTime.UtcNow);
+
+                // Save the incoming entity
                 await DeadlockPolicyHelper.RetryPolicy.ExecuteAsync(
                     async ctx =>
                     {
-                        using var trans = Session.BeginTransaction();
+                        bool isRetry = false;
 
-                        try
+                        if (ctx.TryGetValue("Retries", out object retryCount))
+                        {
+                            isRetry = true;
+                            _logger.Info($"Retry #{retryCount}: Retrying update of '{typeof(TEntity).Name}'...");
+                        }
+
+                        using (ITransaction trans = Session.BeginTransaction())
                         {
                             await Session.UpdateAsync(persistentEntity, cancellationToken);
+                            await trans.CommitAsync(cancellationToken);
                         }
-                        catch (Exception)
+                        
+                        if (isRetry)
                         {
-                            await trans.RollbackAsync(cancellationToken);
-                            throw;
-                        }
-                        finally
-                        {
-                            if (!trans.WasRolledBack)
-                            {
-                                await trans.CommitAsync(cancellationToken);
-                            }
+                            _logger.Info($"Retry #{retryCount}: Successfully updated '{typeof(TEntity).Name}' after {retryCount} retries...");
                         }
                     },
                     _retryPolicyContextData);
+                
+                // Clear the contextual current date/time explicitly
+                CallContext.SetData("CurrentDateTime", null);
             }
         }
     }

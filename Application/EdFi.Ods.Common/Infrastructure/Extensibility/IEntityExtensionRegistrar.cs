@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Infrastructure.Extensibility
 {
@@ -15,6 +16,6 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
     {
         IDictionary<Type, Dictionary<string, EntityExtension>> EntityExtensionsByEntityType { get; }
 
-        IDictionary<Type, IList<string>> AggregateExtensionEntityNamesByType { get; }
+        IDictionary<Type, Dictionary<string, Entity>> AggregateExtensionEntityNamesByType { get; }
     }
 }

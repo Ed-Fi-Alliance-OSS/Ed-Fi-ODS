@@ -42,12 +42,12 @@ namespace EdFi.Ods.Common.Container
         {
             if (IsSelected())
             {
+                _logger.Info($"Loading registrations from conditional module '{_moduleName}'...");
                 ApplyConfigurationSpecificRegistrations(builder);
             }
             else
             {
                 ApplyFeatureDisabledRegistrations(builder);
-
                 _logger.Debug($"{_moduleName} Module is disabled and will not be installed.");
             }
         }

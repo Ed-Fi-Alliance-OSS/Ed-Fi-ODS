@@ -8,13 +8,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Dapper;
 using EdFi.Common;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Infrastructure.Activities;
+using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Serialization;
+using log4net;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -22,42 +30,82 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class GetEntitiesByIds<TEntity> : GetEntitiesBase<TEntity>, IGetEntitiesByIds<TEntity>
         where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
     {
+        private readonly IEntityDeserializer _entityDeserializer;
         private readonly IParameterListSetter _parameterListSetter;
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(GetEntitiesByIds<TEntity>));
 
         public GetEntitiesByIds(
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
             IParameterListSetter parameterListSetter,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            ApiSettings apiSettings,
+            Dialect dialect,
+            DatabaseEngine databaseEngine,
+            IEntityDeserializer entityDeserializer)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
         {
+            _entityDeserializer = entityDeserializer;
             _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
         }
 
         public async Task<IList<TEntity>> GetByIdsAsync(IList<Guid> ids, CancellationToken cancellationToken)
         {
-            using (new SessionScope(SessionFactory))
+            using var scope = new SessionScope(SessionFactory);
+
+            IEnumerable<TEntity> results;
+
+            if (ids.Count == 1)
             {
-                IEnumerable<TEntity> results;
-
-                if (ids.Count == 1)
+                // Only use optimized load if serialization feature enabled
+                if (SerializationEnabled)
                 {
-                    results = await GetAggregateResultsAsync(
-                        "where a.Id = :id",
-                        q => q.SetParameter("id", ids[0]), cancellationToken);
-                }
-                else
-                {
-                    results = await GetAggregateResultsAsync(
-                        "where a.Id IN (:ids)",
-                        q => _parameterListSetter.SetParameterList(q ,"ids", ids),
-                        cancellationToken,
-                        "order by a.Id");
+                    // Get the item from serialized form
+                    var singleItemQueryBuilder = GetSingleItemQueryBuilder();
+
+                    singleItemQueryBuilder.Where("Id", ids[0]);
+                    var singleItemTemplate = singleItemQueryBuilder.BuildTemplate();
+
+                    var item = await scope.Session.Connection.QuerySingleOrDefaultAsync<ItemRawData<TEntity>>(
+                        singleItemTemplate.RawSql,
+                        singleItemTemplate.Parameters);
+
+                    // No record found?
+                    if (item == null)
+                    {
+                        return Array.Empty<TEntity>();
+                    }
+
+                    // If we can deserialize the item
+                    if (item.IsDeserializable)
+                    {
+                        // Deserialize the entity
+                        var entity = await _entityDeserializer.DeserializeAsync<TEntity>(item);
+
+                        if (entity != null)
+                        {
+                            return [entity];
+                        }
+                    }
                 }
 
-                // Process multiple results in the first-level cache to a list of complete aggregates
-                return results.ToList();
+                // Load the item from the ODS
+                results = await GetAggregateResultsAsync(
+                    "where a.Id = :id",
+                    q => q.SetParameter("id", ids[0]), cancellationToken);
             }
+            else
+            {
+                results = await GetAggregateResultsAsync(
+                    "where a.Id IN (:ids)",
+                    q => _parameterListSetter.SetParameterList(q ,"ids", ids),
+                    cancellationToken,
+                    "order by a.Id");
+            }
+
+            // Process multiple results in the first-level cache to a list of complete aggregates
+            return results.ToList();
         }
     }
 }

@@ -16,8 +16,11 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Entities.Common.Homograph;
 using Newtonsoft.Json;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 // Aggregate: Contact
 
@@ -26,24 +29,29 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="Contact"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class ContactReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string ContactFirstName { get; set; }
+        [Key(1)]
         public virtual string ContactLastSurname { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(2)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -109,6 +117,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Contact : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IContact, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -126,8 +135,10 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string ContactFirstName  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string ContactLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -154,6 +165,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(8)]
         public virtual NHibernate.NameAggregate.Homograph.NameReferenceData ContactNameReferenceData { get; set; }
 
         /// <summary>
@@ -182,6 +194,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         private ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress> _contactAddresses;
         private ICollection<Entities.Common.Homograph.IContactAddress> _contactAddressesCovariant;
+        [Key(9)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress>))]
         public virtual ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress> ContactAddresses
         {
             get
@@ -191,6 +205,11 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_contactAddresses is DeserializedPersistentGenericSet<Entities.NHibernate.ContactAggregate.Homograph.ContactAddress> set)
+                {
+                    set.Reattach(this, "ContactAddresses");
+                }
+            
                 foreach (var item in _contactAddresses)
                     if (item.Contact == null)
                         item.Contact = this;
@@ -229,6 +248,8 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         private ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation> _contactStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IContactStudentSchoolAssociation> _contactStudentSchoolAssociationsCovariant;
+        [Key(10)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation>))]
         public virtual ICollection<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation> ContactStudentSchoolAssociations
         {
             get
@@ -238,6 +259,11 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_contactStudentSchoolAssociations is DeserializedPersistentGenericSet<Entities.NHibernate.ContactAggregate.Homograph.ContactStudentSchoolAssociation> set)
+                {
+                    set.Reattach(this, "ContactStudentSchoolAssociations");
+                }
+            
                 foreach (var item in _contactStudentSchoolAssociations)
                     if (item.Contact == null)
                         item.Contact = this;
@@ -374,6 +400,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class ContactAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IContactAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -388,7 +415,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Contact Contact { get; set; }
 
         Entities.Common.Homograph.IContact IContactAddress.Contact
@@ -398,6 +425,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -445,7 +473,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Contact as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Contact as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("City", City);
@@ -533,6 +561,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class ContactStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IContactStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -547,7 +576,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Contact Contact { get; set; }
 
         Entities.Common.Homograph.IContact IContactStudentSchoolAssociation.Contact
@@ -557,10 +586,13 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string SchoolName  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string StudentFirstName  { get; set; }
         [DomainSignature]
+        [Key(3)]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -587,6 +619,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(4)]
         public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData { get; set; }
 
         /// <summary>
@@ -628,7 +661,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Contact as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Contact as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("SchoolName", SchoolName);
@@ -718,24 +751,29 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="Name"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class NameReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string FirstName { get; set; }
+        [Key(1)]
         public virtual string LastSurname { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(2)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -801,6 +839,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Name : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -816,8 +855,10 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string FirstName  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -950,23 +991,27 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="School"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class SchoolReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string SchoolName { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(1)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -1031,6 +1076,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class School : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1047,6 +1093,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string SchoolName  { get; set; }
         // -------------------------------------------------------------
 
@@ -1058,12 +1105,14 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(7)]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        [IgnoreMember]
         public virtual Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress SchoolAddress
         {
             get
@@ -1100,6 +1149,8 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
         private ICollection<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> _schoolAddressPersistentList;
 
+        [Key(8)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress>))]
         public virtual ICollection<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> SchoolAddressPersistentList
         {
             get
@@ -1109,6 +1160,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_schoolAddressPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> set)
+                {
+                    set.Reattach(this, "SchoolAddress");
+                }
+
                 foreach (var item in _schoolAddressPersistentList)
                     if (item.School == null)
                         item.School = this;
@@ -1132,6 +1188,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(9)]
         public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
 
         /// <summary>
@@ -1257,6 +1314,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1271,7 +1329,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual School School { get; set; }
 
         Entities.Common.Homograph.ISchool ISchoolAddress.School
@@ -1290,6 +1348,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(1)]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -1327,7 +1386,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (School as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (School as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
 
@@ -1414,23 +1473,27 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="SchoolYearType"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class SchoolYearTypeReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string SchoolYear { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(1)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(2)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -1495,6 +1558,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class SchoolYearType : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1510,6 +1574,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
@@ -1641,24 +1706,29 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="Staff"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class StaffReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string StaffFirstName { get; set; }
+        [Key(1)]
         public virtual string StaffLastSurname { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(2)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -1724,6 +1794,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Staff : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -1741,8 +1812,10 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string StaffFirstName  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string StaffLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -1769,6 +1842,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(8)]
         public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StaffNameReferenceData { get; set; }
 
         /// <summary>
@@ -1797,6 +1871,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> _staffAddresses;
         private ICollection<Entities.Common.Homograph.IStaffAddress> _staffAddressesCovariant;
+        [Key(9)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress>))]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> StaffAddresses
         {
             get
@@ -1806,6 +1882,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_staffAddresses is DeserializedPersistentGenericSet<Entities.NHibernate.StaffAggregate.Homograph.StaffAddress> set)
+                {
+                    set.Reattach(this, "StaffAddresses");
+                }
+            
                 foreach (var item in _staffAddresses)
                     if (item.Staff == null)
                         item.Staff = this;
@@ -1844,6 +1925,8 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> _staffStudentSchoolAssociations;
         private ICollection<Entities.Common.Homograph.IStaffStudentSchoolAssociation> _staffStudentSchoolAssociationsCovariant;
+        [Key(10)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation>))]
         public virtual ICollection<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> StaffStudentSchoolAssociations
         {
             get
@@ -1853,6 +1936,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_staffStudentSchoolAssociations is DeserializedPersistentGenericSet<Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation> set)
+                {
+                    set.Reattach(this, "StaffStudentSchoolAssociations");
+                }
+            
                 foreach (var item in _staffStudentSchoolAssociations)
                     if (item.Staff == null)
                         item.Staff = this;
@@ -1989,6 +2077,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2003,7 +2092,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Staff Staff { get; set; }
 
         Entities.Common.Homograph.IStaff IStaffAddress.Staff
@@ -2013,6 +2102,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2060,7 +2150,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Staff as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Staff as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("City", City);
@@ -2148,6 +2238,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2162,7 +2253,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Staff Staff { get; set; }
 
         Entities.Common.Homograph.IStaff IStaffStudentSchoolAssociation.Staff
@@ -2172,10 +2263,13 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string SchoolName  { get; set; }
         [DomainSignature]
+        [Key(2)]
         public virtual string StudentFirstName  { get; set; }
         [DomainSignature]
+        [Key(3)]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2202,6 +2296,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(4)]
         public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData { get; set; }
 
         /// <summary>
@@ -2243,7 +2338,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Staff as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Staff as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("SchoolName", SchoolName);
@@ -2333,24 +2428,29 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// <summary>
     /// Represents a read-only reference to the <see cref="Student"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class StudentReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string StudentFirstName { get; set; }
+        [Key(1)]
         public virtual string StudentLastSurname { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(2)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(3)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -2416,6 +2516,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class Student : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2432,8 +2533,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string StudentFirstName  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2445,12 +2548,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [Key(8)]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
+        [IgnoreMember]
         public virtual Entities.NHibernate.StudentAggregate.Homograph.StudentAddress StudentAddress
         {
             get
@@ -2487,6 +2592,8 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> _studentAddressPersistentList;
 
+        [Key(9)]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress>))]
         public virtual ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> StudentAddressPersistentList
         {
             get
@@ -2496,6 +2603,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_studentAddressPersistentList is DeserializedPersistentGenericSet<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> set)
+                {
+                    set.Reattach(this, "StudentAddress");
+                }
+
                 foreach (var item in _studentAddressPersistentList)
                     if (item.Student == null)
                         item.Student = this;
@@ -2519,6 +2631,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(10)]
         public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
 
         /// <summary>
@@ -2539,6 +2652,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             set { }
         }
 
+        [Key(11)]
         public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StudentNameReferenceData { get; set; }
 
         /// <summary>
@@ -2665,6 +2779,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2679,7 +2794,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual Student Student { get; set; }
 
         Entities.Common.Homograph.IStudent IStudentAddress.Student
@@ -2689,6 +2804,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         }
 
         [DomainSignature]
+        [Key(1)]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2736,7 +2852,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
             // Get parent key values
-            var keyValues = (Student as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = (Student as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
 
             // Add current key values
             keyValues.Add("City", City);
@@ -2824,25 +2940,31 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     /// <summary>
     /// Represents a read-only reference to the <see cref="StudentSchoolAssociation"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class StudentSchoolAssociationReferenceData : IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [Key(0)]
         public virtual string SchoolName { get; set; }
+        [Key(1)]
         public virtual string StudentFirstName { get; set; }
+        [Key(2)]
         public virtual string StudentLastSurname { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(3)]
         public virtual Guid? Id { get; set; }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key(4)]
         public virtual string Discriminator { get; set; }
 
         // Provide primary key information
@@ -2909,6 +3031,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     /// </summary>
     [Schema("homograph")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
         Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
@@ -2924,10 +3047,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
+        [Key(6)]
         public virtual string SchoolName  { get; set; }
         [DomainSignature]
+        [Key(7)]
         public virtual string StudentFirstName  { get; set; }
         [DomainSignature]
+        [Key(8)]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2954,6 +3080,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
+        [Key(9)]
         public virtual NHibernate.SchoolAggregate.Homograph.SchoolReferenceData SchoolReferenceData { get; set; }
 
         /// <summary>
@@ -2974,6 +3101,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             set { }
         }
 
+        [Key(10)]
         public virtual NHibernate.StudentAggregate.Homograph.StudentReferenceData StudentReferenceData { get; set; }
 
         /// <summary>

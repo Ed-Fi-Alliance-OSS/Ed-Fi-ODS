@@ -17,6 +17,7 @@
         private {{CSharpDeclaredType}} {{IdFieldName}};
         private string {{ValueFieldName}};
 
+        [IgnoreMember]
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{LookupValuePropertyName}}
         {
             get
@@ -69,11 +70,16 @@
         private {{CSharpDeclaredType}} {{UsiFieldName}};
     {{#IsPersonEntity}}
         string IIdentifiablePerson.UniqueId { get { return {{UniqueIdPropertyName}}; } }
+        
+        // Supports deserialization of entities that don't have surrogate id available after creation
+        void IPersonUsiMutator.SetUsi(int newValue) => {{UsiFieldName}} = newValue;
+        int IPersonUsiMutator.GetUsi() => {{UsiFieldName}};
 
     {{/IsPersonEntity}}
     {{^IsPersonEntity}}
         private string {{UniqueIdFieldName}};
 
+        [IgnoreMember]
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} string {{UniqueIdPropertyName}}
         {
             get

@@ -1461,9 +1461,16 @@
 											"\r",
 											"pm.test(\"Should return one expected resouce\", () => {\r",
 											"    pm.expect(responseItems.count()).to.equal(1);\r",
-											"    pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:highSchool_id'));\r",
-											"    pm.expect(responseItems[0].schoolId).to.equals(pm.environment.get('supplied:schoolId'));\r",
-											"});"
+											"});\r",
+											"\r",
+											"pm.test(\"Item returned should have the correct id.\", () => {\r",
+											"  pm.expect(responseItems[0].id).to.equals(pm.environment.get('known:highSchool_id'));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Item returned should have the correct schoolId.\", () => {\r",
+											"  pm.expect(responseItems[0].schoolId).to.equals(pm.environment.get('supplied:schoolId'));\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}

@@ -17,12 +17,9 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 {
     public class EntityExtensionRegistrar : IEntityExtensionRegistrar
     {
-        private readonly ConcurrentDictionary<Type, IList<string>> _aggregateExtensionEntityNamesByType
-            = new ConcurrentDictionary<Type, IList<string>>();
+        private readonly ConcurrentDictionary<Type, Dictionary<string, Entity>> _aggregateExtensionEntityNamesByType = new();
+        private readonly ConcurrentDictionary<Type, Dictionary<string, EntityExtension>> _entityExtensionsByEntityType = new();
         private readonly DomainModel _domainModel;
-
-        private readonly ConcurrentDictionary<Type, Dictionary<string, EntityExtension>> _entityExtensionsByEntityType
-            = new ConcurrentDictionary<Type, Dictionary<string, EntityExtension>>();
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(EntityExtensionRegistrar));
 
@@ -41,7 +38,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             get => _entityExtensionsByEntityType;
         }
 
-        public IDictionary<Type, IList<string>> AggregateExtensionEntityNamesByType
+        public IDictionary<Type, Dictionary<string, Entity>> AggregateExtensionEntityNamesByType
         {
             get => _aggregateExtensionEntityNamesByType;
         }
@@ -70,14 +67,15 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
             _aggregateExtensionEntityNamesByType.AddOrUpdate(
                 edFiStandardEntityType,
-                t => new List<string> {ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity)},
-                (t, n) =>
+                t => new Dictionary<string, Entity> { { ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity), aggregateExtensionEntity } },
+                (t, d) =>
                 {
                     string extensionCollectionName =
                         ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity);
 
-                    n.Add(extensionCollectionName);
-                    return n;
+                    d.Add(extensionCollectionName, aggregateExtensionEntity);
+
+                    return d;
                 });
         }
 

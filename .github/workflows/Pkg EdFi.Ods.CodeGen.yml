@@ -129,3 +129,9 @@ jobs:
       with:
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg
+    - name: Upload test reports
+      if: always()
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      with:
+        name: TestReports
+        path: ${{ github.workspace }}/Ed-Fi-ODS/reports/*.*

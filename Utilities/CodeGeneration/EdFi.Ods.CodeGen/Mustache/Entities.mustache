@@ -16,11 +16,14 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Serialization;
 {{#HasExtensionDerivedFromEdFiBaseEntity}}
 using EdFi.Ods.Entities.Common.EdFi;
 {{/HasExtensionDerivedFromEdFiBaseEntity}}
 using EdFi.Ods.Entities.Common.{{SchemaProperCaseName}};
 using Newtonsoft.Json;
+using MessagePack;
+using KeyAttribute = MessagePack.KeyAttribute;
 
 {{#Aggregates}}
 // Aggregate: {{AggregateName}}
@@ -37,6 +40,7 @@ namespace {{AggregateNamespace}}
     /// <summary>
     /// Represents a read-only reference to the <see cref="{{ClassName}}"/> entity.
     /// </summary>
+    [MessagePackObject]
     public class {{ReferenceDataClassName}} : IHasPrimaryKeyValues
     {
         // =============================================================
@@ -44,6 +48,7 @@ namespace {{AggregateNamespace}}
         // -------------------------------------------------------------
         {{#PrimaryKey}}
             {{#NonParentProperties}}
+        [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
         public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} { get; set; }
             {{/NonParentProperties}}
         {{/PrimaryKey}}
@@ -52,6 +57,7 @@ namespace {{AggregateNamespace}}
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
         public virtual Guid? Id { get; set; }
         {{#HasDiscriminator}}
 
@@ -59,6 +65,7 @@ namespace {{AggregateNamespace}}
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
         /// when that entity has been derived; otherwise <b>null</b>.
         /// </summary>
+        [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
         public virtual string Discriminator { get; set; }
         {{/HasDiscriminator}}
 
@@ -68,7 +75,7 @@ namespace {{AggregateNamespace}}
         {
             {{#ParentClassName}}
             // Get parent key values
-            var keyValues = ({{ParentClassName}} as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = ({{ParentClassName}} as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
             {{/ParentClassName}}
             {{^ParentClassName}}
             // Initialize a new dictionary to hold the key values
@@ -135,8 +142,9 @@ namespace {{AggregateNamespace}}
     /// </summary>
     [Schema("{{SchemaName}}")]
     [ExcludeFromCodeCoverage]
+    [MessagePackObject]
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
-        {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#IsExtendable}}{{^ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}{{/IsExtendable}}
+        {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#IsPersonEntity}}, IPersonUsiMutator{{/IsPersonEntity}}{{#IsExtendable}}{{^ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}{{/IsExtendable}}
     {
         {{^IsDerived}}
         public virtual void SuspendReferenceAssignmentCheck() { }
@@ -155,8 +163,8 @@ namespace {{AggregateNamespace}}
             {{CollectionName}} = new HashSet<{{ContextualCollectionItemName}}>();
             {{/Collections}}
             {{#IsExtendable}}
-            Extensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
-            AggregateExtensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateAggregateExtensions<{{ContextualClassName}}>());
+            Extensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
+            AggregateExtensions = GeneratedArtifactStaticDependencies.EntityExtensionsFactory == null ? new Dictionary<string, object>() : new Dictionary<string, object>(GeneratedArtifactStaticDependencies.EntityExtensionsFactory.CreateAggregateExtensions<{{ContextualClassName}}>());
             {{/IsExtendable}}
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -168,7 +176,7 @@ namespace {{AggregateNamespace}}
         // -------------------------------------------------------------
         {{#PrimaryKey}}
             {{#ParentReference}}
-        [DomainSignature, JsonIgnore]
+        [DomainSignature, IgnoreMember]
         public virtual {{EntityParentClassNamespacePrefix}}{{EntityParentClassName}}{{ContextualSuffix}} {{EntityParentClassName}} { get; set; }
 
         {{ModelParentInterfaceNamespacePrefix}}{{ModelParentInterfaceName}} I{{ClassName}}.{{ModelParentClassName}}
@@ -188,6 +196,12 @@ namespace {{AggregateNamespace}}
                 {{^IsAbstract}}
         {{#DisplayName}}[Display(Name="{{DisplayName}}")]{{/DisplayName}}[DomainSignature]
                 {{/IsAbstract}}
+                {{#IsDerived}}
+        [IgnoreMember]
+                {{/IsDerived}}
+                {{^IsDerived}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+                {{/IsDerived}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
                 {{#PropertyAccessors}}
 {{> Entities_PropertyAccessors}}
@@ -214,6 +228,7 @@ namespace {{AggregateNamespace}}
         //                          Properties
         // -------------------------------------------------------------
         {{#Properties}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
             {{#PropertyAccessors}}
 {{> Entities_PropertyAccessors}}
@@ -225,6 +240,7 @@ namespace {{AggregateNamespace}}
         //                     One-to-one relationships
         // -------------------------------------------------------------
             {{#OneToOnes}}
+        [IgnoreMember]
         public virtual {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
             get
@@ -261,6 +277,8 @@ namespace {{AggregateNamespace}}
 
         private ICollection<{{AggregateNamespacePrefix}}{{OtherClassName}}> _{{EmbeddedObjectPropertyNameCamelCase}};
 
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<{{AggregateNamespacePrefix}}{{OtherClassName}}>))]
         public virtual ICollection<{{AggregateNamespacePrefix}}{{OtherClassName}}> {{EmbeddedObjectPropertyName}}
         {
             get
@@ -270,6 +288,11 @@ namespace {{AggregateNamespace}}
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if (_{{EmbeddedObjectPropertyNameCamelCase}} is DeserializedPersistentGenericSet<{{AggregateNamespacePrefix}}{{OtherClassName}}> set)
+                {
+                    set.Reattach(this, "{{OtherClassName}}");
+                }
+
                 foreach (var item in _{{EmbeddedObjectPropertyNameCamelCase}})
                     if (item.{{ClassName}} == null)
                         item.{{ClassName}} = this;
@@ -285,6 +308,7 @@ namespace {{AggregateNamespace}}
 
             {{/OneToOnes}}
             {{#RelocatedExtensionOneToOnes}}
+        [IgnoreMember]
         // This property implementation exists to provide the mapper with reflection-based access to the target instance's .NET type (for creating new instances)
         public {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
@@ -330,14 +354,27 @@ namespace {{AggregateNamespace}}
         {{^ExtendableConcreteBase}}
         private IDictionary _extensions;
 
+        [MessagePackFormatter(typeof(EntityExtensionsMessagePackFormatter), "{{AggregateName}}", "{{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions
         {
-            get => _extensions;
+            get 
+            {
+                foreach (var key in _extensions.Keys)
+                {
+                    if (_extensions[key] is IDeserializedPersistentGenericCollection collection)
+                    {
+                        collection.ReattachExtension(this, (string) key);
+                    }
+                }
+
+                return _extensions;
+            }
             set
             {
                 // If the _extensions is null, this is being assigned from the constructor
                 // for the first time and no special handling is required
-                if (_extensions != null)
+                if (_extensions != null && value != null)
                 {
                     // For extensions that have already been initialized by the extensions factory,
                     // we need to copy any "implicit" extension object entries over to the incoming
@@ -356,7 +393,47 @@ namespace {{AggregateNamespace}}
             }
         }
 
-        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions { get; set; }
+        private IDictionary _aggregateExtensions;
+
+        [MessagePackFormatter(typeof(AggregateExtensionsMessagePackFormatter), "{{AggregateName}}", "{{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}")]
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions
+        { 
+            get
+            {
+                foreach (var key in _aggregateExtensions.Keys)
+                {
+                    if (_aggregateExtensions[key] is IDeserializedPersistentGenericCollection collection)
+                    {
+                        collection.ReattachAggregateExtension(this, (string) key);
+                    }
+                }
+
+                return _aggregateExtensions; 
+            }
+            set
+            {
+                // If the _aggregateExtensions is null, this is being assigned from the constructor
+                // for the first time and no special handling is required
+                if (_aggregateExtensions != null && value != null)
+                {
+                    // For aggregate extensions that have already been initialized by the extensions factory,
+                    // we need to copy any "implicit" aggregate extension object entries over to the incoming
+                    // value dictionary being assigned by NHibernate (or deserialization) because it won't have them,
+                    // but they must be there for correct handling of extensions for the API.
+                    foreach (var key in _aggregateExtensions.Keys)
+                    {
+                        if (!value.Contains(key))
+                        {
+                            value[key] = _aggregateExtensions[key];
+                        }
+                    }
+                }
+
+                _aggregateExtensions = value;
+            }
+        }
+
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
         // -------------------------------------------------------------
@@ -365,6 +442,7 @@ namespace {{AggregateNamespace}}
         //                     Reference Data
         // -------------------------------------------------------------
         {{#AggregateReferences}}
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
         public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName }} {{ReferenceDataPropertyName}} { get; set; }
 
         {{#MappedReferenceDataHasDiscriminator}}
@@ -411,6 +489,8 @@ namespace {{AggregateNamespace}}
 
         private ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionFieldName}};
         private ICollection<{{ChildRelativeNamespace}}I{{ChildClassName}}> {{ChildCollectionFieldName}}Covariant;
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        [MessagePackFormatter(typeof(PersistentCollectionFormatter<{{AggregateNamespacePrefix}}{{ChildClassName}}>))]
         public virtual ICollection<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> {{ChildCollectionPropertyName}}
         {
             get
@@ -420,6 +500,11 @@ namespace {{AggregateNamespace}}
                 // due to ServiceStack's lack of [OnDeserialized] attribute support.
                 // Back-reference is required by NHibernate for persistence.
                 // -------------------------------------------------------------
+                if ({{ChildCollectionFieldName}} is DeserializedPersistentGenericSet<{{AggregateNamespacePrefix}}{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}> set)
+                {
+                    set.Reattach(this, "{{ChildCollectionPropertyName}}");
+                }
+            
                 foreach (var item in {{ChildCollectionFieldName}})
                     if (item.{{ClassName}} == null)
                         item.{{ClassName}} = this;
@@ -505,7 +590,7 @@ namespace {{AggregateNamespace}}
         {
             {{#ParentClassName}}
             // Get parent key values
-            var keyValues = ({{ParentClassName}} as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var keyValues = ({{ParentClassName}} as IHasPrimaryKeyValues)?.GetPrimaryKeyValues() ?? new OrderedDictionary();
             {{/ParentClassName}}
             {{^ParentClassName}}
             // Initialize a new dictionary to hold the key values
@@ -531,14 +616,14 @@ namespace {{AggregateNamespace}}
         {{/AllowsPrimaryKeyUpdates}}
         {{#HasAlternateKeyValues}}
         // Provide alternate key information
-        OrderedDictionary IHasAlternateKeyValues.GetAlternateKeyValues()
+        (OrderedDictionary keyValues, bool isDefinedOnBaseType) IHasAlternateKeyValues.GetAlternateKeyValues()
         {
             // Initialize a new dictionary to hold the key values
             var keyValues = new OrderedDictionary();
             {{#AlternateKeyProperties}}
             keyValues.Add("{{PropertyName}}", {{PropertyName}});
             {{/AlternateKeyProperties}}
-            return keyValues;
+            return (keyValues, {{#IsAbstract}}true{{/IsAbstract}}{{^IsAbstract}}false{{/IsAbstract}});
         }
         {{/HasAlternateKeyValues}}
         #region Overrides for Equals() and GetHashCode()

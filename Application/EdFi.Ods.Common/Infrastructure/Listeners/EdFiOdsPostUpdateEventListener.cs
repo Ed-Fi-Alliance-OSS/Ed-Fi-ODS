@@ -11,7 +11,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
@@ -26,14 +29,16 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
     {
         private readonly Lazy<IEntityAuthorizer> _entityAuthorizer;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private bool _serializationEnabled;
 
         public EdFiOdsPostUpdateEventListener(
             Func<IEntityAuthorizer> entityAuthorizerResolver,
-            IAuthorizationContextProvider authorizationContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider,
+            ApiSettings apiSettings)
         {
             _authorizationContextProvider = authorizationContextProvider;
-            
             _entityAuthorizer = new Lazy<IEntityAuthorizer>(entityAuthorizerResolver);
+            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
         }
 
         public async Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
@@ -102,16 +107,26 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 valueSourceColumnNames = classMetadata.IdentifierColumnNames;
             }
 
+            byte[] aggregateData = null;
+
+            if (_serializationEnabled && @event.Entity is AggregateRootWithCompositeKey aggregateRoot)
+            {
+                // Produce the serialized data
+                aggregateData = MessagePackHelper.SerializeAndCompressAggregateData(aggregateRoot);
+                aggregateRoot.AggregateData = aggregateData;
+            }
+
             var query = CreateUpdateQuery(
                 @event.Session,
                 hasIdentifier.Id,
                 tableName,
                 updateTargetColumnNames,
                 valueSourceColumnNames,
-                newKeyValues);
+                newKeyValues,
+                aggregateData);
 
             // Execute the update of the primary key
-            await query.ExecuteUpdateAsync();
+            await query.ExecuteUpdateAsync(cancellationToken).ConfigureAwait(false);
 
             void ApplyNewKeyValuesToEntity()
             {
@@ -131,15 +146,21 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             string tableName,
             string[] updateTargetColumnNames,
             string[] valueSourceColumnNames,
-            OrderedDictionary newKeyValues)
+            OrderedDictionary newKeyValues,
+            byte[] aggregateData)
         {
             // Build the SET clause
-            string setClause = GetSetClause(updateTargetColumnNames, valueSourceColumnNames);
+            string setClause = GetSetClause(updateTargetColumnNames, valueSourceColumnNames, aggregateData != null);
 
             // Build the UPDATE sql query
             string sql = $@"UPDATE {tableName} SET {setClause} WHERE Id = :id";
 
             var query = session.CreateSQLQuery(sql).SetGuid("id", id);
+
+            if (aggregateData != null)
+            {
+                query.SetBinary("aggregateData", aggregateData);
+            }
 
             // Create parameters for updating the primary key with the new values
             for (int i = 0; i < updateTargetColumnNames.Length; i++)
@@ -153,7 +174,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             return query;
         }
 
-        private static string GetSetClause(string[] updateTargetColumnNames, string[] sourceValueColumnNames)
+        private static string GetSetClause(string[] updateTargetColumnNames, string[] sourceValueColumnNames, bool hasAggregateData)
         {
             var sb = new StringBuilder();
 
@@ -170,6 +191,11 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 sb.Append(targetColumnName);
                 sb.Append(" = :");
                 sb.Append(sourceValueColumnName);
+            }
+
+            if (hasAggregateData)
+            {
+                sb.Append(", AggregateData = :aggregateData");
             }
 
             string setClause = sb.ToString();
