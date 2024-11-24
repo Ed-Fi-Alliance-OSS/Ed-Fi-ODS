@@ -39,15 +39,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly Lazy<Aggregate> _aggregate;
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        private readonly Lazy<List<string>> _aggregateHqlStatementsForReads;
-        private readonly Lazy<List<string>> _aggregateHqlStatementsForWrites;
+        private readonly Lazy<List<string>> _aggregateHqlStatementsWithReferenceData;
+        private readonly Lazy<List<string>> _aggregateHqlStatements;
         private readonly Lazy<string> _mainHqlStatementBaseForReads;
         private readonly Lazy<string> _mainHqlStatementBaseForWrites;
 
         private readonly Dialect _dialect;
         private readonly DatabaseEngine _databaseEngine;
         protected readonly bool SerializationEnabled;
-        private bool _resourceLinksEnabled;
+        private readonly bool _resourceLinksEnabled;
 
         // Holds pre-built HQL queries to avoid string allocations for each execution 
         private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
@@ -80,10 +80,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _aggregate = new Lazy<Aggregate>(() => dataManagementResourceContextProvider.Get().Resource.Entity.Aggregate);
 
-            _aggregateHqlStatementsForReads = new Lazy<List<string>>(
+            _aggregateHqlStatementsWithReferenceData = new Lazy<List<string>>(
                 () => CreateAggregateHqlStatements(includeReferenceData: true), true);
 
-            _aggregateHqlStatementsForWrites = new Lazy<List<string>>(
+            _aggregateHqlStatements = new Lazy<List<string>>(
                 () => CreateAggregateHqlStatements(includeReferenceData: false), true);
 
             _mainHqlStatementBaseForReads = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: true), true);
@@ -143,8 +143,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (!isShallow)
                 {
                     var aggregateStatements = (isReadRequest && _resourceLinksEnabled)
-                        ? _aggregateHqlStatementsForReads.Value
-                        : _aggregateHqlStatementsForWrites.Value;
+                        ? _aggregateHqlStatementsWithReferenceData.Value
+                        : _aggregateHqlStatements.Value;
 
                     int childIndex = 0;
                     

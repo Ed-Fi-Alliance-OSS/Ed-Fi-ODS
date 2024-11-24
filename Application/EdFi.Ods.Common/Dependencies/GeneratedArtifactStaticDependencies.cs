@@ -147,10 +147,10 @@ namespace EdFi.Ods.Common.Dependencies
                 _sessionFactory = new Lazy<ISessionFactoryImplementor>(resolver);
             }
 
-            public static void SetEnabledFeatures(bool serializedDataEnabled, bool resourceLinksEnabled)
+            public static void SetEnabledFeatures(bool? serializedDataEnabled = null, bool? resourceLinksEnabled = null)
             {
-                _serializedDataEnabled = serializedDataEnabled;
-                _resourceLinksEnabled = resourceLinksEnabled;
+                _serializedDataEnabled = serializedDataEnabled ?? _serializedDataEnabled;
+                _resourceLinksEnabled = resourceLinksEnabled ?? _resourceLinksEnabled;
             }
         }
     }

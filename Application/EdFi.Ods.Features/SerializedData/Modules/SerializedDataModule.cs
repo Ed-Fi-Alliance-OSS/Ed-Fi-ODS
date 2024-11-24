@@ -7,7 +7,10 @@ using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.SerializedData.Pipeline;
@@ -29,26 +32,35 @@ public class SerializedDataModule : ConditionalModule
 
     public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
-        // Change Queries support in NHibernate mappings 
+        // Provide static code with access to enabled state of resource links feature
+        GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(serializedDataEnabled: true);
+
+        // Perform runtime ORM mapping for serialized data 
         builder.RegisterType<SerializedDataNHibernateConfigurationActivity>()
             .As<INHibernateBeforeBindMappingActivity>()
             .SingleInstance();
-        
-        builder.RegisterDecorator(
-            typeof(ReferenceDataUpsertPipelineStepsProviderDecorator),
-            typeof(IUpsertPipelineStepsProvider));
 
-        builder.RegisterDecorator(
-            typeof(ReferenceDataGetBySpecificationPipelineStepsProviderDecorator),
-            typeof(IGetBySpecificationPipelineStepsProvider));
-
-        builder.RegisterDecorator(
-            typeof(ReferenceDataGetPipelineStepsProviderDecorator),
-            typeof(IGetPipelineStepsProvider));
-
-        // These components are only needed if we are resolving reference data with serialized data feature enabled
+        // These components are only needed if resource links are also enabled (and we need to resolve reference data)
         if (_resourceLinksEnabled)
         {
+            // Set feature-specific static resolvers
+            builder.RegisterBuildCallback(container =>
+            {
+                GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IContextProvider<ReferenceDataLookupContext>>);
+            });
+
+            builder.RegisterDecorator(
+                typeof(ReferenceDataUpsertPipelineStepsProviderDecorator),
+                typeof(IUpsertPipelineStepsProvider));
+
+            builder.RegisterDecorator(
+                typeof(ReferenceDataGetBySpecificationPipelineStepsProviderDecorator),
+                typeof(IGetBySpecificationPipelineStepsProvider));
+
+            builder.RegisterDecorator(
+                typeof(ReferenceDataGetPipelineStepsProviderDecorator),
+                typeof(IGetPipelineStepsProvider));
+
             builder.RegisterType<ReferenceDataResolver>()
                 .As<IReferenceDataResolver>()
                 .SingleInstance();

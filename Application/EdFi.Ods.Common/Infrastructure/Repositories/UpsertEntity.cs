@@ -27,7 +27,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IContextProvider<UniqueIdLookupsByUsiContext> _lookupContextProvider;
         private readonly IPersonUniqueIdResolver _personUniqueIdResolver;
         private readonly IContextProvider<DataPolicyException> _dataPolicyExceptionContextProvider;
-        private readonly bool _serializationEnabled;
 
         public UpsertEntity(
             ISessionFactory sessionFactory,
@@ -48,8 +47,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _lookupContextProvider = lookupContextProvider;
             _personUniqueIdResolver = personUniqueIdResolver;
             _dataPolicyExceptionContextProvider = dataPolicyExceptionContextProvider;
-
-            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
         }
 
         public async Task<UpsertEntityResult<TEntity>> UpsertAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
