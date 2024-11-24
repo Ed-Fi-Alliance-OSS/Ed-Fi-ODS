@@ -3897,10 +3897,107 @@
 									"name": "When_getting_resources_with_links",
 									"item": [
 										{
-											"name": "Should_provide_the_link_for_an_abstract_reference_to_the_concrete_resource_with_a_non_default_id_in_the_GetById_URL_format",
+											"name": "Setup",
 											"item": [
 												{
-													"name": "Should_provide_the_link_for_an_abstract_reference_to_the_concrete_resource_with_a_non_default_id_in_the_GetById_URL_format",
+													"name": "Create School Course",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:course:id:school',pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901044\r\n    },\r\n    \"courseCode\": \"ALG-1-School\",\r\n    \"courseDefinedByDescriptor\": \"uri://ed-fi.org/CourseDefinedByDescriptor#SEA\",\r\n    \"courseDescription\": \"Algebra I\",\r\n    \"courseGPAApplicabilityDescriptor\": \"uri://ed-fi.org/CourseGPAApplicabilityDescriptor#Applicable\",\r\n    \"courseTitle\": \"Algebra I\",\r\n    \"highSchoolCourseRequirement\": true,\r\n    \"numberOfParts\": 1,\r\n    \"academicSubjects\": [\r\n      {\r\n        \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n      }\r\n    ],\r\n    \"competencyLevels\": [],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n        \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n        \"identificationCode\": \"ALG-1\"\r\n      },\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#State course code\",\r\n        \"identificationCode\": \"ALG-1\"\r\n      }\r\n    ],\r\n    \"learningStandards\": [\r\n      {\r\n        \"learningStandardReference\": {\r\n          \"learningStandardId\": \"111.32.NA.A.1.D\"\r\n        }\r\n      }\r\n    ],\r\n    \"levelCharacteristics\": [\r\n      {\r\n        \"courseLevelCharacteristicDescriptor\": \"uri://ed-fi.org/CourseLevelCharacteristicDescriptor#Core Subject\"\r\n      }\r\n    ],\r\n    \"offeredGradeLevels\": []\r\n  }",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Create LEA Course",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:course:id:lea',pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n      \"educationOrganizationId\": 255901\r\n    },\r\n    \"courseCode\": \"ALG-1-LEA\",\r\n    \"courseDefinedByDescriptor\": \"uri://ed-fi.org/CourseDefinedByDescriptor#SEA\",\r\n    \"courseDescription\": \"Algebra I\",\r\n    \"courseGPAApplicabilityDescriptor\": \"uri://ed-fi.org/CourseGPAApplicabilityDescriptor#Applicable\",\r\n    \"courseTitle\": \"Algebra I\",\r\n    \"highSchoolCourseRequirement\": true,\r\n    \"numberOfParts\": 1,\r\n    \"academicSubjects\": [\r\n      {\r\n        \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\"\r\n      }\r\n    ],\r\n    \"competencyLevels\": [],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#LEA course code\",\r\n        \"courseCatalogURL\": \"http://www.GBISD.edu/coursecatalog\",\r\n        \"identificationCode\": \"ALG-1\"\r\n      },\r\n      {\r\n        \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#State course code\",\r\n        \"identificationCode\": \"ALG-1\"\r\n      }\r\n    ],\r\n    \"learningStandards\": [\r\n      {\r\n        \"learningStandardReference\": {\r\n          \"learningStandardId\": \"111.32.NA.A.1.D\"\r\n        }\r\n      }\r\n    ],\r\n    \"levelCharacteristics\": [\r\n      {\r\n        \"courseLevelCharacteristicDescriptor\": \"uri://ed-fi.org/CourseLevelCharacteristicDescriptor#Core Subject\"\r\n      }\r\n    ],\r\n    \"offeredGradeLevels\": []\r\n  }",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Abstract and Child Collection References",
+											"item": [
+												{
+													"name": "Get School Course",
 													"event": [
 														{
 															"listen": "test",
@@ -3910,29 +4007,26 @@
 																	"  pm.expect(pm.response.code).to.equal(200);",
 																	"});",
 																	"",
-																	"pm.test(\"Should return 1 item\", () => {",
-																	"  const responseItems = pm.response.json();",
-																	"  pm.expect(responseItems.length).to.equal(1);",
+																	"const item = pm.response.json();",
+																	"",
+																	"pm.test(\"Should identify the abstract EdOrg reference link as a School\", () => {",
+																	"  const rel = item.educationOrganizationReference.link.rel;",
+																	"  pm.expect(rel).to.equal('School');",
 																	"});",
 																	"",
-																	"const __ = require('lodash');",
+																	"pm.test(\"Link's href should reference the schools resource with a non-default id in route\", () => {",
+																	"  const href = item.educationOrganizationReference.link.href;",
+																	"  pm.expect(href).to.match(/^\\/ed-fi\\/schools\\/[0-9a-f]{32}$/);",
+																	"});",
 																	"",
-																	"pm.test(\"Should return EducationOrganizationReference field to verify rel and href of link \", () => {",
-																	"  const responseItems = pm.response.json();",
-																	"  __.each(responseItems, (responseItem) => {",
-																	"    const rel = responseItem.educationOrganizationReference.link.rel;",
-																	"    const href = responseItem.educationOrganizationReference.link.href;",
-																	"    const lastHrefSegment = href.split(\"/\").pop();",
+																	"pm.test(\"Child collection link's rel should identify reference as a LearningStandard\", () => {",
+																	"  const rel = item.learningStandards[0].learningStandardReference.link.rel;",
+																	"  pm.expect(rel).to.equal('LearningStandard');",
+																	"});",
 																	"",
-																	"    // ------------------------------------------",
-																	"    // TODO: ODS-6557 re-enable these expecations",
-																	"    // ------------------------------------------",
-																	"    // pm.expect(rel).to.be.oneOf(['School', 'LocalEducationAgency']);",
-																	"    // pm.expect(href).to.contain.oneOf(['/ed-fi/schools', '/ed-fi/localEducationAgencies']);",
-																	"    // ------------------------------------------",
-																	"",
-																	"    pm.expect(lastHrefSegment.length).to.equal(32);",
-																	"  });",
+																	"pm.test(\"Child collection link's href should reference the correct resource collection with a non-default id in route\", () => {",
+																	"  const href = item.learningStandards[0].learningStandardReference.link.href;",
+																	"  pm.expect(href).to.match(/^\\/ed-fi\\/learningStandards\\/[0-9a-f]{32}$/);",
 																	"});",
 																	"",
 																	""
@@ -3956,7 +4050,7 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=1",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:school}}",
 															"host": [
 																"{{ApiBaseUrl}}"
 															],
@@ -3964,7 +4058,127 @@
 																"data",
 																"v3",
 																"ed-fi",
-																"courses"
+																"courses",
+																"{{known:course:id:school}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get LEA Course",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const item = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should identify the abstract EdOrg reference link as an LEA\", () => {\r",
+																	"  const rel = item.educationOrganizationReference.link.rel;\r",
+																	"  pm.expect(rel).to.equal('LocalEducationAgency');\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Link's href should reference the localEducationAgencies resource with a non-default id in route\", () => {\r",
+																	"  const href = item.educationOrganizationReference.link.href;\r",
+																	"  pm.expect(href).to.match(/^\\/ed-fi\\/localEducationAgencies\\/[0-9a-f]{32}$/);\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Child collection link's rel should identify reference as a LearningStandard\", () => {\r",
+																	"  const rel = item.learningStandards[0].learningStandardReference.link.rel;\r",
+																	"  pm.expect(rel).to.equal('LearningStandard');\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Child collection link's href should reference the correct resource collection with a non-default id in route\", () => {\r",
+																	"  const href = item.learningStandards[0].learningStandardReference.link.href;\r",
+																	"  pm.expect(href).to.match(/^\\/ed-fi\\/learningStandards\\/[0-9a-f]{32}$/);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:lea}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:course:id:lea}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Inherited Reference",
+											"item": [
+												{
+													"name": "Get StudentProgramAssociation",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {",
+																	"  pm.expect(pm.response.code).to.equal(200);",
+																	"});",
+																	"",
+																	"const item = pm.response.json()[0];",
+																	"",
+																	"pm.test(\"Should return inherited studentReference with link containing the correct rel and the href with a non-default id\", () => {",
+																	"  const rel = item.studentReference.link.rel;",
+																	"  pm.expect(rel).to.equal('Student');",
+																	"",
+																	"  const href = item.studentReference.link.href;",
+																	"  pm.expect(href).to.match(/^\\/ed-fi\\/students\\/[0-9a-f]{32}$/);",
+																	"});",
+																	"",
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														},
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript",
+																"packages": {}
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?limit=1",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"studentProgramAssociations"
 															],
 															"query": [
 																{
@@ -3979,60 +4193,15 @@
 											]
 										},
 										{
-											"name": "Should_provide_the_link_for_an_inherited_reference_with_a_non_default_id_in_the_GetById_URL_format",
+											"name": "Teardown",
 											"item": [
 												{
-													"name": "Should_provide_the_link_for_an_inherited_reference_with_a_non_default_id_in_the_GetById_URL_format",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Status code is 200\", () => {",
-																	"    pm.expect(pm.response.code).to.equal(200);",
-																	"});",
-																	"",
-																	"pm.test(\"Should return 1 item\", () => {",
-																	"     const responseItems = pm.response.json();",
-																	"     pm.expect(responseItems.length).to.equal(1);",
-																	"});",
-																	"",
-																	"const __ = require('lodash');",
-																	"",
-																	"pm.test(\"Should return studentReference  field to verify rel and herf of link \", () => {",
-																	"     const responseItems = pm.response.json();",
-																	"       __.each(responseItems, (responseItem) => {",
-																	"       ",
-																	"       const rel=responseItem.studentReference.link.rel;",
-																	"       const href=responseItem.studentReference.link.href;",
-																	"       const  lastHrefSegment=href.split(\"/\").pop();",
-																	"        pm.expect(rel).to.equal('Student');",
-																	"        pm.expect(href).to.include('/ed-fi/students');",
-																	"        pm.expect(lastHrefSegment.length).to.equal(32);",
-																	"         ",
-																	"     });",
-																	"});",
-																	"",
-																	"    "
-																],
-																"type": "text/javascript"
-															}
-														},
-														{
-															"listen": "prerequest",
-															"script": {
-																"exec": [
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
+													"name": "Delete School Course",
 													"request": {
-														"method": "GET",
+														"method": "DELETE",
 														"header": [],
 														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentProgramAssociations?limit=1",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:school}}",
 															"host": [
 																"{{ApiBaseUrl}}"
 															],
@@ -4040,13 +4209,29 @@
 																"data",
 																"v3",
 																"ed-fi",
-																"StudentProgramAssociations"
+																"courses",
+																"{{known:course:id:school}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete School Course",
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id:lea}}",
+															"host": [
+																"{{ApiBaseUrl}}"
 															],
-															"query": [
-																{
-																	"key": "limit",
-																	"value": "1"
-																}
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:course:id:lea}}"
 															]
 														}
 													},
