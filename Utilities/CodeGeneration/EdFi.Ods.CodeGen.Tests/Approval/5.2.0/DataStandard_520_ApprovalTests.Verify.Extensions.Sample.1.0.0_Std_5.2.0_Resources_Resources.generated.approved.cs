@@ -331,7 +331,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -641,7 +641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -10590,7 +10590,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -17663,7 +17663,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 

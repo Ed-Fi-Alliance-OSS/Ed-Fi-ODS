@@ -602,7 +602,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -4951,7 +4951,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -7951,7 +7951,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -9566,7 +9566,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -10571,7 +10571,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -11653,7 +11653,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -13493,7 +13493,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -14542,7 +14542,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -16290,7 +16290,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -19352,7 +19352,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -20355,7 +20355,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -21584,7 +21584,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -23975,7 +23975,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -25590,7 +25590,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -26171,7 +26171,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 

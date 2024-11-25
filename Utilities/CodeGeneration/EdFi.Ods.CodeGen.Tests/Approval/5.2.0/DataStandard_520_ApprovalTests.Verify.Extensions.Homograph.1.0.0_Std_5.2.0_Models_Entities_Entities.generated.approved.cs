@@ -30,22 +30,109 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
     /// Represents a read-only reference to the <see cref="Contact"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class ContactReferenceData : IHasPrimaryKeyValues
+    public class ContactReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public ContactReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public ContactReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string ContactFirstName { get; set; }
-        [Key(1)]
-        public virtual string ContactLastSurname { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _contactFirstName;
+
+        [Key(1)]
+        public virtual string ContactFirstName
+        {
+            get => _contactFirstName;
+            set
+            {
+                var originalValue = _contactFirstName;
+                _contactFirstName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _contactLastSurname;
+
         [Key(2)]
-        public virtual Guid? Id { get; set; }
+        public virtual string ContactLastSurname
+        {
+            get => _contactLastSurname;
+            set
+            {
+                var originalValue = _contactLastSurname;
+                _contactLastSurname = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _contactFirstName != default
+                            && _contactLastSurname != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -54,6 +141,9 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         [Key(3)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "Contact"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -132,14 +222,110 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _contactNameReferenceData;
+
+        private bool ContactNameReferenceDataIsProxied()
+        {
+            return _contactNameReferenceData != null 
+                && _contactNameReferenceData.GetType() != typeof(NHibernate.NameAggregate.Homograph.NameReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData ContactNameReferenceData
+        {
+            get => _contactNameReferenceData;
+            set
+            {
+                _contactNameReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !ContactNameReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData ContactNameSerializedReferenceData { get => _contactNameSerializedReferenceData; set { if (value != null) _contactNameSerializedReferenceData = value; } }
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _contactNameSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the ContactName discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IContact.ContactNameDiscriminator
+        {
+            get
+            {
+                return ContactNameReferenceDataIsProxied()
+                    ? (ContactNameSerializedReferenceData ?? ContactNameReferenceData)?.Discriminator
+                    : (ContactNameReferenceData ?? ContactNameSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the ContactName resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IContact.ContactNameResourceId
+        {
+            get
+            {
+                return ContactNameReferenceDataIsProxied()
+                    ? (ContactNameSerializedReferenceData ?? ContactNameReferenceData)?.Id
+                    : (ContactNameReferenceData ?? ContactNameSerializedReferenceData)?.Id;
+            }
+            set { if (ContactNameSerializedReferenceData?.IsFullyDefined() == true) ContactNameSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual string ContactFirstName  { get; set; }
-        [DomainSignature]
         [Key(7)]
-        public virtual string ContactLastSurname  { get; set; }
+        public virtual string ContactFirstName 
+        {
+            get => _contactFirstName;
+            set
+            {
+                _contactFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ContactNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    ContactNameSerializedReferenceData.FirstName = value;
+                }
+            }
+        }
+
+        private string _contactFirstName;
+
+        [DomainSignature]
+        [Key(8)]
+        public virtual string ContactLastSurname 
+        {
+            get => _contactLastSurname;
+            set
+            {
+                _contactLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ContactNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    ContactNameSerializedReferenceData.LastSurname = value;
+                }
+            }
+        }
+
+        private string _contactLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -160,32 +346,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(8)]
-        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData ContactNameReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the ContactName discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IContact.ContactNameDiscriminator
-        {
-            get { return ContactNameReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the ContactName resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IContact.ContactNameResourceId
-        {
-            get { return ContactNameReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -413,6 +573,11 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -427,6 +592,7 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         [DomainSignature]
         [Key(1)]
         public virtual string City  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -446,11 +612,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -574,6 +735,70 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData _studentSchoolAssociationReferenceData;
+
+        private bool StudentSchoolAssociationReferenceDataIsProxied()
+        {
+            return _studentSchoolAssociationReferenceData != null 
+                && _studentSchoolAssociationReferenceData.GetType() != typeof(NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData
+        {
+            get => _studentSchoolAssociationReferenceData;
+            set
+            {
+                _studentSchoolAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentSchoolAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationSerializedReferenceData { get => _studentSchoolAssociationSerializedReferenceData; set { if (value != null) _studentSchoolAssociationSerializedReferenceData = value; } }
+        private NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData _studentSchoolAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StudentSchoolAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IContactStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
+        {
+            get
+            {
+                return StudentSchoolAssociationReferenceDataIsProxied()
+                    ? (StudentSchoolAssociationSerializedReferenceData ?? StudentSchoolAssociationReferenceData)?.Discriminator
+                    : (StudentSchoolAssociationReferenceData ?? StudentSchoolAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StudentSchoolAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IContactStudentSchoolAssociation.StudentSchoolAssociationResourceId
+        {
+            get
+            {
+                return StudentSchoolAssociationReferenceDataIsProxied()
+                    ? (StudentSchoolAssociationSerializedReferenceData ?? StudentSchoolAssociationReferenceData)?.Id
+                    : (StudentSchoolAssociationReferenceData ?? StudentSchoolAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StudentSchoolAssociationSerializedReferenceData?.IsFullyDefined() == true) StudentSchoolAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -586,14 +811,62 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual string SchoolName  { get; set; }
-        [DomainSignature]
         [Key(2)]
-        public virtual string StudentFirstName  { get; set; }
+        public virtual string SchoolName 
+        {
+            get => _schoolName;
+            set
+            {
+                _schoolName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
+                }
+            }
+        }
+
+        private string _schoolName;
+
         [DomainSignature]
         [Key(3)]
-        public virtual string StudentLastSurname  { get; set; }
+        public virtual string StudentFirstName 
+        {
+            get => _studentFirstName;
+            set
+            {
+                _studentFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
+                }
+            }
+        }
+
+        private string _studentFirstName;
+
+        [DomainSignature]
+        [Key(4)]
+        public virtual string StudentLastSurname 
+        {
+            get => _studentLastSurname;
+            set
+            {
+                _studentLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
+                }
+            }
+        }
+
+        private string _studentLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -614,32 +887,6 @@ namespace EdFi.Ods.Entities.NHibernate.ContactAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(4)]
-        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StudentSchoolAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IContactStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
-        {
-            get { return StudentSchoolAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StudentSchoolAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IContactStudentSchoolAssociation.StudentSchoolAssociationResourceId
-        {
-            get { return StudentSchoolAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -752,22 +999,109 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     /// Represents a read-only reference to the <see cref="Name"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class NameReferenceData : IHasPrimaryKeyValues
+    public class NameReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public NameReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public NameReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string FirstName { get; set; }
-        [Key(1)]
-        public virtual string LastSurname { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _firstName;
+
+        [Key(1)]
+        public virtual string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                var originalValue = _firstName;
+                _firstName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _lastSurname;
+
         [Key(2)]
-        public virtual Guid? Id { get; set; }
+        public virtual string LastSurname
+        {
+            get => _lastSurname;
+            set
+            {
+                var originalValue = _lastSurname;
+                _lastSurname = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _firstName != default
+                            && _lastSurname != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -776,6 +1110,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         [Key(3)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "Name"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -852,14 +1189,21 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
         public virtual string FirstName  { get; set; }
+
         [DomainSignature]
         [Key(7)]
         public virtual string LastSurname  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -879,11 +1223,6 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -992,20 +1331,79 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     /// Represents a read-only reference to the <see cref="School"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class SchoolReferenceData : IHasPrimaryKeyValues
+    public class SchoolReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public SchoolReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public SchoolReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string SchoolName { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _schoolName;
+
         [Key(1)]
-        public virtual Guid? Id { get; set; }
+        public virtual string SchoolName
+        {
+            get => _schoolName;
+            set
+            {
+                var originalValue = _schoolName;
+                _schoolName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _schoolName != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -1014,6 +1412,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         [Key(2)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "School"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -1090,11 +1491,76 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData _schoolYearTypeReferenceData;
+
+        private bool SchoolYearTypeReferenceDataIsProxied()
+        {
+            return _schoolYearTypeReferenceData != null 
+                && _schoolYearTypeReferenceData.GetType() != typeof(NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData
+        {
+            get => _schoolYearTypeReferenceData;
+            set
+            {
+                _schoolYearTypeReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !SchoolYearTypeReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeSerializedReferenceData { get => _schoolYearTypeSerializedReferenceData; set { if (value != null) _schoolYearTypeSerializedReferenceData = value; } }
+        private NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData _schoolYearTypeSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the SchoolYearType discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.ISchool.SchoolYearTypeDiscriminator
+        {
+            get
+            {
+                return SchoolYearTypeReferenceDataIsProxied()
+                    ? (SchoolYearTypeSerializedReferenceData ?? SchoolYearTypeReferenceData)?.Discriminator
+                    : (SchoolYearTypeReferenceData ?? SchoolYearTypeSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the SchoolYearType resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.ISchool.SchoolYearTypeResourceId
+        {
+            get
+            {
+                return SchoolYearTypeReferenceDataIsProxied()
+                    ? (SchoolYearTypeSerializedReferenceData ?? SchoolYearTypeReferenceData)?.Id
+                    : (SchoolYearTypeReferenceData ?? SchoolYearTypeSerializedReferenceData)?.Id;
+            }
+            set { if (SchoolYearTypeSerializedReferenceData?.IsFullyDefined() == true) SchoolYearTypeSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
+        [Key(7)]
         public virtual string SchoolName  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1105,8 +1571,24 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(7)]
-        public virtual string SchoolYear  { get; set; }
+        [Key(8)]
+        public virtual string SchoolYear 
+        {
+            get => _schoolYear;
+            set
+            {
+                _schoolYear = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(true);
+                    SchoolYearTypeSerializedReferenceData.SchoolYear = value ?? default;
+                }
+            }
+        }
+
+        private string _schoolYear;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1149,7 +1631,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
         private ICollection<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> _schoolAddressPersistentList;
 
-        [Key(8)]
+        [Key(9)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress>))]
         public virtual ICollection<Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress> SchoolAddressPersistentList
         {
@@ -1183,32 +1665,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(9)]
-        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the SchoolYearType discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.ISchool.SchoolYearTypeDiscriminator
-        {
-            get { return SchoolYearTypeReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the SchoolYearType resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.ISchool.SchoolYearTypeResourceId
-        {
-            get { return SchoolYearTypeReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -1327,6 +1783,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1350,6 +1811,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string City  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1359,11 +1821,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -1474,20 +1931,79 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     /// Represents a read-only reference to the <see cref="SchoolYearType"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class SchoolYearTypeReferenceData : IHasPrimaryKeyValues
+    public class SchoolYearTypeReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public SchoolYearTypeReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public SchoolYearTypeReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string SchoolYear { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _schoolYear;
+
         [Key(1)]
-        public virtual Guid? Id { get; set; }
+        public virtual string SchoolYear
+        {
+            get => _schoolYear;
+            set
+            {
+                var originalValue = _schoolYear;
+                _schoolYear = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _schoolYear != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -1496,6 +2012,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         [Key(2)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "SchoolYearType"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -1571,11 +2090,17 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
         public virtual string SchoolYear  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1595,11 +2120,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -1707,22 +2227,109 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     /// Represents a read-only reference to the <see cref="Staff"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class StaffReferenceData : IHasPrimaryKeyValues
+    public class StaffReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public StaffReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public StaffReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string StaffFirstName { get; set; }
-        [Key(1)]
-        public virtual string StaffLastSurname { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _staffFirstName;
+
+        [Key(1)]
+        public virtual string StaffFirstName
+        {
+            get => _staffFirstName;
+            set
+            {
+                var originalValue = _staffFirstName;
+                _staffFirstName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _staffLastSurname;
+
         [Key(2)]
-        public virtual Guid? Id { get; set; }
+        public virtual string StaffLastSurname
+        {
+            get => _staffLastSurname;
+            set
+            {
+                var originalValue = _staffLastSurname;
+                _staffLastSurname = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _staffFirstName != default
+                            && _staffLastSurname != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -1731,6 +2338,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         [Key(3)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "Staff"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -1809,14 +2419,110 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _staffNameReferenceData;
+
+        private bool StaffNameReferenceDataIsProxied()
+        {
+            return _staffNameReferenceData != null 
+                && _staffNameReferenceData.GetType() != typeof(NHibernate.NameAggregate.Homograph.NameReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StaffNameReferenceData
+        {
+            get => _staffNameReferenceData;
+            set
+            {
+                _staffNameReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StaffNameReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StaffNameSerializedReferenceData { get => _staffNameSerializedReferenceData; set { if (value != null) _staffNameSerializedReferenceData = value; } }
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _staffNameSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StaffName discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStaff.StaffNameDiscriminator
+        {
+            get
+            {
+                return StaffNameReferenceDataIsProxied()
+                    ? (StaffNameSerializedReferenceData ?? StaffNameReferenceData)?.Discriminator
+                    : (StaffNameReferenceData ?? StaffNameSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StaffName resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStaff.StaffNameResourceId
+        {
+            get
+            {
+                return StaffNameReferenceDataIsProxied()
+                    ? (StaffNameSerializedReferenceData ?? StaffNameReferenceData)?.Id
+                    : (StaffNameReferenceData ?? StaffNameSerializedReferenceData)?.Id;
+            }
+            set { if (StaffNameSerializedReferenceData?.IsFullyDefined() == true) StaffNameSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual string StaffFirstName  { get; set; }
-        [DomainSignature]
         [Key(7)]
-        public virtual string StaffLastSurname  { get; set; }
+        public virtual string StaffFirstName 
+        {
+            get => _staffFirstName;
+            set
+            {
+                _staffFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StaffNameSerializedReferenceData.FirstName = value;
+                }
+            }
+        }
+
+        private string _staffFirstName;
+
+        [DomainSignature]
+        [Key(8)]
+        public virtual string StaffLastSurname 
+        {
+            get => _staffLastSurname;
+            set
+            {
+                _staffLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StaffNameSerializedReferenceData.LastSurname = value;
+                }
+            }
+        }
+
+        private string _staffLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1837,32 +2543,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(8)]
-        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StaffNameReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StaffName discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStaff.StaffNameDiscriminator
-        {
-            get { return StaffNameReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StaffName resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStaff.StaffNameResourceId
-        {
-            get { return StaffNameReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -2090,6 +2770,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2104,6 +2789,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         [DomainSignature]
         [Key(1)]
         public virtual string City  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2123,11 +2809,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2251,6 +2932,70 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData _studentSchoolAssociationReferenceData;
+
+        private bool StudentSchoolAssociationReferenceDataIsProxied()
+        {
+            return _studentSchoolAssociationReferenceData != null 
+                && _studentSchoolAssociationReferenceData.GetType() != typeof(NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData
+        {
+            get => _studentSchoolAssociationReferenceData;
+            set
+            {
+                _studentSchoolAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentSchoolAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationSerializedReferenceData { get => _studentSchoolAssociationSerializedReferenceData; set { if (value != null) _studentSchoolAssociationSerializedReferenceData = value; } }
+        private NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData _studentSchoolAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StudentSchoolAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
+        {
+            get
+            {
+                return StudentSchoolAssociationReferenceDataIsProxied()
+                    ? (StudentSchoolAssociationSerializedReferenceData ?? StudentSchoolAssociationReferenceData)?.Discriminator
+                    : (StudentSchoolAssociationReferenceData ?? StudentSchoolAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StudentSchoolAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationResourceId
+        {
+            get
+            {
+                return StudentSchoolAssociationReferenceDataIsProxied()
+                    ? (StudentSchoolAssociationSerializedReferenceData ?? StudentSchoolAssociationReferenceData)?.Id
+                    : (StudentSchoolAssociationReferenceData ?? StudentSchoolAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StudentSchoolAssociationSerializedReferenceData?.IsFullyDefined() == true) StudentSchoolAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2263,14 +3008,62 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual string SchoolName  { get; set; }
-        [DomainSignature]
         [Key(2)]
-        public virtual string StudentFirstName  { get; set; }
+        public virtual string SchoolName 
+        {
+            get => _schoolName;
+            set
+            {
+                _schoolName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.SchoolName = value;
+                }
+            }
+        }
+
+        private string _schoolName;
+
         [DomainSignature]
         [Key(3)]
-        public virtual string StudentLastSurname  { get; set; }
+        public virtual string StudentFirstName 
+        {
+            get => _studentFirstName;
+            set
+            {
+                _studentFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.StudentFirstName = value;
+                }
+            }
+        }
+
+        private string _studentFirstName;
+
+        [DomainSignature]
+        [Key(4)]
+        public virtual string StudentLastSurname 
+        {
+            get => _studentLastSurname;
+            set
+            {
+                _studentLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSchoolAssociationSerializedReferenceData ??= new NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData(true);
+                    StudentSchoolAssociationSerializedReferenceData.StudentLastSurname = value;
+                }
+            }
+        }
+
+        private string _studentLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2291,32 +3084,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(4)]
-        public virtual NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData StudentSchoolAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StudentSchoolAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
-        {
-            get { return StudentSchoolAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StudentSchoolAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationResourceId
-        {
-            get { return StudentSchoolAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -2429,22 +3196,109 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     /// Represents a read-only reference to the <see cref="Student"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class StudentReferenceData : IHasPrimaryKeyValues
+    public class StudentReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public StudentReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public StudentReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string StudentFirstName { get; set; }
-        [Key(1)]
-        public virtual string StudentLastSurname { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _studentFirstName;
+
+        [Key(1)]
+        public virtual string StudentFirstName
+        {
+            get => _studentFirstName;
+            set
+            {
+                var originalValue = _studentFirstName;
+                _studentFirstName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _studentLastSurname;
+
         [Key(2)]
-        public virtual Guid? Id { get; set; }
+        public virtual string StudentLastSurname
+        {
+            get => _studentLastSurname;
+            set
+            {
+                var originalValue = _studentLastSurname;
+                _studentLastSurname = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _studentFirstName != default
+                            && _studentLastSurname != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -2453,6 +3307,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         [Key(3)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "Student"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -2530,14 +3387,169 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData _schoolYearTypeReferenceData;
+
+        private bool SchoolYearTypeReferenceDataIsProxied()
+        {
+            return _schoolYearTypeReferenceData != null 
+                && _schoolYearTypeReferenceData.GetType() != typeof(NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData
+        {
+            get => _schoolYearTypeReferenceData;
+            set
+            {
+                _schoolYearTypeReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !SchoolYearTypeReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeSerializedReferenceData { get => _schoolYearTypeSerializedReferenceData; set { if (value != null) _schoolYearTypeSerializedReferenceData = value; } }
+        private NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData _schoolYearTypeSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the SchoolYearType discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStudent.SchoolYearTypeDiscriminator
+        {
+            get
+            {
+                return SchoolYearTypeReferenceDataIsProxied()
+                    ? (SchoolYearTypeSerializedReferenceData ?? SchoolYearTypeReferenceData)?.Discriminator
+                    : (SchoolYearTypeReferenceData ?? SchoolYearTypeSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the SchoolYearType resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStudent.SchoolYearTypeResourceId
+        {
+            get
+            {
+                return SchoolYearTypeReferenceDataIsProxied()
+                    ? (SchoolYearTypeSerializedReferenceData ?? SchoolYearTypeReferenceData)?.Id
+                    : (SchoolYearTypeReferenceData ?? SchoolYearTypeSerializedReferenceData)?.Id;
+            }
+            set { if (SchoolYearTypeSerializedReferenceData?.IsFullyDefined() == true) SchoolYearTypeSerializedReferenceData.Id = value; }
+        }
+
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _studentNameReferenceData;
+
+        private bool StudentNameReferenceDataIsProxied()
+        {
+            return _studentNameReferenceData != null 
+                && _studentNameReferenceData.GetType() != typeof(NHibernate.NameAggregate.Homograph.NameReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StudentNameReferenceData
+        {
+            get => _studentNameReferenceData;
+            set
+            {
+                _studentNameReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentNameReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(7)]
+        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StudentNameSerializedReferenceData { get => _studentNameSerializedReferenceData; set { if (value != null) _studentNameSerializedReferenceData = value; } }
+        private NHibernate.NameAggregate.Homograph.NameReferenceData _studentNameSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StudentName discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStudent.StudentNameDiscriminator
+        {
+            get
+            {
+                return StudentNameReferenceDataIsProxied()
+                    ? (StudentNameSerializedReferenceData ?? StudentNameReferenceData)?.Discriminator
+                    : (StudentNameReferenceData ?? StudentNameSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StudentName resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStudent.StudentNameResourceId
+        {
+            get
+            {
+                return StudentNameReferenceDataIsProxied()
+                    ? (StudentNameSerializedReferenceData ?? StudentNameReferenceData)?.Id
+                    : (StudentNameReferenceData ?? StudentNameSerializedReferenceData)?.Id;
+            }
+            set { if (StudentNameSerializedReferenceData?.IsFullyDefined() == true) StudentNameSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual string StudentFirstName  { get; set; }
+        [Key(8)]
+        public virtual string StudentFirstName 
+        {
+            get => _studentFirstName;
+            set
+            {
+                _studentFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StudentNameSerializedReferenceData.FirstName = value;
+                }
+            }
+        }
+
+        private string _studentFirstName;
+
         [DomainSignature]
-        [Key(7)]
-        public virtual string StudentLastSurname  { get; set; }
+        [Key(9)]
+        public virtual string StudentLastSurname 
+        {
+            get => _studentLastSurname;
+            set
+            {
+                _studentLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentNameSerializedReferenceData ??= new NHibernate.NameAggregate.Homograph.NameReferenceData(true);
+                    StudentNameSerializedReferenceData.LastSurname = value;
+                }
+            }
+        }
+
+        private string _studentLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2548,8 +3560,24 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(8)]
-        public virtual string SchoolYear  { get; set; }
+        [Key(10)]
+        public virtual string SchoolYear 
+        {
+            get => _schoolYear;
+            set
+            {
+                _schoolYear = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    SchoolYearTypeSerializedReferenceData ??= new NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData(true);
+                    SchoolYearTypeSerializedReferenceData.SchoolYear = value;
+                }
+            }
+        }
+
+        private string _schoolYear;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2592,7 +3620,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
         private ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> _studentAddressPersistentList;
 
-        [Key(9)]
+        [Key(11)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress>))]
         public virtual ICollection<Entities.NHibernate.StudentAggregate.Homograph.StudentAddress> StudentAddressPersistentList
         {
@@ -2626,53 +3654,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(10)]
-        public virtual NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the SchoolYearType discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStudent.SchoolYearTypeDiscriminator
-        {
-            get { return SchoolYearTypeReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the SchoolYearType resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStudent.SchoolYearTypeResourceId
-        {
-            get { return SchoolYearTypeReferenceData?.Id; }
-            set { }
-        }
-
-        [Key(11)]
-        public virtual NHibernate.NameAggregate.Homograph.NameReferenceData StudentNameReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StudentName discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStudent.StudentNameDiscriminator
-        {
-            get { return StudentNameReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StudentName resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStudent.StudentNameResourceId
-        {
-            get { return StudentNameReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -2792,6 +3773,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2806,6 +3792,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         [DomainSignature]
         [Key(1)]
         public virtual string City  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2825,11 +3812,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2941,24 +3923,139 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     /// Represents a read-only reference to the <see cref="StudentSchoolAssociation"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class StudentSchoolAssociationReferenceData : IHasPrimaryKeyValues
+    public class StudentSchoolAssociationReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public StudentSchoolAssociationReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public StudentSchoolAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string SchoolName { get; set; }
-        [Key(1)]
-        public virtual string StudentFirstName { get; set; }
-        [Key(2)]
-        public virtual string StudentLastSurname { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _schoolName;
+
+        [Key(1)]
+        public virtual string SchoolName
+        {
+            get => _schoolName;
+            set
+            {
+                var originalValue = _schoolName;
+                _schoolName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _studentFirstName;
+
+        [Key(2)]
+        public virtual string StudentFirstName
+        {
+            get => _studentFirstName;
+            set
+            {
+                var originalValue = _studentFirstName;
+                _studentFirstName = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private string _studentLastSurname;
+
         [Key(3)]
-        public virtual Guid? Id { get; set; }
+        public virtual string StudentLastSurname
+        {
+            get => _studentLastSurname;
+            set
+            {
+                var originalValue = _studentLastSurname;
+                _studentLastSurname = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _schoolName != default
+                            && _studentFirstName != default
+                            && _studentLastSurname != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -2967,6 +4064,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         [Key(4)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("homograph", "StudentSchoolAssociation"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -3044,17 +4144,188 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.SchoolAggregate.Homograph.SchoolReferenceData _schoolReferenceData;
+
+        private bool SchoolReferenceDataIsProxied()
+        {
+            return _schoolReferenceData != null 
+                && _schoolReferenceData.GetType() != typeof(NHibernate.SchoolAggregate.Homograph.SchoolReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.SchoolAggregate.Homograph.SchoolReferenceData SchoolReferenceData
+        {
+            get => _schoolReferenceData;
+            set
+            {
+                _schoolReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !SchoolReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.SchoolAggregate.Homograph.SchoolReferenceData SchoolSerializedReferenceData { get => _schoolSerializedReferenceData; set { if (value != null) _schoolSerializedReferenceData = value; } }
+        private NHibernate.SchoolAggregate.Homograph.SchoolReferenceData _schoolSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the School discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStudentSchoolAssociation.SchoolDiscriminator
+        {
+            get
+            {
+                return SchoolReferenceDataIsProxied()
+                    ? (SchoolSerializedReferenceData ?? SchoolReferenceData)?.Discriminator
+                    : (SchoolReferenceData ?? SchoolSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the School resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.SchoolResourceId
+        {
+            get
+            {
+                return SchoolReferenceDataIsProxied()
+                    ? (SchoolSerializedReferenceData ?? SchoolReferenceData)?.Id
+                    : (SchoolReferenceData ?? SchoolSerializedReferenceData)?.Id;
+            }
+            set { if (SchoolSerializedReferenceData?.IsFullyDefined() == true) SchoolSerializedReferenceData.Id = value; }
+        }
+
+        private NHibernate.StudentAggregate.Homograph.StudentReferenceData _studentReferenceData;
+
+        private bool StudentReferenceDataIsProxied()
+        {
+            return _studentReferenceData != null 
+                && _studentReferenceData.GetType() != typeof(NHibernate.StudentAggregate.Homograph.StudentReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StudentAggregate.Homograph.StudentReferenceData StudentReferenceData
+        {
+            get => _studentReferenceData;
+            set
+            {
+                _studentReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(7)]
+        public virtual NHibernate.StudentAggregate.Homograph.StudentReferenceData StudentSerializedReferenceData { get => _studentSerializedReferenceData; set { if (value != null) _studentSerializedReferenceData = value; } }
+        private NHibernate.StudentAggregate.Homograph.StudentReferenceData _studentSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the Student discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Homograph.IStudentSchoolAssociation.StudentDiscriminator
+        {
+            get
+            {
+                return StudentReferenceDataIsProxied()
+                    ? (StudentSerializedReferenceData ?? StudentReferenceData)?.Discriminator
+                    : (StudentReferenceData ?? StudentSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the Student resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.StudentResourceId
+        {
+            get
+            {
+                return StudentReferenceDataIsProxied()
+                    ? (StudentSerializedReferenceData ?? StudentReferenceData)?.Id
+                    : (StudentReferenceData ?? StudentSerializedReferenceData)?.Id;
+            }
+            set { if (StudentSerializedReferenceData?.IsFullyDefined() == true) StudentSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual string SchoolName  { get; set; }
-        [DomainSignature]
-        [Key(7)]
-        public virtual string StudentFirstName  { get; set; }
-        [DomainSignature]
         [Key(8)]
-        public virtual string StudentLastSurname  { get; set; }
+        public virtual string SchoolName 
+        {
+            get => _schoolName;
+            set
+            {
+                _schoolName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    SchoolSerializedReferenceData ??= new NHibernate.SchoolAggregate.Homograph.SchoolReferenceData(true);
+                    SchoolSerializedReferenceData.SchoolName = value;
+                }
+            }
+        }
+
+        private string _schoolName;
+
+        [DomainSignature]
+        [Key(9)]
+        public virtual string StudentFirstName 
+        {
+            get => _studentFirstName;
+            set
+            {
+                _studentFirstName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(true);
+                    StudentSerializedReferenceData.StudentFirstName = value;
+                }
+            }
+        }
+
+        private string _studentFirstName;
+
+        [DomainSignature]
+        [Key(10)]
+        public virtual string StudentLastSurname 
+        {
+            get => _studentLastSurname;
+            set
+            {
+                _studentLastSurname = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.Homograph.StudentReferenceData(true);
+                    StudentSerializedReferenceData.StudentLastSurname = value;
+                }
+            }
+        }
+
+        private string _studentLastSurname;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3075,53 +4346,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(9)]
-        public virtual NHibernate.SchoolAggregate.Homograph.SchoolReferenceData SchoolReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the School discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStudentSchoolAssociation.SchoolDiscriminator
-        {
-            get { return SchoolReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the School resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.SchoolResourceId
-        {
-            get { return SchoolReferenceData?.Id; }
-            set { }
-        }
-
-        [Key(10)]
-        public virtual NHibernate.StudentAggregate.Homograph.StudentReferenceData StudentReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Student discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Homograph.IStudentSchoolAssociation.StudentDiscriminator
-        {
-            get { return StudentReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Student resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.StudentResourceId
-        {
-            get { return StudentReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
