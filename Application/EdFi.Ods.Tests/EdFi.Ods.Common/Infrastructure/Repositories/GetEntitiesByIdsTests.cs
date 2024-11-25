@@ -270,8 +270,18 @@ Actual:
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider, 
-                    new ApiSettings(),
+                    _contextProvider,
+                    new ApiSettings()
+                    {
+                        Features =
+                        [
+                            new()
+                            {
+                                Name = "ReferenceLinks",
+                                IsEnabled = true
+                            }
+                        ]
+                    },
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
                     Stub<IEntityDeserializer>());
