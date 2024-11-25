@@ -277,7 +277,7 @@ Actual:
                         [
                             new()
                             {
-                                Name = "ReferenceLinks",
+                                Name = "ResourceLinks",
                                 IsEnabled = true
                             }
                         ]
