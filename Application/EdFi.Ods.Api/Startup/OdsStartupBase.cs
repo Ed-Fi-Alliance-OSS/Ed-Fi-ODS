@@ -42,7 +42,6 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
-using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
@@ -442,10 +441,6 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDescriptorResolver>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataPolicyException>>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<ISessionFactoryImplementor>());
-
-                GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(
-                    apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName()),
-                    apiSettings.IsFeatureEnabled(ApiFeature.ResourceLinks.GetConfigKeyName()));
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.

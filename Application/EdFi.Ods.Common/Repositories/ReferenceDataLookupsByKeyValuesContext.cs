@@ -8,6 +8,10 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Repositories;
 
+/// <summary>
+/// Implements a contextual object for tracking the "ReferenceData" entities that need to have the key values
+/// resolved to the associated entity's Id and Discriminator values for generating resource reference links.
+/// </summary>
 public class ReferenceDataLookupContext
 {
     private readonly Lazy<ISet<IEntityReferenceData>> _values = new(

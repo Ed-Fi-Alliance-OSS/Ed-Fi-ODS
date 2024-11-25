@@ -49,6 +49,10 @@ public class SerializedDataModule : ConditionalModule
                 GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IContextProvider<ReferenceDataLookupContext>>);
             });
 
+            // NOTE: To the extent feasible, all reference data resolution logic related to serialized data scenarios have been
+            // implemented using SOLID principles -- as separate components that modify system behavior through extension
+            // rather than modification.
+
             builder.RegisterDecorator(
                 typeof(ReferenceDataUpsertPipelineStepsProviderDecorator),
                 typeof(IUpsertPipelineStepsProvider));

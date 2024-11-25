@@ -70,7 +70,6 @@ public class ReferenceDataResolver : IReferenceDataResolver
         using var scope = new SessionScope(_sessionFactory);
         var conn = scope.Session.Connection;
 
-
         StringBuilder sb = new StringBuilder();
         DynamicParameters parameters = null;
         int statementIndex = 0;
