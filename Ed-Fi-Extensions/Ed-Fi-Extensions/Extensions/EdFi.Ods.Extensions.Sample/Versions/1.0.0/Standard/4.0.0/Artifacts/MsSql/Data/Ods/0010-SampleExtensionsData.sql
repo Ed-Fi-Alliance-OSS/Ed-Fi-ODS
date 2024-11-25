@@ -213,7 +213,8 @@ WHERE NOT EXISTS
 
 UPDATE edfi.Staff
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
     (SELECT 1
      FROM sample.StaffExtension se
@@ -315,7 +316,8 @@ FROM sample.ParentExtension
 
 UPDATE edfi.Parent
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
         (SELECT 1
          FROM sample.ParentExtension pe
@@ -374,7 +376,8 @@ FROM edfi.StudentParentAssociation
 
 UPDATE edfi.StudentParentAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
     (SELECT
          1
@@ -405,7 +408,8 @@ WHERE NOT EXISTS
 
 UPDATE edfi.StudentSchoolAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
         (SELECT
            1
@@ -464,7 +468,8 @@ FROM sample.StudentEducationOrganizationAssociationAddressExtension
 
 UPDATE edfi.StudentEducationOrganizationAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
         (SELECT
            1
@@ -516,7 +521,8 @@ WHERE NOT EXISTS
 
 UPDATE edfi.GeneralStudentProgramAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EXISTS
         (SELECT
             1
@@ -615,7 +621,8 @@ VALUES (@grandBendElementarySchoolId, '602')
 
 UPDATE EdFi.EducationOrganization
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE EducationOrganizationId = @grandBendElementarySchoolId
 
 --- Add extension data for a particular Parent
@@ -682,7 +689,8 @@ VALUES (@student604854SPABeginDate, @student604854SPAEducationOrganizationId, @p
 
 UPDATE edfi.Parent
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE ParentUSI = @parent777777Usi
 
 --- Add extension data for a particular Staff member
@@ -704,7 +712,8 @@ VALUES (@staff207219Usi, 1, 50)
 
 UPDATE edfi.Staff
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL  
 WHERE StaffUSI = @staff207219Usi
 
 --- Add extension data for a particular Student
@@ -736,7 +745,8 @@ VALUES ('Dory', @student604854Usi, NULL, 100)
 
 UPDATE edfi.Student
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL  
 WHERE StudentUSI = @student604854Usi
 
 --- Create sample data for new StudentArtProgram subclass
@@ -966,7 +976,8 @@ VALUES (@parent777777Usi, @student605614Usi, '123-555-4567', @telephoneNumberTyp
 
 UPDATE edfi.StudentParentAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE ParentUSI = @parent777777Usi AND StudentUSI = @student605614Usi
 
 --- Add extension data to a particular StudentSchoolAssociation
@@ -976,7 +987,8 @@ WHERE StudentUSI = @student604854Usi AND SchoolId = @grandBendElementarySchoolId
 
 UPDATE edfi.StudentSchoolAssociation
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE StudentUSI = @student604854Usi AND SchoolId = @grandBendElementarySchoolId
 
 INSERT INTO sample.StudentFavoriteBook
@@ -1001,7 +1013,8 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
 
 UPDATE edfi.Student
 SET
-  LastModifiedDate = GETUTCDATE()
+  LastModifiedDate = GETUTCDATE(),
+  AggregateData    = NULL
 WHERE StudentUSI = @student604854Usi
 
 --- Add extension data to a particular StudentSectionAssociation
