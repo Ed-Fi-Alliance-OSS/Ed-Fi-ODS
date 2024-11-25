@@ -114,7 +114,6 @@ namespace {{AggregateNamespace}}
         }
             {{/NonParentProperties}}
         {{/PrimaryKey}}
-        // -------------------------------------------------------------
 
         {{#PrimaryKey}}
         public virtual bool IsFullyDefined()
@@ -586,55 +585,7 @@ namespace {{AggregateNamespace}}
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
         // -------------------------------------------------------------
-/*
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        {{#AggregateReferences}}
-        [IgnoreMember]
-        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName }} {{ReferenceDataPropertyName}} { get; set; }
 
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
-        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{SerializedReferenceDataPropertyName}} { get => {{SerializedReferenceDataFieldName}}; set { if (value != null) {{SerializedReferenceDataFieldName}} = value; } }
-        private {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{SerializedReferenceDataFieldName}};
-
-        {{#MappedReferenceDataHasDiscriminator}}
-        /// <summary>
-        /// Read-only property that allows the {{ReferenceAssociationName}} discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}Discriminator
-        {
-            get { return ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Discriminator; }
-            set { }
-        }
-
-        {{/MappedReferenceDataHasDiscriminator}}
-        /// <summary>
-        /// Read-only property that allows the {{ReferenceAssociationName}} resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}ResourceId
-        {
-            {{#PotentiallyLogical}}
-            get
-            {
-                if ({{ReferenceDataPropertyName}}?.GetType().Name == "{{ReferenceDataPropertyName}}Proxy")
-                {
-                    {{ReferenceDataPropertyName}} = null;
-                    return null;
-                }
-
-                return ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Id;
-            }
-            {{/PotentiallyLogical}}
-            {{^PotentiallyLogical}}
-            get { return ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Id; }
-            {{/PotentiallyLogical}}
-            set { }
-        }
-
-        {{/AggregateReferences}}
-        // -------------------------------------------------------------
-*/
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
