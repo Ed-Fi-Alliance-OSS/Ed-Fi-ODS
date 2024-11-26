@@ -31,7 +31,7 @@ env:
 
 jobs:
   FindStandardAndExtensionVersions:
-     runs-on: ubuntu-24.04
+     runs-on: ubuntu-22.04
      outputs:
        StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
        ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
