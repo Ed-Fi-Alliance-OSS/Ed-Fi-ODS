@@ -41,8 +41,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly Lazy<List<string>> _aggregateHqlStatementsWithReferenceData;
         private readonly Lazy<List<string>> _aggregateHqlStatements;
-        private readonly Lazy<string> _mainHqlStatementBaseForReads;
-        private readonly Lazy<string> _mainHqlStatementBaseForWrites;
+        private readonly Lazy<string> _mainHqlStatementBaseWithReferenceData;
+        private readonly Lazy<string> _mainHqlStatementBase;
 
         private readonly Dialect _dialect;
         private readonly DatabaseEngine _databaseEngine;
@@ -86,8 +86,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _aggregateHqlStatements = new Lazy<List<string>>(
                 () => CreateAggregateHqlStatements(includeReferenceData: false), true);
 
-            _mainHqlStatementBaseForReads = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: true), true);
-            _mainHqlStatementBaseForWrites = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: false), true);
+            _mainHqlStatementBaseWithReferenceData = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: true), true);
+            _mainHqlStatementBase = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: false), true);
         }
 
         static GetEntitiesBase()
@@ -167,15 +167,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     (isReadRequest, whereClause, orderByClause),
                     static (key, args) =>
                     {
-                        string mainHqlBase = key.isReadRequest
-                            ? args._mainHqlStatementBaseForReads.Value
-                            : args._mainHqlStatementBaseForWrites.Value;
+                        string mainHqlBase = (key.isReadRequest && args._resourceLinksEnabled)
+                            ? args._mainHqlStatementBaseWithReferenceData.Value
+                            : args._mainHqlStatementBase.Value;
 
                         return string.IsNullOrEmpty(key.orderByClause)
                             ? $"{mainHqlBase} {key.whereClause}"
                             : $"{mainHqlBase} {key.whereClause} {key.orderByClause}";
                     },
-                    (_mainHqlStatementBaseForReads, _mainHqlStatementBaseForWrites));
+                    (_mainHqlStatementBaseWithReferenceData, _mainHqlStatementBase, _resourceLinksEnabled));
             }
 
             string GetChildHql(int childIndex, string childBaseHql)
