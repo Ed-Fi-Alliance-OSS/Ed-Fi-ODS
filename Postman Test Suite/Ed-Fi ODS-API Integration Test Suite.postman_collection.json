@@ -16132,6 +16132,26 @@
 					"name": "Setup",
 					"item": [
 						{
+							"name": "Warm up student and descriptor caches",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create a Student",
 							"event": [
 								{
@@ -16334,6 +16354,197 @@
 							},
 							"response": []
 						},
+						{
+							"name": "Update the Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentUniqueId\": \"LIFECYCLE-TEST\",\r\n  \"birthDate\": \"2010-07-04\",\r\n  \"firstName\": \"Jon\",\r\n  \"lastSurname\": \"Dough\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "StudentEducationOrganizationAssociation (person link, and abstract link)",
+					"item": [
+						{
+							"name": "Create a StudentEducationOrganizationAssociation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentEducationOrganization:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"internetAccessInResidence\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentEducationOrganizationAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get StudentEducationOrganizationAssociation By Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should include educationOrganizationReference with link containing concrete rel and href with non-default id\", () => {\r",
+											"  const rel = item.educationOrganizationReference.link.rel;\r",
+											"  const href = item.educationOrganizationReference.link.href;\r",
+											"\r",
+											"  pm.expect(rel).to.equal(\"LocalEducationAgency\");\r",
+											"  pm.expect(href).to.match(/^\\/ed-fi\\/localEducationAgencies\\/[0-9a-f]{32}$/);\r",
+											"  pm.expect(href).to.not.match(/^\\/ed-fi\\/localEducationAgencies\\/[0]{32}$/)\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should include studentReference with link containing concrete rel and href with non-default id\", () => {\r",
+											"  const rel = item.studentReference.link.rel;\r",
+											"  const href = item.studentReference.link.href;\r",
+											"\r",
+											"  pm.expect(rel).to.equal(\"Student\");\r",
+											"  pm.expect(href).to.match(/^\\/ed-fi\\/students\\/[0-9a-f]{32}$/);\r",
+											"  pm.expect(href).to.not.match(/^\\/ed-fi\\/students\\/[0]{32}$/)\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations/{{known:studentEducationOrganization:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentEducationOrganizationAssociations",
+										"{{known:studentEducationOrganization:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete StudentEducationOrganizationAssociation By Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentEducationOrganizationAssociations/{{known:studentEducationOrganization:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentEducationOrganizationAssociations",
+										"{{known:studentEducationOrganization:id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete and Recreate Student",
+					"item": [
 						{
 							"name": "Delete the StudentSchoolAssociation",
 							"event": [
