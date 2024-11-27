@@ -131,7 +131,7 @@ namespace EdFi.Ods.Common.Configuration
             return Array.Empty<string>();
         }
 
-        private ConcurrentDictionary<string, bool> _featureEnabledByName = new();
+        private ConcurrentDictionary<string, bool> _featureEnabledByName = new(StringComparer.OrdinalIgnoreCase);
 
         public bool IsFeatureEnabled(string featureName)
         {
