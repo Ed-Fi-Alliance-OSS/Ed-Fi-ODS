@@ -4014,6 +4014,7 @@
 															"pm.test(\"Link's href should reference the schools resource with a non-default id in route\", () => {",
 															"  const href = item.educationOrganizationReference.link.href;",
 															"  pm.expect(href).to.match(/^\\/ed-fi\\/schools\\/[0-9a-f]{32}$/);",
+															"  pm.expect(href).to.not.match(/^\\/ed-fi\\/schools\\/[0]{32}$/);",
 															"});",
 															"",
 															"pm.test(\"Child collection link's rel should identify reference as a LearningStandard\", () => {",
@@ -4024,6 +4025,7 @@
 															"pm.test(\"Child collection link's href should reference the correct resource collection with a non-default id in route\", () => {",
 															"  const href = item.learningStandards[0].learningStandardReference.link.href;",
 															"  pm.expect(href).to.match(/^\\/ed-fi\\/learningStandards\\/[0-9a-f]{32}$/);",
+															"  pm.expect(href).to.not.match(/^\\/ed-fi\\/learningStandards\\/[0]{32}$/);",
 															"});",
 															"",
 															""
@@ -4083,6 +4085,7 @@
 															"pm.test(\"Link's href should reference the localEducationAgencies resource with a non-default id in route\", () => {\r",
 															"  const href = item.educationOrganizationReference.link.href;\r",
 															"  pm.expect(href).to.match(/^\\/ed-fi\\/localEducationAgencies\\/[0-9a-f]{32}$/);\r",
+															"  pm.expect(href).to.not.match(/^\\/ed-fi\\/localEducationAgencies\\/[0]{32}$/);\r",
 															"});\r",
 															"\r",
 															"pm.test(\"Child collection link's rel should identify reference as a LearningStandard\", () => {\r",
@@ -4093,6 +4096,7 @@
 															"pm.test(\"Child collection link's href should reference the correct resource collection with a non-default id in route\", () => {\r",
 															"  const href = item.learningStandards[0].learningStandardReference.link.href;\r",
 															"  pm.expect(href).to.match(/^\\/ed-fi\\/learningStandards\\/[0-9a-f]{32}$/);\r",
+															"  pm.expect(href).to.not.match(/^\\/ed-fi\\/learningStandards\\/[0]{32}$/);\r",
 															"});\r",
 															""
 														],
@@ -4144,6 +4148,7 @@
 															"",
 															"  const href = item.studentReference.link.href;",
 															"  pm.expect(href).to.match(/^\\/ed-fi\\/students\\/[0-9a-f]{32}$/);",
+															"  pm.expect(href).to.not.match(/^\\/ed-fi\\/students\\/[0]{32}$/);",
 															"});",
 															""
 														],
