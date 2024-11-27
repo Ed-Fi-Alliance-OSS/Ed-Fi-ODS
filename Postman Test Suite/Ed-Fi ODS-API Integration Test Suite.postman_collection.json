@@ -16426,7 +16426,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"internetAccessInResidence\": true\r\n}",
+									"raw": "{\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"LIFECYCLE-TEST\"\r\n  },\r\n  \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n  \"internetAccessInResidence\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
