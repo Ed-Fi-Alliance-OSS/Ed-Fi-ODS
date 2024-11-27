@@ -41,6 +41,11 @@ namespace EdFi.Ods.Entities.NHibernate.AlternativeEducationEligibilityReasonDesc
     {
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
@@ -51,6 +56,7 @@ namespace EdFi.Ods.Entities.NHibernate.AlternativeEducationEligibilityReasonDesc
             set { base.DescriptorId = value; }
         }
         
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -100,11 +106,6 @@ namespace EdFi.Ods.Entities.NHibernate.AlternativeEducationEligibilityReasonDesc
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -228,20 +229,29 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
         [IgnoreMember]
         public override DateTime BeginDate  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int EducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int ProgramEducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override string ProgramName  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int ProgramTypeDescriptorId 
@@ -249,7 +259,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
             get
             {
                 if (_programTypeDescriptorId == default(int))
+                {
                     _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                }
 
                 return _programTypeDescriptorId;
             } 
@@ -279,6 +291,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
                 _programTypeDescriptorId = default(int);
             }
         }
+
         [Display(Name="StudentUniqueId")][DomainSignature]
         [IgnoreMember]
         public override int StudentUSI 
@@ -330,6 +343,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
                 _studentUniqueId = value;
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -361,7 +375,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
             get
             {
                 if (_alternativeEducationEligibilityReasonDescriptorId == default(int))
+                {
                     _alternativeEducationEligibilityReasonDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AlternativeEducationEligibilityReasonDescriptor", _alternativeEducationEligibilityReasonDescriptor);
+                }
 
                 return _alternativeEducationEligibilityReasonDescriptorId;
             } 
@@ -391,6 +407,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
                 _alternativeEducationEligibilityReasonDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -400,11 +417,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -586,6 +598,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -600,9 +617,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
         [DomainSignature]
         [Key(1)]
         public virtual TimeSpan EndTime  { get; set; }
+
         [DomainSignature]
         [Key(2)]
         public virtual TimeSpan StartTime  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -622,11 +641,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAlternativeEducationProgramAssocia
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 

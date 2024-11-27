@@ -41,6 +41,11 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
     {
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
@@ -51,6 +56,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
             set { base.DescriptorId = value; }
         }
         
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -100,11 +106,6 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -212,20 +213,79 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     /// Represents a read-only reference to the <see cref="Bus"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class BusReferenceData : IHasPrimaryKeyValues
+    public class BusReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public BusReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public BusReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string BusId { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _busId;
+
         [Key(1)]
-        public virtual Guid? Id { get; set; }
+        public virtual string BusId
+        {
+            get => _busId;
+            set
+            {
+                var originalValue = _busId;
+                _busId = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _busId != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -234,6 +294,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
         [Key(2)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("sample", "Bus"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -309,11 +372,17 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
         [Key(6)]
         public virtual string BusId  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -333,11 +402,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -445,22 +509,109 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     /// Represents a read-only reference to the <see cref="BusRoute"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class BusRouteReferenceData : IHasPrimaryKeyValues
+    public class BusRouteReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public BusRouteReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public BusRouteReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual string BusId { get; set; }
-        [Key(1)]
-        public virtual int BusRouteNumber { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private string _busId;
+
+        [Key(1)]
+        public virtual string BusId
+        {
+            get => _busId;
+            set
+            {
+                var originalValue = _busId;
+                _busId = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private int _busRouteNumber;
+
         [Key(2)]
-        public virtual Guid? Id { get; set; }
+        public virtual int BusRouteNumber
+        {
+            get => _busRouteNumber;
+            set
+            {
+                var originalValue = _busRouteNumber;
+                _busRouteNumber = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _busId != default
+                            && _busRouteNumber != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -469,6 +620,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [Key(3)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("sample", "BusRoute"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -550,14 +704,80 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData _staffEducationOrganizationAssignmentAssociationReferenceData;
+
+        private bool StaffEducationOrganizationAssignmentAssociationReferenceDataIsProxied()
+        {
+            return _staffEducationOrganizationAssignmentAssociationReferenceData != null 
+                && _staffEducationOrganizationAssignmentAssociationReferenceData.GetType() != typeof(NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData StaffEducationOrganizationAssignmentAssociationReferenceData
+        {
+            get => _staffEducationOrganizationAssignmentAssociationReferenceData;
+            set
+            {
+                _staffEducationOrganizationAssignmentAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StaffEducationOrganizationAssignmentAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData StaffEducationOrganizationAssignmentAssociationSerializedReferenceData { get => _staffEducationOrganizationAssignmentAssociationSerializedReferenceData; set { if (value != null) _staffEducationOrganizationAssignmentAssociationSerializedReferenceData = value; } }
+        private NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData _staffEducationOrganizationAssignmentAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StaffEducationOrganizationAssignmentAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationDiscriminator
+        {
+            get
+            {
+                return StaffEducationOrganizationAssignmentAssociationReferenceDataIsProxied()
+                    ? (StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ?? StaffEducationOrganizationAssignmentAssociationReferenceData)?.Discriminator
+                    : (StaffEducationOrganizationAssignmentAssociationReferenceData ?? StaffEducationOrganizationAssignmentAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StaffEducationOrganizationAssignmentAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
+        {
+            get
+            {
+                return StaffEducationOrganizationAssignmentAssociationReferenceDataIsProxied()
+                    ? (StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ?? StaffEducationOrganizationAssignmentAssociationReferenceData)?.Id
+                    : (StaffEducationOrganizationAssignmentAssociationReferenceData ?? StaffEducationOrganizationAssignmentAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StaffEducationOrganizationAssignmentAssociationSerializedReferenceData?.IsFullyDefined() == true) StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual string BusId  { get; set; }
-        [DomainSignature]
         [Key(7)]
+        public virtual string BusId  { get; set; }
+
+        [DomainSignature]
+        [Key(8)]
         public virtual int BusRouteNumber  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -568,7 +788,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(8)]
+        [Key(9)]
         public virtual DateTime? BeginDate 
         {
             get { return _beginDate; }
@@ -583,24 +803,35 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     var given = (DateTime) value;
                     _beginDate = new DateTime(given.Year, given.Month, given.Day);
                 }
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.BeginDate = _beginDate ?? default;
+                }
             }
         }
 
         private DateTime? _beginDate;
-        
-        [Key(9)]
-        public virtual string BusRouteDirection  { get; set; }
+
         [Key(10)]
-        public virtual int? BusRouteDuration  { get; set; }
+        public virtual string BusRouteDirection  { get; set; }
+
         [Key(11)]
-        public virtual bool? Daily  { get; set; }
+        public virtual int? BusRouteDuration  { get; set; }
+
         [Key(12)]
+        public virtual bool? Daily  { get; set; }
+
+        [Key(13)]
         public virtual int? DisabilityDescriptorId 
         {
             get
             {
                 if (_disabilityDescriptorId == default(int?))
+                {
                     _disabilityDescriptorId = string.IsNullOrWhiteSpace(_disabilityDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDescriptor", _disabilityDescriptor);
+                }
 
                 return _disabilityDescriptorId;
             } 
@@ -630,23 +861,52 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 _disabilityDescriptorId = default(int?);
             }
         }
-        [Key(13)]
-        public virtual int? EducationOrganizationId  { get; set; }
+
         [Key(14)]
-        public virtual string ExpectedTransitTime  { get; set; }
+        public virtual int? EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.EducationOrganizationId = value ?? default;
+                }
+            }
+        }
+
+        private int? _educationOrganizationId;
+
         [Key(15)]
-        public virtual decimal HoursPerWeek  { get; set; }
+        public virtual string ExpectedTransitTime  { get; set; }
+
         [Key(16)]
-        public virtual decimal OperatingCost  { get; set; }
+        public virtual decimal HoursPerWeek  { get; set; }
+
         [Key(17)]
-        public virtual decimal? OptimalCapacity  { get; set; }
+        public virtual decimal OperatingCost  { get; set; }
+
         [Key(18)]
+        public virtual decimal? OptimalCapacity  { get; set; }
+
+        [Key(19)]
         public virtual int? StaffClassificationDescriptorId 
         {
             get
             {
                 if (_staffClassificationDescriptorId == default(int?))
+                {
                     _staffClassificationDescriptorId = string.IsNullOrWhiteSpace(_staffClassificationDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StaffClassificationDescriptor", _staffClassificationDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = _staffClassificationDescriptorId ?? default;
+                    }
+                }
 
                 return _staffClassificationDescriptorId;
             } 
@@ -654,6 +914,12 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 _staffClassificationDescriptorId = value;
                 _staffClassificationDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = value ?? default;
+                }
             }
         }
 
@@ -674,9 +940,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 _staffClassificationDescriptor = value;
                 _staffClassificationDescriptorId = default(int?);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffClassificationDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StaffClassificationDescriptor", _staffClassificationDescriptor);
+                }
             }
         }
-        [Key(19)]
+
+        [Key(20)]
         public virtual int? StaffUSI 
         {
             get
@@ -687,6 +960,12 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
                         _staffUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                            StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = _staffUSI ?? default;
+                        }
                     }
                 }
 
@@ -699,6 +978,12 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (value != null)
                 {
                     GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value.Value);
+                }
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                    StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = value ?? default;
                 }
             }
         }
@@ -728,9 +1013,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                         _staffUSI = default(int?);
 
                 _staffUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData(true);
+                        StaffEducationOrganizationAssignmentAssociationSerializedReferenceData.StaffUSI = usi;
+                    }
+                }
             }
         }
-        [Key(20)]
+
+        [Key(21)]
         public virtual DateTime? StartDate 
         {
             get { return _startDate; }
@@ -749,9 +1045,10 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         }
 
         private DateTime? _startDate;
-        
-        [Key(21)]
+
+        [Key(22)]
         public virtual decimal? WeeklyMileage  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -762,32 +1059,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(22)]
-        public virtual NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationReferenceData StaffEducationOrganizationAssignmentAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StaffEducationOrganizationAssignmentAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationDiscriminator
-        {
-            get { return StaffEducationOrganizationAssignmentAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StaffEducationOrganizationAssignmentAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
-        {
-            get { return StaffEducationOrganizationAssignmentAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -1179,6 +1450,11 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1193,6 +1469,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual short BusYear  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1212,11 +1489,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -1340,6 +1612,70 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.ProgramAggregate.EdFi.ProgramReferenceData _programReferenceData;
+
+        private bool ProgramReferenceDataIsProxied()
+        {
+            return _programReferenceData != null 
+                && _programReferenceData.GetType() != typeof(NHibernate.ProgramAggregate.EdFi.ProgramReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData ProgramReferenceData
+        {
+            get => _programReferenceData;
+            set
+            {
+                _programReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !ProgramReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData ProgramSerializedReferenceData { get => _programSerializedReferenceData; set { if (value != null) _programSerializedReferenceData = value; } }
+        private NHibernate.ProgramAggregate.EdFi.ProgramReferenceData _programSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the Program discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IBusRouteProgram.ProgramDiscriminator
+        {
+            get
+            {
+                return ProgramReferenceDataIsProxied()
+                    ? (ProgramSerializedReferenceData ?? ProgramReferenceData)?.Discriminator
+                    : (ProgramReferenceData ?? ProgramSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the Program resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IBusRouteProgram.ProgramResourceId
+        {
+            get
+            {
+                return ProgramReferenceDataIsProxied()
+                    ? (ProgramSerializedReferenceData ?? ProgramReferenceData)?.Id
+                    : (ProgramReferenceData ?? ProgramSerializedReferenceData)?.Id;
+            }
+            set { if (ProgramSerializedReferenceData?.IsFullyDefined() == true) ProgramSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1352,19 +1688,59 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature]
         [Key(2)]
-        public virtual string ProgramName  { get; set; }
+        public virtual int EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData.EducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _educationOrganizationId;
+
         [DomainSignature]
         [Key(3)]
+        public virtual string ProgramName 
+        {
+            get => _programName;
+            set
+            {
+                _programName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData.ProgramName = value;
+                }
+            }
+        }
+
+        private string _programName;
+
+        [DomainSignature]
+        [Key(4)]
         public virtual int ProgramTypeDescriptorId 
         {
             get
             {
                 if (_programTypeDescriptorId == default(int))
+                {
                     _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                        ProgramSerializedReferenceData.ProgramTypeDescriptorId = _programTypeDescriptorId;
+                    }
+                }
 
                 return _programTypeDescriptorId;
             } 
@@ -1372,6 +1748,12 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 _programTypeDescriptorId = value;
                 _programTypeDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData.ProgramTypeDescriptorId = value;
+                }
             }
         }
 
@@ -1392,8 +1774,15 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             {
                 _programTypeDescriptor = value;
                 _programTypeDescriptorId = default(int);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    ProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    ProgramSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1414,32 +1803,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(4)]
-        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData ProgramReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Program discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IBusRouteProgram.ProgramDiscriminator
-        {
-            get { return ProgramReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Program resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IBusRouteProgram.ProgramResourceId
-        {
-            get { return ProgramReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -1565,6 +1928,11 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1579,6 +1947,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string ServiceAreaPostalCode  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1598,11 +1967,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -1726,6 +2090,11 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1740,6 +2109,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual TimeSpan StartTime  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1759,11 +2129,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -1887,6 +2252,11 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -1901,6 +2271,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string TelephoneNumber  { get; set; }
+
         [DomainSignature]
         [Key(2)]
         public virtual int TelephoneNumberTypeDescriptorId 
@@ -1908,7 +2279,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_telephoneNumberTypeDescriptorId == default(int))
+                {
                     _telephoneNumberTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
+                }
 
                 return _telephoneNumberTypeDescriptorId;
             } 
@@ -1938,6 +2311,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 _telephoneNumberTypeDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1950,10 +2324,13 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // -------------------------------------------------------------
         [Key(3)]
         public virtual bool? DoNotPublishIndicator  { get; set; }
+
         [Key(4)]
         public virtual int? OrderOfPriority  { get; set; }
+
         [Key(5)]
         public virtual bool? TextMessageCapabilityIndicator  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1963,11 +2340,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2091,6 +2463,11 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
     {
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
@@ -2101,6 +2478,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
             set { base.DescriptorId = value; }
         }
         
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2150,11 +2528,6 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2272,6 +2645,11 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
     {
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
@@ -2282,6 +2660,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
             set { base.DescriptorId = value; }
         }
         
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2331,11 +2710,6 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2460,6 +2834,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2474,6 +2853,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string SchoolDistrict  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2493,11 +2873,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2623,6 +2998,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2641,7 +3021,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_termDescriptorId == default(int))
+                {
                     _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
+                }
 
                 return _termDescriptorId;
             } 
@@ -2671,6 +3053,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 _termDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2690,11 +3073,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2821,6 +3199,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2835,6 +3218,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string Author  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -2854,11 +3238,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -2982,6 +3361,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -2996,6 +3380,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual decimal CeilingHeight  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3015,11 +3400,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -3143,6 +3523,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -3166,13 +3551,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string CIPCode  { get; set; }
+
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
                 if (_cteProgramServiceDescriptorId == default(int))
+                {
                     _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
+                }
 
                 return _cteProgramServiceDescriptorId;
             } 
@@ -3202,8 +3590,10 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 _cteProgramServiceDescriptorId = default(int);
             }
         }
+
         [Key(3)]
         public virtual bool? PrimaryIndicator  { get; set; }
+
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
         {
@@ -3223,7 +3613,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         }
 
         private DateTime? _serviceBeginDate;
-        
+
         [Key(5)]
         public virtual DateTime? ServiceEndDate 
         {
@@ -3243,7 +3633,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         }
 
         private DateTime? _serviceEndDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3253,11 +3643,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -3381,6 +3766,70 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData _educationContentReferenceData;
+
+        private bool EducationContentReferenceDataIsProxied()
+        {
+            return _educationContentReferenceData != null 
+                && _educationContentReferenceData.GetType() != typeof(NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData EducationContentReferenceData
+        {
+            get => _educationContentReferenceData;
+            set
+            {
+                _educationContentReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !EducationContentReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData EducationContentSerializedReferenceData { get => _educationContentSerializedReferenceData; set { if (value != null) _educationContentSerializedReferenceData = value; } }
+        private NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData _educationContentSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the EducationContent discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IParentEducationContent.EducationContentDiscriminator
+        {
+            get
+            {
+                return EducationContentReferenceDataIsProxied()
+                    ? (EducationContentSerializedReferenceData ?? EducationContentReferenceData)?.Discriminator
+                    : (EducationContentReferenceData ?? EducationContentSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the EducationContent resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IParentEducationContent.EducationContentResourceId
+        {
+            get
+            {
+                return EducationContentReferenceDataIsProxied()
+                    ? (EducationContentSerializedReferenceData ?? EducationContentReferenceData)?.Id
+                    : (EducationContentReferenceData ?? EducationContentSerializedReferenceData)?.Id;
+            }
+            set { if (EducationContentSerializedReferenceData?.IsFullyDefined() == true) EducationContentSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -3393,8 +3842,24 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual string ContentIdentifier  { get; set; }
+        [Key(2)]
+        public virtual string ContentIdentifier 
+        {
+            get => _contentIdentifier;
+            set
+            {
+                _contentIdentifier = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    EducationContentSerializedReferenceData ??= new NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData(true);
+                    EducationContentSerializedReferenceData.ContentIdentifier = value;
+                }
+            }
+        }
+
+        private string _contentIdentifier;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3415,32 +3880,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(2)]
-        public virtual NHibernate.EducationContentAggregate.EdFi.EducationContentReferenceData EducationContentReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the EducationContent discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IParentEducationContent.EducationContentDiscriminator
-        {
-            get { return EducationContentReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the EducationContent resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IParentEducationContent.EducationContentResourceId
-        {
-            get { return EducationContentReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -3563,6 +4002,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -3577,6 +4021,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string FavoriteBookTitle  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3596,11 +4041,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -3724,6 +4164,56 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData _studentProgramAssociationReferenceData;
+
+        private bool StudentProgramAssociationReferenceDataIsProxied()
+        {
+            return _studentProgramAssociationReferenceData != null 
+                && _studentProgramAssociationReferenceData.GetType() != typeof(NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData StudentProgramAssociationReferenceData
+        {
+            get => _studentProgramAssociationReferenceData;
+            set
+            {
+                _studentProgramAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentProgramAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData StudentProgramAssociationSerializedReferenceData { get => _studentProgramAssociationSerializedReferenceData; set { if (value != null) _studentProgramAssociationSerializedReferenceData = value; } }
+        private NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData _studentProgramAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A property implementation whose getter allows the StudentProgramAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IParentStudentProgramAssociation.StudentProgramAssociationResourceId
+        {
+            get
+            {
+                return StudentProgramAssociationReferenceDataIsProxied()
+                    ? (StudentProgramAssociationSerializedReferenceData ?? StudentProgramAssociationReferenceData)?.Id
+                    : (StudentProgramAssociationReferenceData ?? StudentProgramAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StudentProgramAssociationSerializedReferenceData?.IsFullyDefined() == true) StudentProgramAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -3736,33 +4226,98 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
+        [Key(2)]
         public virtual DateTime BeginDate 
         {
             get { return _beginDate; }
             //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                _beginDate = new DateTime(value.Year, value.Month, value.Day);
+
+                if (_beginDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.BeginDate = _beginDate;
+                }
+            }
         }
 
         private DateTime _beginDate;
-        
-        [DomainSignature]
-        [Key(2)]
-        public virtual int EducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [Key(3)]
-        public virtual int ProgramEducationOrganizationId  { get; set; }
+        public virtual int EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.EducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _educationOrganizationId;
+
         [DomainSignature]
         [Key(4)]
-        public virtual string ProgramName  { get; set; }
+        public virtual int ProgramEducationOrganizationId 
+        {
+            get => _programEducationOrganizationId;
+            set
+            {
+                _programEducationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.ProgramEducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _programEducationOrganizationId;
+
         [DomainSignature]
         [Key(5)]
+        public virtual string ProgramName 
+        {
+            get => _programName;
+            set
+            {
+                _programName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.ProgramName = value;
+                }
+            }
+        }
+
+        private string _programName;
+
+        [DomainSignature]
+        [Key(6)]
         public virtual int ProgramTypeDescriptorId 
         {
             get
             {
                 if (_programTypeDescriptorId == default(int))
+                {
                     _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = _programTypeDescriptorId;
+                    }
+                }
 
                 return _programTypeDescriptorId;
             } 
@@ -3770,6 +4325,12 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 _programTypeDescriptorId = value;
                 _programTypeDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = value;
+                }
             }
         }
 
@@ -3790,10 +4351,17 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 _programTypeDescriptor = value;
                 _programTypeDescriptorId = default(int);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                }
             }
         }
+
         [Display(Name="StudentUniqueId")][DomainSignature]
-        [Key(6)]
+        [Key(7)]
         public virtual int StudentUSI 
         {
             get
@@ -3804,6 +4372,12 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
                         _studentUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                            StudentProgramAssociationSerializedReferenceData.StudentUSI = _studentUSI;
+                        }
                     }
                 }
 
@@ -3813,6 +4387,12 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             {
                 _studentUSI = value;
                 GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    StudentProgramAssociationSerializedReferenceData.StudentUSI = value;
+                }
             }
         }
 
@@ -3841,8 +4421,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                         _studentUSI = default(int);
 
                 _studentUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        StudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        StudentProgramAssociationSerializedReferenceData.StudentUSI = usi;
+                    }
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3863,23 +4454,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(7)]
-        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData StudentProgramAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StudentProgramAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IParentStudentProgramAssociation.StudentProgramAssociationResourceId
-        {
-            get { return StudentProgramAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -4008,6 +4582,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -4031,10 +4610,13 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string DayOfWeek  { get; set; }
+
         [Key(2)]
         public virtual TimeSpan EndTime  { get; set; }
+
         [Key(3)]
         public virtual TimeSpan StartTime  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4044,11 +4626,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -4171,6 +4748,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -4194,17 +4776,22 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string AverageCarLineWait  { get; set; }
+
         [Key(2)]
         public virtual short? BecameParent  { get; set; }
+
         [Key(3)]
         public virtual decimal? CoffeeSpend  { get; set; }
+
         [Key(4)]
         public virtual int? CredentialFieldDescriptorId 
         {
             get
             {
                 if (_credentialFieldDescriptorId == default(int?))
+                {
                     _credentialFieldDescriptorId = string.IsNullOrWhiteSpace(_credentialFieldDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CredentialFieldDescriptor", _credentialFieldDescriptor);
+                }
 
                 return _credentialFieldDescriptorId;
             } 
@@ -4234,10 +4821,13 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 _credentialFieldDescriptorId = default(int?);
             }
         }
+
         [Key(5)]
         public virtual int? Duration  { get; set; }
+
         [Key(6)]
         public virtual decimal? GPA  { get; set; }
+
         [Key(7)]
         public virtual DateTime? GraduationDate 
         {
@@ -4257,15 +4847,19 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         }
 
         private DateTime? _graduationDate;
-        
+
         [Key(8)]
         public virtual bool IsSportsFan  { get; set; }
+
         [Key(9)]
         public virtual int? LuckyNumber  { get; set; }
+
         [Key(10)]
         public virtual TimeSpan? PreferredWakeUpTime  { get; set; }
+
         [Key(11)]
         public virtual decimal? RainCertainty  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4347,11 +4941,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -4605,6 +5194,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -4628,8 +5222,10 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string Complex  { get; set; }
+
         [Key(2)]
         public virtual bool OnBusRoute  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4639,11 +5235,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -4823,6 +5414,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -4846,13 +5442,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string CIPCode  { get; set; }
+
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
                 if (_cteProgramServiceDescriptorId == default(int))
+                {
                     _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
+                }
 
                 return _cteProgramServiceDescriptorId;
             } 
@@ -4882,8 +5481,10 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 _cteProgramServiceDescriptorId = default(int);
             }
         }
+
         [Key(3)]
         public virtual bool? PrimaryIndicator  { get; set; }
+
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
         {
@@ -4903,7 +5504,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         }
 
         private DateTime? _serviceBeginDate;
-        
+
         [Key(5)]
         public virtual DateTime? ServiceEndDate 
         {
@@ -4923,7 +5524,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         }
 
         private DateTime? _serviceEndDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -4933,11 +5534,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -5061,6 +5657,70 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.BusAggregate.Sample.BusReferenceData _directlyOwnedBusReferenceData;
+
+        private bool DirectlyOwnedBusReferenceDataIsProxied()
+        {
+            return _directlyOwnedBusReferenceData != null 
+                && _directlyOwnedBusReferenceData.GetType() != typeof(NHibernate.BusAggregate.Sample.BusReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.BusAggregate.Sample.BusReferenceData DirectlyOwnedBusReferenceData
+        {
+            get => _directlyOwnedBusReferenceData;
+            set
+            {
+                _directlyOwnedBusReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !DirectlyOwnedBusReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.BusAggregate.Sample.BusReferenceData DirectlyOwnedBusSerializedReferenceData { get => _directlyOwnedBusSerializedReferenceData; set { if (value != null) _directlyOwnedBusSerializedReferenceData = value; } }
+        private NHibernate.BusAggregate.Sample.BusReferenceData _directlyOwnedBusSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the DirectlyOwnedBus discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusDiscriminator
+        {
+            get
+            {
+                return DirectlyOwnedBusReferenceDataIsProxied()
+                    ? (DirectlyOwnedBusSerializedReferenceData ?? DirectlyOwnedBusReferenceData)?.Discriminator
+                    : (DirectlyOwnedBusReferenceData ?? DirectlyOwnedBusSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the DirectlyOwnedBus resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusResourceId
+        {
+            get
+            {
+                return DirectlyOwnedBusReferenceDataIsProxied()
+                    ? (DirectlyOwnedBusSerializedReferenceData ?? DirectlyOwnedBusReferenceData)?.Id
+                    : (DirectlyOwnedBusReferenceData ?? DirectlyOwnedBusSerializedReferenceData)?.Id;
+            }
+            set { if (DirectlyOwnedBusSerializedReferenceData?.IsFullyDefined() == true) DirectlyOwnedBusSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -5073,8 +5733,24 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual string DirectlyOwnedBusId  { get; set; }
+        [Key(2)]
+        public virtual string DirectlyOwnedBusId 
+        {
+            get => _directlyOwnedBusId;
+            set
+            {
+                _directlyOwnedBusId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    DirectlyOwnedBusSerializedReferenceData ??= new NHibernate.BusAggregate.Sample.BusReferenceData(true);
+                    DirectlyOwnedBusSerializedReferenceData.BusId = value;
+                }
+            }
+        }
+
+        private string _directlyOwnedBusId;
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5095,32 +5771,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(2)]
-        public virtual NHibernate.BusAggregate.Sample.BusReferenceData DirectlyOwnedBusReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the DirectlyOwnedBus discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusDiscriminator
-        {
-            get { return DirectlyOwnedBusReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the DirectlyOwnedBus resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusResourceId
-        {
-            get { return DirectlyOwnedBusReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -5243,6 +5893,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -5266,6 +5921,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual bool? IsExemplary  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5311,11 +5967,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -5469,6 +6120,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -5483,6 +6139,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string PetName  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5495,6 +6152,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // -------------------------------------------------------------
         [Key(2)]
         public virtual bool? IsFixed  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5504,11 +6162,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -5632,6 +6285,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -5655,8 +6313,10 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual int MaximumWeight  { get; set; }
+
         [Key(2)]
         public virtual int MinimumWeight  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5666,11 +6326,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -5793,6 +6448,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -5833,7 +6493,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         }
 
         private DateTime? _firstPetOwnedDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -5879,11 +6539,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -6037,6 +6692,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -6051,9 +6711,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual int MimimumTankVolume  { get; set; }
+
         [DomainSignature]
         [Key(2)]
         public virtual string PetName  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6066,6 +6728,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // -------------------------------------------------------------
         [Key(3)]
         public virtual bool? IsFixed  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6075,11 +6738,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -6205,6 +6863,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -6223,7 +6886,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_favoriteBookCategoryDescriptorId == default(int))
+                {
                     _favoriteBookCategoryDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptor);
+                }
 
                 return _favoriteBookCategoryDescriptorId;
             } 
@@ -6253,6 +6918,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 _favoriteBookCategoryDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6265,6 +6931,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // -------------------------------------------------------------
         [Key(2)]
         public virtual string BookTitle  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6274,11 +6941,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -6457,6 +7119,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -6475,7 +7142,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_artMediumDescriptorId == default(int))
+                {
                     _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
+                }
 
                 return _artMediumDescriptorId;
             } 
@@ -6505,6 +7174,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 _artMediumDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6517,6 +7187,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // -------------------------------------------------------------
         [Key(2)]
         public virtual int? ArtPieces  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6526,11 +7197,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -6656,6 +7322,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -6670,6 +7341,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string PetName  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6682,6 +7354,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // -------------------------------------------------------------
         [Key(2)]
         public virtual bool? IsFixed  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6691,11 +7364,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -6819,6 +7487,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -6842,8 +7515,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual int MaximumWeight  { get; set; }
+
         [Key(2)]
         public virtual int MinimumWeight  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6853,11 +7528,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -7157,20 +7827,29 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
         [IgnoreMember]
         public override DateTime BeginDate  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int EducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int ProgramEducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override string ProgramName  { get; set; }
+
         [DomainSignature]
         [IgnoreMember]
         public override int ProgramTypeDescriptorId 
@@ -7178,7 +7857,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_programTypeDescriptorId == default(int))
+                {
                     _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
+                }
 
                 return _programTypeDescriptorId;
             } 
@@ -7208,6 +7889,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _programTypeDescriptorId = default(int);
             }
         }
+
         [Display(Name="StudentUniqueId")][DomainSignature]
         [IgnoreMember]
         public override int StudentUSI 
@@ -7259,6 +7941,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _studentUniqueId = value;
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7286,6 +7969,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [Key(20)]
         public virtual int? ArtPieces  { get; set; }
+
         [Key(21)]
         public virtual DateTime? ExhibitDate 
         {
@@ -7305,25 +7989,34 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         }
 
         private DateTime? _exhibitDate;
-        
+
         [Key(22)]
         public virtual decimal? HoursPerDay  { get; set; }
+
         [Key(23)]
         public virtual string IdentificationCode  { get; set; }
+
         [Key(24)]
         public virtual TimeSpan? KilnReservation  { get; set; }
+
         [Key(25)]
         public virtual string KilnReservationLength  { get; set; }
+
         [Key(26)]
         public virtual decimal? MasteredMediums  { get; set; }
+
         [Key(27)]
         public virtual decimal? NumberOfDaysInAttendance  { get; set; }
+
         [Key(28)]
         public virtual int? PortfolioPieces  { get; set; }
+
         [Key(29)]
         public virtual bool PrivateArtProgram  { get; set; }
+
         [Key(30)]
         public virtual decimal? ProgramFees  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7399,11 +8092,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -7746,6 +8434,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -7764,7 +8457,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_artMediumDescriptorId == default(int))
+                {
                     _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
+                }
 
                 return _artMediumDescriptorId;
             } 
@@ -7794,6 +8489,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _artMediumDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7813,11 +8509,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -7944,6 +8635,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -7967,13 +8663,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string BookTitle  { get; set; }
+
         [Key(2)]
         public virtual int FavoriteBookCategoryDescriptorId 
         {
             get
             {
                 if (_favoriteBookCategoryDescriptorId == default(int))
+                {
                     _favoriteBookCategoryDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptor);
+                }
 
                 return _favoriteBookCategoryDescriptorId;
             } 
@@ -8003,6 +8702,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _favoriteBookCategoryDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8012,11 +8712,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -8195,6 +8890,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -8213,7 +8913,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_artMediumDescriptorId == default(int))
+                {
                     _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
+                }
 
                 return _artMediumDescriptorId;
             } 
@@ -8243,6 +8945,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _artMediumDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8255,6 +8958,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [Key(2)]
         public virtual int? ArtPieces  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8264,11 +8968,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -8394,6 +9093,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -8408,6 +9112,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         [DomainSignature]
         [Key(1)]
         public virtual short PortfolioYears  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8427,11 +9132,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -8556,6 +9256,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -8574,7 +9279,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_serviceDescriptorId == default(int))
+                {
                     _serviceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ServiceDescriptor", _serviceDescriptor);
+                }
 
                 return _serviceDescriptorId;
             } 
@@ -8604,6 +9311,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 _serviceDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8616,6 +9324,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [Key(2)]
         public virtual bool? PrimaryIndicator  { get; set; }
+
         [Key(3)]
         public virtual DateTime? ServiceBeginDate 
         {
@@ -8635,7 +9344,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         }
 
         private DateTime? _serviceBeginDate;
-        
+
         [Key(4)]
         public virtual DateTime? ServiceEndDate 
         {
@@ -8655,7 +9364,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         }
 
         private DateTime? _serviceEndDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8665,11 +9374,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -8795,6 +9499,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -8809,6 +9518,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         [DomainSignature]
         [Key(1)]
         public virtual string Style  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -8828,11 +9538,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -8962,6 +9667,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -8985,6 +9695,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         // -------------------------------------------------------------
         [Key(1)]
         public virtual bool? AnalysisCompleted  { get; set; }
+
         [Key(2)]
         public virtual DateTime? AnalysisDate 
         {
@@ -9013,11 +9724,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -9145,6 +9851,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -9159,6 +9870,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         [DomainSignature]
         [Key(1)]
         public virtual string SchoolDistrict  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9178,11 +9890,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -9308,6 +10015,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -9326,7 +10038,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             get
             {
                 if (_termDescriptorId == default(int))
+                {
                     _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
+                }
 
                 return _termDescriptorId;
             } 
@@ -9356,6 +10070,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 _termDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9375,11 +10090,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -9506,6 +10216,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -9527,7 +10242,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         }
 
         private DateTime _beginDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9557,9 +10272,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         }
 
         private DateTime? _endDate;
-        
+
         [Key(3)]
         public virtual bool? PrimaryStudentNeedIndicator  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9569,11 +10285,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -9698,6 +10409,70 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.ProgramAggregate.EdFi.ProgramReferenceData _favoriteProgramReferenceData;
+
+        private bool FavoriteProgramReferenceDataIsProxied()
+        {
+            return _favoriteProgramReferenceData != null 
+                && _favoriteProgramReferenceData.GetType() != typeof(NHibernate.ProgramAggregate.EdFi.ProgramReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData FavoriteProgramReferenceData
+        {
+            get => _favoriteProgramReferenceData;
+            set
+            {
+                _favoriteProgramReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !FavoriteProgramReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData FavoriteProgramSerializedReferenceData { get => _favoriteProgramSerializedReferenceData; set { if (value != null) _favoriteProgramSerializedReferenceData = value; } }
+        private NHibernate.ProgramAggregate.EdFi.ProgramReferenceData _favoriteProgramSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the FavoriteProgram discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramDiscriminator
+        {
+            get
+            {
+                return FavoriteProgramReferenceDataIsProxied()
+                    ? (FavoriteProgramSerializedReferenceData ?? FavoriteProgramReferenceData)?.Discriminator
+                    : (FavoriteProgramReferenceData ?? FavoriteProgramSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the FavoriteProgram resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramResourceId
+        {
+            get
+            {
+                return FavoriteProgramReferenceDataIsProxied()
+                    ? (FavoriteProgramSerializedReferenceData ?? FavoriteProgramReferenceData)?.Id
+                    : (FavoriteProgramReferenceData ?? FavoriteProgramSerializedReferenceData)?.Id;
+            }
+            set { if (FavoriteProgramSerializedReferenceData?.IsFullyDefined() == true) FavoriteProgramSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -9719,15 +10494,39 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(1)]
-        public virtual string FavoriteProgramName  { get; set; }
         [Key(2)]
+        public virtual string FavoriteProgramName 
+        {
+            get => _favoriteProgramName;
+            set
+            {
+                _favoriteProgramName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    FavoriteProgramSerializedReferenceData.ProgramName = value ?? default;
+                }
+            }
+        }
+
+        private string _favoriteProgramName;
+
+        [Key(3)]
         public virtual int? FavoriteProgramTypeDescriptorId 
         {
             get
             {
                 if (_favoriteProgramTypeDescriptorId == default(int?))
+                {
                     _favoriteProgramTypeDescriptorId = string.IsNullOrWhiteSpace(_favoriteProgramTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _favoriteProgramTypeDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                        FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = _favoriteProgramTypeDescriptorId ?? default;
+                    }
+                }
 
                 return _favoriteProgramTypeDescriptorId;
             } 
@@ -9735,6 +10534,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 _favoriteProgramTypeDescriptorId = value;
                 _favoriteProgramTypeDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = value ?? default;
+                }
             }
         }
 
@@ -9755,8 +10560,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             {
                 _favoriteProgramTypeDescriptor = value;
                 _favoriteProgramTypeDescriptorId = default(int?);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    FavoriteProgramSerializedReferenceData ??= new NHibernate.ProgramAggregate.EdFi.ProgramReferenceData(true);
+                    FavoriteProgramSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _favoriteProgramTypeDescriptor);
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9767,32 +10579,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(3)]
-        public virtual NHibernate.ProgramAggregate.EdFi.ProgramReferenceData FavoriteProgramReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the FavoriteProgram discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramDiscriminator
-        {
-            get { return FavoriteProgramReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the FavoriteProgram resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentEducationOrganizationAssociationExtension.FavoriteProgramResourceId
-        {
-            get { return FavoriteProgramReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -9915,6 +10701,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -9938,8 +10729,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string Complex  { get; set; }
+
         [Key(2)]
         public virtual bool OnBusRoute  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -9949,11 +10742,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -10201,26 +10989,169 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     /// Represents a read-only reference to the <see cref="StudentGraduationPlanAssociation"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class StudentGraduationPlanAssociationReferenceData : IHasPrimaryKeyValues
+    public class StudentGraduationPlanAssociationReferenceData : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public StudentGraduationPlanAssociationReferenceData() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public StudentGraduationPlanAssociationReferenceData(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [Key(0)]
-        public virtual int EducationOrganizationId { get; set; }
-        [Key(1)]
-        public virtual int GraduationPlanTypeDescriptorId { get; set; }
-        [Key(2)]
-        public virtual short GraduationSchoolYear { get; set; }
-        [Key(3)]
-        public virtual int StudentUSI { get; set; }
-        // -------------------------------------------------------------
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
+        [Key(0)]
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        private int _educationOrganizationId;
+
+        [Key(1)]
+        public virtual int EducationOrganizationId
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                var originalValue = _educationOrganizationId;
+                _educationOrganizationId = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private int _graduationPlanTypeDescriptorId;
+
+        [Key(2)]
+        public virtual int GraduationPlanTypeDescriptorId
+        {
+            get => _graduationPlanTypeDescriptorId;
+            set
+            {
+                var originalValue = _graduationPlanTypeDescriptorId;
+                _graduationPlanTypeDescriptorId = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private short _graduationSchoolYear;
+
+        [Key(3)]
+        public virtual short GraduationSchoolYear
+        {
+            get => _graduationSchoolYear;
+            set
+            {
+                var originalValue = _graduationSchoolYear;
+                _graduationSchoolYear = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+        private int _studentUSI;
+
         [Key(4)]
-        public virtual Guid? Id { get; set; }
+        public virtual int StudentUSI
+        {
+            get => _studentUSI;
+            set
+            {
+                var originalValue = _studentUSI;
+                _studentUSI = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                        Discriminator = null;
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        public virtual bool IsFullyDefined()
+        {
+            return
+                _educationOrganizationId != default
+                            && _graduationPlanTypeDescriptorId != default
+                            && _graduationSchoolYear != default
+                            && _studentUSI != default
+            ;
+        }
 
         /// <summary>
         /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
@@ -10229,6 +11160,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [Key(5)]
         public virtual string Discriminator { get; set; }
 
+        private static FullName _fullName = new FullName("sample", "StudentGraduationPlanAssociation"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
         {
@@ -10315,19 +11249,225 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData _graduationPlanReferenceData;
+
+        private bool GraduationPlanReferenceDataIsProxied()
+        {
+            return _graduationPlanReferenceData != null 
+                && _graduationPlanReferenceData.GetType() != typeof(NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData GraduationPlanReferenceData
+        {
+            get => _graduationPlanReferenceData;
+            set
+            {
+                _graduationPlanReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !GraduationPlanReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(6)]
+        public virtual NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData GraduationPlanSerializedReferenceData { get => _graduationPlanSerializedReferenceData; set { if (value != null) _graduationPlanSerializedReferenceData = value; } }
+        private NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData _graduationPlanSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the GraduationPlan discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanDiscriminator
+        {
+            get
+            {
+                return GraduationPlanReferenceDataIsProxied()
+                    ? (GraduationPlanSerializedReferenceData ?? GraduationPlanReferenceData)?.Discriminator
+                    : (GraduationPlanReferenceData ?? GraduationPlanSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the GraduationPlan resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanResourceId
+        {
+            get
+            {
+                return GraduationPlanReferenceDataIsProxied()
+                    ? (GraduationPlanSerializedReferenceData ?? GraduationPlanReferenceData)?.Id
+                    : (GraduationPlanReferenceData ?? GraduationPlanSerializedReferenceData)?.Id;
+            }
+            set { if (GraduationPlanSerializedReferenceData?.IsFullyDefined() == true) GraduationPlanSerializedReferenceData.Id = value; }
+        }
+
+        private NHibernate.StaffAggregate.EdFi.StaffReferenceData _staffReferenceData;
+
+        private bool StaffReferenceDataIsProxied()
+        {
+            return _staffReferenceData != null 
+                && _staffReferenceData.GetType() != typeof(NHibernate.StaffAggregate.EdFi.StaffReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData
+        {
+            get => _staffReferenceData;
+            set
+            {
+                _staffReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StaffReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(7)]
+        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffSerializedReferenceData { get => _staffSerializedReferenceData; set { if (value != null) _staffSerializedReferenceData = value; } }
+        private NHibernate.StaffAggregate.EdFi.StaffReferenceData _staffSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the Staff discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffDiscriminator
+        {
+            get
+            {
+                return StaffReferenceDataIsProxied()
+                    ? (StaffSerializedReferenceData ?? StaffReferenceData)?.Discriminator
+                    : (StaffReferenceData ?? StaffSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the Staff resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffResourceId
+        {
+            get
+            {
+                return StaffReferenceDataIsProxied()
+                    ? (StaffSerializedReferenceData ?? StaffReferenceData)?.Id
+                    : (StaffReferenceData ?? StaffSerializedReferenceData)?.Id;
+            }
+            set { if (StaffSerializedReferenceData?.IsFullyDefined() == true) StaffSerializedReferenceData.Id = value; }
+        }
+
+        private NHibernate.StudentAggregate.EdFi.StudentReferenceData _studentReferenceData;
+
+        private bool StudentReferenceDataIsProxied()
+        {
+            return _studentReferenceData != null 
+                && _studentReferenceData.GetType() != typeof(NHibernate.StudentAggregate.EdFi.StudentReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData
+        {
+            get => _studentReferenceData;
+            set
+            {
+                _studentReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(8)]
+        public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentSerializedReferenceData { get => _studentSerializedReferenceData; set { if (value != null) _studentSerializedReferenceData = value; } }
+        private NHibernate.StudentAggregate.EdFi.StudentReferenceData _studentSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the Student discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentDiscriminator
+        {
+            get
+            {
+                return StudentReferenceDataIsProxied()
+                    ? (StudentSerializedReferenceData ?? StudentReferenceData)?.Discriminator
+                    : (StudentReferenceData ?? StudentSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the Student resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentResourceId
+        {
+            get
+            {
+                return StudentReferenceDataIsProxied()
+                    ? (StudentSerializedReferenceData ?? StudentReferenceData)?.Id
+                    : (StudentReferenceData ?? StudentSerializedReferenceData)?.Id;
+            }
+            set { if (StudentSerializedReferenceData?.IsFullyDefined() == true) StudentSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        [Key(6)]
-        public virtual int EducationOrganizationId  { get; set; }
+        [Key(9)]
+        public virtual int EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData.EducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _educationOrganizationId;
+
         [DomainSignature]
-        [Key(7)]
+        [Key(10)]
         public virtual int GraduationPlanTypeDescriptorId 
         {
             get
             {
                 if (_graduationPlanTypeDescriptorId == default(int))
+                {
                     _graduationPlanTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                        GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = _graduationPlanTypeDescriptorId;
+                    }
+                }
 
                 return _graduationPlanTypeDescriptorId;
             } 
@@ -10335,6 +11475,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 _graduationPlanTypeDescriptorId = value;
                 _graduationPlanTypeDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = value;
+                }
             }
         }
 
@@ -10355,13 +11501,36 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 _graduationPlanTypeDescriptor = value;
                 _graduationPlanTypeDescriptorId = default(int);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData.GraduationPlanTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptor);
+                }
             }
         }
+
         [DomainSignature]
-        [Key(8)]
-        public virtual short GraduationSchoolYear  { get; set; }
+        [Key(11)]
+        public virtual short GraduationSchoolYear 
+        {
+            get => _graduationSchoolYear;
+            set
+            {
+                _graduationSchoolYear = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    GraduationPlanSerializedReferenceData ??= new NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData(true);
+                    GraduationPlanSerializedReferenceData.GraduationSchoolYear = value;
+                }
+            }
+        }
+
+        private short _graduationSchoolYear;
+
         [Display(Name="StudentUniqueId")][DomainSignature]
-        [Key(9)]
+        [Key(12)]
         public virtual int StudentUSI 
         {
             get
@@ -10372,6 +11541,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
                     {
                         _studentUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                            StudentSerializedReferenceData.StudentUSI = _studentUSI;
+                        }
                     }
                 }
 
@@ -10381,6 +11556,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 _studentUSI = value;
                 GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Student", value);
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                    StudentSerializedReferenceData.StudentUSI = value;
+                }
             }
         }
 
@@ -10409,8 +11590,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         _studentUSI = default(int);
 
                 _studentUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Student", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_studentUniqueId, out var usi))
+                    {
+                        StudentSerializedReferenceData ??= new NHibernate.StudentAggregate.EdFi.StudentReferenceData(true);
+                        StudentSerializedReferenceData.StudentUSI = usi;
+                    }
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -10421,9 +11613,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(10)]
+        [Key(13)]
         public virtual TimeSpan? CommencementTime  { get; set; }
-        [Key(11)]
+
+        [Key(14)]
         public virtual DateTime EffectiveDate 
         {
             get { return _effectiveDate; }
@@ -10432,18 +11625,23 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         private DateTime _effectiveDate;
-        
-        [Key(12)]
-        public virtual decimal? GraduationFee  { get; set; }
-        [Key(13)]
-        public virtual string HighSchoolDuration  { get; set; }
-        [Key(14)]
-        public virtual decimal HoursPerWeek  { get; set; }
+
         [Key(15)]
-        public virtual bool? IsActivePlan  { get; set; }
+        public virtual decimal? GraduationFee  { get; set; }
+
         [Key(16)]
-        public virtual decimal? RequiredAttendance  { get; set; }
+        public virtual string HighSchoolDuration  { get; set; }
+
         [Key(17)]
+        public virtual decimal HoursPerWeek  { get; set; }
+
+        [Key(18)]
+        public virtual bool? IsActivePlan  { get; set; }
+
+        [Key(19)]
+        public virtual decimal? RequiredAttendance  { get; set; }
+
+        [Key(20)]
         public virtual int? StaffUSI 
         {
             get
@@ -10454,6 +11652,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
                         _staffUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                            StaffSerializedReferenceData.StaffUSI = _staffUSI ?? default;
+                        }
                     }
                 }
 
@@ -10466,6 +11670,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (value != null)
                 {
                     GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value.Value);
+                }
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                    StaffSerializedReferenceData.StaffUSI = value ?? default;
                 }
             }
         }
@@ -10495,10 +11705,22 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         _staffUSI = default(int?);
 
                 _staffUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        StaffSerializedReferenceData ??= new NHibernate.StaffAggregate.EdFi.StaffReferenceData(true);
+                        StaffSerializedReferenceData.StaffUSI = usi;
+                    }
+                }
             }
         }
-        [Key(18)]
+
+        [Key(21)]
         public virtual decimal TargetGPA  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -10541,7 +11763,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> _studentGraduationPlanAssociationCTEProgramServicePersistentList;
 
-        [Key(19)]
+        [Key(22)]
         [MessagePackFormatter(typeof(PersistentCollectionFormatter<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService>))]
         public virtual ICollection<Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgramService> StudentGraduationPlanAssociationCTEProgramServicePersistentList
         {
@@ -10575,74 +11797,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(20)]
-        public virtual NHibernate.GraduationPlanAggregate.EdFi.GraduationPlanReferenceData GraduationPlanReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the GraduationPlan discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanDiscriminator
-        {
-            get { return GraduationPlanReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the GraduationPlan resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanResourceId
-        {
-            get { return GraduationPlanReferenceData?.Id; }
-            set { }
-        }
-
-        [Key(21)]
-        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Staff discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffDiscriminator
-        {
-            get { return StaffReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Staff resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffResourceId
-        {
-            get { return StaffReferenceData?.Id; }
-            set { }
-        }
-
-        [Key(22)]
-        public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Student discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentDiscriminator
-        {
-            get { return StudentReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Student resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentResourceId
-        {
-            get { return StudentReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -11143,6 +12297,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -11161,7 +12320,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_academicSubjectDescriptorId == default(int))
+                {
                     _academicSubjectDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
+                }
 
                 return _academicSubjectDescriptorId;
             } 
@@ -11191,6 +12352,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _academicSubjectDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11210,11 +12372,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -11340,6 +12497,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -11354,6 +12516,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature]
         [Key(1)]
         public virtual int CareerPathwayCode  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11373,11 +12536,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -11502,6 +12660,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -11525,13 +12688,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // -------------------------------------------------------------
         [Key(1)]
         public virtual string CIPCode  { get; set; }
+
         [Key(2)]
         public virtual int CTEProgramServiceDescriptorId 
         {
             get
             {
                 if (_cteProgramServiceDescriptorId == default(int))
+                {
                     _cteProgramServiceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CTEProgramServiceDescriptor", _cteProgramServiceDescriptor);
+                }
 
                 return _cteProgramServiceDescriptorId;
             } 
@@ -11561,8 +12727,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _cteProgramServiceDescriptorId = default(int);
             }
         }
+
         [Key(3)]
         public virtual bool? PrimaryIndicator  { get; set; }
+
         [Key(4)]
         public virtual DateTime? ServiceBeginDate 
         {
@@ -11582,7 +12750,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         private DateTime? _serviceBeginDate;
-        
+
         [Key(5)]
         public virtual DateTime? ServiceEndDate 
         {
@@ -11602,7 +12770,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         private DateTime? _serviceEndDate;
-        
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11612,11 +12780,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -11741,6 +12904,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -11755,6 +12923,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature]
         [Key(1)]
         public virtual string Description  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11774,11 +12943,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -11903,6 +13067,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -11917,6 +13086,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature]
         [Key(1)]
         public virtual string DesignatedBy  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -11936,11 +13106,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -12065,6 +13230,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12079,6 +13249,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature]
         [Key(1)]
         public virtual string IndustryCredential  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12098,11 +13269,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -12227,6 +13393,70 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData _studentParentAssociationReferenceData;
+
+        private bool StudentParentAssociationReferenceDataIsProxied()
+        {
+            return _studentParentAssociationReferenceData != null 
+                && _studentParentAssociationReferenceData.GetType() != typeof(NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData StudentParentAssociationReferenceData
+        {
+            get => _studentParentAssociationReferenceData;
+            set
+            {
+                _studentParentAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StudentParentAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData StudentParentAssociationSerializedReferenceData { get => _studentParentAssociationSerializedReferenceData; set { if (value != null) _studentParentAssociationSerializedReferenceData = value; } }
+        private NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData _studentParentAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StudentParentAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationDiscriminator
+        {
+            get
+            {
+                return StudentParentAssociationReferenceDataIsProxied()
+                    ? (StudentParentAssociationSerializedReferenceData ?? StudentParentAssociationReferenceData)?.Discriminator
+                    : (StudentParentAssociationReferenceData ?? StudentParentAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StudentParentAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationResourceId
+        {
+            get
+            {
+                return StudentParentAssociationReferenceDataIsProxied()
+                    ? (StudentParentAssociationSerializedReferenceData ?? StudentParentAssociationReferenceData)?.Id
+                    : (StudentParentAssociationReferenceData ?? StudentParentAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StudentParentAssociationSerializedReferenceData?.IsFullyDefined() == true) StudentParentAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12239,7 +13469,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         }
 
         [Display(Name="ParentUniqueId")][DomainSignature]
-        [Key(1)]
+        [Key(2)]
         public virtual int ParentUSI 
         {
             get
@@ -12250,6 +13480,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         && usiByUniqueId.TryGetValue(_parentUniqueId, out var usi))
                     {
                         _parentUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                            StudentParentAssociationSerializedReferenceData.ParentUSI = _parentUSI;
+                        }
                     }
                 }
 
@@ -12259,6 +13495,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             {
                 _parentUSI = value;
                 GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Parent", value);
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                    StudentParentAssociationSerializedReferenceData.ParentUSI = value;
+                }
             }
         }
 
@@ -12287,8 +13529,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                         _parentUSI = default(int);
 
                 _parentUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Parent", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_parentUniqueId, out var usi))
+                    {
+                        StudentParentAssociationSerializedReferenceData ??= new NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData(true);
+                        StudentParentAssociationSerializedReferenceData.ParentUSI = usi;
+                    }
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12309,32 +13562,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(2)]
-        public virtual NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociationReferenceData StudentParentAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StudentParentAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationDiscriminator
-        {
-            get { return StudentParentAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StudentParentAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationResourceId
-        {
-            get { return StudentParentAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -12458,6 +13685,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12472,6 +13704,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         [DomainSignature]
         [Key(1)]
         public virtual short YearsAttended  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12491,11 +13724,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -12625,6 +13853,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12643,7 +13876,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_disciplineDescriptorId == default(int))
+                {
                     _disciplineDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisciplineDescriptor", _disciplineDescriptor);
+                }
 
                 return _disciplineDescriptorId;
             } 
@@ -12673,6 +13908,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 _disciplineDescriptorId = default(int);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12692,11 +13928,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -12821,6 +14052,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12835,6 +14071,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual string FavoriteBookTitle  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12854,11 +14091,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -12982,6 +14214,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -12996,6 +14233,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual decimal HoursPerWeek  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13015,11 +14253,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -13143,6 +14376,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -13157,6 +14395,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         [DomainSignature]
         [Key(1)]
         public virtual decimal PagesRead  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13176,11 +14415,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -13304,6 +14538,70 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData _staffEducationOrganizationEmploymentAssociationReferenceData;
+
+        private bool StaffEducationOrganizationEmploymentAssociationReferenceDataIsProxied()
+        {
+            return _staffEducationOrganizationEmploymentAssociationReferenceData != null 
+                && _staffEducationOrganizationEmploymentAssociationReferenceData.GetType() != typeof(NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData StaffEducationOrganizationEmploymentAssociationReferenceData
+        {
+            get => _staffEducationOrganizationEmploymentAssociationReferenceData;
+            set
+            {
+                _staffEducationOrganizationEmploymentAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !StaffEducationOrganizationEmploymentAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData StaffEducationOrganizationEmploymentAssociationSerializedReferenceData { get => _staffEducationOrganizationEmploymentAssociationSerializedReferenceData; set { if (value != null) _staffEducationOrganizationEmploymentAssociationSerializedReferenceData = value; } }
+        private NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData _staffEducationOrganizationEmploymentAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the StaffEducationOrganizationEmploymentAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationDiscriminator
+        {
+            get
+            {
+                return StaffEducationOrganizationEmploymentAssociationReferenceDataIsProxied()
+                    ? (StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ?? StaffEducationOrganizationEmploymentAssociationReferenceData)?.Discriminator
+                    : (StaffEducationOrganizationEmploymentAssociationReferenceData ?? StaffEducationOrganizationEmploymentAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the StaffEducationOrganizationEmploymentAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationResourceId
+        {
+            get
+            {
+                return StaffEducationOrganizationEmploymentAssociationReferenceDataIsProxied()
+                    ? (StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ?? StaffEducationOrganizationEmploymentAssociationReferenceData)?.Id
+                    : (StaffEducationOrganizationEmploymentAssociationReferenceData ?? StaffEducationOrganizationEmploymentAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (StaffEducationOrganizationEmploymentAssociationSerializedReferenceData?.IsFullyDefined() == true) StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -13316,16 +14614,40 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
-        public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature]
         [Key(2)]
+        public virtual int EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _educationOrganizationId;
+
+        [DomainSignature]
+        [Key(3)]
         public virtual int EmploymentStatusDescriptorId 
         {
             get
             {
                 if (_employmentStatusDescriptorId == default(int))
+                {
                     _employmentStatusDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EmploymentStatusDescriptor", _employmentStatusDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = _employmentStatusDescriptorId;
+                    }
+                }
 
                 return _employmentStatusDescriptorId;
             } 
@@ -13333,6 +14655,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 _employmentStatusDescriptorId = value;
                 _employmentStatusDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = value;
+                }
             }
         }
 
@@ -13353,21 +14681,37 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 _employmentStatusDescriptor = value;
                 _employmentStatusDescriptorId = default(int);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.EmploymentStatusDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EmploymentStatusDescriptor", _employmentStatusDescriptor);
+                }
             }
         }
+
         [DomainSignature]
-        [Key(3)]
+        [Key(4)]
         public virtual DateTime HireDate 
         {
             get { return _hireDate; }
             //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _hireDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                _hireDate = new DateTime(value.Year, value.Month, value.Day);
+
+                if (_hireDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.HireDate = _hireDate;
+                }
+            }
         }
 
         private DateTime _hireDate;
-        
+
         [Display(Name="StaffUniqueId")][DomainSignature]
-        [Key(4)]
+        [Key(5)]
         public virtual int StaffUSI 
         {
             get
@@ -13378,6 +14722,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                         && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
                     {
                         _staffUSI = usi;
+
+                        if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                        {
+                            StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                            StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = _staffUSI;
+                        }
                     }
                 }
 
@@ -13387,6 +14737,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             {
                 _staffUSI = value;
                 GeneratedArtifactStaticDependencies.UniqueIdLookupsByUsiContextProvider.Get().AddLookup("Staff", value);
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                    StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = value;
+                }
             }
         }
 
@@ -13415,8 +14771,19 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                         _staffUSI = default(int);
 
                 _staffUniqueId = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    if (GeneratedArtifactStaticDependencies.UsiLookupsByUniqueIdContextProvider.Get().UsiByUniqueIdByPersonType.TryGetValue("Staff", out var usiByUniqueId)
+                        && usiByUniqueId.TryGetValue(_staffUniqueId, out var usi))
+                    {
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData ??= new NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData(true);
+                        StaffEducationOrganizationEmploymentAssociationSerializedReferenceData.StaffUSI = usi;
+                    }
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13437,32 +14804,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(5)]
-        public virtual NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationReferenceData StaffEducationOrganizationEmploymentAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StaffEducationOrganizationEmploymentAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationDiscriminator
-        {
-            get { return StaffEducationOrganizationEmploymentAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StaffEducationOrganizationEmploymentAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationResourceId
-        {
-            get { return StaffEducationOrganizationEmploymentAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -13589,6 +14930,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -13612,17 +14958,22 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         // -------------------------------------------------------------
         [Key(1)]
         public virtual bool? DoNotPublishIndicator  { get; set; }
+
         [Key(2)]
         public virtual int? OrderOfPriority  { get; set; }
+
         [Key(3)]
         public virtual string TelephoneNumber  { get; set; }
+
         [Key(4)]
         public virtual int TelephoneNumberTypeDescriptorId 
         {
             get
             {
                 if (_telephoneNumberTypeDescriptorId == default(int))
+                {
                     _telephoneNumberTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
+                }
 
                 return _telephoneNumberTypeDescriptorId;
             } 
@@ -13652,8 +15003,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 _telephoneNumberTypeDescriptorId = default(int);
             }
         }
+
         [Key(5)]
         public virtual bool? TextMessageCapabilityIndicator  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13663,11 +15016,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -13791,6 +15139,70 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData _interventionStudyReferenceData;
+
+        private bool InterventionStudyReferenceDataIsProxied()
+        {
+            return _interventionStudyReferenceData != null 
+                && _interventionStudyReferenceData.GetType() != typeof(NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData InterventionStudyReferenceData
+        {
+            get => _interventionStudyReferenceData;
+            set
+            {
+                _interventionStudyReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !InterventionStudyReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData InterventionStudySerializedReferenceData { get => _interventionStudySerializedReferenceData; set { if (value != null) _interventionStudySerializedReferenceData = value; } }
+        private NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData _interventionStudySerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the InterventionStudy discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyDiscriminator
+        {
+            get
+            {
+                return InterventionStudyReferenceDataIsProxied()
+                    ? (InterventionStudySerializedReferenceData ?? InterventionStudyReferenceData)?.Discriminator
+                    : (InterventionStudyReferenceData ?? InterventionStudySerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the InterventionStudy resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyResourceId
+        {
+            get
+            {
+                return InterventionStudyReferenceDataIsProxied()
+                    ? (InterventionStudySerializedReferenceData ?? InterventionStudyReferenceData)?.Id
+                    : (InterventionStudyReferenceData ?? InterventionStudySerializedReferenceData)?.Id;
+            }
+            set { if (InterventionStudySerializedReferenceData?.IsFullyDefined() == true) InterventionStudySerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -13812,27 +15224,67 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Key(1)]
-        public virtual bool BedtimeReader  { get; set; }
         [Key(2)]
-        public virtual decimal? BedtimeReadingRate  { get; set; }
+        public virtual bool BedtimeReader  { get; set; }
+
         [Key(3)]
-        public virtual decimal? BookBudget  { get; set; }
+        public virtual decimal? BedtimeReadingRate  { get; set; }
+
         [Key(4)]
-        public virtual int? BooksBorrowed  { get; set; }
+        public virtual decimal? BookBudget  { get; set; }
+
         [Key(5)]
-        public virtual int? EducationOrganizationId  { get; set; }
+        public virtual int? BooksBorrowed  { get; set; }
+
         [Key(6)]
-        public virtual string InterventionStudyIdentificationCode  { get; set; }
+        public virtual int? EducationOrganizationId 
+        {
+            get => _educationOrganizationId;
+            set
+            {
+                _educationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(true);
+                    InterventionStudySerializedReferenceData.EducationOrganizationId = value ?? default;
+                }
+            }
+        }
+
+        private int? _educationOrganizationId;
+
         [Key(7)]
-        public virtual int? LibraryDuration  { get; set; }
+        public virtual string InterventionStudyIdentificationCode 
+        {
+            get => _interventionStudyIdentificationCode;
+            set
+            {
+                _interventionStudyIdentificationCode = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    InterventionStudySerializedReferenceData ??= new NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData(true);
+                    InterventionStudySerializedReferenceData.InterventionStudyIdentificationCode = value ?? default;
+                }
+            }
+        }
+
+        private string _interventionStudyIdentificationCode;
+
         [Key(8)]
-        public virtual TimeSpan? LibraryTime  { get; set; }
+        public virtual int? LibraryDuration  { get; set; }
+
         [Key(9)]
-        public virtual short? LibraryVisits  { get; set; }
+        public virtual TimeSpan? LibraryTime  { get; set; }
+
         [Key(10)]
-        public virtual string PriorContactRestrictions  { get; set; }
+        public virtual short? LibraryVisits  { get; set; }
+
         [Key(11)]
+        public virtual string PriorContactRestrictions  { get; set; }
+
+        [Key(12)]
         public virtual DateTime? ReadGreenEggsAndHamDate 
         {
             get { return _readGreenEggsAndHamDate; }
@@ -13851,11 +15303,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         }
 
         private DateTime? _readGreenEggsAndHamDate;
-        
-        [Key(12)]
-        public virtual string ReadingTimeSpent  { get; set; }
+
         [Key(13)]
+        public virtual string ReadingTimeSpent  { get; set; }
+
+        [Key(14)]
         public virtual short? StudentRead  { get; set; }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13902,32 +15356,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(14)]
-        public virtual NHibernate.InterventionStudyAggregate.EdFi.InterventionStudyReferenceData InterventionStudyReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the InterventionStudy discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyDiscriminator
-        {
-            get { return InterventionStudyReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the InterventionStudy resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyResourceId
-        {
-            get { return InterventionStudyReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================
@@ -14184,6 +15612,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -14211,7 +15644,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
             get
             {
                 if (_membershipTypeDescriptorId == default(int?))
+                {
                     _membershipTypeDescriptorId = string.IsNullOrWhiteSpace(_membershipTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("MembershipTypeDescriptor", _membershipTypeDescriptor);
+                }
 
                 return _membershipTypeDescriptorId;
             } 
@@ -14241,6 +15676,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
                 _membershipTypeDescriptorId = default(int?);
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -14250,11 +15686,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
 
         // =============================================================
         //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
@@ -14383,6 +15814,70 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
 #pragma warning restore 612, 618
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        private NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData _relatedGeneralStudentProgramAssociationReferenceData;
+
+        private bool RelatedGeneralStudentProgramAssociationReferenceDataIsProxied()
+        {
+            return _relatedGeneralStudentProgramAssociationReferenceData != null 
+                && _relatedGeneralStudentProgramAssociationReferenceData.GetType() != typeof(NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData);
+        }
+
+        [IgnoreMember]
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData RelatedGeneralStudentProgramAssociationReferenceData
+        {
+            get => _relatedGeneralStudentProgramAssociationReferenceData;
+            set
+            {
+                _relatedGeneralStudentProgramAssociationReferenceData = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !RelatedGeneralStudentProgramAssociationReferenceDataIsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key(1)]
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData RelatedGeneralStudentProgramAssociationSerializedReferenceData { get => _relatedGeneralStudentProgramAssociationSerializedReferenceData; set { if (value != null) _relatedGeneralStudentProgramAssociationSerializedReferenceData = value; } }
+        private NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData _relatedGeneralStudentProgramAssociationSerializedReferenceData;
+
+        /// <summary>
+        /// A read-only property implementation that allows the RelatedGeneralStudentProgramAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationDiscriminator
+        {
+            get
+            {
+                return RelatedGeneralStudentProgramAssociationReferenceDataIsProxied()
+                    ? (RelatedGeneralStudentProgramAssociationSerializedReferenceData ?? RelatedGeneralStudentProgramAssociationReferenceData)?.Discriminator
+                    : (RelatedGeneralStudentProgramAssociationReferenceData ?? RelatedGeneralStudentProgramAssociationSerializedReferenceData)?.Discriminator;
+            }
+            set { }
+        }
+
+        /// <summary>
+        /// A property implementation whose getter allows the RelatedGeneralStudentProgramAssociation resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationResourceId
+        {
+            get
+            {
+                return RelatedGeneralStudentProgramAssociationReferenceDataIsProxied()
+                    ? (RelatedGeneralStudentProgramAssociationSerializedReferenceData ?? RelatedGeneralStudentProgramAssociationReferenceData)?.Id
+                    : (RelatedGeneralStudentProgramAssociationReferenceData ?? RelatedGeneralStudentProgramAssociationSerializedReferenceData)?.Id;
+            }
+            set { if (RelatedGeneralStudentProgramAssociationSerializedReferenceData?.IsFullyDefined() == true) RelatedGeneralStudentProgramAssociationSerializedReferenceData.Id = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, IgnoreMember]
@@ -14395,33 +15890,98 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         }
 
         [DomainSignature]
-        [Key(1)]
+        [Key(2)]
         public virtual DateTime RelatedBeginDate 
         {
             get { return _relatedBeginDate; }
             //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _relatedBeginDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                _relatedBeginDate = new DateTime(value.Year, value.Month, value.Day);
+
+                if (_relatedBeginDate != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.BeginDate = _relatedBeginDate;
+                }
+            }
         }
 
         private DateTime _relatedBeginDate;
-        
-        [DomainSignature]
-        [Key(2)]
-        public virtual int RelatedEducationOrganizationId  { get; set; }
+
         [DomainSignature]
         [Key(3)]
-        public virtual int RelatedProgramEducationOrganizationId  { get; set; }
+        public virtual int RelatedEducationOrganizationId 
+        {
+            get => _relatedEducationOrganizationId;
+            set
+            {
+                _relatedEducationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.EducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _relatedEducationOrganizationId;
+
         [DomainSignature]
         [Key(4)]
-        public virtual string RelatedProgramName  { get; set; }
+        public virtual int RelatedProgramEducationOrganizationId 
+        {
+            get => _relatedProgramEducationOrganizationId;
+            set
+            {
+                _relatedProgramEducationOrganizationId = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramEducationOrganizationId = value;
+                }
+            }
+        }
+
+        private int _relatedProgramEducationOrganizationId;
+
         [DomainSignature]
         [Key(5)]
+        public virtual string RelatedProgramName 
+        {
+            get => _relatedProgramName;
+            set
+            {
+                _relatedProgramName = value;
+
+                if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramName = value;
+                }
+            }
+        }
+
+        private string _relatedProgramName;
+
+        [DomainSignature]
+        [Key(6)]
         public virtual int RelatedProgramTypeDescriptorId 
         {
             get
             {
                 if (_relatedProgramTypeDescriptorId == default(int))
+                {
                     _relatedProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
+                
+                    if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                    {
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                        RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = _relatedProgramTypeDescriptorId;
+                    }
+                }
 
                 return _relatedProgramTypeDescriptorId;
             } 
@@ -14429,6 +15989,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             {
                 _relatedProgramTypeDescriptorId = value;
                 _relatedProgramTypeDescriptor = null;
+        
+                if (value != default && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = value;
+                }
             }
         }
 
@@ -14449,8 +16015,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             {
                 _relatedProgramTypeDescriptor = value;
                 _relatedProgramTypeDescriptorId = default(int);
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+                {
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData ??= new NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData(true);
+                    RelatedGeneralStudentProgramAssociationSerializedReferenceData.ProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
+                }
             }
         }
+
         // -------------------------------------------------------------
 
         // =============================================================
@@ -14471,32 +16044,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         // =============================================================
         //                          Extensions
         // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        [Key(6)]
-        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData RelatedGeneralStudentProgramAssociationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationDiscriminator
-        {
-            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationResourceId
-        {
-            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Id; }
-            set { }
-        }
-
         // -------------------------------------------------------------
 
         //=============================================================

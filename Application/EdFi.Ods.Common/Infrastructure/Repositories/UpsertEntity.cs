@@ -7,6 +7,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
@@ -34,7 +36,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             IUpdateEntity<TEntity> updateEntity,
             IContextProvider<UniqueIdLookupsByUsiContext> lookupContextProvider,
             IPersonUniqueIdResolver personUniqueIdResolver,
-            IContextProvider<DataPolicyException> dataPolicyExceptionContextProvider)
+            IContextProvider<DataPolicyException> dataPolicyExceptionContextProvider,
+            ApiSettings apiSettings)
             : base(sessionFactory)
         {
             _getEntityById = getEntityById;

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Configuration;
@@ -41,7 +42,17 @@ namespace EdFi.Ods.Common.Configuration
 
         public int[] Years { get; set; }
 
-        public List<Feature> Features { get; set; } = new();
+        private List<Feature> _features = new();
+
+        public List<Feature> Features
+        {
+            get => _features;
+            set
+            {
+                _features = value;
+                _featureEnabledByName = new();
+            }
+        }
 
         public List<ScheduledJobSettings> ScheduledJobs { get; set; } = new();
 
@@ -120,7 +131,13 @@ namespace EdFi.Ods.Common.Configuration
             return Array.Empty<string>();
         }
 
+        private ConcurrentDictionary<string, bool> _featureEnabledByName = new(StringComparer.OrdinalIgnoreCase);
+
         public bool IsFeatureEnabled(string featureName)
-            => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
+        {
+            return _featureEnabledByName.GetOrAdd(featureName,
+                static (n, features) 
+                    => features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(n) && x.IsEnabled) != null, Features);
+        }
     }
 }

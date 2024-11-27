@@ -92,6 +92,7 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.Alternat
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -259,6 +260,27 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.StudentA
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducationOrganizationResourceId == null)
+                {
+                    target.EducationOrganizationResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ProgramResourceId == null)
+                {
+                    target.ProgramResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentResourceId == null)
+                {
+                    target.StudentResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -297,15 +319,18 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.StudentA
                 target.AlternativeEducationEligibilityReasonDescriptor = source.AlternativeEducationEligibilityReasonDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
                 target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
                 target.ProgramResourceId = source.ProgramResourceId;
                 target.ProgramDiscriminator = source.ProgramDiscriminator;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+                }
             }
 
 
@@ -369,6 +394,7 @@ namespace EdFi.Ods.Entities.Common.SampleAlternativeEducationProgram //.StudentA
 
 
             // Sync lists
+
 
             return isModified;
         }

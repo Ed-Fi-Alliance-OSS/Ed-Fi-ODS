@@ -92,6 +92,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionControl
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -244,6 +245,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.InstitutionLevelDe
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -370,6 +372,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.PostSecondaryOrgan
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -510,6 +513,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SpecialEducationGr
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -613,6 +617,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -695,6 +700,17 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PostSecondaryOrganizationResourceId == null)
+                {
+                    target.PostSecondaryOrganizationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -716,11 +732,14 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
                 target.SubmissionCertificationDescriptor = source.SubmissionCertificationDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PostSecondaryOrganizationResourceId = source.PostSecondaryOrganizationResourceId;
                 target.PostSecondaryOrganizationDiscriminator = source.PostSecondaryOrganizationDiscriminator;
+                }
             }
 
 
@@ -833,6 +852,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.SubmissionCertific
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }

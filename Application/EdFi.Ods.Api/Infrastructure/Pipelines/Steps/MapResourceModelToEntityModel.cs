@@ -7,7 +7,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
 {
@@ -17,29 +23,25 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
         where TResourceModel : class, IMappable, IHasETag
         where TEntityModel : class, new()
     {
-        public void Execute(TContext context, TResult result)
+        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
             // NOTE this step will always run synchronously so we are not moving the logic to the async method.
             try
             {
                 if (context.Resource == default(TResourceModel))
                 {
-                    return;
+                    return Task.CompletedTask;
                 }
 
-                var model = new TEntityModel();
-                context.Resource.Map(model);
-                context.PersistentModel = model;
+                var entity = new TEntityModel();
+                context.Resource.Map(entity);
+                context.PersistentModel = entity;
             }
             catch (Exception ex)
             {
                 result.Exception = ex;
             }
-        }
 
-        public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
-        {
-            Execute(context, result);
             return Task.CompletedTask;
         }
     }

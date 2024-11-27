@@ -349,7 +349,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 

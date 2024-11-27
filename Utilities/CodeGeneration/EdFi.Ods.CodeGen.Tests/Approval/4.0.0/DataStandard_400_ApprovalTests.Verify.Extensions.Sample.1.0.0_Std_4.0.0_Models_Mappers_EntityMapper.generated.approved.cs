@@ -92,6 +92,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -197,6 +198,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -446,6 +448,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StaffEducationOrganizationAssignmentAssociationResourceId == null)
+                {
+                    target.StaffEducationOrganizationAssignmentAssociationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -508,11 +521,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 target.WeeklyMileage = source.WeeklyMileage;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StaffEducationOrganizationAssignmentAssociationResourceId = source.StaffEducationOrganizationAssignmentAssociationResourceId;
                 target.StaffEducationOrganizationAssignmentAssociationDiscriminator = source.StaffEducationOrganizationAssignmentAssociationDiscriminator;
+                }
             }
 
 
@@ -590,6 +606,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -656,6 +673,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ProgramResourceId == null)
+                {
+                    target.ProgramResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -674,11 +702,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.ProgramResourceId = source.ProgramResourceId;
                 target.ProgramDiscriminator = source.ProgramDiscriminator;
+                }
             }
 
 
@@ -730,6 +761,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -796,6 +828,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -883,6 +916,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1020,6 +1054,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1173,6 +1208,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1315,6 +1351,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -1396,6 +1433,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1461,6 +1499,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1528,6 +1567,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1593,6 +1633,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1695,6 +1736,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1775,6 +1817,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducationContentResourceId == null)
+                {
+                    target.EducationContentResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -1791,11 +1844,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EducationContentResourceId = source.EducationContentResourceId;
                 target.EducationContentDiscriminator = source.EducationContentDiscriminator;
+                }
             }
 
 
@@ -2072,6 +2128,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -2266,6 +2323,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -2332,6 +2390,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentProgramAssociationResourceId == null)
+                {
+                    target.StudentProgramAssociationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2353,10 +2422,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StudentProgramAssociationResourceId = source.StudentProgramAssociationResourceId;
+                }
             }
 
 
@@ -2429,6 +2501,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -2544,6 +2617,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -2624,6 +2698,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.DirectlyOwnedBusResourceId == null)
+                {
+                    target.DirectlyOwnedBusResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2640,11 +2725,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.DirectlyOwnedBusResourceId = source.DirectlyOwnedBusResourceId;
                 target.DirectlyOwnedBusDiscriminator = source.DirectlyOwnedBusDiscriminator;
+                }
             }
 
 
@@ -2754,6 +2842,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                         itemCreatable: mappingContract?.IsSchoolDirectlyOwnedBusesItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsSchoolDirectlyOwnedBusIncluded?.Invoke(item) ?? true);
             }
+
 
 
             return isModified;
@@ -2929,6 +3018,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -3045,6 +3135,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -3128,6 +3219,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -3210,6 +3302,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3365,6 +3458,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -3501,6 +3595,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -3582,6 +3677,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -3657,6 +3753,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3740,6 +3837,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4064,6 +4162,27 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducationOrganizationResourceId == null)
+                {
+                    target.EducationOrganizationResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ProgramResourceId == null)
+                {
+                    target.ProgramResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentResourceId == null)
+                {
+                    target.StudentResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -4132,15 +4251,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 target.ProgramFees = source.ProgramFees;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
                 target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
                 target.ProgramResourceId = source.ProgramResourceId;
                 target.ProgramDiscriminator = source.ProgramDiscriminator;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+                }
             }
 
 
@@ -4291,6 +4413,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -4384,6 +4507,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
 
 
+
             return isModified;
         }
 
@@ -4467,6 +4591,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -4535,6 +4660,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4623,6 +4749,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -4697,6 +4824,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4782,6 +4910,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4905,6 +5034,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             }
 
 
+
             return isModified;
         }
 
@@ -4986,6 +5116,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -5051,6 +5182,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5132,6 +5264,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.FavoriteProgramResourceId == null)
+                {
+                    target.FavoriteProgramResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -5153,11 +5296,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 target.FavoriteProgramTypeDescriptor = source.FavoriteProgramTypeDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.FavoriteProgramResourceId = source.FavoriteProgramResourceId;
                 target.FavoriteProgramDiscriminator = source.FavoriteProgramDiscriminator;
+                }
             }
 
 
@@ -5224,6 +5370,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                         itemCreatable: mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItemCreatable ?? true,
                         includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded?.Invoke(item) ?? true);
             }
+
 
 
             return isModified;
@@ -5309,6 +5456,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5588,6 +5736,27 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.GraduationPlanResourceId == null)
+                {
+                    target.GraduationPlanResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StaffResourceId == null)
+                {
+                    target.StaffResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentResourceId == null)
+                {
+                    target.StudentResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -5637,15 +5806,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 target.TargetGPA = source.TargetGPA;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.GraduationPlanResourceId = source.GraduationPlanResourceId;
                 target.GraduationPlanDiscriminator = source.GraduationPlanDiscriminator;
                 target.StaffResourceId = source.StaffResourceId;
                 target.StaffDiscriminator = source.StaffDiscriminator;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+                }
             }
 
 
@@ -5769,6 +5941,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -5834,6 +6007,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5936,6 +6110,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6016,6 +6191,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6081,6 +6257,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6148,6 +6325,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6214,6 +6392,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentParentAssociationResourceId == null)
+                {
+                    target.StudentParentAssociationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -6230,11 +6419,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StudentParentAssociationResourceId = source.StudentParentAssociationResourceId;
                 target.StudentParentAssociationDiscriminator = source.StudentParentAssociationDiscriminator;
+                }
             }
 
 
@@ -6286,6 +6478,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6357,6 +6550,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6631,6 +6825,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.InterventionStudyResourceId == null)
+                {
+                    target.InterventionStudyResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -6685,11 +6890,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 target.StudentRead = source.StudentRead;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.InterventionStudyResourceId = source.InterventionStudyResourceId;
                 target.InterventionStudyDiscriminator = source.InterventionStudyDiscriminator;
+                }
             }
 
 
@@ -6803,6 +7011,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6868,6 +7077,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6935,6 +7145,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -7001,6 +7212,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StaffEducationOrganizationEmploymentAssociationResourceId == null)
+                {
+                    target.StaffEducationOrganizationEmploymentAssociationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -7020,11 +7242,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StaffEducationOrganizationEmploymentAssociationResourceId = source.StaffEducationOrganizationEmploymentAssociationResourceId;
                 target.StaffEducationOrganizationEmploymentAssociationDiscriminator = source.StaffEducationOrganizationEmploymentAssociationDiscriminator;
+                }
             }
 
 
@@ -7111,6 +7336,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -7204,6 +7430,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -7293,6 +7520,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -7363,6 +7591,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.RelatedGeneralStudentProgramAssociationResourceId == null)
+                {
+                    target.RelatedGeneralStudentProgramAssociationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -7383,11 +7622,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.RelatedGeneralStudentProgramAssociationResourceId = source.RelatedGeneralStudentProgramAssociationResourceId;
                 target.RelatedGeneralStudentProgramAssociationDiscriminator = source.RelatedGeneralStudentProgramAssociationDiscriminator;
+                }
             }
 
 

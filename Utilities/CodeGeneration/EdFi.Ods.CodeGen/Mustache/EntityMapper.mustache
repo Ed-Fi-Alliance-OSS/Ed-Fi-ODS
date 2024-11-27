@@ -189,6 +189,21 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
             {{/IsExtendable}}
 
+            {{#HasAggregateReferences}}
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+            {{#AggregateReferences}}
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.{{AggregateReferenceName}}ResourceId == null)
+                {
+                    target.{{AggregateReferenceName}}ResourceId = null;
+                }
+            {{/AggregateReferences}}
+            }
+
+            {{/HasAggregateReferences}}
+
             return isModified;
         }
 
@@ -250,15 +265,18 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             // Copy Aggregate Reference Data
             {{#HasAggregateReferences}}
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
             {{#AggregateReferences}}
                 target.{{AggregateReferenceName}}ResourceId = source.{{AggregateReferenceName}}ResourceId;
                 {{#MappedReferenceDataHasDiscriminator}}
                 target.{{AggregateReferenceName}}Discriminator = source.{{AggregateReferenceName}}Discriminator;
                 {{/MappedReferenceDataHasDiscriminator}}
             {{/AggregateReferences}}
+                }
             }
 
             {{/HasAggregateReferences}}

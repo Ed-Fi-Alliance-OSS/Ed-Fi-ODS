@@ -602,7 +602,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 

@@ -41,24 +41,89 @@ namespace {{AggregateNamespace}}
     /// Represents a read-only reference to the <see cref="{{ClassName}}"/> entity.
     /// </summary>
     [MessagePackObject]
-    public class {{ReferenceDataClassName}} : IHasPrimaryKeyValues
+    public class {{ReferenceDataClassName}} : IEntityReferenceData
     {
+        private bool _trackLookupContext;
+    
+        // Default constructor (used by NHibernate)
+        public {{ReferenceDataClassName}}() { }
+
+        // Constructor (used for link support with Serialized Data feature)
+        public {{ReferenceDataClassName}}(bool trackLookupContext) { _trackLookupContext = trackLookupContext; }
+
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        {{#PrimaryKey}}
-            {{#NonParentProperties}}
-        [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
-        public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} { get; set; }
-            {{/NonParentProperties}}
-        {{/PrimaryKey}}
-        // -------------------------------------------------------------
+{{! Id must appear first for deserialization support to allow for correct behavior of reference data resolution }}
+        private Guid? _id;
 
         /// <summary>
         /// The id of the referenced entity (used as the resource identifier in the API).
         /// </summary>
         [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
-        public virtual Guid? Id { get; set; }
+        public virtual Guid? Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+
+                if (_trackLookupContext || (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled))
+                {
+                    // If explicitly setting this to a non-value, it needs to be resolved.
+                    if (value == default(Guid) || value == null)
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+
+        {{#PrimaryKey}}
+            {{#NonParentProperties}}
+        private {{CSharpDeclaredType}} {{CSharpSafeFieldName}};
+
+        [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
+        public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}}
+        {
+            get => {{CSharpSafeFieldName}};
+            set
+            {
+                var originalValue = {{CSharpSafeFieldName}};
+                {{CSharpSafeFieldName}} = value;
+
+                if (_trackLookupContext)
+                {
+                    // If Id is NOT already known then value is being initialized (from mapping or syncing -- not deserialized) and needs resolution 
+                    if (_id == default && originalValue == default && value != default && IsFullyDefined())
+                    {
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                    // If key value is changing (i.e. only via Synchronize)
+                    else if (originalValue != default && value != originalValue) 
+                    {
+                        // Clear the values
+                        Id = default;
+                    {{#HasDiscriminator}}
+                        Discriminator = null;
+                    {{/HasDiscriminator}}
+                        GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Add(this);
+                    }
+                }
+            }
+        }
+            {{/NonParentProperties}}
+        {{/PrimaryKey}}
+
+        {{#PrimaryKey}}
+        public virtual bool IsFullyDefined()
+        {
+            return
+            {{#NonParentProperties}}
+                {{^IsFirst}}&& {{/IsFirst}}{{CSharpSafeFieldName}} != default
+            {{/NonParentProperties}};
+        }
+        {{/PrimaryKey}}
         {{#HasDiscriminator}}
 
         /// <summary>
@@ -68,7 +133,14 @@ namespace {{AggregateNamespace}}
         [Key({{#ReferenceDataMessagePackIndexer}}{{NextKey}}{{/ReferenceDataMessagePackIndexer}})]
         public virtual string Discriminator { get; set; }
         {{/HasDiscriminator}}
+        {{^HasDiscriminator}}
 
+        string IEntityReferenceData.Discriminator { get => null; set {} }
+        {{/HasDiscriminator}}
+
+        private static FullName _fullName = new FullName("{{SchemaName}}", "{{TableName}}"); 
+        FullName IEntityReferenceData.FullName { get => _fullName; }
+    
         {{#PrimaryKeyMap}}
         // Provide primary key information
         OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
@@ -172,6 +244,88 @@ namespace {{AggregateNamespace}}
         {{/Constructor}}
 
         // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        {{#AggregateReferences}}
+        private {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{ReferenceDataFieldName}};
+
+        private bool {{ReferenceDataPropertyName}}IsProxied()
+        {
+            return {{ReferenceDataFieldName}} != null 
+                && {{ReferenceDataFieldName}}.GetType() != typeof({{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}});
+        }
+
+        [IgnoreMember]
+        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{ReferenceDataPropertyName}}
+        {
+            get => {{ReferenceDataFieldName}};
+            set
+            {
+                {{ReferenceDataFieldName}} = value;
+
+                if (value != null && GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled
+                    // NHibernate will proxy this object reference if it is not hydrated through an outer join in the query
+                    && !{{ReferenceDataPropertyName}}IsProxied())
+                {
+                    // We've encountered an NHibernate hydrated reference data meaning we've already got all reference data needed
+                    GeneratedArtifactStaticDependencies.ReferenceDataLookupContextProvider.Get()?.Suppress();
+                }
+            }
+        }
+
+        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
+        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{SerializedReferenceDataPropertyName}} { get => {{SerializedReferenceDataFieldName}}; set { if (value != null) {{SerializedReferenceDataFieldName}} = value; } }
+        private {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{SerializedReferenceDataFieldName}};
+
+        {{#MappedReferenceDataHasDiscriminator}}
+        /// <summary>
+        /// A read-only property implementation that allows the {{ReferenceAssociationName}} discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}Discriminator
+        {
+            get
+            {
+                return {{ReferenceDataPropertyName}}IsProxied()
+                    ? ({{SerializedReferenceDataPropertyName}} ?? {{ReferenceDataPropertyName}})?.Discriminator
+                    : ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Discriminator;
+            }
+            set { }
+        }
+
+        {{/MappedReferenceDataHasDiscriminator}}
+        /// <summary>
+        /// A property implementation whose getter allows the {{ReferenceAssociationName}} resource identifier value to be mapped to the resource reference,
+        /// and whose setter is used with serialized data and links features to signal need to resolve reference data from the ODS.
+        /// </summary>
+        Guid? {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}ResourceId
+        {
+            {{#PotentiallyLogical}}
+            get
+            {
+                if ({{ReferenceDataPropertyName}}IsProxied())
+                {
+                    {{ReferenceDataPropertyName}} = null;
+                    return null;
+                }
+
+                return ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Id;
+            }
+            {{/PotentiallyLogical}}
+            {{^PotentiallyLogical}}
+            get
+            {
+                return {{ReferenceDataPropertyName}}IsProxied()
+                    ? ({{SerializedReferenceDataPropertyName}} ?? {{ReferenceDataPropertyName}})?.Id
+                    : ({{ReferenceDataPropertyName}} ?? {{SerializedReferenceDataPropertyName}})?.Id;
+            }
+            {{/PotentiallyLogical}}
+            set { if ({{SerializedReferenceDataPropertyName}}?.IsFullyDefined() == true) {{SerializedReferenceDataPropertyName}}.Id = value; }
+        }
+
+        {{/AggregateReferences}}
+        // -------------------------------------------------------------
+
+        // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         {{#PrimaryKey}}
@@ -202,10 +356,7 @@ namespace {{AggregateNamespace}}
                 {{^IsDerived}}
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
                 {{/IsDerived}}
-        public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
-                {{#PropertyAccessors}}
-{{> Entities_PropertyAccessors}}
-                {{/PropertyAccessors}}
+        public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#PropertyAccessors}}{{> Entities_PropertyAccessors}}{{/PropertyAccessors}}
             {{/NonParentProperties}}
         {{/PrimaryKey}}
         // -------------------------------------------------------------
@@ -229,10 +380,7 @@ namespace {{AggregateNamespace}}
         // -------------------------------------------------------------
         {{#Properties}}
         [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
-        public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
-            {{#PropertyAccessors}}
-{{> Entities_PropertyAccessors}}
-            {{/PropertyAccessors}}
+        public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#PropertyAccessors}}{{> Entities_PropertyAccessors}}{{/PropertyAccessors}}
         {{/Properties}}
         // -------------------------------------------------------------
 
@@ -436,50 +584,6 @@ namespace {{AggregateNamespace}}
 
         {{/ExtendableConcreteBase}}
         {{/IsExtendable}}
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        {{#AggregateReferences}}
-        [Key({{#MessagePackIndexer}}{{NextKey}}{{/MessagePackIndexer}})]
-        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName }} {{ReferenceDataPropertyName}} { get; set; }
-
-        {{#MappedReferenceDataHasDiscriminator}}
-        /// <summary>
-        /// Read-only property that allows the {{ReferenceAssociationName}} discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}Discriminator
-        {
-            get { return {{ReferenceDataPropertyName}}?.Discriminator; }
-            set { }
-        }
-
-        {{/MappedReferenceDataHasDiscriminator}}
-        /// <summary>
-        /// Read-only property that allows the {{ReferenceAssociationName}} resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}ResourceId
-        {
-            {{#PotentiallyLogical}}
-            get
-            {
-                if ({{ReferenceDataPropertyName}}?.GetType().Name == "{{ReferenceDataPropertyName}}Proxy")
-                {
-                    {{ReferenceDataPropertyName}} = null;
-                    return null;
-                }
-
-                return {{ReferenceDataPropertyName}}?.Id;
-            }
-            {{/PotentiallyLogical}}
-            {{^PotentiallyLogical}}
-            get { return {{ReferenceDataPropertyName}}?.Id; }
-            {{/PotentiallyLogical}}
-            set { }
-        }
-
-        {{/AggregateReferences}}
         // -------------------------------------------------------------
 
         //=============================================================

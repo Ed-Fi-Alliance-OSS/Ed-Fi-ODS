@@ -63,7 +63,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -396,7 +396,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -1569,7 +1569,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -2235,7 +2235,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -2545,7 +2545,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -3721,7 +3721,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 
@@ -4502,7 +4502,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
                 if (_link == null)
                 {
                     // Only generate links when all values are present
-                    if (IsReferenceFullyDefined())
+                    if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled && IsReferenceFullyDefined())
                         _link = CreateLink();
                 }
 

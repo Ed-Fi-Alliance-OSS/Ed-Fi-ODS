@@ -92,6 +92,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -243,6 +244,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -622,6 +624,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -713,11 +726,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
+                }
             }
 
 
@@ -886,6 +902,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -995,6 +1012,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1098,6 +1116,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -1178,6 +1197,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1257,6 +1277,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1344,6 +1365,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
+
             return isModified;
         }
 
@@ -1414,6 +1436,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1515,6 +1538,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1632,6 +1656,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -1713,6 +1738,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1800,6 +1826,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -1943,6 +1970,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.CandidateResourceId == null)
+                {
+                    target.CandidateResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducatorPreparationProgramResourceId == null)
+                {
+                    target.EducatorPreparationProgramResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -1975,13 +2018,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 target.ReasonExitedDescriptor = source.ReasonExitedDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.CandidateResourceId = source.CandidateResourceId;
                 target.CandidateDiscriminator = source.CandidateDiscriminator;
                 target.EducatorPreparationProgramResourceId = source.EducatorPreparationProgramResourceId;
                 target.EducatorPreparationProgramDiscriminator = source.EducatorPreparationProgramDiscriminator;
+                }
             }
 
 
@@ -2051,6 +2097,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.SchoolYearTypeResourceId == null)
+                {
+                    target.SchoolYearTypeResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2071,10 +2128,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                 target.TermDescriptor = source.TermDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
+                }
             }
 
 
@@ -2140,6 +2200,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -2273,6 +2334,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -2425,6 +2487,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -2594,6 +2657,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2633,11 +2707,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
+                }
             }
 
 
@@ -2695,6 +2772,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentAcademicRecordResourceId == null)
+                {
+                    target.StudentAcademicRecordResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2714,11 +2802,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StudentAcademicRecordResourceId = source.StudentAcademicRecordResourceId;
                 target.StudentAcademicRecordDiscriminator = source.StudentAcademicRecordDiscriminator;
+                }
             }
 
 
@@ -2831,6 +2922,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -2967,6 +3059,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducationOrganizationResourceId == null)
+                {
+                    target.EducationOrganizationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -2994,11 +3097,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
                 target.ProgramId = source.ProgramId;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
                 target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
+                }
             }
 
 
@@ -3055,6 +3161,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3182,6 +3289,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3335,6 +3443,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -3486,6 +3595,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3647,6 +3757,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PerformanceEvaluationResourceId == null)
+                {
+                    target.PerformanceEvaluationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -3687,11 +3808,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
                 target.MinRating = source.MinRating;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PerformanceEvaluationResourceId = source.PerformanceEvaluationResourceId;
                 target.PerformanceEvaluationDiscriminator = source.PerformanceEvaluationDiscriminator;
+                }
             }
 
 
@@ -3762,6 +3886,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -3899,6 +4024,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationObjectiveResourceId == null)
+                {
+                    target.EvaluationObjectiveResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -3938,11 +4074,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
                 target.SortOrder = source.SortOrder;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationObjectiveResourceId = source.EvaluationObjectiveResourceId;
                 target.EvaluationObjectiveDiscriminator = source.EvaluationObjectiveDiscriminator;
+                }
             }
 
 
@@ -4013,6 +4152,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4160,6 +4300,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationElementResourceId == null)
+                {
+                    target.EvaluationElementResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationObjectiveRatingResourceId == null)
+                {
+                    target.EvaluationObjectiveRatingResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -4205,13 +4361,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
                 target.Feedback = source.Feedback;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationElementResourceId = source.EvaluationElementResourceId;
                 target.EvaluationElementDiscriminator = source.EvaluationElementDiscriminator;
                 target.EvaluationObjectiveRatingResourceId = source.EvaluationObjectiveRatingResourceId;
                 target.EvaluationObjectiveRatingDiscriminator = source.EvaluationObjectiveRatingDiscriminator;
+                }
             }
 
 
@@ -4275,6 +4434,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4406,6 +4566,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4568,6 +4729,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationResourceId == null)
+                {
+                    target.EvaluationResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -4609,11 +4781,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
                 target.SortOrder = source.SortOrder;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationResourceId = source.EvaluationResourceId;
                 target.EvaluationDiscriminator = source.EvaluationDiscriminator;
+                }
             }
 
 
@@ -4684,6 +4859,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -4809,6 +4985,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationObjectiveResourceId == null)
+                {
+                    target.EvaluationObjectiveResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationRatingResourceId == null)
+                {
+                    target.EvaluationRatingResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -4844,13 +5036,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
                 target.ObjectiveRatingLevelDescriptor = source.ObjectiveRatingLevelDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationObjectiveResourceId = source.EvaluationObjectiveResourceId;
                 target.EvaluationObjectiveDiscriminator = source.EvaluationObjectiveDiscriminator;
                 target.EvaluationRatingResourceId = source.EvaluationRatingResourceId;
                 target.EvaluationRatingDiscriminator = source.EvaluationRatingDiscriminator;
+                }
             }
 
 
@@ -4914,6 +5109,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5045,6 +5241,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5229,6 +5426,27 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationResourceId == null)
+                {
+                    target.EvaluationResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PerformanceEvaluationRatingResourceId == null)
+                {
+                    target.PerformanceEvaluationRatingResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.SectionResourceId == null)
+                {
+                    target.SectionResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -5275,15 +5493,18 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 target.SessionName = source.SessionName;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationResourceId = source.EvaluationResourceId;
                 target.EvaluationDiscriminator = source.EvaluationDiscriminator;
                 target.PerformanceEvaluationRatingResourceId = source.PerformanceEvaluationRatingResourceId;
                 target.PerformanceEvaluationRatingDiscriminator = source.PerformanceEvaluationRatingDiscriminator;
                 target.SectionResourceId = source.SectionResourceId;
                 target.SectionDiscriminator = source.SectionDiscriminator;
+                }
             }
 
 
@@ -5352,6 +5573,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5473,6 +5695,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ReviewerPersonResourceId == null)
+                {
+                    target.ReviewerPersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -5496,11 +5729,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.ReviewerPersonResourceId = source.ReviewerPersonResourceId;
                 target.ReviewerPersonDiscriminator = source.ReviewerPersonDiscriminator;
+                }
             }
 
 
@@ -5602,6 +5838,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5734,6 +5971,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -5887,6 +6125,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6039,6 +6278,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6173,6 +6413,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.StudentResourceId == null)
+                {
+                    target.StudentResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -6206,11 +6457,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
                 target.PellGrantRecipient = source.PellGrantRecipient;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
+                }
             }
 
 
@@ -6323,6 +6577,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6476,6 +6731,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -6627,6 +6883,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EducationOrganizationResourceId == null)
+                {
+                    target.EducationOrganizationResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.SchoolYearTypeResourceId == null)
+                {
+                    target.SchoolYearTypeResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -6657,12 +6929,15 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                 target.PerformanceEvaluationDescription = source.PerformanceEvaluationDescription;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
                 target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
                 target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
+                }
             }
 
 
@@ -6724,6 +6999,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6804,6 +7080,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -6981,6 +7258,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             }
 
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PerformanceEvaluationResourceId == null)
+                {
+                    target.PerformanceEvaluationResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -7031,13 +7324,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 target.ScheduleDate = source.ScheduleDate;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PerformanceEvaluationResourceId = source.PerformanceEvaluationResourceId;
                 target.PerformanceEvaluationDiscriminator = source.PerformanceEvaluationDiscriminator;
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
+                }
             }
 
 
@@ -7106,6 +7402,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -7227,6 +7524,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.ReviewerPersonResourceId == null)
+                {
+                    target.ReviewerPersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -7250,11 +7558,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.ReviewerPersonResourceId = source.ReviewerPersonResourceId;
                 target.ReviewerPersonDiscriminator = source.ReviewerPersonDiscriminator;
+                }
             }
 
 
@@ -7356,6 +7667,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
 
             // Sync lists
+
 
             return isModified;
         }
@@ -7488,6 +7800,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
             // Synch inherited lists
 
             // Sync lists
+
 
             return isModified;
         }
@@ -7641,6 +7954,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -7777,6 +8091,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.EvaluationElementResourceId == null)
+                {
+                    target.EvaluationElementResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -7814,11 +8139,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
                 target.RubricRatingLevelDescriptor = source.RubricRatingLevelDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.EvaluationElementResourceId = source.EvaluationElementResourceId;
                 target.EvaluationElementDiscriminator = source.EvaluationElementDiscriminator;
+                }
             }
 
 
@@ -7932,6 +8260,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 
             // Sync lists
 
+
             return isModified;
         }
 
@@ -8035,6 +8364,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PostSecondaryInstitutionResourceId == null)
+                {
+                    target.PostSecondaryInstitutionResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -8053,10 +8393,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
                 target.PostSecondaryInstitutionId = source.PostSecondaryInstitutionId;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PostSecondaryInstitutionResourceId = source.PostSecondaryInstitutionResourceId;
+                }
             }
 
 
@@ -8128,6 +8471,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -8149,11 +8503,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
+                }
             }
 
 
@@ -8225,6 +8582,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.SurveyResponseResourceId == null)
+                {
+                    target.SurveyResponseResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -8248,13 +8621,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
                 target.SurveyResponseResourceId = source.SurveyResponseResourceId;
                 target.SurveyResponseDiscriminator = source.SurveyResponseDiscriminator;
+                }
             }
 
 
@@ -8327,6 +8703,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
 
             // Sync lists
 
+            // Check for enabled features, and then deal with resolving aggregate reference data where it is missing
+            if (GeneratedArtifactStaticDependencies.SerializedDataEnabled && GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
+            {
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.PersonResourceId == null)
+                {
+                    target.PersonResourceId = null;
+                }
+                // Detect an uninitialized Id and invoke the setter so that it is added to the reference data resolution context
+                if (target.SurveySectionResponseResourceId == null)
+                {
+                    target.SurveySectionResponseResourceId = null;
+                }
+            }
+
+
             return isModified;
         }
 
@@ -8351,13 +8743,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
-                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            if (GeneratedArtifactStaticDependencies.ResourceLinksEnabled)
             {
+                if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                    || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+                {
                 target.PersonResourceId = source.PersonResourceId;
                 target.PersonDiscriminator = source.PersonDiscriminator;
                 target.SurveySectionResponseResourceId = source.SurveySectionResponseResourceId;
                 target.SurveySectionResponseDiscriminator = source.SurveySectionResponseDiscriminator;
+                }
             }
 
 

@@ -173,13 +173,13 @@ namespace EdFi.Ods.CodeGen.Generators
                     ReferenceDataMessagePackIndexer = new MessagePackIndexer(),
                     TableName = entity.Name,
                     SchemaName = entity.Schema,
-                    entity.IsAggregateRoot,
+                    IsAggregateRoot = entity.IsAggregateRoot,
                     IsAbstract = entity.IsAbstractRequiringNoCompositeId(),
-                    entity.IsDerived,
+                    IsDerived = entity.IsDerived,
                     IsDescriptor = entity.IsDescriptorEntity,
                     IsPersonEntity = entity.IsPersonEntity(),
-                    context.IsConcreteEntityBaseClass,
-                    context.IsConcreteEntityChildClassForBase,
+                    IsConcreteEntityBaseClass = context.IsConcreteEntityBaseClass,
+                    IsConcreteEntityChildClassForBase = context.IsConcreteEntityChildClassForBase,
                     IsDerivedExtensionEntityOfConcreteBase = entity.IsDerived
                         && !entity.BaseEntity.IsAbstractRequiringNoCompositeId()
                         && entity.IsExtensionEntity,
@@ -248,8 +248,9 @@ namespace EdFi.Ods.CodeGen.Generators
                             : _notRendered,
                         NonParentProperties = entity.Identifier.Properties.Where(p => !p.IsFromParent)
                             .Select(
-                                p => new
+                                (p, i) => new
                                 {
+                                    IsFirst = i == 0,
                                     IsAbstract = entity.IsAbstract,
                                     DisplayName = !entity.IsAbstract && UniqueIdConventions.IsUSI(p.PropertyName)
                                         ? p.PropertyName.ConvertToUniqueId()
@@ -258,13 +259,17 @@ namespace EdFi.Ods.CodeGen.Generators
                                     CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                     CSharpBaseType = p.PropertyType.ToCSharp(),
                                     CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                    IsStandardProperty = !(p.IsDescriptorUsage
-                                        || UniqueIdConventions.IsUSI(p.PropertyName)
-                                        || IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                        || IsNonDerivedDateProperty(entity, p)
-                                        || IsDateTimeProperty(p)
-                                        || IsDelegatedToBaseProperty(entity, p)),
-                                    PropertyAccessors = GetPropertyAccessors(entity, p),
+                                    CSharpSafeFieldName = "_" + p.PropertyName.MakeSafeForCSharpClass(entity.Name).ToCamelCase(),
+                                    HasSerializedReferenceDataMappings = GetSerializedReferenceDataMappingsForProperty(p).Any(),
+                                    SerializedReferenceDataMappings = GetSerializedReferenceDataMappingsForProperty(p),
+                                    IsNullable = p.PropertyType.IsNullable,
+                                    PropertyAccessors = GetPropertyAccessors(entity, p,
+                                        isStandardProperty: !(p.IsDescriptorUsage
+                                            || UniqueIdConventions.IsUSI(p.PropertyName)
+                                            || IsUniqueIdPropertyOnPersonEntity(entity, p)
+                                            || IsNonDerivedDateProperty(entity, p)
+                                            || IsDateTimeProperty(p)
+                                            || IsDelegatedToBaseProperty(entity, p))),
                                 })
                     },
                     InheritedProperties = entity.IsDerived
@@ -290,13 +295,17 @@ namespace EdFi.Ods.CodeGen.Generators
                                 CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                 p.PropertyName,
                                 CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
-                                IsStandardProperty = !(p.IsDescriptorUsage
-                                    || UniqueIdConventions.IsUSI(p.PropertyName)
-                                    || IsUniqueIdPropertyOnPersonEntity(entity, p)
-                                    || IsNonDerivedDateProperty(entity, p)
-                                    || IsDateTimeProperty(p)
-                                    || IsDelegatedToBaseProperty(entity, p)),
-                                PropertyAccessors = GetPropertyAccessors(entity, p)
+                                CSharpSafeFieldName = "_" + p.PropertyName.MakeSafeForCSharpClass(entity.Name).ToCamelCase(),
+                                HasSerializedReferenceDataMappings = GetSerializedReferenceDataMappingsForProperty(p).Any(),
+                                SerializedReferenceDataMappings = GetSerializedReferenceDataMappingsForProperty(p),
+                                IsNullable = p.PropertyType.IsNullable,
+                                PropertyAccessors = GetPropertyAccessors(entity, p,
+                                    isStandardProperty: !(p.IsDescriptorUsage
+                                        || UniqueIdConventions.IsUSI(p.PropertyName)
+                                        || IsUniqueIdPropertyOnPersonEntity(entity, p)
+                                        || IsNonDerivedDateProperty(entity, p)
+                                        || IsDateTimeProperty(p)
+                                        || IsDelegatedToBaseProperty(entity, p)))
                             }),
                     HasOneToOnes = entity.NavigableOneToOnes.Any(a => a.ThisEntity.Schema == a.OtherEntity.Schema),
                     OneToOnes = entity.NavigableOneToOnes.Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
@@ -456,6 +465,9 @@ namespace EdFi.Ods.CodeGen.Generators
                                         x.InheritanceRootEntity.SchemaProperCaseName()),
                                 ReferenceDataClassName = x.InheritanceRootEntity.Name + "ReferenceData",
                                 ReferenceDataPropertyName = x.AssociationName + "ReferenceData",
+                                ReferenceDataFieldName = $"_{x.AssociationName.ToCamelCase()}ReferenceData",
+                                SerializedReferenceDataPropertyName = x.AssociationName + "SerializedReferenceData",
+                                SerializedReferenceDataFieldName = $"_{x.AssociationName.ToCamelCase()}SerializedReferenceData",
                                 ReferenceAssociationName = x.AssociationName,
                                 MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator(),
                                 PotentiallyLogical = x.PotentiallyLogical
@@ -490,6 +502,25 @@ namespace EdFi.Ods.CodeGen.Generators
 
                 return new MessagePackIndexer(InitialKeyIndexAggregateChild);
             }
+        }
+
+        private static IEnumerable<ReferenceDataPropertyMapping> GetSerializedReferenceDataMappingsForProperty(EntityProperty entityProperty)
+        {
+            return entityProperty.IncomingAssociations
+                .Where(a => !a.IsNavigable && a.AssociationType != AssociationViewType.FromBase && a.OtherEntity.IsReferenceable())
+                .Select(a =>
+                {
+                    EntityProperty otherProperty = a.PropertyMappingByThisName[entityProperty.PropertyName].OtherProperty;
+
+                    string referenceDataPropertyName = (otherProperty.BaseProperty ?? otherProperty).PropertyName;
+
+                    return new ReferenceDataPropertyMapping(
+                        a.OtherEntity.TypeHierarchyRootEntity.GetRelativeAggregateNamespace(
+                            a.OtherEntity.TypeHierarchyRootEntity.SchemaProperCaseName()),
+                        a.OtherEntity.TypeHierarchyRootEntity.Name + "ReferenceData",
+                        a.Name + "SerializedReferenceData",
+                        referenceDataPropertyName);
+                });
         }
 
         private readonly Dictionary<FullName, MessagePackIndexer> _abstractMessagePackIndexerByEntity = new(); 
@@ -554,15 +585,18 @@ namespace EdFi.Ods.CodeGen.Generators
                 : null;
         }
 
-        private object GetPropertyAccessors(Entity entity, EntityProperty p)
+        private object GetPropertyAccessors(Entity entity, EntityProperty p, bool isStandardProperty)
         {
             return new
                    {
+                       IsStandardProperty = isStandardProperty,
                        LookupProperty = p.IsDescriptorUsage
                            ? new
                              {
-                                 LookupValuePropertyName = p.GetLookupValuePropertyName(), LookupEntityName = p.DescriptorEntity.Name,
-                                 p.PropertyType.IsNullable, IdFieldName = "_" + p.PropertyName.ToCamelCase(), ValueFieldName =
+                                 LookupValuePropertyName = p.GetLookupValuePropertyName(), 
+                                 LookupEntityName = p.DescriptorEntity.Name,
+                                 IdFieldName = "_" + p.PropertyName.ToCamelCase(),
+                                 ValueFieldName =
                                      "_" + p.GetLookupValuePropertyName()
                                             .ToCamelCase(),
                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
@@ -573,9 +607,10 @@ namespace EdFi.Ods.CodeGen.Generators
                            ? new
                              {
                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
-                                 UsiFieldName = "_" + p.PropertyName.ToCamelCase(), p.PropertyType.IsNullable,
+                                 UsiFieldName = "_" + p.PropertyName.ToCamelCase(),
                                  PersonType = _personEntitySpecification.GetUSIPersonType(p.PropertyName),
-                                 UniqueIdPropertyName = p.PropertyName.ReplaceSuffix("USI", "UniqueId"), UniqueIdFieldName =
+                                 UniqueIdPropertyName = p.PropertyName.ReplaceSuffix("USI", "UniqueId"), 
+                                 UniqueIdFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("USI", "UniqueId")
                                             .ToCamelCase(),
                              }
@@ -584,7 +619,8 @@ namespace EdFi.Ods.CodeGen.Generators
                            ? new
                              {
                                  UniqueIdFieldName = "_" + p.PropertyName.ToCamelCase(),
-                                 UsiPropertyName = p.PropertyName.ReplaceSuffix("UniqueId", "USI"), UsiFieldName =
+                                 UsiPropertyName = p.PropertyName.ReplaceSuffix("UniqueId", "USI"), 
+                                 UsiFieldName =
                                      "_" + p.PropertyName.ReplaceSuffix("UniqueId", "USI")
                                             .ToCamelCase(),
                                  PersonType = _personEntitySpecification.GetUniqueIdPersonType(p.PropertyName)
@@ -593,14 +629,14 @@ namespace EdFi.Ods.CodeGen.Generators
                        DateOnlyProperty = IsNonDerivedDateProperty(entity, p)
                            ? new
                              {
-                                 CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), p.PropertyType.IsNullable,
+                                 CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                  FieldName = "_" + p.PropertyName.ToCamelCase()
                              }
                            : _notRendered,
                        DateTimeProperty = IsDateTimeProperty(p)
                            ? new
                              {
-                                 CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), p.PropertyType.IsNullable,
+                                 CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
                                  FieldName = "_" + p.PropertyName.ToCamelCase()
                              }
                            : _notRendered,
@@ -713,6 +749,25 @@ namespace EdFi.Ods.CodeGen.Generators
             /// classes for the specialized "base class" mapping.
             /// </summary>
             public bool IsConcreteEntityChildClassForBase { get; set; }
+        }
+    }
+
+    public class ReferenceDataPropertyMapping
+    {
+        public string ReferenceDataClassNamespace { get; }
+
+        public string ReferenceDataClassName { get; }
+
+        public string ReferenceDataPropertyName { get; }
+
+        public string OtherPropertyName { get; }
+
+        public ReferenceDataPropertyMapping(string referenceDataClassNamespace, string referenceDataClassName, string referenceDataPropertyName, string otherPropertyName)
+        {
+            ReferenceDataClassNamespace = referenceDataClassNamespace;
+            ReferenceDataClassName = referenceDataClassName;
+            ReferenceDataPropertyName = referenceDataPropertyName;
+            OtherPropertyName = otherPropertyName;
         }
     }
 }
