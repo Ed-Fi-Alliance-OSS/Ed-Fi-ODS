@@ -50,16 +50,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private readonly bool _resourceLinksEnabled;
 
         // Holds pre-built HQL queries to avoid string allocations for each execution 
-        private static readonly ConcurrentDictionary<(bool isReadRequest, string whereClause, string orderByClause), string> _hqlByScenario = new ();
-        private static readonly ConcurrentDictionary<(bool isReadRequest, int childIndex, string whereClause), string> _childHqlByScenario = new();
+        private readonly ConcurrentDictionary<(bool needReferenceData, string whereClause, string orderByClause), string> _hqlByScenario = new ();
+        private readonly ConcurrentDictionary<(bool needReferenceData, int childIndex, string whereClause), string> _childHqlByScenario = new();
 
-        private static QueryBuilder _queryBuilder;
+        private QueryBuilder _queryBuilder;
 
         // Static members, not shared between concrete generic types
         private static readonly string _aggregateRootEntityTypeName = typeof(TEntity).FullName;
-
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly string[] _queryAliases;
 
         protected GetEntitiesBase(
             ISessionFactory sessionFactory, 
@@ -88,15 +85,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             _mainHqlStatementBaseWithReferenceData = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: true), true);
             _mainHqlStatementBase = new Lazy<string>(() => GetMainHqlStatement(includeReferenceData: false), true);
-        }
-
-        static GetEntitiesBase()
-        {
-            _queryAliases = new[] {
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
-                "x", "y", "z", "aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk", "ll", "mm", "nn", "oo", "pp",
-                "qq", "rr", "ss", "tt", "uu", "vv", "ww", "xx", "yy", "zz"
-            };
         }
 
         private string GetMainHqlStatement(bool includeReferenceData)
@@ -128,7 +116,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             // Determine if this is a Read or Write request (default to "read" behavior if context isn't available)
             string httpMethod = _dataManagementResourceContextProvider.Get()?.HttpMethod ?? HttpMethods.Get;
 
-            bool isReadRequest = (httpMethod == HttpMethods.Get);
+            bool needReferenceData = (httpMethod == HttpMethods.Get && _resourceLinksEnabled);
             bool isShallow = (httpMethod == HttpMethods.Delete);
 
             string mainHql = GetMainHql();
@@ -142,7 +130,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 if (!isShallow)
                 {
-                    var aggregateStatements = (isReadRequest && _resourceLinksEnabled)
+                    var aggregateStatements = needReferenceData
                         ? _aggregateHqlStatementsWithReferenceData.Value
                         : _aggregateHqlStatements.Value;
 
@@ -164,10 +152,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             string GetMainHql()
             {
                 return _hqlByScenario.GetOrAdd(
-                    (isReadRequest, whereClause, orderByClause),
+                    (needReferenceData, whereClause, orderByClause),
                     static (key, args) =>
                     {
-                        string mainHqlBase = (key.isReadRequest && args._resourceLinksEnabled)
+                        string mainHqlBase = (key.needReferenceData)
                             ? args._mainHqlStatementBaseWithReferenceData.Value
                             : args._mainHqlStatementBase.Value;
 
@@ -175,13 +163,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                             ? $"{mainHqlBase} {key.whereClause}"
                             : $"{mainHqlBase} {key.whereClause} {key.orderByClause}";
                     },
-                    (_mainHqlStatementBaseWithReferenceData, _mainHqlStatementBase, _resourceLinksEnabled));
+                    (_mainHqlStatementBaseWithReferenceData, _mainHqlStatementBase));
             }
 
             string GetChildHql(int childIndex, string childBaseHql)
             {
                 string childHql = _childHqlByScenario.GetOrAdd(
-                    (isReadRequest, childIndex, whereClause),
+                    (needReferenceData, childIndex, whereClause),
                     static (key, arg) => $"{arg}{key.whereClause}",
                     childBaseHql);
 
@@ -233,7 +221,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 string hqlMemberPath = GetHqlMemberPath(association);
 
-                currentHqlQuery += $"left join fetch {_queryAliases[parentAliasIndex]}.{hqlMemberPath} {_queryAliases[currentAliasIndex]} ";
+                currentHqlQuery += $"left join fetch {HqlConstants.QueryAliases[parentAliasIndex]}.{hqlMemberPath} {HqlConstants.QueryAliases[currentAliasIndex]} ";
 
                 var childQueryBases = GetChildCollectionAssociations(association.OtherEntity);
 
@@ -276,7 +264,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 string referenceHqlMemberPath = GetHqlMemberPath(referenceDataAssociation);
 
                 referenceDataHql +=
-                    $"left join fetch {_queryAliases[currentAliasIndex]}.{referenceHqlMemberPath} {_queryAliases[referenceAliasIndex++]} ";
+                    $"left join fetch {HqlConstants.QueryAliases[currentAliasIndex]}.{referenceHqlMemberPath} {HqlConstants.QueryAliases[referenceAliasIndex++]} ";
             }
 
             return referenceDataHql;
@@ -372,6 +360,20 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _queryBuilder = idQueryBuilder;
 
             return idQueryBuilder.Clone();
+        }
+    }
+
+    internal static class HqlConstants
+    {
+        public static readonly string[] QueryAliases;
+
+        static HqlConstants()
+        {
+            QueryAliases = new[] {
+                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
+                "x", "y", "z", "aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk", "ll", "mm", "nn", "oo", "pp",
+                "qq", "rr", "ss", "tt", "uu", "vv", "ww", "xx", "yy", "zz"
+            };
         }
     }
 }

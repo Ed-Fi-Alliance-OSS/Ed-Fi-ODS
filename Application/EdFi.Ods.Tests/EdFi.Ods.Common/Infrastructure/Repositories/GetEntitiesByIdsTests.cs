@@ -15,10 +15,10 @@ using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
@@ -35,6 +35,7 @@ using NHibernate;
 using NHibernate.Context;
 using NHibernate.Engine;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
@@ -77,7 +78,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _domainModelProvider,
                     _parameterListSetter,
                     _contextProvider, 
-                    new ApiSettings(),
+                    new ApiSettings()
+                    {
+                        Features =
+                        [
+                            new Feature()
+                            {
+                                Name = ApiFeature.ResourceLinks.GetConfigKeyName(),
+                                IsEnabled = true
+                            }
+                        ]
+                    },
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
                     Stub<IEntityDeserializer>());
@@ -147,22 +158,26 @@ Actual:
             }
         }
 
-        public class When_getting_entities_by_ids_and_aggregate_extension_collections_exist_in_the_aggregate : TestFixtureBase
+        public class When_getting_entities_by_ids_and_aggregate_extension_collections_exist_in_the_aggregate
         {
             private ISessionFactoryImplementor _sessionFactory;
             private IDomainModelProvider _domainModelProvider;
             private IParameterListSetter _parameterListSetter;
 
-            private readonly List<string> _actualHqlQueries = new List<string>();
+            private List<string> _actualHqlQueries;
             private IContextProvider<DataManagementResourceContext> _contextProvider;
+            private Entity _studentEntity;
 
-            protected override void Arrange()
+            private const string StudentTypeFullName = "EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.Student";
+            
+            [OneTimeSetUp]
+            public void TestFixtureSetup()
             {
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
+                var domainModel = _domainModelProvider.GetDomainModel();
+                _studentEntity = domainModel.GetEntity<Student>();
 
-                _sessionFactory = GetSessionFactoryStub<Student>(_actualHqlQueries);
-
-                _parameterListSetter = Stub<IParameterListSetter>();
+                _parameterListSetter = A.Fake<IParameterListSetter>();
                 
                 _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
 
@@ -174,63 +189,85 @@ Actual:
                     .Returns(dataManagementResourceContext);
             }
 
-            protected override void Act()
+            [SetUp]
+            public void Setup()
+            {
+                _actualHqlQueries = new();
+                _sessionFactory = GetSessionFactoryStub<Student>(_actualHqlQueries);
+            }
+
+            [TestCase(true, $"from {StudentTypeFullName} a left join fetch a.PersonReferenceData b where a.Id = :id")]
+            [TestCase(false, $"from {StudentTypeFullName} a where a.Id = :id")]
+            public async Task Should_generate_a_query_for_the_top_level_entity_filtered_by_id(
+                bool resourceLinksEnabled,
+                string expectedHql)
+            {
+                // Arrange
+                var getEntitiesByIds = CreateGetEntitiesByIds(resourceLinksEnabled);
+
+                // Act
+                await getEntitiesByIds.GetByIdsAsync([Guid.NewGuid()], CancellationToken.None);
+                
+                // Assert
+                _actualHqlQueries.First().ShouldBe(expectedHql);
+            }
+
+            [Test]
+            public async Task Should_generate_a_query_for_each_child_entity_type_in_the_aggregate()
+            {
+                // Arrange
+                var getEntitiesByIds = CreateGetEntitiesByIds(resourceLinksEnabled: true);
+
+                // Act
+                await getEntitiesByIds.GetByIdsAsync([Guid.NewGuid()], CancellationToken.None);
+
+                // Assert
+                var aggregateChildEntities = _studentEntity.Aggregate.Members.Where(e => !e.IsAggregateRoot).ToList();
+
+                var expectedQueries = aggregateChildEntities.Select(GetExpectedQuery).OrderBy(x => x).ToList();
+
+                var expectedHqlQueriesText = string.Join(Environment.NewLine, expectedQueries);
+                var actualHqlQueriesText = string.Join(Environment.NewLine, _actualHqlQueries.Skip(1).OrderBy(x => x));
+
+                Assert.That(actualHqlQueriesText, Is.EqualTo(expectedHqlQueriesText));
+            }
+
+            [Test]
+            public async Task Should_generate_queries_for_aggregate_extensions()
+            {
+                // Arrange
+                var getEntitiesByIds = CreateGetEntitiesByIds(resourceLinksEnabled: true);
+
+                // Act
+                await getEntitiesByIds.GetByIdsAsync([Guid.NewGuid()], CancellationToken.None);
+
+                // Assert
+                Assert.That(_actualHqlQueries.Any(hql => hql.Contains(".AggregateExtensions.")));
+            }
+
+            private GetEntitiesByIds<Student> CreateGetEntitiesByIds(bool resourceLinksEnabled)
             {
                 var getEntitiesByIds = new GetEntitiesByIds<Student>(
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
-                    _contextProvider, 
-                    new ApiSettings(),
+                    _contextProvider,
+                    new ApiSettings()
+                    {
+                        Features =
+                        [
+                            new Feature()
+                            {
+                                Name = ApiFeature.ResourceLinks.GetConfigKeyName(),
+                                IsEnabled = resourceLinksEnabled
+                            }
+                        ]
+                    },
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
-                    Stub<IEntityDeserializer>());
+                    A.Fake<IEntityDeserializer>());
 
-                getEntitiesByIds.GetByIdsAsync(
-                    new[]
-                    {
-                        Guid.NewGuid()
-                    },
-                    CancellationToken.None)
-                    .GetResultSafely();
-            }
-
-            [Assert]
-            public void Should_generate_a_query_for_the_top_level_entity_filtered_by_id()
-            {
-                Assert.That(
-                    _actualHqlQueries.First(),
-                    Is.EqualTo($"from {typeof(Student).FullName} a left join fetch a.PersonReferenceData b where a.Id = :id"));
-            }
-
-            [Assert]
-            public void Should_generate_a_query_for_each_child_entity_type_in_the_aggregate()
-            {
-                var domainModel = _domainModelProvider.GetDomainModel();
-                var entity = domainModel.GetEntity<Student>();
-
-                var aggregateChildEntities = entity.Aggregate
-                                                   .Members
-                                                   .Where(e => !e.IsAggregateRoot)
-                                                   .ToList();
-
-                var expectedQueries = aggregateChildEntities
-                                     .Select(GetExpectedQuery)
-                                     .OrderBy(x => x)
-                                     .ToList();
-
-                var expectedHqlQueriesText = string.Join(Environment.NewLine, expectedQueries);
-                var actualHqlQueriesText = string.Join(Environment.NewLine, _actualHqlQueries.Skip(1).OrderBy(x => x));
-
-                Assert.That(
-                    actualHqlQueriesText,
-                    Is.EqualTo(expectedHqlQueriesText));
-            }
-
-            [Assert]
-            public void Should_generate_queries_for_aggregate_extensions()
-            {
-                Assert.That(_actualHqlQueries.Any(hql => hql.Contains(".AggregateExtensions.")));
+                return getEntitiesByIds;
             }
         }
 
