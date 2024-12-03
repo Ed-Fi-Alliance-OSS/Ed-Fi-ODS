@@ -72,6 +72,10 @@ jobs:
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             Invoke-CodeGen -Engine PostgreSQL -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+      # This step shall be removed in ODS-6572
+      - name: Install Mono and Nuget
+        working-directory: ./Ed-Fi-ODS/.github/workflows
+        run: sudo ./install-mono.sh
       - name: Cache Nuget packages
         uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
         with:

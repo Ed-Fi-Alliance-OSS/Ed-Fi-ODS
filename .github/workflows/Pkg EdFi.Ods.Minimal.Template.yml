@@ -95,6 +95,10 @@ jobs:
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS/.github/workflows
+      run: sudo ./install-mono.sh
     - name: Cache Nuget packages
       uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
