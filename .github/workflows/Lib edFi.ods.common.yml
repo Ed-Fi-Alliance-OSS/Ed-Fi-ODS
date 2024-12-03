@@ -40,6 +40,10 @@ jobs:
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./.github/workflows
+      run: sudo ./install-mono.sh
     - name: Cache Nuget packages       
       uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 #v4.0.1
       with:
