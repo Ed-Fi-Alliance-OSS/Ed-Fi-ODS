@@ -116,12 +116,22 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        private IActionResult CreateActionResultFromException(Exception exception)
+        private IActionResult CreateActionResultFromException(string actionName, Exception exception)
         {
             HttpContext.Items.TryAdd("Exception", exception);
 
             // Process translations to Problem Details
             var problemDetails = _problemDetailsProvider.GetProblemDetails(exception);
+
+            if (problemDetails.Status >= StatusCodes.Status500InternalServerError)
+            {
+                Logger.Error(actionName, exception);
+            }
+            else
+            {
+                Logger.Debug(actionName, exception);
+            }
+
             return StatusCode(problemDetails.Status, problemDetails);
         }
 
@@ -186,8 +196,7 @@ namespace EdFi.Ods.Api.Controllers
             // Handle exception result
             if (result.Exception != null)
             {
-                Logger.Error(GetAllRequest, result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(nameof(GetAll), result.Exception);
             }
 
             // Return multiple results
@@ -221,8 +230,7 @@ namespace EdFi.Ods.Api.Controllers
             // Handle exception result
             if (result.Exception != null)
             {
-                Logger.Error(GetByIdRequest, result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(nameof(Get), result.Exception);
             }
 
             // Handle success result
@@ -296,8 +304,7 @@ namespace EdFi.Ods.Api.Controllers
             // Check for exceptions
             if (result.Exception != null)
             {
-                Logger.Error("Put", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(nameof(Put), result.Exception);
             }
 
             // Check for validation errors
@@ -384,8 +391,7 @@ namespace EdFi.Ods.Api.Controllers
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
             {
-                Logger.Error("Post", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(nameof(Post), result.Exception);
             }
 
             // Check for validation errors
@@ -442,8 +448,7 @@ namespace EdFi.Ods.Api.Controllers
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
             {
-                Logger.Error("Delete", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(nameof(Delete), result.Exception);
             }
 
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).
