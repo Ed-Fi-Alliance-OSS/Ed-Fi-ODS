@@ -8,12 +8,12 @@ namespace EdFi.Ods.Features.ChangeQueries
     public class ChangeQueriesDatabaseConstants
     {
         /// <summary>
-        /// Gets the database schema name for the Change Events table.
+        /// Gets the database schema name for the Change Queries supporting artifacts.
         /// </summary>
         public const string SchemaName = "changes";
 
         /// <summary>
-        /// Gets the column name used for tracking changed records
+        /// Gets the column name used for tracking changed records.
         /// </summary>
         public const string ChangeVersionColumnName = "ChangeVersion";
 
