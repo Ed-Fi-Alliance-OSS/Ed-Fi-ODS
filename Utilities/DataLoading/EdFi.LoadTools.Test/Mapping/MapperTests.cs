@@ -25,7 +25,7 @@ namespace EdFi.LoadTools.Test.Mapping
     ""firstName"": ""Barry"",
     ""lastSurname"": ""Tanner"",
     ""sexType"": ""Male"",
-    ""birthDate"": ""1965-08-19T00:00:00"",
+    ""birthDate"": ""1965-08-19"",
     ""hispanicLatinoEthnicity"": false,
     ""oldEthnicityType"": ""Hispanic"",
     ""highestCompletedLevelOfEducationDescriptor"": ""Master's"",
