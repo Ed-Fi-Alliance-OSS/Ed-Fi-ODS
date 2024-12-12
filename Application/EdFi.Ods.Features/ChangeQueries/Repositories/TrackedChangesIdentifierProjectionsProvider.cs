@@ -66,7 +66,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 if (entityProperty.IsSurrogateIdentifierUsage())
                 {
                     // For Descriptors, this returns Namespace/CodeValue, for Student/Staff/Parent it returns the UniqueId
-                    var naturalIdentifyingPropertyNames = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties().Select(p => p.PropertyName).ToArray();
+                    var naturalIdentifyingPropertyNames = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties()
+                        .Select(p => p.PropertyName);
 
                     foreach (SelectColumn selectColumn in TrackedChangesSelectColumnHelpers
                                  .GetSelectColumnsForSurrogateIdentifierUsage(

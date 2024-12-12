@@ -18,7 +18,7 @@ public static class TrackedChangesSelectColumnHelpers
 
     public static IEnumerable<SelectColumn> GetSelectColumnsForSurrogateIdentifierUsage(
         string entityPropertyName,
-        string[] naturalIdentifyingPropertyNames,
+        IEnumerable<string> naturalIdentifyingPropertyNames,
         IDatabaseNamingConvention namingConvention)
     {
         var allTerms = SplitTerms(entityPropertyName);
