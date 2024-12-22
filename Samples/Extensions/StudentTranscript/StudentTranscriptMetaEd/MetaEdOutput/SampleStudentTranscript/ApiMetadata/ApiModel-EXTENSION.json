@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "7.3",
+  "odsApiVersion": "7.4",
   "schemaDefinition": {
     "logicalName": "SampleStudentTranscript",
     "physicalName": "samplestudenttranscript",
