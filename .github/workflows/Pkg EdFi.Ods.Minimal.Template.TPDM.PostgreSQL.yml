@@ -38,7 +38,7 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
