@@ -19,7 +19,7 @@ env:
 
 jobs:
   FindStandardAndExtensionVersions:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-22.04    
     outputs:
       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
@@ -64,7 +64,7 @@ jobs:
   analyze:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:

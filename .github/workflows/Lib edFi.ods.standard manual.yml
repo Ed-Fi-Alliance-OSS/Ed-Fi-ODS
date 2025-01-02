@@ -22,7 +22,7 @@ env:
 
 jobs:
   FindStandardVersions:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-22.04    
     outputs:
       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
     steps:
@@ -42,7 +42,7 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
