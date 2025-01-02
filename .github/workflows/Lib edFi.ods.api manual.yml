@@ -7,7 +7,8 @@ name: Lib EdFi.Ods.Api Manually triggered build
 
 on:
   workflow_dispatch:
-
+  pull_request:
+    branches: [main, 'ODS-*',b-v*-patch*]
 env:
   INFORMATIONAL_VERSION: "7.1"
   BUILD_INCREMENTER: "-50"
