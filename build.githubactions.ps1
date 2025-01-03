@@ -201,7 +201,7 @@ function CheckoutBranch {
             $current_branch = "$Env:HEAD_REF"
         }
         $patternName = "refs/heads/$current_branch"
-        Write-Output "Pattern Name is $patternName" -fore GREEN
+        Write-Output "Branch Pattern Name is $patternName" -fore GREEN
         $branch_exists = $false
         $branch_exists = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
         if ($branch_exists -eq $true) {
@@ -209,7 +209,18 @@ function CheckoutBranch {
             git fetch origin $current_branch
             git checkout $current_branch
         } else {
-            Write-Output "did not match on any results for changing ODS checkout branch"
+            $patternName = "refs/tags/$current_branch"
+            Write-Output "Tags Pattern Name is $patternName" -fore GREEN
+            $tag_exists = $false
+            $tag_exists = git ls-remote --tags origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet 
+            if ($tag_exists -eq $true) {
+                Write-Output "Current tag exists, so setting to $current_branch"
+                git fetch origin $current_branch
+                git checkout $current_branch
+            } 
+            else {
+                Write-Output "did not match on any results for changing ODS checkout branch or tag"
+            }         
         }
     }
 }
