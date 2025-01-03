@@ -41,7 +41,7 @@ jobs:
        with:
            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
            path: Ed-Fi-ODS/
-           ref: ${{ github.head_ref || github.ref_name }}
+
      - name: Checkout calling branch if exists in Ed-Fi-ODS
        working-directory: ./Ed-Fi-ODS/
        shell: pwsh
@@ -52,7 +52,7 @@ jobs:
        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
           path: Ed-Fi-Extensions/
-          ref: ${{ github.head_ref || github.ref_name }}          
+        
      - name: Checkout calling branch if in Ed-Fi-Extensions
        working-directory: ./Ed-Fi-ODS/
        shell: pwsh
