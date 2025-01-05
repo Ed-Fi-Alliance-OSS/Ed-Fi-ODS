@@ -6,7 +6,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Domain;
@@ -25,15 +24,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             _namingConvention = namingConvention;
         }
 
-        private readonly ConcurrentDictionary<FullName, QueryProjection[]> _queryProjectionsByResourceFullName =
-            new ConcurrentDictionary<FullName, QueryProjection[]>();
+        private readonly ConcurrentDictionary<FullName, QueryProjection[]> _queryProjectionsByResourceFullName = new();
 
         public QueryProjection[] GetIdentifierProjections(ResourceClassBase resource)
         {
             return _queryProjectionsByResourceFullName.GetOrAdd(resource.FullName, 
                 _ => CreateIdentifierProjections(resource));
         }
-        
+
         private QueryProjection[] CreateIdentifierProjections(ResourceClassBase resource)
         {
             var entity = resource.Entity;
@@ -59,7 +57,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 .ToArray();
 
             return projections;
-            
+
             IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty)
             {
                 var entityProperty = resourceProperty.EntityProperty;
@@ -67,35 +65,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 // This handles usages of DescriptorIds and USIs
                 if (entityProperty.IsSurrogateIdentifierUsage())
                 {
-                    string[] SplitTerms(string text) => Regex.Matches(text, "([A-Z][^A-Z]+|[A-Z]+(?![^A-Z]))").SelectMany(m => m.Captures.Select(c => c.Value)).ToArray();
-                    string[] TrimFinalTerm(string[] terms) => terms.Take(terms.Length - 1).ToArray(); 
-                        
-                    var allTerms = SplitTerms(entityProperty.PropertyName);
-                    var baseTerms = TrimFinalTerm(allTerms);
-                    
                     // For Descriptors, this returns Namespace/CodeValue, for Student/Staff/Parent it returns the UniqueId
-                    var naturalIdentifyingProperties = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties();
+                    var naturalIdentifyingPropertyNames = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties()
+                        .Select(p => p.PropertyName);
 
-                    foreach (var naturalIdentifyingProperty in naturalIdentifyingProperties)
+                    foreach (SelectColumn selectColumn in TrackedChangesSelectColumnHelpers
+                                 .GetSelectColumnsForSurrogateIdentifierUsage(
+                                     entityProperty.PropertyName,
+                                     naturalIdentifyingPropertyNames,
+                                     _namingConvention))
                     {
-                        var naturalTerms = SplitTerms(naturalIdentifyingProperty.PropertyName);
-
-                        var changeQueryColumnName = 
-                            string.Join(string.Empty, baseTerms.TakeWhile(t => t != naturalTerms[0]).Concat(naturalTerms));
-
-                        yield return new SelectColumn
-                        {
-                            ColumnGroup = ColumnGroups.OldValue,
-                            ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeQueryColumnName}"),
-                            JsonPropertyName = changeQueryColumnName.ToCamelCase(),
-                        };
-
-                        yield return new SelectColumn
-                        {
-                            ColumnGroup = ColumnGroups.NewValue,
-                            ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
-                            JsonPropertyName = changeQueryColumnName.ToCamelCase(),
-                        };
+                        yield return selectColumn;
                     }
 
                     yield break;
@@ -113,7 +93,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                         {
                             ColumnGroup = ColumnGroups.OldValue,
                             ColumnName = _namingConvention.ColumnName(
-                                $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
+                                $"{OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
 
                             JsonPropertyName = naturalIdentifyingProperty.PropertyName.ToCamelCase(),
                         };
@@ -122,12 +102,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                         {
                             ColumnGroup = ColumnGroups.NewValue,
                             ColumnName = _namingConvention.ColumnName(
-                                $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
+                                $"{NewKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
 
                             JsonPropertyName = naturalIdentifyingProperty.PropertyName.ToCamelCase(),
                         };
                     }
-                    
+
                     yield break;
                 }
              
@@ -137,7 +117,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     {
                         ColumnGroup = ColumnGroups.OldValue,
                         ColumnName = _namingConvention.ColumnName(
-                            $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
+                            $"{OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
 
                         JsonPropertyName = resourceProperty.JsonPropertyName,
                     };
@@ -146,7 +126,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     {
                         ColumnGroup = ColumnGroups.NewValue,
                         ColumnName = _namingConvention.ColumnName(
-                            $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
+                            $"{NewKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
 
                         JsonPropertyName = resourceProperty.JsonPropertyName,
                     };
@@ -159,7 +139,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 {
                     ColumnGroup = ColumnGroups.OldValue,
                     ColumnName = _namingConvention.ColumnName(
-                        $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName}"),
+                        $"{OldKeyValueColumnPrefix}{entityProperty.PropertyName}"),
 
                     JsonPropertyName = resourceProperty.JsonPropertyName,
                 };
@@ -168,7 +148,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 {
                     ColumnGroup = ColumnGroups.NewValue,
                     ColumnName = _namingConvention.ColumnName(
-                        $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.PropertyName}"),
+                        $"{NewKeyValueColumnPrefix}{entityProperty.PropertyName}"),
 
                     JsonPropertyName = resourceProperty.JsonPropertyName,
                 };
