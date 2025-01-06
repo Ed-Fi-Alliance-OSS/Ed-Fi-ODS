@@ -22,6 +22,7 @@ using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Serialization;
 using log4net;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             IAggregateRootQueryBuilderProvider pagedAggregateIdsCriteriaProvider,
             IDomainModelProvider domainModelProvider,
             IEntityDeserializer entityDeserializer,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
             : base(sessionFactory)
         {
             _getEntitiesByAggregateIds = getEntitiesByAggregateIds;
@@ -55,7 +56,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             _domainModelProvider = domainModelProvider;
             _entityDeserializer = entityDeserializer;
 
-            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _serializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
         }
 
         public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(

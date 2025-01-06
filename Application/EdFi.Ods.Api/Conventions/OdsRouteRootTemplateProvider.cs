@@ -7,6 +7,8 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Conventions;
 
@@ -15,10 +17,12 @@ namespace EdFi.Ods.Api.Conventions;
 /// </summary>
 public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
 {
+    private readonly IFeatureManager _featureManager;
     private readonly ApiSettings _apiSettings;
 
-    public OdsRouteRootTemplateProvider(ApiSettings apiSettings)
+    public OdsRouteRootTemplateProvider(IFeatureManager featureManager, ApiSettings apiSettings)
     {
+        _featureManager = featureManager;
         _apiSettings = apiSettings;
     }
 
@@ -27,7 +31,7 @@ public class OdsRouteRootTemplateProvider : IOdsRouteRootTemplateProvider
     {
         string odsContextRouteTemplate = _apiSettings.OdsContextRouteTemplate;
 
-        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
+        if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
         {
             return $"{RouteConstants.TenantIdentifierRoutePrefix}{odsContextRouteTemplate?.Trim('/')}"
                 .EnsureSuffixApplied("/");

@@ -14,10 +14,12 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Providers.Queries.Criteria;
 using EdFi.Ods.Common.Providers.Queries.Paging;
+using Microsoft.FeatureManagement;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Providers.Queries
@@ -43,7 +45,7 @@ namespace EdFi.Ods.Common.Providers.Queries
             ISessionFactory sessionFactory, 
             Dialect dialect,
             DatabaseEngine databaseEngine,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
             : base(sessionFactory)
         {
             _pagingStrategies = pagingStrategies;
@@ -51,7 +53,7 @@ namespace EdFi.Ods.Common.Providers.Queries
             _dialect = dialect;
             _databaseEngine = databaseEngine;
 
-            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _serializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
 using Newtonsoft.Json;
 
@@ -22,15 +23,20 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
     public class OpenApiMetadataDocumentFactory : IOpenApiMetadataDocumentFactory
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataDocumentFactory));
-        private readonly ApiSettings _apiSettings;
+        private readonly IFeatureManager _featureManager;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
         private readonly IOpenApiUpconversionProvider _openApiUpconversionProvider;
         private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, IOpenApiUpconversionProvider openApiUpconversionProvider, IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider, IOpenApiIdentityProvider openApiIdentityProvider)
+        public OpenApiMetadataDocumentFactory(
+            IFeatureManager featureManager,
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            IOpenApiUpconversionProvider openApiUpconversionProvider,
+            IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
+            IOpenApiIdentityProvider openApiIdentityProvider)
         {
-            _apiSettings = apiSettings;
+            _featureManager = featureManager;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _openApiIdentityProvider = openApiIdentityProvider;
             _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
@@ -45,13 +51,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var definitionsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext,
-                        _openApiIdentityProvider, _apiSettings);
+                        _openApiIdentityProvider, _featureManager);
 
                 var responsesFactory = new OpenApiMetadataResponsesFactory();
 
                 var pathsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _apiSettings);
+                        documentContext, _openApiIdentityProvider, _resourceIdentificationCodePropertiesProvider, _featureManager);
 
                 var tagsFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);

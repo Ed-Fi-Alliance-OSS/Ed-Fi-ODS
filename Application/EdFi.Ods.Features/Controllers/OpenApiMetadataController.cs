@@ -15,12 +15,14 @@ using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi;
 using Newtonsoft.Json;
@@ -41,11 +43,12 @@ namespace EdFi.Ods.Features.Controllers
 
         public OpenApiMetadataController(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
+            IFeatureManager featureManager,
             ApiSettings apiSettings)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.OpenApiMetadata);
         }
 
         [HttpGet]

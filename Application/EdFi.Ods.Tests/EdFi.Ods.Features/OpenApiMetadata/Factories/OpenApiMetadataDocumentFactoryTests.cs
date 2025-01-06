@@ -48,41 +48,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 .Build();
         }
 
-        private static ApiSettings CreateApiSettings()
-        {
-            return new ApiSettings
-            {
-                Features = new List<Feature>
-                {
-                    new Feature
-                    {
-                        Name = "Composites",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Profiles",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Extensions",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "ChangeQueries",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "OpenApiMetadata",
-                        IsEnabled = true
-                    }
-                }
-            };
-        }
-
         public class When_creating_a_openapimetadata_document_for_list_of_resources_for_a_single_instance_ods : TestFixtureBase
         {
             private IOpenApiMetadataResourceStrategy _stubbedOpenApiMetadataResourceStrategy;
@@ -110,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
+                    new FakeFeatureManager(), defaultPageSizeLimitProvider, OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
             }
@@ -223,7 +188,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSizeLimitProvider,
+                    new FakeFeatureManager(), defaultPageSizeLimitProvider,
                     OpenApiV3UpconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());

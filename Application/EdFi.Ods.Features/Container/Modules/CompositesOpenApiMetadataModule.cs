@@ -5,23 +5,23 @@
 
 using Autofac;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.RouteInformations;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class CompositesOpenApiMetadataModule : ConditionalModule
     {
-        public CompositesOpenApiMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(CompositesOpenApiMetadataModule)) { }
+        public CompositesOpenApiMetadataModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected()
+        protected override bool IsSelected()
             => IsFeatureEnabled(ApiFeature.Composites)
                && IsFeatureEnabled(ApiFeature.OpenApiMetadata);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<CompositesOpenApiMetadataRouteInformation>()
                 .As<IOpenApiMetadataRouteInformation>()

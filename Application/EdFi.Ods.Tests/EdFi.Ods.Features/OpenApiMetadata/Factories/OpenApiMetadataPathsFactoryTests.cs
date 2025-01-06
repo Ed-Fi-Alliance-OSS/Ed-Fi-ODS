@@ -11,7 +11,6 @@ using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
@@ -39,40 +38,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
         
         private static readonly IResourceIdentificationCodePropertiesProvider  _resourceIdentificationCodePropertiesProvider = A.Fake<IResourceIdentificationCodePropertiesProvider>();
 
-        private static ApiSettings CreateApiSettings()
-        {
-            return new ApiSettings
-            {
-                Features = new List<Feature>
-                {
-                    new Feature
-                    {
-                        Name = "Composites",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Profiles",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Extensions",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "ChangeQueries",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "OpenApiMetadata",
-                        IsEnabled = true
-                    }
-                }
-            };
-        }
         public class When_creating_paths_for_a_list_of_resources_using_a_single_instance_or_a_year_specific_ods : TestFixtureBase
         {
             private IDictionary<string, PathItem> _actualPaths;
@@ -87,7 +52,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
                         DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), 
                         _resourceIdentificationCodePropertiesProvider,
-                        CreateApiSettings())
+                        new FakeFeatureManager())
                     .Create(openApiMetadataResources, false);
             }
 
@@ -221,11 +186,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
-                var appSettings = CreateApiSettings();
-                appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
+                var featureManager = new FakeFeatureManager();
+                featureManager.SetState("ChangeQueries", false);
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, appSettings)
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, featureManager)
                     .Create(openApiMetadataResources, false);
             }
 
@@ -321,7 +286,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, CreateApiSettings())
+                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, new FakeOpenApiIdentityProvider(), _resourceIdentificationCodePropertiesProvider, new FakeFeatureManager())
                     .Create(_openApiMetadataResources, false);
             }
 

@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Constants;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Conventions;
 
@@ -21,26 +22,21 @@ public class RouteRootTemplateProviderTests
 {
     private ApiSettings _apiSettings;
     private OdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
+    private FakeFeatureManager _featureManager;
 
     [SetUp]
     public void SetUp()
     {
         _apiSettings = new ApiSettings();
-        _odsRouteRootTemplateProvider = new OdsRouteRootTemplateProvider(_apiSettings);
+        _featureManager = new FakeFeatureManager(false);
+        _odsRouteRootTemplateProvider = new OdsRouteRootTemplateProvider(_featureManager, _apiSettings);
     }
 
     [Test]
     public void GetRouteRootTemplate_WithTenantContextAndMultiTenancyEnabled_ReturnsTenantIdentifierRoutePrefix()
     {
         // Arrange
-        _apiSettings.Features = new List<Feature>
-        {
-            new()
-            {
-                Name = ApiFeature.MultiTenancy.Value,
-                IsEnabled = true
-            }
-        };
+        _featureManager.SetState(ApiFeature.MultiTenancy, true);
 
         // Act
         var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
@@ -53,14 +49,7 @@ public class RouteRootTemplateProviderTests
     public void GetRouteRootTemplate_WithTenantContextAndMultiTenancyDisabled_ReturnsNull()
     {
         // Arrange
-        _apiSettings.Features = new List<Feature>
-        {
-            new()
-            {
-                Name = ApiFeature.MultiTenancy.Value,
-                IsEnabled = false
-            }
-        };
+        _featureManager.SetState(ApiFeature.MultiTenancy, false);
 
         // Act
         var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
@@ -75,15 +64,7 @@ public class RouteRootTemplateProviderTests
         const string odsContextRouteTemplate = "{ods-context-template}";
 
         // Arrange
-        _apiSettings.Features = new List<Feature>
-        {
-            new()
-            {
-                Name = ApiFeature.MultiTenancy.Value,
-                IsEnabled = true
-            }
-        };
-
+        _featureManager.SetState(ApiFeature.MultiTenancy, true);
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate; 
 
         // Act
@@ -99,15 +80,7 @@ public class RouteRootTemplateProviderTests
         const string odsContextRouteTemplate = "{ods-context-template}";
 
         // Arrange
-        _apiSettings.Features = new List<Feature>
-        {
-            new()
-            {
-                Name = ApiFeature.MultiTenancy.Value,
-                IsEnabled = false
-            }
-        };
-
+        _featureManager.SetState(ApiFeature.MultiTenancy, false);
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate;
 
         // Act
@@ -124,15 +97,7 @@ public class RouteRootTemplateProviderTests
         string odsContextRouteTemplate = undefinedValue;
 
         // Arrange
-        _apiSettings.Features = new List<Feature>
-        {
-            new()
-            {
-                Name = ApiFeature.MultiTenancy.Value,
-                IsEnabled = false
-            }
-        };
-
+        _featureManager.SetState(ApiFeature.MultiTenancy.Value, false);
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate;
 
         // Act

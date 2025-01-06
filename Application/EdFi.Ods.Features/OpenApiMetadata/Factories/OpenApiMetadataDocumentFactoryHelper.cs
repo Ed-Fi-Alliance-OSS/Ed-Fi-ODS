@@ -3,11 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Providers.Queries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public static OpenApiMetadataDefinitionsFactory CreateOpenApiMetadataDefinitionsFactory(
             OpenApiMetadataDocumentContext openApiMetadataDocumentContext,
             IOpenApiIdentityProvider openApiIdentityProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             switch (openApiMetadataDocumentContext.RenderType)
             {
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
                         new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext),
                         openApiIdentityProvider,
-                        apiSettings);
+                        featureManager);
 
                 case RenderType.ExtensionArtifactsOnly:
 
@@ -53,7 +53,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
                         new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext),
                         openApiIdentityProvider,
-                        apiSettings);
+                        featureManager);
                 default:
                     var bridgeStrategy =
                         new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
@@ -73,12 +73,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         namingStrategy,
                         filterStrategy,
                         openApiIdentityProvider,
-                        apiSettings);
+                        featureManager);
             }
         }
 
         public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(
-            OpenApiMetadataDocumentContext openApiMetadataDocumentContext, IOpenApiIdentityProvider openApiIdentityProvider, IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider, ApiSettings apiSettings)
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext,
+            IOpenApiIdentityProvider openApiIdentityProvider,
+            IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
+            IFeatureManager featureManager)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -86,7 +89,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 //Profile strategy implements each of the interfaces in the signature of the paths factory constructor
                 //Hence the odd parameter repetition.
-                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, apiSettings);
+                return new OpenApiMetadataPathsFactory(profileStrategy, profileStrategy, profileStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, featureManager);
             }
 
             IOpenApiMetadataPathsFactorySelectorStrategy selectorStrategy = null;
@@ -110,7 +113,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             selectorStrategy ??= defaultStrategy;
             resourceNamingStrategy ??= defaultResourceDefinitionNamingStrategy;
 
-            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, apiSettings);
+            return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy, openApiIdentityProvider, resourceIdentificationCodePropertiesProvider, featureManager);
         }
 
         public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)
@@ -132,7 +135,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
 
             return openApiMetadataDocumentContext.IsProfileContext
-                ? (IOpenApiMetadataDefinitionsFactoryNamingStrategy) new OpenApiMetadataDefinitionsFactoryProfileNamingStrategy()
+                ? new OpenApiMetadataDefinitionsFactoryProfileNamingStrategy()
                 : new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy();
         }
     }

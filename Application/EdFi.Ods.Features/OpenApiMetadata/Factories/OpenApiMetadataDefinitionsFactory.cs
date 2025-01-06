@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
@@ -16,6 +16,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
@@ -27,21 +28,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataDefinitionsFactoryNamingStrategy _openApiMetadataDefinitionsFactoryNamingStrategy;
         private readonly IOpenApiMetadataFactoryResourceFilterStrategy _openApiMetadataFactoryResourceFilterStrategy;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
-        private readonly ApiSettings _apiSettings;
+        private readonly IFeatureManager _featureManager;
 
         public OpenApiMetadataDefinitionsFactory(IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy entityExtensionStrategy,
             IOpenApiMetadataDefinitionsFactoryEdFiExtensionBridgeStrategy edFiExtensionBridgeStrategy,
             IOpenApiMetadataDefinitionsFactoryNamingStrategy openApiMetadataDefinitionsFactoryNamingStrategy,
             IOpenApiMetadataFactoryResourceFilterStrategy openApiMetadataFactoryResourceFilterStrategy,
             IOpenApiIdentityProvider openApiIdentityProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _definitionsFactoryEntityExtensionStrategy = entityExtensionStrategy;
             _definitionsFactoryEdFiExtensionBridgeStrategy = edFiExtensionBridgeStrategy;
             _openApiMetadataDefinitionsFactoryNamingStrategy = openApiMetadataDefinitionsFactoryNamingStrategy;
             _openApiMetadataFactoryResourceFilterStrategy = openApiMetadataFactoryResourceFilterStrategy;
             _openApiIdentityProvider = openApiIdentityProvider;
-            _apiSettings = apiSettings;
+            _featureManager = featureManager;
         }
 
         private static Schema EtagSchema
@@ -62,7 +63,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> openApiMetadataResources)
         {
             var definitions = BoilerPlateDefinitions();
-            var isChangeQueriesEnabled = _apiSettings.IsFeatureEnabled("ChangeQueries");
+            var isChangeQueriesEnabled = _featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries);
 
             openApiMetadataResources
                 .Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource))

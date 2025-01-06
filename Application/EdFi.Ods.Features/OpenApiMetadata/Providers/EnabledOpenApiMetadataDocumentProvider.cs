@@ -15,10 +15,12 @@ using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
@@ -39,13 +41,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
             IList<IOpenApiMetadataRouteInformation> routeInformations,
             ISchemaNameMapProvider schemaNameMapProvider,
+            IFeatureManager featureManager,
             ApiSettings apiSettings,
             IOdsRouteRootTemplateProvider routeRootTemplateProvider)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _routeInformations = routeInformations;
-            this._reverseProxySettings = apiSettings.GetReverseProxySettings();
-            _multitenancyEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName());
+            _reverseProxySettings = apiSettings.GetReverseProxySettings();
+            _multitenancyEnabled = featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy);
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
             _routeRootTemplateProvider = routeRootTemplateProvider;
             _odsContextRoutePath = apiSettings.GetOdsContextRoutePath() ?? string.Empty;

@@ -21,6 +21,7 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
 using static Microsoft.AspNetCore.WebUtilities.QueryHelpers;
 
@@ -57,15 +58,16 @@ namespace EdFi.Ods.Features.Controllers
             ICompositesMetadataProvider compositeMetadataProvider,
             IEdFiProblemDetailsProvider problemDetailsProvider,
             ILogContextAccessor logContextAccessor,
+            IFeatureManager featureManager,
             ApiSettings apiSettings)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
             _problemDetailsProvider = problemDetailsProvider;
             _logContextAccessor = logContextAccessor;
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.Composites);
 
-            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 _standardApiRouteKeys.Add("tenantIdentifier");
             }

@@ -36,21 +36,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
         protected static IResourceModelProvider
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
-        private static ApiSettings CreateApiSettings()
-        {
-            return new ApiSettings
-            {
-                Features = new List<Feature>
-                {
-                    new Feature
-                    {
-                        Name = "ChangeQueries",
-                        IsEnabled = true
-                    }
-                }
-            };
-        }
-
         public class
             When_creating_definitions_for_list_of_resources_using_a_single_instance_or_year_specific_ods : TestFixtureBase
         {
@@ -80,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         {
                             RenderType = RenderType.GeneralizedExtensions
                         }, new FakeOpenApiIdentityProvider(),
-                        CreateApiSettings()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
+                        new FakeFeatureManager()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
 
                 // link definitions are excluded here and tested in a separate assertion.
                 _actualExtendableEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource && !r.Entity.IsDescriptorEntity)
@@ -242,16 +227,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                var appSettings = CreateApiSettings();
-                appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
-
+                var featureManager = new FakeFeatureManager();
+                featureManager.SetState("ChangeQueries", false);
+                
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper
                     .CreateOpenApiMetadataDefinitionsFactory(
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
                         }, new FakeOpenApiIdentityProvider(),
-                        appSettings).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
+                        featureManager).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
             }
 
             [Assert]
@@ -375,7 +360,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
                         new FakeOpenApiIdentityProvider(),
-                        CreateApiSettings())
+                        new FakeFeatureManager())
                     .Create(_openApiMetadataResources);
             }
 
@@ -492,7 +477,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
                         new FakeOpenApiIdentityProvider(),
-                        CreateApiSettings())
+                        new FakeFeatureManager())
                     .Create(_openApiMetadataResources);
             }
 

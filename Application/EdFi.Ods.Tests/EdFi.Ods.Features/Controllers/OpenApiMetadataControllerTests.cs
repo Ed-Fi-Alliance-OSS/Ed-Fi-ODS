@@ -32,13 +32,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override void Arrange()
             {
-                var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = false;
-                Feature item = new Feature();
-                item.IsEnabled = true;
-                item.Name = "openApiMetadata";
-                configValueProvider.Features.Add(item);
-
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 A.CallTo(() => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(A<string>._))
@@ -51,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
                 fakeopenAPIcontent.Add(sectiondata);
 
-                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
+                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, new FakeFeatureManager(), new ApiSettings());
 
                 var request = A.Fake<HttpRequest>();
                 request.Method = HttpMethods.Post;
@@ -107,15 +100,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override void Arrange()
             {
-                var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = true;
-                configValueProvider.OverrideForForwardingHostPort = 80;
-                configValueProvider.OverrideForForwardingHostServer = "localhost";
-
-                Feature item = new Feature();
-                item.IsEnabled = true;
-                item.Name = "openApiMetadata";
-                configValueProvider.Features.Add(item);
+                var apiSettings = new ApiSettings();
+                apiSettings.UseReverseProxyHeaders = true;
+                apiSettings.OverrideForForwardingHostPort = 80;
+                apiSettings.OverrideForForwardingHostServer = "localhost";
 
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
@@ -130,7 +118,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
                 var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
                 fakeopenAPIcontent.Add(sectiondata);
-                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
+                _controller = new OpenApiMetadataController(
+                    _openApiMetadataCacheProvider, 
+                    new FakeFeatureManager(), 
+                    apiSettings);
 
                 var request = A.Fake<HttpRequest>();
                 request.Method = HttpMethods.Post;
@@ -144,14 +135,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                             "controller", "Token"
                         } };
 
-                var headerDictionary = A.Fake<IHeaderDictionary>();
+                HeaderDictionary headers = new HeaderDictionary();
+                headers.Add(HeaderConstants.XForwardedProto, "https");
+                headers.Add(HeaderConstants.XForwardedHost, "api.com");
+                headers.Add(HeaderConstants.XForwardedPort, "443");
 
-                HeaderDictionary dict = new HeaderDictionary();
-                dict.Add(HeaderConstants.XForwardedProto, "https");
-                dict.Add(HeaderConstants.XForwardedHost, "api.com");
-                dict.Add(HeaderConstants.XForwardedPort, "443");
-
-                A.CallTo(() => request.Headers).Returns(dict);
+                A.CallTo(() => request.Headers).Returns(headers);
 
                 var httpContext = A.Fake<HttpContext>();
 
@@ -206,11 +195,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     OverrideForForwardingHostServer = "localhost"
                 };
 
-                Feature item = new Feature();
-                item.IsEnabled = true;
-                item.Name = "openApiMetadata";
-                configValueProvider.Features.Add(item);
-
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 A.CallTo(() => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(A<string>._))
@@ -223,7 +207,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
                 fakeopenAPIcontent.Add(sectiondata);
 
-                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
+                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, new FakeFeatureManager(), new ApiSettings());
 
                 var request = A.Fake<HttpRequest>();
                 request.Method = HttpMethods.Post;

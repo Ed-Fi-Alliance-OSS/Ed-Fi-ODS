@@ -6,7 +6,9 @@
 using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using log4net;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Common.Container
 {
@@ -14,18 +16,18 @@ namespace EdFi.Ods.Common.Container
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(ConditionalModule));
 
-        protected readonly ApiSettings ApiSettings;
         private readonly string _moduleName;
+        private readonly IFeatureManager _featureManager;
 
-        protected ConditionalModule(ApiSettings apiSettings, string moduleName)
+        protected ConditionalModule(IFeatureManager featureManager)
         {
-            ApiSettings = apiSettings;
-            _moduleName = moduleName;
+            _moduleName = GetType().Name;
+            _featureManager = featureManager;
         }
 
-        public abstract bool IsSelected();
+        protected abstract bool IsSelected();
 
-        public abstract void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder);
+        protected abstract void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder);
 
         /// <summary>
         /// Register implementations needed to prevent dependency injection failures (often on controllers)
@@ -52,6 +54,6 @@ namespace EdFi.Ods.Common.Container
             }
         }
 
-        protected bool IsFeatureEnabled(ApiFeature feature) => ApiSettings.IsFeatureEnabled(feature.GetConfigKeyName());
+        protected bool IsFeatureEnabled(ApiFeature feature) => _featureManager.IsFeatureEnabled(feature);
     }
 }

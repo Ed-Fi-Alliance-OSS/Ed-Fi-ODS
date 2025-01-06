@@ -4,20 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Constants;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder UseOpenApiMetadata(this IApplicationBuilder builder)
-            => builder.UseMiddleware<OpenApiMetadataMiddleware>();
+            => builder.UseMiddlewareForFeature<OpenApiMetadataMiddleware>(ApiFeature.OpenApiMetadata.Value);
 
         public static IApplicationBuilder UseOdsInstanceIdentification(this IApplicationBuilder builder)
             => builder.UseMiddleware<OdsInstanceIdentificationMiddleware>();
 
         public static IApplicationBuilder UseTenantIdentification(this IApplicationBuilder builder)
-            => builder.UseMiddleware<TenantIdentificationMiddleware>();
+            => builder.UseMiddlewareForFeature<TenantIdentificationMiddleware>(ApiFeature.MultiTenancy.Value);
 
         public static IApplicationBuilder UseRequestCorrelation(this IApplicationBuilder builder)
             => builder.UseMiddleware<RequestCorrelationMiddleware>();

@@ -10,8 +10,10 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
+using Microsoft.FeatureManagement;
 using NHibernate.Event;
 
 namespace EdFi.Ods.Common.Infrastructure.Listeners
@@ -21,9 +23,9 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
         private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsPreInsertListener));
         private readonly bool _serializationEnabled;
 
-        public EdFiOdsPreInsertListener(ApiSettings apiSettings)
+        public EdFiOdsPreInsertListener(IFeatureManager featureManager)
         {
-            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _serializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
         }
 
         public Task<bool> OnPreInsertAsync(PreInsertEvent @event, CancellationToken cancellationToken)

@@ -22,6 +22,7 @@ using EdFi.TestFixture;
 using FakeItEasy;
 using NHibernate.Mapping;
 using NUnit.Framework;
+using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
 {
@@ -58,7 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     ormMappingFileDataProvider,
                     () => entityAuthorizer,
                     authorizationContextProvider,
-                    new ApiSettings());
+                    new FakeFeatureManager());
 
                 _configuration = nHibernateConfigurator.Configure();
 

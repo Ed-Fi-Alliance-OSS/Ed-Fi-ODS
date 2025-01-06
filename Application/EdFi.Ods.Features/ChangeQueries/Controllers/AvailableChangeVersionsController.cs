@@ -5,12 +5,13 @@
 
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.ChangeQueries.Providers;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.ChangeQueries.Controllers
 {
@@ -27,10 +28,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
         public AvailableChangeVersionsController(
             IAvailableChangeVersionProvider availableChangeVersionProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _availableChangeVersionProvider = availableChangeVersionProvider;
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries);
         }
 
         [HttpGet]

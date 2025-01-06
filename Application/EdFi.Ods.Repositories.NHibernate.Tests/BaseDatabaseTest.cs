@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using NHibernate;
 using NHibernate.Cfg;
 using NUnit.Framework;
+using Test.Common;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -65,8 +66,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
-            builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
-            builder.RegisterModule(new PostgresSpecificModule(apiSettings));
+            builder.RegisterModule(new SqlServerSpecificModule(new FakeFeatureManager(), apiSettings.GetDatabaseEngine()));
+            builder.RegisterModule(new PostgresSpecificModule(new FakeFeatureManager(), apiSettings.GetDatabaseEngine()));
 
             builder.RegisterType<AuthorizationContextProvider>()
                 .As<IAuthorizationContextProvider>()

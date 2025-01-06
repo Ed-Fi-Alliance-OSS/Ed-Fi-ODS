@@ -6,12 +6,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
+using Microsoft.FeatureManagement;
 using NHibernate.Event;
 
 namespace EdFi.Ods.Common.Infrastructure.Listeners;
@@ -21,9 +22,9 @@ public class EdFiOdsPreUpdateListener : IPreUpdateEventListener
     private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiOdsPreUpdateListener));
     private readonly bool _serializationEnabled;
 
-    public EdFiOdsPreUpdateListener(ApiSettings apiSettings)
+    public EdFiOdsPreUpdateListener(IFeatureManager featureManager)
     {
-        _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+        _serializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
     }
 
     public Task<bool> OnPreUpdateAsync(PreUpdateEvent @event, CancellationToken cancellationToken)

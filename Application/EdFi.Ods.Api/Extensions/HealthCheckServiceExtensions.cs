@@ -6,37 +6,47 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Extensions
 {
     public static class HealthCheckServiceExtensions
     {
-        public static IServiceCollection AddHealthCheck(this IServiceCollection services, IConfigurationRoot configuration, ApiSettings apiSettings)
+        public static IServiceCollection AddHealthCheck(
+            this IServiceCollection services,
+            IConfigurationRoot configuration,
+            IFeatureManager featureManager,
+            DatabaseEngine databaseEngine)
         {
             Dictionary<string, string> connectionStrings;
 
-            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
-                connectionStrings = configuration.Get<TenantsSection>().Tenants.ToDictionary(x => x.Key, x => x.Value.ConnectionStrings["EdFi_Admin"]);
+                connectionStrings = configuration.Get<TenantsSection>()
+                    .Tenants.ToDictionary(
+                        x => x.Key, 
+                        x => x.Value.ConnectionStrings["EdFi_Admin"]);
             }
             else
             {
-                connectionStrings = new() {
+                connectionStrings = new()
+                {
                     { "SingleTenant", configuration.GetConnectionString("EdFi_Admin") }
                 };
             }
 
-            var isSqlServer = "SQLServer".Equals(apiSettings.Engine, StringComparison.OrdinalIgnoreCase);
             var hcBuilder = services.AddHealthChecks();
 
             foreach (var connectionString in connectionStrings)
             {
-                if (isSqlServer)
+                if (databaseEngine == DatabaseEngine.SqlServer)
                 {
                     hcBuilder.AddSqlServer(connectionString.Value, name: connectionString.Key);
                 }

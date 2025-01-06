@@ -21,6 +21,7 @@ using EdFi.Security.DataAccess.Providers;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules;
 
@@ -28,12 +29,12 @@ public class MultiTenancyModule : ConditionalModule
 {
     private readonly ILog _logger = LogManager.GetLogger(typeof(MultiTenancyModule));
     
-    public MultiTenancyModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(MultiTenancyModule)) { }
+    public MultiTenancyModule(IFeatureManager featureManager)
+        : base(featureManager) { } 
 
-    public override bool IsSelected() => IsFeatureEnabled(ApiFeature.MultiTenancy);
+    protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.MultiTenancy);
 
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         builder.RegisterType<TenantIdentificationMiddleware>()
             .As<IMiddleware>()

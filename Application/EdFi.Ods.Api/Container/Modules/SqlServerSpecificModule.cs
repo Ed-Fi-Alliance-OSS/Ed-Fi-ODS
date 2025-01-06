@@ -16,17 +16,23 @@ using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class SqlServerSpecificModule : ConditionalModule
     {
-        public SqlServerSpecificModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(SqlServerSpecificModule)) { }
+        private readonly DatabaseEngine _databaseEngine;
 
-        public override bool IsSelected() => ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer;
+        public SqlServerSpecificModule(IFeatureManager featureManager, DatabaseEngine databaseEngine)
+            : base(featureManager)
+        {
+            _databaseEngine = databaseEngine;
+        }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override bool IsSelected() => _databaseEngine == DatabaseEngine.SqlServer;
+
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterInstance(DatabaseEngine.SqlServer);
 

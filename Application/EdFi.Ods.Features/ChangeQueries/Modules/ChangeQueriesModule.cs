@@ -5,7 +5,6 @@
 
 using Autofac;
 using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
@@ -20,15 +19,16 @@ using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.ChangeQueries.Modules
 {
     public class ChangeQueriesModule : ConditionalModule
     {
-        public ChangeQueriesModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ChangeQueriesModule)) { }
+        public ChangeQueriesModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.ChangeQueries);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.ChangeQueries);
 
         protected override void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
         {
@@ -46,7 +46,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .SingleInstance();
         }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             // Change Queries support in NHibernate mappings 
             builder.RegisterType<ChangeQueryMappingNHibernateConfigurationActivity>()

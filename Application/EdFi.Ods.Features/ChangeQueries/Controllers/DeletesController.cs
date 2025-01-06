@@ -23,6 +23,7 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Controllers
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             IDeletedItemsResourceDataProvider deletedItemsResourceDataProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ILogContextAccessor logContextAccessor,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _domainModelProvider = domainModelProvider;
             _deletedItemsResourceDataProvider = deletedItemsResourceDataProvider;
@@ -55,7 +56,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries);
         }
 
         [HttpGet]

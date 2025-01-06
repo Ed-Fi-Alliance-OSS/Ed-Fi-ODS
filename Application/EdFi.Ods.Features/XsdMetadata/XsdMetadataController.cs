@@ -13,9 +13,11 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.XsdMetadata
 {
@@ -28,17 +30,21 @@ namespace EdFi.Ods.Features.XsdMetadata
     {
         private readonly ApiSettings _apiSettings;
         private readonly bool _isEnabled;
+        private readonly IFeatureManager _featureManager;
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
         private readonly ConcurrentDictionary<string, EmbeddedFileProvider> _embeddedFileProviderByAssemblyName =
             new(StringComparer.InvariantCultureIgnoreCase);
         private readonly IAssembliesProvider _assembliesProvider;
 
-        public XsdMetadataController(ApiSettings apiSettings,
+        public XsdMetadataController(
+            IFeatureManager featureManager,
+            ApiSettings apiSettings,
             IAssembliesProvider assembliesProvider,
             IXsdFileInformationProvider xsdFileInformationProvider)
         {
+            _featureManager = featureManager;
             _xsdFileInformationProvider = xsdFileInformationProvider;
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.XsdMetadata);
             _assembliesProvider = assembliesProvider;
             _apiSettings = apiSettings;
         }
@@ -112,7 +118,7 @@ namespace EdFi.Ods.Features.XsdMetadata
         {
             string rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
                 {

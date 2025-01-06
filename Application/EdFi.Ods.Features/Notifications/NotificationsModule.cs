@@ -11,17 +11,18 @@ using Autofac.Core;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Notifications;
 
 public class NotificationsModule : ConditionalModule
 {
-    public NotificationsModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(NotificationsModule)) { }
+    public NotificationsModule(IFeatureManager featureManager)
+        : base(featureManager) { }
 
-    public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Notifications);
+    protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.Notifications);
 
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         builder.RegisterType<NotificationsMessageSink>()
             .As<INotificationsMessageSink>()

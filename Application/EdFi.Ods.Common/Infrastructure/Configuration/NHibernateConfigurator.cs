@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.FeatureManagement;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -36,7 +37,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly ApiSettings _apiSettings;
+        private readonly IFeatureManager _featureManager;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
@@ -44,11 +45,11 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
-            _apiSettings = apiSettings;
+            _featureManager = featureManager;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -113,7 +114,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _apiSettings);
+            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _featureManager);
 
             return configuration;
 

@@ -17,15 +17,13 @@ using EdFi.Ods.Common.Logging;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Validation;
-using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
-using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Controllers
@@ -50,7 +48,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             IKeyChangesResourceDataProvider keyChangesResourceDataProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ILogContextAccessor logContextAccessor,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _domainModelProvider = domainModelProvider;
             _keyChangesResourceDataProvider = keyChangesResourceDataProvider;
@@ -58,7 +56,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries);
         }
 
         [HttpGet]

@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Infrastructure.Interceptors;
 using EdFi.Ods.Common.Infrastructure.Listeners;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.FeatureManagement;
 using NHibernate.Event;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
@@ -20,16 +21,16 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             this NHibernate.Cfg.Configuration configuration,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             configuration.Interceptor = new EdFiOdsInterceptor();
-            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener(apiSettings));
+            configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener(featureManager));
             configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener());
-            configuration.SetListener(ListenerType.PreUpdate, new EdFiOdsPreUpdateListener(apiSettings));
+            configuration.SetListener(ListenerType.PreUpdate, new EdFiOdsPreUpdateListener(featureManager));
 
             configuration.SetListener(
                 ListenerType.PostUpdate,
-                new EdFiOdsPostUpdateEventListener(entityAuthorizerResolver, authorizationContextProvider, apiSettings));
+                new EdFiOdsPostUpdateEventListener(entityAuthorizerResolver, authorizationContextProvider, featureManager));
         }
     }
 }

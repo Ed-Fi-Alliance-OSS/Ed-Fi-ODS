@@ -19,10 +19,12 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Microsoft.FeatureManagement;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -62,13 +64,13 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             ISessionFactory sessionFactory, 
             IDomainModelProvider domainModelProvider,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            ApiSettings apiSettings,
+            IFeatureManager featureManager,
             Dialect dialect,
             DatabaseEngine databaseEngine)
             : base(sessionFactory)
         {
-            SerializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
-            _resourceLinksEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ResourceLinks.GetConfigKeyName());
+            SerializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
+            _resourceLinksEnabled = featureManager.IsFeatureEnabled(ApiFeature.ResourceLinks);
 
             _dialect = dialect;
             _databaseEngine = databaseEngine;
