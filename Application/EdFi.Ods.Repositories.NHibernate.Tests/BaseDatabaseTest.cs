@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using Microsoft.Extensions.Configuration;
+using Microsoft.FeatureManagement;
 using NHibernate;
 using NHibernate.Cfg;
 using NUnit.Framework;
@@ -50,8 +51,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             {
                 Engine = OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine.Value,
             };
-            builder.RegisterInstance(apiSettings).As<ApiSettings>()
-                .SingleInstance();
+            
+            var fakeFeatureManager = new FakeFeatureManager();
+
+            builder.RegisterInstance(apiSettings).As<ApiSettings>().SingleInstance();
+            builder.RegisterInstance(fakeFeatureManager).As<IFeatureManager>().SingleInstance();
 
             builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
 
@@ -66,8 +70,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
-            builder.RegisterModule(new SqlServerSpecificModule(new FakeFeatureManager(), apiSettings.GetDatabaseEngine()));
-            builder.RegisterModule(new PostgresSpecificModule(new FakeFeatureManager(), apiSettings.GetDatabaseEngine()));
+            builder.RegisterModule(new SqlServerSpecificModule(fakeFeatureManager, apiSettings.GetDatabaseEngine()));
+            builder.RegisterModule(new PostgresSpecificModule(fakeFeatureManager, apiSettings.GetDatabaseEngine()));
 
             builder.RegisterType<AuthorizationContextProvider>()
                 .As<IAuthorizationContextProvider>()
