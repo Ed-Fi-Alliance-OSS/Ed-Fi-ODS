@@ -28,7 +28,11 @@ namespace EdFi.Ods.Common.Models.Graphs
             // Call the recursive helper function to detect cycle in different DFS trees
             foreach (var vertex in graph.Vertices)
             {
-                _logger.Debug($"Probing node '{vertex}' for cyclical dependencies...");
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Probing node '{vertex}' for cyclical dependencies...");
+                }
+
                 graph.FindCycles(vertex, visited, stack, cycles);
             }
 
