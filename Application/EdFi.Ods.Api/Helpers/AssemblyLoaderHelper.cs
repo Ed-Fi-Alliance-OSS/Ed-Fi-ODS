@@ -29,6 +29,118 @@ namespace EdFi.Ods.Api.Helpers
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
+        private static string GetDefaultDirectoryIfNotProvided(string directory)
+        {
+            return string.IsNullOrEmpty(directory)
+                ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty
+                : directory;
+        }
+        
+        public static string GetPluginFolder(string pluginSettingsFolder)
+        {
+            if (string.IsNullOrWhiteSpace(pluginSettingsFolder))
+            {
+                return string.Empty;
+            }
+
+            if (Path.IsPathRooted(pluginSettingsFolder))
+            {
+                return pluginSettingsFolder;
+            }
+
+            // in a developer environment the plugin folder is relative to the WebApi project
+            // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net8.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
+            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
+            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, pluginSettingsFolder));
+
+            if (Directory.Exists(relativeToProject))
+            {
+                return relativeToProject;
+            }
+
+            // in a deployment environment the plugin folder is relative to the executable
+            // "C:/inetpub/Ed-Fi/WebApi"
+            var relativeToExecutable =
+                Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, pluginSettingsFolder));
+
+            if (Directory.Exists(relativeToExecutable))
+            {
+                return relativeToExecutable;
+            }
+
+            // last attempt to get directory relative to the working directory
+            var relativeToWorkingDirectory = Path.GetFullPath(pluginSettingsFolder);
+
+            if (Directory.Exists(relativeToWorkingDirectory))
+            {
+                return relativeToWorkingDirectory;
+            }
+
+            return pluginSettingsFolder;
+        }
+        
+        private static void LoadAssemblyFile(FileInfo assemblyFilesToLoad)
+        {
+            _logger.Debug($"{assemblyFilesToLoad.Name}");
+
+            try
+            {
+                Assembly.LoadFrom(assemblyFilesToLoad.FullName);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Unable to load assembly {assemblyFilesToLoad.FullName}", ex);
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Load assemblies from the folder specified by <paramref name="directory"/>.
+        /// If <paramref name="directory"/> is null or empty, the folder containing the currently executing assembly will be used.
+        /// </summary>
+        /// <param name="directory">Optional: Directory from which assemblies should be loaded (Default: null). </param>
+        public static void LoadAssembliesFromFolder(string directory = null)
+        {
+            directory = GetDefaultDirectoryIfNotProvided(directory);
+
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+            {
+                return;
+            }
+
+            var directoryInfo = new DirectoryInfo(directory);
+
+            // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
+            IDictionary<string, bool> loadedByAssemblyName = new ConcurrentDictionary<string, bool>();
+
+            _logger.Debug($"Loaded assemblies from executing folder: '{directoryInfo.FullName}'");
+
+            foreach (FileInfo assemblyFilesToLoad in directoryInfo.GetFiles("*.dll")
+                         .Where(fi => ShouldLoad(fi.Name, loadedByAssemblyName)))
+            {
+                LoadAssemblyFile(assemblyFilesToLoad);
+            }
+
+            int alreadyLoaded = loadedByAssemblyName.Keys.Count;
+
+            var sw = new Stopwatch();
+            sw.Start();
+            
+            _logger.Debug($"Already loaded assemblies:");
+
+            CacheAlreadyLoadedAssemblies(loadedByAssemblyName);
+
+            // Loop on loaded assemblies to load dependencies (it includes Startup assembly so should load all the dependency tree)
+            foreach (Assembly nonFrameworkAssemblies in AppDomain.CurrentDomain.GetAssemblies()
+                         .Where(a => IsNotNetFramework(a.FullName)))
+            {
+                LoadReferencedAssembly(nonFrameworkAssemblies, loadedByAssemblyName);
+            }
+
+            _logger.Debug(
+                $"Assemblies loaded after scan ({loadedByAssemblyName.Keys.Count - alreadyLoaded} assemblies in {sw.ElapsedMilliseconds} ms):");
+        }
+        
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
