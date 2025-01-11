@@ -20,17 +20,24 @@ public class EntityDeserializer : IEntityDeserializer
     private readonly ISurrogateIdMutator[] _surrogateIdMutators;
     private readonly ISessionFactory _sessionFactory;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+    private readonly IContextStorage _contextStorage;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(EntityDeserializer));
+
+    // Create boxed boolean values to avoid repeated boxing/unboxing
+    private static readonly object deserializing = true;
+    private static readonly object notDeserializing = false;
     
     public EntityDeserializer(
         ISurrogateIdMutator[] surrogateIdMutators,
         ISessionFactory sessionFactory,
-        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        IContextStorage contextStorage)
     {
         _surrogateIdMutators = surrogateIdMutators;
         _sessionFactory = sessionFactory;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _contextStorage = contextStorage;
     }
         
     public async Task<TEntity> DeserializeAsync<TEntity>(IItemRawData itemRawData)
@@ -41,7 +48,16 @@ public class EntityDeserializer : IEntityDeserializer
         // try
         {
             // Deserialize the entity
-            entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
+            _contextStorage.SetValue("IsDeserializing", deserializing);
+
+            try
+            {
+                entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
+            }
+            finally
+            {
+                _contextStorage.SetValue("IsDeserializing", notDeserializing);
+            }
         }
         // catch (Exception ex)
         // {
