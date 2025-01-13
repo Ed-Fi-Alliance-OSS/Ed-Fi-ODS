@@ -9,6 +9,7 @@ using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Jobs;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Caching;
@@ -66,7 +67,7 @@ namespace EdFi.Ods.Features.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
-            builder.RegisterType<CachingInterceptor>()
+            builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
                 .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
                 .WithParameter(
                     ctx =>
