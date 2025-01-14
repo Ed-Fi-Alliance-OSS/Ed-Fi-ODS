@@ -5,20 +5,20 @@
 
 using Autofac;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.XsdMetadata
 {
     public class XsdMetadataModule : ConditionalModule
     {
-        public XsdMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(XsdMetadataModule)) { }
+        public XsdMetadataModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.XsdMetadata);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.XsdMetadata);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<XsdFileInformationProvider>()
                 .As<IXsdFileInformationProvider>()

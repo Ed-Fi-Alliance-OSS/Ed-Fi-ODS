@@ -17,35 +17,41 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ExternalCache.Redis;
 using EdFi.Ods.Features.Services.Redis;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
     public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheModule
     {
-        public ExternalCacheModule(ApiSettings apiSettings, string moduleName)
-           : base(apiSettings, moduleName) { }
+        private readonly CacheSettings _cacheSettings;
 
-        public override bool IsSelected() => ApiSettings.Caching.ApiClientDetails.UseExternalCache ||
-            ApiSettings.Caching.Descriptors.UseExternalCache ||
-            ApiSettings.Caching.PersonUniqueIdToUsi.UseExternalCache;
+        protected ExternalCacheModule(IFeatureManager featureManager, ApiSettings apiSettings)
+            : base(featureManager)
+        {
+            _cacheSettings = apiSettings.Caching;
+        }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override bool IsSelected() => _cacheSettings.ApiClientDetails.UseExternalCache ||
+            _cacheSettings.Descriptors.UseExternalCache ||
+            _cacheSettings.PersonUniqueIdToUsi.UseExternalCache;
+
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             RegisterDistributedCache(builder);
 
             RegisterProvider(builder);
 
-            if (ApiSettings.Caching.ApiClientDetails.UseExternalCache)
+            if (_cacheSettings.ApiClientDetails.UseExternalCache)
             {
                 OverrideApiClientDetailsCache(builder);
             }
 
-            if (ApiSettings.Caching.Descriptors.UseExternalCache)
+            if (_cacheSettings.Descriptors.UseExternalCache)
             {
                 OverrideDescriptorsCache(builder);
             }
 
-            if (ApiSettings.Caching.PersonUniqueIdToUsi.UseExternalCache)
+            if (_cacheSettings.PersonUniqueIdToUsi.UseExternalCache)
             {
                 OverridePersonUniqueIdToUsiCache(builder);
             }
@@ -55,7 +61,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public bool IsProviderSelected()
         {
-            return ExternalCacheProvider.EqualsIgnoreCase(ApiSettings.Caching.ExternalCacheProvider);
+            return ExternalCacheProvider.EqualsIgnoreCase(_cacheSettings.ExternalCacheProvider);
         }
 
         public void RegisterProvider(ContainerBuilder builder)
@@ -104,7 +110,7 @@ namespace EdFi.Ods.Features.ExternalCache
                 .WithParameter(
                     ctx =>
                     {
-                        int absoluteExpirationSeconds = ApiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
+                        int absoluteExpirationSeconds = _cacheSettings.Descriptors.AbsoluteExpirationSeconds;
 
                         return (ICacheProvider<ulong>)new ExternalCacheProvider<ulong>(
                             ctx.Resolve<IDistributedCache>(),

@@ -4,26 +4,24 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
 using EdFi.Ods.Features.UniqueIdIntegration.Pipeline;
-using EdFi.Ods.Features.UniqueIdIntegration.Validation;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class UniqueIdIntegrationModule : ConditionalModule
     {
-        public UniqueIdIntegrationModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(UniqueIdIntegrationModule)) { }
+        public UniqueIdIntegrationModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.UniqueIdValidation);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.UniqueIdValidation);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             // only install the cache is one is not provided.
             builder.RegisterType<PersonUniqueIdToIdCache>()

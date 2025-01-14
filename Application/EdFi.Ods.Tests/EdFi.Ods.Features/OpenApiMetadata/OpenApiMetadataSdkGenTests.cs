@@ -40,41 +40,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 .Build();
         }
 
-        private static ApiSettings CreateApiSettings()
-        {
-            return new ApiSettings
-            {
-                Features = new List<Feature>
-                {
-                    new Feature
-                    {
-                        Name = "Composites",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Profiles",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "Extensions",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "ChangeQueries",
-                        IsEnabled = true
-                    },
-                    new Feature
-                    {
-                        Name = "OpenApiMetadata",
-                        IsEnabled = true
-                    }
-                }
-            };
-        }
-
         public class When_Generating_Extension_Only_As_Root_Aggregate_Document : TestFixtureBase
         {
             private OpenApiMetadataDocumentFactory _extensionOnlyOpenApiMetadataDocumentFactory;
@@ -104,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _resourceIdentificationCodePropertiesProvider = A.Fake<IResourceIdentificationCodePropertiesProvider>();
                 
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new FakeFeatureManager(), defaultPageSieLimitProvider,
                     upconversionProvider,
                     _resourceIdentificationCodePropertiesProvider,
                     new FakeOpenApiIdentityProvider());
@@ -221,7 +186,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 A.CallTo(() => upconversionProvider.GetUpconvertedOpenApiJson(A<string>._)).ReturnsLazily(x => x.Arguments.Get<string>(0));
 
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
-                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new FakeFeatureManager(), defaultPageSieLimitProvider,
                     upconversionProvider,
                     Stub<IResourceIdentificationCodePropertiesProvider>(),
                     new FakeOpenApiIdentityProvider());
@@ -339,7 +304,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
                         new FakeOpenApiIdentityProvider(),
-                        CreateApiSettings());
+                        new FakeFeatureManager());
             }
 
             protected override void Act()
@@ -425,7 +390,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext,
                         new FakeOpenApiIdentityProvider(),
-                        CreateApiSettings());
+                        new FakeFeatureManager());
 
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
 

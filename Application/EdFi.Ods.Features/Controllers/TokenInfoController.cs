@@ -7,7 +7,6 @@ using System;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -17,6 +16,7 @@ using EdFi.Ods.Features.TokenInfo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Features.Controllers
@@ -41,13 +41,13 @@ namespace EdFi.Ods.Features.Controllers
             IApiClientDetailsProvider apiClientDetailsProvider,
             IApiClientContextProvider apiClientContextProvider,
             ILogContextAccessor logContextAccessor,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _tokenInfoProvider = tokenInfoProvider;
             _apiClientDetailsProvider = apiClientDetailsProvider;
             _apiClientContextProvider = apiClientContextProvider;
             _logContextAccessor = logContextAccessor;
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.TokenInfo.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.TokenInfo);
         }
 
         [HttpPost]

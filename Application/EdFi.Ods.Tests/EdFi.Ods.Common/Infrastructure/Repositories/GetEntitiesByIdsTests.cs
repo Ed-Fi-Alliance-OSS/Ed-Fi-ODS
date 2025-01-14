@@ -78,17 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                     _domainModelProvider,
                     _parameterListSetter,
                     _contextProvider, 
-                    new ApiSettings()
-                    {
-                        Features =
-                        [
-                            new Feature()
-                            {
-                                Name = ApiFeature.ResourceLinks.GetConfigKeyName(),
-                                IsEnabled = true
-                            }
-                        ]
-                    },
+                    new FakeFeatureManager(false, ApiFeature.ResourceLinks),
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
                     Stub<IEntityDeserializer>());
@@ -247,22 +237,15 @@ Actual:
 
             private GetEntitiesByIds<Student> CreateGetEntitiesByIds(bool resourceLinksEnabled)
             {
+                var featureManager = new FakeFeatureManager(false);
+                featureManager.SetState(ApiFeature.ResourceLinks.Value, resourceLinksEnabled);
+
                 var getEntitiesByIds = new GetEntitiesByIds<Student>(
                     _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter,
                     _contextProvider,
-                    new ApiSettings()
-                    {
-                        Features =
-                        [
-                            new Feature()
-                            {
-                                Name = ApiFeature.ResourceLinks.GetConfigKeyName(),
-                                IsEnabled = resourceLinksEnabled
-                            }
-                        ]
-                    },
+                    featureManager,
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
                     A.Fake<IEntityDeserializer>());
@@ -308,17 +291,7 @@ Actual:
                     _domainModelProvider,
                     _parameterListSetter,
                     _contextProvider,
-                    new ApiSettings()
-                    {
-                        Features =
-                        [
-                            new()
-                            {
-                                Name = "ResourceLinks",
-                                IsEnabled = true
-                            }
-                        ]
-                    },
+                    new FakeFeatureManager(false, ApiFeature.ResourceLinks),
                     new SqlServerDialect(),
                     DatabaseEngine.SqlServer,
                     Stub<IEntityDeserializer>());

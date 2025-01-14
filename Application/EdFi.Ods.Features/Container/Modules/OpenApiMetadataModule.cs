@@ -8,7 +8,6 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Api.Startup;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.OpenApiMetadata;
@@ -16,17 +15,18 @@ using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.RouteInformations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class OpenApiMetadataModule : ConditionalModule
     {
-        public OpenApiMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(OpenApiMetadataModule)) { }
+        public OpenApiMetadataModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.OpenApiMetadata);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.OpenApiMetadata);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<OpenApiMetadataCacheProvider>()
                 .As<IOpenApiMetadataCacheProvider>()

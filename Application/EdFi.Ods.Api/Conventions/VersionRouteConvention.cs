@@ -8,7 +8,9 @@ using System.Reflection;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Conventions;
 
@@ -17,9 +19,9 @@ public class VersionRouteConvention : IApplicationModelConvention
     private readonly bool _isMultiTenantEnabled;
     private readonly string _odsContextRouteTemplate;
 
-    public VersionRouteConvention(ApiSettings apiSettings)
+    public VersionRouteConvention(IFeatureManager featureManager, ApiSettings apiSettings)
     {
-        _isMultiTenantEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value);
+        _isMultiTenantEnabled = featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy);
         _odsContextRouteTemplate = apiSettings.OdsContextRouteTemplate;
     }
 

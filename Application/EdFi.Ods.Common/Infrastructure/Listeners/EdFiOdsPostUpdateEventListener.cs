@@ -4,21 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Validation;
-using Microsoft.Extensions.Primitives;
+using Microsoft.FeatureManagement;
 using NHibernate;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
@@ -34,11 +30,11 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
         public EdFiOdsPostUpdateEventListener(
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _entityAuthorizer = new Lazy<IEntityAuthorizer>(entityAuthorizerResolver);
-            _serializationEnabled = apiSettings.IsFeatureEnabled(ApiFeature.SerializedData.GetConfigKeyName());
+            _serializationEnabled = featureManager.IsFeatureEnabled(ApiFeature.SerializedData);
         }
 
         public async Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)

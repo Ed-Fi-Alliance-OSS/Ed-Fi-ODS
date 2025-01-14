@@ -23,15 +23,21 @@ using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.Profiles;
 using MediatR;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class ProfilesModule : ConditionalModule
     {
-        public ProfilesModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ProfilesModule)) { }
+        private readonly ApiSettings _apiSettings;
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Profiles);
+        public ProfilesModule(IFeatureManager featureManager, ApiSettings apiSettings)
+            : base(featureManager)
+        {
+            _apiSettings = apiSettings;
+        }
+
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.Profiles);
 
         protected override void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
         {
@@ -40,7 +46,7 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
         }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseProfileDefinitionsProvider>()
                     .As<IProfileDefinitionsProvider>()
@@ -69,7 +75,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
                         return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "Profile Metadata",
-                            TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
+                            TimeSpan.FromSeconds(_apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
                             () => mediator.Publish(new ProfileMetadataCacheExpired()));
                     })
                 .SingleInstance();

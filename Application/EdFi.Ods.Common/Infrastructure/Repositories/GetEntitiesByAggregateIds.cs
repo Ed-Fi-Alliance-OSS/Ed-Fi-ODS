@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.FeatureManagement;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories;
@@ -31,10 +32,10 @@ public class GetEntitiesByAggregateIds<TEntity> : GetEntitiesBase<TEntity>, IGet
         IDomainModelProvider domainModelProvider,
         IParameterListSetter parameterListSetter,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        ApiSettings apiSettings,
+        IFeatureManager featureManager,
         Dialect dialect,
         DatabaseEngine databaseEngine)
-        : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
+        : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, featureManager, dialect, databaseEngine)
     {
         _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
     }

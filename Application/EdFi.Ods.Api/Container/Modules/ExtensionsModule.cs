@@ -18,23 +18,29 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Dependencies;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class ExtensionsModule : ConditionalModule
     {
-        public ExtensionsModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ExtensionsModule)) { }
+        private readonly ApiSettings _apiSettings;
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Extensions);
+        public ExtensionsModule(IFeatureManager featureManager, ApiSettings apiSettings)
+            : base(featureManager)
+        {
+            _apiSettings = apiSettings;
+        }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.Extensions);
+
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             var installedExtensionAssemblies =
                 AssemblyLoadContext.Default.Assemblies
                 .Where(
                     a => a.IsExtensionAssembly()
-                         && !ApiSettings.ExcludedExtensions.Contains(
+                         && !_apiSettings.ExcludedExtensions.Contains(
                              ExtensionsConventions.GetProperCaseNameFromAssemblyName(a.GetName().Name), StringComparer.InvariantCultureIgnoreCase))
                 .Distinct(new AssemblyComparer())
                 .ToList();

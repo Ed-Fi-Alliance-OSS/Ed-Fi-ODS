@@ -5,7 +5,6 @@
 
 using Autofac;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Metadata.Composites;
@@ -15,17 +14,18 @@ using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Features.Conventions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class CompositesModule : ConditionalModule
     {
-        public CompositesModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(CompositesModule)) { }
+        public CompositesModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Composites);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.Composites);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<CompositesMetadataProvider>()
                 .As<ICompositesMetadataProvider>()

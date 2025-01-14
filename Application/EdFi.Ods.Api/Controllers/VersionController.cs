@@ -11,10 +11,13 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
+
 // ReSharper disable InconsistentNaming
 
 namespace EdFi.Ods.Api.Controllers
@@ -25,6 +28,7 @@ namespace EdFi.Ods.Api.Controllers
     [AllowAnonymous]
     public class VersionController : ControllerBase
     {
+        private readonly IFeatureManager _featureManager;
         private readonly IApiVersionProvider _apiVersionProvider;
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly ApiSettings _apiSettings;
@@ -32,8 +36,10 @@ namespace EdFi.Ods.Api.Controllers
         public VersionController(
             IDomainModelProvider domainModelProvider,
             IApiVersionProvider apiVersionProvider,
+            IFeatureManager featureManager,
             ApiSettings apiSettings)
         {
+            _featureManager = Preconditions.ThrowIfNull(featureManager, nameof(featureManager));
             _domainModelProvider = Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
             _apiVersionProvider = Preconditions.ThrowIfNull(apiVersionProvider, nameof(apiVersionProvider));
             _apiSettings = Preconditions.ThrowIfNull(apiSettings, nameof(apiSettings));
@@ -61,7 +67,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 var rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
                 {
                     if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
                     {
@@ -92,12 +98,12 @@ namespace EdFi.Ods.Api.Controllers
                     rootUrl = $"{rootUrl}/{odsContextUriTemplatePath}";
                 }
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.AggregateDependencies))
                 {
                     urlsByName["dependencies"] = $"{rootUrl}/metadata/data/v{ApiVersionConstants.Ods}/dependencies";
                 }
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.OpenApiMetadata))
                 {
                     urlsByName["openApiMetadata"] = $"{rootUrl}/metadata/";
                 }
@@ -107,22 +113,22 @@ namespace EdFi.Ods.Api.Controllers
 
                 urlsByName["dataManagementApi"] = $"{rootUrl}/data/v{ApiVersionConstants.Ods}/";
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.XsdMetadata))
                 {
                     urlsByName["xsdMetadata"] = $"{rootUrl}/metadata/xsd";
                 }
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
                 {
                     urlsByName["changeQueries"] = $"{rootUrl}/changeQueries/v{ApiVersionConstants.ChangeQuery}/";
                 }
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.Composites))
                 {
                     urlsByName["composites"] = $"{rootUrl}/composites/v{ApiVersionConstants.Composite}/";
                 }
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+                if (_featureManager.IsFeatureEnabled(ApiFeature.IdentityManagement))
                 {
                     urlsByName["identity"] = $"{rootUrl}/identity/v{ApiVersionConstants.Identity}/";
                 }

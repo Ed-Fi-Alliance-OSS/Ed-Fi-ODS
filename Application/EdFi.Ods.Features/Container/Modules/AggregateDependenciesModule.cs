@@ -4,23 +4,23 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class AggregateDependenciesModule : ConditionalModule
     {
-        public AggregateDependenciesModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(AggregateDependenciesModule)) { }
+        public AggregateDependenciesModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.AggregateDependencies);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.AggregateDependencies);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<ResourceLoadGraphFactory>()
                 .As<IResourceLoadGraphFactory>()

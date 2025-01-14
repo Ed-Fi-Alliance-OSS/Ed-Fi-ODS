@@ -10,8 +10,10 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Conventions;
 
@@ -22,10 +24,11 @@ public class OpenApiMetadataRouteConvention : IApplicationModelConvention
     private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
 
     public OpenApiMetadataRouteConvention(
+        IFeatureManager featureManager,
         ApiSettings apiSettings,
         IList<IOpenApiMetadataRouteInformation> routeInformations)
     {
-        _isMultiTenantEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value);
+        _isMultiTenantEnabled = featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy);
         _odsContextRouteTemplate = apiSettings.OdsContextRouteTemplate;
         _routeInformations = routeInformations;
     }

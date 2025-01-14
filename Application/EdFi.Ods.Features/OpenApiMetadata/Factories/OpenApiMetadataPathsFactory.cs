@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers.Queries;
@@ -19,20 +20,19 @@ using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
-using IEnumerableExtensions = EdFi.Common.Utils.Extensions.IEnumerableExtensions;
+using Microsoft.FeatureManagement;
 using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
     public class OpenApiMetadataPathsFactory
     {
-        private readonly ApiSettings _apiSettings;
         private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
         private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
         private readonly IOpenApiIdentityProvider _openApiIdentityProvider;
-        private readonly IResourceIdentificationCodePropertiesProvider
-            _resourceIdentificationCodePropertiesProvider;
+        private readonly IResourceIdentificationCodePropertiesProvider _resourceIdentificationCodePropertiesProvider;
+        private readonly IFeatureManager _featureManager;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
@@ -40,14 +40,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
             IOpenApiIdentityProvider openApiIdentityProvider,
             IResourceIdentificationCodePropertiesProvider resourceIdentificationCodePropertiesProvider,
-            ApiSettings apiSettings)
+            IFeatureManager featureManager)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
             _openApiIdentityProvider = openApiIdentityProvider;
             _resourceIdentificationCodePropertiesProvider = resourceIdentificationCodePropertiesProvider;
-            _apiSettings = apiSettings;
+            _featureManager = featureManager;
         }
 
         public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> openApiMetadataResources,
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 : null
                         }.ToList();
 
-                        if (_apiSettings.IsFeatureEnabled(ChangeQueriesConstants.FeatureName)
+                        if (_featureManager.IsFeatureEnabled(ChangeQueriesConstants.FeatureName)
                             && !r.Name.Equals(ChangeQueriesConstants.SchoolYearTypesResourceName)
                             && !isCompositeContext)
                         {
@@ -242,7 +242,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .Select(p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 parameters.Add(
                     new Parameter
@@ -284,7 +284,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 OpenApiMetadataDocumentHelper.GetDefinitionReference(resourceName),
                 isArray);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 if (responses.ContainsKey("404"))
                 {
@@ -327,7 +327,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 }
             }
 
-            if (_apiSettings.IsFeatureEnabled("ChangeQueries") && !isCompositeContext)
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries) && !isCompositeContext)
             {
                 parameterList.Add(
                     new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion") });
@@ -354,13 +354,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
-            IEnumerableExtensions.ForEach(
-                openApiMetadataResource.RequestProperties, x =>
+            openApiMetadataResource.RequestProperties.ForEach(
+                x =>
                 {
                     parameterList.Add(
                         new Parameter
                         {
-                            name = StringExtensions.ToCamelCase(x.PropertyName),
+                            name = x.PropertyName.ToCamelCase(),
                             @in = openApiMetadataResource.IsPathParameter(x)
                                 ? "path"
                                 : "query",
@@ -375,7 +375,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         });
                 });
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 parameterList.Add(
                     new Parameter
@@ -403,8 +403,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             .Contains(p.Parent.FullName)).ToList();
                 }
                 
-                IEnumerableExtensions.ForEach(
-                    queryableIdentificationCodeProperties, x =>
+                queryableIdentificationCodeProperties.ForEach(
+                    x =>
                     {
                         parameterList.Add(
                             new Parameter
@@ -429,7 +429,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 responses.Add(
                     "405",
@@ -489,7 +489,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Delete);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 responses.Add(
                     "405",
@@ -539,7 +539,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") }
             };
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 if (responses.ContainsKey("404"))
                 {
@@ -600,7 +600,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") }
             };
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 if (responses.ContainsKey("404"))
                 {
@@ -651,7 +651,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.ChangeQueries))
             {
                 responses.Add(
                     "405",

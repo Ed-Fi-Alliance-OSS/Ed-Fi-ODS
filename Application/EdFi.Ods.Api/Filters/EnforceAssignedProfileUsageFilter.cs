@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -19,6 +20,7 @@ using EdFi.Ods.Common.Utils.Profiles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.Filters;
 
@@ -37,7 +39,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncResourceFilter
         IProfileResourceModelProvider profileResourceModelProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
-        ApiSettings apiSettings,
+        IFeatureManager featureManager,
         ILogContextAccessor logContextAccessor)
     {
         _apiClientContextProvider = apiClientContextProvider;
@@ -46,7 +48,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncResourceFilter
         _logContextAccessor = logContextAccessor;
         _profileResourceModelProvider = profileResourceModelProvider;
 
-        _isEnabled = apiSettings.IsFeatureEnabled("Profiles");
+        _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.Profiles);
     }
 
     public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)

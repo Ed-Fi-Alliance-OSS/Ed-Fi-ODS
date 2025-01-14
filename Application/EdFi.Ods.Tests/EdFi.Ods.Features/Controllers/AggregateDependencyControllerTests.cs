@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using QuickGraph;
+using Test.Common;
 using Assert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
@@ -140,14 +141,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
             bool isGraphRequest = false)
         {
-            var apiSettings = new ApiSettings();
-            Feature item = new Feature();
-            item.IsEnabled = true;
-            item.Name = "aggregateDependencies";
-            apiSettings.Features.Add(item);
+            var featureManager = new FakeFeatureManager();
 
             var logContextAccessor = A.Fake<ILogContextAccessor>();
-            var controller = new AggregateDependencyController(apiSettings, graphFactory, logContextAccessor);
+            var controller = new AggregateDependencyController(featureManager, graphFactory, logContextAccessor);
             var request = A.Fake<HttpRequest>();
             var headerDictionary = A.Fake<IHeaderDictionary>();
             HeaderDictionary dict = new HeaderDictionary();

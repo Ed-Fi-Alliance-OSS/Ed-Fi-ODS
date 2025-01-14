@@ -4,33 +4,27 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.SerializedData.Pipeline;
 using EdFi.Ods.Features.SerializedData.Repositories;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.SerializedData.Modules;
 
 public class SerializedDataModule : ConditionalModule
 {
-    private readonly bool _resourceLinksEnabled;
+    public SerializedDataModule(IFeatureManager featureManager)
+        : base(featureManager) { }
 
-    public SerializedDataModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(SerializedDataModule))
-    {
-        _resourceLinksEnabled = IsFeatureEnabled(ApiFeature.ResourceLinks);
-    }
+    protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.SerializedData);
 
-    public override bool IsSelected() => IsFeatureEnabled(ApiFeature.SerializedData);
-
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         // Provide static code with access to enabled state of resource links feature
         GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(serializedDataEnabled: true);
@@ -41,7 +35,7 @@ public class SerializedDataModule : ConditionalModule
             .SingleInstance();
 
         // These components are only needed if resource links are also enabled (and we need to resolve reference data)
-        if (_resourceLinksEnabled)
+        if (IsFeatureEnabled(ApiFeature.ResourceLinks))
         {
             // Set feature-specific static resolvers
             builder.RegisterBuildCallback(container =>

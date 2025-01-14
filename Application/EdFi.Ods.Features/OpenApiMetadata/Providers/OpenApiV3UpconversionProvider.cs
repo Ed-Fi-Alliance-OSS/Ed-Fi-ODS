@@ -13,7 +13,9 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
@@ -26,6 +28,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers;
 /// </summary>
 public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 {
+    private readonly IFeatureManager _featureManager;
     private readonly ApiSettings _apiSettings;
     private readonly ReverseProxySettings _reverseProxySettings;
     private readonly IEdFiAdminRawOdsInstanceConfigurationDataProvider _IEdFiAdminRawOdsInstanceConfigurationDataProvider;
@@ -33,12 +36,15 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
     private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
 
-    public OpenApiV3UpconversionProvider(ApiSettings apiSettings,
+    public OpenApiV3UpconversionProvider(
+        IFeatureManager featureManager,
+        ApiSettings apiSettings,
         IEdFiAdminRawOdsInstanceConfigurationDataProvider IEdFiAdminRawOdsInstanceConfigurationDataProvider,
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
         IHttpContextAccessor httpContextAccessor,
         ITenantConfigurationMapProvider tenantConfigurationMapProvider = null)
     {
+        _featureManager = featureManager;
         _apiSettings = apiSettings;
         _reverseProxySettings = apiSettings.GetReverseProxySettings();
         _IEdFiAdminRawOdsInstanceConfigurationDataProvider = IEdFiAdminRawOdsInstanceConfigurationDataProvider;
@@ -58,7 +64,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
         var baseServerUrl = $"{_httpContextAccessor.HttpContext?.Request.Scheme(this._reverseProxySettings)}://{_httpContextAccessor.HttpContext?.Request.Host(this._reverseProxySettings)}:{_httpContextAccessor.HttpContext?.Request.Port(this._reverseProxySettings)}{_httpContextAccessor.HttpContext?.Request.PathBase}";
         var serverUrl = "";
 
-        if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+        if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy) || !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
         {
             serverUrl = $"{baseServerUrl}/{{{GetTenantContextTitle()}}}";
         }
@@ -82,7 +88,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         foreach (var server in openApiDocument.Servers)
         {
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 foreach (var tenantMapEntry in tenantMap)
                 {
@@ -103,7 +109,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
             var routeContextKeys = _apiSettings.GetOdsContextRouteTemplateKeys().ToList();
             
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 foreach (KeyValuePair<string, TenantConfiguration> tenant in tenantMap)
                 {
@@ -117,7 +123,7 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
             serverVariable.Default = serverVariable.Enum.FirstOrDefault() ?? "";
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) ||
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy) ||
                 !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
             {
                 server.Variables.Add(GetTenantContextTitle(), serverVariable);
@@ -215,13 +221,13 @@ public class OpenApiV3UpconversionProvider : IOpenApiUpconversionProvider
 
         string GetTenantContextTitle()
         {
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()) &&
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy) &&
                 !string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
             {
                 return "Tenant/Context Selection";
             }
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            if (_featureManager.IsFeatureEnabled(ApiFeature.MultiTenancy))
             {
                 return "Tenant Selection";
             }

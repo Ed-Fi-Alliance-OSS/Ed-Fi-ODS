@@ -10,23 +10,29 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.Services.Redis;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Notifications.Redis;
 
 public class RedisNotificationsModule : ConditionalModule
 {
-    public RedisNotificationsModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(RedisNotificationsModule)) { }
+    private readonly ApiSettings _apiSettings;
 
-    public override bool IsSelected()
-        => IsFeatureEnabled(ApiFeature.Notifications) && !string.IsNullOrEmpty(ApiSettings.Notifications.Redis.Channel);
+    public RedisNotificationsModule(IFeatureManager featureManager, ApiSettings apiSettings)
+        : base(featureManager)
+    {
+        _apiSettings = apiSettings;
+    }
 
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override bool IsSelected()
+        => IsFeatureEnabled(ApiFeature.Notifications) && !string.IsNullOrEmpty(_apiSettings.Notifications.Redis.Channel);
+
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         // Ensure the Redis connection provider is registered (it may be registered by other conditional modules as well)
         builder.RegisterType<RedisConnectionProvider>()
             .As<IRedisConnectionProvider>()
-            .WithParameter(new NamedParameter("configuration", ApiSettings.Services.Redis.Configuration))
+            .WithParameter(new NamedParameter("configuration", _apiSettings.Services.Redis.Configuration))
             .IfNotRegistered(typeof(IRedisConnectionProvider))
             .SingleInstance();
 

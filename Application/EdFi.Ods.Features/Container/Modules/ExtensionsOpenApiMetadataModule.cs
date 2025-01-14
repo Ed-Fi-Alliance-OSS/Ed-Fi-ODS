@@ -5,23 +5,23 @@
 
 using Autofac;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.Extensions;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class ExtensionsOpenApiMetadataModule : ConditionalModule
     {
-        public ExtensionsOpenApiMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ExtensionsOpenApiMetadataModule)) { }
+        public ExtensionsOpenApiMetadataModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected()
+        protected override bool IsSelected()
             => IsFeatureEnabled(ApiFeature.OpenApiMetadata) &&
                IsFeatureEnabled(ApiFeature.Extensions);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<ExtensionsOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>()

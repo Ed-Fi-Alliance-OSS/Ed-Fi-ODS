@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using NUnit.Framework;
 using Shouldly;
+using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
@@ -27,6 +28,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         private IApiVersionProvider _apiVersionProvider;
         private ApiSettings _apiSettings;
         private VersionController _controller;
+        private FakeFeatureManager _featureManager;
 
         [SetUp]
         public void SetUp()
@@ -49,48 +51,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             A.CallTo(() => _domainModelProvider.GetDomainModel()).Returns(domainModel);
 
-            // ApiSettings - Initialize API with all features enabled
-            _apiSettings = new ApiSettings
-            {
-                Features = new List<Feature>()
-                {
-                    new()
-                    {
-                        Name = ApiFeature.MultiTenancy.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.AggregateDependencies.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.OpenApiMetadata.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.XsdMetadata.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.ChangeQueries.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.Composites.GetConfigKeyName(),
-                        IsEnabled = true
-                    },
-                    new()
-                    {
-                        Name = ApiFeature.IdentityManagement.GetConfigKeyName(),
-                        IsEnabled = true
-                    }
-                }
-            };
+            // Initialize API with all features enabled
+            _apiSettings = new ApiSettings();
+            _featureManager = new FakeFeatureManager();
 
             // Request context initialization
             var httpContext = new DefaultHttpContext
@@ -109,7 +72,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 HttpContext = httpContext
             };
 
-            _controller = new VersionController(_domainModelProvider, _apiVersionProvider, _apiSettings)
+            _controller = new VersionController(_domainModelProvider, _apiVersionProvider, _featureManager, _apiSettings)
             {
                 ControllerContext = controllerContext
             };
@@ -211,12 +174,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
         private void DisableFeatures(params string[] disabledFeatureNames)
         {
-            foreach (Feature feature in _apiSettings.Features)
+            foreach (string featureName in disabledFeatureNames)
             {
-                if (disabledFeatureNames.Contains(feature.Name))
-                {
-                    feature.IsEnabled = false;
-                }
+                _featureManager.SetState(featureName, false);
             }
         }
     }

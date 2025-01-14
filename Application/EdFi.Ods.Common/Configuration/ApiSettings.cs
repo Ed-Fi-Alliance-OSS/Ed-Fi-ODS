@@ -42,18 +42,6 @@ namespace EdFi.Ods.Common.Configuration
 
         public int[] Years { get; set; }
 
-        private List<Feature> _features = new();
-
-        public List<Feature> Features
-        {
-            get => _features;
-            set
-            {
-                _features = value;
-                _featureEnabledByName = new();
-            }
-        }
-
         public List<ScheduledJobSettings> ScheduledJobs { get; set; } = new();
 
         public List<string> ExcludedExtensions { get; set; } = new();
@@ -129,15 +117,6 @@ namespace EdFi.Ods.Common.Configuration
             }
 
             return Array.Empty<string>();
-        }
-
-        private ConcurrentDictionary<string, bool> _featureEnabledByName = new(StringComparer.OrdinalIgnoreCase);
-
-        public bool IsFeatureEnabled(string featureName)
-        {
-            return _featureEnabledByName.GetOrAdd(featureName,
-                static (n, features) 
-                    => features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(n) && x.IsEnabled) != null, Features);
         }
     }
 }

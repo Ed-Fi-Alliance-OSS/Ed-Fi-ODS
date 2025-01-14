@@ -6,24 +6,24 @@
 using Autofac;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.OpenApiMetadataContentProviders;
 using EdFi.Ods.Features.RouteInformations;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class EnabledIdentityOpenApiMetadataModule : ConditionalModule
     {
-        public EnabledIdentityOpenApiMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(EnabledIdentityOpenApiMetadataModule)) { }
+        public EnabledIdentityOpenApiMetadataModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected()
+        protected override bool IsSelected()
             => IsFeatureEnabled(ApiFeature.IdentityManagement)
                && IsFeatureEnabled(ApiFeature.OpenApiMetadata);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<IdentityOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>()

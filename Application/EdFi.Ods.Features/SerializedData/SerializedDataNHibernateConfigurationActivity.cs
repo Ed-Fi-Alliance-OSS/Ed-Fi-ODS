@@ -8,7 +8,6 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using log4net;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 

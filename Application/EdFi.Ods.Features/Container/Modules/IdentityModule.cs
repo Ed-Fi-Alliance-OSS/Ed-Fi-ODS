@@ -4,22 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.IdentityManagement;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class IdentityModule : ConditionalModule
     {
-        public IdentityModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(IdentityModule)) { }
+        public IdentityModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.IdentityManagement);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.IdentityManagement);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<IdentitiesControllerOverrideConvention>()
                 .As<IApplicationModelConvention>()

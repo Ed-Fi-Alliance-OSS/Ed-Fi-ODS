@@ -4,23 +4,21 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
-using EdFi.Ods.Common.Repositories;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.ResourceLinks.Modules;
 
 public class ResourceLinksModule : ConditionalModule
 {
-    public ResourceLinksModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(ResourceLinksModule)) { }
+    public ResourceLinksModule(IFeatureManager featureManager)
+        : base(featureManager) { }
 
-    public override bool IsSelected() => IsFeatureEnabled(ApiFeature.ResourceLinks);
+    protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.ResourceLinks);
 
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         // Provide static code with access to enabled state of resource links feature
         GeneratedArtifactStaticDependencies.Resolvers.SetEnabledFeatures(resourceLinksEnabled: true);

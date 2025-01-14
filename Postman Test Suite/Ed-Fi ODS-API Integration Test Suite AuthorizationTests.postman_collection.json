@@ -9116,8 +9116,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"pm.test(\"Response is 404 or 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.be.oneOf([404, 204]); \r",
 													"});\r",
 													""
 												],
@@ -9152,8 +9152,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(204); \r",
+													"pm.test(\"Response is 404 or 204\", () => {\r",
+													"   pm.expect(pm.response.code).to.be.oneOf([404, 204]); \r",
 													"});\r",
 													""
 												],

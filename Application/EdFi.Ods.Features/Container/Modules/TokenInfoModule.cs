@@ -4,21 +4,21 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.TokenInfo;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class TokenInfoModule :ConditionalModule
     {
-        public TokenInfoModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(TokenInfoModule)) { }
+        public TokenInfoModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.TokenInfo);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.TokenInfo);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<TokenInfoProvider>()
                 .As<ITokenInfoProvider>()

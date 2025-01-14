@@ -10,7 +10,6 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models.GraphML;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
@@ -23,6 +22,7 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using QuickGraph;
 
 namespace EdFi.Ods.Features.Controllers
@@ -56,11 +56,11 @@ namespace EdFi.Ods.Features.Controllers
         private const string RetrySuffix = "#Retry";
 
         public AggregateDependencyController(
-            ApiSettings apiSettings,
+            IFeatureManager featureManager,
             IResourceLoadGraphFactory resourceLoadGraphFactory,
             ILogContextAccessor logContextAccessor)
         {
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName());
+            _isEnabled = featureManager.IsFeatureEnabled(ApiFeature.AggregateDependencies);
             _resourceLoadGraphFactory = resourceLoadGraphFactory;
             _logContextAccessor = logContextAccessor;
         }

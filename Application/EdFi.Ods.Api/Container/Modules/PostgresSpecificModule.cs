@@ -15,18 +15,24 @@ using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying.Dialects;
+using Microsoft.FeatureManagement;
 using Npgsql;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class PostgresSpecificModule : ConditionalModule
     {
-        public PostgresSpecificModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(PostgresSpecificModule)) { }
+        private readonly DatabaseEngine _databaseEngine;
 
-        public override bool IsSelected() => ApiSettings.GetDatabaseEngine() == DatabaseEngine.Postgres;
+        public PostgresSpecificModule(IFeatureManager featureManager, DatabaseEngine databaseEngine)
+            : base(featureManager)
+        {
+            _databaseEngine = databaseEngine;
+        }
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override bool IsSelected() => _databaseEngine == DatabaseEngine.Postgres;
+
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterInstance(DatabaseEngine.Postgres);
 

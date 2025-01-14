@@ -30,15 +30,14 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Configuration.Validation;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
@@ -57,6 +56,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using NHibernate.Engine;
 
 namespace EdFi.Ods.Api.Startup
@@ -85,10 +85,14 @@ namespace EdFi.Ods.Api.Startup
 
         private IConfigurationRoot Configuration { get; }
 
+        private IServiceCollection Services { get; set; }
+        
         private ILifetimeScope Container { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Services = services;
+
             // Provide access to the web host environment through the container
             services.AddSingleton(_webHostEnvironment);
 
@@ -121,11 +125,13 @@ namespace EdFi.Ods.Api.Startup
                 Environment.Exit(1);
             }
 
+            services.AddFeatureManagement();
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);
             
             // Legacy configuration support through the container
             services.AddSingleton(_apiSettings);
+            services.AddSingleton(_apiSettings.GetDatabaseEngine());
             services.AddSingleton(Configuration);
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -140,8 +146,12 @@ namespace EdFi.Ods.Api.Startup
 
             AssemblyLoaderHelper.LoadAssembliesFromFolder();
 
-            var pluginInfos = LoadPlugins(pluginSettings);
+            // Build a temporary service provider
+            var temporaryServiceProvider = services.BuildServiceProvider();
 
+            // Resolve the feature manager
+            var featureManager = temporaryServiceProvider.GetService<IFeatureManager>();
+            var pluginInfos = LoadPlugins(pluginSettings, featureManager);
             services.AddSingleton(pluginInfos);
 
             // this allows the solution to resolve the claims principal. this is not best practice defined by the
@@ -200,7 +210,7 @@ namespace EdFi.Ods.Api.Startup
             services.AddAuthorization(
                 options =>
                 {
-                    if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+                    if (featureManager.IsFeatureEnabled(ApiFeature.IdentityManagement))
                     {
                         options.AddPolicy(
                             "IdentityManagement",
@@ -230,7 +240,7 @@ namespace EdFi.Ods.Api.Startup
                     });
             }
 
-            services.AddHealthCheck(Configuration, _apiSettings);
+            services.AddHealthCheck(Configuration, featureManager, _apiSettings.GetDatabaseEngine());
             services.AddScheduledJobs();
 
             // Identify all EdFi.Ods.* assemblies
@@ -290,24 +300,30 @@ namespace EdFi.Ods.Api.Startup
             {
                 _logger.Debug("Installing modules:");
 
-                foreach (var type in TypeHelper.GetModuleTypes())
+                var moduleTypes = TypeHelper.GetModuleTypes().ToList();
+
+                // Add the module types to the services collection so we can resolve their dependencies using DI
+                foreach (var type in moduleTypes)
                 {
-                    _logger.Debug($"Module {type.Name}");
+                    Services.AddTransient(type);
+                }
+
+                // Build a temporary ServiceProvider to resolve the modules with their specific dependencies (must be available in initial service collection)
+                var temporaryServiceProvider = Services.BuildServiceProvider();
+
+                // Instantiate and invoke module registrations
+                foreach (var moduleType in moduleTypes)
+                {
+                    _logger.Debug($"Module {moduleType.Name}");
 
                     try
                     {
-                        if (type.IsSubclassOf(typeof(ConditionalModule)))
-                        {
-                            builder.RegisterModule((IModule)Activator.CreateInstance(type, _apiSettings));
-                        }
-                        else
-                        {
-                            builder.RegisterModule((IModule)Activator.CreateInstance(type));
-                        }
+                        var module = (IModule) temporaryServiceProvider.GetService(moduleType);
+                        builder.RegisterModule(module);
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"Error registering module '{type.Name}'.", ex);
+                        _logger.Error($"Error registering module '{moduleType.Name}'.", ex);
                     }
                 }
             }
@@ -351,11 +367,8 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseCors(CorsPolicyName);
 
-            // Identifies the current ODS instance for the request
-            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
-            {
-                app.UseTenantIdentification();
-            }
+            // Identifies the current ODS instance for the request (if enabled)
+            app.UseTenantIdentification();
 
             app.UseEdFiApiAuthentication();
 
@@ -372,11 +385,8 @@ namespace EdFi.Ods.Api.Startup
                 configurationActivity.Configure(app);
             }
 
-            // Serves Open API Metadata json files when enabled.
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
-            {
-                app.UseOpenApiMetadata();
-            }
+            // Serves Open API Metadata json files (if enabled)
+            app.UseOpenApiMetadata();
 
             app.UseWhen(context => 
                 context.Request.Path.StartsWithSegments("/data") ||
@@ -458,7 +468,7 @@ namespace EdFi.Ods.Api.Startup
             }
         }
 
-        private PluginInfo[] LoadPlugins(Plugin pluginSettings)
+        private PluginInfo[] LoadPlugins(Plugin pluginSettings, IFeatureManager featureManager)
         {
             var pluginFolder = AssemblyLoaderHelper.GetPluginFolder(pluginSettings.Folder);
             var pluginFolderSettingsName = $"{nameof(Plugin)}:{nameof(Plugin.Folder)}";
@@ -484,8 +494,9 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Info($"Loading plugins from: '{pluginFolder}'");
 
                 var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(
-                    pluginFolder, false, 
-                    _apiSettings.IsFeatureEnabled(ApiFeature.Extensions.GetConfigKeyName()));
+                    pluginFolder,
+                    false,
+                    featureManager.IsFeatureEnabled(ApiFeature.Extensions));
 
                 // IMPORTANT: Load the plug-in assembly into the Default context
                 return assemblyFiles

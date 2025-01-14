@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
+using Microsoft.FeatureManagement;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -37,11 +38,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             IDomainModelProvider domainModelProvider,
             IParameterListSetter parameterListSetter,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            ApiSettings apiSettings,
+            IFeatureManager featureManager,
             Dialect dialect,
             DatabaseEngine databaseEngine,
             IEntityDeserializer entityDeserializer)
-            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, apiSettings, dialect, databaseEngine)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider, featureManager, dialect, databaseEngine)
         {
             _entityDeserializer = entityDeserializer;
             _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
