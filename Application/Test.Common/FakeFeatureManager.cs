@@ -21,7 +21,7 @@ public class FakeFeatureManager : IFeatureManager
 
     private readonly Dictionary<string, bool> _featureStateByName = new(StringComparer.OrdinalIgnoreCase);
 
-    public IAsyncEnumerable<string> GetFeatureNamesAsync() => throw new System.NotImplementedException();
+    public IAsyncEnumerable<string> GetFeatureNamesAsync() => throw new NotImplementedException();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FakeFeatureManager"/> class with every feature enabled by default.

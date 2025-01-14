@@ -3,13 +3,8 @@
 Before running TestHarness, disable the following features in `appsettings.json`
 
 ```json
-  "ApiSettings": {
-    "Features": [
-      {
-        "Name": "ChangeQueries",
-        "IsEnabled": false
-      }
-    ]
+  "FeatureManagement": {
+    "ChangeQueries": false
   }
 ```
 

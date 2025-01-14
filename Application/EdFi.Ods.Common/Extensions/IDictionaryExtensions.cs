@@ -80,16 +80,6 @@ namespace EdFi.Ods.Common.Extensions
 
             return value;
         }
-
-        public static async IAsyncEnumerable<TKey> GetKeysAsync<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
-        {
-            foreach (var key in dictionary.Keys)
-            {
-                // Simulate asynchronous operation (optional)
-                await Task.Yield();
-                yield return key;
-            }
-        }
     }
 
     public static class IDictionaryExtensions

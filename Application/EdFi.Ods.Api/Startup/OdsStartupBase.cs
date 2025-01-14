@@ -494,11 +494,9 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Info($"Loading plugins from: '{pluginFolder}'");
 
                 var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(
-                    pluginFolder, false, 
-                    featureManager.IsEnabledAsync(ApiFeature.Extensions.Value)
-                        .ConfigureAwait(false)
-                        .GetAwaiter()
-                        .GetResult());
+                    pluginFolder,
+                    false,
+                    featureManager.IsFeatureEnabled(ApiFeature.Extensions));
 
                 // IMPORTANT: Load the plug-in assembly into the Default context
                 return assemblyFiles
