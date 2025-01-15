@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Serialization;
@@ -44,6 +45,7 @@ public class SerializedDataModule : ConditionalModule
                 GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IContextProvider<ReferenceDataLookupContext>>);
             });
 
+            // Adds a decorator to control how the collections wrapping the entity extension objects are created when deserialization is in progress
             builder.RegisterDecorator<
                 DeserializedEntityExtensionContainingCollectionInitializerDecorator,
                 IEntityExtensionContainingCollectionInitializer>();

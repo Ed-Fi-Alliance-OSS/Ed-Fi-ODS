@@ -67,7 +67,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         {
             return _entityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(
                 typeof(TEntity), out Dictionary<string, Entity> aggregateExtensions)
-                ? aggregateExtensions.ToDictionary(x => x.Key, x => (object) new List<object>())
+                ? aggregateExtensions.ToDictionary(x => x.Key, x => _extensionContainingCollectionInitializer.CreateContainingCollection())
                 : new Dictionary<string, object>();
         }
     }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Repositories;
 using NHibernate.Engine;
@@ -17,21 +18,16 @@ public class DeserializedEntityExtensionContainingCollectionInitializerDecorator
 {
     private readonly IEntityExtensionContainingCollectionInitializer _decoratedInstance;
     private readonly IDeserializationContextProvider _deserializationContextProvider;
-    private readonly ISessionFactoryImplementor _sessionFactoryImplementor;
-
-    // private readonly Lazy<ISessionFactoryImplementor> _sessionFactoryImplementor;
+    private readonly Lazy<ISessionFactoryImplementor> _sessionFactoryImplementor;
 
     public DeserializedEntityExtensionContainingCollectionInitializerDecorator(
         IEntityExtensionContainingCollectionInitializer decoratedInstance,
         IDeserializationContextProvider deserializationContextProvider,
-        ISessionFactoryImplementor sessionFactoryImplementor)
-        // Func<ISessionFactoryImplementor> getSessionFactoryImplementor)
+        Func<ISessionFactoryImplementor> getSessionFactoryImplementor)
     {
         _decoratedInstance = decoratedInstance;
         _deserializationContextProvider = deserializationContextProvider;
-        _sessionFactoryImplementor = sessionFactoryImplementor;
-
-        // _sessionFactoryImplementor = new Lazy<ISessionFactoryImplementor>(() => getSessionFactoryImplementor());
+        _sessionFactoryImplementor = new Lazy<ISessionFactoryImplementor>(getSessionFactoryImplementor);
     }
 
     public object CreateContainingCollection()
@@ -42,7 +38,7 @@ public class DeserializedEntityExtensionContainingCollectionInitializerDecorator
         if (_deserializationContextProvider.IsDeserializing())
         {
             return DeserializedPersistentCollectionHelpers.CreatePersistentBag(
-                _sessionFactoryImplementor,
+                _sessionFactoryImplementor.Value,
                 collection);
         }
 
@@ -54,14 +50,14 @@ public class DeserializedEntityExtensionContainingCollectionInitializerDecorator
         // If we're deserializing, do not add the supplied default extension object instance to the collection
         if (_deserializationContextProvider.IsDeserializing())
         {
-            var collection = CreateContainingCollection();
+            var collection = _decoratedInstance.CreateContainingCollection();
 
             return DeserializedPersistentCollectionHelpers.CreatePersistentBag(
-                _sessionFactoryImplementor,
+                _sessionFactoryImplementor.Value,
                 collection);
         }
 
         // Return the simple list when not deserializing
-        return CreateContainingCollection(extensionObject);
+        return _decoratedInstance.CreateContainingCollection(extensionObject);
     }
 }
