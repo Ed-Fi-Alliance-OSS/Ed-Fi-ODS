@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Features.SerializedData.Pipeline;
 using EdFi.Ods.Features.SerializedData.Repositories;
 using Microsoft.FeatureManagement;
@@ -42,6 +43,10 @@ public class SerializedDataModule : ConditionalModule
             {
                 GeneratedArtifactStaticDependencies.Resolvers.Set(container.Resolve<IContextProvider<ReferenceDataLookupContext>>);
             });
+
+            builder.RegisterDecorator<
+                DeserializedEntityExtensionContainingCollectionInitializerDecorator,
+                IEntityExtensionContainingCollectionInitializer>();
 
             // NOTE: To the extent feasible, all reference data resolution logic related to serialized data scenarios have been
             // implemented using SOLID principles -- as separate components that modify system behavior through extension

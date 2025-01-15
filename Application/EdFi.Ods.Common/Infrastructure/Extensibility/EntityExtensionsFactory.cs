@@ -6,10 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Serialization;
-using NHibernate.Engine;
 
 namespace EdFi.Ods.Common.Infrastructure.Extensibility
 {
@@ -19,20 +16,17 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
     public class EntityExtensionsFactory : IEntityExtensionsFactory
     {
         private readonly IEntityExtensionRegistrar _entityExtensionRegistrar;
-        private readonly IContextStorage _contextStorage;
-        private readonly Func<ISessionFactoryImplementor> _getSessionFactory;
+        private readonly IEntityExtensionContainingCollectionInitializer _extensionContainingCollectionInitializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityExtensionsFactory"/> class, protected so as to implement the Singleton pattern.
         /// </summary>
         public EntityExtensionsFactory(
             IEntityExtensionRegistrar entityExtensionRegistrar,
-            IContextStorage contextStorage,
-            Func<ISessionFactoryImplementor> getSessionFactory)
+            IEntityExtensionContainingCollectionInitializer extensionContainingCollectionInitializer)
         {
             _entityExtensionRegistrar = entityExtensionRegistrar;
-            _contextStorage = contextStorage;
-            _getSessionFactory = getSessionFactory;
+            _extensionContainingCollectionInitializer = extensionContainingCollectionInitializer;
         }
 
         /// <summary>
@@ -52,18 +46,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                         x => x.Key,
                         x =>
                         {
-                            if (_contextStorage.GetValue<bool>("IsDeserializing") == false)
-                            {
-                                var extensionObject = (IChildEntity) Activator.CreateInstance(x.Value.Type);
-                                extensionObject.SetParent(parentEntity);
+                            // Create a default extension instance for the required extension
+                            var extensionObject = (IChildEntity) Activator.CreateInstance(x.Value.Type);
+                            extensionObject.SetParent(parentEntity);
 
-                                return (object) new List<object> {extensionObject};
-                            }
-                            
-                            // Deserializing
-                            return (object)new DeserializedPersistentGenericBag<object>(
-                                _getSessionFactory.Invoke(),
-                                new List<object>());
+                            // Create the containing collection, for persistence.
+                            return _extensionContainingCollectionInitializer.CreateContainingCollection(extensionObject);
                         })
                 : new Dictionary<string, object>();
         }

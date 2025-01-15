@@ -20,24 +20,20 @@ public class EntityDeserializer : IEntityDeserializer
     private readonly ISurrogateIdMutator[] _surrogateIdMutators;
     private readonly ISessionFactory _sessionFactory;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-    private readonly IContextStorage _contextStorage;
+    private readonly IDeserializationContextProvider _deserializationContextProvider;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(EntityDeserializer));
 
-    // Create boxed boolean values to avoid repeated boxing/unboxing
-    private static readonly object deserializing = true;
-    private static readonly object notDeserializing = false;
-    
     public EntityDeserializer(
         ISurrogateIdMutator[] surrogateIdMutators,
         ISessionFactory sessionFactory,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        IContextStorage contextStorage)
+        IDeserializationContextProvider deserializationContextProvider)
     {
         _surrogateIdMutators = surrogateIdMutators;
         _sessionFactory = sessionFactory;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
-        _contextStorage = contextStorage;
+        _deserializationContextProvider = deserializationContextProvider;
     }
         
     public async Task<TEntity> DeserializeAsync<TEntity>(IItemRawData itemRawData)
@@ -48,7 +44,7 @@ public class EntityDeserializer : IEntityDeserializer
         // try
         {
             // Deserialize the entity
-            _contextStorage.SetValue("IsDeserializing", deserializing);
+            _deserializationContextProvider.SetState(true);
 
             try
             {
@@ -56,7 +52,7 @@ public class EntityDeserializer : IEntityDeserializer
             }
             finally
             {
-                _contextStorage.SetValue("IsDeserializing", notDeserializing);
+                _deserializationContextProvider.SetState(false);
             }
         }
         // catch (Exception ex)
