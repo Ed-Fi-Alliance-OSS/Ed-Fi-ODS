@@ -89,7 +89,7 @@ namespace EdFi.Ods.Api.Startup
         
         private ILifetimeScope Container { get; set; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public virtual void ConfigureServices(IServiceCollection services)
         {
             Services = services;
 
@@ -280,7 +280,7 @@ namespace EdFi.Ods.Api.Startup
         // with Autofac. This runs after ConfigureServices so the things
         // here will override registrations made in ConfigureServices.
         // Don't build the container; that gets done for you by the factory.
-        public void ConfigureContainer(ContainerBuilder builder)
+        public virtual void ConfigureContainer(ContainerBuilder builder)
         {
             _logger.Debug("Building Autofac container");
 
@@ -330,7 +330,7 @@ namespace EdFi.Ods.Api.Startup
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(
+        public virtual void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env,
             IOptions<ApiSettings> apiSettingsOptions,
