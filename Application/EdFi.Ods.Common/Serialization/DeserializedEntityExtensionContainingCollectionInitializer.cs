@@ -14,8 +14,9 @@ using NHibernate.Engine;
 namespace EdFi.Ods.Common.Serialization;
 
 /// <summary>
-/// Implements a decorator that wraps the collection initializer that creates deserialization-friendly generic persistent bags
-/// (to provide support for re-associating the collections with NHibernate session for persistence reasons).
+/// Implements a decorator that wraps the collection initializer that, when deserializing an aggregate for subsequent
+/// modification with NHibernate, creates deserialization-friendly generic persistent bags to provide support for
+/// re-associating the collections with the current NHibernate session.
 /// </summary>
 public class DeserializedEntityExtensionContainingCollectionInitializerDecorator : IEntityExtensionContainingCollectionInitializer
 {

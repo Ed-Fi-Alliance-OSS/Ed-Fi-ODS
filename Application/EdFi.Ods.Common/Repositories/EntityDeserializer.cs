@@ -35,32 +35,24 @@ public class EntityDeserializer : IEntityDeserializer
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _deserializationContextProvider = deserializationContextProvider;
     }
-        
+
     public async Task<TEntity> DeserializeAsync<TEntity>(IItemRawData itemRawData)
     {
-        TEntity entity = default;
+        TEntity entity;
 
-        // TODO: ODS-6551 - Considering restoring this fallback to NHibernate-based load once code is stable and known tests pass without suppressing deserialization failures 
-        // try
+        // Indicate that deserialization is starting
+        _deserializationContextProvider.SetState(true);
+
+        try
         {
             // Deserialize the entity
-            _deserializationContextProvider.SetState(true);
-
-            try
-            {
-                entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
-            }
-            finally
-            {
-                _deserializationContextProvider.SetState(false);
-            }
+            entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
         }
-        // catch (Exception ex)
-        // {
-        //     // Prevent exceptions during deserialization from failing the processing -- revert to returning a null instance
-        //     _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {itemRawData.AggregateId}). Falling back to load through NHibernate repository...", ex);
-        //     return default;
-        // }
+        finally
+        {
+            // Indicate that deserialization is finished
+            _deserializationContextProvider.SetState(false);
+        }
 
         // Apply surrogate id mutators to set the surrogate id value onto the entity if not already assigned yet
         foreach (var mutator in _surrogateIdMutators)
