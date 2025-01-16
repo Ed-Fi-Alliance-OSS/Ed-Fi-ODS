@@ -17410,43 +17410,6 @@
 			]
 		},
 		{
-			"name": "Test Suite Teardown",
-			"item": [
-				{
-					"name": "Clean up Environment Variables",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-									"_.chain(_.keys(pm.environment.toObject()))\r",
-									"  .filter(x => _.startsWith(x, 'test-suite:known:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}",
-							"host": [
-								"{{ApiBaseUrl}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Two Schools -Duplicate Items in Counts and Pages",
 			"item": [
 				{
@@ -18698,6 +18661,114 @@
 			]
 		},
 		{
+			"name": "Deserializing Existing Resource with Extensions",
+			"item": [
+				{
+					"name": "Get a known school (255901001)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const school = pm.response.json()[0];\r",
+									"school.nameOfInstitution += \"x\";\r",
+									"delete school.id\r",
+									"pm.environment.set(\"known:school\", school);\r",
+									"\r",
+									"const schoolJson = JSON.stringify(school);\r",
+									"pm.environment.set(\"known:school:json\", schoolJson);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?schoolId=255901001",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							],
+							"query": [
+								{
+									"key": "schoolId",
+									"value": "255901001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the school name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{known:school:json}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							]
+						},
+						"description": "This request forces the school aggregate to be deserialized from the SerializedData and re-associated with the NHibernate session -- a step that is necessary in order to perform the name change. This re-association was failing with a 500 status prior to ODS-6613."
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Test Suite Teardown",
 			"item": [
 				{
@@ -18717,6 +18788,7 @@
 									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
 									"  .each(k => pm.environment.unset(k)).value();\r",
 									"\r",
+									"// Important: Prevent reintroduction of any authentication-related artifacts\r",
 									"pm.execution.skipRequest();"
 								],
 								"type": "text/javascript",

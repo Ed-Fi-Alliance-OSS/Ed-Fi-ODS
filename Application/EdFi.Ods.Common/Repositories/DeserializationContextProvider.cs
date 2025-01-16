@@ -11,7 +11,7 @@ public class DeserializationContextProvider : IDeserializationContextProvider
 {
     private readonly IContextStorage _contextStorage;
     private const string ContextKey = "IsDeserializing";
-    
+
     // Create boxed boolean values to limit heap usage through reuse
     private static readonly object _deserializing = true;
     private static readonly object _notDeserializing = false;

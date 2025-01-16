@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
@@ -40,19 +39,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.EntityExtensionsByEntityType.TryGetValue(
-                typeof(TEntity), out Dictionary<string, EntityExtension> extensions)
+                typeof(TEntity),
+                out Dictionary<string, EntityExtension> extensions)
                 ? extensions.Where(x => x.Value.IsRequired)
                     .ToDictionary(
                         x => x.Key,
-                        x =>
-                        {
-                            // Create a default extension instance for the required extension
-                            var extensionObject = (IChildEntity) Activator.CreateInstance(x.Value.Type);
-                            extensionObject.SetParent(parentEntity);
-
-                            // Create the containing collection, for persistence.
-                            return _extensionContainingCollectionInitializer.CreateContainingCollection(extensionObject);
-                        })
+                        x => _extensionContainingCollectionInitializer.CreateContainingCollection(x.Value.Type, parentEntity))
                 : new Dictionary<string, object>();
         }
 
@@ -66,8 +58,11 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(
-                typeof(TEntity), out Dictionary<string, Entity> aggregateExtensions)
-                ? aggregateExtensions.ToDictionary(x => x.Key, x => _extensionContainingCollectionInitializer.CreateContainingCollection())
+                typeof(TEntity),
+                out Dictionary<string, Entity> aggregateExtensions)
+                ? aggregateExtensions.ToDictionary(
+                    x => x.Key,
+                    x => _extensionContainingCollectionInitializer.CreateContainingCollection())
                 : new Dictionary<string, object>();
         }
     }

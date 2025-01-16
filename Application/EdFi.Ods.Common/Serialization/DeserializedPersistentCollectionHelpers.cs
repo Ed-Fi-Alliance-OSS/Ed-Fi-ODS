@@ -10,9 +10,7 @@ namespace EdFi.Ods.Common.Serialization;
 
 public static class DeserializedPersistentCollectionHelpers
 {
-    public static object CreatePersistentBag(
-        ISessionFactoryImplementor sessionFactoryImplementor,
-        object extensionObject = null)
+    public static object CreatePersistentBag(ISessionFactoryImplementor sessionFactoryImplementor, object extensionObject = null)
     {
         var list = new List<object>();
 

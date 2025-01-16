@@ -6,7 +6,7 @@
 namespace EdFi.Ods.Common.Repositories;
 
 /// <summary>
-/// Defines a property for indicating whether the deserialization of an aggregate is in progress.
+/// Defines methods for managing contextual state indicating whether the deserialization of an aggregate is in progress.
 /// </summary>
 public interface IDeserializationContextProvider
 {
