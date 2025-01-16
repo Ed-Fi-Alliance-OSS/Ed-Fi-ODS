@@ -18718,6 +18718,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
 									""
 								],
 								"type": "text/javascript",
@@ -18728,9 +18731,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"  pm.expect(pm.response.code).to.equal(200);\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript",
