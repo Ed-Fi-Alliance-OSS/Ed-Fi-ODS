@@ -39,6 +39,9 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
     public async Task SetMapEntriesAsync(TKey key, (TMapKey key, TMapValue value)[] mapEntries)
     {
+        // Maximum number of items per batch
+        const int BatchSize = 524000;
+
         ValidateKey(key);
 
         if (mapEntries == null || mapEntries.Length == 0)
@@ -53,18 +56,24 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                 {
                     throw new ArgumentException($"Unable to convert '{nameof(entry.key)}' of type '{typeof(TMapKey).Name}' to a '{nameof(RedisValue)}'.");
                 }
-                
+
                 if (!TryParse(entry.value, out RedisValue redisHashValue))
                 {
                     throw new ArgumentException($"Unable to convert '{nameof(entry.value)}' of type '{typeof(TMapKey).Name}' to a '{nameof(RedisValue)}'.");
                 }
-                
+
                 return new HashEntry(redisHashKey, redisHashValue);
             })
             .ToArray();
 
         string cacheKey = GetCacheKey(key);
-        await _cache.HashSetAsync(cacheKey, hashEntries);
+
+        // Break the hash entries into batches and send each batch separately to avoid the ~1M parameter limit for Redis commands
+        for (int i = 0; i < hashEntries.Length; i += BatchSize)
+        {
+            var batchEntries = hashEntries.Skip(i).Take(BatchSize).ToArray();
+            await _cache.HashSetAsync(cacheKey, batchEntries);
+        }
 
         // Handle initial expiration
         ApplyInitialExpiration(cacheKey);
@@ -91,10 +100,10 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
             });
 
         string cacheKey = GetCacheKey(key);
-        
+
         var keys = redisHashKeys.ToArray();
         var hashValues = await _cache.HashGetAsync(cacheKey, keys);
-        
+
         // Handle sliding expiration refresh of the cache entry
         ApplySlidingExpiration(cacheKey);
 
@@ -113,7 +122,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
         string cacheKey = GetCacheKey(key);
         var deleteResult = await _cache.HashDeleteAsync(cacheKey, redisHashKey);
-        
+
         // Handle sliding expiration refresh of the cache entry
         ApplySlidingExpiration(cacheKey);
 
@@ -122,11 +131,11 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
 
     private void ApplyInitialExpiration(string cacheKey)
     {
-        if (_slidingExpirationPeriod is { TotalMilliseconds: > 0})
+        if (_slidingExpirationPeriod is { TotalMilliseconds: > 0 })
         {
             // Set the initial expiration using the sliding expiration period
             long slidingExpirationMs = (long) _slidingExpirationPeriod.Value.TotalMilliseconds;
-            
+
             // Set initial sliding expiration for the key
             _cache.ExecuteAsync(
                 $"PEXPIRE",
@@ -141,7 +150,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
         {
             // Set the initial expiration using the absolute expiration period
             long absoluteExpirationMs = (long) _absoluteExpirationPeriod.Value.TotalMilliseconds;
-            
+
             // Set initial absolute expiration for the key (but only if expiration hasn't been set yet)
             _cache.Execute(
                 $"PEXPIRE",
@@ -170,7 +179,7 @@ public class RedisMapCache<TKey, TMapKey, TMapValue> : IMapCache<TKey, TMapKey, 
                 CommandFlags.FireAndForget);
         }
     }
-    
+
     // Utility functions that can be overridden in derived implementations to optimize behavior (such as avoid boxing/unboxing of arguments).
     protected virtual string GetCacheKey(TKey key) => key.ToString();
 
