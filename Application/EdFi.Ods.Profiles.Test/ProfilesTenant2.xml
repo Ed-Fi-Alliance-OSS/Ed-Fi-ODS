@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  <!-- The Tenant1 version of this profile does not include the 'SchoolTypeDescriptor' property in its ReadContentType, and this version for Tenant2 does -->
+  <!-- The Tenant1 version of this profile includes the 'AdministrativeFundingControlDescriptor' property in its ReadContentType, and this version for Tenant2 does not -->
+  <!-- Resource-level IncludeOnly/ExcludeOnly profiles -->
+  <Profile name="Tenant-Two-Test-Profile">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+    </Resource>
+  </Profile>
+</Profiles>
