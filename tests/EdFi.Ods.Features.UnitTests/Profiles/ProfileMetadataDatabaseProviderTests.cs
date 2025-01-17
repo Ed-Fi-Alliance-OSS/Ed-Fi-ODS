@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
 
             private readonly Profile ValidProfile = new()
             {
-                ProfileName = "Valid-Profile",
+                ProfileName = ValidProfileName,
                 ProfileDefinition = $"<Profile name=\"{ValidProfileName}\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile>"
             };
 
