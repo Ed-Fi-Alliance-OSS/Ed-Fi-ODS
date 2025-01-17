@@ -184,7 +184,7 @@ public class ProfileContentTypeContextMiddleware
                     return (false, null);
                 }
                 
-                if (!_profileMetadataProvider.ProfileDefinitionsByName.ContainsKey(profileName))
+                if (!_profileMetadataProvider.GetProfileDefinitionsByName().ContainsKey(profileName))
                 {
                     await WriteResponseUsingFormat(
                         response,

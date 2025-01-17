@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Metadata.Profiles
                 _logger.Debug("Initializing Profile and resource names...");
             }
 
-            return _profileMetadataProvider.ProfileDefinitionsByName.Values.SelectMany(CreateNameTuples).ToList();
+            return _profileMetadataProvider.GetProfileDefinitionsByName().Values.SelectMany(CreateNameTuples).ToList();
 
             IEnumerable<ProfileAndResourceNames> CreateNameTuples(XElement profileElt)
             {
