@@ -9,7 +9,6 @@ using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Jobs;
-using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Caching;
@@ -67,19 +66,22 @@ namespace EdFi.Ods.Features.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
-            builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
-                .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
-                .WithParameter(
-                    ctx =>
-                    {
-                        var mediator = ctx.Resolve<IMediator>();
-
-                        return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                            "Profile Metadata",
-                            TimeSpan.FromSeconds(_apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
-                            () => mediator.Publish(new ProfileMetadataCacheExpired()));
-                    })
-                .SingleInstance();
+            //When MultiTenancy is enabled, the CachingInterceptor is registered as a ContextualCachingInterceptor<TenantConfiguration> in the MultiTenancyModule 
+            if (!IsFeatureEnabled(ApiFeature.MultiTenancy))
+            {
+                builder.RegisterType<CachingInterceptor>()
+                    .Named<IInterceptor>(InterceptorCacheKeys.ProfileMetadata)
+                    .WithParameter(
+                        ctx =>
+                        {
+                            var mediator = ctx.Resolve<IMediator>();
+                            
+                            return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                                "Profile Metadata",
+                                TimeSpan.FromSeconds(_apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
+                                () => mediator.Publish(new ProfileMetadataCacheExpired()));
+                        })
+                    .SingleInstance();
 
             builder.RegisterType<AdminProfileNamesPublisher>()
                 .As<IAdminProfileNamesPublisher>()
