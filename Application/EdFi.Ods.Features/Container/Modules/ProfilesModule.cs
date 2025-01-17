@@ -82,7 +82,8 @@ namespace EdFi.Ods.Features.Container.Modules
                                 () => mediator.Publish(new ProfileMetadataCacheExpired()));
                         })
                     .SingleInstance();
-
+            }
+            
             builder.RegisterType<AdminProfileNamesPublisher>()
                 .As<IAdminProfileNamesPublisher>()
                 .SingleInstance();
