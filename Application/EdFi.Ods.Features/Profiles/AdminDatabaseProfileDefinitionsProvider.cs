@@ -56,15 +56,23 @@ namespace EdFi.Ods.Features.Profiles
                 try
                 {
                     var profileDefinition = XElement.Parse(profile.ProfileDefinition);
-
+                    
                     // Wrap the profile definition element in a Profiles document for validation
                     var profilesElement = XElement.Parse("<Profiles/>");
                     profilesElement.Add(profileDefinition);
                     var validationDoc = new XDocument(profilesElement);
                     
                     var validationResult = _profileMetadataValidator.Validate(validationDoc);
+                    
+                    var profileNameFromXmlDefinition = profileDefinition.AttributeValue("name");
+                    
+                    if(!profile.ProfileName.Equals(profileNameFromXmlDefinition, StringComparison.OrdinalIgnoreCase))
+                    {
+                        _logger.Error($"A profile could not be loaded because the profile name '{profile.ProfileName}' in the database the does not match the profile name '{profileNameFromXmlDefinition}' in its XML definition.");
+                        continue;
+                    }
 
-                    if (!validationResult.IsValid)
+                    if (!validationResult.IsValid)  
                     {
                         _logger.Error($"Profiles schema validation failed: {validationResult}");
 
@@ -76,7 +84,7 @@ namespace EdFi.Ods.Features.Profiles
                         continue;
                     }
 
-                    profileDefinitionByName.Add(profileDefinition.AttributeValue("name"), profileDefinition);
+                    profileDefinitionByName.Add(profile.ProfileName, profileDefinition);
                 }
                 catch (XmlException)
                 {
