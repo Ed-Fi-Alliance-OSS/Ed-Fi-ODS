@@ -42,7 +42,6 @@ public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
             {
                 TenantIdentifier = t.Key,
                 AdminConnectionString = t.Value.ConnectionStrings.GetValueOrDefault("EdFi_Admin"),
-                SecurityConnectionString = t.Value.ConnectionStrings.GetValueOrDefault("EdFi_Security"),
             },
             StringComparer.OrdinalIgnoreCase);
     }

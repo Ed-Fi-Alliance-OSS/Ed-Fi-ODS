@@ -75,9 +75,9 @@ public class TenantConfiguration : IContextHashBytesSource
     public string AdminConnectionString { get; set; }
 
     /// <summary>
-    /// Gets or sets the connection string for the EdFi_Security database for the tenant.
+    /// Gets or sets the connection string for the security metadata (now stored in the EdFi_Admin database) for the tenant.
     /// </summary>
-    public string SecurityConnectionString { get; set; }
+    public string SecurityConnectionString => AdminConnectionString;
 
     private class HashResult
     {

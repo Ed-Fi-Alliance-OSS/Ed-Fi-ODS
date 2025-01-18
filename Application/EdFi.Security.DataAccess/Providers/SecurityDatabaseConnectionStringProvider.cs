@@ -16,6 +16,6 @@ namespace EdFi.Security.DataAccess.Providers
             _configConnectionStringsProvider = configConnectionStringsProvider;
         }
 
-        public string GetConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Security");
+        public string GetConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Admin");
     }
 }

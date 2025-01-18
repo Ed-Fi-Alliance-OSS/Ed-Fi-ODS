@@ -15,24 +15,11 @@ CREATE TABLE [dbo].[Actions](
 ) ON [PRIMARY]
 GO
 
-
---------------------- [dbo].[Applications] -------------------------------------------------------
-CREATE TABLE [dbo].[Applications](
-	[ApplicationId] [int] IDENTITY(1,1) NOT NULL,
-	[ApplicationName] [nvarchar](max) NULL,
- CONSTRAINT [PK_dbo.Applications] PRIMARY KEY CLUSTERED 
-(
-	[ApplicationId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-
 --------------------- [dbo].[AuthorizationStrategies] -------------------------------------------
 CREATE TABLE [dbo].[AuthorizationStrategies](
 	[AuthorizationStrategyId] [int] IDENTITY(1,1) NOT NULL,
 	[DisplayName] [nvarchar](255) NOT NULL,
 	[AuthorizationStrategyName] [nvarchar](255) NOT NULL,
-	[Application_ApplicationId] [int] NOT NULL,
  CONSTRAINT [PK_dbo.AuthorizationStrategies] PRIMARY KEY CLUSTERED 
 (
 	[AuthorizationStrategyId] ASC
@@ -59,7 +46,6 @@ GO
 CREATE TABLE [dbo].[ClaimSets](
 	[ClaimSetId] [int] IDENTITY(1,1) NOT NULL,
 	[ClaimSetName] [nvarchar](255) NOT NULL,
-	[Application_ApplicationId] [int] NOT NULL,
  CONSTRAINT [PK_dbo.ClaimSets] PRIMARY KEY CLUSTERED 
 (
 	[ClaimSetId] ASC
@@ -88,7 +74,6 @@ CREATE TABLE [dbo].[ResourceClaims](
 	[ResourceName] [nvarchar](2048) NOT NULL,
 	[ClaimName] [nvarchar](2048) NOT NULL,
 	[ParentResourceClaimId] [int] NULL,
-	[Application_ApplicationId] [int] NOT NULL,
  CONSTRAINT [PK_dbo.ResourceClaims] PRIMARY KEY CLUSTERED 
 (
 	[ResourceClaimId] ASC
