@@ -14,22 +14,11 @@ CREATE TABLE dbo.Actions(
 	)
 );
 
--- Table dbo.Applications --
-CREATE TABLE dbo.Applications(
-	ApplicationId SERIAL NOT NULL,
-	ApplicationName VARCHAR NULL,
-	CONSTRAINT Applications_PK PRIMARY KEY
-	(
-		ApplicationId
-	)
-);
-
 -- Table dbo.AuthorizationStrategies -- 
 CREATE TABLE dbo.AuthorizationStrategies(
 	AuthorizationStrategyId SERIAL NOT NULL,
 	DisplayName VARCHAR(255) NOT NULL,
 	AuthorizationStrategyName VARCHAR(255) NOT NULL,
-	Application_ApplicationId INT NOT NULL,
 	CONSTRAINT AuthorizationStrategies_PK PRIMARY KEY
 	(
 		AuthorizationStrategyId
@@ -54,7 +43,6 @@ CREATE TABLE dbo.ClaimSetResourceClaims(
 CREATE TABLE dbo.ClaimSets(
 	ClaimSetId SERIAL NOT NULL,
 	ClaimSetName VARCHAR(255) NOT NULL,
-	Application_ApplicationId INT NOT NULL,
 	CONSTRAINT ClaimSets_PK PRIMARY KEY
 	(
 		ClaimSetId
@@ -81,7 +69,6 @@ CREATE TABLE dbo.ResourceClaims(
 	ResourceName VARCHAR(2048) NOT NULL,
 	ClaimName VARCHAR(2048) NOT NULL,
 	ParentResourceClaimId INT NULL,
-	Application_ApplicationId INT NOT NULL,
 	CONSTRAINT ResourceClaims_PK PRIMARY KEY
 	(
 		ResourceClaimId
