@@ -39,7 +39,7 @@ namespace EdFi.Security.DataAccess.IntegrationTests.Contexts
                 Assert.Inconclusive("SQLServer UserContext integration tests are not being run because the engine is not set to SQL Server.");
             }
 
-            var connectionString = config.GetConnectionString("EdFi_Security");
+            var connectionString = config.GetConnectionString("EdFi_Admin");
 
             var optionsBuilder = new DbContextOptionsBuilder();
             optionsBuilder.UseSqlServer(connectionString);

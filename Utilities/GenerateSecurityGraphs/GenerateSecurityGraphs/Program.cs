@@ -47,8 +47,8 @@ namespace GenerateSecurityGraphs
 
         [Option(
             'c', "connectionString",
-            Default = "Server=(local);Database=EdFi_Security;Trusted_Connection=True;Encrypt=False", 
-            HelpText = "The connection string for connecting to the authorization metadata database. Leave blank to connect to the local 'EdFi_Security' database using integrated security.")]
+            Default = "Server=(local);Database=EdFi_Admin;Trusted_Connection=True;Encrypt=False", 
+            HelpText = "The connection string for connecting to the security metadata database. Leave blank to connect to the local 'EdFi_Admin' database using integrated security.")]
         public string ConnectionString { get; set; }
 
         [Option(
