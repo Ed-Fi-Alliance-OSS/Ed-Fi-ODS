@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Features.TokenInfo;
 
-public class TokenInfoResource
+public class TokenInfoOperation
 {
-    public string Resource { get; set; }
-    public IReadOnlyList<TokenInfoOperation> Operations { get; set; }
+    public string Name { get; set; }
+    public IReadOnlyCollection<string> AuthorizationStrategies { get; set; }
 }
