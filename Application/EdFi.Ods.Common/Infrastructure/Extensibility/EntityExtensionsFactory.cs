@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
@@ -16,13 +15,17 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
     public class EntityExtensionsFactory : IEntityExtensionsFactory
     {
         private readonly IEntityExtensionRegistrar _entityExtensionRegistrar;
+        private readonly IEntityExtensionContainingCollectionInitializer _extensionContainingCollectionInitializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityExtensionsFactory"/> class, protected so as to implement the Singleton pattern.
         /// </summary>
-        public EntityExtensionsFactory(IEntityExtensionRegistrar entityExtensionRegistrar)
+        public EntityExtensionsFactory(
+            IEntityExtensionRegistrar entityExtensionRegistrar,
+            IEntityExtensionContainingCollectionInitializer extensionContainingCollectionInitializer)
         {
             _entityExtensionRegistrar = entityExtensionRegistrar;
+            _extensionContainingCollectionInitializer = extensionContainingCollectionInitializer;
         }
 
         /// <summary>
@@ -36,17 +39,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.EntityExtensionsByEntityType.TryGetValue(
-                typeof(TEntity), out Dictionary<string, EntityExtension> extensions)
+                typeof(TEntity),
+                out Dictionary<string, EntityExtension> extensions)
                 ? extensions.Where(x => x.Value.IsRequired)
                     .ToDictionary(
                         x => x.Key,
-                        x =>
-                        {
-                            var extensionObject = (IChildEntity) Activator.CreateInstance(x.Value.Type);
-                            extensionObject.SetParent(parentEntity);
-
-                            return (object) new List<object> {extensionObject};
-                        })
+                        x => _extensionContainingCollectionInitializer.CreateContainingCollection(x.Value.Type, parentEntity))
                 : new Dictionary<string, object>();
         }
 
@@ -60,8 +58,11 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             where TEntity : EntityWithCompositeKey
         {
             return _entityExtensionRegistrar.AggregateExtensionEntityNamesByType.TryGetValue(
-                typeof(TEntity), out Dictionary<string, Entity> aggregateExtensions)
-                ? aggregateExtensions.ToDictionary(x => x.Key, x => (object) new List<object>())
+                typeof(TEntity),
+                out Dictionary<string, Entity> aggregateExtensions)
+                ? aggregateExtensions.ToDictionary(
+                    x => x.Key,
+                    x => _extensionContainingCollectionInitializer.CreateContainingCollection())
                 : new Dictionary<string, object>();
         }
     }
