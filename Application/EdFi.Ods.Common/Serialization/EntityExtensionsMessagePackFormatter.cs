@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
@@ -85,6 +86,11 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
 
             var matchingExtension = GetExtensionSchemas().SingleOrDefault(ae => ae.EqualsIgnoreCase(extensionName));
 
+            if (matchingExtension == null)
+            {
+                throw new SerializationException($"Extension '{extensionName}' was serialized but does not exist in the current model.");
+            }
+
             string extensionClassTypeName = Namespaces.Entities.NHibernate.GetAggregateNamespace(_aggregateName, matchingExtension, isExtensionEntity: true) 
                 + $".{_entityName}Extension";
 
@@ -121,31 +127,22 @@ public class EntityExtensionsMessagePackFormatter : IMessagePackFormatter<IDicti
             // Wrap the standard collection in a GenericPersistentSet<T> compatible with NHibernate
             if (reader.TryReadNil())
             {
-                extensionDictionary[matchingExtension] = CreatePersistentCollection();
+                extensionDictionary[matchingExtension] =
+                    DeserializedPersistentCollectionHelpers.CreatePersistentBag(
+                        GeneratedArtifactStaticDependencies.SessionFactory);
+
                 continue;
             }
 
             // Use the serializer to populate the extension object
             var extensionObject = MessagePackSerializer.Deserialize(extensionObjectType, ref reader, options);
 
-            extensionDictionary[matchingExtension] = CreatePersistentCollection(extensionObject);
+            extensionDictionary[matchingExtension] = DeserializedPersistentCollectionHelpers.CreatePersistentBag(
+                GeneratedArtifactStaticDependencies.SessionFactory,
+                extensionObject);
         }
 
         return extensionDictionary;
-    }
-
-    private static object CreatePersistentCollection(object extensionObject = null)
-    {
-        var list = new List<object>();
-        
-        if (extensionObject != null)
-        {
-            list.Add(extensionObject);
-        };
-
-        var bag = new DeserializedPersistentGenericBag<object>(GeneratedArtifactStaticDependencies.SessionFactory, list);
-
-        return bag;
     }
 
     protected virtual string[] GetExtensionSchemas()
