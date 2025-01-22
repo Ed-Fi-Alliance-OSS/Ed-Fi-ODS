@@ -68,7 +68,7 @@ namespace EdFi.Ods.Features.Profiles
                     
                     if(!profile.ProfileName.Equals(profileNameFromXmlDefinition, StringComparison.OrdinalIgnoreCase))
                     {
-                        _logger.Error($"A profile could not be loaded because the profile name '{profile.ProfileName}' in the database the does not match the profile name '{profileNameFromXmlDefinition}' in its XML definition.");
+                        _logger.Error($"A profile could not be loaded because the profile name '{profile.ProfileName}' in the database does not match the profile name '{profileNameFromXmlDefinition}' in its XML definition.");
                         continue;
                     }
 

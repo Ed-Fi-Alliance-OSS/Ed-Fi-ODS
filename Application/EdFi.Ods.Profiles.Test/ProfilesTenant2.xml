@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
+<!-- This is the Tenant2 version of the profiles that are similarly defined in ProfilesTenant1.xml -->
+<!-- The profiles in ProfilesTenant1.xml and ProfilesTenant2.xml are used in multitenancy Postman tests -->
+
 <Profiles>
   <!-- The Tenant1 version of this profile does not include the 'SchoolTypeDescriptor' property in its ReadContentType, and this version for Tenant2 does -->
   <!-- The Tenant1 version of this profile includes the 'AdministrativeFundingControlDescriptor' property in its ReadContentType, and this version for Tenant2 does not -->
@@ -11,6 +14,22 @@
         <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
         <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
         <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <!-- This profile is defined in both ProfilesTenant1.xml and ProfilesTenant2.xml with the same name -->
+  <!-- The Tenant1 version of this profile does not include the 'NameOfInstitution' property in its ReadContentType, and this version for Tenant2 does -->
+  <!-- The Tenant1 version of this profile includes the 'OperationalStatusDescriptor' property in its ReadContentType, and this version for Tenant2 does not -->
+  <Profile name="Multitenancy-Profile-Same-Name">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
         <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
         <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
       </ReadContentType>

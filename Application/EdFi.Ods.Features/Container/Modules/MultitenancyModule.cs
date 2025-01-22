@@ -16,9 +16,11 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Features.MultiTenancy;
 using EdFi.Security.DataAccess.Providers;
 using log4net;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
@@ -94,10 +96,12 @@ public class MultiTenancyModule : ConditionalModule
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
+                    var mediator = ctx.Resolve<IMediator>();
 
                     return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "Profile Metadata",
-                        TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds));
+                        TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
+                        () => mediator.Publish(new ProfileMetadataCacheExpired()));
                 })
             .SingleInstance();
         

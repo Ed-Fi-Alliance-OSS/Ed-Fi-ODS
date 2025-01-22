@@ -23,6 +23,8 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
         public class WhenProfileDefinitionIsValid : TestFixtureBase
         {
             private const string ValidProfileName = "Sample-Profile-Resource-WriteOnly";
+            private const string SecondValidProfileName = "Second-Profile-Resource-WriteOnly";
+            private const string SecondValidProfileAlteredName = "Second-Profile-Resource-WriteOnly-Altered";
             private IProfileDefinitionsProvider? _adminDatabaseProfileDefinitionsProvider;
             public IDictionary<string, XElement>? _profileDefinitions;
 
@@ -30,6 +32,12 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
             {
                 ProfileName = ValidProfileName,
                 ProfileDefinition = $"<Profile name=\"{ValidProfileName}\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile>"
+            };
+            
+            private readonly Profile ProfileWithNamesMismatched = new()
+            {
+                ProfileName = SecondValidProfileName,
+                ProfileDefinition = $"<Profile name=\"{SecondValidProfileAlteredName}\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile>"
             };
 
             private readonly Profile InvalidProfile = new()
@@ -45,7 +53,7 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
 
             protected override void Arrange()
             {
-                var profiles = new[] { ValidProfile, InvalidProfile, EmptyProfile }.AsQueryable();
+                var profiles = new[] { ValidProfile, ProfileWithNamesMismatched, InvalidProfile, EmptyProfile }.AsQueryable();
 
                 var userContext = Stub<IUsersContext>();
 
@@ -100,6 +108,14 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
             {
                 _profileDefinitions!.ShouldNotContainKey(profileName);
             }
+            
+            [Test]
+            public void Should_not_contain_profile_with_name_mismatch()
+            {
+                _profileDefinitions!.ShouldNotContainKey(SecondValidProfileName);
+                _profileDefinitions!.ShouldNotContainKey(SecondValidProfileAlteredName);
+            }
+
         }
     }
 }

@@ -1,15 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
+<!-- This is the Tenant1 version of the profiles that are similarly defined in ProfilesTenant2.xml -->
+<!-- The profiles in ProfilesTenant1.xml and ProfilesTenant2.xml are used in multitenancy Postman tests -->
+
 <Profiles>
   <!-- The Tenant2 version of this profile includes the 'SchoolTypeDescriptor' property in its ReadContentType, and this version for Tenant1 does not -->
-  <!-- The Tenant2 version of this profile does not include the 'AdministrativeFundingControlDescriptor' property in its ReadContentType, and this version for Tenant1 does not -->
-  <!-- Resource-level IncludeOnly/ExcludeOnly profiles -->
+  <!-- The Tenant2 version of this profile does not include the 'AdministrativeFundingControlDescriptor' property in its ReadContentType, and this version for Tenant1 does -->
   <Profile name="Tenant-One-Test-Profile">
     <Resource name="School">
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="NameOfInstitution" />                               <!-- Inherited property -->
         <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
         <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+    </Resource>
+  </Profile>
+  
+  <!-- This profile is defined in both ProfilesTenant1.xml and ProfilesTenant2.xml with the same name -->
+  <!-- The Tenant2 version of this profile includes the 'NameOfInstitution' property in its ReadContentType, and this version for Tenant1 does not -->
+  <!-- The Tenant2 version of this profile does not include the 'OperationalStatusDescriptor' property in its ReadContentType, and this version for Tenant1 does -->
+  <Profile name="Multitenancy-Profile-Same-Name">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />
         <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
         <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
         <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->

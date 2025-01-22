@@ -41,7 +41,7 @@ namespace EdFi.Ods.Common.Metadata.Profiles
 
             if (profilesWithDuplicateDefinitions.Any())
             {
-                var duplicateProfileNames = string.Join(", ", profilesWithDuplicateDefinitions.Select(x => x.Key).Distinct());
+                var duplicateProfileNames = string.Join(", ", profilesWithDuplicateDefinitions.Select(x => x.Key).Distinct(StringComparer.OrdinalIgnoreCase));
 
                 _logger.Error(
                     $"The following profile names were not loaded because multiple XML definitions were provided: {duplicateProfileNames}");
