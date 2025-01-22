@@ -31,7 +31,7 @@ jobs:
         echo "::error::Missing GitHub Token"
         exit 1
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
@@ -41,7 +41,7 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."        
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -66,7 +66,7 @@ jobs:
            .\build.githubactions.ps1 -Command TriggerImplementationRepositoryWorkflows
     - name: Dispatch InitDev , Multitenancy workflow
       if: env.EXIT_STEP != 'true'
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevMultitenancy
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -77,7 +77,7 @@ jobs:
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev, Smoke Tests workflow
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevSmokeTests
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -88,7 +88,7 @@ jobs:
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev, Unit tests, Integration tests, Package workflow
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevUnittestsIntegrationtestsPackage
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -99,7 +99,7 @@ jobs:
         workflow_timeout_seconds: 4800
     - name: Dispatch InitDev Postgres, Multitenancy workflow
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevPostgresMultitenancy
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -110,7 +110,7 @@ jobs:
         workflow_timeout_seconds: 4800  
     - name: Dispatch InitDev Postgres, Smoke Tests workflow
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevPostgresSmokeTests
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
@@ -121,7 +121,7 @@ jobs:
         workflow_timeout_seconds: 4800     
     - name: Dispatch InitDev Postgres, Unit tests, Integration tests workflow
       if: env.EXIT_STEP != 'true'    
-      uses: Codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
+      uses: Codex-/return-dispatch@2410062d00e50fbdc50dd9065a4e5f673e2455d3  #v2.0.3
       id: return_dispatch_InitDevPostgresUnittestsIntegrationtests
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
