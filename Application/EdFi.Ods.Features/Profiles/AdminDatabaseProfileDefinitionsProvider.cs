@@ -56,7 +56,7 @@ namespace EdFi.Ods.Features.Profiles
                 try
                 {
                     var profileDefinition = XElement.Parse(profile.ProfileDefinition);
-                    
+
                     // Wrap the profile definition element in a Profiles document for validation
                     var profilesElement = XElement.Parse("<Profiles/>");
                     profilesElement.Add(profileDefinition);
@@ -72,7 +72,7 @@ namespace EdFi.Ods.Features.Profiles
                         continue;
                     }
 
-                    if (!validationResult.IsValid)  
+                    if (!validationResult.IsValid)
                     {
                         _logger.Error($"Profiles schema validation failed: {validationResult}");
 
