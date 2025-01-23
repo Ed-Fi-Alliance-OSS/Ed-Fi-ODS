@@ -1728,8 +1728,8 @@
 											"pm.environment.set(\"supplied:tenant1:testProfileWithCommonName\", \"multitenancy-profile-same-name\");",
 											"pm.environment.set(\"supplied:tenant1:commonNameProfileIncludedPropertyName\", \"operationalStatusDescriptor\");",
 											"pm.environment.set(\"supplied:tenant1:commonNameProfileIncludedPropertyValue\", \"uri://ed-fi.org/OperationalStatusDescriptor#Active\");",
-											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyName\", \"nameOfInstitution\");",
-											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyValue\", \"School 1\");"
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyName\", \"charterStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyValue\", \"uri://ed-fi.org/charterStatusDescriptor#Open Enrollment\");"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1751,7 +1751,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolId\": {{supplied:tenant1:schoolId}},\r\n  \"{{supplied:tenant1:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:nonIncludedPropertyName}}\": \"{{supplied:tenant1:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:includedPropertyName}}\": \"{{supplied:tenant1:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant1:schoolId}},\r\n  \"nameOfInstitution\" : \"Tenant1 School\",\r\n  \"{{supplied:tenant1:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:nonIncludedPropertyName}}\": \"{{supplied:tenant1:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:includedPropertyName}}\": \"{{supplied:tenant1:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1804,8 +1804,8 @@
 											"pm.environment.set(\"supplied:tenant2:includedPropertyName\", \"schoolTypeDescriptor\");",
 											"pm.environment.set(\"supplied:tenant2:includedPropertyValue\", \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
 											"pm.environment.set(\"supplied:tenant2:testProfileWithCommonName\", \"multitenancy-profile-same-name\");",
-											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyName\", \"nameOfInstitution\");",
-											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyValue\", \"uri://ed-fi.org/OperationalStatusDescriptor#Active\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyName\", \"charterStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyValue\", \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\");",
 											"pm.environment.set(\"supplied:tenant2:commonNameProfileNonIncludedPropertyName\", \"operationalStatusDescriptor\");",
 											"pm.environment.set(\"supplied:tenant2:commonNameProfileNonIncludedPropertyValue\", \"uri://ed-fi.org/OperationalStatusDescriptor#Active\");"
 										],
@@ -1835,7 +1835,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolId\": {{supplied:tenant2:schoolId}},\r\n  \"{{supplied:tenant2:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:nonIncludedPropertyName}}\": \"{{supplied:tenant2:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:includedPropertyName}}\": \"{{supplied:tenant2:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant2:schoolId}},\r\n  \"nameOfInstitution\" : \"Tenant2 School\",\r\n  \"{{supplied:tenant2:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:nonIncludedPropertyName}}\": \"{{supplied:tenant2:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:includedPropertyName}}\": \"{{supplied:tenant2:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

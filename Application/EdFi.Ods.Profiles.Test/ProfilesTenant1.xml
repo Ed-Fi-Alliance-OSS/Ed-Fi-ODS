@@ -20,11 +20,12 @@
   </Profile>
   
   <!-- This profile is defined in both ProfilesTenant1.xml and ProfilesTenant2.xml with the same name -->
-  <!-- The Tenant2 version of this profile includes the 'NameOfInstitution' property in its ReadContentType, and this version for Tenant1 does not -->
+  <!-- The Tenant2 version of this profile includes the 'CharterStatusDescriptor' property in its ReadContentType, and this version for Tenant1 does not -->
   <!-- The Tenant2 version of this profile does not include the 'OperationalStatusDescriptor' property in its ReadContentType, and this version for Tenant1 does -->
   <Profile name="Multitenancy-Profile-Same-Name">
     <Resource name="School">
       <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
         <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
         <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
         <Property name="SchoolTypeDescriptor" />

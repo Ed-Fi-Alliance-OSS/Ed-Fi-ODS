@@ -16,14 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Profiles.xml" />
-    <None Remove="ProfilesTenant2.xml" />
-    <EmbeddedResource Include="ProfilesTenant2.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="ProfilesTenant1.xml" />
-    <EmbeddedResource Include="ProfilesTenant1.xml" />
   </ItemGroup>
 </Project>
