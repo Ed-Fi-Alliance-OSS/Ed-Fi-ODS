@@ -40,23 +40,23 @@ jobs:
       security-events: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2
+        uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
           languages: 'csharp'
       - name: Checkout Ed-Fi-Extensions
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
             path: Ed-Fi-Extensions/
       - name: Checkout Ed-Fi-ODS-Implementation
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
             path: Ed-Fi-ODS-Implementation/
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/
@@ -110,4 +110,4 @@ jobs:
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj" -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@cf7e9f23492505046de9a37830c3711dd0f25bb3  # codeql-bundle-v2.16.2
+        uses: github/codeql-action/analyze@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169  # v3.28.0

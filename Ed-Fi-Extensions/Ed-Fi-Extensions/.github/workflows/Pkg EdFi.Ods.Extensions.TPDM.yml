@@ -55,17 +55,17 @@ jobs:
         echo "::error::Missing Azure Token"
         exit 1   
     - name: Checkout Ed-Fi-Extensions
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
           path: Ed-Fi-Extensions/
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/          
@@ -134,7 +134,7 @@ jobs:
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj" -PackageName  "EdFi.Suite3.Ods.Extensions.TPDM.Core.${{ matrix.ExtensionVersion }}.Standard.${{ matrix.StandardVersion }}"
     - name: Upload EdFi.Ods.Extensions.TPDM Artifact
       if: success()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: EdFi.Ods.Extensions.TPDM.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-Extensions/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*.*
