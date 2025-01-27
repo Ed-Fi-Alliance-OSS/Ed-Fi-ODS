@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -37,6 +38,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly ConcurrentDictionary<Type, FullName> _fullNameByType = new();
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
 
+    private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
@@ -46,6 +48,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
         IProfileResourceModelProvider profileResourceModelProvider,
         ISchemaNameMapProvider schemaNameMapProvider)
     {
@@ -54,6 +57,8 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
         _profileResourceModelProvider = profileResourceModelProvider
             ?? throw new ArgumentNullException(nameof(profileResourceModelProvider));
+
+        _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
 
         _schemaNameMapProvider = schemaNameMapProvider ?? throw new ArgumentNullException(nameof(schemaNameMapProvider));
 
@@ -79,11 +84,14 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
         var resourceClassFullName = GetFullNameFromResourceTypeNamespace(type);
 
+        var tenantName = _tenantConfigurationContextProvider?.Get()?.TenantIdentifier;
+
         var mappingContractKey = new MappingContractKey(
             resourceClassFullName,
             profileContentTypeContext.ProfileName,
             _dataManagementResourceContextProvider.Get().Resource.FullName,
-            profileContentTypeContext.ContentTypeUsage);
+            profileContentTypeContext.ContentTypeUsage,
+            tenantName);
 
         var contract = _contractByKey.GetOrAdd(mappingContractKey, 
             static (k, args) =>

@@ -6,8 +6,8 @@
 using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Jobs;
-using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Security.Profiles;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using log4net;
 using Quartz;
