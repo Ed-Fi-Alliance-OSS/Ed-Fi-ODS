@@ -114,7 +114,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
             {
                 resourceModelProvider = A.Fake<IResourceModelProvider>();
                 profileMetadaProvider = A.Fake<IProfileMetadataProvider>();
-                A.CallTo(() => profileMetadaProvider.ProfileDefinitionsByName)
+                A.CallTo(() => profileMetadaProvider.GetProfileDefinitionsByName())
                     .Returns(new Dictionary<string, XElement>()
                     {
                         {"Profile1", 

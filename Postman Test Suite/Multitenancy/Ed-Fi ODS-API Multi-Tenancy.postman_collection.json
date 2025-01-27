@@ -1690,6 +1690,725 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Create Tenant1 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:tenant1:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:tenant1:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));",
+											"pm.environment.set(\"supplied:tenant1:tenantSpecificTestProfileName\", \"tenant-one-test-profile\");",
+											"pm.environment.set(\"supplied:tenant1:nonIncludedPropertyName\", \"schoolTypeDescriptor\");",
+											"pm.environment.set(\"supplied:tenant1:nonIncludedPropertyValue\", \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+											"pm.environment.set(\"supplied:tenant1:includedPropertyName\", \"administrativeFundingControlDescriptor\");",
+											"pm.environment.set(\"supplied:tenant1:includedPropertyValue\", \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\");",
+											"pm.environment.set(\"supplied:tenant1:testProfileWithCommonName\", \"multitenancy-profile-same-name\");",
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileIncludedPropertyName\", \"operationalStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileIncludedPropertyValue\", \"uri://ed-fi.org/OperationalStatusDescriptor#Active\");",
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyName\", \"charterStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant1:commonNameProfileNonIncludedPropertyValue\", \"uri://ed-fi.org/charterStatusDescriptor#Open Enrollment\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant1:schoolId}},\r\n  \"nameOfInstitution\" : \"Tenant1 School\",\r\n  \"{{supplied:tenant1:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant1:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:nonIncludedPropertyName}}\": \"{{supplied:tenant1:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant1:includedPropertyName}}\": \"{{supplied:tenant1:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Tenant2 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:tenant2:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:tenant2:schoolId\", pm.variables.replaceIn(\"12{{$randomInt}}{{$randomInt}}\"));",
+											"pm.environment.set(\"supplied:tenant2:tenantSpecificTestProfileName\", \"tenant-two-test-profile\");",
+											"pm.environment.set(\"supplied:tenant2:nonIncludedPropertyName\", \"administrativeFundingControlDescriptor\");",
+											"pm.environment.set(\"supplied:tenant2:nonIncludedPropertyValue\", \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\");",
+											"pm.environment.set(\"supplied:tenant2:includedPropertyName\", \"schoolTypeDescriptor\");",
+											"pm.environment.set(\"supplied:tenant2:includedPropertyValue\", \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+											"pm.environment.set(\"supplied:tenant2:testProfileWithCommonName\", \"multitenancy-profile-same-name\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyName\", \"charterStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileIncludedPropertyValue\", \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileNonIncludedPropertyName\", \"operationalStatusDescriptor\");",
+											"pm.environment.set(\"supplied:tenant2:commonNameProfileNonIncludedPropertyValue\", \"uri://ed-fi.org/OperationalStatusDescriptor#Active\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:tenant2:schoolId}},\r\n  \"nameOfInstitution\" : \"Tenant2 School\",\r\n  \"{{supplied:tenant2:commonNameProfileIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyName}}\": \"{{supplied:tenant2:commonNameProfileNonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:nonIncludedPropertyName}}\": \"{{supplied:tenant2:nonIncludedPropertyValue}}\",\r\n  \"{{supplied:tenant2:includedPropertyName}}\": \"{{supplied:tenant2:includedPropertyValue}}\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tenant1 Requests",
+					"item": [
+						{
+							"name": "Get School from Tenant1 using a Tenant1 Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type header should match profile usage\",\r",
+											"    () => {\r",
+											"        pm.expect(pm.response).to.have.header(\"Content-Type\");\r",
+											"        pm.expect(pm.response.headers.one(\"Content-Type\").value).to.contain(pm.variables.replaceIn(\"application/vnd.ed-fi.school.{{supplied:tenant1:tenantSpecificTestProfileName}}.readable+json\"));\r",
+											"    });\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response should not contain a property not included in the Tenant1 test profile\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.not.have.property(pm.variables.replaceIn(\"{{supplied:tenant1:nonIncludedPropertyName}}\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The value of the property included in the Tenant1 test profile should match the expected value for Tenant1\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.have.property(pm.variables.replaceIn(\"{{supplied:tenant1:includedPropertyName}}\"));\r",
+											"    pm.expect(responseData[pm.variables.replaceIn(\"{{supplied:tenant1:includedPropertyName}}\")]).to.equal(pm.variables.replaceIn(\"{{supplied:tenant1:includedPropertyValue}}\"));\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant1:tenantSpecificTestProfileName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School from Tenant1 using a Tenant2 Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 406\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(406);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error response should contain the expected content\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    console.log(jsonData);\r",
+											"    pm.expect(jsonData.type).to.eql(\"urn:ed-fi:api:profile:invalid-profile-usage\");\r",
+											"    pm.expect(jsonData.title).to.eql(\"Invalid Profile Usage\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant2:tenantSpecificTestProfileName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School from Tenant1 using a profile with common name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type header should match profile usage\",\r",
+											"    () => {\r",
+											"        pm.expect(pm.response).to.have.header(\"Content-Type\");\r",
+											"        pm.expect(pm.response.headers.one(\"Content-Type\").value).to.contain(pm.variables.replaceIn(\"application/vnd.ed-fi.school.{{supplied:tenant1:testProfileWithCommonName}}.readable+json\"));\r",
+											"    });\r",
+											"\r",
+											"\r",
+											"pm.test(\"Response should not contain a property not included in the Tenant1 test profile\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.not.have.property(pm.variables.replaceIn(\"{{supplied:tenant1:commonNameProfileNonIncludedPropertyName}}\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The value of the property included in the Tenant1 test profile should match the expected value for Tenant1\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.have.property(pm.variables.replaceIn(\"{{supplied:tenant1:commonNameProfileIncludedPropertyName}}\"));\r",
+											"    pm.expect(responseData[pm.variables.replaceIn(\"{{supplied:tenant1:commonNameProfileIncludedPropertyName}}\")]).to.equal(pm.variables.replaceIn(\"{{supplied:tenant1:commonNameProfileIncludedPropertyValue}}\"));\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant1:testProfileWithCommonName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tenant2 Requests",
+					"item": [
+						{
+							"name": "Get School from Tenant2 using a Tenant2 Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type header should match profile usage\",\r",
+											"    () => {\r",
+											"        pm.expect(pm.response).to.have.header(\"Content-Type\");\r",
+											"        pm.expect(pm.response.headers.one(\"Content-Type\").value).to.contain(pm.variables.replaceIn(\"application/vnd.ed-fi.school.{{supplied:tenant2:tenantSpecificTestProfileName}}.readable+json\"));\r",
+											"    });\r",
+											"\r",
+											"pm.test(\"Response should not contain a property not included in the Tenant2 test profile\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.not.have.property(pm.variables.replaceIn(\"{{supplied:tenant2:nonIncludedPropertyName}}\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The value of the property included in the Tenant2 test profile should match the expected value for Tenant2\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.have.property(pm.variables.replaceIn(\"{{supplied:tenant2:includedPropertyName}}\"));\r",
+											"    pm.expect(responseData[pm.variables.replaceIn(\"{{supplied:tenant2:includedPropertyName}}\")]).to.equal(pm.variables.replaceIn(\"{{supplied:tenant2:includedPropertyValue}}\"));\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant2:tenantSpecificTestProfileName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant2:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant2:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School from Tenant2 using a Tenant1 Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 406\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(406);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error response should contain the expected content\", () => {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    console.log(jsonData);\r",
+											"    pm.expect(jsonData.type).to.eql(\"urn:ed-fi:api:profile:invalid-profile-usage\");\r",
+											"    pm.expect(jsonData.title).to.eql(\"Invalid Profile Usage\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant1:tenantSpecificTestProfileName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant2:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant2:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get School from Tenant2 using a profile with common name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response Content-Type header should match profile usage\",\r",
+											"    () => {\r",
+											"        pm.expect(pm.response).to.have.header(\"Content-Type\");\r",
+											"        pm.expect(pm.response.headers.one(\"Content-Type\").value).to.contain(pm.variables.replaceIn(\"application/vnd.ed-fi.school.{{supplied:tenant2:testProfileWithCommonName}}.readable+json\"));\r",
+											"    });\r",
+											"\r",
+											"pm.test(\"Response should not contain a property not included in the Tenant2 test profile\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.not.have.property(pm.variables.replaceIn(\"{{supplied:tenant2:commonNameProfileNonIncludedPropertyName}}\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The value of the property included in the Tenant2 test profile should match the expected value for Tenant2\", () => {\r",
+											"    var responseData = pm.response.json();\r",
+											"    pm.expect(responseData).to.have.property(pm.variables.replaceIn(\"{{supplied:tenant2:commonNameProfileIncludedPropertyName}}\"));\r",
+											"    pm.expect(responseData[pm.variables.replaceIn(\"{{supplied:tenant2:commonNameProfileIncludedPropertyName}}\")]).to.equal(pm.variables.replaceIn(\"{{supplied:tenant2:commonNameProfileIncludedPropertyValue}}\"));\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant2}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.{{supplied:tenant2:testProfileWithCommonName}}.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant2/data/v3/ed-fi/schools/{{known:tenant2:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant2",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant2:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete Tenant1 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tenant2 School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Tenant1}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/Tenant1/data/v3/ed-fi/schools/{{known:tenant1:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"Tenant1",
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:tenant1:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											"  "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {

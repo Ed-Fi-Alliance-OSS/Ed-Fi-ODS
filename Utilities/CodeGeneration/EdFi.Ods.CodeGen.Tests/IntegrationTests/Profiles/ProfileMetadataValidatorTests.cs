@@ -30,14 +30,6 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
                 var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
                 _actualValidationResult = profilesMetadataValidator.Validate(xDoc);
             }
-
-            [Test]
-            public void Should_include_validation_failure_message_indicating_that_a_duplicate_profile_name_was_found()
-            {
-                _actualValidationResult.ShouldSatisfyAllConditions(
-                    () => _actualValidationResult.IsValid.ShouldBeFalse(),
-                    () => _actualValidationResult.Errors.First().ErrorMessage.ShouldContain("Duplicate profile name(s) encountered: 'The-Duplicated-Profile-Name'"));
-            }
         }
         
         public class When_invalid_resource_found_in_profiles_xml : TestFixtureBase
