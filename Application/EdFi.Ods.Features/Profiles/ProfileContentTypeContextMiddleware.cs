@@ -161,7 +161,18 @@ public class ProfileContentTypeContextMiddleware
                 // Validate that the Profile exists
                 string profileName = profileContentTypeFacets[ProfileNameFacet].Value;
 
-                if (!_profileMetadataProvider.ProfileDefinitionsByName.ContainsKey(profileName))
+                if (_profileMetadataProvider.GetValidationResults().Any(x => x.Name.Equals(profileName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    await WriteResponseUsingFormat(
+                        response,
+                        StatusCodes.Status406NotAcceptable,
+                        headerName,
+                        LogMessageFormatType.MisconfiguredProfileFormat);
+
+                    return (false, null);
+                }
+                
+                if (!_profileMetadataProvider.GetProfileDefinitionsByName().ContainsKey(profileName))
                 {
                     await WriteResponse(
                         response,
