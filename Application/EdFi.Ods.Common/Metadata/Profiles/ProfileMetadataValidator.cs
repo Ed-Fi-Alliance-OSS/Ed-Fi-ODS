@@ -52,24 +52,6 @@ public class ProfileMetadataValidator : IProfileMetadataValidator
         {
             return new ValidationResult(validationFailures);
         }
-
-        // Find duplicate profiles names
-        var duplicateProfileNames = profilesDefinition.XPathSelectElements("//Profile")
-            .Select(e => e.AttributeValue("name"))
-            .GroupBy(n => n, n => n)
-            .Where(x => x.Count() > 1)
-            .Select(x => x.Key)
-            .OrderBy(n => n)
-            .ToArray();
-
-        if (duplicateProfileNames.Any())
-        {
-            validationFailures.Add(new ValidationFailure(
-                string.Empty,
-                $"Duplicate profile name(s) encountered: '{string.Join("', '", duplicateProfileNames)}'"));
-            
-            return new ValidationResult(validationFailures);
-        }
         
         // Resource model validation
         var resourceModel = _resourceModelProvider.GetResourceModel();

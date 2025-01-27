@@ -28,7 +28,7 @@
         <Property name="NameOfInstitution" />                               <!-- Inherited property -->
         <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
         <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
-        <Property name="SchoolTypeDescriptor" />
+        <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
         <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
         <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
         <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
