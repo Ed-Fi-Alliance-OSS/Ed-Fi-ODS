@@ -7,7 +7,7 @@ using System;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common;
-using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using log4net;
 using Quartz;

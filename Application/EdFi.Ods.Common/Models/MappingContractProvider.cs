@@ -9,6 +9,7 @@ using System.Linq;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
@@ -24,6 +25,7 @@ public class MappingContractProvider : IMappingContractProvider
 {
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
+    private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
     private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
@@ -34,6 +36,7 @@ public class MappingContractProvider : IMappingContractProvider
     public MappingContractProvider(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
         IProfileResourceModelProvider profileResourceModelProvider,
         ISchemaNameMapProvider schemaNameMapProvider)
     {
@@ -42,6 +45,9 @@ public class MappingContractProvider : IMappingContractProvider
 
         _profileContentTypeContextProvider = profileContentTypeContextProvider
             ?? throw new ArgumentNullException(nameof(profileContentTypeContextProvider));
+        
+        _tenantConfigurationContextProvider = tenantConfigurationContextProvider
+            ?? throw new ArgumentNullException(nameof(tenantConfigurationContextProvider));
 
         _profileResourceModelProvider = profileResourceModelProvider
             ?? throw new ArgumentNullException(nameof(profileResourceModelProvider));
@@ -70,11 +76,15 @@ public class MappingContractProvider : IMappingContractProvider
                 profileContentTypeContext.ProfileName, profileContentTypeContext.ContentTypeUsage);
         }
 
+        var tenantConfigurationContext = _tenantConfigurationContextProvider.Get();
+        
         var mappingContractKey = new MappingContractKey(
             resourceClassFullName,
             profileContentTypeContext.ProfileName,
             dataManagementResourceContext.Resource.FullName,
-            profileContentTypeContext.ContentTypeUsage);
+            profileContentTypeContext.ContentTypeUsage,
+            tenantConfigurationContext?.TenantIdentifier
+            );
 
         return GetOrCreateMappingContract(mappingContractKey);
     }
@@ -86,7 +96,7 @@ public class MappingContractProvider : IMappingContractProvider
         {
             return null;
         }
-
+       
         var mappingContract = _mappingContractByKey.GetOrAdd(
             mappingContractKey,
             static (key, @this) =>
@@ -295,11 +305,13 @@ public class MappingContractKey : IEquatable<MappingContractKey>
     /// <param name="profileName">The name of the profile.</param>
     /// <param name="profileResourceName">The <see cref="FullName" /> of the resource in context (e.g. the School or LocalEducationAgency for a resource class of EducationOrganizationAddress).</param>
     /// <param name="contentTypeUsage">The usage of the profile (readable or writable).</param>
+    /// <param name="tenantIdentifier">(Optional) In a multi-tenant environment, a unique identifier of the tenant for the current context.</param>
     public MappingContractKey(
         FullName resourceClassName,
         string profileName,
         FullName profileResourceName,
-        ContentTypeUsage contentTypeUsage)
+        ContentTypeUsage contentTypeUsage,
+        string tenantIdentifier = null)
     {
         ResourceClassName = resourceClassName;
 
@@ -313,6 +325,8 @@ public class MappingContractKey : IEquatable<MappingContractKey>
         }
 
         ContentTypeUsage = contentTypeUsage;
+        
+        TenantIdentifier = tenantIdentifier ?? "";
     }
 
     public FullName ResourceClassName { get; }
@@ -322,6 +336,8 @@ public class MappingContractKey : IEquatable<MappingContractKey>
     public FullName ProfileResourceName { get; }
 
     public ContentTypeUsage ContentTypeUsage { get; }
+    
+    public string TenantIdentifier { get; }
 
     public bool Equals(MappingContractKey other)
     {
@@ -338,7 +354,8 @@ public class MappingContractKey : IEquatable<MappingContractKey>
         return ResourceClassName.Equals(other.ResourceClassName)
             && string.Equals(ProfileName, other.ProfileName)
             && ProfileResourceName.Equals(other.ProfileResourceName)
-            && ContentTypeUsage == other.ContentTypeUsage;
+            && ContentTypeUsage == other.ContentTypeUsage
+            && string.Equals(TenantIdentifier,other.TenantIdentifier);
     }
 
     public override bool Equals(object obj)
@@ -374,6 +391,11 @@ public class MappingContractKey : IEquatable<MappingContractKey>
 
             hashCode = (hashCode * 397) ^ ProfileResourceName.GetHashCode();
             hashCode = (hashCode * 397) ^ (int)ContentTypeUsage;
+
+            if (!string.IsNullOrEmpty(TenantIdentifier))
+            {
+                hashCode = (hashCode * 397) ^ TenantIdentifier.GetHashCode();
+            }
 
             return hashCode;
         }

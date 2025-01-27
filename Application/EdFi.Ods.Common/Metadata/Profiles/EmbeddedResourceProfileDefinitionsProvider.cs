@@ -80,7 +80,23 @@ namespace EdFi.Ods.Common.Metadata.Profiles
 
         private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
         {
-            return _allDocs.Value.SelectMany(x => x.Descendants("Profile"))
+            var profileDefinitions = _allDocs.Value.SelectMany(x => x.Descendants("Profile")).ToArray();
+            
+            var profilesWithDuplicateDefinitions = profileDefinitions
+                .GroupBy(x => x.AttributeValue("name"), StringComparer.OrdinalIgnoreCase)
+                .Where(x => x.Count() > 1)
+                .SelectMany(x => profileDefinitions.Where(y => y.AttributeValue("name").Equals(x.Key, StringComparison.OrdinalIgnoreCase)))
+                .ToArray();
+            
+            if (profilesWithDuplicateDefinitions.Any())
+            {
+                var duplicateProfileNames = string.Join(", ", profilesWithDuplicateDefinitions.Select(x => x.AttributeValue("name")).Distinct(StringComparer.OrdinalIgnoreCase));
+
+                _logger.Error(
+                    $"The following profile names were not loaded from plugin assemblies because multiple XML definitions were provided through embedded resources: {duplicateProfileNames}");
+            }
+            
+            return profileDefinitions.Except(profilesWithDuplicateDefinitions)
                 .ToDictionary(x => x.AttributeValue("name"), x => x, StringComparer.InvariantCultureIgnoreCase);
         }
     }

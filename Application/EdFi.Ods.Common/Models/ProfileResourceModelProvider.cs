@@ -41,7 +41,7 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
     {
         return new ProfileResourceModel(
             _resourceModel.Value,
-            _profileMetadataProvider.ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
+            _profileMetadataProvider.GetProfileDefinitionsByName().GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
             _profileValidationReporter);
     }
 }

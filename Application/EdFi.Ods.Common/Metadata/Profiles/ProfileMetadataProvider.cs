@@ -29,8 +29,27 @@ namespace EdFi.Ods.Common.Metadata.Profiles
         /// <summary>
         /// Collection of valid profile definitions, organized by name.
         /// </summary>
-        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName =>
-                _profileDefinitionsProviders.SelectMany(x => x.GetProfileDefinitions()).ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
+        public IReadOnlyDictionary<string, XElement> GetProfileDefinitionsByName()
+        {
+            var profileDefinitions = _profileDefinitionsProviders.SelectMany(x => x.GetProfileDefinitions()).ToArray();
+
+            var profilesWithDuplicateDefinitions = profileDefinitions
+                .GroupBy(x => x.Key, StringComparer.OrdinalIgnoreCase)
+                .Where(x => x.Count() > 1)
+                .SelectMany(x => profileDefinitions.Where(y => y.Key.Equals(x.Key, StringComparison.OrdinalIgnoreCase)))
+                .ToArray();
+
+            if (profilesWithDuplicateDefinitions.Any())
+            {
+                var duplicateProfileNames = string.Join(", ", profilesWithDuplicateDefinitions.Select(x => x.Key).Distinct(StringComparer.OrdinalIgnoreCase));
+
+                _logger.Error(
+                    $"The following profile names were not loaded because multiple XML definitions were provided: {duplicateProfileNames}");
+            }
+
+            return profileDefinitions.Except(profilesWithDuplicateDefinitions).ToDictionary(
+                x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
+        }
 
         /// <inheritdoc cref="IProfileMetadataProvider.GetValidationResults" />
         public MetadataValidationResult[] GetValidationResults()
