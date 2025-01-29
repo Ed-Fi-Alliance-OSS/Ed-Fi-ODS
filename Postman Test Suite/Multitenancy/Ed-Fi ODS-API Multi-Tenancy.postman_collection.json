@@ -1941,8 +1941,7 @@
 											"pm.test(\"Error response should contain the expected content\", () => {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    console.log(jsonData);\r",
-											"    pm.expect(jsonData.type).to.eql(\"urn:ed-fi:api:profile:invalid-profile-usage\");\r",
-											"    pm.expect(jsonData.title).to.eql(\"Invalid Profile Usage\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"The profile specified by the content type in the 'Accept' header is not supported by this host.\");\r",
 											"});\r",
 											""
 										],
@@ -2145,8 +2144,7 @@
 											"pm.test(\"Error response should contain the expected content\", () => {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    console.log(jsonData);\r",
-											"    pm.expect(jsonData.type).to.eql(\"urn:ed-fi:api:profile:invalid-profile-usage\");\r",
-											"    pm.expect(jsonData.title).to.eql(\"Invalid Profile Usage\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"The profile specified by the content type in the 'Accept' header is not supported by this host.\");\r",
 											"});\r",
 											""
 										],
