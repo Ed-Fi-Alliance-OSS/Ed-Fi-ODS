@@ -29,9 +29,13 @@ namespace EdFi.Ods.Features.Container.Modules
 {
     public class ProfilesModule : ConditionalModule
     {
-        public ProfilesModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ProfilesModule)) { }
+        private readonly ApiSettings _apiSettings;
 
+        public ProfilesModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(ProfilesModule))
+        {
+            _apiSettings = apiSettings;
+        }
         public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Profiles);
 
         protected override void ApplyFeatureDisabledRegistrations(ContainerBuilder builder)
