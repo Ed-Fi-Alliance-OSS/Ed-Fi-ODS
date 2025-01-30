@@ -71,7 +71,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                                                 </Resource>
                                               </Profile>";
 
-                public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName
+                public IReadOnlyDictionary<string, XElement> GetProfileDefinitionsByName()
                     => new Dictionary<string, XElement> { { TestProfileName, XElement.Parse(_profileDefinition) } };
 
                 public MetadataValidationResult[] GetValidationResults() => Array.Empty<MetadataValidationResult>();
@@ -132,7 +132,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                 var profileResourceModel =
                     new ProfileResourceModel(
                         _resourceModelProvider.GetResourceModel(),
-                        _testProfileResourceNamesProvider.ProfileDefinitionsByName.GetValueOrThrow(TestProfileName, "Unable to find profile '{0}'."),
+                        _testProfileResourceNamesProvider.GetProfileDefinitionsByName().GetValueOrThrow(TestProfileName, "Unable to find profile '{0}'."),
                         profileValidationReporter);
 
                 _openApiMetadataDocumentContext =

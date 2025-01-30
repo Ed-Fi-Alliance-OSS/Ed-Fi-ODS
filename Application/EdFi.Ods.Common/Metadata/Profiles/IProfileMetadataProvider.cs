@@ -22,7 +22,7 @@ public interface IProfileMetadataProvider
     /// <summary>
     /// Collection of valid profile definitions, organized by name.
     /// </summary>
-    IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get; }
+    IReadOnlyDictionary<string, XElement> GetProfileDefinitionsByName();
 
     /// <summary>
     /// Gets the validation results for all profile metadata that has been loaded (or attempted to be loaded).

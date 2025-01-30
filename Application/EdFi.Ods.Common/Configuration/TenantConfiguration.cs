@@ -8,7 +8,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using Standart.Hash.xxHash;
 
-namespace EdFi.Ods.Api.Middleware;
+namespace EdFi.Ods.Common.Configuration;
 
 /// <summary>
 /// Contains details related to the tenant configuration and associated database connection strings.
