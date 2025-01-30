@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Middleware;
 

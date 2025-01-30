@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Configuration;
-using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Features.MultiTenancy;

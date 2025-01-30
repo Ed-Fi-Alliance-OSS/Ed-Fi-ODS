@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using FakeItEasy;
 using NUnit.Framework;

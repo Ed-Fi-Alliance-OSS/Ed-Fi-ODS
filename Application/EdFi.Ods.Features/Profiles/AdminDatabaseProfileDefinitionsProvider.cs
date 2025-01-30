@@ -63,6 +63,14 @@ namespace EdFi.Ods.Features.Profiles
                     var validationDoc = new XDocument(profilesElement);
                     
                     var validationResult = _profileMetadataValidator.Validate(validationDoc);
+                    
+                    var profileNameFromXmlDefinition = profileDefinition.AttributeValue("name");
+                    
+                    if(!profile.ProfileName.Equals(profileNameFromXmlDefinition, StringComparison.OrdinalIgnoreCase))
+                    {
+                        _logger.Error($"A profile could not be loaded because the profile name '{profile.ProfileName}' in the database does not match the profile name '{profileNameFromXmlDefinition}' in its XML definition.");
+                        continue;
+                    }
 
                     if (!validationResult.IsValid)
                     {
@@ -76,7 +84,7 @@ namespace EdFi.Ods.Features.Profiles
                         continue;
                     }
 
-                    profileDefinitionByName.Add(profileDefinition.AttributeValue("name"), profileDefinition);
+                    profileDefinitionByName.Add(profile.ProfileName, profileDefinition);
                 }
                 catch (XmlException)
                 {
