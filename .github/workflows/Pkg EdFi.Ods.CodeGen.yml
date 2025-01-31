@@ -40,7 +40,7 @@ jobs:
         exit 1 
     - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
+      uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2
       with:
         dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS
@@ -116,7 +116,7 @@ jobs:
       shell: pwsh
     - name: Upload EdFi.Ods.CodeGen NugetPackage
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg
