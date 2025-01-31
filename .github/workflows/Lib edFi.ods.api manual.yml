@@ -4,8 +4,10 @@
    # 3.If any .NET new major/minor version upgrade or Nuget package version upgrade happens in Ed-Fi-ODS/Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj  Project.
 
 name: Lib EdFi.Ods.Api Manually triggered build
-
 on:
+  pull_request:
+    branches: [main, b-v*-patch*]
+
   workflow_dispatch:
 
 env:
