@@ -161,7 +161,18 @@ function Pack {
         $xml.package.metadata.id = $PackageName
         $xml.package.metadata.description = $PackageName
         $xml.Save($NuspecFilePath)
-        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties copyright=$Copyright  -NoPackageAnalysis -NoDefaultExcludes
+
+		$params = @{
+			PackageDefinitionFile = $NuspecFilePath
+			Version               = $version
+			PackageId             = $PackageName
+			OutputDirectory       = $packageOutput
+			BuildConfiguration    = $Configuration
+			ProjectFile           = $ProjectFile
+		}
+
+		& "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
+		New-Package @params | Out-Host
 
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
