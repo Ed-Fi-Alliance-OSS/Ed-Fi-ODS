@@ -43,6 +43,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IEntityExtensionsFactory>()
                 .SingleInstance();
 
+            builder.RegisterType<EntityExtensionContainingCollectionInitializer>()
+                .As<IEntityExtensionContainingCollectionInitializer>()
+                .SingleInstance();
+
             builder.RegisterType<EntityExtensionRegistrar>()
                 .WithParameter(new TypedParameter(typeof(IEnumerable<Assembly>), installedExtensionAssemblies))
                 .As<IEntityExtensionRegistrar>()

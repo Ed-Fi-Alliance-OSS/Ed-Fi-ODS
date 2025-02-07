@@ -181,6 +181,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IEntityDeserializer>()
                 .SingleInstance();
 
+            builder.RegisterType<DeserializationContextProvider>()
+                .As<IDeserializationContextProvider>()
+                .SingleInstance();
+
             builder.RegisterType<PersonSurrogateIdMutator>()
                 .As<ISurrogateIdMutator>()
                 .SingleInstance();

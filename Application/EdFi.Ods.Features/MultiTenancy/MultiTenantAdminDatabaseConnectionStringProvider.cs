@@ -6,7 +6,7 @@
 using System;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
-using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using log4net;
 

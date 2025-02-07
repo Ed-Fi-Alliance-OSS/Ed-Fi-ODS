@@ -95,7 +95,7 @@ jobs:
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/create-database-package.ps1 -Output NugetPackages -DatabaseType Security -ExtensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }} -SQLPackage "C:\ProgramData\chocolatey\lib\sqlpackage\tools"
     - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
+      uses: nuget/setup-nuget@323ab0502cd38fdc493335025a96c8fdb0edc71f # v2.0.1
       with:
         nuget-version: '5.x'
     - name: Create NuGet package
