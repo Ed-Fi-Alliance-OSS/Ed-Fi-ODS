@@ -6110,7 +6110,7 @@
 			"name": "Key Changes",
 			"item": [
 				{
-					"name": "ClassPeriods",
+					"name": "ClassPeriods (cascade update to BellSchedule's child entity)",
 					"item": [
 						{
 							"name": "Get AvailableChangeVersions",
@@ -6124,23 +6124,20 @@
 											"});",
 											"",
 											"const responseItem = pm.response.json();",
-											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
+											"pm.environment.set('known:changeVersion:original', responseItem.newestChangeVersion + 1);"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6188,7 +6185,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -6201,10 +6199,11 @@
 											"    pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:'+scenarioId+':classPeriod:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											"pm.environment.set('known:classPeriod:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6230,6 +6229,178 @@
 										"v3",
 										"ed-fi",
 										"classPeriods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Bell Schedule (using ClassPeriod)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201 Created\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:bellSchedule:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"bellScheduleName\": \"Test Schedule\",\r\n    \"endTime\": \"15:30:00\",\r\n    \"startTime\": \"08:10:00\",\r\n    \"totalInstructionalTime\": 123,\r\n    \"classPeriods\": [\r\n      {\r\n        \"classPeriodReference\": {\r\n          \"classPeriodName\": \"ORIGINAL\",\r\n          \"schoolId\": 255901001\r\n        }\r\n      }\r\n    ],\r\n    \"dates\": [],\r\n    \"gradeLevels\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"bellSchedules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Bell Schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"const item = pm.response.json();\r",
+											"\r",
+											"pm.environment.set('known:bellSchedule:lastModifiedDate', item._lastModifiedDate);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"bellScheduleName\": \"Test Schedule\",\r\n    \"endTime\": \"15:30:00\",\r\n    \"startTime\": \"08:10:00\",\r\n    \"totalInstructionalTime\": 123,\r\n    \"classPeriods\": [\r\n      {\r\n        \"classPeriodReference\": {\r\n          \"classPeriodName\": \"ORIGINAL\",\r\n          \"schoolId\": 255901001\r\n        }\r\n      }\r\n    ],\r\n    \"dates\": [],\r\n    \"gradeLevels\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"bellSchedules",
+										"{{known:bellSchedule:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions (after Bell Schedul creation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"pm.environment.set('known:changeVersion:bellScheduleCreated', responseItem.newestChangeVersion);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
 									]
 								}
 							},
@@ -6289,7 +6460,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:{{scenarioId}}:classPeriod:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6298,7 +6469,7 @@
 										"v3",
 										"ed-fi",
 										"classPeriods",
-										"{{known:{{scenarioId}}:classPeriod:id}}"
+										"{{known:classPeriod:id}}"
 									]
 								}
 							},
@@ -6313,7 +6484,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -6327,7 +6499,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6344,7 +6517,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:{{scenarioId}}:classPeriod:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6353,14 +6526,172 @@
 										"v3",
 										"ed-fi",
 										"classPeriods",
-										"{{known:{{scenarioId}}:classPeriod:id}}"
+										"{{known:classPeriod:id}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Key Changes",
+							"name": "Get AvailableChangeVersions (after Class Period updated)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"pm.environment.set('known:changeVersion:classPeriodUpdated', responseItem.newestChangeVersion);",
+											"",
+											"pm.test(\"ChangeVersion was advanced\", () => {",
+											"  pm.expect(responseItem.newestChangeVersion).to.be.greaterThan(pm.environment.get('known:changeVersion:bellScheduleCreated'));",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Bell Schedules Changes (for cascaded child key update)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201 Created\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should have a single changed item\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Item should be the previously created bell schedule\", () => {\r",
+											"  pm.expect(item.id).to.equal(pm.environment.get('known:bellSchedule:id'));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Item should reflect the cascaded class period key change value and have an updated last modified date value.\", () => {\r",
+											"  pm.expect(item.classPeriods[0].classPeriodReference.classPeriodName).to.equal('UPDATE 1');\r",
+											"  pm.expect(item._lastModifiedDate.length).to.equal(pm.environment.get('known:bellSchedule:lastModifiedDate').length);\r",
+											"  pm.expect(item._lastModifiedDate).to.not.equal(pm.environment.get('known:bellSchedule:lastModifiedDate'));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const bellScheduleCreatedChangeVersion = pm.environment.get('known:changeVersion:bellScheduleCreated');\r",
+											"\r",
+											"pm.environment.set('known:changeVersion:bellScheduleCreated:next', bellScheduleCreatedChangeVersion + 1);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"bellScheduleName\": \"Test Schedule\",\r\n    \"endTime\": \"15:30:00\",\r\n    \"startTime\": \"08:10:00\",\r\n    \"totalInstructionalTime\": 123,\r\n    \"classPeriods\": [\r\n      {\r\n        \"classPeriodReference\": {\r\n          \"classPeriodName\": \"ORIGINAL\",\r\n          \"schoolId\": 255901001\r\n        }\r\n      }\r\n    ],\r\n    \"dates\": [],\r\n    \"gradeLevels\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules?minChangeVersion={{known:changeVersion:bellScheduleCreated:next}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"bellSchedules"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:changeVersion:bellScheduleCreated:next}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "113005",
+											"disabled": true
+										}
+									]
+								},
+								"description": "This request verifies that the BellSchedule reflects a change even though it did not change directly. The change to the ClassPeriod's key, which is a child collection here, caused the ChangeVersion on the BellSchedule to be updated."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Class Periods Key Changes",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -6368,15 +6699,14 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
@@ -6386,7 +6716,7 @@
 											"\r",
 											"pm.test(\"Single item with the updated key is returned\", () => {\r",
 											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:classPeriod:id`));\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:classPeriod:id`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
@@ -6402,11 +6732,11 @@
 											"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:'+scenarioId+':classPeriod:initialChangeVersion', item.changeVersion);\r",
-											"\r",
+											"pm.environment.set('known:classPeriod:initialChangeVersion', item.changeVersion);\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6426,7 +6756,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6440,7 +6770,7 @@
 									"query": [
 										{
 											"key": "minChangeVersion",
-											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+											"value": "{{known:changeVersion:original}}"
 										}
 									]
 								}
@@ -6456,21 +6786,21 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
 											"pm.test(\"Status code is 204\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(204);\r",
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6487,7 +6817,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:{{scenarioId}}:classPeriod:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6496,14 +6826,14 @@
 										"v3",
 										"ed-fi",
 										"classPeriods",
-										"{{known:{{scenarioId}}:classPeriod:id}}"
+										"{{known:classPeriod:id}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Key Changes #2",
+							"name": "Get Class Periods Key Changes Original to #2",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -6511,15 +6841,14 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
 											"    pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
@@ -6532,7 +6861,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Item with the updated key is returned\", () => {\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:classPeriod:id`));\r",
+											"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
@@ -6549,12 +6878,13 @@
 											"});\r",
 											"\r",
 											"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
-											"    const intermediateUpdateChangeVersion = pm.environment.get('known:'+scenarioId+':classPeriod:initialChangeVersion');\r",
+											"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
 											"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6574,7 +6904,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6588,7 +6918,7 @@
 									"query": [
 										{
 											"key": "minChangeVersion",
-											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+											"value": "{{known:changeVersion:original}}"
 										}
 									]
 								}
@@ -6596,7 +6926,102 @@
 							"response": []
 						},
 						{
-							"name": "Delete Class Period",
+							"name": "Get Class Periods Key Changes After Update #1 to #2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\r",
+											"  'known:changeVersion:classPeriodUpdated:next', \r",
+											"  pm.environment.get('known:changeVersion:classPeriodUpdated') + 1);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Only a single entry should be returned despite multiple key changes\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Item with the updated key is returned\", () => {\r",
+											"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old key value reports the original value\", () => {\r",
+											"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"New key value reports the most recent update\", () => {\r",
+											"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 2\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
+											"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
+											"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:classPeriodUpdated:next}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"classPeriods",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:changeVersion:classPeriodUpdated:next}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Bell Schedule",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -6604,7 +7029,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -6618,7 +7044,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6635,7 +7062,64 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:{{scenarioId}}:classPeriod:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"bellSchedules",
+										"{{known:bellSchedule:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Class Period",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6644,11 +7128,724 @@
 										"v3",
 										"ed-fi",
 										"classPeriods",
-										"{{known:{{scenarioId}}:classPeriod:id}}"
+										"{{known:classPeriod:id}}"
 									]
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "Session (cascade update to CourseOffering root entity)",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create Course",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:course:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:courseCode', pm.variables.replaceIn(\"{{$guid}}\"));",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"courseCode\":\"{{supplied:courseCode}}\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\",\r\n      \"assigningOrganizationIdentificationCode\": \"CSSC course code\",\r\n      \"identificationCode\": \"CSSC course code\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\",\r\n  \"courseDescription\": \"Algebra I\",\r\n  \"courseTitle\": \"Algebra I\",\r\n  \"numberOfParts\": 2\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Session",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:sessionName', pm.variables.replaceIn('{{$guid}}'));"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:session:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"{{supplied:sessionName}}\",\r\n    \"beginDate\": \"2022-01-04\",\r\n    \"endDate\": \"2022-05-27\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Spring Semester\",\r\n    \"totalInstructionalDays\": 88,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fourth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 1\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fifth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 2\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Sixth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Final Exam\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      }\r\n    ]\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:courseOffering:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:localCourseCode', pm.variables.replaceIn(\"{{$guid}}\"));\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"courseReference\": {\r\n    \"courseCode\": \"{{supplied:courseCode}}\",\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"sessionReference\": {\r\n    \"schoolId\": 255901001,\r\n    \"schoolYear\": 2022,\r\n    \"sessionName\": \"{{supplied:sessionName}}\"\r\n  },\r\n  \"localCourseCode\": \"{{supplied:localCourseCode}}\",\r\n  \"courseLevelCharacteristics\": [],\r\n  \"curriculumUseds\": [],\r\n  \"offeredGradeLevels\": []\r\n}\r\n"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions (original)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.environment.set('known:changeVersion:original', responseItem.newestChangeVersion);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"AvailableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Update Session Key",
+							"item": [
+								{
+									"name": "Get Modified CourseOfferings (after original ChangeVersion)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\r",
+													"  'known:changeVersion:original:after',\r",
+													"  pm.environment.get('known:changeVersion:original') + 1);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const items = pm.response.json();",
+													"",
+													"pm.test(\"Response should contain no items\", () => {",
+													"  pm.expect(items).to.have.lengthOf(0);",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?minChangeVersion={{known:changeVersion:original:after}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:original:after}}"
+												}
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Session Key",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:sessionName:new', pm.variables.replaceIn('{{$guid}}'));"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"  pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"{{supplied:sessionName:new}}\",\r\n    \"beginDate\": \"2022-01-04\",\r\n    \"endDate\": \"2022-05-27\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Spring Semester\",\r\n    \"totalInstructionalDays\": 88,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fourth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 1\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fifth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 2\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Sixth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Final Exam\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      }\r\n    ]\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Modified CourseOfferings (after original ChangeVersion)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\r",
+													"  'known:changeVersion:original:after',\r",
+													"  pm.environment.get('known:changeVersion:original') + 1);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const items = pm.response.json();",
+													"",
+													"pm.test(\"Response should contain 1 item\", () => {",
+													"  pm.expect(items).to.have.lengthOf(1);",
+													"});",
+													"",
+													"const item = items[0];",
+													"",
+													"pm.test(\"Returned item has id of modified item\", () => {",
+													"  const expectedId = pm.environment.get(\"known:courseOffering:id\");",
+													"  pm.expect(item.id).to.equal(expectedId);",
+													"});",
+													"",
+													"pm.test(\"Returned item has new cascaded key value\", () => {",
+													"  const expectedSessionName = pm.environment.get(\"supplied:sessionName:new\");",
+													"  pm.expect(item.sessionReference.sessionName).to.equal(expectedSessionName);",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?minChangeVersion={{known:changeVersion:original:after}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:original:after}}"
+												}
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions (created)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.test(\"Should advance the ChangeVersion value\", () => {",
+													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:changeVersion:original'));",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"AvailableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete  CourseOffering",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"  pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  Course",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"  pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"{{known:course:id}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  Session",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"  pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sessions/{{known:session:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sessions",
+												"{{known:session:id}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
