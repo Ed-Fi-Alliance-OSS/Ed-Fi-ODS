@@ -76,7 +76,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[CourseOffering]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[CourseOffering] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -149,7 +149,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[Grade]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Grade] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -189,7 +189,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[GradebookEntry]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[GradebookEntry] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -321,7 +321,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[Section]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Section] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -349,7 +349,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[SectionAttendanceTakenEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[SectionAttendanceTakenEvent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -433,7 +433,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[StaffSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StaffSectionAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -498,7 +498,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[StudentGradebookEntry]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentGradebookEntry] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -572,7 +572,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[StudentSchoolAttendanceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentSchoolAttendanceEvent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -608,7 +608,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[StudentSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentSectionAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -640,7 +640,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[StudentSectionAttendanceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentSectionAttendanceEvent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
@@ -676,7 +676,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[Survey]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Survey] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 END	
@@ -714,7 +714,7 @@ BEGIN
     SET NOCOUNT ON;
     -- Handle cascading key changes
     UPDATE [edfi].[SurveySectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    SET LastModifiedDate = GETUTCDATE(), ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[SurveySectionAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.AggregateId = u.AggregateId AND i.ChangeVersion = u.ChangeVersion);
 
