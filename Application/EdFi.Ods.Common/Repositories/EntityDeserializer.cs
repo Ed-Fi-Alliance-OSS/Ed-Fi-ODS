@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure;
@@ -23,6 +25,10 @@ public class EntityDeserializer : IEntityDeserializer
     private readonly IDeserializationContextProvider _deserializationContextProvider;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(EntityDeserializer));
+
+    private long _deserializationFailedCount;
+    private DateTime _lastDeserializationWarningTime;
+    private readonly TimeSpan _deserializationWarningPeriod = TimeSpan.FromMinutes(5);
 
     public EntityDeserializer(
         ISurrogateIdMutator[] surrogateIdMutators,
@@ -47,6 +53,30 @@ public class EntityDeserializer : IEntityDeserializer
         {
             // Deserialize the entity
             entity = MessagePackHelper.DecompressAndDeserializeAggregate<TEntity>(itemRawData.AggregateData);
+        }
+        catch (Exception ex)
+        {
+            Interlocked.Increment(ref _deserializationFailedCount);
+
+            // Determine if "quiet" period for logging warnings has elapsed
+            if (DateTime.Now > (_lastDeserializationWarningTime + _deserializationWarningPeriod))
+            {
+                // Reset the tracking variables
+                _lastDeserializationWarningTime = DateTime.Now;
+                var failedCount = Interlocked.Exchange(ref _deserializationFailedCount, 0);
+
+                string messageCountAddendum = null;
+
+                if (failedCount > 1)
+                {
+                    messageCountAddendum = $" and {failedCount - 1:N0} other item(s) since last warning";
+                }
+
+                // Prevent exceptions during deserialization from failing the processing -- revert to returning a null instance
+                _logger.Warn($"Unable to deserialize entity of type '{typeof(TEntity).Name}' (with AggregateId of {itemRawData.AggregateId}){messageCountAddendum}. Falling back to load through NHibernate repository. HINT: Serialized data is in an inconsistent state. Clear the values in the 'AggregateData' column for the affected records. Next warning won't occur until '{_lastDeserializationWarningTime.Add(_deserializationWarningPeriod)}'...", ex);
+            }
+
+            return default;
         }
         finally
         {
