@@ -6623,9 +6623,18 @@
 											"  pm.expect(item.id).to.equal(pm.environment.get('known:bellSchedule:id'));\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Item should reflect the cascaded class period key change value and have an updated last modified date value.\", () => {\r",
+											"pm.test(\"Item should reflect the cascaded class period key change value\", () => {\r",
 											"  pm.expect(item.classPeriods[0].classPeriodReference.classPeriodName).to.equal('UPDATE 1');\r",
-											"  pm.expect(item._lastModifiedDate).to.not.equal(pm.environment.get('known:bellSchedule:lastModifiedDate'));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Item should have an updated last modified date value.\", () => {\r",
+											"  const originalLastModifiedDate = pm.environment.get('known:bellSchedule:lastModifiedDate');\r",
+											"\r",
+											"  // Make sure they're both date values\r",
+											"  pm.expect(originalLastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
+											"  pm.expect(item._lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
+											"\r",
+											"  pm.expect(item._lastModifiedDate).to.not.equal(originalLastModifiedDate);\r",
 											"});\r",
 											""
 										],
@@ -7311,6 +7320,45 @@
 									"response": []
 								},
 								{
+									"name": "Get CourseOffering",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Parse the response body to extract _lastModifiedDate\r",
+													"const responseBody = pm.response.json();\r",
+													"const lastModifiedDate = responseBody._lastModifiedDate;\r",
+													"\r",
+													"// Store _lastModifiedDate as an environment variable\r",
+													"pm.environment.set(\"known:courseOffering:lastModifiedDate:original\", lastModifiedDate);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings/{{known:courseOffering:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings",
+												"{{known:courseOffering:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "Get AvailableChangeVersions (original)",
 									"event": [
 										{
@@ -7483,7 +7531,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"{{supplied:sessionName:new}}\",\r\n    \"beginDate\": \"2022-01-04\",\r\n    \"endDate\": \"2022-05-27\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Spring Semester\",\r\n    \"totalInstructionalDays\": 88,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fourth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 1\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fifth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 2\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Sixth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Final Exam\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022\r\n        }\r\n      }\r\n    ]\r\n  }",
+											"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"schoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n    },\r\n    \"sessionName\": \"{{supplied:sessionName:new}}\",\r\n    \"beginDate\": \"2022-01-04\",\r\n    \"endDate\": \"2022-05-27\",\r\n    \"termDescriptor\": \"uri://ed-fi.org/TermDescriptor#Spring Semester\",\r\n    \"totalInstructionalDays\": 88,\r\n    \"academicWeeks\": [],\r\n    \"gradingPeriods\": [\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fourth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 1\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022,\r\n          \"periodSequence\": 1\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Fifth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Exam 2\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022,\r\n          \"periodSequence\": 2\r\n        }\r\n      },\r\n      {\r\n        \"gradingPeriodReference\": {\r\n          \"gradingPeriodDescriptor\": \"uri://ed-fi.org/GradingPeriodDescriptor#Sixth Six Weeks\",\r\n          \"gradingPeriodName\": \"2021-2022 Spring Semester Final Exam\",\r\n          \"schoolId\": 255901001,\r\n          \"schoolYear\": 2022,\r\n          \"periodSequence\": 3\r\n        }\r\n      }\r\n    ]\r\n  }",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7546,6 +7594,16 @@
 													"pm.test(\"Returned item has new cascaded key value\", () => {",
 													"  const expectedSessionName = pm.environment.get(\"supplied:sessionName:new\");",
 													"  pm.expect(item.sessionReference.sessionName).to.equal(expectedSessionName);",
+													"});",
+													"",
+													"pm.test(\"Returned item has new last modified date resulting from the cascading key\", () => {",
+													"  const originalLastModifiedDate = pm.environment.get(\"known:courseOffering:lastModifiedDate:original\");",
+													"  ",
+													"  // Make sure they're both date values",
+													"  pm.expect(originalLastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);",
+													"  pm.expect(item._lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);",
+													"",
+													"  pm.expect(item._lastModifiedDate).to.not.equal(originalLastModifiedDate);",
 													"});",
 													""
 												],
