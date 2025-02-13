@@ -8,7 +8,10 @@ CREATE OR REPLACE FUNCTION changes.updateChangeVersion()
 $BODY$
 BEGIN
     IF old.ChangeVersion = new.ChangeVersion THEN
+        -- If ChangeVersion wasn't updated, this is being invoked by trigger due to cascading key changes
+        -- and we need to also update LastModifiedDate
         new.ChangeVersion := nextval('changes.ChangeVersionSequence');
+        new.LastModifiedDate := current_timestamp;
     END IF;
 
     RETURN new;
