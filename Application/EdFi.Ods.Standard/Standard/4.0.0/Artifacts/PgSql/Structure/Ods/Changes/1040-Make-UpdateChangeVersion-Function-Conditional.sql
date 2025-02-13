@@ -11,7 +11,7 @@ BEGIN
         -- If ChangeVersion wasn't updated, this is being invoked by trigger due to cascading key changes
         -- and we need to also update LastModifiedDate
         new.ChangeVersion := nextval('changes.ChangeVersionSequence');
-        new.LastModifiedDate := current_timestamp;
+        new.LastModifiedDate := NOW();
     END IF;
 
     RETURN new;
