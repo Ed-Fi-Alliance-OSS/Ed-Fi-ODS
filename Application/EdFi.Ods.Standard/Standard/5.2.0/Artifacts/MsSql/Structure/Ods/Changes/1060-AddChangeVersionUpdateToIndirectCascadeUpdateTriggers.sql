@@ -19,7 +19,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[Assessment] rt
         INNER JOIN inserted i
             ON rt.AssessmentIdentifier = i.AssessmentIdentifier
@@ -41,7 +41,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[BellSchedule] rt
         INNER JOIN inserted i
             ON rt.BellScheduleName = i.BellScheduleName
@@ -66,7 +66,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[CourseTranscript] rt
         INNER JOIN inserted i
             ON rt.CourseAttemptResultDescriptorId = i.CourseAttemptResultDescriptorId
@@ -102,7 +102,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[ReportCard] rt
         INNER JOIN inserted i
             ON rt.EducationOrganizationId = i.EducationOrganizationId
@@ -128,7 +128,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[Section] rt
         INNER JOIN inserted i
             ON rt.LocalCourseCode = i.LocalCourseCode
@@ -156,7 +156,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[StudentCohortAssociation] rt
         INNER JOIN inserted i
             ON rt.BeginDate = i.BeginDate
@@ -185,7 +185,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[StudentCompetencyObjective] rt
         INNER JOIN inserted i
             ON rt.GradingPeriodDescriptorId = i.GradingPeriodDescriptorId
@@ -213,7 +213,7 @@ BEGIN
     BEGIN
         -- Update the LastModifiedDate in the root table to the current UTC time
         UPDATE rt
-        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+        SET rt.LastModifiedDate = GETUTCDATE(), rt.ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence]), AggregateData = NULL
         FROM [edfi].[StudentSectionAttendanceEvent] rt
         INNER JOIN inserted i
             ON rt.AttendanceEventCategoryDescriptorId = i.AttendanceEventCategoryDescriptorId

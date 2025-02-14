@@ -15,7 +15,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.Assessment rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.AssessmentIdentifier = NEW.AssessmentIdentifier
          AND rt.Namespace = NEW.Namespace;
     END IF;
@@ -32,7 +32,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.BellSchedule rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.BellScheduleName = NEW.BellScheduleName
          AND rt.SchoolId = NEW.SchoolId;
     END IF;
@@ -58,7 +58,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.ReportCard rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.EducationOrganizationId = NEW.EducationOrganizationId
          AND rt.GradingPeriodDescriptorId = NEW.GradingPeriodDescriptorId
          AND rt.GradingPeriodSequence = NEW.GradingPeriodSequence
@@ -79,7 +79,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.Section rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.LocalCourseCode = NEW.LocalCourseCode
          AND rt.SchoolId = NEW.SchoolId
          AND rt.SchoolYear = NEW.SchoolYear
@@ -102,7 +102,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.StudentCohortAssociation rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.BeginDate = NEW.BeginDate
          AND rt.CohortIdentifier = NEW.CohortIdentifier
          AND rt.EducationOrganizationId = NEW.EducationOrganizationId
@@ -126,7 +126,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.StudentCompetencyObjective rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.GradingPeriodDescriptorId = NEW.GradingPeriodDescriptorId
          AND rt.GradingPeriodSequence = NEW.GradingPeriodSequence
          AND rt.GradingPeriodSchoolId = NEW.GradingPeriodSchoolId
@@ -154,7 +154,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.StudentLearningObjective rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.GradingPeriodDescriptorId = NEW.GradingPeriodDescriptorId
          AND rt.GradingPeriodSequence = NEW.GradingPeriodSequence
          AND rt.GradingPeriodSchoolId = NEW.GradingPeriodSchoolId
@@ -176,7 +176,7 @@ BEGIN
        THEN
        -- Update the LastModifiedDate in the root table to the current UTC time
        UPDATE edfi.StudentSectionAttendanceEvent rt
-       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence')
+       SET LastModifiedDate = NOW(), ChangeVersion = nextval('changes.ChangeVersionSequence'), AggregateData = NULL
        WHERE rt.AttendanceEventCategoryDescriptorId = NEW.AttendanceEventCategoryDescriptorId
          AND rt.EventDate = NEW.EventDate
          AND rt.LocalCourseCode = NEW.LocalCourseCode

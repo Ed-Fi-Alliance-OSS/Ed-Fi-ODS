@@ -12,6 +12,7 @@ BEGIN
         -- and we need to also update LastModifiedDate
         new.ChangeVersion := nextval('changes.ChangeVersionSequence');
         new.LastModifiedDate := NOW();
+        new.AggregateData := NULL;
     END IF;
 
     RETURN new;
