@@ -6110,1042 +6110,1172 @@
 			"name": "Key Changes",
 			"item": [
 				{
-					"name": "ClassPeriods (cascade update to BellSchedule's child entity)",
+					"name": "ClassPeriods (cascade update to another aggregate's child entity)",
 					"item": [
 						{
-							"name": "Get AvailableChangeVersions",
-							"event": [
+							"name": "Setup",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"const responseItem = pm.response.json();",
-											"pm.environment.set('known:changeVersion:original', responseItem.newestChangeVersion + 1);"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"changeQueries",
-										"v1",
-										"availableChangeVersions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Class Period",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 201\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(201);\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:classPeriod:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"ORIGINAL\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Bell Schedule (using ClassPeriod)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201 Created\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:bellSchedule:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"bellScheduleName\": \"Test Schedule\",\r\n    \"endTime\": \"15:30:00\",\r\n    \"startTime\": \"08:10:00\",\r\n    \"totalInstructionalTime\": 123,\r\n    \"classPeriods\": [\r\n      {\r\n        \"classPeriodReference\": {\r\n          \"classPeriodName\": \"ORIGINAL\",\r\n          \"schoolId\": 255901001\r\n        }\r\n      }\r\n    ],\r\n    \"dates\": [],\r\n    \"gradeLevels\": []\r\n  }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"bellSchedules"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Bell Schedule",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"const item = pm.response.json();\r",
-											"\r",
-											"pm.environment.set('known:bellSchedule:lastModifiedDate', item._lastModifiedDate);"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"bellSchedules",
-										"{{known:bellSchedule:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get AvailableChangeVersions (after Bell Schedule creation)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"const responseItem = pm.response.json();",
-											"pm.environment.set('known:changeVersion:bellScheduleCreated', responseItem.newestChangeVersion);",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"changeQueries",
-										"v1",
-										"availableChangeVersions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Change Class Period Key (Invalid key value)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 400\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error indicates the key value failed validation.\", () => {\r",
-											"  const problemDetails = pm.response.json();\r",
-											"\r",
-											"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");\r",
-											"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
-											"\r",
-											"  if(pm.environment.get(\"ParentOrContactProperName\") === 'Parent') {  //Length requirement was removed in DS 5.1.0, so only perform this test if running against DS 4.x\r",
-											"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be between 1 and 60 characters in length.\");\r",
-											"  } else {\r",
-											"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be at most 60 characters in length.\");\r",
-											"  }\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"classPeriodName\": \"1........10........20........30........40........50........61\",\r\n  \"meetingTimes\": [\r\n    {\r\n      \"endTime\": \"09:25:00\",\r\n      \"startTime\": \"08:35:00\"\r\n    }\r\n  ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"{{known:classPeriod:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Change Class Period Key",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"UPDATE 1\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"{{known:classPeriod:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get AvailableChangeVersions (after Class Period updated)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"const responseItem = pm.response.json();",
-											"pm.environment.set('known:changeVersion:classPeriodUpdated', responseItem.newestChangeVersion);",
-											"",
-											"pm.test(\"ChangeVersion was advanced\", () => {",
-											"  pm.expect(responseItem.newestChangeVersion).to.be.greaterThan(pm.environment.get('known:changeVersion:bellScheduleCreated'));",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"changeQueries",
-										"v1",
-										"availableChangeVersions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Bell Schedules Changes (for cascaded child key update)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201 Created\", function () {\r",
-											"  pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should have a single changed item\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"});\r",
-											"\r",
-											"const item = items[0];\r",
-											"\r",
-											"pm.test(\"Item should be the previously created bell schedule\", () => {\r",
-											"  pm.expect(item.id).to.equal(pm.environment.get('known:bellSchedule:id'));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Item should reflect the cascaded class period key change value\", () => {\r",
-											"  pm.expect(item.classPeriods[0].classPeriodReference.classPeriodName).to.equal('UPDATE 1');\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Item should have an updated last modified date value.\", () => {\r",
-											"  const originalLastModifiedDate = pm.environment.get('known:bellSchedule:lastModifiedDate');\r",
-											"\r",
-											"  // Make sure they're both date values\r",
-											"  pm.expect(originalLastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
-											"  pm.expect(item._lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
-											"\r",
-											"  pm.expect(item._lastModifiedDate).to.not.equal(originalLastModifiedDate);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const bellScheduleCreatedChangeVersion = pm.environment.get('known:changeVersion:bellScheduleCreated');\r",
-											"\r",
-											"pm.environment.set('known:changeVersion:bellScheduleCreated:next', bellScheduleCreatedChangeVersion + 1);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules?minChangeVersion={{known:changeVersion:bellScheduleCreated:next}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"bellSchedules"
-									],
-									"query": [
+									"name": "Get AvailableChangeVersions (original)",
+									"event": [
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:changeVersion:bellScheduleCreated:next}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"pm.environment.set('known:changeVersion:original', responseItem.newestChangeVersion + 1);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										},
 										{
-											"key": "minChangeVersion",
-											"value": "113005",
-											"disabled": true
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								},
-								"description": "This request verifies that the BellSchedule reflects a change even though it did not change directly. The change to the ClassPeriod's key, which is a child collection here, caused the ChangeVersion on the BellSchedule to be updated."
-							},
-							"response": []
-						},
-						{
-							"name": "Get Class Periods Key Changes",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"pm.test(\"Single item with the updated key is returned\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:classPeriod:id`));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old key value is correctly reported\", () => {\r",
-											"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"ORIGINAL\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"New key value is correctly reported\", () => {\r",
-											"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:classPeriod:initialChangeVersion', item.changeVersion);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"keyChanges"
-									],
-									"query": [
+								{
+									"name": "Create Class Period",
+									"event": [
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:changeVersion:original}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Change Class Period Key #2",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"UPDATE 2\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"{{known:classPeriod:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Class Periods Key Changes Original to #2",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"pm.test(\"Only a single entry should be returned despite multiple key changes\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Item with the updated key is returned\", () => {\r",
-											"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old key value reports the original value\", () => {\r",
-											"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"ORIGINAL\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"New key value reports the most recent update\", () => {\r",
-											"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 2\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
-											"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
-											"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"keyChanges"
-									],
-									"query": [
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:changeVersion:original}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:classPeriod:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get Class Periods Key Changes After Update #1 to #2",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.environment.set(\r",
-											"  'known:changeVersion:classPeriodUpdated:next', \r",
-											"  pm.environment.get('known:changeVersion:classPeriodUpdated') + 1);"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"ORIGINAL\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"pm.test(\"Only a single entry should be returned despite multiple key changes\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Item with the updated key is returned\", () => {\r",
-											"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old key value reports the original value\", () => {\r",
-											"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"New key value reports the most recent update\", () => {\r",
-											"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 2\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
-											"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
-											"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:classPeriodUpdated:next}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"keyChanges"
-									],
-									"query": [
+									"name": "Create Bell Schedule (using 'ORIGINAL' ClassPeriod)",
+									"event": [
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:changeVersion:classPeriodUpdated:next}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201 Created\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:bellSchedule:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									]
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"schoolReference\": {\r\n      \"schoolId\": 255901001\r\n    },\r\n    \"bellScheduleName\": \"Test Schedule\",\r\n    \"endTime\": \"15:30:00\",\r\n    \"startTime\": \"08:10:00\",\r\n    \"totalInstructionalTime\": 123,\r\n    \"classPeriods\": [\r\n      {\r\n        \"classPeriodReference\": {\r\n          \"classPeriodName\": \"ORIGINAL\",\r\n          \"schoolId\": 255901001\r\n        }\r\n      }\r\n    ],\r\n    \"dates\": [],\r\n    \"gradeLevels\": []\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions (after Bell Schedule creation)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"pm.environment.set('known:changeVersion:bellScheduleCreated', responseItem.newestChangeVersion);",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Bell Schedule LastModifiedDate",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"const item = pm.response.json();\r",
+													"\r",
+													"pm.environment.set('known:bellSchedule:lastModifiedDate', item._lastModifiedDate);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Delete Bell Schedule",
-							"event": [
+							"name": "Key Changes cascades to child entity",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "Get Bell Schedules Changes (before ClassPeriod updated)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"  pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should have no changed items\", () => {\r",
+													"  pm.expect(items.length).to.equal(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const bellScheduleCreatedChangeVersion = pm.environment.get('known:changeVersion:bellScheduleCreated');\r",
+													"\r",
+													"pm.environment.set('known:changeVersion:bellScheduleCreated:after', bellScheduleCreatedChangeVersion + 1);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"bellSchedules",
-										"{{known:bellSchedule:id}}"
-									]
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules?minChangeVersion={{known:changeVersion:bellScheduleCreated:after}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "113005",
+													"disabled": true
+												},
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:bellScheduleCreated:after}}"
+												}
+											]
+										},
+										"description": "This request verifies that the BellSchedule reflects a change even though it did not change directly. The change to the ClassPeriod's key, which is a child collection here, caused the ChangeVersion on the BellSchedule to be updated."
+									},
+									"response": []
+								},
+								{
+									"name": "Change Class Period Key (Invalid key value)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error indicates the key value failed validation.\", () => {\r",
+													"  const problemDetails = pm.response.json();\r",
+													"\r",
+													"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");\r",
+													"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+													"\r",
+													"  if(pm.environment.get(\"ParentOrContactProperName\") === 'Parent') {  //Length requirement was removed in DS 5.1.0, so only perform this test if running against DS 4.x\r",
+													"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be between 1 and 60 characters in length.\");\r",
+													"  } else {\r",
+													"    pm.expect(problemDetails.validationErrors['$.classPeriodName']).to.contain(\"ClassPeriodName must be at most 60 characters in length.\");\r",
+													"  }\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"classPeriodName\": \"1........10........20........30........40........50........61\",\r\n  \"meetingTimes\": [\r\n    {\r\n      \"endTime\": \"09:25:00\",\r\n      \"startTime\": \"08:35:00\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Change Class Period Key (to 'UPDATE 1')",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"UPDATE 1\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions (after Class Period updated)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"pm.environment.set('known:changeVersion:classPeriodUpdated', responseItem.newestChangeVersion);",
+													"",
+													"pm.test(\"ChangeVersion was advanced\", () => {",
+													"  pm.expect(responseItem.newestChangeVersion).to.be.greaterThan(pm.environment.get('known:changeVersion:bellScheduleCreated'));",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Bell Schedules Changes (for cascaded child key update)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"  pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should have a single changed item\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Item should be the previously created bell schedule\", () => {\r",
+													"  pm.expect(item.id).to.equal(pm.environment.get('known:bellSchedule:id'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Item should reflect the cascaded class period key change value\", () => {\r",
+													"  pm.expect(item.classPeriods[0].classPeriodReference.classPeriodName).to.equal('UPDATE 1');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Item should have an updated last modified date value.\", () => {\r",
+													"  const originalLastModifiedDate = pm.environment.get('known:bellSchedule:lastModifiedDate');\r",
+													"\r",
+													"  // Make sure they're both date values\r",
+													"  pm.expect(originalLastModifiedDate).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
+													"  pm.expect(item._lastModifiedDate).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\./);\r",
+													"\r",
+													"  pm.expect(item._lastModifiedDate).to.not.equal(originalLastModifiedDate);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const bellScheduleCreatedChangeVersion = pm.environment.get('known:changeVersion:bellScheduleCreated');\r",
+													"\r",
+													"pm.environment.set('known:changeVersion:bellScheduleCreated:after', bellScheduleCreatedChangeVersion + 1);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules?minChangeVersion={{known:changeVersion:bellScheduleCreated:after}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "113005",
+													"disabled": true
+												},
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:bellScheduleCreated:after}}"
+												}
+											]
+										},
+										"description": "This request verifies that the BellSchedule reflects a change even though it did not change directly. The change to the ClassPeriod's key, which is a child collection here, caused the ChangeVersion on the BellSchedule to be updated."
+									},
+									"response": []
+								},
+								{
+									"name": "Get Class Periods Key Changes (from original to now)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Single item with the updated key is returned\", () => {\r",
+													"    pm.expect(items.length).equal(1);\r",
+													"    pm.expect(item.id).equal(pm.environment.get(`known:classPeriod:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+													"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key value is correctly reported\", () => {\r",
+													"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"ORIGINAL\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key value is correctly reported\", () => {\r",
+													"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:classPeriod:initialChangeVersion', item.changeVersion);\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:original}}"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Delete Class Period",
-							"event": [
+							"name": "Key Changes over different ChangeVersion ranges",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "Change Class Period Key (to 'UPDATE 2')",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods",
-										"{{known:classPeriod:id}}"
-									]
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"UPDATE 2\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Class Periods Key Changes (from original to now)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Only a single entry should be returned despite multiple key changes\", () => {\r",
+													"    pm.expect(items.length).equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Item with the updated key is returned\", () => {\r",
+													"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+													"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key value reports the original value\", () => {\r",
+													"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"ORIGINAL\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key value reports the most recent update\", () => {\r",
+													"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 2\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
+													"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
+													"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:original}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:original}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Class Periods Key Changes (after update #1 to now)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\r",
+													"  'known:changeVersion:classPeriodUpdated:after', \r",
+													"  pm.environment.get('known:changeVersion:classPeriodUpdated') + 1);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Only a single entry should be returned despite multiple key changes\", () => {\r",
+													"    pm.expect(items.length).equal(1);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Item with the updated key is returned\", () => {\r",
+													"    pm.expect(item.id).equal(pm.environment.get('known:classPeriod:id'));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+													"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key value reports the value after first update\", () => {\r",
+													"    pm.expect(item.oldKeyValues.classPeriodName).equal(\"UPDATE 1\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key value reports the most recent update\", () => {\r",
+													"    pm.expect(item.newKeyValues.classPeriodName).equal(\"UPDATE 2\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"ChangeVersion reported is later than the changeVersion of the intermediate update\", () => {\r",
+													"    const intermediateUpdateChangeVersion = pm.environment.get('known:classPeriod:initialChangeVersion');\r",
+													"    pm.expect(item.changeVersion).to.be.above(intermediateUpdateChangeVersion);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/keyChanges?minChangeVersion={{known:changeVersion:classPeriodUpdated:after}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:changeVersion:classPeriodUpdated:after}}"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete Bell Schedule",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/bellSchedules/{{known:bellSchedule:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"bellSchedules",
+												"{{known:bellSchedule:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Class Period",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:classPeriod:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods",
+												"{{known:classPeriod:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													"\r",
+													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
+													"pm.execution.skipRequest();"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
 				{
-					"name": "Session (cascade update to CourseOffering root entity)",
+					"name": "Session (cascade update to another root entity)",
 					"item": [
 						{
 							"name": "Setup",
@@ -7495,6 +7625,11 @@
 												{
 													"key": "minChangeVersion",
 													"value": "{{known:changeVersion:original:after}}"
+												},
+												{
+													"key": "minChangeVersion",
+													"value": "113095",
+													"disabled": true
 												}
 											]
 										},
