@@ -9,6 +9,11 @@ on:
   push:
     branches:  [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Rebuild Database Templates workflow'
+        required: false
+        default: 'distinct_id'
 
 permissions: read-all
 
@@ -30,6 +35,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}" 
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
@@ -106,5 +113,5 @@ jobs:
       if: success()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: EdFi.Ods.Profiles.Sample.Artifacts-${{ matrix.StandardVersion }}
+        name: EdFi.Ods.Profiles.Sample.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-Extensions/NugetPackages/*.*
