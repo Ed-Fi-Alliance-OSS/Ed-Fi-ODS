@@ -10,7 +10,9 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -59,7 +61,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                     ormMappingFileDataProvider,
                     () => entityAuthorizer,
                     authorizationContextProvider,
-                    new FakeFeatureManager());
+                    A.Fake<IContextProvider<DataManagementResourceContext>>(),
+                    new FakeFeatureManager(),
+                    DatabaseEngine.SqlServer,
+                    new SqlServerDialect());
 
                 _configuration = nHibernateConfigurator.Configure();
 
