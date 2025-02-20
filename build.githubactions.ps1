@@ -168,7 +168,6 @@ function Pack {
             PackageId             = $PackageName
             OutputDirectory       = $packageOutput
             BuildConfiguration    = $Configuration
-            ProjectFile           = $ProjectFile
         }
 
         & "$PSScriptRoot/../Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1"
