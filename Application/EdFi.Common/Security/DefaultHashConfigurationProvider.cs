@@ -7,8 +7,8 @@ namespace EdFi.Common.Security
 {
     public class DefaultHashConfigurationProvider : IHashConfigurationProvider
     {
-        private const string DefaultAlgorithm = Pbkdf2HmacSha1SecureHasher.ConfigurationAlgorithmName;
-        private const int DefaultIterations = 10000;
+        private const string DefaultAlgorithm = Pbkdf2HmacSha256SecureHasher.ConfigurationAlgorithmName;
+        private const int DefaultIterations = 600000;
         private const int DefaultSaltSize = 128;
 
         private readonly HashConfiguration _hashConfiguration;
