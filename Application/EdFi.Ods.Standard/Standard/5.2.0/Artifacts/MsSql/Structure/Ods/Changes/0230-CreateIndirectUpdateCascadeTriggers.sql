@@ -3,7 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE TRIGGER [edfi].[edfi_AssessmentSection_TR_Assessment_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentSection_TR_Assessment_Update]
 ON [edfi].[AssessmentSection]
 AFTER UPDATE
 AS
@@ -28,7 +28,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_BellScheduleClassPeriod_TR_BellSchedule_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_BellScheduleClassPeriod_TR_BellSchedule_Update]
 ON [edfi].[BellScheduleClassPeriod]
 AFTER UPDATE
 AS
@@ -50,7 +50,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_CourseTranscriptSection_TR_CourseTranscript_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_CourseTranscriptSection_TR_CourseTranscript_Update]
 ON [edfi].[CourseTranscriptSection]
 AFTER UPDATE
 AS
@@ -80,7 +80,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_ReportCardGrade_TR_ReportCard_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_ReportCardGrade_TR_ReportCard_Update]
 ON [edfi].[ReportCardGrade]
 AFTER UPDATE
 AS
@@ -115,7 +115,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_SectionClassPeriod_TR_Section_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_SectionClassPeriod_TR_Section_Update]
 ON [edfi].[SectionClassPeriod]
 AFTER UPDATE
 AS
@@ -140,7 +140,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentCohortAssociationSection_TR_StudentCohortAssociation_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_StudentCohortAssociationSection_TR_StudentCohortAssociation_Update]
 ON [edfi].[StudentCohortAssociationSection]
 AFTER UPDATE
 AS
@@ -167,7 +167,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentCompetencyObjectiveStudentSectionAssociation_TR_StudentCompetencyObjective_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_StudentCompetencyObjectiveStudentSectionAssociation_TR_StudentCompetencyObjective_Update]
 ON [edfi].[StudentCompetencyObjectiveStudentSectionAssociation]
 AFTER UPDATE
 AS
@@ -200,7 +200,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentSectionAttendanceEventClassPeriod_TR_StudentSectionAttendanceEvent_Update]
+CREATE OR ALTER TRIGGER  [edfi].[edfi_StudentSectionAttendanceEventClassPeriod_TR_StudentSectionAttendanceEvent_Update]
 ON [edfi].[StudentSectionAttendanceEventClassPeriod]
 AFTER UPDATE
 AS
