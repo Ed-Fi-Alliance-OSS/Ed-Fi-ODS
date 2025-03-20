@@ -3,7 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE TRIGGER [edfi].[edfi_AssessmentSection_TR_Assessment_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_AssessmentSection_TR_Assessment_Update]
 ON [edfi].[AssessmentSection]
 AFTER UPDATE
 AS
