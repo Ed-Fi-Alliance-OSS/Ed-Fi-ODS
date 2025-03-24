@@ -28,7 +28,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_BellScheduleClassPeriod_TR_BellSchedule_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_BellScheduleClassPeriod_TR_BellSchedule_Update]
 ON [edfi].[BellScheduleClassPeriod]
 AFTER UPDATE
 AS
@@ -50,7 +50,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_ReportCardGrade_TR_ReportCard_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_ReportCardGrade_TR_ReportCard_Update]
 ON [edfi].[ReportCardGrade]
 AFTER UPDATE
 AS
@@ -85,7 +85,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_SectionClassPeriod_TR_Section_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_SectionClassPeriod_TR_Section_Update]
 ON [edfi].[SectionClassPeriod]
 AFTER UPDATE
 AS
@@ -110,7 +110,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentCohortAssociationSection_TR_StudentCohortAssociation_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_StudentCohortAssociationSection_TR_StudentCohortAssociation_Update]
 ON [edfi].[StudentCohortAssociationSection]
 AFTER UPDATE
 AS
@@ -137,7 +137,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentCompetencyObjectiveStudentSectionAssociation_TR_StudentCompetencyObjective_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_StudentCompetencyObjectiveStudentSectionAssociation_TR_StudentCompetencyObjective_Update]
 ON [edfi].[StudentCompetencyObjectiveStudentSectionAssociation]
 AFTER UPDATE
 AS
@@ -170,7 +170,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentLearningObjectiveStudentSectionAssociation_TR_StudentLearningObjective_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_StudentLearningObjectiveStudentSectionAssociation_TR_StudentLearningObjective_Update]
 ON [edfi].[StudentLearningObjectiveStudentSectionAssociation]
 AFTER UPDATE
 AS
@@ -202,7 +202,7 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentSectionAttendanceEventClassPeriod_TR_StudentSectionAttendanceEvent_Update]
+CREATE OR ALTER TRIGGER [edfi].[edfi_StudentSectionAttendanceEventClassPeriod_TR_StudentSectionAttendanceEvent_Update]
 ON [edfi].[StudentSectionAttendanceEventClassPeriod]
 AFTER UPDATE
 AS
