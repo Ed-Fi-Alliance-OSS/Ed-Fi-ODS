@@ -109,7 +109,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
 
-        protected async Task CopySandboxAsyncAzureSQL(DbConnection conn, string originalDatabaseName, string newDatabaseName)
+        private async Task CopySandboxAsyncAzureSQL(DbConnection conn, string originalDatabaseName, string newDatabaseName)
         {
             await conn.ExecuteAsync
                 (
@@ -144,97 +144,90 @@ namespace EdFi.Ods.Sandbox.Provisioners
             try
             {
                 await conn.OpenAsync();
-
+    
                 string backupDirectory = await GetBackupDirectoryAsync()
                     .ConfigureAwait(false);
-
+    
                 _logger.Debug($"backup directory = {backupDirectory}");
-
+    
                 string backup = await PathCombine(backupDirectory, originalDatabaseName + ".bak");
                 _logger.Debug($"backup file = {backup}");
-
+    
                 var sqlFileInfo = await GetDatabaseFilesAsync(originalDatabaseName, newDatabaseName)
                     .ConfigureAwait(false);
-
+    
                 await BackUpAndRestoreSandbox()
                     .ConfigureAwait(false);
-
+    
                 // NOTE: these helper functions are using the same connection now.
                 async Task BackUpAndRestoreSandbox()
                 {
                     _logger.Debug($"backing up {originalDatabaseName} to file {backup}");
-
+    
                     await conn.ExecuteAsync(
                         $@"BACKUP DATABASE [{originalDatabaseName}] TO DISK = '{backup}' WITH INIT;",
                         commandTimeout: CommandTimeout).ConfigureAwait(false);
-
-                    string logicalNameForRows = null, logicalNameForLog = null;
-
+    
+                    string logicalNameForRows = null, logicalNameForLog =null;
+    
                     _logger.Debug($"restoring files from {backup}.");
-
-                    using (var reader = await conn.ExecuteReaderAsync(
-                                   $@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
-                               .ConfigureAwait(false))
+    
+                    using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false))
                     {
                         while (await reader.ReadAsync().ConfigureAwait(false))
                         {
-                            string logicalName = reader.GetString(0);
-                            string PhyiscalName = reader.GetString(1);
+                            string logicalName = reader.GetString(0);  
+                            string PhyiscalName = reader.GetString(1);     
                             string Type = reader.GetString(2);
-
-                            if (Type.Equals(LogicalNameType.D.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                            if (Type.Equals(LogicalNameType.D.ToString(),StringComparison.InvariantCultureIgnoreCase))
                             {
                                 logicalNameForRows = logicalName;
                             }
-                            else if (Type.Equals(LogicalNameType.L.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                            else if(Type.Equals(LogicalNameType.L.ToString(), StringComparison.InvariantCultureIgnoreCase))
                             {
                                 logicalNameForLog = logicalName;
                             }
                         }
-
                         _logger.Debug($"logical name for Rows Type = {logicalNameForRows}");
                         _logger.Debug($"logical name for Log Type = {logicalNameForLog}");
                     }
-
+    
                     _logger.Debug($"Restoring database {newDatabaseName} from {backup}");
-
+    
                     await conn.ExecuteAsync(
-                            $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalNameForRows}' TO '{sqlFileInfo.Data}', MOVE '{logicalNameForLog}' TO '{sqlFileInfo.Log}';",
-                            commandTimeout: CommandTimeout)
+                            $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalNameForRows}' TO '{sqlFileInfo.Data}', MOVE '{logicalNameForLog}' TO '{sqlFileInfo.Log}';", commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
-
-                    var changeLogicalDataName =
-                        $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForRows}', NEWNAME='{newDatabaseName}')";
-
+    
+    
+                    var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForRows}', NEWNAME='{newDatabaseName}')";
                     await conn.ExecuteAsync(changeLogicalDataName, commandTimeout: CommandTimeout)
-                        .ConfigureAwait(false);
-
-                    var changeLogicalLogName =
-                        $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForLog}', NEWNAME='{newDatabaseName}_log')";
-
+                              .ConfigureAwait(false);
+    
+                    var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForLog}', NEWNAME='{newDatabaseName}_log')";
                     await conn.ExecuteAsync(changeLogicalLogName, commandTimeout: CommandTimeout)
-                        .ConfigureAwait(false);
+                              .ConfigureAwait(false);
                 }
-
+    
                 async Task<string> GetBackupDirectoryAsync()
                 {
                     return await GetSqlRegistryValueAsync(
                             @"HKEY_LOCAL_MACHINE", @"Software\Microsoft\MSSQLServer\MSSQLServer", @"BackupDirectory")
                         .ConfigureAwait(false);
                 }
-
+    
                 async Task<string> GetSqlRegistryValueAsync(string subtree, string folder, string key)
                 {
                     var sql = $@"EXEC master.dbo.xp_instance_regread N'{subtree}', N'{folder}',N'{key}'";
                     string path = null;
-
+    
                     using (var cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = sql;
                         cmd.CommandTimeout = CommandTimeout;
-
+    
                         _logger.Debug($"running stored procedure = {sql}");
-
+    
                         using (var reader = await cmd.ExecuteReaderAsync().ConfigureAwait(false))
                         {
                             if (await reader.ReadAsync().ConfigureAwait(false))
@@ -243,34 +236,34 @@ namespace EdFi.Ods.Sandbox.Provisioners
                             }
                         }
                     }
-
+    
                     _logger.Debug($"path from registry = {path}");
                     return path;
                 }
-
+    
                 async Task<SqlFileInfo> GetDatabaseFilesAsync(string originalName, string newName)
                 {
                     string dataPath = await GetSqlDataPathAsync(originalName, DataPathType.Data).ConfigureAwait(false);
                     string logPath = await GetSqlDataPathAsync(originalName, DataPathType.Log).ConfigureAwait(false);
-
+    
                     return new SqlFileInfo
                     {
                         Data = await PathCombine(dataPath, $"{newName}.mdf"),
                         Log = await PathCombine(logPath, $"{newName}.ldf")
                     };
                 }
-
+    
                 async Task<string> GetSqlDataPathAsync(string originalName, DataPathType dataPathType)
                 {
                     var type = (int)dataPathType;
-
+    
                     // Since we know we have an existing database, use its data file location to figure out where to put new databases
                     var sql =
                         $"use [{originalName}];DECLARE @default_data_path nvarchar(1000);DECLARE @sqlexec nvarchar(200);SET @sqlexec = N'select TOP 1 @data_path=physical_name from sys.database_files where type={type};';EXEC sp_executesql @sqlexec, N'@data_path nvarchar(max) OUTPUT',@data_path = @default_data_path OUTPUT;SELECT @default_data_path;";
-
+    
                     string fullPath = await conn.ExecuteScalarAsync<string>(sql, commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
-
+    
                     return await GetDirectoryName(fullPath);
                 }
             }
