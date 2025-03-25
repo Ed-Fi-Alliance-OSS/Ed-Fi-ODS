@@ -899,7 +899,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]
+        [DataMember(Name = "{{JsonPropertyName}}"), ValidateObject]
         public {{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectNamespacePrefix}}I{{EmbeddedObjectType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
@@ -918,7 +918,7 @@ namespace {{ResourceClassesNamespace}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
-        [DataMember(Name = "{{JsonPropertyName}}")]
+        [DataMember(Name = "{{JsonPropertyName}}"), ValidateObject]
         public {{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}} {{PropertyName}} { get; set; }
 
         {{EmbeddedObjectInterfaceNamespacePrefix}}{{EmbeddedObjectInterfaceType}} {{BaseEntityNamespacePrefix}}I{{BaseEntityName}}.{{PropertyName}}
@@ -938,7 +938,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
+        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
@@ -984,7 +984,7 @@ namespace {{ResourceClassesNamespace}}
         private ICollection<{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
+        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers, ValidateEnumerable]
         public ICollection<{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
