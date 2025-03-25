@@ -148,6 +148,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : null,
                 IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
+                IsBooleanProperty = Property.PropertyType.DbType == DbType.Boolean,
                 ClassName = this[ResourceRenderer.ClassName]
                             ?? Property.EntityProperty.Entity
                                 .ResolvedEdFiEntityName(),
