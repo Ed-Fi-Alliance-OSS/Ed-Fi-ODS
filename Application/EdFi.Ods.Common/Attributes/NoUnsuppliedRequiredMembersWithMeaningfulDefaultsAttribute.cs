@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using EdFi.Ods.Common.Models.Resource;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,9 +16,11 @@ namespace EdFi.Ods.Common.Attributes
         {
             if (value is IHasRequiredMembersWithMeaningfulDefaultValues resource)
             {
-                if(resource.GetUnassignedMemberNames().Any())
+                var unassignedMemberNames = resource.GetUnassignedMemberNames().ToList();
+
+                if(unassignedMemberNames.Any())
                 {
-                    return new ValidationResult("Required", resource.GetUnassignedMemberNames());
+                    return new ValidationResult($"Required members were not supplied: {string.Join(", ", unassignedMemberNames)}", unassignedMemberNames);
                 }
             }
 
