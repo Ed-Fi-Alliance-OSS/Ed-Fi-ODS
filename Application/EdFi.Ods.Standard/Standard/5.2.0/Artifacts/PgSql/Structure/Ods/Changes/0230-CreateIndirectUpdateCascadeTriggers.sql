@@ -23,7 +23,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_AssessmentSection_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_AssessmentSection_afterupdate
 AFTER UPDATE ON edfi.AssessmentSection
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_Assessment_lastmodifieddate();
@@ -45,7 +45,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_BellScheduleClassPeriod_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_BellScheduleClassPeriod_afterupdate
 AFTER UPDATE ON edfi.BellScheduleClassPeriod
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_BellSchedule_lastmodifieddate();
@@ -75,7 +75,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_CourseTranscriptSection_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_CourseTranscriptSection_afterupdate
 AFTER UPDATE ON edfi.CourseTranscriptSection
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_CourseTranscript_lastmodifieddate();
@@ -110,7 +110,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_ReportCardGrade_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_ReportCardGrade_afterupdate
 AFTER UPDATE ON edfi.ReportCardGrade
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_ReportCard_lastmodifieddate();
@@ -135,7 +135,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_SectionClassPeriod_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_SectionClassPeriod_afterupdate
 AFTER UPDATE ON edfi.SectionClassPeriod
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_Section_lastmodifieddate();
@@ -162,7 +162,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_StudentCohortAssociationSection_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_StudentCohortAssociationSection_afterupdate
 AFTER UPDATE ON edfi.StudentCohortAssociationSection
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_StudentCohortAssociation_lastmodifieddate();
@@ -195,7 +195,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_StudentCompetencyObjectiveStudentSectionAssociation_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_StudentCompetencyObjectiveStudentSectionAssociation_afterupdate
 AFTER UPDATE ON edfi.StudentCompetencyObjectiveStudentSectionAssociation
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_StudentCompetencyObjective_lastmodifieddate();
@@ -223,7 +223,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_edfi_StudentSectionAttendanceEventClassPeriod_afterupdate
+CREATE OR REPLACE TRIGGER trg_edfi_StudentSectionAttendanceEventClassPeriod_afterupdate
 AFTER UPDATE ON edfi.StudentSectionAttendanceEventClassPeriod
 FOR EACH ROW
 EXECUTE FUNCTION edfi.update_StudentSectionAttendanceEvent_lastmodifieddate();
