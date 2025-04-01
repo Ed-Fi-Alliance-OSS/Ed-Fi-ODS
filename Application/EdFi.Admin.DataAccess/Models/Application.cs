@@ -48,7 +48,7 @@ namespace EdFi.Admin.DataAccess.Models
                 ApiClients = ApiClients
             };
 
-        public static Application Create(string applicationName, long educationOrganizationId, Vendor vendor, string claimSetName, string operationalContextUri)
+        public static Application Create(string applicationName, long[] educationOrganizationIds, Vendor vendor, string claimSetName, string operationalContextUri)
         {
             var application = new Application
             {
@@ -58,12 +58,16 @@ namespace EdFi.Admin.DataAccess.Models
                 Vendor =vendor
             };
 
-            application.ApplicationEducationOrganizations.Add(
+            foreach (var educationOrganizationId in educationOrganizationIds)
+            {
+                application.ApplicationEducationOrganizations.Add(
                     new ApplicationEducationOrganization
                     {
                         Application = application,
                         EducationOrganizationId = educationOrganizationId
                     });
+            }
+            
             return application;
         }
     }
