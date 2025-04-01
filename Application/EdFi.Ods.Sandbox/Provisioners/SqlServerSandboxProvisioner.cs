@@ -68,17 +68,57 @@ namespace EdFi.Ods.Sandbox.Provisioners
         {
             using (var conn = CreateConnection())
             {
-                foreach (string key in deletedClientKeys)
+                try
                 {
-                    await conn.ExecuteAsync(
-                            $@"
+                    var results = await conn.QueryAsync<string>(
+                        "SELECT SERVERPROPERTY('edition')", commandTimeout: CommandTimeout).ConfigureAwait(false);
+
+                    if (results.SingleOrDefault() != "SQL Azure")
+                    {
+                        foreach (string key in deletedClientKeys)
+                        {
+                            await conn.ExecuteAsync(
+                                    $@"
                          IF EXISTS (SELECT name from sys.databases WHERE (name = '{_databaseNameBuilder.SandboxNameForKey(key)}'))
                         BEGIN
                             ALTER DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
                             DROP DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}];
                         END;
                         ", commandTimeout: CommandTimeout)
-                        .ConfigureAwait(false);
+                                .ConfigureAwait(false);
+                        }
+                    }
+                    else
+                    {
+                        foreach (string key in deletedClientKeys)
+                        {
+                            await conn.ExecuteAsync(
+                                    $@"
+                                    DECLARE @kill varchar(8000) = '';
+                                    SELECT @kill = @kill + 'KILL ' + CONVERT(varchar(5), c.session_id) + ';'
+                                    FROM sys.dm_exec_connections AS c
+                                    JOIN sys.dm_exec_sessions AS s
+                                        ON c.session_id = s.session_id
+                                    WHERE c.session_id <> @@SPID
+                                    ORDER BY c.connect_time ASC
+                                    EXEC(@kill)
+                                    ", commandTimeout: CommandTimeout)
+                                            .ConfigureAwait(false);
+
+                            await conn.ExecuteAsync(
+                                    $@"
+                                    BEGIN
+                                        DROP DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}];
+                                    END;
+                                    ", commandTimeout: CommandTimeout)
+                                            .ConfigureAwait(false);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e);
+                    throw;
                 }
             }
         }
