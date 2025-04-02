@@ -398,7 +398,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public Application CreateOrGetApplication(int vendorId, string applicationName, long educationOrganizationId,string claimSetName= "Ed-Fi Sandbox", string operationalContextUri = "uri://ed-fi-api-host.org")
+        public Application CreateOrGetApplication(int vendorId, string applicationName, long[] educationOrganizationIds, string claimSetName= "Ed-Fi Sandbox", string operationalContextUri = "uri://ed-fi-api-host.org")
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -407,7 +407,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 if (application == null)
                 {
                     var vendor = context.Vendors.SingleOrDefault(v => v.VendorId == vendorId);
-                    application = Application.Create(applicationName, educationOrganizationId, vendor, claimSetName, operationalContextUri);
+                    application = Application.Create(applicationName, educationOrganizationIds, vendor, claimSetName, operationalContextUri);
                 }
                 context.Applications.Update(application);
                 context.SaveChanges();
