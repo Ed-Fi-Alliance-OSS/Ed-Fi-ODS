@@ -81,7 +81,7 @@ jobs:
     - name: Set Ed-Fi-Standard Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
-        $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+        $standardTag = "DMS-593"
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
