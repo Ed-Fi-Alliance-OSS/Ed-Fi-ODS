@@ -881,7 +881,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="economicDisadvantaged")]
+        [DataMember(Name="economicDisadvantaged")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? EconomicDisadvantaged { get; set; }
 
         /// <summary>
@@ -896,7 +896,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// Indicator of whether individual is a first generation college student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="firstGenerationStudent")]
+        [DataMember(Name="firstGenerationStudent")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? FirstGenerationStudent { get; set; }
 
         /// <summary>
@@ -928,7 +928,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, \"Spanish origin,\" can be used in addition to \"Hispanic or Latino.\"
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hispanicLatinoEthnicity")]
+        [DataMember(Name="hispanicLatinoEthnicity")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? HispanicLatinoEthnicity { get; set; }
 
         /// <summary>
@@ -968,7 +968,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// Indicator of whether the student was born with other siblings (i.e., twins, triplets, etc.)
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="multipleBirthStatus")]
+        [DataMember(Name="multipleBirthStatus")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? MultipleBirthStatus { get; set; }
 
         /// <summary>
@@ -1933,7 +1933,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the address should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -3169,14 +3169,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the electronic email address should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
         /// An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryEmailAddressIndicator")]
+        [DataMember(Name="primaryEmailAddressIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryEmailAddressIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -4773,7 +4773,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -4788,7 +4788,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -6905,7 +6905,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// Indicator that the credential was granted under the authority of a national Board Certification.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="boardCertificationIndicator")]
+        [DataMember(Name="boardCertificationIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? BoardCertificationIndicator { get; set; }
 
         /// <summary>
@@ -19610,7 +19610,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// Indicates a person who receives Pell Grant aid.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="pellGrantRecipient")]
+        [DataMember(Name="pellGrantRecipient")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PellGrantRecipient { get; set; }
         // -------------------------------------------------------------
 
@@ -22088,7 +22088,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// An indicator of whether the performance evaluation was announced or not.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="announced")]
+        [DataMember(Name="announced")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? Announced { get; set; }
 
         /// <summary>

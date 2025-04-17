@@ -921,7 +921,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication as to whether the bus route operates every weekday.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="daily")]
+        [DataMember(Name="daily")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? Daily { get; set; }
 
         /// <summary>
@@ -2742,7 +2742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -2757,7 +2757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -3535,7 +3535,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="onBusRoute")]
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
             get => _onBusRoute;
@@ -4887,7 +4887,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryIndicator")]
+        [DataMember(Name="primaryIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
@@ -5468,7 +5468,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// An indication as to whether the parent is a sports fan.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isSportsFan")]
+        [DataMember(Name="isSportsFan")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool IsSportsFan 
         { 
             get => _isSportsFan;
@@ -7056,7 +7056,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryIndicator")]
+        [DataMember(Name="primaryIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
@@ -7575,7 +7575,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// An indication as to whether the school is exemplary.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isExemplary")]
+        [DataMember(Name="isExemplary")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsExemplary { get; set; }
         // -------------------------------------------------------------
 
@@ -8339,7 +8339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -8861,7 +8861,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -10179,7 +10179,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// An indication as to whether the pet has been spayed/neutered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isFixed")]
+        [DataMember(Name="isFixed")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsFixed { get; set; }
         // -------------------------------------------------------------
 
@@ -11050,7 +11050,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="servedOutsideOfRegularSession")]
+        [DataMember(Name="servedOutsideOfRegularSession")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? ServedOutsideOfRegularSession { get; set; }
         // -------------------------------------------------------------
 
@@ -11135,7 +11135,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Indicator that the student participated in art education at a private agency or institution.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="privateArtProgram")]
+        [DataMember(Name="privateArtProgram")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool PrivateArtProgram 
         { 
             get => _privateArtProgram;
@@ -12892,7 +12892,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryIndicator")]
+        [DataMember(Name="primaryIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
@@ -13349,7 +13349,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         /// A unique identification code used to identify the student's artwork produced in the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="analysisCompleted")]
+        [DataMember(Name="analysisCompleted")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? AnalysisCompleted { get; set; }
 
         /// <summary>
@@ -13597,7 +13597,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// An indicator if the address is on a bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="onBusRoute")]
+        [DataMember(Name="onBusRoute")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool OnBusRoute 
         { 
             get => _onBusRoute;
@@ -15152,7 +15152,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// Indicates the parent characteristic is a primary student need.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryStudentNeedIndicator")]
+        [DataMember(Name="primaryStudentNeedIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryStudentNeedIndicator { get; set; }
         // -------------------------------------------------------------
 
@@ -15766,7 +15766,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// An indication as to whether the plan is active.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="isActivePlan")]
+        [DataMember(Name="isActivePlan")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? IsActivePlan { get; set; }
 
         /// <summary>
@@ -17083,7 +17083,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// True if service is a primary service.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="primaryIndicator")]
+        [DataMember(Name="primaryIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
@@ -18801,7 +18801,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication as to whether the parent regularly reads to the student before bed.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="bedtimeReader")]
+        [DataMember(Name="bedtimeReader")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool BedtimeReader 
         { 
             get => _bedtimeReader;
@@ -20661,7 +20661,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication that the telephone number should not be published.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="doNotPublishIndicator")]
+        [DataMember(Name="doNotPublishIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? DoNotPublishIndicator { get; set; }
 
         /// <summary>
@@ -20694,7 +20694,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// An indication that the telephone number is technically capable of sending and receiving Short Message Service (SMS) text messages.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="textMessageCapabilityIndicator")]
+        [DataMember(Name="textMessageCapabilityIndicator")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? TextMessageCapabilityIndicator { get; set; }
         // -------------------------------------------------------------
 

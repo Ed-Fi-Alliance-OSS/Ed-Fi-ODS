@@ -805,7 +805,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAlternativeEducationProgra
         /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="servedOutsideOfRegularSession")]
+        [DataMember(Name="servedOutsideOfRegularSession")][JsonConverter(typeof(StrictBooleanConverter))]
         public bool? ServedOutsideOfRegularSession { get; set; }
         // -------------------------------------------------------------
 
