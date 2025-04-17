@@ -151,6 +151,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     : null,
                 IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
+                IsBooleanProperty = Property.PropertyType.DbType == DbType.Boolean,
                 IsString = Property.PropertyType.IsString(),
                 MaxLength = Property.PropertyType.IsString() ? (int?) Property.PropertyType.MaxLength : null,
                 MinLength = (Property.PropertyType.IsString() && Property.PropertyType.MinLength > 0) 
