@@ -14201,6 +14201,510 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "Boolean (strict binding)",
+							"item": [
+								{
+									"name": "Invalid Requests",
+									"item": [
+										{
+											"name": "Create Bus Route with numeric value > 1 for boolean",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should include validation error for unexpected value for boolean.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors[\"$.daily\"]).to.match(/Unexpected value for boolean: 2 \\(type: Integer\\)/);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": 2,\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Bus Route with numeric value < 0 for boolean",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should include validation error for unexpected value for boolean.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors[\"$.daily\"]).to.match(/Unexpected value for boolean: -1 \\(type: Integer\\)/);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": -1,\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Bus Route with invalid string value",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 400\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(400);\r",
+															"});\r",
+															"\r",
+															"const problemDetails = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a problem details result\", () => {\r",
+															"  pm.expect(problemDetails.status).to.equal(pm.response.code);\r",
+															"  pm.expect(problemDetails.type).to.equal(\"urn:ed-fi:api:bad-request:data-validation-failed\");\r",
+															"  pm.expect(problemDetails.detail).to.equal(\"Data validation failed. See 'validationErrors' for details.\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should include validation error for unexpected value for boolean.\", () => {\r",
+															"  pm.expect(problemDetails.validationErrors[\"$.daily\"]).to.match(/Unexpected value for boolean: truthy \\(type: String\\)/);\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": \"truthy\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Valid Requests",
+									"item": [
+										{
+											"name": "Create Bus Route with valid string value (false)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:busRoute:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": \"false\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Bus Route",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoute:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes",
+														"{{known:busRoute:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Bus Route with valid numeric false value (0)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:busRoute:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": 0,\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Bus Route",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoute:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes",
+														"{{known:busRoute:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Bus Route with valid string value (true)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:busRoute:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": \"true\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Bus Route",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoute:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes",
+														"{{known:busRoute:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Bus Route with valid numeric true value (1)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 201\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:busRoute:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  {\r\n    \"busId\": \"602\",\r\n    \"busRouteNumber\": 1{{$randomInt}}{{$randomInt}},\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"daily\": 1,\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.50,\r\n    \"operatingCost\": 10000.0000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\",\r\n        \"doNotPublishIndicator\": false,\r\n        \"orderOfPriority\": 1,\r\n        \"textMessageCapabilityIndicator\": true\r\n      }\r\n    ]\r\n  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Bus Route",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response code is 204\", () => {\r",
+															"  pm.expect(pm.response.code).to.equal(204);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/sample/busRoutes/{{known:busRoute:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"sample",
+														"busRoutes",
+														"{{known:busRoute:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
 						}
 					]
 				}
