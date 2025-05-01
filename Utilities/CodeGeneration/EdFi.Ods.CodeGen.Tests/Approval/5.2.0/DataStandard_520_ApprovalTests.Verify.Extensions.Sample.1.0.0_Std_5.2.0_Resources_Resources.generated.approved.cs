@@ -752,6 +752,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         //                         References
         // -------------------------------------------------------------
 
+        private bool _busReferenceExplicitlyAssigned;
+        private Bus.Sample.BusReference _busReference;
+        private Bus.Sample.BusReference ImplicitBusReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_busReference == null && !_busReferenceExplicitlyAssigned)
+                    _busReference = new Bus.Sample.BusReference();
+
+                return _busReference;
+            }
+        }
+
+        [DataMember(Name="busReference")]
+        [FullyDefinedReference][RequiredReference(isIdentifying: true)]
+        public Bus.Sample.BusReference BusReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitBusReference != null
+                    && (_busReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitBusReference.IsReferenceFullyDefined()))
+                    return ImplicitBusReference;
+
+                return null;
+            }
+            set
+            {
+                _busReferenceExplicitlyAssigned = true;
+                _busReference = value;
+            }
+        }
         private bool _staffEducationOrganizationAssignmentAssociationReferenceExplicitlyAssigned;
         private StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociationReference _staffEducationOrganizationAssignmentAssociationReference;
         private StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociationReference ImplicitStaffEducationOrganizationAssignmentAssociationReference
@@ -792,13 +825,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The unique identifier for the bus assigned to the bus route.
+        /// The unique identifier for the bus.
         /// </summary>
-        // NOT in a reference, NOT a lookup column 
-        [RequiredWithNonDefault]
-        [NonDefaultStringLength(60, ErrorMessage=ValidationHelpers.StringLengthMessageFormat), NoDangerousText, NoWhitespace]
-        [DataMember(Name="busId")]
-        public string BusId { get; set; }
+        // IS in a reference, NOT a lookup column 
+        string Entities.Common.Sample.IBusRoute.BusId
+        {
+            get
+            {
+                if (ImplicitBusReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitBusReference.IsReferenceFullyDefined()))
+                    return ImplicitBusReference.BusId;
+
+                return default(string);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // Bus
+                _busReferenceExplicitlyAssigned = false;
+                ImplicitBusReference.BusId = value;
+            }
+        }
 
         /// <summary>
         /// A unique identifier for the bus route.
@@ -830,7 +879,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                 return false;
 
 
-            // Standard Property
+            // Referenced Property
             if (!GeneratedArtifactStaticDependencies.DatabaseEngineSpecificStringComparer.Equals((this as Entities.Common.Sample.IBusRoute).BusId, compareTo.BusId))
                 return false;
 
@@ -853,9 +902,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         {
             var hash = new HashCode();
 
-            // Standard Property
-                hash.Add((this as Entities.Common.Sample.IBusRoute).BusId);
-
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IBusRoute).BusId);
 
             // Standard Property
                 hash.Add((this as Entities.Common.Sample.IBusRoute).BusRouteNumber);
@@ -1341,6 +1389,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.Sample.IBusRoute.BusResourceId
+        {
+            get { return null; }
+            set { ImplicitBusReference.ResourceId = value ?? default(Guid); }
+        }
+
+        string Entities.Common.Sample.IBusRoute.BusDiscriminator
+        {
+            // Not supported for Resources
+            get { return null; }
+            set { ImplicitBusReference.Discriminator = value; }
+        }
+
+
         Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
         {
             get { return null; }
