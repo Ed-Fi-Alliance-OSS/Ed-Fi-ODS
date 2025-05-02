@@ -12672,7 +12672,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:busRoutes:busId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -12683,7 +12683,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"busReference\": {\r\n        \"busId\": \"{{supplied:busRoutes:busId}}\"\r\n    },\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
+											"raw": "{\r\n    \"busReference\": {\r\n        \"busId\": 602\r\n    },\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12728,7 +12728,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:busRoutes:busId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -12739,7 +12739,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"busReference\": {\r\n        \"busId\": \"{{supplied:busRoutes:busId}}\"\r\n    },\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"operatingCost\": 10000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
+											"raw": "{\r\n    \"busReference\": {\r\n        \"busId\": 602\r\n    },\r\n    \"busRouteNumber\": 102,\r\n    \"busRouteDirection\": \"Northbound\",\r\n    \"expectedTransitTime\": \"57\",\r\n    \"hoursPerWeek\": 60.5,\r\n    \"operatingCost\": 10000,\r\n    \"serviceAreaPostalCodes\": [\r\n      {\r\n        \"serviceAreaPostalCode\": \"78705\"\r\n      }\r\n    ],\r\n    \"startTimes\": [\r\n      {\r\n        \"startTime\": \"13:01\"\r\n      }\r\n    ],\r\n    \"telephones\": [\r\n      {\r\n        \"telephoneNumber\": \"555-123-4567\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Unlisted\"\r\n      }\r\n    ]\r\n  }\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
