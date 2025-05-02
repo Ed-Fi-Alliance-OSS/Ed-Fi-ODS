@@ -23,6 +23,7 @@ namespace EdFi.Ods.Api.Common.ExceptionHandling.Sample
             { "Bus_PK", new IndexDetails { IndexName = "Bus_PK", TableName = "Bus", ColumnNames = new List<string> { "BusId" } } },
             { "UX_Bus_Id", new IndexDetails { IndexName = "UX_Bus_Id", TableName = "Bus", ColumnNames = new List<string> { "Id" } } },
             { "BusRoute_PK", new IndexDetails { IndexName = "BusRoute_PK", TableName = "BusRoute", ColumnNames = new List<string> { "BusId", "BusRouteNumber" } } },
+            { "FK_BusRoute_Bus", new IndexDetails { IndexName = "FK_BusRoute_Bus", TableName = "BusRoute", ColumnNames = new List<string> { "BusId" } } },
             { "FK_BusRoute_DisabilityDescriptor", new IndexDetails { IndexName = "FK_BusRoute_DisabilityDescriptor", TableName = "BusRoute", ColumnNames = new List<string> { "DisabilityDescriptorId" } } },
             { "FK_BusRoute_StaffEducationOrganizationAssignmentAssociation", new IndexDetails { IndexName = "FK_BusRoute_StaffEducationOrganizationAssignmentAssociation", TableName = "BusRoute", ColumnNames = new List<string> { "BeginDate", "EducationOrganizationId", "StaffClassificationDescriptorId", "StaffUSI" } } },
             { "UX_BusRoute_Id", new IndexDetails { IndexName = "UX_BusRoute_Id", TableName = "BusRoute", ColumnNames = new List<string> { "Id" } } },
