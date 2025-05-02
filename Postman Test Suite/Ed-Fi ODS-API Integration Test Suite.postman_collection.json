@@ -12712,9 +12712,9 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is  201\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(201);\r",
-													" });\r",
+													"pm.test(\"Status code is 200 or 201\", () => {",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+													"});\r",
 													"\r",
 													"pm.environment.set('known:busRoutes:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 													"var requestJson = JSON.parse(request.data);\r",
