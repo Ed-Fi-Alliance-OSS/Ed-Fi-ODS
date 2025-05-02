@@ -18,7 +18,7 @@ GO
 -- Extended Properties [sample].[BusRoute] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This is an example of a new domain entity.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRoute'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRoute', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRoute', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRoute', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO
@@ -54,7 +54,7 @@ GO
 -- Extended Properties [sample].[BusRouteBusYear] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The years in which the bus route has been in active.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteBusYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteBusYear', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteBusYear', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteBusYear', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO
@@ -64,7 +64,7 @@ GO
 -- Extended Properties [sample].[BusRouteProgram] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Programs served by the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteProgram'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteProgram', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteProgram', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteProgram', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO
@@ -78,7 +78,7 @@ GO
 -- Extended Properties [sample].[BusRouteServiceAreaPostalCode] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The postal codes served by the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteServiceAreaPostalCode'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteServiceAreaPostalCode', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteServiceAreaPostalCode', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteServiceAreaPostalCode', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO
@@ -88,7 +88,7 @@ GO
 -- Extended Properties [sample].[BusRouteStartTime] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time the bus route begins.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteStartTime'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteStartTime', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteStartTime', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteStartTime', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO
@@ -98,7 +98,7 @@ GO
 -- Extended Properties [sample].[BusRouteTelephone] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Telephone numbers at which dispatchers may be reached for this bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteTelephone'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus assigned to the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteTelephone', @level2type=N'COLUMN', @level2name=N'BusId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the bus.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteTelephone', @level2type=N'COLUMN', @level2name=N'BusId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier for the bus route.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'BusRouteTelephone', @level2type=N'COLUMN', @level2name=N'BusRouteNumber'
 GO

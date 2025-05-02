@@ -476,24 +476,6 @@
       "name": "BusRoute",
       "locallyDefinedProperties": [
         {
-          "propertyName": "BusId",
-          "propertyType": {
-            "dbType": "String",
-            "minLength": 1,
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identifier for the bus assigned to the bus route.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BusId",
-            "postgreSql": "BusId"
-          }
-        },
-        {
           "propertyName": "BusRouteDirection",
           "propertyType": {
             "dbType": "String",
@@ -5570,6 +5552,68 @@
     {
       "fullName": {
         "schema": "sample",
+        "name": "FK_BusRoute_Bus"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "sample",
+        "name": "Bus"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BusId",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The unique identifier for the bus.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BusId",
+            "postgreSql": "BusId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "BusRoute"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BusId",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The unique identifier for the bus.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BusId",
+            "postgreSql": "BusId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_BusRoute_Bus",
+        "postgreSql": "FK_65385a_Bus"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "sample",
         "name": "FK_BusRoute_DisabilityDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -5812,7 +5856,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -5857,7 +5901,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -5916,7 +5960,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -5961,7 +6005,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6150,7 +6194,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6195,7 +6239,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6254,7 +6298,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6299,7 +6343,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6358,7 +6402,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -6403,7 +6447,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The unique identifier for the bus assigned to the bus route.",
+          "description": "The unique identifier for the bus.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

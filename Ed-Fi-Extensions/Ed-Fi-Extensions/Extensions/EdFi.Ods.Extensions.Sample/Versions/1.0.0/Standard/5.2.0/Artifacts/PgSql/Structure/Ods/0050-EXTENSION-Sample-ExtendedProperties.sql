@@ -13,7 +13,7 @@ COMMENT ON COLUMN sample.Bus.BusId IS 'The unique identifier for the bus.';
 
 -- Extended Properties [sample].[BusRoute] --
 COMMENT ON TABLE sample.BusRoute IS 'This is an example of a new domain entity.';
-COMMENT ON COLUMN sample.BusRoute.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRoute.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRoute.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRoute.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.  Note: Date interpretation may vary. Ed-Fi recommends inclusive dates, but states may define dates as inclusive or exclusive. For calculations, align with local guidelines.';
 COMMENT ON COLUMN sample.BusRoute.BusRouteDirection IS 'The direction of the bus route.';
@@ -32,13 +32,13 @@ COMMENT ON COLUMN sample.BusRoute.WeeklyMileage IS 'The approximate weekly milea
 
 -- Extended Properties [sample].[BusRouteBusYear] --
 COMMENT ON TABLE sample.BusRouteBusYear IS 'The years in which the bus route has been in active.';
-COMMENT ON COLUMN sample.BusRouteBusYear.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRouteBusYear.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRouteBusYear.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteBusYear.BusYear IS 'The years in which the bus route has been in active.';
 
 -- Extended Properties [sample].[BusRouteProgram] --
 COMMENT ON TABLE sample.BusRouteProgram IS 'Programs served by the bus route.';
-COMMENT ON COLUMN sample.BusRouteProgram.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRouteProgram.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRouteProgram.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.BusRouteProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
@@ -46,19 +46,19 @@ COMMENT ON COLUMN sample.BusRouteProgram.ProgramTypeDescriptorId IS 'The type of
 
 -- Extended Properties [sample].[BusRouteServiceAreaPostalCode] --
 COMMENT ON TABLE sample.BusRouteServiceAreaPostalCode IS 'The postal codes served by the bus route.';
-COMMENT ON COLUMN sample.BusRouteServiceAreaPostalCode.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRouteServiceAreaPostalCode.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRouteServiceAreaPostalCode.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteServiceAreaPostalCode.ServiceAreaPostalCode IS 'The postal codes served by the bus route.';
 
 -- Extended Properties [sample].[BusRouteStartTime] --
 COMMENT ON TABLE sample.BusRouteStartTime IS 'The time the bus route begins.';
-COMMENT ON COLUMN sample.BusRouteStartTime.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRouteStartTime.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRouteStartTime.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteStartTime.StartTime IS 'The time the bus route begins.';
 
 -- Extended Properties [sample].[BusRouteTelephone] --
 COMMENT ON TABLE sample.BusRouteTelephone IS 'Telephone numbers at which dispatchers may be reached for this bus route.';
-COMMENT ON COLUMN sample.BusRouteTelephone.BusId IS 'The unique identifier for the bus assigned to the bus route.';
+COMMENT ON COLUMN sample.BusRouteTelephone.BusId IS 'The unique identifier for the bus.';
 COMMENT ON COLUMN sample.BusRouteTelephone.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
 COMMENT ON COLUMN sample.BusRouteTelephone.TelephoneNumberTypeDescriptorId IS 'The type of communication number listed for an individual or organization.';

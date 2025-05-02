@@ -36,14 +36,14 @@
     <xs:complexContent>
       <xs:extension base="ComplexObjectType">
         <xs:sequence>
+          <xs:element name="BusReference" type="EXTENSION-BusReferenceType">
+            <xs:annotation>
+              <xs:documentation>The designated bus for the bus route.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="BusRouteNumber" type="xs:int">
             <xs:annotation>
               <xs:documentation>A unique identifier for the bus route.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BusId" type="IdentificationCode">
-            <xs:annotation>
-              <xs:documentation>The unique identifier for the bus assigned to the bus route.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="BusRouteDirection" type="EXTENSION-BusRouteDirection">
@@ -127,11 +127,6 @@
           <xs:element name="StaffEducationOrganizationAssignmentAssociationReference" type="StaffEducationOrganizationAssignmentAssociationReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The staff member (and associated assignment) responsible for assistance loading students on the bus.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BusReference" type="EXTENSION-BusReferenceType">
-            <xs:annotation>
-              <xs:documentation>The designated bus for the bus route.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1096,14 +1091,14 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
+      <xs:element name="BusReference" type="EXTENSION-BusReferenceType">
+        <xs:annotation>
+          <xs:documentation>The designated bus for the bus route.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="BusRouteNumber" type="xs:int">
         <xs:annotation>
           <xs:documentation>A unique identifier for the bus route.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="BusId" type="IdentificationCode">
-        <xs:annotation>
-          <xs:documentation>The unique identifier for the bus assigned to the bus route.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>

@@ -8,6 +8,14 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [sample].[BusRoute] WITH CHECK ADD CONSTRAINT [FK_BusRoute_Bus] FOREIGN KEY ([BusId])
+REFERENCES [sample].[Bus] ([BusId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_BusRoute_Bus]
+ON [sample].[BusRoute] ([BusId] ASC)
+GO
+
 ALTER TABLE [sample].[BusRoute] WITH CHECK ADD CONSTRAINT [FK_BusRoute_DisabilityDescriptor] FOREIGN KEY ([DisabilityDescriptorId])
 REFERENCES [edfi].[DisabilityDescriptor] ([DisabilityDescriptorId])
 GO

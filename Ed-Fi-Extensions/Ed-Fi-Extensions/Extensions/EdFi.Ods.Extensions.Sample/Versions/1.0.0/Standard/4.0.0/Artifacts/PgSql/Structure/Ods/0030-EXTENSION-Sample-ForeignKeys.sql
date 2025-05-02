@@ -8,6 +8,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE sample.BusRoute ADD CONSTRAINT FK_65385a_Bus FOREIGN KEY (BusId)
+REFERENCES sample.Bus (BusId)
+;
+
+CREATE INDEX FK_65385a_Bus
+ON sample.BusRoute (BusId ASC);
+
 ALTER TABLE sample.BusRoute ADD CONSTRAINT FK_65385a_DisabilityDescriptor FOREIGN KEY (DisabilityDescriptorId)
 REFERENCES edfi.DisabilityDescriptor (DisabilityDescriptorId)
 ;
