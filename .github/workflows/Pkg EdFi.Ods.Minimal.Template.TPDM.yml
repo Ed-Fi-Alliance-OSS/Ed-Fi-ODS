@@ -186,7 +186,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5
       with:
-        name: EdFi.Ods.Minimal.Template.TPDM.Core.Artifacts
+        name: EdFi.Ods.Minimal.Template.TPDM.Core.Artifacts-${{ matrix.StandardVersion }}
         path: |
          ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core*.nupkg
     - name: Move Log Files
