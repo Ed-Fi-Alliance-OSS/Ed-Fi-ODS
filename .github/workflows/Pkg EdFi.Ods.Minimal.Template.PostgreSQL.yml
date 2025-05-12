@@ -68,12 +68,12 @@ jobs:
         echo "::error::Missing Azure Token" 
         exit 1 
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -85,7 +85,7 @@ jobs:
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
       shell: pwsh
     - name: Checkout Ed-Fi-Data-Standard
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Data-Standard
           path: Ed-Fi-Data-Standard/
@@ -96,7 +96,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: Cache Nuget packages       
-      uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
+      uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57 #v4.2
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
