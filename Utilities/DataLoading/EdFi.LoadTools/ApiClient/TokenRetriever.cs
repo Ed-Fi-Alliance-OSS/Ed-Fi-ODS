@@ -42,7 +42,7 @@ namespace EdFi.LoadTools.ApiClient
             {
                 Method = HttpMethod.Post,
                 Content = new StringContent("grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded"),
-                RequestUri = new Uri(_configuration.Url)
+                RequestUri = new Uri(_configuration.Url.Replace("dms-keycloak:8080","localhost:8045"))
             };
 
             var plainTextBytes = Encoding.UTF8.GetBytes($"{_configuration.Key}:{_configuration.Secret}");
