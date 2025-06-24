@@ -81,17 +81,12 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                         && !Regex.IsMatch(x.Name, @"_\d+"))
                     .ToList();
 
-                IEnumerable<MethodInfo> FilterByVerb(string verb)
+                IEnumerable<MethodInfo> FilterByVerb(string verb, Func<MethodInfo, bool> additionalFilter = null)
                 {
                     var verbMethods = methods
-                        .Where(m =>
-                            m.Name.StartsWith(verb, StringComparison.CurrentCultureIgnoreCase) &&
-                            (verb != "Get" ||
-                                (m.Name.EndsWith("WithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                                && !m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase))))
+                        .Where(m => m.Name.StartsWith(verb, StringComparison.CurrentCultureIgnoreCase) && (additionalFilter == null || additionalFilter(m)))
                         .ToList();
 
-                    // Apply stricter filter if more than one method is found
                     if (verbMethods.Count > 1)
                     {
                         verbMethods = verbMethods
@@ -102,16 +97,28 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     return verbMethods;
                 }
 
-                var allMethods = new[]
-                {
-                    FilterByVerb("Post"),
-                    FilterByVerb("Get"),
-                    FilterByVerb("Put"),
-                    FilterByVerb("Delete"),
-                    FilterByVerb("Deletes")
-                };
+                // GET methods: split into non-ById and ById
+                var getNonByIdMethods = FilterByVerb("Get", m =>
+                    m.Name.EndsWith("WithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
+                    && !m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
 
-                return allMethods.SelectMany(x => x).Distinct().ToArray();
+                var getByIdMethods = FilterByVerb("Get", m =>
+                    m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
+
+                // Other verbs
+                var postMethods = FilterByVerb("Post");
+                var putMethods = FilterByVerb("Put");
+                var deleteMethods = FilterByVerb("Delete");
+                var deletesMethods = FilterByVerb("Deletes");
+
+                return postMethods
+                    .Concat(getNonByIdMethods)
+                    .Concat(getByIdMethods)
+                    .Concat(putMethods)
+                    .Concat(deleteMethods)
+                    .Concat(deletesMethods)
+                    .Distinct()
+                    .ToArray();
             }
         }
 
