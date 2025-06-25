@@ -39,26 +39,6 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public IEnumerable<Type> ModelTypes => _modelTypes;
 
-        public IEnumerable<Type> ApiModelTypes => ApiTypes.Select(x =>
-        {
-            // Find all Post methods with IRestResponse return type
-            var postMethods = x.GetMethods()
-                .Where(m => typeof(IRestResponse).IsAssignableFrom(m.ReturnType)
-                            && m.Name.StartsWith("Post")
-                            // ODS-3845: Exclude methods from other resources folded into the class by the SDK code generation process
-                            && !Regex.IsMatch(m.Name, @"_\d+"))
-                .ToArray();
-
-            var method = postMethods.Length == 1
-                ? postMethods[0]
-                : postMethods.Where(m => !Regex.IsMatch(m.Name, @"_[a-zA-Z]")).SingleOrDefault();
-
-            if (method == null)
-                throw new InvalidOperationException($"No suitable Post method found for type {x.Name}");
-
-            return method.GetParameters().First().ParameterType;
-        });
-
         public IEnumerable<IResourceApi> ResourceApis => ApiTypes.Select(x => new ResourceApi(x));
     }
 

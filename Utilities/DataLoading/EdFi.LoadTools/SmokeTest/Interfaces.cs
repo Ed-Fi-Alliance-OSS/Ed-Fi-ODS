@@ -42,8 +42,6 @@ namespace EdFi.LoadTools.SmokeTest
 
         IEnumerable<Type> ModelTypes { get; }
 
-        IEnumerable<Type> ApiModelTypes { get; }
-
         IEnumerable<IResourceApi> ResourceApis { get; }
     }
 
