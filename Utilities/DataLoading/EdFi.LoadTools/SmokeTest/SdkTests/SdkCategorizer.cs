@@ -39,15 +39,6 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public IEnumerable<Type> ModelTypes => _modelTypes;
 
-        public IEnumerable<Type> ApiModelTypes => ApiTypes.Select(
-            x => x.GetMethods()
-                  .Single(
-                       m => typeof(IRestResponse).IsAssignableFrom(m.ReturnType)
-                            && m.Name.StartsWith("Post")
-                            // ODS-3845: Exclude methods from other resources folded into the class by the SDK code generation process
-                            && !Regex.IsMatch(m.Name, @"_\d+"))
-                  .GetParameters().First().ParameterType);
-
         public IEnumerable<IResourceApi> ResourceApis => ApiTypes.Select(x => new ResourceApi(x));
     }
 
@@ -58,14 +49,58 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             ApiType = apiType;
         }
 
-        private IEnumerable<MethodInfo> RestMethods => ApiType.GetMethods().Where(
-                                                                   x =>
-                                                                       x.Name.EndsWith("HttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                                                                       && !x.Name.EndsWith(
-                                                                           "AsyncWithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
-                                                                       // ODS-3845: Exclude methods from other resources folded into the class by the SDK code generation process
-                                                                       && !Regex.IsMatch(x.Name, @"_\d+"))
-                                                              .ToArray();
+        private IEnumerable<MethodInfo> RestMethods
+        {
+            get
+            {
+                var methods = ApiType.GetMethods()
+                    .Where(x =>
+                        x.Name.EndsWith("HttpInfo", StringComparison.CurrentCultureIgnoreCase)
+                        && !x.Name.EndsWith("AsyncWithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
+                        // ODS-3845: Exclude methods from other resources folded into the class by the SDK code generation process
+                        && !Regex.IsMatch(x.Name, @"_\d+"))
+                    .ToList();
+
+                IEnumerable<MethodInfo> FilterByVerb(string verb, Func<MethodInfo, bool> additionalFilter = null)
+                {
+                    var verbMethods = methods
+                        .Where(m => m.Name.StartsWith(verb, StringComparison.CurrentCultureIgnoreCase) && (additionalFilter == null || additionalFilter(m)))
+                        .ToList();
+
+                    if (verbMethods.Count > 1)
+                    {
+                        verbMethods = verbMethods
+                            .Where(m => !Regex.IsMatch(m.Name, @"_[a-zA-Z]"))
+                            .ToList();
+                    }
+
+                    return verbMethods;
+                }
+
+                // GET methods: split into non-ById and ById
+                var getNonByIdMethods = FilterByVerb("Get", m =>
+                    m.Name.EndsWith("WithHttpInfo", StringComparison.CurrentCultureIgnoreCase)
+                    && !m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
+
+                var getByIdMethods = FilterByVerb("Get", m =>
+                    m.Name.EndsWith("ByIdWithHttpInfo", StringComparison.CurrentCultureIgnoreCase));
+
+                // Other verbs
+                var postMethods = FilterByVerb("Post");
+                var putMethods = FilterByVerb("Put");
+                var deleteMethods = FilterByVerb("Delete");
+                var deletesMethods = FilterByVerb("Deletes");
+
+                return postMethods
+                    .Concat(getNonByIdMethods)
+                    .Concat(getByIdMethods)
+                    .Concat(putMethods)
+                    .Concat(deleteMethods)
+                    .Concat(deletesMethods)
+                    .Distinct()
+                    .ToArray();
+            }
+        }
 
         private IEnumerable<MethodInfo> GetMethods => RestMethods.Where(m => m.Name.StartsWith("Get"));
 
@@ -94,9 +129,14 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 // Detect multiple matching methods, and report details
                 if (methods.Length > 1)
                 {
+                    var serializerSettings = new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    };
+
                     string methodsList = string.Join(
                         Environment.NewLine,
-                        methods.Select(m => JsonConvert.SerializeObject(m, Formatting.Indented)));
+                        methods.Select(m => JsonConvert.SerializeObject(m, Formatting.Indented, serializerSettings)));
 
                     string message = $"Multiple matching Post methods were found on type '{ApiType.FullName}'. Candidates are:{Environment.NewLine}{methodsList}";
 

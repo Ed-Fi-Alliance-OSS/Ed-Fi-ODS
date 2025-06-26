@@ -38,6 +38,7 @@ namespace EdFi.LoadTools.ApiClient
 
         public async Task<BearerToken> ObtainNewBearerToken()
         {
+            // Update _configuration.Url with .Replace("dms-keycloak:8080", "localhost:8045")) for DMS Testing
             var requestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
