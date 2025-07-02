@@ -160,6 +160,8 @@ namespace EdFi.LoadTools.Engine
     public interface ISdkLibraryConfiguration
     {
         string Path { get; }
+
+        string SdkNamespacePrefix { get; }
     }
 
     public interface ISdkLibraryFactory

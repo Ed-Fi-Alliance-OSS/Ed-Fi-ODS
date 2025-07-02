@@ -45,6 +45,9 @@ namespace EdFi.SmokeTest.Console.Application
         [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
         public string XsdMetadataUrl { get; set; }
 
+        [Option('c', "sdknamespaceprefix", Required = false, HelpText = "The Test SDK Configuration Namespace Prefix")]
+        public string SdkNamespacePrefix { get; set; }
+
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -58,6 +61,7 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
+                {"-c", "SdkNamespacePrefix"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
@@ -67,7 +71,8 @@ namespace EdFi.SmokeTest.Console.Application
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--secret", "OdsApi:Secret"},
                 {"--testset", "TestSet"},
-                {"--baseurl", "OdsApi:Url"}
+                {"--baseurl", "OdsApi:Url"},
+                {"--sdkNamespacePrefix", "SdkNamespacePrefix"}
             };
     }
 }

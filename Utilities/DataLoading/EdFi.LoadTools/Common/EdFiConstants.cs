@@ -13,7 +13,7 @@ namespace EdFi.LoadTools.Common
         public const string ShortDescription = "ShortDescription";
         public const string Descriptor = "Descriptor";
         public const int TestEdOrgId = 255901;
-        public const string SdkConfigurationNamespace = "EdFi.OdsApi.Sdk.Client.Configuration";
+        public const string SdkConfigurationClassName = "Client.Configuration";
         public const string AccessToken = "AccessToken";
         public const string Authorization = "Authorization";
         public const string EdOrgReference = "EdFiEducationOrganizationReference";
