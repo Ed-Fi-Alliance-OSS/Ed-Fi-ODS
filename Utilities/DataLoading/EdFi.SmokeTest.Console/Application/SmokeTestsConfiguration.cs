@@ -75,7 +75,9 @@ namespace EdFi.SmokeTest.Console.Application
         }
 
         public string NamespacePrefix { get; set; }
-        
+
+        public string SdkNamespacePrefix { get; set; }
+
         public IReadOnlyDictionary<string, int> EducationOrganizationIdOverrides { get; set; }
 
         public IEnumerable<string> UnifiedProperties { get; set; }
@@ -104,6 +106,11 @@ namespace EdFi.SmokeTest.Console.Application
             get => SdkLibraryPath;
         }
 
+        string ISdkLibraryConfiguration.SdkNamespacePrefix
+        {
+            get => SdkNamespacePrefix;
+        }
+
         private static string GetPath(string basePath, string relativeUrl)
             => !string.IsNullOrWhiteSpace(basePath)
                 ? basePath.AddPath(relativeUrl)
@@ -126,6 +133,7 @@ namespace EdFi.SmokeTest.Console.Application
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
+                SdkNamespacePrefix = configuration.GetValue<string>("SdkNamespacePrefix"),
                 EducationOrganizationIdOverrides =
                     configuration.GetSection("EducationOrganizationIdOverrides").Get<IReadOnlyDictionary<string, int>>(),
                 UnifiedProperties = configuration.GetSection("UnifiedProperties").Get<IEnumerable<string>>(),

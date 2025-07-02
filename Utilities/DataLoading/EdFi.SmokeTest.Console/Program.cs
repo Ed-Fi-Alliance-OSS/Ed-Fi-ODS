@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using CommandLine;
@@ -39,7 +40,20 @@ namespace EdFi.SmokeTest.Console
                         config.IgnoreUnknownArguments = true;
                     })
                 .ParseArguments<CommandLineOverrides>(args)
-                .WithParsed(overrides => commandLineOverrides = overrides)
+                .WithParsed(overrides =>
+                {
+                    // Validate SdkNamespacePrefix
+                    var validPrefixes = new[] { "EdFi.OdsApi.Sdk", "EdFi.DmsApi.TestSdk" };
+                    if (!string.IsNullOrEmpty(overrides.SdkNamespacePrefix) &&
+                        !validPrefixes.Contains(overrides.SdkNamespacePrefix))
+                    {
+                        System.Console.WriteLine("Invalid value for --sdknamespaceprefix. Allowed values: EdFi.OdsApi.Sdk, EdFi.DmsApi.TestSdk");
+                        Environment.ExitCode = 1;
+                        Environment.Exit(Environment.ExitCode);
+                    }
+
+                    commandLineOverrides = overrides;
+                })
                 .WithNotParsed(
                     errs =>
                     {

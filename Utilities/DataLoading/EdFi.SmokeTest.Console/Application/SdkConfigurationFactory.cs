@@ -39,7 +39,8 @@ namespace EdFi.SmokeTest.Console.Application
                 defaultHeader, new Dictionary<string, string>(), new Dictionary<string, string>(), owinServerUrl
             };
 
-            _configType = GetTypeFromAssembly(sdkGenerationBasePath, EdFiConstants.SdkConfigurationNamespace);
+            var sdkConfigurationNamespace = $"{sdkLibraryConfiguration.SdkNamespacePrefix}.{EdFiConstants.SdkConfigurationClassName}";
+            _configType = GetTypeFromAssembly(sdkGenerationBasePath, sdkConfigurationNamespace);
 
             var configInstance = Activator.CreateInstance(_configType, args);
 
