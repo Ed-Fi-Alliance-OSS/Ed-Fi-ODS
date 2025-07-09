@@ -48,16 +48,12 @@ jobs:
         raw_versions='${{ needs.FindStandardAndExtensionVersions.outputs.StandardVersions }}'
         echo "Raw Versions: $raw_versions"
 
-        # Fix unquoted values (convert [4.0.0,5.2.0,6.0.0] → ["4.0.0","5.2.0","6.0.0"])
-        if ! echo "$raw_versions" | jq empty 2>/dev/null; then
-          fixed_versions=$(echo "$raw_versions" | sed 's/\([^",\[\]]\+\)/"\1"/g')
-        else
-          fixed_versions="$raw_versions"
-        fi
+        # Properly quote each version number using a safer regex
+        fixed_versions=$(echo "$raw_versions" | sed -E 's/([0-9]+\.[0-9]+\.[0-9]+)/"\1"/g')
 
         echo "Fixed Versions (JSON): $fixed_versions"
 
-        # Use jq to filter, then remove quotes
+        # Use jq to filter out 6.0.0, and remove quotes in output
         filtered=$(echo "$fixed_versions" | jq -r '[.[] | select(. != "6.0.0")] | "[" + join(",") + "]"')
 
         echo "Filtered Versions (no quotes): $filtered"
