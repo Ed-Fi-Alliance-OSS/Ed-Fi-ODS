@@ -36,13 +36,29 @@ jobs:
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
+  filter-standard-versions:
+    runs-on: ubuntu-latest
+    needs: FindStandardAndExtensionVersions
+    outputs:
+      filtered: ${{ steps.set-filtered.outputs.filtered }}
+    steps:
+      - name: Filter out 6.0.0
+        id: set-filtered
+        run: |
+          versions='${{ needs.FindStandardAndExtensionVersions.outputs.StandardVersions }}'
+          echo "Original Versions: $versions"
+          filtered=$(echo "$versions" | jq 'map(select(. != "6.0.0"))')
+          echo "Filtered Versions: $filtered"
+          echo "filtered=$filtered" >> $GITHUB_OUTPUT
+
+
   build:
     if: ${{ always() }}
-    needs: FindStandardAndExtensionVersions
+    needs: [FindStandardAndExtensionVersions, filter-standard-versions]
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        StandardVersion: ${{ fromJson(needs.filter-standard-versions.outputs.filtered) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
     name: build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
     services:
