@@ -50,13 +50,12 @@ jobs:
 
         # Properly quote each version number using a safer regex
         fixed_versions=$(echo "$raw_versions" | sed -E 's/([0-9]+\.[0-9]+\.[0-9]+)/"\1"/g')
-
         echo "Fixed Versions (JSON): $fixed_versions"
 
-        # Use jq to filter out 6.0.0, and remove quotes in output
-        filtered=$(echo "$fixed_versions" | jq -r '[.[] | select(. != "6.0.0")] | "[" + join(",") + "]"')
+        # Filter out 6.0.0 and convert to single-quoted output
+        filtered=$(echo "$fixed_versions" | jq -r '[.[] | select(. != "6.0.0")] | "[\u0027" + join("\u0027,\u0027") + "\u0027]"')
 
-        echo "Filtered Versions (no quotes): $filtered"
+        echo "Filtered Versions (single quotes): $filtered"
         echo "filtered=$filtered" >> $GITHUB_OUTPUT
 
 
