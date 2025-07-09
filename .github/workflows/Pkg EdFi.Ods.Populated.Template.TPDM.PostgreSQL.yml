@@ -42,14 +42,26 @@ jobs:
     outputs:
       filtered: ${{ steps.set-filtered.outputs.filtered }}
     steps:
-      - name: Filter out 6.0.0
-        id: set-filtered
-        run: |
-          versions='${{ needs.FindStandardAndExtensionVersions.outputs.StandardVersions }}'
-          echo "Original Versions: $versions"
-          filtered=$(echo "$versions" | jq 'map(select(. != "6.0.0"))')
-          echo "Filtered Versions: $filtered"
-          echo "filtered=$filtered" >> $GITHUB_OUTPUT
+    - name: Filter out 6.0.0
+      id: set-filtered
+      run: |
+        raw_versions='${{ needs.FindStandardAndExtensionVersions.outputs.StandardVersions }}'
+        echo "Raw Versions: $raw_versions"
+
+        # Fix unquoted values (convert [4.0.0,5.2.0,6.0.0] → ["4.0.0","5.2.0","6.0.0"])
+        if ! echo "$raw_versions" | jq empty 2>/dev/null; then
+          fixed_versions=$(echo "$raw_versions" | sed 's/\([^",\[\]]\+\)/"\1"/g')
+        else
+          fixed_versions="$raw_versions"
+        fi
+
+        echo "Fixed Versions (JSON): $fixed_versions"
+
+        # Use jq to filter, then remove quotes
+        filtered=$(echo "$fixed_versions" | jq -r '[.[] | select(. != "6.0.0")] | "[" + join(",") + "]"')
+
+        echo "Filtered Versions (no quotes): $filtered"
+        echo "filtered=$filtered" >> $GITHUB_OUTPUT
 
 
   build:
