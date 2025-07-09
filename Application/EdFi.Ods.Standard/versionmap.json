@@ -6,6 +6,7 @@
   },
   "Ed-Fi-TPDM-Artifacts": {
     "4.0.0": "Data-Standard-v4.0.0",
-    "5.2.0": "Data-Standard-v5.2.0"
+    "5.2.0": "Data-Standard-v5.2.0",
+    "6.0.0": "Data-Standard-v5.2.0"
   }
 }
