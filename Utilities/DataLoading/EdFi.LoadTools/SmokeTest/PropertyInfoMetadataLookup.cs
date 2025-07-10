@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using EdFi.Common.Inflection;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
+using EdFi.LoadTools.Engine;
 using Microsoft.OpenApi.Models;
 
 namespace EdFi.LoadTools.SmokeTest
@@ -40,10 +41,17 @@ namespace EdFi.LoadTools.SmokeTest
             // check for any definition if we could not find the the property from the resource
             if (property == null)
             {
-                resource = entityDictionary.Values
-                    .FirstOrDefault(
-                        r => r.Name.Equals(
-                            _parentTypeName, StringComparison.OrdinalIgnoreCase))
+                resource = entityDictionary
+                    .Values
+                    .Select(
+                        entity => new
+                        {
+                            PercentMatch = entity.Name.PercentMatchTo(_parentTypeName),
+                            entity
+                        })
+                    .Where(entity => entity.PercentMatch >= .8)
+                    .MaxBy(entity => entity.PercentMatch)
+                    ?.entity
                     ?.Definition;
 
                 property = resource?.Properties.FirstOrDefault(
