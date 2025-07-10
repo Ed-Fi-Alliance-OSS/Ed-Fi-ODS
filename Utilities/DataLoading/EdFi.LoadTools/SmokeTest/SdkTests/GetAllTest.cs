@@ -10,12 +10,10 @@ using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
-    public class GetAllTest : BaseTest
+    public class GetAllTest(IResourceApi resourceApi, Dictionary<string, List<object>> resultsDictionary,
+        ISdkConfigurationFactory sdkConfigurationFactory, bool failIfNoData = false) 
+        : BaseTest(resourceApi, resultsDictionary, sdkConfigurationFactory)
     {
-        public GetAllTest(IResourceApi resourceApi, Dictionary<string, List<object>> resultsDictionary,
-                          ISdkConfigurationFactory sdkConfigurationFactory)
-            : base(resourceApi, resultsDictionary, sdkConfigurationFactory) { }
-
         protected override bool NoDataAvailableForTheResource => false;
 
         protected override MethodInfo GetMethodInfo()
@@ -31,6 +29,14 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
             ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>(result.Data);
+
+            if (failIfNoData && result.Data.Count == 0)
+            {
+                // Destructive SDK tests create a record for all the entities, so at least one record is expected.
+                Log.Error("The request did not return any records, but at least one was expected.");
+                return false;
+            }
+
             return true;
         }
     }

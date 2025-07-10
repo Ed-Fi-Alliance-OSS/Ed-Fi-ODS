@@ -58,7 +58,7 @@ namespace EdFi.SmokeTest.Console
                         {
                             t => new PostTest(t, results, propertyBuilder, created, factory),
                             t => new PutTest(t, results, created, factory),
-                            t => new GetAllTest(t, results, factory),
+                            t => new GetAllTest(t, results, factory, failIfNoData: true),
                             t => new DeleteTest(t, results, created, factory)
                         };
                     })
