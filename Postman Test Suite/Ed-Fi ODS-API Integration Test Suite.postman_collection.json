@@ -14094,10 +14094,10 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													""
+													"// Include a decimal part so that it is not a valid Int64 value\r",
+													"pm.environment.set('supplied:school:schoolId', parseFloat(pm.variables.replaceIn(\"{{$randomInt}}.{{$randomInt}}\").toString())); "
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -14109,11 +14109,10 @@
 													"});",
 													"console.log(pm.response.json());",
 													"pm.test(\"The validationErrors response should include a validation message indicating an invalid Int64 value was provided for SchoolId\", () => {",
-													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).contains(\"Input string '123.456' is not\")",
+													"    pm.expect(pm.response.json().validationErrors['$.schoolId'][0]).contains(\"Input string '\" + pm.environment.get(\"supplied:school:schoolId\") + \"' is not\")",
 													"});"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -14122,7 +14121,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 123.456,\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Preschool\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},   // Has a decimal part so that it is not a valid Int64 value\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Preschool\"\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
