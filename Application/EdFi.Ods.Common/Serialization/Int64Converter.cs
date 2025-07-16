@@ -56,7 +56,7 @@ namespace EdFi.Ods.Common.Serialization
             }
 
             // Treat any string of digits (even with leading 0s) as decimal
-            if (long.TryParse(rawValue, NumberStyles.None, CultureInfo.InvariantCulture, out long result))
+            if (long.TryParse(rawValue.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out long result))
             {
                 return BoxedLong(result);
             }
