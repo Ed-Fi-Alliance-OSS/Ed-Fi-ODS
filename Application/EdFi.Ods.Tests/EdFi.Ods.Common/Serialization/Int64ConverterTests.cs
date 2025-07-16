@@ -43,6 +43,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         [TestCase("42", 42L)]
         [TestCase("0123", 83L)]         // non-string with leading zeros, interpreted as Octal by JSON .NET and arrives at the converter as "83" typed as long
         [TestCase("\"0123\"", 123L)]     // string with leading zeros
+        [TestCase("\"0123 \"", 123L)]     // string with leading zeros, trailing space
         [TestCase("\"0000000005\"", 5L)]
         [TestCase("\"0xA\"", 10L)]       // hex string
         [TestCase("\"0XfF\"", 255L)]     // hex uppercase
