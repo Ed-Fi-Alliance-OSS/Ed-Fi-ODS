@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -9,11 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using EdFi.Common;
-using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Database.Querying.Dialects;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security.Authorization;
@@ -39,10 +37,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly Func<IEntityAuthorizer> _entityAuthorizerResolver;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly IFeatureManager _featureManager;
-        private readonly DatabaseEngine _databaseEngine;
-        private readonly Dialect _dialect;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
@@ -50,17 +45,11 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             Func<IEntityAuthorizer> entityAuthorizerResolver,
             IAuthorizationContextProvider authorizationContextProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IFeatureManager featureManager,
-            DatabaseEngine databaseEngine,
-            Dialect dialect)
+            IFeatureManager featureManager)
         {
             _entityAuthorizerResolver = entityAuthorizerResolver;
             _authorizationContextProvider = authorizationContextProvider;
-            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _featureManager = featureManager;
-            _databaseEngine = databaseEngine;
-            _dialect = dialect;
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -125,13 +114,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.SetInterceptorAndEventListeners(
-                _entityAuthorizerResolver,
-                _authorizationContextProvider,
-                _dataManagementResourceContextProvider,
-                _featureManager,
-                _databaseEngine,
-                _dialect);
+            configuration.SetInterceptorAndEventListeners(_entityAuthorizerResolver, _authorizationContextProvider, _featureManager);
 
             return configuration;
 

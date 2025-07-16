@@ -283,10 +283,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<Pbkdf2HmacSha1SecureHasher>()
                 .As<ISecureHasher>()
                 .SingleInstance();
-            
-            builder.RegisterType<Pbkdf2HmacSha256SecureHasher>()
-                .As<ISecureHasher>()
-                .SingleInstance();
 
             builder.RegisterType<DescriptorNamespaceValidator>()
                 .As<IValidator<IEdFiDescriptor>>()

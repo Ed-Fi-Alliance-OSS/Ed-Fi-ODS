@@ -4032,7 +4032,7 @@
 							"name": "Setup",
 							"item": [
 								{
-									"name": "Get AvailableChangeVersions (original)",
+									"name": "Get AvailableChangeVersions  Pre-create version",
 									"event": [
 										{
 											"listen": "test",
@@ -4044,10 +4044,9 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"",
-													"pm.environment.set('known:changeVersion:original', responseItem.newestChangeVersion);"
+													"pm.environment.set('known:precreateversion', responseItem.newestChangeVersion);"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -4056,8 +4055,7 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -4069,8 +4067,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -4095,80 +4093,9 @@
 										}
 									},
 									"response": []
-								}
-							]
-						},
-						{
-							"name": "Create Resource",
-							"item": [
-								{
-									"name": "Get Modified Courses (after original ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:original:after',\r",
-													"  pm.environment.get('known:changeVersion:original') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain no items\", () => {",
-													"  pm.expect(items).to.have.lengthOf(0);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:original:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:original:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
 								},
 								{
-									"name": "Create Course",
+									"name": "Create Course Data",
 									"event": [
 										{
 											"listen": "test",
@@ -4200,8 +4127,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -4222,80 +4150,14 @@
 										}
 									},
 									"response": []
-								},
+								}
+							]
+						},
+						{
+							"name": "Tests",
+							"item": [
 								{
-									"name": "Get Modified Courses (after original ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:original:after',\r",
-													"  pm.environment.get('known:changeVersion:original') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain 1 item\", () => {",
-													"  pm.expect(items).to.have.lengthOf(1);",
-													"});",
-													"",
-													"pm.test(\"Returned item has id of modified item\", () => {",
-													"    const expectedId = pm.environment.get(\"known:course:id\");",
-													"    pm.expect(items[0].id).to.equal(expectedId);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:original:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:original:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
-								},
-								{
-									"name": "Get AvailableChangeVersions (created)",
+									"name": "Get AvailableChangeVersions  Post-Create version",
 									"event": [
 										{
 											"listen": "test",
@@ -4307,15 +4169,13 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"",
-													"pm.test(\"Should advance the ChangeVersion value\", () => {",
-													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:changeVersion:original'));",
+													"pm.test(\"Created version should be greater than pre-created version\", () => {",
+													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:precreateversion'));",
 													"});",
 													"",
-													"pm.environment.set('known:changeVersion:created', responseItem.newestChangeVersion);",
-													""
+													"pm.environment.set('known:createdversion', responseItem.newestChangeVersion);"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -4324,8 +4184,7 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -4337,8 +4196,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -4363,80 +4222,9 @@
 										}
 									},
 									"response": []
-								}
-							]
-						},
-						{
-							"name": "Update Resource Property",
-							"item": [
-								{
-									"name": "Get Modified Courses (updated after creation ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:created:after',\r",
-													"  pm.environment.get('known:changeVersion:created') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain no items\", () => {",
-													"  pm.expect(items).to.have.lengthOf(0);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:created:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:created:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
 								},
 								{
-									"name": "Update Course (numberOfParts property)",
+									"name": "Update Course Data",
 									"event": [
 										{
 											"listen": "test",
@@ -4446,18 +4234,24 @@
 													"    pm.expect(pm.response.code).to.equal(204);",
 													"});"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													""
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#National Organization\");",
+													"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra II\");",
+													"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra II\");",
+													"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#SCED course code\");",
+													"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"SCED course code\");",
+													"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"SCED course code\");",
+													"pm.environment.set('supplied:'+scenarioId+':courseCode',\"SCED course code\");",
+													"pm.environment.set('supplied:'+scenarioId+':NumberOfParts',2);"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -4466,8 +4260,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -4492,78 +4287,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Modified Courses (updated after creation ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:created:after',\r",
-													"  pm.environment.get('known:changeVersion:created') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain 1 item\", () => {",
-													"  pm.expect(items).to.have.lengthOf(1);",
-													"});",
-													"",
-													"pm.test(\"Returned item has id of modified item\", () => {",
-													"    const expectedId = pm.environment.get(\"known:course:id\");",
-													"    pm.expect(items[0].id).to.equal(expectedId);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:created:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:created:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
-								},
-								{
-									"name": "Get AvailableChangeVersions (update #1)",
+									"name": "Get AvailableChangeVersions  Updated version",
 									"event": [
 										{
 											"listen": "test",
@@ -4575,14 +4299,13 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"",
-													"pm.test(\"Should advance the ChangeVersion value\", () => {",
-													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:changeVersion:created'));",
+													"pm.test(\"Should updated version greater than created version\", () => {",
+													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:createdversion'));",
 													"});",
 													"",
-													"pm.environment.set('known:changeVersion:updated:1', responseItem.newestChangeVersion);"
+													"pm.environment.set('known:updatedversion', responseItem.newestChangeVersion);"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -4591,8 +4314,7 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -4604,8 +4326,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -4630,80 +4352,9 @@
 										}
 									},
 									"response": []
-								}
-							]
-						},
-						{
-							"name": "Update Resource Child Item Property",
-							"item": [
-								{
-									"name": "Get Modified Courses (updated after update #1 ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:updated:1:after',\r",
-													"  pm.environment.get('known:changeVersion:updated:1') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain no items\", () => {",
-													"  pm.expect(items).to.have.lengthOf(0);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:updated:1:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:updated:1:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
 								},
 								{
-									"name": "Update Course (courseCatalogUrl in identificationCode child entity)",
+									"name": "Get  Course Data",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -4711,8 +4362,7 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -4723,82 +4373,7 @@
 													"  pm.expect(pm.response.code).to.equal(200);",
 													"});"
 												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"courseCode\": \"{{supplied:courseCode}}\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\": \"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\",\r\n      \"assigningOrganizationIdentificationCode\": \"CSSC course code\",\r\n      \"identificationCode\": \"CSSC course code\",\r\n      \"courseCatalogUrl\": \"uri://test.org/\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\",\r\n  \"courseDescription\": \"Algebra I\",\r\n  \"courseTitle\": \"Algebra I\",\r\n  \"numberOfParts\": 3\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
-								},
-								{
-									"name": "Get Modified Courses (updated after update #1 ChangeVersion)",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:updated:1:after',\r",
-													"  pm.environment.get('known:changeVersion:updated:1') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const items = pm.response.json();",
-													"",
-													"pm.test(\"Response should contain 1 item\", () => {",
-													"  pm.expect(items).to.have.lengthOf(1);",
-													"});",
-													"",
-													"pm.test(\"Returned item has id of modified item\", () => {",
-													"    const expectedId = pm.environment.get(\"known:course:id\");",
-													"    pm.expect(items[0].id).to.equal(expectedId);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -4807,152 +4382,13 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?minChangeVersion={{known:changeVersion:updated:1:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:updated:1:after}}"
-												}
-											]
-										},
-										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-									},
-									"response": []
-								},
-								{
-									"name": "Get AvailableChangeVersions (update #2)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const responseItem = pm.response.json();",
-													"",
-													"pm.test(\"Should advance the ChangeVersion value\", () => {",
-													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:changeVersion:updated:1'));",
-													"});",
-													"",
-													"pm.environment.set('known:changeVersion:updated:2', responseItem.newestChangeVersion);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"changeQueries",
-												"v1",
-												"AvailableChangeVersions"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Delete Resource Item",
-							"item": [
-								{
-									"name": "Get Deleted Courses (deleted after update #2 ChangeVersion)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const responseItems = pm.response.json();",
-													"",
-													"pm.test(\"Should return no items\", () => {",
-													"  pm.expect(responseItems.length).to.equal(0);",
-													"});",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:updated:2:after',\r",
-													"  pm.environment.get('known:changeVersion:updated:2') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/deletes?minChangeVersion={{known:changeVersion:updated:2:after}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:course:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -4961,25 +4397,15 @@
 												"v3",
 												"ed-fi",
 												"courses",
-												"deletes"
-											],
-											"query": [
-												{
-													"key": "limit",
-													"value": "100",
-													"disabled": true
-												},
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:updated:2:after}}"
-												}
+												"{{known:course:id}}"
 											]
-										}
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
 									},
 									"response": []
 								},
 								{
-									"name": "Delete  Course",
+									"name": "Delete  Course Data",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -5007,8 +4433,9 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"url": {
@@ -5029,86 +4456,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Deleted Courses (deleted after update #2 ChangeVersion)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const responseItems = pm.response.json();",
-													"",
-													"pm.test(\"Should return only one record for responseItems length\", () => {",
-													"  pm.expect(responseItems.length).to.equal(1);",
-													"});",
-													"",
-													"const responseItem = responseItems[0];",
-													"",
-													"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
-													"  pm.expect(responseItem.changeVersion).to.be.greaterThan(pm.environment.get('known:changeVersion:updated:2'));",
-													"  pm.expect(responseItem.id).to.equal(pm.environment.get('known:course:id'));",
-													"  pm.expect(responseItem.keyValues.courseCode).to.equal(pm.environment.get('supplied:courseCode'));",
-													"  pm.expect(responseItem.keyValues.educationOrganizationId).to.equal(255901);",
-													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set(\r",
-													"  'known:changeVersion:updated:2:after',\r",
-													"  pm.environment.get('known:changeVersion:updated:2') + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/deletes?minChangeVersion={{known:changeVersion:updated:2:after}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"courses",
-												"deletes"
-											],
-											"query": [
-												{
-													"key": "limit",
-													"value": "100",
-													"disabled": true
-												},
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:changeVersion:updated:2:after}}"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get AvailableChangeVersions (deleted)",
+									"name": "Get AvailableChangeVersions  Deleted version",
 									"event": [
 										{
 											"listen": "test",
@@ -5119,14 +4467,13 @@
 													"});",
 													"const responseItem = pm.response.json();",
 													"",
-													"pm.test(\"Should advance the ChangeVersion value\", () => {",
-													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:changeVersion:updated:2'));",
+													"pm.test(\"Should deleted version greater than updated version\", () => {",
+													"  pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:updatedversion'));",
 													"});",
 													"",
-													"pm.environment.set('known:changeVersion:deleted', responseItem.newestChangeVersion);"
+													"pm.environment.set('known:deletedversion', responseItem.newestChangeVersion);"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										},
 										{
@@ -5135,8 +4482,7 @@
 												"exec": [
 													""
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -5148,8 +4494,8 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"type": "text",
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -5174,6 +4520,82 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Tracked Deletes Course Data filter by min change version",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"",
+													"pm.test(\"Should return only one record for responseItems length\", () => {",
+													"  pm.expect(responseItems.length).to.equal(1);",
+													"});",
+													"",
+													"const responseItem = responseItems[0];",
+													"",
+													"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+													"  pm.expect(responseItem.changeVersion).to.equal(pm.environment.get('known:deletedversion'));",
+													"  pm.expect(responseItem.id).to.equal(pm.environment.get('known:course:id'));",
+													"  pm.expect(responseItem.keyValues.courseCode).to.equal(pm.environment.get('supplied:courseCode'));",
+													"  pm.expect(responseItem.keyValues.educationOrganizationId).to.equal(255901);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/deletes?minChangeVersion={{known:deletedversion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courses",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:deletedversion}}"
+												},
+												{
+													"key": "limit",
+													"value": "100",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -5190,13 +4612,9 @@
 													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
 													"_.chain(_.keys(pm.environment.toObject()))\r",
 													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-													"  .each(k => pm.environment.unset(k)).value();\r",
-													"\r",
-													"// Important: Prevent reintroduction of any authentication-related artifacts\r",
-													"pm.execution.skipRequest();"
+													"  .each(k => pm.environment.unset(k)).value();"
 												],
-												"type": "text/javascript",
-												"packages": {}
+												"type": "text/javascript"
 											}
 										}
 									],
