@@ -268,7 +268,7 @@ function InstallCredentialHandler {
          Write-Host "Installed 7Zip4Powershell."
     }
      # using WebClient is faster then Invoke-WebRequest but shows no progress
-     $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.4.1/Microsoft.NuGet.CredentialProvider.zip'
+     $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.4.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
      $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
      $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
      Write-Host "Downloading file from $sourceUrl..."
