@@ -39,6 +39,8 @@ jobs:
     needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
     strategy:
+      # TODO AXEL revert this
+      fail-fast: false 
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
