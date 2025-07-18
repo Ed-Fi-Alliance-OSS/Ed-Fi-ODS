@@ -79,6 +79,8 @@ jobs:
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
       shell: pwsh
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: Install sql-server-2019, sqlpackage, and postgres13
       shell: powershell
       run: |
