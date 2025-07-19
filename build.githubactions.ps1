@@ -278,10 +278,10 @@ function InstallCredentialHandler {
     Write-Host "Download complete." 
 
     if (-not (Test-Path $downloadPath)) {
-        Write-Warning "'$downloadPath' not found."
-        exit 0
+        throw "'$downloadPath' not found."
     }
 
+    # The provider must be in the path: ~/.nuget/plugins/netcore/CredentialProvider.Microsoft/<binaries>
     Write-Host "Extracting $downloadPath ..."
     Expand-Archive -Force -Path $downloadPath -DestinationPath '~/.nuget/'
     Write-Host "The artifacts-credprovider was successfully installed" -ForegroundColor Green
