@@ -1,0 +1,1396 @@
+<SecurityMetadata>
+	<Claims>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/edFiTypes">
+			<DefaultAuthorization>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="254" name="http://ed-fi.org/ods/identity/claims/schoolYearType" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="12" name="http://ed-fi.org/ods/identity/claims/absenceEventCategoryDescriptor" />
+				<Claim claimId="13" name="http://ed-fi.org/ods/identity/claims/academicHonorCategoryDescriptor" />
+				<Claim claimId="14" name="http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor">
+					<ClaimSets>
+						<ClaimSet name="Assessment Vendor">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="18" name="http://ed-fi.org/ods/identity/claims/accountTypeDescriptor" />
+				<Claim claimId="19" name="http://ed-fi.org/ods/identity/claims/achievementCategoryDescriptor" />
+				<Claim claimId="20" name="http://ed-fi.org/ods/identity/claims/additionalCreditTypeDescriptor" />
+				<Claim claimId="21" name="http://ed-fi.org/ods/identity/claims/addressTypeDescriptor" />
+				<Claim claimId="22" name="http://ed-fi.org/ods/identity/claims/administrationEnvironmentDescriptor" />
+				<Claim claimId="23" name="http://ed-fi.org/ods/identity/claims/administrativeFundingControlDescriptor" />
+				<Claim claimId="24" name="http://ed-fi.org/ods/identity/claims/ancestryEthnicOriginDescriptor" />
+				<Claim claimId="26" name="http://ed-fi.org/ods/identity/claims/assessmentCategoryDescriptor" />
+				<Claim claimId="27" name="http://ed-fi.org/ods/identity/claims/assessmentIdentificationSystemDescriptor" />
+				<Claim claimId="29" name="http://ed-fi.org/ods/identity/claims/assessmentItemCategoryDescriptor" />
+				<Claim claimId="30" name="http://ed-fi.org/ods/identity/claims/assessmentItemResultDescriptor" />
+				<Claim claimId="34" name="http://ed-fi.org/ods/identity/claims/assignmentLateStatusDescriptor" />
+				<Claim claimId="35" name="http://ed-fi.org/ods/identity/claims/attemptStatusDescriptor" />
+				<Claim claimId="36" name="http://ed-fi.org/ods/identity/claims/attendanceEventCategoryDescriptor" />
+				<Claim claimId="38" name="http://ed-fi.org/ods/identity/claims/barrierToInternetAccessInResidenceDescriptor" />
+				<Claim claimId="39" name="http://ed-fi.org/ods/identity/claims/behaviorDescriptor" />
+				<Claim claimId="41" name="http://ed-fi.org/ods/identity/claims/busRouteDescriptor" />
+				<Claim claimId="44" name="http://ed-fi.org/ods/identity/claims/calendarEventDescriptor" />
+				<Claim claimId="45" name="http://ed-fi.org/ods/identity/claims/calendarTypeDescriptor" />
+				<Claim claimId="46" name="http://ed-fi.org/ods/identity/claims/careerPathwayDescriptor" />
+				<Claim claimId="47" name="http://ed-fi.org/ods/identity/claims/charterApprovalAgencyTypeDescriptor" />
+				<Claim claimId="48" name="http://ed-fi.org/ods/identity/claims/charterStatusDescriptor" />
+				<Claim claimId="50" name="http://ed-fi.org/ods/identity/claims/citizenshipStatusDescriptor" />
+				<Claim claimId="52" name="http://ed-fi.org/ods/identity/claims/classroomPositionDescriptor" />
+				<Claim claimId="54" name="http://ed-fi.org/ods/identity/claims/cohortScopeDescriptor" />
+				<Claim claimId="55" name="http://ed-fi.org/ods/identity/claims/cohortTypeDescriptor" />
+				<Claim claimId="56" name="http://ed-fi.org/ods/identity/claims/cohortYearTypeDescriptor" />
+				<Claim claimId="60" name="http://ed-fi.org/ods/identity/claims/competencyLevelDescriptor" />
+				<Claim claimId="63" name="http://ed-fi.org/ods/identity/claims/contactTypeDescriptor" />
+				<Claim claimId="64" name="http://ed-fi.org/ods/identity/claims/contentClassDescriptor" />
+				<Claim claimId="65" name="http://ed-fi.org/ods/identity/claims/continuationOfServicesReasonDescriptor" />
+				<Claim claimId="66" name="http://ed-fi.org/ods/identity/claims/costRateDescriptor" />
+				<Claim claimId="67" name="http://ed-fi.org/ods/identity/claims/countryDescriptor" />
+				<Claim claimId="69" name="http://ed-fi.org/ods/identity/claims/courseAttemptResultDescriptor" />
+				<Claim claimId="70" name="http://ed-fi.org/ods/identity/claims/courseDefinedByDescriptor" />
+				<Claim claimId="71" name="http://ed-fi.org/ods/identity/claims/courseGPAApplicabilityDescriptor" />
+				<Claim claimId="72" name="http://ed-fi.org/ods/identity/claims/courseIdentificationSystemDescriptor" />
+				<Claim claimId="73" name="http://ed-fi.org/ods/identity/claims/courseLevelCharacteristicDescriptor" />
+				<Claim claimId="75" name="http://ed-fi.org/ods/identity/claims/courseRepeatCodeDescriptor" />
+				<Claim claimId="78" name="http://ed-fi.org/ods/identity/claims/credentialFieldDescriptor" />
+				<Claim claimId="79" name="http://ed-fi.org/ods/identity/claims/credentialTypeDescriptor" />
+				<Claim claimId="80" name="http://ed-fi.org/ods/identity/claims/creditCategoryDescriptor" />
+				<Claim claimId="81" name="http://ed-fi.org/ods/identity/claims/creditTypeDescriptor" />
+				<Claim claimId="83" name="http://ed-fi.org/ods/identity/claims/crisisTypeDescriptor" />
+				<Claim claimId="84" name="http://ed-fi.org/ods/identity/claims/cteProgramServiceDescriptor" />
+				<Claim claimId="85" name="http://ed-fi.org/ods/identity/claims/curriculumUsedDescriptor" />
+				<Claim claimId="86" name="http://ed-fi.org/ods/identity/claims/deliveryMethodDescriptor" />
+				<Claim claimId="88" name="http://ed-fi.org/ods/identity/claims/diagnosisDescriptor" />
+				<Claim claimId="89" name="http://ed-fi.org/ods/identity/claims/diplomaLevelDescriptor" />
+				<Claim claimId="90" name="http://ed-fi.org/ods/identity/claims/diplomaTypeDescriptor" />
+				<Claim claimId="91" name="http://ed-fi.org/ods/identity/claims/disabilityDescriptor" />
+				<Claim claimId="92" name="http://ed-fi.org/ods/identity/claims/disabilityDesignationDescriptor" />
+				<Claim claimId="93" name="http://ed-fi.org/ods/identity/claims/disabilityDeterminationSourceTypeDescriptor" />
+				<Claim claimId="95" name="http://ed-fi.org/ods/identity/claims/disciplineActionLengthDifferenceReasonDescriptor" />
+				<Claim claimId="96" name="http://ed-fi.org/ods/identity/claims/disciplineDescriptor" />
+				<Claim claimId="98" name="http://ed-fi.org/ods/identity/claims/disciplineIncidentParticipationCodeDescriptor" />
+				<Claim claimId="99" name="http://ed-fi.org/ods/identity/claims/displacedStudentStatusDescriptor" />
+				<Claim claimId="100" name="http://ed-fi.org/ods/identity/claims/educationalEnvironmentDescriptor" />
+				<Claim claimId="102" name="http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor" />
+				<Claim claimId="103" name="http://ed-fi.org/ods/identity/claims/educationOrganizationCategoryDescriptor" />
+				<Claim claimId="104" name="http://ed-fi.org/ods/identity/claims/educationOrganizationIdentificationSystemDescriptor" />
+				<Claim claimId="109" name="http://ed-fi.org/ods/identity/claims/educationPlanDescriptor" />
+				<Claim claimId="111" name="http://ed-fi.org/ods/identity/claims/electronicMailTypeDescriptor" />
+				<Claim claimId="112" name="http://ed-fi.org/ods/identity/claims/eligibilityDelayReasonDescriptor" />
+				<Claim claimId="113" name="http://ed-fi.org/ods/identity/claims/eligibilityEvaluationTypeDescriptor" />
+				<Claim claimId="114" name="http://ed-fi.org/ods/identity/claims/employmentStatusDescriptor" />
+				<Claim claimId="115" name="http://ed-fi.org/ods/identity/claims/enrollmentTypeDescriptor" />
+				<Claim claimId="116" name="http://ed-fi.org/ods/identity/claims/entryGradeLevelReasonDescriptor" />
+				<Claim claimId="117" name="http://ed-fi.org/ods/identity/claims/entryTypeDescriptor" />
+				<Claim claimId="118" name="http://ed-fi.org/ods/identity/claims/evaluationDelayReasonDescriptor" />
+				<Claim claimId="120" name="http://ed-fi.org/ods/identity/claims/eventCircumstanceDescriptor" />
+				<Claim claimId="121" name="http://ed-fi.org/ods/identity/claims/exitWithdrawTypeDescriptor" />
+				<Claim claimId="123" name="http://ed-fi.org/ods/identity/claims/financialCollectionDescriptor" />
+				<Claim claimId="128" name="http://ed-fi.org/ods/identity/claims/gradebookEntryTypeDescriptor" />
+				<Claim claimId="129" name="http://ed-fi.org/ods/identity/claims/gradeLevelDescriptor" />
+				<Claim claimId="130" name="http://ed-fi.org/ods/identity/claims/gradePointAverageTypeDescriptor" />
+				<Claim claimId="131" name="http://ed-fi.org/ods/identity/claims/gradeTypeDescriptor" />
+				<Claim claimId="133" name="http://ed-fi.org/ods/identity/claims/gradingPeriodDescriptor" />
+				<Claim claimId="135" name="http://ed-fi.org/ods/identity/claims/graduationPlanTypeDescriptor" />
+				<Claim claimId="136" name="http://ed-fi.org/ods/identity/claims/gunFreeSchoolsActReportingStatusDescriptor" />
+				<Claim claimId="137" name="http://ed-fi.org/ods/identity/claims/homelessPrimaryNighttimeResidenceDescriptor" />
+				<Claim claimId="138" name="http://ed-fi.org/ods/identity/claims/homelessProgramServiceDescriptor" />
+				<Claim claimId="139" name="http://ed-fi.org/ods/identity/claims/ideaPartDescriptor" />
+				<Claim claimId="140" name="http://ed-fi.org/ods/identity/claims/identificationDocumentUseDescriptor" />
+				<Claim claimId="141" name="http://ed-fi.org/ods/identity/claims/immunizationTypeDescriptor" />
+				<Claim claimId="142" name="http://ed-fi.org/ods/identity/claims/incidentLocationDescriptor" />
+				<Claim claimId="143" name="http://ed-fi.org/ods/identity/claims/indicatorDescriptor" />
+				<Claim claimId="144" name="http://ed-fi.org/ods/identity/claims/indicatorGroupDescriptor" />
+				<Claim claimId="145" name="http://ed-fi.org/ods/identity/claims/indicatorLevelDescriptor" />
+				<Claim claimId="146" name="http://ed-fi.org/ods/identity/claims/institutionTelephoneNumberTypeDescriptor" />
+				<Claim claimId="147" name="http://ed-fi.org/ods/identity/claims/interactivityStyleDescriptor" />
+				<Claim claimId="148" name="http://ed-fi.org/ods/identity/claims/internetAccessDescriptor" />
+				<Claim claimId="149" name="http://ed-fi.org/ods/identity/claims/internetAccessTypeInResidenceDescriptor" />
+				<Claim claimId="150" name="http://ed-fi.org/ods/identity/claims/internetPerformanceInResidenceDescriptor" />
+				<Claim claimId="152" name="http://ed-fi.org/ods/identity/claims/interventionClassDescriptor" />
+				<Claim claimId="153" name="http://ed-fi.org/ods/identity/claims/interventionEffectivenessRatingDescriptor" />
+				<Claim claimId="156" name="http://ed-fi.org/ods/identity/claims/languageDescriptor" />
+				<Claim claimId="157" name="http://ed-fi.org/ods/identity/claims/languageInstructionProgramServiceDescriptor" />
+				<Claim claimId="158" name="http://ed-fi.org/ods/identity/claims/languageUseDescriptor" />
+				<Claim claimId="160" name="http://ed-fi.org/ods/identity/claims/learningStandardCategoryDescriptor" />
+				<Claim claimId="162" name="http://ed-fi.org/ods/identity/claims/learningStandardEquivalenceStrengthDescriptor" />
+				<Claim claimId="163" name="http://ed-fi.org/ods/identity/claims/learningStandardScopeDescriptor" />
+				<Claim claimId="164" name="http://ed-fi.org/ods/identity/claims/levelOfEducationDescriptor" />
+				<Claim claimId="165" name="http://ed-fi.org/ods/identity/claims/licenseStatusDescriptor" />
+				<Claim claimId="166" name="http://ed-fi.org/ods/identity/claims/licenseTypeDescriptor" />
+				<Claim claimId="167" name="http://ed-fi.org/ods/identity/claims/limitedEnglishProficiencyDescriptor" />
+				<Claim claimId="172" name="http://ed-fi.org/ods/identity/claims/localeDescriptor" />
+				<Claim claimId="174" name="http://ed-fi.org/ods/identity/claims/localEducationAgencyCategoryDescriptor" />
+				<Claim claimId="178" name="http://ed-fi.org/ods/identity/claims/magnetSpecialProgramEmphasisSchoolDescriptor" />
+				<Claim claimId="179" name="http://ed-fi.org/ods/identity/claims/mediumOfInstructionDescriptor" />
+				<Claim claimId="180" name="http://ed-fi.org/ods/identity/claims/methodCreditEarnedDescriptor" />
+				<Claim claimId="181" name="http://ed-fi.org/ods/identity/claims/migrantEducationProgramServiceDescriptor" />
+				<Claim claimId="182" name="http://ed-fi.org/ods/identity/claims/modelEntityDescriptor" />
+				<Claim claimId="183" name="http://ed-fi.org/ods/identity/claims/monitoredDescriptor" />
+				<Claim claimId="184" name="http://ed-fi.org/ods/identity/claims/neglectedOrDelinquentProgramDescriptor" />
+				<Claim claimId="185" name="http://ed-fi.org/ods/identity/claims/neglectedOrDelinquentProgramServiceDescriptor" />
+				<Claim claimId="186" name="http://ed-fi.org/ods/identity/claims/networkPurposeDescriptor" />
+				<Claim claimId="187" name="http://ed-fi.org/ods/identity/claims/nonMedicalImmunizationExemptionDescriptor" />
+				<Claim claimId="191" name="http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor" />
+				<Claim claimId="194" name="http://ed-fi.org/ods/identity/claims/otherNameTypeDescriptor" />
+				<Claim claimId="195" name="http://ed-fi.org/ods/identity/claims/participationDescriptor" />
+				<Claim claimId="196" name="http://ed-fi.org/ods/identity/claims/participationStatusDescriptor" />
+				<Claim claimId="197" name="http://ed-fi.org/ods/identity/claims/performanceBaseConversionDescriptor" />
+				<Claim claimId="200" name="http://ed-fi.org/ods/identity/claims/personalInformationVerificationDescriptor" />
+				<Claim claimId="201" name="http://ed-fi.org/ods/identity/claims/platformTypeDescriptor" />
+				<Claim claimId="202" name="http://ed-fi.org/ods/identity/claims/populationServedDescriptor" />
+				<Claim claimId="203" name="http://ed-fi.org/ods/identity/claims/postingResultDescriptor" />
+				<Claim claimId="205" name="http://ed-fi.org/ods/identity/claims/postSecondaryEventCategoryDescriptor" />
+				<Claim claimId="207" name="http://ed-fi.org/ods/identity/claims/postSecondaryInstitutionLevelDescriptor" />
+				<Claim claimId="208" name="http://ed-fi.org/ods/identity/claims/primaryLearningDeviceAccessDescriptor" />
+				<Claim claimId="209" name="http://ed-fi.org/ods/identity/claims/primaryLearningDeviceAwayFromSchoolDescriptor" />
+				<Claim claimId="210" name="http://ed-fi.org/ods/identity/claims/primaryLearningDeviceProviderDescriptor" />
+				<Claim claimId="211" name="http://ed-fi.org/ods/identity/claims/proficiencyDescriptor" />
+				<Claim claimId="213" name="http://ed-fi.org/ods/identity/claims/programAssignmentDescriptor" />
+				<Claim claimId="214" name="http://ed-fi.org/ods/identity/claims/programCharacteristicDescriptor" />
+				<Claim claimId="219" name="http://ed-fi.org/ods/identity/claims/programEvaluationPeriodDescriptor" />
+				<Claim claimId="220" name="http://ed-fi.org/ods/identity/claims/programEvaluationTypeDescriptor" />
+				<Claim claimId="221" name="http://ed-fi.org/ods/identity/claims/programSponsorDescriptor" />
+				<Claim claimId="222" name="http://ed-fi.org/ods/identity/claims/programTypeDescriptor" />
+				<Claim claimId="223" name="http://ed-fi.org/ods/identity/claims/progressDescriptor" />
+				<Claim claimId="224" name="http://ed-fi.org/ods/identity/claims/progressLevelDescriptor" />
+				<Claim claimId="226" name="http://ed-fi.org/ods/identity/claims/providerCategoryDescriptor" />
+				<Claim claimId="227" name="http://ed-fi.org/ods/identity/claims/providerProfitabilityDescriptor" />
+				<Claim claimId="228" name="http://ed-fi.org/ods/identity/claims/providerStatusDescriptor" />
+				<Claim claimId="229" name="http://ed-fi.org/ods/identity/claims/publicationStatusDescriptor" />
+				<Claim claimId="230" name="http://ed-fi.org/ods/identity/claims/questionFormDescriptor" />
+				<Claim claimId="231" name="http://ed-fi.org/ods/identity/claims/raceDescriptor" />
+				<Claim claimId="232" name="http://ed-fi.org/ods/identity/claims/ratingLevelDescriptor" />
+				<Claim claimId="233" name="http://ed-fi.org/ods/identity/claims/reasonExitedDescriptor" />
+				<Claim claimId="234" name="http://ed-fi.org/ods/identity/claims/reasonNotTestedDescriptor" />
+				<Claim claimId="235" name="http://ed-fi.org/ods/identity/claims/recognitionTypeDescriptor" />
+				<Claim claimId="236" name="http://ed-fi.org/ods/identity/claims/relationDescriptor" />
+				<Claim claimId="237" name="http://ed-fi.org/ods/identity/claims/repeatIdentifierDescriptor" />
+				<Claim claimId="239" name="http://ed-fi.org/ods/identity/claims/reporterDescriptionDescriptor" />
+				<Claim claimId="240" name="http://ed-fi.org/ods/identity/claims/reportingTagDescriptor" />
+				<Claim claimId="241" name="http://ed-fi.org/ods/identity/claims/residencyStatusDescriptor" />
+				<Claim claimId="242" name="http://ed-fi.org/ods/identity/claims/responseIndicatorDescriptor" />
+				<Claim claimId="243" name="http://ed-fi.org/ods/identity/claims/responsibilityDescriptor" />
+				<Claim claimId="245" name="http://ed-fi.org/ods/identity/claims/restraintEventReasonDescriptor" />
+				<Claim claimId="246" name="http://ed-fi.org/ods/identity/claims/resultDatatypeTypeDescriptor" />
+				<Claim claimId="247" name="http://ed-fi.org/ods/identity/claims/retestIndicatorDescriptor" />
+				<Claim claimId="249" name="http://ed-fi.org/ods/identity/claims/schoolCategoryDescriptor" />
+				<Claim claimId="250" name="http://ed-fi.org/ods/identity/claims/schoolChoiceBasisDescriptor" />
+				<Claim claimId="251" name="http://ed-fi.org/ods/identity/claims/schoolChoiceImplementStatusDescriptor" />
+				<Claim claimId="252" name="http://ed-fi.org/ods/identity/claims/schoolFoodServiceProgramServiceDescriptor" />
+				<Claim claimId="253" name="http://ed-fi.org/ods/identity/claims/schoolTypeDescriptor" />
+				<Claim claimId="257" name="http://ed-fi.org/ods/identity/claims/sectionCharacteristicDescriptor" />
+				<Claim claimId="258" name="http://ed-fi.org/ods/identity/claims/sectionTypeDescriptor" />
+				<Claim claimId="259" name="http://ed-fi.org/ods/identity/claims/separationDescriptor" />
+				<Claim claimId="260" name="http://ed-fi.org/ods/identity/claims/separationReasonDescriptor" />
+				<Claim claimId="261" name="http://ed-fi.org/ods/identity/claims/serviceDescriptor" />
+				<Claim claimId="263" name="http://ed-fi.org/ods/identity/claims/sexDescriptor" />
+				<Claim claimId="265" name="http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor" />
+				<Claim claimId="266" name="http://ed-fi.org/ods/identity/claims/specialEducationExitReasonDescriptor" />
+				<Claim claimId="267" name="http://ed-fi.org/ods/identity/claims/specialEducationProgramServiceDescriptor" />
+				<Claim claimId="268" name="http://ed-fi.org/ods/identity/claims/specialEducationSettingDescriptor" />
+				<Claim claimId="271" name="http://ed-fi.org/ods/identity/claims/staffClassificationDescriptor" />
+				<Claim claimId="277" name="http://ed-fi.org/ods/identity/claims/staffIdentificationSystemDescriptor" />
+				<Claim claimId="279" name="http://ed-fi.org/ods/identity/claims/staffLeaveEventCategoryDescriptor" />
+				<Claim claimId="283" name="http://ed-fi.org/ods/identity/claims/stateAbbreviationDescriptor" />
+				<Claim claimId="289" name="http://ed-fi.org/ods/identity/claims/studentCharacteristicDescriptor" />
+				<Claim claimId="301" name="http://ed-fi.org/ods/identity/claims/studentIdentificationSystemDescriptor" />
+				<Claim claimId="307" name="http://ed-fi.org/ods/identity/claims/studentParticipationCodeDescriptor" />
+				<Claim claimId="320" name="http://ed-fi.org/ods/identity/claims/submissionStatusDescriptor" />
+				<Claim claimId="321" name="http://ed-fi.org/ods/identity/claims/supporterMilitaryConnectionDescriptor" />
+				<Claim claimId="323" name="http://ed-fi.org/ods/identity/claims/surveyCategoryDescriptor" />
+				<Claim claimId="325" name="http://ed-fi.org/ods/identity/claims/surveyLevelDescriptor" />
+				<Claim claimId="337" name="http://ed-fi.org/ods/identity/claims/teachingCredentialBasisDescriptor" />
+				<Claim claimId="338" name="http://ed-fi.org/ods/identity/claims/teachingCredentialDescriptor" />
+				<Claim claimId="339" name="http://ed-fi.org/ods/identity/claims/technicalSkillsAssessmentDescriptor" />
+				<Claim claimId="340" name="http://ed-fi.org/ods/identity/claims/telephoneNumberTypeDescriptor" />
+				<Claim claimId="341" name="http://ed-fi.org/ods/identity/claims/termDescriptor" />
+				<Claim claimId="342" name="http://ed-fi.org/ods/identity/claims/titleIPartAParticipantDescriptor" />
+				<Claim claimId="343" name="http://ed-fi.org/ods/identity/claims/titleIPartAProgramServiceDescriptor" />
+				<Claim claimId="344" name="http://ed-fi.org/ods/identity/claims/titleIPartASchoolDesignationDescriptor" />
+				<Claim claimId="345" name="http://ed-fi.org/ods/identity/claims/transportationPublicExpenseEligibilityTypeDescriptor" />
+				<Claim claimId="346" name="http://ed-fi.org/ods/identity/claims/transportationTypeDescriptor" />
+				<Claim claimId="347" name="http://ed-fi.org/ods/identity/claims/travelDayofWeekDescriptor" />
+				<Claim claimId="348" name="http://ed-fi.org/ods/identity/claims/travelDirectionDescriptor" />
+				<Claim claimId="349" name="http://ed-fi.org/ods/identity/claims/tribalAffiliationDescriptor" />
+				<Claim claimId="350" name="http://ed-fi.org/ods/identity/claims/visaDescriptor" />
+				<Claim claimId="351" name="http://ed-fi.org/ods/identity/claims/weaponDescriptor" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/managedDescriptors">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="16" name="http://ed-fi.org/ods/identity/claims/accommodationDescriptor" />
+				<Claim claimId="31" name="http://ed-fi.org/ods/identity/claims/assessmentPeriodDescriptor" />
+				<Claim claimId="32" name="http://ed-fi.org/ods/identity/claims/assessmentReportingMethodDescriptor" />
+				<Claim claimId="198" name="http://ed-fi.org/ods/identity/claims/performanceLevelDescriptor" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Roster Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+					<Actions>
+						<Action name="Create">
+							<AuthorizationStrategyOverrides>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategyOverrides>
+						</Action>
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="57" name="http://ed-fi.org/ods/identity/claims/communityOrganization">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="58" name="http://ed-fi.org/ods/identity/claims/communityProvider">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="106" name="http://ed-fi.org/ods/identity/claims/educationOrganizationNetwork">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="110" name="http://ed-fi.org/ods/identity/claims/educationServiceCenter">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="173" name="http://ed-fi.org/ods/identity/claims/localEducationAgency">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="District Hosted SIS Vendor">
+							<Actions>
+								<Action name="Read" />
+								<Action name="Update" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="193" name="http://ed-fi.org/ods/identity/claims/organizationDepartment">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<ClaimSets>
+						<ClaimSet name="District Hosted SIS Vendor">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="206" name="http://ed-fi.org/ods/identity/claims/postSecondaryInstitution">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="248" name="http://ed-fi.org/ods/identity/claims/school">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="District Hosted SIS Vendor">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="284" name="http://ed-fi.org/ods/identity/claims/stateEducationAgency">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="62" name="http://ed-fi.org/ods/identity/claims/contact" />
+				<Claim claimId="269" name="http://ed-fi.org/ods/identity/claims/staff">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="285" name="http://ed-fi.org/ods/identity/claims/student">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Assessment Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Assessment Read">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="15" name="http://ed-fi.org/ods/identity/claims/academicWeek" />
+				<Claim claimId="17" name="http://ed-fi.org/ods/identity/claims/accountabilityRating">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="37" name="http://ed-fi.org/ods/identity/claims/balanceSheetDimension" />
+				<Claim claimId="40" name="http://ed-fi.org/ods/identity/claims/bellSchedule" />
+				<Claim claimId="42" name="http://ed-fi.org/ods/identity/claims/calendar" />
+				<Claim claimId="43" name="http://ed-fi.org/ods/identity/claims/calendarDate" />
+				<Claim claimId="51" name="http://ed-fi.org/ods/identity/claims/classPeriod">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="53" name="http://ed-fi.org/ods/identity/claims/cohort" />
+				<Claim claimId="59" name="http://ed-fi.org/ods/identity/claims/communityProviderLicense">
+					<ClaimSets>
+						<ClaimSet name="Ed-Fi Sandbox">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="61" name="http://ed-fi.org/ods/identity/claims/competencyObjective" />
+				<Claim claimId="68" name="http://ed-fi.org/ods/identity/claims/course">
+					<DefaultAuthorization>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="74" name="http://ed-fi.org/ods/identity/claims/courseOffering">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="76" name="http://ed-fi.org/ods/identity/claims/courseTranscript" />
+				<Claim claimId="87" name="http://ed-fi.org/ods/identity/claims/descriptorMapping" />
+				<Claim claimId="94" name="http://ed-fi.org/ods/identity/claims/disciplineAction" />
+				<Claim claimId="97" name="http://ed-fi.org/ods/identity/claims/disciplineIncident" />
+				<Claim claimId="105" name="http://ed-fi.org/ods/identity/claims/educationOrganizationInterventionPrescriptionAssociation" />
+				<Claim claimId="107" name="http://ed-fi.org/ods/identity/claims/educationOrganizationNetworkAssociation">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="108" name="http://ed-fi.org/ods/identity/claims/educationOrganizationPeerAssociation">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="119" name="http://ed-fi.org/ods/identity/claims/evaluationRubricDimension" />
+				<Claim claimId="122" name="http://ed-fi.org/ods/identity/claims/feederSchoolAssociation">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="124" name="http://ed-fi.org/ods/identity/claims/functionDimension" />
+				<Claim claimId="125" name="http://ed-fi.org/ods/identity/claims/fundDimension" />
+				<Claim claimId="126" name="http://ed-fi.org/ods/identity/claims/grade" />
+				<Claim claimId="127" name="http://ed-fi.org/ods/identity/claims/gradebookEntry" />
+				<Claim claimId="132" name="http://ed-fi.org/ods/identity/claims/gradingPeriod" />
+				<Claim claimId="134" name="http://ed-fi.org/ods/identity/claims/graduationPlan" />
+				<Claim claimId="151" name="http://ed-fi.org/ods/identity/claims/intervention" />
+				<Claim claimId="154" name="http://ed-fi.org/ods/identity/claims/interventionPrescription" />
+				<Claim claimId="155" name="http://ed-fi.org/ods/identity/claims/interventionStudy" />
+				<Claim claimId="177" name="http://ed-fi.org/ods/identity/claims/location">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="188" name="http://ed-fi.org/ods/identity/claims/objectDimension" />
+				<Claim claimId="190" name="http://ed-fi.org/ods/identity/claims/openStaffPosition" />
+				<Claim claimId="192" name="http://ed-fi.org/ods/identity/claims/operationalUnitDimension" />
+				<Claim claimId="199" name="http://ed-fi.org/ods/identity/claims/person">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim claimId="204" name="http://ed-fi.org/ods/identity/claims/postSecondaryEvent" />
+				<Claim claimId="212" name="http://ed-fi.org/ods/identity/claims/program">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="215" name="http://ed-fi.org/ods/identity/claims/programDimension" />
+				<Claim claimId="216" name="http://ed-fi.org/ods/identity/claims/programEvaluation" />
+				<Claim claimId="217" name="http://ed-fi.org/ods/identity/claims/programEvaluationElement" />
+				<Claim claimId="218" name="http://ed-fi.org/ods/identity/claims/programEvaluationObjective" />
+				<Claim claimId="225" name="http://ed-fi.org/ods/identity/claims/projectDimension" />
+				<Claim claimId="238" name="http://ed-fi.org/ods/identity/claims/reportCard" />
+				<Claim claimId="244" name="http://ed-fi.org/ods/identity/claims/restraintEvent" />
+				<Claim claimId="255" name="http://ed-fi.org/ods/identity/claims/section">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="256" name="http://ed-fi.org/ods/identity/claims/sectionAttendanceTakenEvent" />
+				<Claim claimId="262" name="http://ed-fi.org/ods/identity/claims/session">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="264" name="http://ed-fi.org/ods/identity/claims/sourceDimension" />
+				<Claim claimId="270" name="http://ed-fi.org/ods/identity/claims/staffAbsenceEvent" />
+				<Claim claimId="272" name="http://ed-fi.org/ods/identity/claims/staffCohortAssociation" />
+				<Claim claimId="273" name="http://ed-fi.org/ods/identity/claims/staffDisciplineIncidentAssociation" />
+				<Claim claimId="275" name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationContactAssociation" />
+				<Claim claimId="278" name="http://ed-fi.org/ods/identity/claims/staffLeave" />
+				<Claim claimId="280" name="http://ed-fi.org/ods/identity/claims/staffProgramAssociation" />
+				<Claim claimId="281" name="http://ed-fi.org/ods/identity/claims/staffSchoolAssociation" />
+				<Claim claimId="282" name="http://ed-fi.org/ods/identity/claims/staffSectionAssociation">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="286" name="http://ed-fi.org/ods/identity/claims/studentAcademicRecord" />
+				<Claim claimId="288" name="http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation" />
+				<Claim claimId="290" name="http://ed-fi.org/ods/identity/claims/studentCohortAssociation" />
+				<Claim claimId="291" name="http://ed-fi.org/ods/identity/claims/studentCompetencyObjective" />
+				<Claim claimId="292" name="http://ed-fi.org/ods/identity/claims/studentContactAssociation" />
+				<Claim claimId="293" name="http://ed-fi.org/ods/identity/claims/studentCTEProgramAssociation" />
+				<Claim claimId="294" name="http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentBehaviorAssociation" />
+				<Claim claimId="295" name="http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation" />
+				<Claim claimId="296" name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation" />
+				<Claim claimId="297" name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation" />
+				<Claim claimId="298" name="http://ed-fi.org/ods/identity/claims/studentGradebookEntry" />
+				<Claim claimId="300" name="http://ed-fi.org/ods/identity/claims/studentHomelessProgramAssociation" />
+				<Claim claimId="302" name="http://ed-fi.org/ods/identity/claims/studentInterventionAssociation" />
+				<Claim claimId="303" name="http://ed-fi.org/ods/identity/claims/studentInterventionAttendanceEvent" />
+				<Claim claimId="304" name="http://ed-fi.org/ods/identity/claims/studentLanguageInstructionProgramAssociation" />
+				<Claim claimId="305" name="http://ed-fi.org/ods/identity/claims/studentMigrantEducationProgramAssociation" />
+				<Claim claimId="306" name="http://ed-fi.org/ods/identity/claims/studentNeglectedOrDelinquentProgramAssociation" />
+				<Claim claimId="308" name="http://ed-fi.org/ods/identity/claims/studentProgramAssociation" />
+				<Claim claimId="309" name="http://ed-fi.org/ods/identity/claims/studentProgramAttendanceEvent" />
+				<Claim claimId="310" name="http://ed-fi.org/ods/identity/claims/studentProgramEvaluation" />
+				<Claim claimId="312" name="http://ed-fi.org/ods/identity/claims/studentSchoolAttendanceEvent" />
+				<Claim claimId="313" name="http://ed-fi.org/ods/identity/claims/studentSchoolFoodServiceProgramAssociation" />
+				<Claim claimId="314" name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="315" name="http://ed-fi.org/ods/identity/claims/studentSectionAttendanceEvent" />
+				<Claim claimId="316" name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramAssociation" />
+				<Claim claimId="317" name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation" />
+				<Claim claimId="318" name="http://ed-fi.org/ods/identity/claims/studentTitleIPartAProgramAssociation" />
+				<Claim claimId="319" name="http://ed-fi.org/ods/identity/claims/studentTransportation" />
+				<Claim claimId="324" name="http://ed-fi.org/ods/identity/claims/surveyCourseAssociation" />
+				<Claim claimId="326" name="http://ed-fi.org/ods/identity/claims/surveyProgramAssociation" />
+				<Claim claimId="330" name="http://ed-fi.org/ods/identity/claims/surveyResponseEducationOrganizationTargetAssociation" />
+				<Claim claimId="331" name="http://ed-fi.org/ods/identity/claims/surveyResponseStaffTargetAssociation" />
+				<Claim claimId="333" name="http://ed-fi.org/ods/identity/claims/surveySectionAssociation" />
+				<Claim claimId="335" name="http://ed-fi.org/ods/identity/claims/surveySectionResponseEducationOrganizationTargetAssociation" />
+				<Claim claimId="336" name="http://ed-fi.org/ods/identity/claims/surveySectionResponseStaffTargetAssociation" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Assessment Read">
+					<Actions>
+						<Action name="Read" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="25" name="http://ed-fi.org/ods/identity/claims/assessment" />
+				<Claim claimId="28" name="http://ed-fi.org/ods/identity/claims/assessmentItem" />
+				<Claim claimId="33" name="http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard" />
+				<Claim claimId="189" name="http://ed-fi.org/ods/identity/claims/objectiveAssessment" />
+				<Claim claimId="287" name="http://ed-fi.org/ods/identity/claims/studentAssessment" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/services/identity">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read" />
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="77" name="http://ed-fi.org/ods/identity/claims/credential">
+					<DefaultAuthorization>
+						<Action name="Create">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Read">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Update">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+						<Action name="Delete">
+							<AuthorizationStrategies>
+								<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+							</AuthorizationStrategies>
+						</Action>
+					</DefaultAuthorization>
+				</Claim>
+				<Claim claimId="159" name="http://ed-fi.org/ods/identity/claims/learningStandard">
+					<ClaimSets>
+						<ClaimSet name="Assessment Vendor">
+							<Actions>
+								<Action name="Create" />
+								<Action name="Read" />
+								<Action name="Update" />
+								<Action name="Delete" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Assessment Read">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="161" name="http://ed-fi.org/ods/identity/claims/learningStandardEquivalenceAssociation">
+					<ClaimSets>
+						<ClaimSet name="Bootstrap Descriptors and EdOrgs">
+							<Actions>
+								<Action name="Create">
+									<AuthorizationStrategyOverrides>
+										<AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+									</AuthorizationStrategyOverrides>
+								</Action>
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="274" name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationAssignmentAssociation">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+				<Claim claimId="276" name="http://ed-fi.org/ods/identity/claims/staffEducationOrganizationEmploymentAssociation" />
+				<Claim claimId="311" name="http://ed-fi.org/ods/identity/claims/studentSchoolAssociation">
+					<ClaimSets>
+						<ClaimSet name="Roster Vendor">
+							<Actions>
+								<Action name="Read" />
+							</Actions>
+						</ClaimSet>
+					</ClaimSets>
+				</Claim>
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+			<Claims>
+				<Claim claimId="322" name="http://ed-fi.org/ods/identity/claims/survey" />
+				<Claim claimId="327" name="http://ed-fi.org/ods/identity/claims/surveyQuestion" />
+				<Claim claimId="328" name="http://ed-fi.org/ods/identity/claims/surveyQuestionResponse" />
+				<Claim claimId="329" name="http://ed-fi.org/ods/identity/claims/surveyResponse" />
+				<Claim claimId="332" name="http://ed-fi.org/ods/identity/claims/surveySection" />
+				<Claim claimId="334" name="http://ed-fi.org/ods/identity/claims/surveySectionResponse" />
+			</Claims>
+		</Claim>
+		<Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+			<DefaultAuthorization>
+				<Action name="Create">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Read">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Update">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+				<Action name="Delete">
+					<AuthorizationStrategies>
+						<AuthorizationStrategy name="NamespaceBased" />
+					</AuthorizationStrategies>
+				</Action>
+			</DefaultAuthorization>
+			<ClaimSets>
+				<ClaimSet name="SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="Ed-Fi Sandbox">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+				<ClaimSet name="District Hosted SIS Vendor">
+					<Actions>
+						<Action name="Create" />
+						<Action name="Read" />
+						<Action name="Update" />
+						<Action name="Delete" />
+					</Actions>
+				</ClaimSet>
+			</ClaimSets>
+		</Claim>
+	</Claims>
+</SecurityMetadata>

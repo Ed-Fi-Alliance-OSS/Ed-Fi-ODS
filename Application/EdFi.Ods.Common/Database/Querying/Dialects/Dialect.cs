@@ -39,8 +39,6 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return $"GREATEST({expression1}, {expression2})";
         }
 
-        public abstract string GetNextSequenceValueString(string sequenceSchema, string sequenceName);
-
         public abstract int GetMaxParameterCount();
     }
 }

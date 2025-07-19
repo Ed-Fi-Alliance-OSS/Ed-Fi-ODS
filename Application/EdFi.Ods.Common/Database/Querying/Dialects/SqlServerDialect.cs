@@ -64,9 +64,6 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return $"CASE WHEN {expression1} > {expression2} THEN {expression1} ELSE {expression2} END";
         }
 
-        public override string GetNextSequenceValueString(string sequenceSchema, string sequenceName) 
-            => $"NEXT VALUE FOR [{sequenceSchema}].[{sequenceName}]";
-
         /// <summary>
         /// Gets the maximum number of allowed parameters for SQL Server (see https://learn.microsoft.com/en-us/sql/sql-server/maximum-capacity-specifications-for-sql-server?view=sql-server-ver16).
         /// </summary>

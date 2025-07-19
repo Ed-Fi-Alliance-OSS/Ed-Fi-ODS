@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "7.4",
+  "odsApiVersion": "7.3",
   "schemaDefinition": {
     "logicalName": "SampleAlternativeEducationProgram",
     "physicalName": "samplealternativeeducationprogram",
@@ -769,5 +769,5 @@
       "potentiallyLogical": false
     }
   ],
-  "edFiVersion": "5.2.0"
+  "edFiVersion": "6.0.0"
 }
