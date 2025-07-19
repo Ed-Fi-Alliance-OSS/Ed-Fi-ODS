@@ -39,8 +39,6 @@ jobs:
     needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
     strategy:
-      # TODO AXEL revert this
-      fail-fast: false 
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
@@ -120,8 +118,6 @@ jobs:
       run: |      
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: powershell 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     - name: Publish Nuget package
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' &&  github.event_name == 'workflow_dispatch' }}
       working-directory: ./Ed-Fi-ODS/
