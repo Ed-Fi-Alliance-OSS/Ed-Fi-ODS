@@ -72,7 +72,7 @@ param(
     [string]
     $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
 
-    [ValidateSet('4.0.0', '5.2.0')]
+    [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
     [string]  $StandardVersion
 
 )
@@ -272,9 +272,9 @@ function InstallCredentialHandler {
      $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
      $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
      Write-Host "Downloading file from $sourceUrl..."
-     $webClient = New-Object System.Net.WebClient
+    $webClient = New-Object System.Net.WebClient
      $webClient.DownloadFile($sourceUrl, $zipFilePath)
-     Write-Host "Download complete." 
+    Write-Host "Download complete." 
      if (-not (Test-Path $zipFilePath)) {
          Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
          exit 0
