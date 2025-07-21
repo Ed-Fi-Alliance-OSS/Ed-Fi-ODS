@@ -34,7 +34,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
                         },
-                        StandardVersion = "5.2.0",
+                        StandardVersion = "6.0.0",
                         ExtensionVersion = "1.1.0"
                     });
 

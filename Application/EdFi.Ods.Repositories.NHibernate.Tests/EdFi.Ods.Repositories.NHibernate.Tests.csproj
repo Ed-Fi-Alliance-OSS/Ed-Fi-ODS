@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <StandardVersion Condition="'$(StandardVersion)' == '' ">5.2.0</StandardVersion>
+    <StandardVersion Condition="'$(StandardVersion)' == '' ">6.0.0</StandardVersion>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -26,7 +26,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.4.94" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.10007" />
       </ItemGroup>
     </Otherwise>
   </Choose>

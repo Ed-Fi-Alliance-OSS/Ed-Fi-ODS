@@ -51,9 +51,6 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
             return ($"{columnName} IN (VALUES ({string.Join("), (", parameters.Keys)}) )", parameters);
         }
 
-        public override string GetNextSequenceValueString(string sequenceSchema, string sequenceName) 
-            => $"nextval('{sequenceSchema}.{sequenceName}')";
-
         /// <summary>
         /// Gets the maximum number of allowed parameters for PostgreSQL (see https://www.postgresql.org/docs/current/limits.html).
         /// </summary>
