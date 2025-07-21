@@ -60,7 +60,7 @@ param(
     [string]
     $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
 
-    [ValidateSet('4.0.0', '5.2.0')]
+    [ValidateSet('4.0.0', '5.2.0', '6.0.0')]
     [string]  $StandardVersion,
 
     [ValidateScript({
@@ -279,30 +279,28 @@ function MaximumPathLengthLimitation {
 }
 
 function InstallCredentialHandler {
-         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
-              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-         }
-          # using WebClient is faster then Invoke-WebRequest but shows no progress
-          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-          $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
-          Write-host "Downloading file from $sourceUrl..."
-          $webClient = New-Object System.Net.WebClient
-          $webClient.DownloadFile($sourceUrl, $zipFilePath)
-          Write-host "Download complete." 
-          if (-not (Test-Path $zipFilePath)) {
-              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
-              exit 0
-          }
-          $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
-          if ($fileName.EndsWith('.zip')) {
-              Write-host "Extracting $fileName..."
-              
-              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
-              Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
-              Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
-          }
 
+    # Does the same as: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) }"
+    # but this brings support for installing the provider on Linux.
+    # Additionally, it's less likely to hit GitHub rate limits because this downloads it directly, instead of making a
+    # request to https://api.github.com/repos/Microsoft/artifacts-credprovider/releases/latest to infer the latest version.
+
+    $downloadPath = Join-Path ([IO.Path]::GetTempPath()) 'cred-provider.zip'
+    
+    $credProviderUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.4.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
+    Write-Host "Downloading artifacts-credprovider from $credProviderUrl ..."
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile($credProviderUrl, $downloadPath)
+    Write-Host "Download complete." 
+
+    if (-not (Test-Path $downloadPath)) {
+        throw "'$downloadPath' not found."
+    }
+
+    # The provider should be installed in the path: ~/.nuget/plugins/netcore/CredentialProvider.Microsoft/<binaries>
+    Write-Host "Extracting $downloadPath ..."
+    Expand-Archive -Force -Path $downloadPath -DestinationPath '~/.nuget/'
+    Write-Host "The artifacts-credprovider was successfully installed" -ForegroundColor Green
 }
 
 function Get-IsWindows {

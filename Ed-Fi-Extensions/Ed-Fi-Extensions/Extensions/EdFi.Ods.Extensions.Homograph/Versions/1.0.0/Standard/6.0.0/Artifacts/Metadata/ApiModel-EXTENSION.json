@@ -1,0 +1,2568 @@
+{
+  "odsApiVersion": "7.3",
+  "schemaDefinition": {
+    "logicalName": "Homograph",
+    "physicalName": "homograph",
+    "description": "(copied from 5.2)",
+    "version": "1.0.0"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "Contact"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "Contact"
+        },
+        {
+          "schema": "homograph",
+          "name": "ContactAddress"
+        },
+        {
+          "schema": "homograph",
+          "name": "ContactStudentSchoolAssociation"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "Name"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "Name"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "School"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "School"
+        },
+        {
+          "schema": "homograph",
+          "name": "SchoolAddress"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "SchoolYearType"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "SchoolYearType"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "Staff"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "Staff"
+        },
+        {
+          "schema": "homograph",
+          "name": "StaffAddress"
+        },
+        {
+          "schema": "homograph",
+          "name": "StaffStudentSchoolAssociation"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "Student"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "Student"
+        },
+        {
+          "schema": "homograph",
+          "name": "StudentAddress"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "homograph",
+        "name": "StudentSchoolAssociation"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "homograph",
+          "name": "StudentSchoolAssociation"
+        }
+      ]
+    }
+  ],
+  "aggregateExtensionDefinitions": [],
+  "entityDefinitions": [
+    {
+      "schema": "homograph",
+      "name": "Contact",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Contact_PK",
+          "identifyingPropertyNames": [
+            "ContactFirstName",
+            "ContactLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Contact_PK",
+            "postgreSql": "Contact_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Contact_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Contact_Id",
+            "postgreSql": "UX_2b5c3d_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "tableNames": {
+        "sqlServer": "Contact",
+        "postgreSql": "Contact"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "ContactAddress",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "ContactAddress_PK",
+          "identifyingPropertyNames": [
+            "ContactFirstName",
+            "ContactLastSurname",
+            "City"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ContactAddress_PK",
+            "postgreSql": "ContactAddress_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "tableNames": {
+        "sqlServer": "ContactAddress",
+        "postgreSql": "ContactAddress"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "ContactStudentSchoolAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "ContactStudentSchoolAssociation_PK",
+          "identifyingPropertyNames": [
+            "ContactFirstName",
+            "ContactLastSurname",
+            "SchoolName",
+            "StudentFirstName",
+            "StudentLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ContactStudentSchoolAssociation_PK",
+            "postgreSql": "ContactStudentSchoolAssociation_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The students association with the contact.",
+      "tableNames": {
+        "sqlServer": "ContactStudentSchoolAssociation",
+        "postgreSql": "ContactStudentSchoolAssociation"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "Name",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Name_PK",
+          "identifyingPropertyNames": [
+            "FirstName",
+            "LastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Name_PK",
+            "postgreSql": "Name_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Name_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Name_Id",
+            "postgreSql": "UX_dcd1d5_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that comprise a person's legal name.",
+      "tableNames": {
+        "sqlServer": "Name",
+        "postgreSql": "Name"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "School",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "School_PK",
+          "identifyingPropertyNames": [
+            "SchoolName"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "School_PK",
+            "postgreSql": "School_PK"
+          }
+        },
+        {
+          "identifierName": "UX_School_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_School_Id",
+            "postgreSql": "UX_6cd2e3_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.",
+      "tableNames": {
+        "sqlServer": "School",
+        "postgreSql": "School"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "SchoolAddress",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "SchoolAddress_PK",
+          "identifyingPropertyNames": [
+            "SchoolName"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SchoolAddress_PK",
+            "postgreSql": "SchoolAddress_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "tableNames": {
+        "sqlServer": "SchoolAddress",
+        "postgreSql": "SchoolAddress"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "SchoolYearType",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "SchoolYearType_PK",
+          "identifyingPropertyNames": [
+            "SchoolYear"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SchoolYearType_PK",
+            "postgreSql": "SchoolYearType_PK"
+          }
+        },
+        {
+          "identifierName": "UX_SchoolYearType_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_SchoolYearType_Id",
+            "postgreSql": "UX_464d7a_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Identifier for a school year.",
+      "tableNames": {
+        "sqlServer": "SchoolYearType",
+        "postgreSql": "SchoolYearType"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "Staff",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Staff_PK",
+          "identifyingPropertyNames": [
+            "StaffFirstName",
+            "StaffLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Staff_PK",
+            "postgreSql": "Staff_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Staff_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Staff_Id",
+            "postgreSql": "UX_681927_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "same name as a core domain entity",
+      "tableNames": {
+        "sqlServer": "Staff",
+        "postgreSql": "Staff"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "StaffAddress",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StaffAddress_PK",
+          "identifyingPropertyNames": [
+            "StaffFirstName",
+            "StaffLastSurname",
+            "City"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffAddress_PK",
+            "postgreSql": "StaffAddress_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "tableNames": {
+        "sqlServer": "StaffAddress",
+        "postgreSql": "StaffAddress"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "StaffStudentSchoolAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StaffStudentSchoolAssociation_PK",
+          "identifyingPropertyNames": [
+            "StaffFirstName",
+            "StaffLastSurname",
+            "SchoolName",
+            "StudentFirstName",
+            "StudentLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffStudentSchoolAssociation_PK",
+            "postgreSql": "StaffStudentSchoolAssociation_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The students under the instruction of the staff member",
+      "tableNames": {
+        "sqlServer": "StaffStudentSchoolAssociation",
+        "postgreSql": "StaffStudentSchoolAssociation"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "Student",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Student_PK",
+          "identifyingPropertyNames": [
+            "StudentFirstName",
+            "StudentLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Student_PK",
+            "postgreSql": "Student_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Student_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Student_Id",
+            "postgreSql": "UX_2a164d_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "tableNames": {
+        "sqlServer": "Student",
+        "postgreSql": "Student"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "StudentAddress",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "City",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 2,
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the city in which an address is located.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "City",
+            "postgreSql": "City"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentAddress_PK",
+          "identifyingPropertyNames": [
+            "StudentFirstName",
+            "StudentLastSurname",
+            "City"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAddress_PK",
+            "postgreSql": "StudentAddress_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The set of elements that describes an address, including the street address, city, state, and ZIP code.",
+      "tableNames": {
+        "sqlServer": "StudentAddress",
+        "postgreSql": "StudentAddress"
+      }
+    },
+    {
+      "schema": "homograph",
+      "name": "StudentSchoolAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSchoolAssociation_PK",
+          "identifyingPropertyNames": [
+            "SchoolName",
+            "StudentFirstName",
+            "StudentLastSurname"
+          ],
+          "isPrimary": true,
+          "isUpdatable": true,
+          "constraintNames": {
+            "sqlServer": "StudentSchoolAssociation_PK",
+            "postgreSql": "StudentSchoolAssociation_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StudentSchoolAssociation_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": true,
+          "constraintNames": {
+            "sqlServer": "UX_StudentSchoolAssociation_Id",
+            "postgreSql": "UX_857b52_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This association represents the School in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.",
+      "tableNames": {
+        "sqlServer": "StudentSchoolAssociation",
+        "postgreSql": "StudentSchoolAssociation"
+      }
+    }
+  ],
+  "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_Contact_Name"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Name"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Contact"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
+          }
+        },
+        {
+          "propertyName": "ContactLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_Contact_Name",
+        "postgreSql": "FK_2b5c3d_Name"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_ContactAddress_Contact"
+      },
+      "cardinality": "OneToOneOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Contact"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
+          }
+        },
+        {
+          "propertyName": "ContactLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "ContactAddress"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
+          }
+        },
+        {
+          "propertyName": "ContactLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactAddress_Contact",
+        "postgreSql": "FK_720058_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_ContactStudentSchoolAssociation_Contact"
+      },
+      "cardinality": "OneToOneOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Contact"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ContactFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
+          }
+        },
+        {
+          "propertyName": "ContactLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "ContactStudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ContactFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactFirstName",
+            "postgreSql": "ContactFirstName"
+          }
+        },
+        {
+          "propertyName": "ContactLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ContactLastSurname",
+            "postgreSql": "ContactLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactStudentSchoolAssociation_Contact",
+        "postgreSql": "FK_bf6531_Contact"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_ContactStudentSchoolAssociation_StudentSchoolAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StudentSchoolAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        },
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "ContactStudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        },
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ContactStudentSchoolAssociation_StudentSchoolAssociation",
+        "postgreSql": "FK_bf6531_StudentSchoolAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_School_SchoolYearType"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "SchoolYearType"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "School"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_School_SchoolYearType",
+        "postgreSql": "FK_6cd2e3_SchoolYearType"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_SchoolAddress_School"
+      },
+      "cardinality": "OneToZeroOrOne",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "School"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "SchoolAddress"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SchoolAddress_School",
+        "postgreSql": "FK_a09d7e_School"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_Staff_Name"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Name"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Staff"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffFirstName",
+            "postgreSql": "StaffFirstName"
+          }
+        },
+        {
+          "propertyName": "StaffLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffLastSurname",
+            "postgreSql": "StaffLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_Staff_Name",
+        "postgreSql": "FK_681927_Name"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StaffAddress_Staff"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffFirstName",
+            "postgreSql": "StaffFirstName"
+          }
+        },
+        {
+          "propertyName": "StaffLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffLastSurname",
+            "postgreSql": "StaffLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StaffAddress"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffFirstName",
+            "postgreSql": "StaffFirstName"
+          }
+        },
+        {
+          "propertyName": "StaffLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffLastSurname",
+            "postgreSql": "StaffLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffAddress_Staff",
+        "postgreSql": "FK_c0e4a3_Staff"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StaffStudentSchoolAssociation_Staff"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffFirstName",
+            "postgreSql": "StaffFirstName"
+          }
+        },
+        {
+          "propertyName": "StaffLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffLastSurname",
+            "postgreSql": "StaffLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StaffStudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffFirstName",
+            "postgreSql": "StaffFirstName"
+          }
+        },
+        {
+          "propertyName": "StaffLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffLastSurname",
+            "postgreSql": "StaffLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffStudentSchoolAssociation_Staff",
+        "postgreSql": "FK_fec532_Staff"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StaffStudentSchoolAssociation_StudentSchoolAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StudentSchoolAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        },
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StaffStudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        },
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffStudentSchoolAssociation_StudentSchoolAssociation",
+        "postgreSql": "FK_fec532_StudentSchoolAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_Student_Name"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Name"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Student"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_Student_Name",
+        "postgreSql": "FK_2a164d_Name"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_Student_SchoolYearType"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "SchoolYearType"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Student"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A school year.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_Student_SchoolYearType",
+        "postgreSql": "FK_2a164d_SchoolYearType"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StudentAddress_Student"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StudentAddress"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAddress_Student",
+        "postgreSql": "FK_e70453_Student"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StudentSchoolAssociation_School"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "School"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 0,
+            "maxLength": 100,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolName",
+            "postgreSql": "SchoolName"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSchoolAssociation_School",
+        "postgreSql": "FK_857b52_School"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "homograph",
+        "name": "FK_StudentSchoolAssociation_Student"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "homograph",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "homograph",
+        "name": "StudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentFirstName",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentFirstName",
+            "postgreSql": "StudentFirstName"
+          }
+        },
+        {
+          "propertyName": "StudentLastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentLastSurname",
+            "postgreSql": "StudentLastSurname"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSchoolAssociation_Student",
+        "postgreSql": "FK_857b52_Student"
+      },
+      "potentiallyLogical": false
+    }
+  ],
+  "edFiVersion": "5.2.0"
+}

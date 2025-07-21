@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/5.2.0" targetNamespace="http://ed-fi.org/5.2.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Survey Interchange Model =====</xs:documentation>
+  </xs:annotation>
+  <xs:element name="InterchangeSurvey">
+    <xs:annotation>
+      <xs:documentation>The Survey interchange describes survey metadata, including the definitions of the survey, survey sections, and survey questions making up the survey and survey responses from both identified and anonymous respondents.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Survey" type="Survey" />
+        <xs:element name="SurveyQuestion" type="SurveyQuestion" />
+        <xs:element name="SurveyQuestionResponse" type="SurveyQuestionResponse" />
+        <xs:element name="SurveyResponse" type="EXTENSION-SurveyResponseExtension" />
+        <xs:element name="SurveySection" type="SurveySection" />
+        <xs:element name="SurveySectionResponse" type="SurveySectionResponse" />
+        <xs:element name="SurveyCourseAssociation" type="SurveyCourseAssociation" />
+        <xs:element name="SurveySectionAssociation" type="SurveySectionAssociation" />
+        <xs:element name="SurveyProgramAssociation" type="SurveyProgramAssociation" />
+        <xs:element name="SurveyResponseEducationOrganizationTargetAssociation" type="SurveyResponseEducationOrganizationTargetAssociation" />
+        <xs:element name="SurveyResponseStaffTargetAssociation" type="SurveyResponseStaffTargetAssociation" />
+        <xs:element name="SurveySectionResponseEducationOrganizationTargetAssociation" type="SurveySectionResponseEducationOrganizationTargetAssociation" />
+        <xs:element name="SurveySectionResponseStaffTargetAssociation" type="SurveySectionResponseStaffTargetAssociation" />
+        <xs:element name="SurveyResponsePersonTargetAssociation" type="EXTENSION-SurveyResponsePersonTargetAssociation" />
+        <xs:element name="SurveySectionResponsePersonTargetAssociation" type="EXTENSION-SurveySectionResponsePersonTargetAssociation" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

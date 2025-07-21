@@ -19,8 +19,8 @@ on:
 permissions: read-all
         
 env:
-  INFORMATIONAL_VERSION: "7.4"
-  BUILD_INCREMENTER: "-801"
+  INFORMATIONAL_VERSION: "7.3"
+  BUILD_INCREMENTER: "9160"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
