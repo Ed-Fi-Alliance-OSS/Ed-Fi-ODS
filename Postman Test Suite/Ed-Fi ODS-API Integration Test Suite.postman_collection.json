@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "3608a577-9699-4da1-8a0a-b452a9b13478",
+		"_postman_id": "6a725e0d-83ce-442e-b379-5b280077de7a",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "42536960"
+		"_exporter_id": "42536960",
+		"_collection_link": "https://test33-6887.postman.co/workspace/ODS-6668~39dabc76-6aa2-468a-b755-b60479cc7769/collection/42536960-6a725e0d-83ce-442e-b379-5b280077de7a?action=share&source=collection_link&creator=42536960"
 	},
 	"item": [
 		{
@@ -131,7 +132,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{AccessToken_255901}}",
+									"value": "{{AccessToken_255901_sampleextension}}",
 									"type": "string"
 								}
 							]
@@ -197,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{AccessToken_255901}}",
+									"value": "{{AccessToken_255901_sampleextension}}",
 									"type": "string"
 								}
 							]
@@ -19443,7 +19444,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{AccessToken_255901}}",
+									"value": "{{AccessToken_255901_sampleextension}}",
 									"type": "string"
 								}
 							]
@@ -19509,7 +19510,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{AccessToken_255901}}",
+									"value": "{{AccessToken_255901_sampleextension}}",
 									"type": "string"
 								}
 							]
@@ -19603,6 +19604,7 @@
 					"pm.request.addQueryParams(`correlationId=${correlationId}`);",
 					"",
 					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"255901_sampleextension\");",
 					"CreateAccessToken(\"TokenIntrospection_255901\");",
 					"CreateAccessToken(\"MultipleEmpAss_255901001_255901044\");",
 					"// Set variables related to data standard specific contact/parent variablility ",
